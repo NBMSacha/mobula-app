@@ -13,7 +13,7 @@ function FinaleValidation() {
         const protocolContract = new ethers.Contract(
             PROTOCOL_ADDRESS,
             [
-                'firstSortValidated(address token) public view returns (string)',
+                'function firstSortValidated(address token) public view returns (string)',
                 'function getValidatedTokens() external view returns (address[])',
                 'function finalDecisionVotes(address voter, address token) external view returns (bool)'
             ],

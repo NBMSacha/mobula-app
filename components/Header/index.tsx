@@ -23,40 +23,37 @@ function Header(props: any) {
         if (!provider) {
             setHasMetamask(false)
         } else {
-            // const chainId = await provider.request({ method: 'eth_chainId' });
-            // if (chainId !== '0xA869') {
-            //     console.log("Bravo!, you are on the correct network");
-
-            //     try {
-            //         await provider.request({
-            //             method: 'wallet_switchEthereumChain',
-            //             params: [{ chainId: '0xA869' }],
-            //         });
-            //         console.log("You have succefully switched to Binance Test network")
-            //     } catch (switchError) {
-            //         try {
-            //             await provider.request({
-            //                 method: 'wallet_addEthereumChain',
-            //                 params: [
-            //                     {
-            //                         chainId: '0xA869',
-            //                         chainName: 'Avax C-Chain - Testnet',
-            //                         rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'], blockExplorerUrls: ['https://testnet.snowtrace.io/'],
-            //                         nativeCurrency: {
-            //                             symbol: 'AVAX',
-            //                             decimals: 18
-            //                         }
-            //                     }]
-            //             });
-            //         } catch (addError) {
-            //             console.log(addError);
-            //         }
-            //         if (switchError.code === 4902) {
-            //             console.log("This network is not available in your metamask, please add it")
-            //         }
-            //         console.log("Failed to switch to the network", switchError)
-            //     }
-            // }
+            const chainId = await provider.request({ method: 'eth_chainId' });
+            if (chainId !== '0xA869') {
+                try {
+                    await provider.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0xA869' }],
+                    });
+                } catch (switchError) {
+                    try {
+                        await provider.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [
+                                {
+                                    chainId: '0xA869',
+                                    chainName: 'Avax C-Chain - Testnet',
+                                    rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'], blockExplorerUrls: ['https://testnet.snowtrace.io/'],
+                                    nativeCurrency: {
+                                        symbol: 'AVAX',
+                                        decimals: 18
+                                    }
+                                }]
+                        });
+                    } catch (addError) {
+                        console.log(addError);
+                    }
+                    if (switchError.code === 4902) {
+                        console.log("This network is not available in your metamask, please add it")
+                    }
+                    console.log("Failed to switch to the network", switchError)
+                }
+            }
         }
 
         console.log(account)

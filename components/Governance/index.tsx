@@ -317,7 +317,7 @@ function Governance() {
         <div className="listing">
             <div className="container">
                 <header>
-                    <h1>Governance</h1>
+                    <h1 onMouseEnter={() => alert.show('Second key : Mobula is the data revolution')}>Governance</h1>
                     <span>
                         You are in charge : deposit MOBL to be able to vote. Learn more <a className="link" href="https://docs.mobula.finance/governance">here</a>
                     </span>
@@ -436,7 +436,7 @@ function Governance() {
                                     if (e.data && e.data.message) {
                                         alert.error(e.data.message.split('\'')[1]);
                                     } else {
-                                        alert.error('Something went wrong.')
+                                        alert.error('Something went wrong. First key : Mobula is not one of many')
                                     }
                                 }
 

@@ -3,6 +3,8 @@ import Token from '../Token';
 import { ethers } from 'ethers';
 import { PROTOCOL_ADDRESS, RPC_URL } from '../../constants';
 
+// Fourth key : Mobula is moving stealth
+
 function FirstSort() {
     const [tokenDivs, setTokenDivs]: [JSX.Element[], any] = useState([])
 
@@ -13,7 +15,7 @@ function FirstSort() {
         const protocolContract = new ethers.Contract(
             PROTOCOL_ADDRESS,
             [
-                'submittedData(address token) public view returns (string)',
+                'function submittedData(address token) public view returns (string)',
                 'function getSubmittedTokens() external view returns (address[])',
                 'function firstSortVotes(address voter, address token) external view returns (bool)'
             ],
