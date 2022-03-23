@@ -14,7 +14,7 @@ export default function Home() {
       </Head>
       <main>
         <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Test.js!</a>
         </h1>
         <p>
           Get started by editing <code>pages/index.tsx</code>
