@@ -3,8 +3,6 @@ import Token from '../Token';
 import { ethers } from 'ethers';
 import { PROTOCOL_ADDRESS, RPC_URL } from '../../constants';
 
-// Fourth key : Mobula is moving stealth
-
 function FirstSort() {
     const [tokenDivs, setTokenDivs]: [JSX.Element[], any] = useState([])
 
@@ -40,6 +38,8 @@ function FirstSort() {
                     account = accounts[0];
                 } catch (e) { }
 
+                let fails = 0;
+
                 tokens.forEach(async (token: any, index: number) => {
                     var isAlreadyVoted = false;
 
@@ -72,6 +72,7 @@ function FirstSort() {
                         } = await response.json()
 
                         if (JSONrep.contract) {
+                            console.log('Pushing')
                             newTokenDivs.push(
                                 <Token
                                     name={JSONrep.name}
@@ -91,15 +92,21 @@ function FirstSort() {
                                 />,
                             )
 
+                        } else {
+                            fails++;
+                        }
+
+                        if (newTokenDivs.length + fails == tokens.length) {
+                            console.log('DONE')
+                            setTokenDivs(newTokenDivs)
                         }
                     } catch (e) {
                         console.log('Error with ' + token + ' : ' + e)
+                        fails++;
                     }
 
 
-                    if (index == tokens.length - 1) {
-                        setTokenDivs(newTokenDivs)
-                    }
+
                 })
 
             })

@@ -240,7 +240,7 @@ function Governance() {
                                             ).vote(prop.id.toNumber(), 1);
                                         } catch (e) {
                                             if (e.data && e.data.message) {
-                                                alert.error(e.data.message.split('\'')[1]);
+                                                alert.error(e.data.message);
                                             } else {
                                                 alert.error('Something went wrong.')
                                             } console.log(e)
@@ -287,7 +287,7 @@ function Governance() {
                                             ).vote(prop.id.toNumber(), 0);
                                         } catch (e) {
                                             if (e.data && e.data.message) {
-                                                alert.error(e.data.message.split('\'')[1]);
+                                                alert.error(e.data.message);
                                             } else {
                                                 alert.error('Something went wrong.')
                                             } console.log(e)
@@ -317,7 +317,7 @@ function Governance() {
         <div className="listing">
             <div className="container">
                 <header>
-                    <h1 onMouseEnter={() => alert.show('Second key : Mobula is the data revolution')}>Governance</h1>
+                    <h1>Governance</h1>
                     <span>
                         You are in charge : deposit MOBL to be able to vote. Learn more <a className="link" href="https://docs.mobula.finance/governance">here</a>
                     </span>
@@ -386,7 +386,7 @@ function Governance() {
                                     alert.show('Deposit successful.')
                                 } catch (e) {
                                     if (e.data && e.data.message) {
-                                        alert.error(e.data.message.split('\'')[1]);
+                                        alert.error(e.data.message);
                                     } else {
                                         alert.error('Something went wrong.')
                                     }
@@ -434,9 +434,9 @@ function Governance() {
                                     alert.show('Withdrawal successful.');
                                 } catch (e) {
                                     if (e.data && e.data.message) {
-                                        alert.error(e.data.message.split('\'')[1]);
+                                        alert.error(e.data.message);
                                     } else {
-                                        alert.error('Something went wrong. First key : Mobula is not one of many')
+                                        alert.error('Something went wrong.')
                                     }
                                 }
 
@@ -489,7 +489,7 @@ function Governance() {
                                     alert.show('Proposal created successfully.');
                                 } catch (e) {
                                     if (e.data && e.data.message) {
-                                        alert.error(e.data.message.split('\'')[1]);
+                                        alert.error(e.data.message);
                                     } else {
                                         alert.error('Something went wrong.')
                                     }

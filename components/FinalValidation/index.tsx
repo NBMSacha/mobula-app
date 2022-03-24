@@ -37,6 +37,8 @@ function FinaleValidation() {
                     account = accounts[0];
                 } catch (e) { }
 
+                let fails = 0;
+
                 tokens.forEach(async (token: any, index: number) => {
                     var isAlreadyVoted = false;
 
@@ -89,13 +91,17 @@ function FinaleValidation() {
                                 />,
                             )
 
+                        } else {
+                            fails++;
                         }
                     } catch (e) {
                         console.log('Error with ' + token + ' : ' + e)
+                        fails++;
                     }
 
 
-                    if (index == tokens.length - 1) {
+                    if (newTokenDivs.length + fails == tokens.length) {
+                        console.log('DONE')
                         setTokenDivs(newTokenDivs)
                     }
                 })

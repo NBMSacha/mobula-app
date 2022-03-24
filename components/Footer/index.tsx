@@ -1,14 +1,64 @@
-import React from 'react'
-import { useAlert } from "react-alert";
+import React, { useEffect, useState } from 'react'
 
 function Footer() {
-    const alert = useAlert();
-    return (
-        <div className="footer">
-            <div className="line-footer"></div>
-            <span className="footext" onClick={() => alert.show('Fifth key : Mobula is a secret legend')}>Mobula © All right reserved</span>
-        </div>
+    const useWindowDimensions = () => {
+        const hasWindow = typeof window !== "undefined"
 
+        function getWindowDimensions() {
+            const width = hasWindow ? window.innerWidth : null
+            const height = hasWindow ? window.innerHeight : null
+            return {
+                width,
+                height,
+            }
+        }
+
+        const [windowDimensions, setWindowDimensions] = useState(
+            getWindowDimensions()
+        )
+
+        useEffect(() => {
+            if (hasWindow) {
+                const handleResize = () => setWindowDimensions(getWindowDimensions())
+                window.addEventListener("resize", handleResize)
+                return () => window.removeEventListener("resize", handleResize)
+            }
+        }, [hasWindow])
+
+        return windowDimensions
+    }
+    const { width } = useWindowDimensions();
+    const breakpoint = 768;
+
+    const isGood = width <= breakpoint;
+
+    return (
+        <>
+            {
+                (isGood ?
+                    (<>
+                        <div className="footer">
+                            <div className="line-footer"></div>
+                            <span className="footext">Mobula © All right reserved</span>
+                        </div>
+                        <div className="footer-mobile">
+                            <div className="links">
+                                <span className="footext" onClick={() => document.location.href = 'governance'}>Govern</span>
+                                <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
+                                <span className="footext" onClick={() => document.location.href = 'sort'}>Sort</span>
+                                <span className="footext" onClick={() => document.location.href = 'validation'}>Validation</span>
+                                <span className="footext" onClick={() => document.location.href = 'list'}>Listing</span>
+                            </div>
+                        </div>
+
+                    </>)
+                    :
+                    <div className="footer">
+                        <div className="line-footer"></div>
+                        <span className="footext">Mobula © All right reserved</span>
+                    </div>)
+            }
+        </>
     )
 }
 

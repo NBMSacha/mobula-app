@@ -10,18 +10,18 @@ function Submit() {
     const [contract, setContract] = useState('')
     const [logo, setLogo] = useState('')
     const [description, setDescription] = useState('')
-    const [hidden, setHidden] = useState(false)
     const [audit, setAudit] = useState('')
     const [kyc, setKYC] = useState('')
     const [twitter, setTwitter] = useState('')
     const [telegram, setTelegram] = useState('')
     const [website, setWebsite] = useState('')
-    const [hasMetamask, setHasMetamask] = useState(true);
 
     const [ipfs, setIPFS] = useState<any>();
 
     const mountIPFS = async () => {
-        setIPFS(await create());
+        try {
+            setIPFS(await create());
+        } catch (e) { }
     }
     useEffect(() => {
         mountIPFS()
@@ -277,7 +277,7 @@ function Submit() {
                                     alert.show('Successfully submitted data.');
                                 } catch (e) {
                                     if (e.data && e.data.message) {
-                                        alert.error(e.data.message.split('\'')[1]);
+                                        alert.error(e.data.message);
                                     } else {
                                         alert.error('Something went wrong.')
                                     }

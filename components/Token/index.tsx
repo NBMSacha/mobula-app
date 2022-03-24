@@ -43,11 +43,11 @@ function Token(token: {
             <div className="body">
                 <span>{token.description}</span>
                 <div className="list">
-                    <span><b>Audit</b> : {token.audit.split('https://').join('').split('http://').join('')}</span>
-                    <span><b>KYC</b> : {token.kyc.split('https://').join('').split('http://').join('')}</span>
-                    <span><b>Twitter</b> : {token.twitter.split('https://').join('').split('http://').join('')}</span>
-                    <span><b>Chat</b> : {token.chat.split('https://').join('').split('http://').join('')}</span>
-                    <span><b>Website</b> : {token.website.split('https://').join('').split('http://').join('')}</span>
+                    {(token.audit ? <span><b>Audit</b> : {token.audit.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.kyc ? <span><b>KYC</b> : {token.kyc.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.twitter ? <span><b>Twitter</b> : {token.twitter.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.chat ? <span><b>Chat</b> : {token.chat.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.website ? <span><b>Website</b> : {token.website.split('https://').join('').split('http://').join('')}</span> : '')}
                     <span><b>Contract</b> : <a style={{ 'color': 'white' }} target="_blank" href={getExplorer(token.chain) + '/token/' + token.contract}>Explorer</a> </span>
                 </div>
                 <div className="buttons">
@@ -71,7 +71,7 @@ function Token(token: {
                                 setVoted(true)
                             } catch (e) {
                                 if (e.data && e.data.message) {
-                                    alert.error(e.data.message.split('\'')[1]);
+                                    alert.error(e.data.message);
                                 } else {
                                     alert.error('Something went wrong.')
                                 }
@@ -89,7 +89,7 @@ function Token(token: {
 
                             } catch (e) {
                                 if (e.data && e.data.message) {
-                                    alert.error(e.data.message.split('\'')[1]);
+                                    alert.error(e.data.message);
                                 } else {
                                     alert.error('Something went wrong.')
                                 }
@@ -117,7 +117,7 @@ function Token(token: {
 
                             } catch (e) {
                                 if (e.data && e.data.message) {
-                                    alert.error(e.data.message.split('\'')[1]);
+                                    alert.error(e.data.message);
                                 } else {
                                     alert.error('Something went wrong.')
                                 }
@@ -134,7 +134,7 @@ function Token(token: {
 
                             } catch (e) {
                                 if (e.data && e.data.message) {
-                                    alert.error(e.data.message.split('\'')[1]);
+                                    alert.error(e.data.message);
                                 } else {
                                     alert.error('Something went wrong.')
                                 }
