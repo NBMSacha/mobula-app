@@ -50,7 +50,7 @@ function Dashboard() {
                 <header>
                     <h1>Dashboard</h1>
                     <span>
-                        If you helped the Protocol, you deserve a reward. You're free to claim your tokens. Learn more <a className="link" href="https://docs.mobula.finance/dashboard">here</a>
+                        If you helped the Protocol, you deserve a reward. You're free to claim your tokens. Learn more <a className="link" href="https://docs.mobula.finance/app/dashboard">here</a>
                     </span>
                 </header>
 

@@ -119,7 +119,7 @@ function FinaleValidation() {
                 <header>
                     <h1>Final Validation</h1>
                     <span>
-                        The Final Validation is the last step of the Protocol. Vote wisely. Learn more <a className="link" href="https://docs.mobula.finance/validation">here</a>
+                        The Final Validation is the last step of the Protocol. Vote wisely. Learn more <a className="link" href="https://docs.mobula.finance/app/validation">here</a>
                     </span>
                 </header>
 

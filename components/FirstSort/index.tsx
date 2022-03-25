@@ -122,7 +122,7 @@ function FirstSort() {
                 <header>
                     <h1>First Sort</h1>
                     <span>
-                        The First Sort is a key step of the Protocol. Vote wisely. Learn more <a className="link" href="https://docs.mobula.finance/sort">here</a>
+                        The First Sort is a key step of the Protocol. Vote wisely. Learn more <a className="link" href="https://docs.mobula.finance/app/sort">here</a>
                     </span>
                 </header>
 

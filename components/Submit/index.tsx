@@ -45,7 +45,7 @@ function Submit() {
                 <header>
                     <h1>Listing form</h1>
                     <span>
-                        Try to list a crypto-asset you support by submitting it here. Please read <a className="link" href="https://docs.mobula.finance/list">this</a> before submitting!
+                        Try to list a crypto-asset you support by submitting it here. Please read <a className="link" href="https://docs.mobula.finance/app/list">this</a> before submitting!
                     </span>
                 </header>
 

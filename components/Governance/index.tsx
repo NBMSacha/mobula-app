@@ -319,7 +319,7 @@ function Governance() {
                 <header>
                     <h1>Governance</h1>
                     <span>
-                        You are in charge : deposit MOBL to be able to vote. Learn more <a className="link" href="https://docs.mobula.finance/governance">here</a>
+                        You are in charge : deposit MOBL to be able to vote. Learn more <a className="link" href="https://docs.mobula.finance/app/governance">here</a>
                     </span>
                 </header>
 
