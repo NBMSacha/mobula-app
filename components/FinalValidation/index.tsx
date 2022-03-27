@@ -39,9 +39,8 @@ function FinaleValidation() {
 
                 let fails = 0;
 
-                tokens.forEach(async (token: any, index: number) => {
+                tokens.forEach(async (token: any) => {
                     var isAlreadyVoted = false;
-
 
                     if (account) {
                         isAlreadyVoted = await protocolContract.finalDecisionVotes(account, token);
@@ -50,6 +49,8 @@ function FinaleValidation() {
 
 
                     const fileAddress = await protocolContract.firstSortValidated(token)
+
+                    console.log('Sumbitted data : ' + fileAddress)
 
                     try {
 
@@ -72,7 +73,8 @@ function FinaleValidation() {
                         } = await response.json()
 
                         if (JSONrep.contract) {
-                            newTokenDivs.push(
+                            console.log('Pushing')
+                            const newDiv =
                                 <Token
                                     name={JSONrep.name}
                                     symbol={JSONrep.symbol}
@@ -88,11 +90,19 @@ function FinaleValidation() {
                                     alreadyVoted={isAlreadyVoted}
                                     key={token + Math.random()}
                                     chain={JSONrep.chain}
-                                />,
-                            )
+                                />
+
+                            setTokenDivs(tokenDivs => [...tokenDivs, newDiv])
 
                         } else {
+                            console.log('Fail')
                             fails++;
+                        }
+
+                        if (newTokenDivs.length + fails == tokens.length) {
+                            //setTokenDivs(newTokenDivs)
+                        } else {
+                            console.log('Not done yet.')
                         }
                     } catch (e) {
                         console.log('Error with ' + token + ' : ' + e)
@@ -100,10 +110,7 @@ function FinaleValidation() {
                     }
 
 
-                    if (newTokenDivs.length + fails == tokens.length) {
-                        console.log('DONE')
-                        setTokenDivs(newTokenDivs)
-                    }
+
                 })
 
             })

@@ -40,7 +40,9 @@ function FirstSort() {
 
                 let fails = 0;
 
-                tokens.forEach(async (token: any, index: number) => {
+                console.log('Tokens loaded : ' + tokens.length)
+
+                tokens.forEach(async (token: any) => {
                     var isAlreadyVoted = false;
 
                     if (account) {
@@ -50,6 +52,8 @@ function FirstSort() {
 
 
                     const fileAddress = await protocolContract.submittedData(token)
+
+                    console.log('Sumbitted data : ' + fileAddress)
 
                     try {
 
@@ -73,7 +77,7 @@ function FirstSort() {
 
                         if (JSONrep.contract) {
                             console.log('Pushing')
-                            newTokenDivs.push(
+                            const newDiv =
                                 <Token
                                     name={JSONrep.name}
                                     symbol={JSONrep.symbol}
@@ -89,16 +93,22 @@ function FirstSort() {
                                     alreadyVoted={isAlreadyVoted}
                                     key={token + Math.random()}
                                     chain={JSONrep.chain}
-                                />,
-                            )
+                                />
+
+                            setTokenDivs(tokenDivs => [...tokenDivs, newDiv])
 
                         } else {
+                            console.log('Fail')
                             fails++;
                         }
 
+
+
+
                         if (newTokenDivs.length + fails == tokens.length) {
-                            console.log('DONE')
-                            setTokenDivs(newTokenDivs)
+                            //setTokenDivs(newTokenDivs)
+                        } else {
+                            console.log('Not done yet.')
                         }
                     } catch (e) {
                         console.log('Error with ' + token + ' : ' + e)
@@ -115,6 +125,10 @@ function FirstSort() {
     useEffect(() => {
         getFirstSorts()
     }, []);
+
+    useEffect(() => {
+        console.log('Effect : ' + tokenDivs.length)
+    })
 
     return (
         <div className="final">
