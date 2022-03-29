@@ -1,8 +1,8 @@
-export const PROTOCOL_ADDRESS = '0x5c8d873022c3D4C137C44FD09517e4745E8FD17B';
-export const MOBL_ADDRESS = '0x6eab0ce2A21E9D61bb121dfE6122286D16C4BfeC';
-export const GOVERNOR_ADDRESS = '0x10d07E000C5e2BD4bFE9528461A773297a63bc1a';
+export const PROTOCOL_ADDRESS = '0xC0F1885a8907492942CffD5927A0E5411f31FCb8';
+export const MOBL_ADDRESS = '0x5FeF39b578DeEefa4485A7E5944c7691677d5dd4';
+export const GOVERNOR_ADDRESS = '0x3C15AcE0A4F1CF1C9123E96412667e077E8490DB';
 
-export const RPC_URL = 'https://api.avax-test.network/ext/bc/C/rpc';
+export const RPC_URL = 'https://polygon-rpc.com';
 
 export const supportedRPCs = [
     { name: 'Avalanche C-Chain', url: 'https://api.avax.network/ext/bc/C/rpc', explorer: 'https://snowtrace.io' },

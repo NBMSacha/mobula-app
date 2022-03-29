@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import App from 'next/app'
 import Head from 'next/head'
 import Header from '../components/Header'
@@ -22,13 +23,14 @@ function getLibrary(provider: any): Web3Provider {
 
 export default class Root extends App {
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps } = this.props;
 
     return (
       <>
 
         <Head>
           <title>Mobula App</title>
+          <link rel="icon" type="image/png" href="/fullicon.png" />
         </Head>
 
         <Provider template={AlertTemplate} {...alertOptions}>

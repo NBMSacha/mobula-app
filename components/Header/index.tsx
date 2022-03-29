@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
+import { ethers } from 'ethers';
 
 function Header(props: any) {
     const { account, active, activate, deactivate } = useWeb3React();
@@ -24,11 +25,11 @@ function Header(props: any) {
             setHasMetamask(false)
         } else {
             const chainId = await provider.request({ method: 'eth_chainId' });
-            if (chainId !== '0xA869') {
+            if (chainId !== '0x89') {
                 try {
                     await provider.request({
                         method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0xA869' }],
+                        params: [{ chainId: '0x89' }],
                     });
                 } catch (switchError) {
                     try {
@@ -36,11 +37,11 @@ function Header(props: any) {
                             method: 'wallet_addEthereumChain',
                             params: [
                                 {
-                                    chainId: '0xA869',
-                                    chainName: 'Avax C-Chain - Testnet',
-                                    rpcUrls: ['https://api.avax-test.network/ext/bc/C/rpc'], blockExplorerUrls: ['https://testnet.snowtrace.io/'],
+                                    chainId: '0x89',
+                                    chainName: 'Polygon - MATIC',
+                                    rpcUrls: ['https://polygon-rpc.com'], blockExplorerUrls: ['https://polygonscan.com/'],
                                     nativeCurrency: {
-                                        symbol: 'AVAX',
+                                        symbol: 'MATIC',
                                         decimals: 18
                                     }
                                 }]
@@ -71,7 +72,15 @@ function Header(props: any) {
     };
 
     useEffect(() => {
-        handleConnect()
+        try {
+            const provider = new ethers.providers.Web3Provider((window as any).ethereum)
+            provider.listAccounts().then((accounts) => {
+                if (accounts.length > 0) {
+                    handleConnect()
+                }
+            });
+        } catch (e) { }
+
     }, [])
 
     return (

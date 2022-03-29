@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAlert } from "react-alert";
-import { create } from 'ipfs';
+import ipfsAPI from 'ipfs-api';
 import { ethers } from 'ethers';
 
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../constants';
@@ -20,7 +20,7 @@ function Submit() {
 
     const mountIPFS = async () => {
         try {
-            setIPFS(await create());
+            setIPFS(ipfsAPI('ipfs.infura.io', '5001', { protocol: 'https' }));
         } catch (e) { }
     }
     useEffect(() => {
@@ -226,7 +226,7 @@ function Submit() {
 
                                 const JSONFile = new Blob([JSON.stringify(tokenData)], { type: 'text/plain' });
 
-                                const bufferFile = await new Promise(resolve => {
+                                const bufferFile: any = await new Promise(resolve => {
                                     let fileReader = new FileReader()
                                     fileReader.onload = (event: any) => resolve(event.target.result)
                                     fileReader.readAsArrayBuffer(JSONFile)
@@ -241,12 +241,11 @@ function Submit() {
                                     content: bufferFile
                                 }
 
-                                console.log(ipfs)
 
 
                                 const hash = await new Promise(async resolve => {
-                                    (await ipfs.add(file)).cid._baseCache.forEach((element: any) => {
-                                        resolve(element)
+                                    ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
+                                        resolve(file[0].hash)
                                     })
                                 })
 
@@ -263,6 +262,8 @@ function Submit() {
                                         'function submitPrice() external view returns(uint256)',
                                     ], provider
                                 ).submitPrice())
+
+                                console.log(submitPrice, hash)
 
                                 try {
                                     const value = await new ethers.Contract(
