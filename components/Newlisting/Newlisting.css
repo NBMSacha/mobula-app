@@ -1,0 +1,45 @@
+.token--container {
+    background-image: linear-gradient(#5420ff, #3964ff);
+    border: 1px solid #001666;
+    color: white;
+    border-radius: 10px;
+    width: 300px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 40px;
+    padding-left: 20px;
+    padding-top: 5px;
+
+}
+.token--name {
+    font-weight: bold;
+}
+.token--symbol {
+    font-size: 16px;
+}
+.token--description {
+    margin-top: 10px;
+    font-size: 14px;
+}
+.token--contract a {
+    color: white;
+    font-size: 18px;
+}
+.token--audit {
+    font-size: 14px;
+    margin-top: 10px;
+}
+.token--kyc {
+    font-size: 14px;
+}
+.token--website {
+    font-size: 16px;
+    margin-top: 10px;
+}
+.token--twitter {
+    font-size: 16px;
+}
+.token--chat {
+    font-size: 16px;
+    margin-bottom: 15px;
+}
