@@ -20,6 +20,8 @@ function Token(token: {
 }) {
     const alert = useAlert();
     const [voted, setVoted] = useState(token.alreadyVoted);
+    const [description, setDescription] = useState(token.description.substr(0, 150));
+    const [readMore, setReadMore] = useState('Read more');
 
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
@@ -27,6 +29,16 @@ function Token(token: {
             if (rpc.name === chain) {
                 return rpc.explorer;
             }
+        }
+    }
+
+    function changeDescription() {
+        if (readMore == 'Read more') {
+            setReadMore('Less')
+            setDescription(token.description)
+        } else {
+            setReadMore('Read more')
+            setDescription(token.description.substr(0, 150))
         }
     }
 
@@ -41,7 +53,7 @@ function Token(token: {
             </div>
 
             <div className="body">
-                <span>{token.description}</span>
+                <span>{description}{token.description.length > 250 ? <button className="readmore" onClick={changeDescription}>{readMore}</button> : <></>}</span>
                 <div className="list">
                     {(token.audit ? <span><b>Audit</b> : {token.audit.split('https://').join('').split('http://').join('')}</span> : '')}
                     {(token.kyc ? <span><b>KYC</b> : {token.kyc.split('https://').join('').split('http://').join('')}</span> : '')}
