@@ -478,3 +478,16 @@ button:hover {
   width: 30% !important;
   margin-right: 0.5rem;
 }
+
+.readmore {
+  border: none;
+  background-color: transparent;
+  color: white;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.readmore:hover {
+  
+}
