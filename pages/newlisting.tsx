@@ -4,7 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 export async function getStaticProps() {
 const supabase = createClient(
     process.env.SUPABASE_URL,
-    process.env.SUPABASE_KEY,
+    process.env.SUPABASE_ANON_KEY,
 )
 
 const { data } = await supabase.from('tokens').select('*').order('id', {ascending: false})
