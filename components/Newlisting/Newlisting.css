@@ -1,45 +1,61 @@
-.token--container {
-    background-image: linear-gradient(#5420ff, #3964ff);
-    border: 1px solid #001666;
-    color: white;
-    border-radius: 10px;
-    width: 300px;
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 40px;
-    padding-left: 20px;
-    padding-top: 5px;
+table {
+    width: 50%;
+    margin-top: 20px;
+}
+th {
+    font-size: 20px;
+    text-align: left;
+}
+td {
+    font-size: 18px;
+    
+}
+
+tbody {
+    border-bottom: solid;
+}
+.token-id {
+    min-width: 54px;
+    padding-left: 30px;
+   
 
 }
-.token--name {
-    font-weight: bold;
+.token-name {
+    min-width: 250px;
+    display:flex;
+    align-items: center;
+
 }
-.token--symbol {
-    font-size: 16px;
+.token-logo {
+    max-width: 20px;
+    margin-right: 8px;
 }
-.token--description {
-    margin-top: 10px;
-    font-size: 14px;
+.token-links {
+    min-width: 140px;
 }
-.token--contract a {
-    color: white;
-    font-size: 18px;
+.links-icons {
+    width: 17px;
+    margin-right: 8px;
 }
-.token--audit {
-    font-size: 14px;
-    margin-top: 10px;
+.token-symbol {
+    margin-left: 10px;
+    opacity: 40%;
 }
-.token--kyc {
-    font-size: 14px;
+.token-contract {
+    min-width: 120px;
 }
-.token--website {
-    font-size: 16px;
-    margin-top: 10px;
+.token-blockchain {
+    display: flex;
+    min-width: 140px;
 }
-.token--twitter {
-    font-size: 16px;
+.blockchain {
+    display: flex;
+    flex-direction: row;
+    background-color: #d9d0ff;
+    padding: 3px 10px;
+    border-radius: 10px;
+
 }
-.token--chat {
-    font-size: 16px;
-    margin-bottom: 15px;
+.token-timestamp {
+    min-width: 140px;
 }
