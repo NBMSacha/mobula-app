@@ -8,17 +8,22 @@ th {
 }
 td {
     font-size: 18px;
-    
 }
-
+tr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 tbody {
     border-bottom: solid;
+}
+.line-two {
+    background-color: #B3A0FF;
+    width: 100%;
 }
 .token-id {
     min-width: 54px;
     padding-left: 30px;
-   
-
 }
 .token-name {
     min-width: 250px;
@@ -44,6 +49,9 @@ tbody {
 .token-contract {
     min-width: 120px;
 }
+.tokenURL {
+    color: black;
+}
 .token-blockchain {
     display: flex;
     min-width: 140px;
@@ -55,6 +63,10 @@ tbody {
     padding: 3px 10px;
     border-radius: 10px;
 
+}
+.token-blockchain-name {
+    margin-left: 5px;
+    font-size: 4px;
 }
 .token-timestamp {
     min-width: 140px;
