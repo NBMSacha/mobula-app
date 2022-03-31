@@ -7,7 +7,7 @@ const supabase = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDg2MzIwNDQsImV4cCI6MTk2NDIwODA0NH0.DXxmbgg8G8fc2cCLTg923OWFB6MmLyzoxJzd2XHsivQ",
 )
 
-const { data } = await supabase.from('tokens').select('*').order('id', {ascending: false})
+const { data } = await supabase.from('tokens').select('*').order('id', {ascending: false}).limit(15)
 return {
     props: {
         tokens: data,
@@ -42,7 +42,7 @@ export default function Listing ({tokens}) {
 </thead>
 <tbody>
 {
-    tokens.slice(0,10).map((token) => {
+    tokens.map((token) => {
     return <Token key={token.id} id={tokens.indexOf(token) + 1}  logo={token.logo} name={token.name} symbol={token.symbol} chat={token.chat} discord={token.discord} website={token.website} twitter={token.twitter} contract={token.contract} blockchain={token.blockchain} created_at={token.created_at} />
     }
     )
