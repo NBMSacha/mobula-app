@@ -1,0 +1,100 @@
+table {
+    width: 50%;
+    margin-top: 20px;
+}
+th {
+    font-size: 20px;
+    text-align: left;
+}
+td {
+    font-size: 18px;
+}
+tr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+tbody {
+    border-bottom: solid;
+}
+.table-head {
+    border-bottom: #B3A0FF solid 1px;
+}
+
+.token-container {
+    border-bottom:#B3A0FF solid 1px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+.token-id {
+    min-width: 54px;
+    padding-left: 30px;
+}
+.token-name {
+    min-width: 250px;
+    display:flex;
+    align-items: center;
+
+}
+.token-logo {
+    max-width: 20px;
+    margin-right: 8px;
+}
+.token-links {
+    min-width: 140px;
+}
+.links-icons {
+    width: 17px;
+    margin-right: 8px;
+}
+.token-symbol {
+    margin-left: 10px;
+    opacity: 40%;
+}
+.token-contract {
+    min-width: 120px;
+}
+.tokenURL {
+    color: black;
+}
+.token-blockchain {
+    display: flex;
+    min-width: 140px;
+}
+.blockchain {
+    display: flex;
+    flex-direction: row;
+    background-color: #d9d0ff;
+    padding: 3px 10px;
+    border-radius: 10px;
+
+}
+.token-blockchain-name {
+    margin-left: 5px;
+    font-size: 14px;
+}
+.token-timestamp {
+    min-width: 160px; 
+}
+.mobile {
+    display: none;
+}
+
+@media screen and (max-width: 640px) {
+    .token-timestamp {
+        display: none;
+    }
+    .token-blockchain {
+        display: none;
+    }
+    .token-contract {
+        display: none;
+    }
+    .mobile {
+        display: inline;
+        color: black;
+    }
+    .browser {
+        display: none;
+    }
+  }
