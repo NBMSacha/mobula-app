@@ -6,7 +6,7 @@ import Footer from '../components/Footer'
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
 import '../styles.css'
-import "../components/Newlisting.css"
+import "../components/Newlisting/Newlisting.css"
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
