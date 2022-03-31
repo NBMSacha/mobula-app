@@ -1,6 +1,8 @@
 import Newlisting from '../components/Newlisting'
 import { createClient } from '@supabase/supabase-js'
 import Token from '../components/Newlisting'
+import "../components/Newlisting.css"
+
 export async function getStaticProps() {
 const supabase = createClient(
     "https://ylcxvfbmqzwinymcjlnx.supabase.co",
