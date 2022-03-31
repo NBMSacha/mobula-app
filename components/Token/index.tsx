@@ -55,11 +55,11 @@ function Token(token: {
             <div className="body">
                 <span>{description}{token.description.length > 250 ? <button className="readmore" onClick={changeDescription}>{readMore}</button> : <></>}</span>
                 <div className="list">
-                    {(token.audit ? <span><b>Audit</b> : {token.audit.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.kyc ? <span><b>KYC</b> : {token.kyc.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.twitter ? <span><b>Twitter</b> : {token.twitter.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.chat ? <span><b>Chat</b> : {token.chat.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.website ? <span><b>Website</b> : {token.website.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.audit ? <span onClick={() => window.open(token.audit)}><b>Audit</b> : <span>{token.audit.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.kyc ? <span onClick={() => window.open(token.kyc)}><b>KYC</b> : <span>{token.kyc.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.twitter ? <span onClick={() => window.open(token.twitter)}><b>Twitter</b> : <span>{token.twitter.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.chat ? <span onClick={() => window.open(token.chat)}><b>Chat</b> : <span>{token.chat.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.website ? <span onClick={() => window.open(token.website)}><b>Website</b> : <span>{token.website.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     <span><b>Contract</b> : <a style={{ 'color': 'white' }} target="_blank" href={getExplorer(token.chain) + '/token/' + token.contract}>Explorer</a> </span>
                 </div>
                 <div className="buttons">
