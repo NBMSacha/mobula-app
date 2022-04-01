@@ -490,3 +490,8 @@ button:hover {
   font-weight: 400;
   margin-top: 45px;
 }
+.tokenpage-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
