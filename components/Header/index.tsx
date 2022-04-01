@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
-
 function Header(props: any) {
     const { account, active, activate, deactivate } = useWeb3React();
     const [hasMetamask, setHasMetamask] = useState(true);
@@ -87,7 +86,7 @@ function Header(props: any) {
         <div className="header">
             <div className="main">
                 <div className="left">
-                    <img src='icon.png' className="head-logo" alt="logo" onClick={() => document.location.href = "/"} />
+                <img src="icon.png" className="head-logo" alt="logo" onClick={() => document.location.href = "/"}/>
                 </div>
 
                 <div className="right">
