@@ -175,6 +175,7 @@ label {
   color: var(--text-color);;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .header .main {
@@ -270,6 +271,21 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.footop {
+  bottom: 50px;
+  height: 60px;
+  width: 40%;
+  padding: 5px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px  solid rgba(47, 0, 255, 0.371);
 }
 
 .links {
