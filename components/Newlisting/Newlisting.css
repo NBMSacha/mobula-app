@@ -1,10 +1,9 @@
 table {
-    width: 50%;
     margin-top: 20px;
     margin-left: auto;
     margin-right: auto;
-    overflow-x: auto;
 }
+
 th {
     font-size: 20px;
     text-align: left;
@@ -26,25 +25,30 @@ tbody {
 
 .token-container {
     border-bottom:#B3A0FF solid 1px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 .token-id {
-    min-width: 54px;
-    padding-left: 30px;
+    width: 3vh;
+    max-width: 54px;
+    padding-left: 15px;
 }
 .token-name {
-    min-width: 250px;
+    width: 60vh;
+    max-width: 250px;
     display:flex;
     align-items: center;
-
 }
 .token-logo {
     max-width: 20px;
     margin-right: 8px;
 }
 .token-links {
-    min-width: 140px;
+    display: flex;
+    flex-direction: row;
+    width: 10vh;
+    max-width: 120px;
+
 }
 .links-icons {
     width: 17px;
