@@ -6,8 +6,11 @@ function Dataprovider() {
     <div className="listing">
             <div className="container">
                 <header>
+                  <div className="tokenpage-head">
                     <img src="" alt=""></img>
                     <h1>Mobula</h1>
+                    <span className="tokenpage-symbol">MOBL</span>
+                    </div>
                     <span>
                     Mobula is the decentralized data aggregator, allowing dApps to integrate trustable and on-chain data APIs. The Mobula dApp allows any user to participate in the data aggregation process simply by joining the Protocol DAO.
                     </span>

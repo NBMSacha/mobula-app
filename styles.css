@@ -478,3 +478,15 @@ button:hover {
   width: 30% !important;
   margin-right: 0.5rem;
 }
+.tokenpage-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.tokenpage-symbol {
+  margin-left: 15px;
+  color: gray;
+  font-size: 40px !important;
+  font-weight: 400;
+  margin-top: 45px;
+}
