@@ -59,14 +59,14 @@ tbody {
     opacity: 40%;
 }
 .token-contract {
-    min-width: 120px;
+    min-width: 140px;
 }
 .tokenURL {
     color: black;
 }
 .token-blockchain {
     display: flex;
-    min-width: 140px;
+    min-width: 160px;
 }
 .blockchain {
     display: flex;
