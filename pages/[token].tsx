@@ -10,8 +10,7 @@ const apiContract = new ethers.Contract(API_ADDRESS,
 
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context.query.token)     
+export const getServerSideProps: GetServerSideProps = async (context) => {    
   return {props: {
     token: context.query.token
   }}
