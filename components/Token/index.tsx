@@ -57,7 +57,7 @@ function Token(token: {
                 <div className="list">
                     {(token.audit ? <span onClick={() => window.open(token.audit)}><b>Audit</b> : <span>{token.audit.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     {(token.kyc ? <span onClick={() => window.open(token.kyc)}><b>KYC</b> : <span>{token.kyc.split('https://').join('').split('http://').join('')}</span></span> : '')}
-                    {(token.twitter ? <span onClick={() => window.open('https://twitter.com/' + token.twitter.split('https://').join('').split('http://').join(''))}><b>Twitter</b> : <span>{'twitter.com/' + token.twitter.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.twitter ? <span onClick={() => window.open('https://twitter.com/' + token.twitter.split('https://').join('').split('http://').join('').split('twitter.com/').join(''))}><b>Twitter</b> : <span>{'twitter.com/' + token.twitter.split('https://').join('').split('http://').join('').split('twitter.com/').join('')}</span></span> : '')}
                     {(token.chat ? <span onClick={() => window.open(token.chat)}><b>Chat</b> : <span>{token.chat.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     {(token.website ? <span onClick={() => window.open(token.website)}><b>Website</b> : <span>{token.website.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     <span><b>Contract</b> : <a style={{ 'color': 'white' }} target="_blank" href={getExplorer(token.chain) + '/token/' + token.contract}>Explorer</a> </span>
