@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { NextResponse, NextRequest } from 'next/server'
 const ethers = require('ethers');
 const axios = require('axios');
 const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
 const API_ADDRESS = "0x76edF9562F2Cca3bc36DB2ed58A4adC0b10F1048"
 const apiContract = new ethers.Contract(API_ADDRESS, 
         ['function staticData(address token) external view returns(string)'], provider)
-const supportedRPCs = require('../constants')
 
 
 
@@ -65,7 +63,15 @@ getDataHash(token).then(dataHash => {
       else if(r.data.chain.includes("Avalanche")) {
         setTokenChain("Avalanche")
       }
-    
+      else if(r.data.chain.includes("Fantom")) {
+        setTokenChain("Fantom")
+      }
+      else if(r.data.chain.includes("Polygon")) {
+        setTokenChain("Polygon")
+      }
+      else if(r.data.chain.includes("Cronos")) {
+        setTokenChain("Cronos")
+      }
    })
 })
   return (
@@ -85,14 +91,23 @@ getDataHash(token).then(dataHash => {
                         {tokenChain == "BNB" && <img className="blockchain-details-image" src="bnb.png"></img>}
                         {tokenChain == "Ethereum" && <img className="blockchain-details-image" src="eth.png"></img>}
                         {tokenChain == "Avalanche" && <img className="blockchain-details-image" src="avax.png"></img>}
+                        {tokenChain == "Fantom" && <img className="blockchain-details-image" src="fantom.png"></img>}
+                        {tokenChain == "Ethereum" && <img className="blockchain-details-image" src="eth.png"></img>}
+                        {tokenChain == "Avalanche" && <img className="blockchain-details-image" src="avax.png"></img>}
                         </div>
                         
                           <span className="blockchain-details-text">{tokenChain}</span>
                         
                       </div>
-                      <div className="contract-details"><span className="contract-details-text">{tokenChain == "BNB" && <a className="tokenURL" href={"https://bscscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                      <div className="contract-details"><span className="contract-details-text">
+                      {tokenChain == "BNB" && <a className="tokenURL" href={"https://bscscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
                       {tokenChain == "Ethereum" && <a className="tokenURL" href={"https://etherscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
-                       {tokenChain == "Avalanche" && <a className="tokenURL" href={"https://snowtrace.io/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}</span></div>
+                       {tokenChain == "Avalanche" && <a className="tokenURL" href={"https://snowtrace.io/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                       {tokenChain == "Fantom" && <a className="tokenURL" href={"https://ftmscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                       {tokenChain == "Polygon" && <a className="tokenURL" href={"https://polygonscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                       {tokenChain == "Cronos" && <a className="tokenURL" href={"https://cronoscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+
+                       </span></div>
                       <div className="links-details">
                         <span className="link-chat">
                         {tokenChat ? <a href={tokenChat} target="_blank"><img className="links-icons" src="telegram.png"></img></a> : ""}
