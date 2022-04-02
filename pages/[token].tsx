@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import React, { useState, useEffect } from 'react'
 const ethers = require('ethers');
 const axios = require('axios');
@@ -9,7 +10,7 @@ const apiContract = new ethers.Contract(API_ADDRESS,
 
 
 
-export const getServerSideProps = (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   console.log(context.query.token)     
   return {props: {
     token: context.query.token
@@ -134,3 +135,4 @@ getDataHash(token).then(dataHash => {
   )
   }
 
+export default Dataprovider
