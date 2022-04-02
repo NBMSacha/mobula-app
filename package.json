@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^1.33.1",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
+    "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "ethers": "^5.6.1",
     "fs": "^0.0.1-security",
