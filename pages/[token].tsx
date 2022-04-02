@@ -134,4 +134,3 @@ getDataHash(token).then(dataHash => {
   )
   }
 
-export default Dataprovider
