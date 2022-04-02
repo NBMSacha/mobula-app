@@ -8,7 +8,11 @@ const apiContract = new ethers.Contract(API_ADDRESS,
         ['function staticData(address token) external view returns(string)'], provider)
 
 
-
+export const getServerSideProps: GetServerSideProps = async (context) => {    
+          return {props: {
+            token: context.query.token
+          }}
+        }
 
 
 function Dataprovider({token}) {
@@ -127,12 +131,6 @@ getDataHash(token).then(dataHash => {
                 </div>
                 </>
   )
-  }
-
-  export const getServerSideProps: GetServerSideProps = async (context) => {    
-    return {props: {
-      token: context.query.token
-    }}
   }
 
 export default Dataprovider
