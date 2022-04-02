@@ -1,7 +1,11 @@
-import React from 'react'
-import ethers from 'ethers'
+import React, { useState } from 'react'
+import Link from "next/link";
+const axios = require('axios')
+const ethers = require('ethers');
 
 export default function Search() {
+const [queryToken, setQueryToken] = useState("")
+
     
   return (
       
@@ -25,12 +29,24 @@ export default function Search() {
                                 <input
                                     className="long"
                                     placeholder="0x..."
-                                    required
-                                ></input>
+                                    pattern='^0x'
+                                    onChange={
+                                        (event) => setQueryToken(event.target.value)
+                                    }
+                                    required></input>
                             </div>
                         </div>
                         
-                        <button className="button">Search</button>
+                        <Link 
+                        href={
+                            queryToken
+                            
+                        }
+                        >
+                        <button 
+                        className="button"
+                       
+                        >Search</button></Link>
                         </div>
                         </form>
                 </div>

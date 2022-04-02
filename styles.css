@@ -490,8 +490,36 @@ button:hover {
   font-weight: 400;
   margin-top: 45px;
 }
+.tokenpage-logo {
+  margin-top: 40px;
+  margin-right: 30px;
+}
 .tokenpage-details {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.contract-details {
+  display: flex;
+  flex-direction: row;
+  background-color: #d9d0ff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+.contract-details-text {
+  font-size: 16px !important;
+  font-weight: 500;
+}
+.blockchain-details {
+  display: flex;
+  flex-direction: row;
+  background-color: #d9d0ff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+.token-blockchain-name {
+  font-size: 16px !important;
+  font-weight: 500;
 }
