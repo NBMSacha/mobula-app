@@ -10,11 +10,6 @@ const apiContract = new ethers.Contract(API_ADDRESS,
 
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {    
-  return {props: {
-    token: context.query.token
-  }}
-}
 
 function Dataprovider({token}) {
 const [tokenName, setTokenName] = useState("")
@@ -119,7 +114,7 @@ getDataHash(token).then(dataHash => {
                         {tokenWebsite ? <a href={tokenWebsite} target="_blank"><img className="links-icons" src="website.png"></img></a> : ""}
                         </span>
                         <span className="link-twitter">
-                        {tokenTwitter ? <a href={tokenTwitter} target="_blank"><img className="links-icons" src="twitter.png"></img></a> : ""}
+                        {tokenTwitter ? <a href={"http://twitter.com/" + tokenTwitter} target="_blank"><img className="links-icons" src="twitter.png"></img></a> : ""}
                         </span>                        
                         </div>
                     </div>
@@ -132,6 +127,12 @@ getDataHash(token).then(dataHash => {
                 </div>
                 </>
   )
+  }
+
+  export const getServerSideProps: GetServerSideProps = async (context) => {    
+    return {props: {
+      token: context.query.token
+    }}
   }
 
 export default Dataprovider
