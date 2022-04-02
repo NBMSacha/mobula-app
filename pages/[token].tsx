@@ -56,29 +56,18 @@ getDataHash(token).then(dataHash => {
       else if(r.data.chat.includes("https://t.me/")) {
         setTokenChat(r.data.chat)
       }
-      let name = "";
-        let symbol = "";
-        let i = -1;
-        while (!name && i < supportedRPCs.length - 1) {
-        i++;
-        const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
-        const tokenContract = new ethers.Contract(r.data.contract, [
-        'function name() external view returns(string)',
-        'function symbol() external view returns(string)'
-        ], provider)
-
-    try {
-        name = tokenContract.name()
-        symbol = tokenContract.symbol()
-        setTokenChain(supportedRPCs[i])
-        console.log("le bon")
-    } catch (e) {
-        console.log('Token is not on the ' + supportedRPCs[i].name)
-    }
-}
+      if(r.data.chain.includes("BNB")) {
+        setTokenChain("BNB")
+      }
+      else if(r.data.chain.includes("Ethereum")) {
+        setTokenChain("Ethereum")
+      }
+      else if(r.data.chain.includes("Avalanche")) {
+        setTokenChain("Avalanche")
+      }
+    
    })
 })
-
   return (
     <>
     
@@ -93,15 +82,17 @@ getDataHash(token).then(dataHash => {
                     <div className="tokenpage-details">
                       <div className="blockchain-details">
                         <div className='blockchain-details-image'>
-                        {tokenChain == "BNB" && <img src="bnb.png"></img>}
-                        {tokenChain == "Ethereum" && <img src="eth.png"></img>}
-                        {tokenChain == "Avalanche" && <img src="avax.png"></img>}
+                        {tokenChain == "BNB" && <img className="blockchain-details-image" src="bnb.png"></img>}
+                        {tokenChain == "Ethereum" && <img className="blockchain-details-image" src="eth.png"></img>}
+                        {tokenChain == "Avalanche" && <img className="blockchain-details-image" src="avax.png"></img>}
                         </div>
-                        <div className="blockchain-details-text">
-                          {tokenChain}
-                        </div>
+                        
+                          <span className="blockchain-details-text">{tokenChain}</span>
+                        
                       </div>
-                      <div className="contract-details"><span className="contract-details-text">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</span></div>
+                      <div className="contract-details"><span className="contract-details-text">{tokenChain == "BNB" && <a className="tokenURL" href={"https://bscscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                      {tokenChain == "Ethereum" && <a className="tokenURL" href={"https://etherscan.com/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}
+                       {tokenChain == "Avalanche" && <a className="tokenURL" href={"https://snowtrace.io/token/" + tokenContract} target="_blank">{tokenContract.substring(0, 4) + '..' + tokenContract.substring(tokenContract.length - 4, tokenContract.length)}</a>}</span></div>
                       <div className="links-details">
                         <span className="link-chat">
                         {tokenChat ? <a href={tokenChat} target="_blank"><img className="links-icons" src="telegram.png"></img></a> : ""}

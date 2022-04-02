@@ -506,6 +506,7 @@ button:hover {
   padding: 3px 10px;
   border-radius: 10px;
   margin-right: 15px;
+  height: 25px;
 }
 .contract-details-text {
   font-size: 16px !important;
@@ -518,8 +519,20 @@ button:hover {
   padding: 3px 10px;
   border-radius: 10px;
   margin-right: 15px;
+  height: 25px;
 }
-.token-blockchain-name {
+.blockchain-details-image {
+  margin-bottom: 7px;
+  margin-right: 2px;
+}
+.blockchain-details-text {
   font-size: 16px !important;
   font-weight: 500;
+  
+}
+.tokenURL {
+  text-decoration: none;
+}
+.tokenURL:hover {
+  text-decoration: underline;
 }
