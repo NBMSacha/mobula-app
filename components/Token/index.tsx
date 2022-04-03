@@ -20,6 +20,8 @@ function Token(token: {
 }) {
     const alert = useAlert();
     const [voted, setVoted] = useState(token.alreadyVoted);
+    const [description, setDescription] = useState(token.description.substr(0, 150));
+    const [readMore, setReadMore] = useState('Read more');
 
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
@@ -27,6 +29,16 @@ function Token(token: {
             if (rpc.name === chain) {
                 return rpc.explorer;
             }
+        }
+    }
+
+    function changeDescription() {
+        if (readMore == 'Read more') {
+            setReadMore('Less')
+            setDescription(token.description)
+        } else {
+            setReadMore('Read more')
+            setDescription(token.description.substr(0, 150))
         }
     }
 
@@ -41,13 +53,13 @@ function Token(token: {
             </div>
 
             <div className="body">
-                <span>{token.description}</span>
+                <span>{description}{token.description.length > 250 ? <button className="readmore" onClick={changeDescription}>{readMore}</button> : <></>}</span>
                 <div className="list">
-                    {(token.audit ? <span><b>Audit</b> : {token.audit.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.kyc ? <span><b>KYC</b> : {token.kyc.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.twitter ? <span><b>Twitter</b> : {token.twitter.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.chat ? <span><b>Chat</b> : {token.chat.split('https://').join('').split('http://').join('')}</span> : '')}
-                    {(token.website ? <span><b>Website</b> : {token.website.split('https://').join('').split('http://').join('')}</span> : '')}
+                    {(token.audit ? <span onClick={() => window.open(token.audit)}><b>Audit</b> : <span>{token.audit.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.kyc ? <span onClick={() => window.open(token.kyc)}><b>KYC</b> : <span>{token.kyc.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.twitter ? <span onClick={() => window.open('https://twitter.com/' + token.twitter.split('https://').join('').split('http://').join('').split('twitter.com/').join(''))}><b>Twitter</b> : <span>{'twitter.com/' + token.twitter.split('https://').join('').split('http://').join('').split('twitter.com/').join('')}</span></span> : '')}
+                    {(token.chat ? <span onClick={() => window.open(token.chat)}><b>Chat</b> : <span>{token.chat.split('https://').join('').split('http://').join('')}</span></span> : '')}
+                    {(token.website ? <span onClick={() => window.open(token.website)}><b>Website</b> : <span>{token.website.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     <span><b>Contract</b> : <a style={{ 'color': 'white' }} target="_blank" href={getExplorer(token.chain) + '/token/' + token.contract}>Explorer</a> </span>
                 </div>
                 <div className="buttons">
