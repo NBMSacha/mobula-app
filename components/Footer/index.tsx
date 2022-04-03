@@ -4,6 +4,7 @@ function Footer() {
     const [displaySort, setDisplaySort] = useState('none');
     const [displayData, setDisplayData] = useState('none');
 
+
     const useWindowDimensions = () => {
         const hasWindow = typeof window !== "undefined"
 
@@ -64,6 +65,7 @@ function Footer() {
                                     <span onClick={() => document.location.href = 'sort'}>First Sort</span>
                                     <span onClick={() => document.location.href = 'validation'}>Final Validation</span>
                                 </div>
+
                                 <span className="footext" onClick={() => document.location.href = 'list'}>Listing</span>
                             </div>
                         </div>
