@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 const ethers = require('ethers');
 const axios = require('axios');
 const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
