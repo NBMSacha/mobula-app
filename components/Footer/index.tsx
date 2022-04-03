@@ -52,7 +52,7 @@ function Footer() {
                                 }}>Data</span>
                                 <div className="footop-data" style={{ display: displayData }}>
                                     <span onClick={() => document.location.href = 'new'}>Recently Added</span>
-                                    <span onClick={() => document.location.href = 'data'}>Query Data</span>
+                                    <span onClick={() => document.location.href = 'dataprovider'}>Query Data</span>
                                 </div>
                                 <span className="footext" onClick={() => document.location.href = 'governance'}>Govern</span>
                                 <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
