@@ -492,7 +492,7 @@ button:hover {
 }
 .tokenpage-logo {
   margin-top: 40px;
-  margin-right: 30px;
+  margin-right: 10px;
 }
 .tokenpage-details {
   display: flex;
@@ -502,6 +502,7 @@ button:hover {
 .contract-details {
   display: flex;
   flex-direction: row;
+  align-items: center;
   background-color: #d9d0ff;
   padding: 3px 10px;
   border-radius: 10px;
@@ -515,6 +516,7 @@ button:hover {
 .blockchain-details {
   display: flex;
   flex-direction: row;
+  align-items: center;
   background-color: #d9d0ff;
   padding: 3px 10px;
   border-radius: 10px;
@@ -522,7 +524,6 @@ button:hover {
   height: 25px;
 }
 .blockchain-details-image {
-  margin-bottom: 7px;
   margin-right: 2px;
 }
 .blockchain-details-text {
