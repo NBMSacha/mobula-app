@@ -2,4 +2,4 @@
   command = "npm run build"
 
 [[plugins]] 
-  package = "@netlify/plugin-next.js"
+  package = "@netlify/plugin-nextjs"
