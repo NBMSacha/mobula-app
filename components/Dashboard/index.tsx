@@ -26,7 +26,7 @@ function Dashboard() {
                     'function paidFirstVotes(address voter) external view returns(uint256)',
                     'function goodFirstVotes(address voter) external view returns(uint256)',
                     'function badFirstVotes(address voter) external view returns(uint256)',
-                    'function tokensPerVote(uint256 tokens) external view returns(uint256)'
+                    'function tokensPerVote() external view returns(uint256)'
                 ], provider
             )
             const tokensPerVote = parseInt(ethers.utils.formatEther((await protocolContract.tokensPerVote())));
