@@ -25,14 +25,16 @@ function Dashboard() {
                 [
                     'function paidFirstVotes(address voter) external view returns(uint256)',
                     'function goodFirstVotes(address voter) external view returns(uint256)',
-                    'function badFirstVotes(address voter) external view returns(uint256)'
+                    'function badFirstVotes(address voter) external view returns(uint256)',
+                    'function tokensPerVote(uint256 tokens) external view returns(uint256)'
                 ], provider
             )
+            const tokensPerVote = parseInt(ethers.utils.formatEther((await protocolContract.tokensPerVote())));
             const paidVotes = (await protocolContract.paidFirstVotes(account)).toNumber();
             const goodVotes = (await protocolContract.goodFirstVotes(account)).toNumber();
             const badVotes = (await protocolContract.badFirstVotes(account)).toNumber();
 
-            setTokensOwed(goodVotes - paidVotes);
+            setTokensOwed((goodVotes - paidVotes) * tokensPerVote);
             setGoodChoice(goodVotes)
             setBadChoice(badVotes);
         } catch (e) {

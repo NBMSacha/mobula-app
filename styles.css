@@ -469,7 +469,6 @@ button:hover {
 }
 
 @media screen and (max-width: 1000px) {
-
   .tokens-div {
     width: 100%;
     height: 1125px;
@@ -483,7 +482,12 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-
+  .tokenpage-details {
+    margin-bottom: 20px;
+  }
+  .footer {
+    height: 50px;
+  }
   .tokens-div {
     width: 100%;
     display: flex;
@@ -505,7 +509,9 @@ button:hover {
 .header .right {
     width: 55%;
   }
+
 }
+
 .tokenpage-head {
   display: flex;
   flex-direction: row;
@@ -520,12 +526,13 @@ button:hover {
 }
 .tokenpage-logo {
   margin-top: 40px;
-  margin-right: 10px;
+  margin-right: 15px;
 }
 .tokenpage-details {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-top: 20px;
 }
 .contract-details {
   display: flex;
@@ -565,3 +572,4 @@ button:hover {
 .tokenURL:hover {
   text-decoration: underline;
 }
+

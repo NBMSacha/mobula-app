@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 const ethers = require('ethers');
 const axios = require('axios');
 const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
@@ -81,7 +81,7 @@ getDataHash(token).then(dataHash => {
             <div className="container">
                 <header>
                   <div className="tokenpage-head">
-                    <img className="tokenpage-logo" src={tokenLogo}/>
+                    <img className="tokenpage-logo" width="100px" src={tokenLogo}/>
                     <h1 className="tokenpage-name">{tokenName}</h1>
                     <span className="tokenpage-symbol">{tokenSymbol}</span>
                     </div>
@@ -92,7 +92,7 @@ getDataHash(token).then(dataHash => {
                         {tokenChain == "Ethereum" && <img className="blockchain-details-image" src="eth.png"></img>}
                         {tokenChain == "Avalanche" && <img className="blockchain-details-image" src="avax.png"></img>}
                         {tokenChain == "Fantom" && <img className="blockchain-details-image" src="fantom.png"></img>}
-                        {tokenChain == "Ethereum" && <img className="blockchain-details-image" src="eth.png"></img>}
+                        {tokenChain == "Cronos" && <img className="blockchain-details-image" src="cronos.png"></img>}
                         {tokenChain == "Avalanche" && <img className="blockchain-details-image" src="avax.png"></img>}
                         </div>
                         

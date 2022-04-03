@@ -1,6 +1,7 @@
 import React from 'react'
 
 function Token({id, logo, name, symbol, chat, discord, website, twitter, contract, blockchain, created_at}) {
+ 
   let date = new Date(created_at);
       let seconds = date.getTime();
       let postedDate = Math.round((Date.now() - seconds)/ 1000);
@@ -27,11 +28,24 @@ function Token({id, logo, name, symbol, chat, discord, website, twitter, contrac
   else if(172800 <= postedDate) {
     format = "days"
   }
+  const scanlink = () => { 
+  if(blockchain == "BNB") {
+    return "https://bscscan.com/token/" + contract
+  }
+  else if(blockchain == "Ethereum") {
+     return "https://etherscan.com/token/" + contract
+  }
+  else if(blockchain == "Avalanche") {
+    return "https://snowtrace.io/token/" + contract
+
+  }
+}
   return (
       <>
     <tr className="token-container">
         <td  className="token-id">{id}</td>
-        <td className="token-name"><img src={logo} className="token-logo" alt="token logo" />{name}<span className="token-symbol">{symbol}</span></td>
+        <td className="token-name"><img src={logo} className="token-logo" alt="token logo" />
+        <a href={scanlink()} className="mobile">{name}</a><span className="browser">{name}</span><span className="token-symbol">{symbol}</span></td>
         <td className="token-links">
           {chat ? <a href={chat} target="_blank"><img className="links-icons" src="telegram.png"></img></a> : ""}
           {discord ? <a href={discord} target="_blank"><img className="links-icons" src="discord.png"></img></a> : ""}

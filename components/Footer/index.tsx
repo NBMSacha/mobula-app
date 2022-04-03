@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 function Footer() {
+    const [display, setDisplay] = useState('none');
+
     const useWindowDimensions = () => {
         const hasWindow = typeof window !== "undefined"
 
@@ -43,10 +45,15 @@ function Footer() {
                         </div>
                         <div className="footer-mobile">
                             <div className="links">
+                                <span className="footext" onClick={() => document.location.href = "dataprovider"}>Data provider</span>
                                 <span className="footext" onClick={() => document.location.href = 'governance'}>Govern</span>
                                 <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
-                                <span className="footext" onClick={() => document.location.href = 'sort'}>Sort</span>
-                                <span className="footext" onClick={() => document.location.href = 'validation'}>Validation</span>
+                                <span className="footext" onClick={() => setDisplay((display == 'none' ? 'flex' : 'none'))}>Sort</span>
+                                <div className="footop" style={{ display }}>
+                                    <span onClick={() => document.location.href = 'sort'}>First Sort</span>
+                                    <span onClick={() => document.location.href = 'validation'}>Final Validation</span>
+                                </div>
+                                <span className="footext" onClick={() => document.location.href = 'new'}>New</span>
                                 <span className="footext" onClick={() => document.location.href = 'list'}>Listing</span>
                             </div>
                         </div>
