@@ -10,7 +10,6 @@ const apiContract = new ethers.Contract(API_ADDRESS,
 
 
 export const getServerSideProps = (context) => {
-  console.log(context.query.token)     
   return {props: {
     token: context.query.token
   }}
@@ -80,6 +79,7 @@ getDataHash(token).then(dataHash => {
     <div className="listing">
             <div className="container">
                 <header>
+                  <div className="tokenpage">
                   <div className="tokenpage-head">
                     <img className="tokenpage-logo" width="100px" src={tokenLogo}/>
                     <h1>{tokenName}</h1>
@@ -126,8 +126,10 @@ getDataHash(token).then(dataHash => {
                     <span className="tokenDescription">
                       {tokenDescription}
                     </span>
+                    </div>
                 </header>
                 <div className="line"></div>
+                
                 </div>
                 </div>
                 </>

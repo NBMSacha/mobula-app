@@ -482,6 +482,10 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .tokenpage {
+    max-width: 768px;
+    overflow: hidden;
+  }
   .tokenDescription {
     max-width: 500px;
   }
