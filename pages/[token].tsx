@@ -1,5 +1,4 @@
-import { GetServerSideProps } from 'next';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 const ethers = require('ethers');
 const axios = require('axios');
 const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
@@ -8,12 +7,14 @@ const apiContract = new ethers.Contract(API_ADDRESS,
         ['function staticData(address token) external view returns(string)'], provider)
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {    
-          return {props: {
-            token: context.query.token
-          }}
-        }
 
+
+export const getServerSideProps = (context) => {
+  console.log(context.query.token)     
+  return {props: {
+    token: context.query.token
+  }}
+}
 
 function Dataprovider({token}) {
 const [tokenName, setTokenName] = useState("")
@@ -118,7 +119,7 @@ getDataHash(token).then(dataHash => {
                         {tokenWebsite ? <a href={tokenWebsite} target="_blank"><img className="links-icons" src="website.png"></img></a> : ""}
                         </span>
                         <span className="link-twitter">
-                        {tokenTwitter ? <a href={"http://twitter.com/" + tokenTwitter} target="_blank"><img className="links-icons" src="twitter.png"></img></a> : ""}
+                        {tokenTwitter ? <a href={tokenTwitter} target="_blank"><img className="links-icons" src="twitter.png"></img></a> : ""}
                         </span>                        
                         </div>
                     </div>
