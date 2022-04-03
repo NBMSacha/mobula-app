@@ -82,8 +82,8 @@ getDataHash(token).then(dataHash => {
                 <header>
                   <div className="tokenpage-head">
                     <img className="tokenpage-logo" width="100px" src={tokenLogo}/>
-                    <h1 className="tokenpage-name">{tokenName}</h1>
-                    <span className="tokenpage-symbol">{tokenSymbol}</span>
+                    <h1>{tokenName}</h1>
+                    <h3>{tokenSymbol}</h3>
                     </div>
                     <div className="tokenpage-details">
                       <div className="blockchain-details">
@@ -123,9 +123,9 @@ getDataHash(token).then(dataHash => {
                         </span>                        
                         </div>
                     </div>
-                    <span>
+                    <div className="tokenDescription">
                       {tokenDescription}
-                    </span>
+                    </div>
                 </header>
                 <div className="line"></div>
                 </div>

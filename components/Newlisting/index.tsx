@@ -28,6 +28,15 @@ function Token({id, logo, name, symbol, chat, discord, website, twitter, contrac
   else if(172800 <= postedDate) {
     format = "days"
   }
+  if(blockchain.includes("BNB")) {
+    blockchain = "BNB"
+  }
+  else if(blockchain.includes("Ethereum")) {
+    blockchain = "Ethereum"
+  }
+  else if(blockchain.includes("Avalanche")) {
+    blockchain = "Avalanche"
+  }
   const scanlink = () => { 
   if(blockchain == "BNB") {
     return "https://bscscan.com/token/" + contract

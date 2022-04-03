@@ -482,6 +482,9 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .tokenDescription {
+    max-width: 500px;
+  }
   .tokenpage-details {
     margin-bottom: 20px;
   }
@@ -517,6 +520,7 @@ button:hover {
   flex-direction: row;
   align-items: center;
 }
+
 .tokenpage-symbol {
   margin-left: 15px;
   color: gray;
