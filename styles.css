@@ -175,6 +175,7 @@ label {
   color: var(--text-color);;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .header .main {
@@ -255,7 +256,7 @@ button:hover {
 .footer {
   background-color: var(--bg-color);
   text-align: center;
-  height: 10px;
+  height:10px;
   margin-bottom: 50px;
 }
 
@@ -270,6 +271,21 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-around;
+}
+
+.footop {
+  bottom: 50px;
+  height: 60px;
+  width: 40%;
+  padding: 5px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px  solid rgba(47, 0, 255, 0.371);
 }
 
 .links {
@@ -418,13 +434,38 @@ button:hover {
 
 .tokens-div {
   width: 100%;
-  height: 750px;
   max-width: 1200px;
   margin-top: 2rem;
   display: grid;
   grid-template-columns: 33% 33% 33%;
-  grid-template-rows: 50% 50%;
-  align-self: center;
+  grid-auto-rows: 400px;
+    align-self: center;
+}
+
+.buttonsDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.buttonsDiv > * {
+  width: 30% !important;
+  margin-right: 0.5rem;
+}
+
+.readmore {
+  border: none;
+  background-color: transparent;
+  color: white;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list > * :hover{
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 1000px) {
@@ -464,19 +505,6 @@ button:hover {
 .header .right {
     width: 55%;
   }
-}
-
-
-.buttonsDiv {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  margin-bottom: 1.5rem;
-}
-
-.buttonsDiv > * {
-  width: 30% !important;
-  margin-right: 0.5rem;
 }
 .tokenpage-head {
   display: flex;
