@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
 function Footer() {
-    const [display, setDisplay] = useState('none');
+    const [displaySort, setDisplaySort] = useState('none');
+    const [displayData, setDisplayData] = useState('none');
+
 
     const useWindowDimensions = () => {
         const hasWindow = typeof window !== "undefined"
@@ -45,14 +47,25 @@ function Footer() {
                         </div>
                         <div className="footer-mobile">
                             <div className="links">
+                                <span className="footext" onClick={() => {
+                                    setDisplaySort('none')
+                                    setDisplayData((displayData == 'none' ? 'flex' : 'none'))
+                                }}>Data</span>
+                                <div className="footop-data" style={{ display: displayData }}>
+                                    <span onClick={() => document.location.href = 'new'}>Recently Added</span>
+                                    <span onClick={() => document.location.href = 'dataprovider'}>Query Data</span>
+                                </div>
                                 <span className="footext" onClick={() => document.location.href = 'governance'}>Govern</span>
                                 <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
-                                <span className="footext" onClick={() => setDisplay((display == 'none' ? 'flex' : 'none'))}>Sort</span>
-                                <div className="footop" style={{ display }}>
+                                <span className="footext" onClick={() => {
+                                    setDisplaySort((displaySort == 'none' ? 'flex' : 'none'))
+                                    setDisplayData('none')
+                                }}>Sort</span>
+                                <div className="footop-sort" style={{ display: displaySort }}>
                                     <span onClick={() => document.location.href = 'sort'}>First Sort</span>
                                     <span onClick={() => document.location.href = 'validation'}>Final Validation</span>
                                 </div>
-                                <span className="footext" onClick={() => document.location.href = 'new'}>New</span>
+
                                 <span className="footext" onClick={() => document.location.href = 'list'}>Listing</span>
                             </div>
                         </div>
@@ -69,3 +82,4 @@ function Footer() {
 }
 
 export default Footer
+

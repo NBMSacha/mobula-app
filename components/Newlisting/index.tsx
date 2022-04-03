@@ -28,6 +28,26 @@ function Token({id, logo, name, symbol, chat, discord, website, twitter, contrac
   else if(172800 <= postedDate) {
     format = "days"
   }
+
+  if(blockchain.includes("BNB")) {
+    blockchain = "BNB"
+  }
+  else if(blockchain.includes("Ethereum")) {
+    blockchain = "Ethereum"
+  }
+  else if(blockchain.includes("Avalanche")) {
+    blockchain = "Avalanche"
+  }
+  else if(blockchain.includes("Polygon")) {
+    blockchain = "Polygon"
+  }
+  else if(blockchain.includes("Cronos")) {
+    blockchain = "Cronos"
+  }
+  else if(blockchain.includes("Fantom")) {
+    blockchain = "Fantom"
+  }
+
   const scanlink = () => { 
   if(blockchain == "BNB") {
     return "https://bscscan.com/token/" + contract
@@ -35,10 +55,21 @@ function Token({id, logo, name, symbol, chat, discord, website, twitter, contrac
   else if(blockchain == "Ethereum") {
      return "https://etherscan.com/token/" + contract
   }
-  else if(blockchain == "Avalanche") {
+  else if (blockchain == "Avalanche") {
     return "https://snowtrace.io/token/" + contract
 
   }
+
+   else if(blockchain == "Polygon") {
+    return "https://polygonscan.com/token/" + contract
+  }
+  else if(blockchain == "Cronos") {
+    return "https://cronoscan.com/token/" + contract
+  }
+  else if(blockchain == "Fantom") {
+    return "https://ftmscan.com/token/" + contract
+  }
+
 }
   return (
       <>
@@ -56,12 +87,19 @@ function Token({id, logo, name, symbol, chat, discord, website, twitter, contrac
           {blockchain == "BNB" && <a className="tokenURL" href={"https://bscscan.com/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
           {blockchain == "Ethereum" && <a className="tokenURL" href={"https://etherscan.com/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
           {blockchain == "Avalanche" && <a className="tokenURL" href={"https://snowtrace.io/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
+          {blockchain == "Polygon" && <a className="tokenURL" href={"https://polygonscan.com/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
+          {blockchain == "Cronos" && <a className="tokenURL" href={"https://ftmscan.com/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
+          {blockchain == "Fantom" && <a className="tokenURL" href={"https://cronoscan.com/token/" + contract} target="_blank">{contract.substring(0, 4) + '..' + contract.substring(contract.length - 4, contract.length)}</a>}
+
           </td>
           <td className="token-blockchain">
           <div className="blockchain">
           {blockchain == "BNB" && <img src="bnb.png"></img>}
           {blockchain == "Ethereum" && <img src="eth.png"></img>}
           {blockchain == "Avalanche" && <img src="avax.png"></img>}
+          {blockchain == "Polygon" && <img src="polygon.png"></img>}
+          {blockchain == "Cronos" && <img src="cronos.png"></img>}
+          {blockchain == "Fantom" && <img src="fantom.png"></img>}
           
           <span className="token-blockchain-name">{blockchain}</span>
         </div>

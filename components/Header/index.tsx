@@ -91,7 +91,8 @@ function Header(props: any) {
                 </div>
 
                 <div className="right">
-                    <span onClick={() => document.location.href = "new"}>New listing</span>
+                    <span onClick={() => document.location.href = "data"}>Query</span>
+                    <span onClick={() => document.location.href = "new"}>Recently Added</span>
                     <span onClick={() => document.location.href = "governance"}>Governance</span>
                     <span onClick={() => document.location.href = "dashboard"}>Dashboard</span>
                     <span onClick={() => document.location.href = "sort"}>First Sort</span>

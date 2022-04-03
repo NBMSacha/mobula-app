@@ -256,7 +256,7 @@ button:hover {
 .footer {
   background-color: var(--bg-color);
   text-align: center;
-  height: 50px;
+  height: 10px;
   margin-bottom: 50px;
 }
 
@@ -273,8 +273,25 @@ button:hover {
   justify-content: space-around;
 }
 
-.footop {
+.footop-data {
   bottom: 50px;
+  left: 5px;
+  height: 60px;
+  width: 40%;
+  padding: 5px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px  solid rgba(47, 0, 255, 0.371);
+}
+
+.footop-sort {
+  bottom: 50px;
+  right: 20px;
   height: 60px;
   width: 40%;
   padding: 5px;
@@ -468,8 +485,33 @@ button:hover {
   text-decoration: underline;
 }
 
-@media screen and (max-width: 1000px) {
+.buttonsDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
 
+.buttonsDiv > * {
+  width: 30% !important;
+  margin-right: 0.5rem;
+}
+
+.readmore {
+  border: none;
+  background-color: transparent;
+  color: white;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.list > * :hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
   .tokens-div {
     width: 100%;
     height: 1125px;
@@ -483,7 +525,28 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
-
+  .tokenpage-name {
+   font-size: 30px !important;
+  }
+  .tokenpage-logo {
+    max-width: 75px;
+  }
+  .tokenpage-symbol {
+    font-size: 25px !important;
+  }
+  .tokenpage {
+    max-width: 768px;
+    overflow: hidden;
+  }
+  .tokenDescription {
+    max-width: 500px;
+  }
+  .tokenpage-details {
+    margin-bottom: 20px;
+  }
+  .footer {
+    height: 50px;
+  }
   .tokens-div {
     width: 100%;
     display: flex;
@@ -505,6 +568,70 @@ button:hover {
 .header .right {
     width: 55%;
   }
+
+}
+.tokenpage-name {
+  font-size: 45px;
+  font-weight: 500;
+ }
+.tokenpage-head {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-
+.tokenpage-symbol {
+  margin-left: 15px;
+  color: gray;
+  font-size: 40px ;
+  font-weight: 400;
+}
+.tokenpage-logo {
+  margin-right: 15px;
+  width: 100px;
+}
+.tokenpage-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 40px;
+}
+.contract-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #d9d0ff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+  height: 25px;
+}
+.contract-details-text {
+  font-size: 16px !important;
+  font-weight: 500;
+}
+.blockchain-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #d9d0ff;
+  padding: 3px 10px;
+  border-radius: 10px;
+  margin-right: 15px;
+  height: 25px;
+}
+.blockchain-details-image {
+  margin-right: 2px;
+}
+.blockchain-details-text {
+  font-size: 16px !important;
+  font-weight: 500;
+  
+}
+.tokenURL {
+  text-decoration: none;
+}
+.tokenURL:hover {
+  text-decoration: underline;
+}
