@@ -6,9 +6,12 @@ import { PROTOCOL_ADDRESS } from '../../constants';
 
 function Dashboard() {
     const alert = useAlert();
-    const [tokensOwed, setTokensOwed] = useState(0);
-    const [goodChoice, setGoodChoice] = useState(0);
-    const [badChoice, setBadChoice] = useState(0);
+    const [firstTokensOwed, setFirstTokensOwed] = useState(0);
+    const [finalTokensOwed, setFinalTokensOwed] = useState(0);
+    const [firstGoodChoice, setFirstGoodChoice] = useState(0);
+    const [firstBadChoice, setFirstBadChoice] = useState(0);
+    const [finalGoodChoice, setFinalGoodChoice] = useState(0);
+    const [finalBadChoice, setFinalBadChoice] = useState(0);
 
     var provider: any;
     var account: string;
@@ -26,17 +29,26 @@ function Dashboard() {
                     'function paidFirstVotes(address voter) external view returns(uint256)',
                     'function goodFirstVotes(address voter) external view returns(uint256)',
                     'function badFirstVotes(address voter) external view returns(uint256)',
+                    'function paidFinalVotes(address voter) external view returns(uint256)',
+                    'function goodFinalVotes(address voter) external view returns(uint256)',
+                    'function badFinalVotes(address voter) external view returns(uint256)',
                     'function tokensPerVote() external view returns(uint256)'
                 ], provider
             )
             const tokensPerVote = parseInt(ethers.utils.formatEther((await protocolContract.tokensPerVote())));
-            const paidVotes = (await protocolContract.paidFirstVotes(account)).toNumber();
-            const goodVotes = (await protocolContract.goodFirstVotes(account)).toNumber();
-            const badVotes = (await protocolContract.badFirstVotes(account)).toNumber();
+            const firstPaidVotes = (await protocolContract.paidFirstVotes(account)).toNumber();
+            const firstGoodVotes = (await protocolContract.goodFirstVotes(account)).toNumber();
+            const firstBadVotes = (await protocolContract.badFirstVotes(account)).toNumber();
+            const finalPaidVotes = (await protocolContract.paidFinalVotes(account)).toNumber();
+            const finalGoodVotes = (await protocolContract.goodFinalVotes(account)).toNumber();
+            const finalBadVotes = (await protocolContract.badFinalVotes(account)).toNumber();
+            setFirstTokensOwed((firstGoodVotes - firstPaidVotes) * tokensPerVote);
+            setFinalTokensOwed((finalGoodVotes - finalPaidVotes) * tokensPerVote);
+            setFirstGoodChoice(firstGoodVotes);
+            setFirstBadChoice(firstBadVotes);
+            setFinalGoodChoice(finalGoodVotes)
+            setFinalBadChoice(finalBadVotes);
 
-            setTokensOwed((goodVotes - paidVotes) * tokensPerVote);
-            setGoodChoice(goodVotes)
-            setBadChoice(badVotes);
         } catch (e) {
             alert.show('You must connect your wallet to access your Dashboard.')
         }
@@ -58,15 +70,16 @@ function Dashboard() {
 
 
                 <div className="line"></div>
+                <div className="dashboard-forms">
                 <form>
-                    <div>
-                        <h2>Stats</h2>
+                    
+                        <h2>Rank I Stats</h2>
                         <div className="form-input">
                             <label htmlFor="contract">The Protocol owes currently owes you</label>
                             <div>
                                 <input
                                     className="long"
-                                    value={tokensOwed + ' $MOBL'}
+                                    value={firstTokensOwed + ' $MOBL'}
                                     onChange={(e) => e}
                                     placeholder="0x..."
                                     required
@@ -78,7 +91,7 @@ function Dashboard() {
                             <div>
                                 <input
                                     className="long"
-                                    value={goodChoice + ' times'}
+                                    value={firstGoodChoice + ' times'}
                                     onChange={(e) => e}
                                     placeholder="0x..."
                                     required
@@ -90,7 +103,7 @@ function Dashboard() {
                             <div>
                                 <input
                                     className="long"
-                                    value={badChoice + ' times'}
+                                    value={firstBadChoice + ' times'}
                                     onChange={(e) => e}
                                     placeholder="0x..."
                                     required
@@ -123,11 +136,82 @@ function Dashboard() {
                             }}
 
                         >Claim</button>
-                    </div>
+                    
 
 
 
                 </form>
+                <form>
+                    
+                        <h2>Rank II Stats</h2>
+                        <div className="form-input">
+                            <label htmlFor="contract">The Protocol owes currently owes you</label>
+                            <div>
+                                <input
+                                    className="long"
+                                    value={finalTokensOwed + ' $MOBL'}
+                                    onChange={(e) => e}
+                                    placeholder="0x..."
+                                    required
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="form-input">
+                            <label htmlFor="contract">You made a good choice</label>
+                            <div>
+                                <input
+                                    className="long"
+                                    value={finalGoodChoice + ' times'}
+                                    onChange={(e) => e}
+                                    placeholder="0x..."
+                                    required
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="form-input">
+                            <label htmlFor="contract">You made a bad choice</label>
+                            <div>
+                                <input
+                                    className="long"
+                                    value={finalBadChoice + ' times'}
+                                    onChange={(e) => e}
+                                    placeholder="0x..."
+                                    required
+                                ></input>
+                            </div>
+                        </div>
+                        <button className="button"
+                            onClick={async (e) => {
+                                e.preventDefault();
+
+                                try {
+                                    var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+                                    var signer = provider.getSigner();
+                                } catch (e) {
+                                    alert.show('You must connect your wallet to access the Dashboard.')
+                                }
+
+                                try {
+                                    const value = await new ethers.Contract(
+                                        PROTOCOL_ADDRESS,
+                                        [
+                                            'function claimRewards() external',
+                                        ], signer
+                                    ).claimRewards();
+                                } catch (e) {
+                                    alert.show('You don\'t have anything to claim.')
+                                    console.log(e)
+                                }
+
+                            }}
+
+                        >Claim</button>
+                    
+
+
+
+                </form>
+                </div>
             </div >
         </div >
     )
