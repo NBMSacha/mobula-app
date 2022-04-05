@@ -9,7 +9,10 @@
     "export": "next export"
   },
   "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
     "@ethersproject/providers": "^5.6.1",
+    "@mui/material": "^5.5.3",
     "@supabase/supabase-js": "^1.33.1",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
