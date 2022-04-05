@@ -53,7 +53,7 @@ function Token(token: {
             </div>
 
             <div className="body">
-                <span>{description}{token.description.length > 250 ? <button className="readmore" onClick={changeDescription}>{readMore}</button> : <></>}</span>
+                <span>{description}{token.description.length > 200 ? <button className="readmore" onClick={changeDescription}>{readMore}</button> : <></>}</span>
                 <div className="list">
                     {(token.audit ? <span onClick={() => window.open(token.audit)}><b>Audit</b> : <span>{token.audit.split('https://').join('').split('http://').join('')}</span></span> : '')}
                     {(token.kyc ? <span onClick={() => window.open(token.kyc)}><b>KYC</b> : <span>{token.kyc.split('https://').join('').split('http://').join('')}</span></span> : '')}
