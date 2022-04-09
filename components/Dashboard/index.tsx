@@ -110,7 +110,7 @@ function Dashboard() {
                                 ></input>
                             </div>
                         </div>
-                        <button className="button"
+                        <button className="button" style={{width: 200}}
                             onClick={async (e) => {
                                 e.preventDefault();
 
@@ -180,7 +180,7 @@ function Dashboard() {
                                 ></input>
                             </div>
                         </div>
-                        <button className="button"
+                        <button className="button" style={{width: 200}}
                             onClick={async (e) => {
                                 e.preventDefault();
 

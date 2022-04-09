@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 const ethers = require('ethers');
 const axios = require('axios');
 const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
@@ -26,13 +27,15 @@ const [tokenDescription, setTokenDescription] = useState("")
 const [tokenWebsite, setTokenWebsite] = useState("")
 const [tokenDiscord, setTokenDiscord] = useState("")
 const [tokenChat, setTokenChat] = useState("")
+const router = useRouter()
 async function getDataHash(tokenAddress) {
   try{
   return await apiContract.staticData(tokenAddress)
   }
   catch(e) {
-    window.location.href = "dataprovider";
-    alert("This token isn't listed")
+    router.push({
+      pathname: 'dataprovider'
+    })
 }
 }
 
