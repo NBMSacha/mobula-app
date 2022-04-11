@@ -195,9 +195,9 @@ function Dashboard() {
                                     const value = await new ethers.Contract(
                                         PROTOCOL_ADDRESS,
                                         [
-                                            'function claimRewards() external',
+                                            'function claimFinalRewards() external',
                                         ], signer
-                                    ).claimRewards();
+                                    ).claimFinalRewards();
                                 } catch (e) {
                                     alert.show('You don\'t have anything to claim.')
                                     console.log(e)
