@@ -92,11 +92,12 @@ function Header(props: any) {
 
                 <div className="right">
                     <span onClick={() => document.location.href = "dataprovider"}>Query</span>
-                    <span onClick={() => document.location.href = "new"}>Recently Added</span>
+                    <span onClick={() => document.location.href = "new"}>New</span>
                     <span onClick={() => document.location.href = "governance"}>Governance</span>
+                    <span onClick={() => document.location.href = "elections"}>Elections</span>
                     <span onClick={() => document.location.href = "dashboard"}>Dashboard</span>
-                    <span onClick={() => document.location.href = "sort"}>First Sort</span>
-                    <span onClick={() => document.location.href = "validation"}>Final Validation</span>
+                    <span onClick={() => document.location.href = "sort"}>Sort</span>
+                    <span onClick={() => document.location.href = "validation"}>Validation</span>
                     <span onClick={() => document.location.href = "list"}>Listing Form</span>
                     <button
                         className="btn btn-primary button"

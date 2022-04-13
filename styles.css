@@ -2,6 +2,7 @@ html {
   --bg-color: white;
   --text-color: black;
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -56,16 +57,19 @@ code {
 }
 
 input {
-  background-color: var(--bg-color);;
+  background-color: var(--bg-color);
+  ;
   border: 2px solid rgba(47, 0, 255, 0.371);
   width: 10rem;
   height: 1.5rem;
   border-radius: 5px;
-  color: var(--text-color);;
+  color: var(--text-color);
+  ;
   padding-left: 10px;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: var(--text-color);
   opacity: 50%;
 }
@@ -90,7 +94,8 @@ input:focus {
   width: 20rem;
   height: 5rem;
   border-radius: 5px;
-  color: var(--text-color);;
+  color: var(--text-color);
+  ;
   padding-left: 10px;
 }
 
@@ -124,7 +129,8 @@ label {
 .line {
   width: 100%;
   height: 2px;
-  background-color: rgba(47, 0, 255, 0.371);;
+  background-color: rgba(47, 0, 255, 0.371);
+  ;
   margin-top: 1rem;
 }
 
@@ -139,12 +145,10 @@ label {
 }
 
 .button {
-  background-image: linear-gradient(
-    to right,
-    #3701f4 0%,
-    #26a0da 41%,
-    #2af0d5 100%
-  );
+  background-image: linear-gradient(to right,
+      #3701f4 0%,
+      #26a0da 41%,
+      #2af0d5 100%);
 }
 
 .button {
@@ -158,21 +162,23 @@ label {
 }
 
 .button:hover {
-  background-position: right center; /* change the direction of the change here */
+  background-position: right center;
+  /* change the direction of the change here */
   color: #fff;
   text-decoration: none;
 }
 
 .listing button {
-    width: 50%;
-    height: 30px;
+  width: 50%;
+  height: 30px;
 }
 
 .header {
   background-color: var(--bg-color);
   height: 4rem;
   border-bottom: 1px solid rgba(47, 0, 255, 0.371);
-  color: var(--text-color);;
+  color: var(--text-color);
+  ;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -191,8 +197,9 @@ label {
   align-items: center;
 }
 
-.header .left img, .header .left span {
-    cursor: pointer;
+.header .left img,
+.header .left span {
+  cursor: pointer;
 }
 
 .header .right {
@@ -204,9 +211,10 @@ label {
 }
 
 .right span {
-    margin-right: 2.5rem;
-    cursor: pointer;
+  margin-right: 2.5rem;
+  cursor: pointer;
 }
+
 .head-logo {
   width: 45px;
 }
@@ -226,12 +234,13 @@ label {
 .header .right span {
   height: 60px;
   text-align: center;
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.header .selected, .header .right span:hover {
+.header .selected,
+.header .right span:hover {
   color: #07226b;
   border-bottom: 3px solid #07226b;
 }
@@ -263,7 +272,7 @@ button:hover {
 .footer-mobile {
   background-color: var(--bg-color);
   text-align: center;
-  border-top: 2px  solid rgba(47, 0, 255, 0.371);
+  border-top: 2px solid rgba(47, 0, 255, 0.371);
   bottom: 0px;
   position: fixed;
   width: 100%;
@@ -286,12 +295,12 @@ button:hover {
   justify-content: space-around;
   background-color: white;
   border-radius: 10px;
-  border: 2px  solid rgba(47, 0, 255, 0.371);
+  border: 2px solid rgba(47, 0, 255, 0.371);
 }
 
 .footop-sort {
   bottom: 50px;
-  right: 20px;
+  right: 30px;
   height: 60px;
   width: 40%;
   padding: 5px;
@@ -302,7 +311,23 @@ button:hover {
   justify-content: space-around;
   background-color: white;
   border-radius: 10px;
-  border: 2px  solid rgba(47, 0, 255, 0.371);
+  border: 2px solid rgba(47, 0, 255, 0.371);
+}
+
+.footop-dao {
+  bottom: 50px;
+  left: 25px;
+  height: 60px;
+  width: 40%;
+  padding: 5px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 10px;
+  border: 2px solid rgba(47, 0, 255, 0.371);
 }
 
 .links {
@@ -315,7 +340,8 @@ button:hover {
 .line-footer {
   width: 100%;
   height: 1px;
-  background-color: rgba(47, 0, 255, 0.371);;
+  background-color: rgba(47, 0, 255, 0.371);
+  ;
   margin-top: 3rem;
   margin-bottom: 1rem;
 }
@@ -323,7 +349,8 @@ button:hover {
 .line-mobile {
   width: 100%;
   height: 1px;
-  background-color: rgba(47, 0, 255, 0.371);;
+  background-color: rgba(47, 0, 255, 0.371);
+  ;
 }
 
 .footext {
@@ -334,9 +361,11 @@ button:hover {
 
 
 .final {
-  background-color: var(--bg-color);;
+  background-color: var(--bg-color);
+  ;
   min-height: 100vh;
-  color: var(--text-color);;
+  color: var(--text-color);
+  ;
   display: flex;
   justify-content: center;
 }
@@ -405,6 +434,7 @@ button:hover {
   margin-top: -1.5rem;
 
 }
+
 .token .body span {
   font-size: 0.95em;
 }
@@ -443,7 +473,7 @@ button:hover {
   opacity: 80%;
 }
 
-.buttons > * {
+.buttons>* {
   width: 45%;
   height: 25px;
 }
@@ -456,7 +486,7 @@ button:hover {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-auto-rows: 400px;
-    align-self: center;
+  align-self: center;
 }
 
 .buttonsDiv {
@@ -466,7 +496,7 @@ button:hover {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv > * {
+.buttonsDiv>* {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -480,7 +510,7 @@ button:hover {
   cursor: pointer;
 }
 
-.list > * :hover{
+.list>* :hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -492,7 +522,7 @@ button:hover {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv > * {
+.buttonsDiv>* {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -506,7 +536,7 @@ button:hover {
   cursor: pointer;
 }
 
-.list > * :hover{
+.list>* :hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -518,7 +548,8 @@ button:hover {
     max-width: 1200px;
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: 50% 50%;;
+    grid-template-columns: 50% 50%;
+    ;
     grid-template-rows: 33% 33% 33%;
     align-self: center;
   }
@@ -526,36 +557,43 @@ button:hover {
 
 @media screen and (max-width: 768px) {
   .tokenpage-name {
-   font-size: 30px !important;
+    font-size: 30px !important;
   }
+
   .tokenpage-logo {
     max-width: 75px;
   }
+
   .tokenpage-symbol {
     font-size: 25px !important;
   }
+
   .tokenpage {
     max-width: 768px;
     overflow: hidden;
   }
+
   .tokenDescription {
     max-width: 500px;
   }
+
   .tokenpage-details {
     margin-bottom: 20px;
   }
+
   .footer {
     height: 50px;
   }
+
   .tokens-div {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
     height: auto;
   }
 
-  .tokens-div > * {
+  .tokens-div>* {
     margin-bottom: 1rem;
     height: 350px;
   }
@@ -563,17 +601,19 @@ button:hover {
 
   .right span {
     display: none !important;
-}
+  }
 
-.header .right {
+  .header .right {
     width: 55%;
   }
 
 }
+
 .tokenpage-name {
   font-size: 45px;
   font-weight: 500;
- }
+}
+
 .tokenpage-head {
   margin-top: 50px;
   display: flex;
@@ -584,19 +624,22 @@ button:hover {
 .tokenpage-symbol {
   margin-left: 15px;
   color: gray;
-  font-size: 40px ;
+  font-size: 40px;
   font-weight: 400;
 }
+
 .tokenpage-logo {
   margin-right: 15px;
   width: 100px;
 }
+
 .tokenpage-details {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 40px;
 }
+
 .contract-details {
   display: flex;
   flex-direction: row;
@@ -607,10 +650,12 @@ button:hover {
   margin-right: 15px;
   height: 25px;
 }
+
 .contract-details-text {
   font-size: 16px !important;
   font-weight: 500;
 }
+
 .blockchain-details {
   display: flex;
   flex-direction: row;
@@ -621,17 +666,21 @@ button:hover {
   margin-right: 15px;
   height: 25px;
 }
+
 .blockchain-details-image {
   margin-right: 2px;
 }
+
 .blockchain-details-text {
   font-size: 16px !important;
   font-weight: 500;
-  
+
 }
+
 .tokenURL {
   text-decoration: none;
 }
+
 .tokenURL:hover {
   text-decoration: underline;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 function Footer() {
     const [displaySort, setDisplaySort] = useState('none');
     const [displayData, setDisplayData] = useState('none');
-
+    const [displayDAO, setDisplayDAO] = useState('none');
 
     const useWindowDimensions = () => {
         const hasWindow = typeof window !== "undefined"
@@ -49,16 +49,26 @@ function Footer() {
                                 <span className="footext" onClick={() => {
                                     setDisplaySort('none')
                                     setDisplayData((displayData == 'none' ? 'flex' : 'none'))
+                                    setDisplayDAO('none')
                                 }}>Data</span>
                                 <div className="footop-data" style={{ display: displayData }}>
                                     <span onClick={() => document.location.href = 'new'}>Recently Added</span>
                                     <span onClick={() => document.location.href = 'dataprovider'}>Query Data</span>
                                 </div>
-                                <span className="footext" onClick={() => document.location.href = 'governance'}>Govern</span>
+                                <span className="footext" onClick={() => {
+                                    setDisplayDAO((displayDAO == 'none' ? 'flex' : 'none'))
+                                    setDisplayData('none')
+                                    setDisplaySort('none')
+                                }}>DAO</span>
+                                <div className="footop-dao" style={{ display: displayDAO }}>
+                                    <span onClick={() => document.location.href = 'governance'}>Governance</span>
+                                    <span onClick={() => document.location.href = 'elections'}>Elections</span>
+                                </div>
                                 <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
                                 <span className="footext" onClick={() => {
                                     setDisplaySort((displaySort == 'none' ? 'flex' : 'none'))
                                     setDisplayData('none')
+                                    setDisplayDAO('none')
                                 }}>Sort</span>
                                 <div className="footop-sort" style={{ display: displaySort }}>
                                     <span onClick={() => document.location.href = 'sort'}>First Sort</span>
