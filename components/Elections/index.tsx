@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAlert } from "react-alert";
 import { ethers } from 'ethers';
-import { PROTOCOL_ADDRESS } from '../../constants';
+import { PROTOCOL_ADDRESS, RPC_URL } from '../../constants';
 
 function Elections() {
     const alert = useAlert();
@@ -15,7 +15,7 @@ function Elections() {
     var account: string;
     async function initValues() {
         try {
-            provider = new ethers.providers.Web3Provider((window as any).ethereum)
+            const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
             const accounts = await provider.listAccounts();
             account = accounts[0];
 
@@ -37,7 +37,7 @@ function Elections() {
             setMembersToDemoteTwo(membersToDemoteFromRankII)
 
         } catch (e) {
-            alert.show('You must connect your wallet to access your Dashboard.')
+            //alert.show('You must connect your wallet to access your Dashboard.')
         }
     }
     useEffect(() => {
