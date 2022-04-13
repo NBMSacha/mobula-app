@@ -75,7 +75,7 @@ function Token({ id, logo, name, symbol, chat, discord, website, twitter, contra
       <tr className="token-container">
         <td className="token-id">{id}</td>
         <td className="token-name"><img src={logo} className="token-logo" alt="token logo" />
-          <a href={scanlink()} className="mobile">{name.substr(0, 5)}</a><span className="browser">{name.substr(0, 15) + (name.length > 15 ? '..' : '')}</span><span className="token-symbol">{symbol}</span></td>
+          <a href={scanlink()} className="mobile">{name.substr(0, 15) + (name.length > 15 ? '..' : '')}</a><span className="browser">{name.substr(0, 15) + (name.length > 15 ? '..' : '')}</span><span className="token-symbol">{symbol}</span></td>
         <td className="token-links">
           {chat ? <a href={chat} target="_blank"><img className="links-icons" src="telegram.png"></img></a> : ""}
           {discord ? <a href={discord} target="_blank"><img className="links-icons" src="discord.png"></img></a> : ""}
