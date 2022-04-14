@@ -1,5 +1,5 @@
 html {
-  --bg-color: white;
+  --bg-color: #F7F6F9;
   --text-color: black;
 }
 
@@ -176,11 +176,13 @@ label {
 .header {
   background-color: var(--bg-color);
   height: 4rem;
-  border-bottom: 1px solid rgba(47, 0, 255, 0.371);
+  /*border-bottom: 1px solid rgba(47, 0, 255, 0.371);*/
+  box-shadow: 0 3px 3px rgb(61 21 21 / 5%), 0 1px 2px rgb(0 0 0 / 5%);
   color: var(--text-color);
-  ;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 10;
   width: 100%;
 }
 
@@ -265,8 +267,8 @@ button:hover {
 .footer {
   background-color: var(--bg-color);
   text-align: center;
-  height: 10px;
-  margin-bottom: 50px;
+  height: 60px;
+  box-shadow: inset 0 2px 8px rgb(0 0 0 / 25%);
 }
 
 .footer-mobile {
@@ -293,7 +295,8 @@ button:hover {
   flex-direction: column;
   align-items: space-around;
   justify-content: space-around;
-  background-color: white;
+  background-color: var(--bg-color);
+  margin-bottom: 0px !important;
   border-radius: 10px;
   border: 2px solid rgba(47, 0, 255, 0.371);
 }
@@ -309,8 +312,10 @@ button:hover {
   flex-direction: column;
   align-items: space-around;
   justify-content: space-around;
-  background-color: white;
+  background-color: var(--bg-color);
+  ;
   border-radius: 10px;
+  margin-bottom: 0px !important;
   border: 2px solid rgba(47, 0, 255, 0.371);
 }
 
@@ -325,7 +330,8 @@ button:hover {
   flex-direction: column;
   align-items: space-around;
   justify-content: space-around;
-  background-color: white;
+  background-color: var(--bg-color);
+  margin-bottom: 0px !important;
   border-radius: 10px;
   border: 2px solid rgba(47, 0, 255, 0.371);
 }
@@ -356,7 +362,7 @@ button:hover {
 .footext {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: var(--tect-color);
+  color: black;
 }
 
 
@@ -372,7 +378,7 @@ button:hover {
 
 .token {
   background-image: linear-gradient(#5420ff, #3964ff);
-  border: 1px solid #001666;
+  border: 3px solid #001666;
   color: white;
   border-radius: 10px;
   width: 95%;
@@ -542,6 +548,18 @@ button:hover {
 }
 
 @media screen and (max-width: 1000px) {
+
+  .footer-mobile>*>* {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: black;
+  }
+
+  .footer {
+    margin-bottom: 50px;
+    color: white;
+  }
+
   .tokens-div {
     width: 100%;
     height: 1125px;
