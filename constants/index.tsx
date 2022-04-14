@@ -9,6 +9,6 @@ export const supportedRPCs = [
     { name: 'BNB Smart Chain (BEP20)', url: 'https://bsc-dataseed.binance.org/', explorer: 'https://bscscan.com' },
     { name: 'Ethereum', url: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', explorer: 'https://etherscan.io' },
     { name: 'Fantom', url: 'https://rpc.ftm.tools/', explorer: 'https://ftmscan.com' },
-    { name: 'Polygon', url: 'https://polygon-rpc.com', explorer: 'https://explorer.matic.network' },
+    { name: 'Polygon', url: 'https://polygon-rpc.com', explorer: 'https://polygonscan.com' },
     { name: 'Cronos', url: 'https://evm-cronos.crypto.org', explorer: 'https://cronos.crypto.org/explorer/' },
 ]
