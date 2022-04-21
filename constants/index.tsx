@@ -10,6 +10,7 @@ export const supportedRPCs = [
     { name: 'Ethereum', url: 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161', explorer: 'https://etherscan.io' },
     { name: 'Fantom', url: 'https://rpc.ftm.tools/', explorer: 'https://ftmscan.com' },
     { name: 'Polygon', url: 'https://polygon-rpc.com', explorer: 'https://polygonscan.com' },
-    { name: 'Cronos', url: 'https://evm-cronos.crypto.org', explorer: 'https://cronos.crypto.org/explorer/' },
-    { name: 'Metis Andromeda', url: 'https://andromeda.metis.io/owner1088', explorer: 'https://andromeda-explorer.metis.io/' }
+    { name: 'Cronos', url: 'https://evm-cronos.crypto.org', explorer: 'https://cronos.crypto.org/explorer' },
+    { name: 'Metis Andromeda', url: 'https://andromeda.metis.io/owner1088', explorer: 'https://andromeda-explorer.metis.io' },
+    { name: 'Aurora', url: 'https://mainnet.aurora.dev	', explorer: 'https://aurorascan.dev' }
 ]
