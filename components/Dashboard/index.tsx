@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from "react-alert";
 import { ethers } from 'ethers';
 
-import { PROTOCOL_ADDRESS } from '../../constants';
+import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../constants';
 
 function Dashboard() {
     const alert = useAlert();
@@ -12,9 +12,41 @@ function Dashboard() {
     const [firstBadChoice, setFirstBadChoice] = useState(0);
     const [finalGoodChoice, setFinalGoodChoice] = useState(0);
     const [finalBadChoice, setFinalBadChoice] = useState(0);
+    const [countdownValue, setCountdown] = useState('You can claim now');
+    const [claimed, setClaimed] = useState(0);
 
     var provider: any;
     var account: string;
+
+    function countdown(created: number) {
+        let date = new Date(created);
+        let seconds = date.getTime();
+        let postedDate = Math.round((seconds + 7 * 24 * 60 * 60 - Date.now() / 1000));
+
+        console.log(postedDate)
+
+        if (postedDate < 60) {
+            return Math.round(postedDate) + " seconds"
+        }
+        else if (60 <= postedDate && postedDate < 120) {
+            return "1 minute"
+        }
+        else if (120 <= postedDate && postedDate < 3600) {
+            return Math.round(postedDate / 60) + " minutes"
+        }
+        else if (3600 <= postedDate && postedDate < 7200) {
+            return "1 hour"
+        }
+        else if (7200 <= postedDate && postedDate < 86400) {
+            return Math.round(postedDate / 3600) + " hours"
+        }
+        else if (86400 <= postedDate && postedDate < 172800) {
+            return "1 day"
+        }
+        else if (172800 <= postedDate) {
+            return Math.round(postedDate / 86400) + " days"
+        }
+    }
 
 
     async function initValues() {
@@ -49,8 +81,30 @@ function Dashboard() {
             setFinalGoodChoice(finalGoodVotes)
             setFinalBadChoice(finalBadVotes);
 
+            const vaultContract = new ethers.Contract(VAULT_ADDRESS, [
+                'function lastClaim(address member) external view returns(uint256)',
+                'function totalClaim(address member) external view returns(uint256)'
+            ], provider);
+
+            const lastClaim = (await vaultContract.lastClaim(account)).toNumber();
+            const totalClaim = (await vaultContract.totalClaim(account)).toNumber();
+
+            setClaimed(totalClaim)
+            //console.log(lastClaim);
+
+            console.log(lastClaim)
+
+            console.log(Date.now())
+
+            if (lastClaim == 0 || lastClaim + 7 * 24 * 60 * 60 <= (Date.now() / 1000)) {
+                setCountdown('You can claim now')
+            } else {
+                setCountdown(countdown(lastClaim))
+            }
+
         } catch (e) {
             alert.show('You must connect your wallet to access your Dashboard.')
+            console.log(e)
         }
     }
 
@@ -71,8 +125,8 @@ function Dashboard() {
 
                 <div className="line"></div>
                 <div className="dashboard-forms">
-                <form>
-                    
+                    <form>
+
                         <h2>Rank I Stats</h2>
                         <div className="form-input">
                             <label htmlFor="contract">The Protocol owes currently owes you</label>
@@ -110,7 +164,7 @@ function Dashboard() {
                                 ></input>
                             </div>
                         </div>
-                        <button className="button" style={{width: 200}}
+                        <button className="button" style={{ width: 200 }}
                             onClick={async (e) => {
                                 e.preventDefault();
 
@@ -136,13 +190,13 @@ function Dashboard() {
                             }}
 
                         >Claim</button>
-                    
 
 
 
-                </form>
-                <form>
-                    
+
+                    </form>
+                    <form>
+
                         <h2>Rank II Stats</h2>
                         <div className="form-input">
                             <label htmlFor="contract">The Protocol owes currently owes you</label>
@@ -180,7 +234,7 @@ function Dashboard() {
                                 ></input>
                             </div>
                         </div>
-                        <button className="button" style={{width: 200}}
+                        <button className="button" style={{ width: 200 }}
                             onClick={async (e) => {
                                 e.preventDefault();
 
@@ -206,11 +260,72 @@ function Dashboard() {
                             }}
 
                         >Claim</button>
-                    
 
 
 
-                </form>
+
+                    </form>
+                    <form>
+
+                        <h2>DAO Faucet</h2>
+                        <div className="form-input">
+                            <label htmlFor="contract">Next MATIC claim</label>
+                            <div>
+                                <input
+                                    className="long"
+                                    value={countdownValue}
+                                    onChange={(e) => e}
+                                    placeholder="0x..."
+                                    required
+                                ></input>
+                            </div>
+                        </div>
+                        <div className="form-input">
+                            <label htmlFor="contract">You already claimed</label>
+                            <div>
+                                <input
+                                    className="long"
+                                    value={claimed + ' MATIC'}
+                                    onChange={(e) => e}
+                                    placeholder="0x..."
+                                    required
+                                ></input>
+                            </div>
+                        </div>
+                        <button className="button" style={{ width: 200 }}
+                            onClick={async (e) => {
+                                e.preventDefault();
+
+                                try {
+                                    var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+                                    var signer = provider.getSigner();
+                                } catch (e) {
+                                    alert.show('You must connect your wallet to access the Dashboard.')
+                                }
+
+                                try {
+                                    const value = await new ethers.Contract(
+                                        VAULT_ADDRESS,
+                                        [
+                                            'function claim() external',
+                                        ], signer
+                                    ).claim();
+                                } catch (e) {
+                                    if (e.data && e.data.message) {
+                                        alert.error(e.data.message);
+                                    } else {
+                                        alert.error('Something went wrong.')
+                                    }
+                                }
+
+                            }}
+
+                        >Claim MATIC</button>
+
+
+
+
+                    </form>
                 </div>
             </div >
         </div >
