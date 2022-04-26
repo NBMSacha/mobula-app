@@ -28,23 +28,25 @@ function Token({ id, logo, name, symbol, chat, discord, website, twitter, contra
     format = "days"
   }
 
-  if (blockchain.includes("BNB")) {
-    blockchain = "BNB"
-  }
-  else if (blockchain.includes("Ethereum")) {
-    blockchain = "Ethereum"
-  }
-  else if (blockchain.includes("Avalanche")) {
-    blockchain = "Avalanche"
-  }
-  else if (blockchain.includes("Polygon")) {
-    blockchain = "Polygon"
-  }
-  else if (blockchain.includes("Cronos")) {
-    blockchain = "Cronos"
-  }
-  else if (blockchain.includes("Fantom")) {
-    blockchain = "Fantom"
+  if (blockchain) {
+    if (blockchain.includes("BNB")) {
+      blockchain = "BNB"
+    }
+    else if (blockchain.includes("Ethereum")) {
+      blockchain = "Ethereum"
+    }
+    else if (blockchain.includes("Avalanche")) {
+      blockchain = "Avalanche"
+    }
+    else if (blockchain.includes("Polygon")) {
+      blockchain = "Polygon"
+    }
+    else if (blockchain.includes("Cronos")) {
+      blockchain = "Cronos"
+    }
+    else if (blockchain.includes("Fantom")) {
+      blockchain = "Fantom"
+    }
   }
 
   const scanlink = () => {
