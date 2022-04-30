@@ -1,9 +1,23 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
+
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 interface API {
-    function addStaticData(address token, string memory hashString) external;
+    struct Token {
+        string ipfsHash;
+        address[] contractAddresses;
+        uint256 id;
+        address[] totalSupply;
+        address[] excludedFromCirculation;
+        uint256 lastUpdate;
+        uint256 utilityScore;
+        uint256 socialScore;
+        uint256 trustScore;
+        uint256 marketScore;
+    }
+
+    function addAssetData(Token memory token) external;
 }
 
 interface IERC20 {
@@ -62,16 +76,19 @@ contract ProtocolProxy is Initializable {
     uint256 public membersToDemoteFromRankII;
     uint256 public votesNeededToRankIDemotion;
     uint256 public votesNeededToRankIIDemotion;
+    uint256 public voteCooldown;
 
-    mapping(address => string) public submittedData;
-    mapping(address => string) public firstSortValidated;
+    mapping(address => mapping(uint256 => bool)) public firstSortVotes;
+    mapping(address => mapping(uint256 => bool)) public finalDecisionVotes;
+    mapping(uint256 => address[]) public tokenFirstValidations;
+    mapping(uint256 => address[]) public tokenFirstRejections;
+    mapping(uint256 => address[]) public tokenFinalValidations;
+    mapping(uint256 => address[]) public tokenFinalRejections;
 
-    mapping(address => mapping(address => bool)) public firstSortVotes;
-    mapping(address => mapping(address => bool)) public finalDecisionVotes;
-    mapping(address => address[]) public tokenFirstValidations;
-    mapping(address => address[]) public tokenFirstRejections;
-    mapping(address => uint256) public tokenFinalValidations;
-    mapping(address => uint256) public tokenFinalRejections;
+    mapping(uint256 => uint256[]) public tokenUtilityScore;
+    mapping(uint256 => uint256[]) public tokenSocialScore;
+    mapping(uint256 => uint256[]) public tokenTrustScore;
+    mapping(uint256 => uint256[]) public tokenMarketScore;
 
     mapping(address => uint256) public rank;
     mapping(address => uint256) public promoteVotes;
@@ -79,20 +96,43 @@ contract ProtocolProxy is Initializable {
     mapping(address => uint256) public goodFirstVotes;
     mapping(address => uint256) public badFirstVotes;
     mapping(address => uint256) public paidFirstVotes;
+    mapping(address => uint256) public badFinalVotes;
+    mapping(address => uint256) public goodFinalVotes;
+    mapping(address => uint256) public paidFinalVotes;
 
-    address[] public submittedTokens;
-    mapping(address => uint256) public indexOfSubmittedTokens;
-    address[] public validatedTokens;
-    mapping(address => uint256) public indexOfValidatedTokens;
+    API.Token[] public submittedTokens;
+
+    API.Token[] public firstSortTokens;
+    mapping(uint256 => uint256) public indexOfFirstSortTokens;
+    API.Token[] public finalValidationTokens;
+    mapping(uint256 => uint256) public indexOfFinalValidationTokens;
 
     IERC20 MOBL;
     API ProtocolAPI;
 
-    event DataSubmitted(address indexed token, string hashString);
-    event FirstSortValidated(address indexed token, uint256 validations);
-    event FirstSortRejected(address indexed token, uint256 rejections);
-    event FinalDecisionValidated(address indexed token, uint256 validations);
-    event FinalDecisionRejected(address indexed token, uint256 rejections);
+    event DataSubmitted(API.Token token);
+    event FirstSortVote(
+        API.Token token,
+        address voter,
+        bool validated,
+        uint256 utilityScore,
+        uint256 socialScore,
+        uint256 trustScore,
+        uint256 marketScore
+    );
+    event FinalValidationVote(
+        API.Token token,
+        address voter,
+        bool validated,
+        uint256 utilityScore,
+        uint256 socialScore,
+        uint256 trustScore,
+        uint256 marketScore
+    );
+    event FirstSortValidated(API.Token token, uint256 validations);
+    event FirstSortRejected(API.Token token, uint256 validations);
+    event FinalDecisionValidated(API.Token token, uint256 validations);
+    event FinalDecisionRejected(API.Token token, uint256 validations);
 
     function initialize(address _owner, address _mobulaTokenAddress)
         public
@@ -104,275 +144,507 @@ contract ProtocolProxy is Initializable {
 
     // Getters for public arrays
 
-    function getSubmittedTokens() external view returns (address[] memory) {
+    function getSubmittedTokens() external view returns (API.Token[] memory) {
         return submittedTokens;
     }
 
-    function getValidatedTokens() external view returns (address[] memory) {
-        return validatedTokens;
+    function getFirstSortTokens() external view returns (API.Token[] memory) {
+        return firstSortTokens;
+    }
+
+    function getFinalValidationTokens()
+        external
+        view
+        returns (API.Token[] memory)
+    {
+        return finalValidationTokens;
     }
 
     //Protocol variables updaters
 
     function updateProtocolAPIAddress(address _protocolAPIAddress) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         ProtocolAPI = API(_protocolAPIAddress);
     }
 
     function updateSubmitPrice(uint256 _submitPrice) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         submitPrice = _submitPrice;
     }
 
     function updateFirstSortMaxVotes(uint256 _firstSortMaxVotes) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         firstSortMaxVotes = _firstSortMaxVotes;
     }
 
     function updateFinalDecisionMaxVotes(uint256 _finalDecisionMaxVotes)
         external
     {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         finalDecisionMaxVotes = _finalDecisionMaxVotes;
     }
 
     function updateFirstSortValidationsNeeded(
         uint256 _firstSortValidationsNeeded
     ) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         firstSortValidationsNeeded = _firstSortValidationsNeeded;
     }
 
     function updateFinalDecisionValidationsNeeded(
         uint256 _finalDecisionValidationsNeeded
     ) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         finalDecisionValidationsNeeded = _finalDecisionValidationsNeeded;
     }
 
     function updateTokensPerVote(uint256 _tokensPerVote) external {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         tokensPerVote = _tokensPerVote;
     }
 
     function updateMembersToPromoteToRankI(uint256 _membersToPromoteToRankI)
         external
     {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         membersToPromoteToRankI = _membersToPromoteToRankI;
     }
 
     function updateMembersToPromoteToRankII(uint256 _membersToPromoteToRankII)
         external
     {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         membersToPromoteToRankII = _membersToPromoteToRankII;
     }
 
     function updateMembersToDemoteFromRankI(uint256 _membersToDemoteToRankI)
         external
     {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         membersToDemoteFromRankI = _membersToDemoteToRankI;
     }
 
     function updateMembersToDemoteFromRankII(uint256 _membersToDemoteToRankII)
         external
     {
-        require(owner == msg.sender, "Reserved to DAO.");
+        require(owner == msg.sender, "DAO Only");
         membersToDemoteFromRankII = _membersToDemoteToRankII;
     }
 
     function updateVotesNeededToRankIPromotion(
         uint256 _votesNeededToRankIPromotion
     ) external {
-        require(
-            owner == msg.sender,
-            "Only the DAO can update the number of votes needed to promote."
-        );
+        require(owner == msg.sender, "DAO Only");
         votesNeededToRankIPromotion = _votesNeededToRankIPromotion;
     }
 
     function updateVotesNeededToRankIIPromotion(
         uint256 _votesNeededToRankIIPromotion
     ) external {
-        require(
-            owner == msg.sender,
-            "Only the DAO can update the number of members to promote."
-        );
+        require(owner == msg.sender, "DAO Only");
         votesNeededToRankIIPromotion = _votesNeededToRankIIPromotion;
     }
 
     function updateVotesNeededToRankIDemotion(
         uint256 _votesNeededToRankIDemotion
     ) external {
-        require(
-            owner == msg.sender,
-            "Only the DAO can update the number of votes needed to demote."
-        );
+        require(owner == msg.sender, "DAO Only");
         votesNeededToRankIDemotion = _votesNeededToRankIDemotion;
     }
 
     function updateVotesNeededToRankIIDemotion(
         uint256 _votesNeededToRankIIDemotion
     ) external {
-        require(
-            owner == msg.sender,
-            "Only the DAO can update the number of votes needed to demote."
-        );
+        require(owner == msg.sender, "DAO Only");
         votesNeededToRankIIDemotion = _votesNeededToRankIIDemotion;
+    }
+
+    function updateVoteCooldown(uint256 _voteCooldown) external {
+        require(owner == msg.sender, "DAO Only");
+        voteCooldown = _voteCooldown;
     }
 
     //Protocol data processing
 
-    function submitIPFS(address token, string memory hashString)
-        external
-        payable
-    {
+    function submitIPFS(
+        address[] memory contractAddresses,
+        address[] memory totalSupplyAddresses,
+        address[] memory excludedCirculationAddresses,
+        string memory ipfsHash
+    ) external payable {
         require(msg.value >= submitPrice, "You must pay the submit fee.");
         require(
-            bytes(submittedData[token]).length == 0,
-            "The token has already been submitted."
+            contractAddresses.length > 0,
+            "You must submit at least one contract."
         );
-        indexOfSubmittedTokens[token] = submittedTokens.length;
-        submittedTokens.push(token);
-        submittedData[token] = hashString;
-        emit DataSubmitted(token, hashString);
+        for (uint256 i = 0; i < firstSortTokens.length; i++) {
+            for (
+                uint256 j = 0;
+                j < firstSortTokens[i].contractAddresses.length;
+                j++
+            ) {
+                for (uint256 k = 0; k < contractAddresses.length; k++) {
+                    require(
+                        firstSortTokens[i].contractAddresses[j] !=
+                            contractAddresses[k],
+                        "One of the smart-contracts is already in the listing process."
+                    );
+                }
+            }
+        }
+
+        for (uint256 i = 0; i < finalValidationTokens.length; i++) {
+            for (
+                uint256 j = 0;
+                j < finalValidationTokens[i].contractAddresses.length;
+                j++
+            ) {
+                for (uint256 k = 0; k < contractAddresses.length; k++) {
+                    require(
+                        finalValidationTokens[i].contractAddresses[j] !=
+                            contractAddresses[k],
+                        "One of the smart-contracts is already in the listing process."
+                    );
+                }
+            }
+        }
+
+        API.Token memory submittedToken = API.Token(
+            ipfsHash,
+            contractAddresses,
+            submittedTokens.length,
+            totalSupplyAddresses,
+            excludedCirculationAddresses,
+            block.timestamp,
+            0,
+            0,
+            0,
+            0
+        );
+
+        submittedTokens.push(submittedToken);
+        indexOfFirstSortTokens[submittedToken.id] = firstSortTokens.length;
+        firstSortTokens.push(submittedToken);
+        emit DataSubmitted(submittedToken);
     }
 
-    function firstSortVote(address token, bool validate) external {
+    function firstSortVote(
+        uint256 tokenId,
+        bool validate,
+        uint256 utilityScore,
+        uint256 socialScore,
+        uint256 trustScore,
+        uint256 marketScore
+    ) external {
         require(rank[msg.sender] >= 1, "You must be Rank I or higher to vote.");
         require(
-            bytes(submittedData[token]).length > 0,
-            "You can only vote for submitted tokens."
+            firstSortTokens[indexOfFirstSortTokens[tokenId]]
+                .contractAddresses
+                .length > 0,
+            "Token not submitted."
         );
         require(
-            !firstSortVotes[msg.sender][token],
+            !firstSortVotes[msg.sender][tokenId],
             "You cannot vote twice for the same token."
         );
+        require(
+            block.timestamp >
+                firstSortTokens[indexOfFirstSortTokens[tokenId]].lastUpdate +
+                    voteCooldown,
+            "You must wait before the end of the cooldown to vote."
+        );
+        require(
+            utilityScore <= 5 &&
+                socialScore <= 5 &&
+                trustScore <= 5 &&
+                marketScore <= 5,
+            "Scores must be between 0 and 5."
+        );
 
-        firstSortVotes[msg.sender][token] = true;
+        tokenUtilityScore[tokenId].push(utilityScore);
+        tokenSocialScore[tokenId].push(socialScore);
+        tokenTrustScore[tokenId].push(trustScore);
+        tokenMarketScore[tokenId].push(marketScore);
+
+        firstSortVotes[msg.sender][tokenId] = true;
 
         if (validate) {
-            tokenFirstValidations[token].push(msg.sender);
+            tokenFirstValidations[tokenId].push(msg.sender);
         } else {
-            tokenFirstRejections[token].push(msg.sender);
+            tokenFirstRejections[tokenId].push(msg.sender);
         }
 
         if (
-            tokenFirstValidations[token].length +
-                tokenFirstRejections[token].length ==
+            tokenFirstValidations[tokenId].length +
+                tokenFirstRejections[tokenId].length >=
             firstSortMaxVotes
         ) {
             if (
-                tokenFirstValidations[token].length >=
+                tokenFirstValidations[tokenId].length >=
                 firstSortValidationsNeeded
             ) {
-                firstSortValidated[token] = submittedData[token];
-                indexOfValidatedTokens[token] = validatedTokens.length;
-                validatedTokens.push(token);
+                indexOfFinalValidationTokens[tokenId] = finalValidationTokens
+                    .length;
+                finalValidationTokens.push(
+                    firstSortTokens[indexOfFirstSortTokens[tokenId]]
+                );
                 emit FirstSortValidated(
-                    token,
-                    tokenFirstValidations[token].length
+                    firstSortTokens[indexOfFirstSortTokens[tokenId]],
+                    tokenFirstValidations[tokenId].length
                 );
             } else {
                 emit FirstSortRejected(
-                    token,
-                    tokenFirstRejections[token].length
+                    firstSortTokens[indexOfFirstSortTokens[tokenId]],
+                    tokenFirstValidations[tokenId].length
                 );
             }
 
-            submittedTokens[indexOfSubmittedTokens[token]] = submittedTokens[
-                submittedTokens.length - 1
+            firstSortTokens[indexOfFirstSortTokens[tokenId]] = firstSortTokens[
+                firstSortTokens.length - 1
             ];
-            indexOfSubmittedTokens[
-                submittedTokens[submittedTokens.length - 1]
-            ] = indexOfSubmittedTokens[token];
-            submittedTokens.pop();
-            delete submittedData[token];
+            indexOfFirstSortTokens[
+                firstSortTokens[firstSortTokens.length - 1].id
+            ] = indexOfFirstSortTokens[tokenId];
+            firstSortTokens.pop();
         }
+
+        emit FirstSortVote(
+            firstSortTokens[indexOfFirstSortTokens[tokenId]],
+            msg.sender,
+            validate,
+            utilityScore,
+            socialScore,
+            trustScore,
+            marketScore
+        );
     }
 
-    function finalDecisionVote(address token, bool validate) external {
+    function finalDecisionVote(
+        uint256 tokenId,
+        bool validate,
+        uint256 utilityScore,
+        uint256 socialScore,
+        uint256 trustScore,
+        uint256 marketScore
+    ) external {
         require(
             rank[msg.sender] >= 2,
             "You must be Rank II or higher to vote."
         );
         require(
-            bytes(firstSortValidated[token]).length > 0,
-            "You can only vote for submitted tokens."
+            finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                .contractAddresses
+                .length > 0,
+            "Token not submitted."
         );
         require(
-            !finalDecisionVotes[msg.sender][token],
+            !finalDecisionVotes[msg.sender][tokenId],
             "You cannot vote twice for the same token."
         );
 
-        finalDecisionVotes[msg.sender][token] = true;
+        finalDecisionVotes[msg.sender][tokenId] = true;
+
+        tokenUtilityScore[tokenId].push(utilityScore);
+        tokenSocialScore[tokenId].push(socialScore);
+        tokenTrustScore[tokenId].push(trustScore);
+        tokenMarketScore[tokenId].push(marketScore);
 
         if (validate) {
-            tokenFinalValidations[token]++;
+            tokenFinalValidations[tokenId].push(msg.sender);
         } else {
-            tokenFinalRejections[token]++;
+            tokenFinalRejections[tokenId].push(msg.sender);
         }
 
         if (
-            tokenFinalValidations[token] + tokenFinalRejections[token] ==
+            tokenFinalValidations[tokenId].length +
+                tokenFinalRejections[tokenId].length ==
             finalDecisionMaxVotes
         ) {
             if (
-                tokenFinalValidations[token] >= finalDecisionValidationsNeeded
+                tokenFinalValidations[tokenId].length >=
+                finalDecisionValidationsNeeded
             ) {
                 for (
                     uint256 i = 0;
-                    i < tokenFirstValidations[token].length;
+                    i < tokenFirstValidations[tokenId].length;
                     i++
                 ) {
-                    goodFirstVotes[tokenFirstValidations[token][i]]++;
+                    delete firstSortVotes[tokenFirstValidations[tokenId][i]][
+                        tokenId
+                    ];
+                    goodFirstVotes[tokenFirstValidations[tokenId][i]]++;
                 }
 
                 for (
                     uint256 i = 0;
-                    i < tokenFirstRejections[token].length;
+                    i < tokenFirstRejections[tokenId].length;
                     i++
                 ) {
-                    badFirstVotes[tokenFirstRejections[token][i]]++;
+                    delete firstSortVotes[tokenFirstRejections[tokenId][i]][
+                        tokenId
+                    ];
+                    badFirstVotes[tokenFirstRejections[tokenId][i]]++;
                 }
 
-                ProtocolAPI.addStaticData(token, firstSortValidated[token]);
+                // Reward good final voters
+                for (
+                    uint256 i = 0;
+                    i < tokenFinalValidations[tokenId].length;
+                    i++
+                ) {
+                    delete finalDecisionVotes[
+                        tokenFinalValidations[tokenId][i]
+                    ][tokenId];
+                    goodFinalVotes[tokenFinalValidations[tokenId][i]]++;
+                }
+
+                // Punish wrong final voters
+                for (
+                    uint256 i = 0;
+                    i < tokenFinalRejections[tokenId].length;
+                    i++
+                ) {
+                    delete finalDecisionVotes[tokenFinalRejections[tokenId][i]][
+                        tokenId
+                    ];
+                    badFinalVotes[tokenFinalRejections[tokenId][i]]++;
+                }
+
+                uint256 tokenUtilityScoreAverage;
+
+                for (
+                    uint256 i = 0;
+                    i < tokenUtilityScore[tokenId].length;
+                    i++
+                ) {
+                    tokenUtilityScoreAverage += tokenUtilityScore[tokenId][i];
+                }
+
+                tokenUtilityScoreAverage /= tokenUtilityScore[tokenId].length;
+
+                uint256 tokenSocialScoreAverage;
+
+                for (uint256 i = 0; i < tokenSocialScore[tokenId].length; i++) {
+                    tokenSocialScoreAverage += tokenSocialScore[tokenId][i];
+                }
+
+                tokenSocialScoreAverage /= tokenSocialScore[tokenId].length;
+
+                uint256 tokenTrustScoreAverage;
+
+                for (uint256 i = 0; i < tokenTrustScore[tokenId].length; i++) {
+                    tokenTrustScoreAverage += tokenTrustScore[tokenId][i];
+                }
+
+                tokenTrustScoreAverage /= tokenTrustScore[tokenId].length;
+
+                uint256 tokenMarketScoreAverage;
+
+                for (uint256 i = 0; i < tokenMarketScore[tokenId].length; i++) {
+                    tokenMarketScoreAverage += tokenMarketScore[tokenId][i];
+                }
+
+                tokenMarketScoreAverage /= tokenMarketScore[tokenId].length;
+
+                finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                    .utilityScore = tokenUtilityScoreAverage;
+                finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                    .socialScore = tokenSocialScoreAverage;
+                finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                    .trustScore = tokenTrustScoreAverage;
+                finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                    .marketScore = tokenMarketScoreAverage;
+
+                ProtocolAPI.addAssetData(
+                    finalValidationTokens[indexOfFinalValidationTokens[tokenId]]
+                );
 
                 emit FinalDecisionValidated(
-                    token,
-                    tokenFinalValidations[token]
+                    finalValidationTokens[
+                        indexOfFinalValidationTokens[tokenId]
+                    ],
+                    tokenFinalValidations[tokenId].length
                 );
             } else {
+                // Punish wrong first voters
                 for (
                     uint256 i = 0;
-                    i < tokenFirstValidations[token].length;
+                    i < tokenFirstValidations[tokenId].length;
                     i++
                 ) {
-                    badFirstVotes[tokenFirstValidations[token][i]]++;
+                    delete firstSortVotes[tokenFirstValidations[tokenId][i]][
+                        tokenId
+                    ];
+                    badFirstVotes[tokenFirstValidations[tokenId][i]]++;
                 }
 
+                // Reward good first voters
                 for (
                     uint256 i = 0;
-                    i < tokenFirstRejections[token].length;
+                    i < tokenFirstRejections[tokenId].length;
                     i++
                 ) {
-                    goodFirstVotes[tokenFirstRejections[token][i]]++;
+                    delete firstSortVotes[tokenFirstRejections[tokenId][i]][
+                        tokenId
+                    ];
+                    goodFirstVotes[tokenFirstRejections[tokenId][i]]++;
                 }
 
-                emit FinalDecisionRejected(token, tokenFinalRejections[token]);
+                // Punish wrong final voters
+                for (
+                    uint256 i = 0;
+                    i < tokenFinalValidations[tokenId].length;
+                    i++
+                ) {
+                    delete finalDecisionVotes[
+                        tokenFinalValidations[tokenId][i]
+                    ][tokenId];
+                    badFinalVotes[tokenFinalValidations[tokenId][i]]++;
+                }
+
+                // Reward good final voters
+                for (
+                    uint256 i = 0;
+                    i < tokenFinalRejections[tokenId].length;
+                    i++
+                ) {
+                    delete finalDecisionVotes[tokenFinalRejections[tokenId][i]][
+                        tokenId
+                    ];
+                    goodFinalVotes[tokenFinalRejections[tokenId][i]]++;
+                }
+
+                emit FinalDecisionRejected(
+                    finalValidationTokens[
+                        indexOfFinalValidationTokens[tokenId]
+                    ],
+                    tokenFinalValidations[tokenId].length
+                );
             }
 
-            validatedTokens[indexOfValidatedTokens[token]] = validatedTokens[
-                validatedTokens.length - 1
-            ];
-            indexOfValidatedTokens[
-                validatedTokens[validatedTokens.length - 1]
-            ] = indexOfValidatedTokens[token];
-            validatedTokens.pop();
-            delete firstSortValidated[token];
+            finalValidationTokens[
+                indexOfFinalValidationTokens[tokenId]
+            ] = finalValidationTokens[finalValidationTokens.length - 1];
+            indexOfFinalValidationTokens[
+                finalValidationTokens[finalValidationTokens.length - 1].id
+            ] = indexOfFinalValidationTokens[tokenId];
+            finalValidationTokens.pop();
+
+            delete tokenUtilityScore[tokenId];
+            delete tokenSocialScore[tokenId];
+            delete tokenTrustScore[tokenId];
+            delete tokenMarketScore[tokenId];
         }
+
+        emit FinalValidationVote(
+            firstSortTokens[indexOfFirstSortTokens[tokenId]],
+            msg.sender,
+            validate,
+            utilityScore,
+            socialScore,
+            trustScore,
+            marketScore
+        );
     }
 
     function claimRewards() external {
@@ -383,17 +655,25 @@ contract ProtocolProxy is Initializable {
         MOBL.transfer(msg.sender, amountToPay);
     }
 
+    function claimFinalRewards() external {
+        uint256 amountToPay = (goodFinalVotes[msg.sender] -
+            paidFinalVotes[msg.sender]) * tokensPerVote;
+        require(amountToPay > 0, "You don't have anything to claim.");
+        paidFinalVotes[msg.sender] = goodFinalVotes[msg.sender];
+        MOBL.transfer(msg.sender, amountToPay);
+    }
+
     // Hierarchy management
 
     function emergencyPromote(address promoted) external {
-        require(owner == msg.sender, "Only the DAO can promote like this.");
-        require(rank[promoted] <= 1, "Impossible to promote to Rank III.");
+        require(owner == msg.sender, "DAO Only");
+        require(rank[promoted] <= 1, "Impossible");
         rank[promoted]++;
     }
 
     function emergencyDemote(address demoted) external {
-        require(owner == msg.sender, "Only the DAO can demote like this.");
-        require(rank[demoted] >= 1, "Impossible to demote from Rank 0.");
+        require(owner == msg.sender, "DAO Only");
+        require(rank[demoted] >= 1, "Impossible");
         rank[demoted]--;
     }
 
@@ -402,13 +682,10 @@ contract ProtocolProxy is Initializable {
             rank[msg.sender] >= 2,
             "You must be Rank II or higher to promote."
         );
-        require(rank[promoted] <= 1, "Impossible to promote to Rank III.");
+        require(rank[promoted] <= 1, "Impossible");
 
         if (rank[promoted] == 0) {
-            require(
-                membersToPromoteToRankI > 0,
-                "There is no member to promote to Rank I yet."
-            );
+            require(membersToPromoteToRankI > 0, "No promotions yet.");
             promoteVotes[promoted]++;
 
             if (promoteVotes[promoted] == votesNeededToRankIPromotion) {
@@ -417,10 +694,7 @@ contract ProtocolProxy is Initializable {
                 rank[promoted]++;
             }
         } else {
-            require(
-                membersToPromoteToRankII > 0,
-                "There is no member to promote to Rank II yet."
-            );
+            require(membersToPromoteToRankII > 0, "No promotions yet.");
             promoteVotes[promoted]++;
 
             if (promoteVotes[promoted] == votesNeededToRankIIPromotion) {
@@ -436,13 +710,10 @@ contract ProtocolProxy is Initializable {
             rank[msg.sender] >= 2,
             "You must be Rank II or higher to demote."
         );
-        require(rank[demoted] >= 1, "Impossible to demote from Rank 0.");
+        require(rank[demoted] >= 1, "Impossible");
 
         if (rank[demoted] == 0) {
-            require(
-                membersToDemoteFromRankI > 0,
-                "There is no member to demote to Rank I yet."
-            );
+            require(membersToDemoteFromRankI > 0, "No demotion yet.");
             demoteVotes[demoted]++;
 
             if (demoteVotes[demoted] == votesNeededToRankIDemotion) {
@@ -451,10 +722,7 @@ contract ProtocolProxy is Initializable {
                 rank[demoted]++;
             }
         } else {
-            require(
-                membersToDemoteFromRankII > 0,
-                "There is no member to demote to Rank II yet."
-            );
+            require(membersToDemoteFromRankII > 0, "No demotion yet.");
             demoteVotes[demoted]++;
 
             if (demoteVotes[demoted] == votesNeededToRankIIDemotion) {
@@ -468,10 +736,7 @@ contract ProtocolProxy is Initializable {
     // Funds management
 
     function withdrawFunds(uint256 amount) external {
-        require(
-            owner == msg.sender,
-            "Only the DAO can withdraw funds like this."
-        );
+        require(owner == msg.sender, "DAO Only.");
         payable(msg.sender).transfer(amount);
     }
 }
