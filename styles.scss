@@ -1,41 +1,48 @@
+@import "./styles/variables.scss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap");
+
 html {
-  --bg-color: #F7F6F9;
+  --bg-color: #f7f6f9;
   --text-color: black;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Poppins", "sans serif";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--bg-color);
+  background-color: $primaryBGColor;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .listing {
-  background-color: var(--bg-color);
+  background-color: linear-gradient(
+    90deg,
+    rgba(47, 54, 88, 0.1) 0%,
+    rgba(47, 54, 88, 0.1) 100%
+  );
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
-  color: var(--text-color);
+  color: $primaryTextColor;
   display: flex;
   justify-content: center;
+  font-family: "Poppins", "sans serif";
 }
 
 .listing h1 {
   font-size: 3rem;
+  font-weight: 700;
   margin-top: 3rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: "Poppins", "sans serif";
 }
 
 .listing h2 {
   font-size: 1.75rem;
-  margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
@@ -53,18 +60,16 @@ code {
 
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1300px;
 }
 
 input {
   background-color: var(--bg-color);
-  ;
   border: 2px solid rgba(47, 0, 255, 0.371);
   width: 10rem;
   height: 1.5rem;
   border-radius: 5px;
   color: var(--text-color);
-  ;
   padding-left: 10px;
 }
 
@@ -95,7 +100,6 @@ input:focus {
   height: 5rem;
   border-radius: 5px;
   color: var(--text-color);
-  ;
   padding-left: 10px;
 }
 
@@ -130,7 +134,6 @@ label {
   width: 100%;
   height: 2px;
   background-color: rgba(47, 0, 255, 0.371);
-  ;
   margin-top: 1rem;
 }
 
@@ -145,10 +148,12 @@ label {
 }
 
 .button {
-  background-image: linear-gradient(to right,
-      #3701f4 0%,
-      #26a0da 41%,
-      #2af0d5 100%);
+  background-image: linear-gradient(
+    to right,
+    #3701f4 0%,
+    #26a0da 41%,
+    #2af0d5 100%
+  );
 }
 
 .button {
@@ -158,7 +163,12 @@ label {
   color: white;
   border-radius: 10px;
   display: block;
-  border: none
+  border: none;
+  font-size: 15px;
+  font-family: "Inter", sans-serif;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
 }
 
 .button:hover {
@@ -170,7 +180,6 @@ label {
 
 .listing button {
   width: 50%;
-  height: 30px;
 }
 
 .header .right span {
@@ -179,18 +188,21 @@ label {
 }
 
 .header {
-  color: white
+  color: white;
 }
 
-.header button {}
+.header button {
+}
 
-.header .right span {}
+.header .right span {
+}
 
 .header .selected,
-.header .right span:hover {}
+.header .right span:hover {
+}
 
-button:hover {}
-
+button:hover {
+}
 
 ::placeholder {
   color: #aabff8b6;
@@ -253,7 +265,6 @@ button:hover {}
   align-items: space-around;
   justify-content: space-around;
   background-color: var(--bg-color);
-  ;
   border-radius: 10px;
   margin-bottom: 0px !important;
   border: 2px solid rgba(47, 0, 255, 0.371);
@@ -287,7 +298,6 @@ button:hover {}
   width: 100%;
   height: 1px;
   background-color: rgba(47, 0, 255, 0.371);
-  ;
   margin-top: 3rem;
   margin-bottom: 1rem;
 }
@@ -296,7 +306,6 @@ button:hover {}
   width: 100%;
   height: 1px;
   background-color: rgba(47, 0, 255, 0.371);
-  ;
 }
 
 .footext {
@@ -305,13 +314,10 @@ button:hover {}
   color: black;
 }
 
-
 .final {
   background-color: var(--bg-color);
-  ;
   min-height: 100vh;
   color: var(--text-color);
-  ;
   display: flex;
   justify-content: center;
 }
@@ -378,7 +384,6 @@ button:hover {}
 .token .body {
   padding: 1rem;
   margin-top: -1.5rem;
-
 }
 
 .token .body span {
@@ -411,7 +416,6 @@ button:hover {}
   color: var(--text-color);
   cursor: pointer;
   font-size: 1.1em;
-
 }
 
 .validate:hover {
@@ -419,11 +423,10 @@ button:hover {}
   opacity: 80%;
 }
 
-.buttons>* {
+.buttons > * {
   width: 45%;
   height: 25px;
 }
-
 
 .tokens-div {
   width: 100%;
@@ -442,7 +445,7 @@ button:hover {}
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv>* {
+.buttonsDiv > * {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -456,7 +459,7 @@ button:hover {}
   cursor: pointer;
 }
 
-.list>* :hover {
+.list > * :hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -468,7 +471,7 @@ button:hover {}
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv>* {
+.buttonsDiv > * {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -482,14 +485,13 @@ button:hover {}
   cursor: pointer;
 }
 
-.list>* :hover {
+.list > * :hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 @media screen and (max-width: 1000px) {
-
-  .footer-mobile>*>* {
+  .footer-mobile > * > * {
     margin-top: 1rem;
     margin-bottom: 1rem;
     color: black;
@@ -507,7 +509,6 @@ button:hover {}
     margin-top: 2rem;
     display: grid;
     grid-template-columns: 50% 50%;
-    ;
     grid-template-rows: 33% 33% 33%;
     align-self: center;
   }
@@ -551,11 +552,10 @@ button:hover {}
     height: auto;
   }
 
-  .tokens-div>* {
+  .tokens-div > * {
     margin-bottom: 1rem;
     height: 350px;
   }
-
 
   .right span {
     display: none !important;
@@ -564,7 +564,6 @@ button:hover {}
   .header .right {
     width: 55%;
   }
-
 }
 
 .tokenpage-name {
@@ -632,7 +631,6 @@ button:hover {}
 .blockchain-details-text {
   font-size: 16px !important;
   font-weight: 500;
-
 }
 
 .tokenURL {

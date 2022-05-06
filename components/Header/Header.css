@@ -5,6 +5,7 @@
   color: #fff;
   display: flex;
   justify-content: center;
+  font-family: "Poppins" sans-serif;
 }
 
 .header .main {
@@ -20,8 +21,9 @@
   align-items: center;
 }
 
-.header .left img, .header .left span {
-    cursor: pointer;
+.header .left img,
+.header .left span {
+  cursor: pointer;
 }
 
 .header .right {
@@ -33,8 +35,8 @@
 }
 
 .right span {
-    margin-right: 2.5rem;
-    cursor: pointer;
+  margin-right: 2.5rem;
+  cursor: pointer;
 }
 .head-logo {
   width: 60px;
@@ -56,21 +58,19 @@ button:hover {
   background-color: #07226b;
 }
 
-
 ::placeholder {
   color: #aabff8b6;
 }
 
 @media screen and (max-width: 768px) {
+  #search {
+    display: none;
+  }
+  .right span {
+    display: none;
+  }
 
-    #search {
-        display: none;
-      }
-    .right span {
-        display: none;
-    }
-
-    .header .right {
-        width: 55%;
-      }
+  .header .right {
+    width: 55%;
+  }
 }
