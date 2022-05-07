@@ -689,6 +689,9 @@ input::placeholder {
     color: #F7F7F7;
     padding-bottom: 10rem;
     overflow: auto;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
 }
 
 body {
@@ -716,6 +719,10 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    justify-self: center;
+    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .table-head {
