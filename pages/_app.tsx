@@ -8,7 +8,9 @@ import { Web3ReactProvider } from '@web3-react/core'
 import '../styles.css';
 import '../styles/header.css'
 import '../styles/responsive.css'
-import "../components/Newlisting/Newlisting.css"
+import "../styles/SubmitForm.css"
+import "../styles/respChart.css"
+
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 

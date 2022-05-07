@@ -2,7 +2,7 @@
     position: absolute;
     width: calc(14rem + 155px);
     height: 400px;
-    background-color: #2F3658;
+    background-color: #2D3558;
     z-index: 100;
     top: 0px;
     left: -100px;
@@ -19,7 +19,7 @@
     opacity: 1;
     cursor: pointer;
     border-radius: 8px;
-    background-color: #36314F;
+    background-color: #2D3558;
     padding-left: 50px;
     border: none;
     color: white;
@@ -82,24 +82,53 @@
 }
 
 
-
 @media screen and (max-width: 1450px) {
-    .search-input{
-        width:10rem;
-        margin-right:1.5rem;
+    .search-input {
+        width: 10rem;
+        margin-right: 1.5rem;
     }
 }
 
 @media screen and (max-width: 1060px) {
-    .search-input::placeholder{
-        color:transparent;
-        background-color:none;
-      }
-      .search-input{
-          background:none;
-        
-        width:1rem;
-        margin-right:0px;
-      }
+    .search-input::placeholder {
+        color: transparent;
+        background-color: none;
+    }
+
+    .search-input {
+        background: none;
+
+        width: 1rem;
+        margin-right: 0px;
+    }
 }
 
+@media screen and (max-width: 1060px) {
+
+    .search-desk {
+        display: none
+    }
+
+    .search-mob {
+        display: block
+    }
+
+    .search-div {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+    }
+
+    .search-input::placeholder {
+        color: transparent;
+        background-color: none;
+    }
+
+    .search-input {
+        background: none;
+
+        width: 1rem;
+        margin-right: 0px;
+    }
+}

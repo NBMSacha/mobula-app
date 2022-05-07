@@ -9,6 +9,7 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
         .from('assets')
         .select()
         .textSearch('name', `'` + search + `'`)
+        .order('market_cap', { ascending: false })
 
     // const { data: symbols } = await supabase
     //     .from('assets')
@@ -26,7 +27,15 @@ function SearchDiv(props: any) {
         name: '????',
         symbol: '??',
         rank: '???',
-        logo: ''
+        logo: '',
+        id: ''
+
+    }, {
+        name: '????',
+        symbol: '??',
+        rank: '???',
+        logo: '',
+        id: ''
 
     }, {
         name: '????',
@@ -38,18 +47,14 @@ function SearchDiv(props: any) {
         name: '????',
         symbol: '??',
         rank: '???',
-        logo: ''
-
+        logo: '',
+        id: ''
     }, {
         name: '????',
         symbol: '??',
         rank: '???',
-        logo: ''
-    }, {
-        name: '????',
-        symbol: '??',
-        rank: '???',
-        logo: ''
+        logo: '',
+        id: ''
     }]);
 
     const supabase = createClient(
@@ -61,32 +66,38 @@ function SearchDiv(props: any) {
         updateSearch(token, supabase, setResults)
     }, [token]);
 
+    useEffect(() => {
+        console.log(results)
+    }, [results])
+
     if (props.trigger) {
         return <div ref={props.wrapperRef}>
-           
-            <div className={styles['search-div']}>
+
+            <div className={`${styles['search-div']}`}>
                 <FiSearch className="loupe" />
                 <input
                     value={token}
                     type="text" className={styles['search-input']}
                     name="search" placeholder="Search an asset"
                     onChange={(e) => setToken(e.target.value)}
+                    id='search'
+                    autoFocus
                 />
                 <div className={styles['search-token']}>
                     <h3>Trending</h3>
                     {results.map(result => {
-                        return <td className={styles["token-infos-search"]}>
+                        return <div className={styles["token-infos-search"]} key={Math.random()} onClick={() => document.location.href = String(result.id)}>
                             <img src={result.logo} className={styles["token-logos"]} />
                             <span className={`${styles["token-names"]} ${styles["font-char"]}`}>{result.name}</span>
                             <span className={`${styles["token-symbols"]} ${styles["font-char"]}`}>{result.symbol}</span>
                             <span className={styles["token-rank"]}>#{result.rank}</span>
-                        </td>
+                        </div>
                     })}
-                    
+
                 </div>
 
             </div>
-            
+
         </div >
     } else {
         return <></>;

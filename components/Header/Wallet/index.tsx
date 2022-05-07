@@ -6,6 +6,9 @@ import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import SearchDiv from '../SearchDiv';
 import styles from '../SearchDiv/SearchDiv.module.css';
 import { GiHamburgerMenu } from "@react-icons/all-files/gi/GiHamburgerMenu";
+import { VscChromeClose } from "@react-icons/all-files/vsc/VscChromeClose";
+import MenuMobile from "./MenuMobile"
+
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
     useEffect(() => {
         /**
@@ -41,10 +44,6 @@ function Wallet(props: any) {
     const isNoEthereumObject = (err) => {
         return NO_ETHEREUM_OBJECT.test(err);
     };
-
-    // useEffect(() => {
-    //     alert('yes')
-    // }, [])
 
     const handleConnect = async () => {
         const provider = (window as any).ethereum;
@@ -99,6 +98,20 @@ function Wallet(props: any) {
         });
     };
 
+    const [nav, setNav] = useState(false)
+
+    async function mobileNav() {
+        const nav = document.getElementById('mobileNav') as any;
+        if (nav.style.display == "none") {
+            nav.style.display = "block";
+            setNav(true)
+        } else {
+            nav.style.display = "none"
+            setNav(false)
+        }
+        await nav
+    }
+
     useEffect(() => {
         try {
             const provider = new ethers.providers.Web3Provider((window as any).ethereum)
@@ -113,18 +126,25 @@ function Wallet(props: any) {
 
     useOutsideAlerter(wrapperRef, setTriggerSearch);
     return (
-        <div className="relative">
-            <FiSearch className="loupe" />
-            <input onClick={() => {
-                setTriggerSearch(true)
-            }} type="text" className={styles['search-input']} name="search" placeholder="Search Crypto Assets" />
-            <button
-                className="connect-wallet-btn"
-                onClick={handleConnect}
-            >{(active ? account.substring(0, 4) + '..' + account.substring(account.length - 4, account.length) : "Connect Now")}</button>
-            <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
-            <button className="hamburger-btn"><GiHamburgerMenu className="hamburger"/></button>
-        </div>
+        <>
+            <div className="relative">
+                <FiSearch className="loupe" onClick={() => {
+                    setTriggerSearch(true)
+                }} />
+                <input onClick={() => {
+                    setTriggerSearch(true)
+                }} type="text" className={styles['search-input']} name="search" placeholder="Search Crypto Assets" />
+                <button
+                    className="connect-wallet-btn"
+                    onClick={handleConnect}
+                >{(active ? account.substring(0, 4) + '..' + account.substring(account.length - 4, account.length) : "Connect")}</button>
+                <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
+                <button className="hamburger-btn" id="btnParent" onClick={() => mobileNav()}>
+                    {nav ? (<VscChromeClose className="hamburger" />) : (<GiHamburgerMenu className="hamburger" />)}
+                </button>
+            </div>
+            <MenuMobile />
+        </>
     )
 }
 

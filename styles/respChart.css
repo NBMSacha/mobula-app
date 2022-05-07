@@ -1,0 +1,480 @@
+.btn-more-less {
+    background-color: #2E3557;
+    border: none;
+    margin-top: 15px;
+    border-radius: 6px;
+    width: 130px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 18px;
+    padding: 2px 8px;
+    height: 25px;
+    display: none;
+}
+
+.d {
+    margin-left: 15px
+}
+
+
+.chart-header {
+    padding: 2% 0px 60px 0px;
+    justify-content: center
+}
+
+.btn-more-less>span {
+    color: #DEE4FF;
+    opacity: 0.6;
+}
+
+.mobile-showInfo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+.grey {
+    font-size: 9px;
+}
+
+.numbers {
+    font-size: 12px;
+}
+
+.mobile-info-left-column {
+    width: 50%
+}
+
+.mobile-info-right-column {
+    width: 50%
+}
+
+.mobile-info-element {
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.mobbox {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 15px;
+}
+
+.mobbox>span {
+    margin-top: 12px;
+}
+
+
+.chart-left-top {
+    width: auto;
+    width: 318px;
+}
+
+.chart-left-box {
+    width: 320px;
+}
+
+.chart-buy {
+    width: auto
+}
+
+.chart-right-top {
+    width: auto;
+
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.chart-box-container {
+    margin-right: 110%;
+    margin-left: 0px;
+}
+
+.chart-top-token {
+    margin-top: 15px;
+}
+
+.chart-bottom-container {
+    margin-top: 15px;
+}
+
+.button-chart {
+    color: white;
+    z-index: 2;
+}
+
+.activeMoover {
+    position: absolute;
+    right: 265px;
+    z-index: 1;
+    height: 28px;
+    width: 38px;
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-left: 3px;
+    margin-bottom: 1px;
+    background-color: #dee4ffb4;
+    transform: translateX(0%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1450px) {}
+
+
+@media screen and (max-width: 1450px) {
+    .chart-bottom-left {
+        min-width: 139px !important;
+    }
+
+    .left-top-box {
+        border-right: none;
+    }
+
+    .text-bottom-chart {
+        font-size: 13px;
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
+        padding-right: 1.5vw;
+
+    }
+
+    .text-top-chart {
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
+        padding-right: 1.5vw;
+    }
+
+    .topOne {
+        margin-top: 1.5vw
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .chart-box {
+        width: 98%
+    }
+
+    .text-bottom-chart {
+        font-size: 12px;
+        margin-left: 1.5vw
+    }
+
+    .text-top-chart {
+        margin-left: 1.5vw;
+    }
+
+    .topOne {
+        margin-top: 1.5vw
+    }
+}
+
+
+@media screen and (max-width: 1160px) {
+    .chart-header {
+        margin-left: 4%;
+        white-space: nowrap;
+    }
+
+    .chart-header-link {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .chart-box-left {
+        width: 30% !important;
+        padding: 5px;
+    }
+
+    .chart-header-link {
+        font-size: 12px;
+    }
+
+    .chart-header {
+        white-space: initial
+    }
+}
+
+.grades {
+    display: none;
+}
+
+.grades:active {
+    border: none;
+}
+
+.mobile-info-element {
+    display: none
+}
+
+@media screen and (max-width: 768px) {
+
+    .chart-bottom-left {
+        display: none;
+    }
+
+    .absolute-mobile {
+        background: #2E3557;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 8px;
+        margin-bottom: 9px;
+        width: 115px;
+        display: flex !important;
+        margin-top: 8px;
+        margin-left: 10px;
+        height: 22px
+    }
+
+    .absolute-mobile>span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 18px;
+        color: #DEE4FF;
+        opacity: 0.6;
+    }
+
+    .chart-left-top {
+        width: 138px;
+
+    }
+
+    .chart-token-logo {
+        width: 37px;
+        height: 37px;
+    }
+
+    .chart-token-name {
+        font-size: 16px;
+    }
+
+    .chart-token-rank {
+        font-size: 12px;
+    }
+
+    .star-chart {
+        display: none;
+    }
+
+    .chart-token-name>span {
+        margin: 0px;
+    }
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 92px;
+    }
+
+    .chart-top-token {
+        margin-top: 14px;
+        margin-bottom: -3px;
+        height: 82px;
+        border-bottom: 1px solid #2E3557;
+        padding-bottom: 5px;
+    }
+
+    .test {
+        font-size: 25px;
+        text-align: end;
+    }
+
+    .grey {
+        font-size: 10px;
+    }
+
+    .numbers {
+        font-size: 11px;
+    }
+
+    .box-info {
+        justify-content: start;
+        margin-top: -3px;
+    }
+
+    .marginInfo {
+        margin-top: 0px;
+    }
+
+    .dollard {
+        font-size: 25px;
+        top: 0px;
+        left: 0px !important;
+    }
+
+    .chart-right-info {
+        width: 120px;
+        margin-bottom: 12px;
+    }
+
+    .chart-left-info {
+        width: 120px;
+        margin-bottom: 12px;
+    }
+
+    .chart-lose {
+        background-color: transparent;
+        padding: 0px;
+        font-size: 12px;
+        right: -60px;
+        top: 0px
+    }
+
+    .chart-lose>span {
+        margin-right: 5px;
+        color: #D8494A
+    }
+
+    .downArrow {
+        color: #D8494A;
+    }
+
+    .chart-right-top {
+        margin-right: 20px;
+    }
+
+    .chart-buy {
+        display: none
+    }
+
+    .btn-more-less {
+        display: block;
+    }
+
+    .chart-bottom-container {
+        border: none;
+    }
+
+    .chart-box-container {
+        margin-right: 20px !important;
+    }
+
+    .chart-header {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        justify-content: start;
+        font-size: 12px;
+        padding: 0px 0px 60px 0px;
+        white-space: nowrap;
+        overflow: auto;
+    }
+
+    .active-chart {
+        padding: 5px 10px;
+    }
+
+    .chart-header-link {
+        font-size: 12px;
+        margin-right: 14px;
+    }
+
+    .chart-bottom-container {
+        margin-top: 21px;
+    }
+
+    .change-chart-date {
+        position: absolute;
+        top: -46px;
+        right: 20%;
+        left: 20%;
+        background-color: #2E3557;
+        justify-content: center;
+        padding: 2px;
+        border-radius: 7px;
+        width: auto;
+        height: 20px;
+        max-width: 200px;
+        min-width: 195px;
+    }
+
+    .button-chart {
+        margin-right: 15px;
+        font-size: 13px;
+        color: white;
+    }
+
+    .d {
+        margin-left: 15px
+    }
+
+    .button-chart-active {
+
+        border-radius: 5px;
+    }
+
+    .button-chart {
+        height: 18px;
+        width: 21px;
+    }
+
+    .mobile-grades {
+        position: absolute;
+        top: 19px;
+        left: 0px;
+        background: #2E3557
+    }
+}
+
+.mobile-notes-boxs {
+    background: #2E3557;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
+    margin-bottom: -4px;
+    width: 99px;
+    display: flex !important;
+    margin-top: 8px;
+    height: 22px;
+    display: flex;
+}
+
+.mobile-notes-boxs>span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 18px;
+    color: #DEE4FF;
+    opacity: 0.6;
+}
+
+.mobile-grades {
+    display: none;
+}

@@ -35,7 +35,8 @@ function Footer() {
 
     const isGood = width <= breakpoint;
 
-    return (
+    return <> </>
+    {/* </div> (
         <>
             {
                 (isGood ?
@@ -87,7 +88,7 @@ function Footer() {
                     </div>)
             }
         </>
-    )
+    ) */}
 }
 
 export default Footer

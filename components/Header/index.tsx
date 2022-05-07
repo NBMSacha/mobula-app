@@ -6,9 +6,16 @@ import Wallet from "./Wallet"
 import Link from "./Link";
 import Brand from './Brand';
 import Tendance from './Tendance';
+import { createClient } from '@supabase/supabase-js'
 
 
 function Header(props: any) {
+    const [metrics, setMetrics] = useState({
+        total_dao_members: 0,
+        total_assets: 0,
+        total_dex: 0,
+        '7d_listings': 0
+    });
     const { account, active, activate, deactivate } = useWeb3React();
     const [hasMetamask, setHasMetamask] = useState(true);
     const injected = new InjectedConnector({});
@@ -77,6 +84,11 @@ function Header(props: any) {
     };
 
     useEffect(() => {
+        const supabase = createClient(
+            "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+        )
+
         try {
             const provider = new ethers.providers.Web3Provider((window as any).ethereum)
             provider.listAccounts().then((accounts) => {
@@ -86,18 +98,24 @@ function Header(props: any) {
             });
         } catch (e) { }
 
+        supabase.from('metrics').select('total_assets,total_dao_members,total_dex,7d_listings').match({ id: 1 }).then(r => {
+            setMetrics(r.data[0])
+        })
+
     }, [])
 
     return (
+        <>
+            <div className="header">
+                <div className="main">
+                    <Brand />
+                    <Link />
+                    <Wallet />
 
-        <div className="header">
-            <div className="main">
-                <Brand />
-                <Link />
-                <Wallet />
-                
+                </div>
             </div>
-        </div>
+            <Tendance listings={metrics['7d_listings']} dao={metrics.total_dao_members} assets={metrics.total_assets} dex={metrics.total_dex} />
+        </>
 
     )
 }

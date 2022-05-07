@@ -1,16 +1,15 @@
 @media screen and (min-width: 2200px) {
-    .container-news{
-        width:90%
+    .container-news {
+        width: 90%
     }
 }
+
 @media screen and (max-width: 1650px) {
     .link-common {
         margin-left: 1.8rem !important;
     }
 
-    .quadBox-container {
-        
-    }
+    .quadBox-container {}
 
     .text-news {
         margin-right: 2rem;
@@ -19,284 +18,326 @@
     .texts-box {
         margin-right: 0px;
     }
-    
+
 }
 
-@media screen and (min-width: 1651px) and (max-width: 2199px){
-    .container-news{
-        width:92%
+@media screen and (min-width: 1651px) and (max-width: 2199px) {
+    .container-news {
+        width: 92%
     }
-    
 }
 
 @media screen and (max-width: 1450px) {
 
-    .link-container{
-        margin-right:10px;
-    }
-    .search-input{
-        width:10rem;
-    }
-    .header{
-        padding: 20px 1.19rem;
-    }
-    .search-input{
-        width:10rem;
-        margin-right:1.5rem;
-    }
-    .connect-wallet-btn{
-        width:10rem;
+    .link-container {
+        margin-right: 10px;
     }
 
-    .link-common{
+    .search-input {
+        width: 10rem;
+    }
+
+    .header {
+        padding: 20px 1.19rem;
+    }
+
+    .search-input {
+        width: 10rem;
+        margin-right: 1.5rem;
+    }
+
+    .connect-wallet-btn {
+        width: 10rem;
+    }
+
+    .link-common {
         margin-left: 1.1rem !important;
     }
-    .left{
-        margin-left:0px;
+
+    .left {
+        margin-left: 0px;
     }
-    .quadBox-container{
-        flex-wrap:nowrap;
+
+    .quadBox-container {
+        flex-wrap: nowrap;
         margin-left: 50px;
     }
-    .texts-box-1{
+
+    .texts-box-1 {
         margin-left: 0px;
         margin-bottom: 15px;
     }
-    .texts-box-2{
+
+    .texts-box-2 {
         margin-right: 0px;
     }
-    .main-news{
+
+    .main-news {
         padding: 0px 4%;
 
     }
-    .texts-box{
+
+    .texts-box {
         min-width: 150px;
-    border-radius: 8px;
-    padding: 0.1px 20px 0.1px 48px;
+        border-radius: 8px;
+        padding: 0.1px 20px 0.1px 48px;
     }
-    
+
 }
 
 @media screen and (max-width: 1160px) {
-    .container-news{
-      padding:25px
+    .container-news {
+        padding: 25px
     }
-    .main-news{
-        padding:0px 10px;;
+
+    .main-news {
+        padding: 0px 10px;
+        ;
     }
-  }
+}
 
 
 
 /* TABLETTE MOBILE  */
 @media screen and (max-width: 1060px) {
-    
-  .link-container{
-      display:none;
-  }
-  .search-input{
-    margin-right: 0.8rem;
-  }
-  .blockchain-btn-matic{
-      display:none;
-  }
-  .connect-wallet-btn{
-      display:none;
-  }
-  .relative{
-  
-  }
-  .gainer-box{
-    margin-left: 0.3rem;
-  }
-  .search-input::placeholder{
-    color:transparent;
-    background-color:none;
-  }
-  .search-input{
-      background:none;
-    
-    width:1rem;
-    margin-right:0px;
-  }
-  .hamburger-btn{
-      display:inline-block;
-      background:none;
-  }
-  
+
+    .link-container {
+        display: none;
+    }
+
+    .search-input {
+        margin-right: 0.8rem;
+    }
+
+    .blockchain-btn-matic {
+        display: none;
+    }
+
+    .connect-wallet-btn {
+        display: none;
+    }
+
+    .relative {}
+
+    .gainer-box {
+        margin-left: 0.3rem;
+    }
+
+    .search-input::placeholder {
+        color: transparent;
+        background-color: none;
+    }
+
+    .search-input {
+        background: none;
+
+        width: 1rem;
+        margin-right: 0px;
+    }
+
+    .hamburger-btn {
+        display: inline-block;
+        background: none;
+    }
+
 }
+
 @media screen and (max-width: 870px) {
-    .blockchain-btn-matic{
-        display:none;
+    .blockchain-btn-matic {
+        display: none;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .main-news{
+    .main-news {
         background-image: url(../public/community-bg.png),
-        linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
+            linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
         background-position: 120% 10%, center;
         background-size: 30vh, contain;
     }
-    .container-news{
-      margin-bottom:150px;
-      width:auto;
-      max-height: 100px;
-      min-height:auto;
-    }
-    .three-container{
-        display:none;
-    }
-    .token-title-assests{
-        font-size:12px;
-    }
-    .texts-box{
-        
-    }
-    .texts-box-1{
-        margin-left: 0px; 
-        margin-bottom: 0px;
-    }
-    
-    .texts-box-2{
-        margin-left: 0px; 
-        margin-bottom: 0px;
-    }
-    .quad-box-1{
-        position:absolute;
-        bottom: -95px;
-        left:0px;
-        width: 48%;
-    }
-    .quad-box-2{
-        position:absolute;
-        bottom: -95px;
-        right:0px;
-        width: 48%;
-    }
-    .text-news{
-        width:100%;
+
+    .container-news {
+        margin-bottom: 150px;
+        width: auto;
+        max-height: 100px;
+        min-height: auto;
     }
 
-    .logo-box{
+    .three-container {
+        display: none;
+    }
+
+    .token-title-assests {
+        font-size: 12px;
+    }
+
+    .texts-box {}
+
+    .texts-box-1 {
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+
+    .texts-box-2 {
+        margin-left: 0px;
+        margin-bottom: 0px;
+    }
+
+    .quad-box-1 {
+        position: absolute;
+        bottom: -95px;
+        left: 0px;
+        width: 48%;
+    }
+
+    .quad-box-2 {
+        position: absolute;
+        bottom: -95px;
+        right: 0px;
+        width: 48%;
+    }
+
+    .text-news {
+        width: 100%;
+    }
+
+    .logo-box {
         top: 5px;
         left: 5px;
         width: 50px;
         background-size: 42px 42px, cover;
         height: 50px;
     }
-    .texts-box{
-        min-width:auto;
+
+    .texts-box {
+        min-width: auto;
         height: 60px;
         background-size: 40px 40px, cover;
         padding: 0.1px 0px 0.1px 60px;
-      
+
     }
-    .texts-box > p {
-        margin:0px;
-        margin-top:12px;
+
+    .texts-box>p {
+        margin: 0px;
+        margin-top: 12px;
         font-size: 12px !important;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .bold-text{
-        font-size:12px !important;
+
+    .bold-text {
+        font-size: 12px !important;
         text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+        white-space: nowrap;
+        overflow: hidden;
     }
-    .title-news{
-        font-size:18px;
-        font-weight:700, bold
+
+    .title-news {
+        font-size: 18px;
+        font-weight: 700, bold
     }
-    .main-news{
+
+    .main-news {
         padding: 0px 0%;
         width: 100% !important;
     }
-    .container-news{
+
+    .container-news {
         padding: 0px 10px;
         width: 90% !important;
-        margin-top:20px;
+        margin-top: 20px;
     }
 
     /* TENDANCE */
 
-    .info-text{
+    .info-text {
         margin-left: 0.5rem;
-       
-        
+
+
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .token-title-price{
+
+    .token-title-price {
         margin-left: 50px;
         width: 153px !important;
     }
-    .token-title-percentage{
+
+    .token-title-percentage {
         width: 83px !important;
     }
-    .token-title-assets{
+
+    .token-title-assets {
         justify-content: start !important;
-    width: 240px !important;
-    margin-left: 10px !important;
-    margin-right: 160px;
+        width: 240px !important;
+        margin-left: 10px !important;
+        margin-right: 160px;
     }
-    
-    .blue-data{
+
+    .blue-data {
         margin-left: 0.1rem;
     }
-    .info-tendance{
-        padding:0px;
-        border-bottom:1px solid #2B5177;
+
+    .info-tendance {
+        padding: 0px;
+        border-bottom: 1px solid #2B5177;
         white-space: nowrap;
         overflow: hidden;
         /* animation: scrollTxt 1000ms linear ; */
         text-overflow: ellipsis;
     }
-    .header{
-        border-bottom:1px solid #2B5177;
-    }
-    .select-button{
 
+    .header {
+        border-bottom: 1px solid #2B5177;
     }
-    .blockchain-btn{
 
+    .select-button {}
+
+    .blockchain-btn {}
+
+    .avax-btn {
+        display: none;
     }
-    .avax-btn{
-        display:none;
+
+    .matic-btn {
+        display: none;
     }
-    .matic-btn{
-        display:none;
+
+    .bsc-btn {
+        display: none;
     }
-    .bsc-btn{
-        display:none;
-    }
-    .rectangle{
+
+    .rectangle {
         width: 45px;
         height: 18px;
     }
+
     .three-blockchain-logo:nth-child(1) {
         width: 25px;
         height: 25px;
-        top:6px;
+        top: 6px;
     }
+
     .three-blockchain-logo:nth-child(2) {
         width: 25px;
         height: 25px;
-        top:6px;
+        top: 6px;
     }
+
     .three-blockchain-logo:nth-child(3) {
         width: 25px;
         height: 25px;
-        top:6px;
+        top: 6px;
     }
-    .rond{
-        width:15px;
-        height:15px;
+
+    .rond {
+        width: 15px;
+        height: 15px;
     }
-    .onChain-btn-mobile{
+
+    .onChain-btn-mobile {
         justify-content: space-around;
         display: flex;
         flex-direction: column;
@@ -304,113 +345,145 @@
         height: 44px;
         align-items: center;
     }
-    .fullOnChain{
-        font-size:12px
-    }
-    .blockcahin-btn-three{
 
-        padding: 8px 6px ;
+    .fullOnChain {
+        font-size: 12px
     }
-    .marginFa{
-        font-size:14px
+
+    .blockcahin-btn-three {
+
+        padding: 8px 6px;
     }
-    .blockchain-btn{
+
+    .marginFa {
+        font-size: 14px
+    }
+
+    .blockchain-btn {
         width: 80px;
-        padding:6px 6px;
+        padding: 6px 6px;
     }
-    .eth-btn{
-        width:25px;height:25px;
+
+    .eth-btn {
+        width: 25px;
+        height: 25px;
     }
-    .eth-btn-block{
+
+    .eth-btn-block {
         width: 60px !important
     }
-    .blockchain-name{
-        font-size:14px;
+
+    .blockchain-name {
+        font-size: 14px;
     }
-    .select-button{
-        width:100px;
-        font-size:13px;
+
+    .select-button {
+        width: 100px;
+        font-size: 13px;
         padding: 8px 6px;
         border-radius: 8px;
     }
-    .select-button-white{
-        width:60px;
+
+    .select-button-white {
+        width: 60px;
         padding: 8px 6px;
         border-radius: 8px;
-        font-size:13px !important;
+        font-size: 13px !important;
     }
-    .blockchain-container{
+
+    .blockchain-container {
         width: 80%;
     }
-    .main-blockchain-container{
+
+    .main-blockchain-container {
         margin-top: -25px;
     }
-    .header{
+
+    .header {
         padding: 7px 0.18999999999999995rem;
     }
 
-    .token-ids{
-        display:none !important;
+    .token-ids {
+        display: none !important;
     }
-    .token-title-datas{
-        display:none !important;
+
+    .token-title-datas {
+        display: none !important;
     }
-    .token-title-marketCap{
-        display:none !important;
+
+    .token-title-marketCap {
+        display: none !important;
     }
+
     .token-title-marketFully {
-        display:none !important;
+        display: none !important;
     }
-    .token-title-links{
-        display:none !important;
+
+    .token-title-links {
+        display: none !important;
     }
-    .token-title-chart{
-        display:none !important;
+
+    .token-title-chart {
+        display: none !important;
     }
-    .token-marketCap{
-        display:none !important;
+
+    .token-marketCap {
+        display: none !important;
     }
-    .token-marketFully{
-        display:none !important;
+
+    .token-marketFully {
+        display: none !important;
     }
-    .tokens-links{
-        display:none !important;
+
+    .tokens-links {
+        display: none !important;
     }
-    .token-chart{
-        display:none !important;
+
+    .token-chart {
+        display: none !important;
     }
-    .token-logos{
-        height:30px;
+
+    .token-logos {
+        height: 30px;
     }
-    .tokens-price{
+
+    .tokens-price {
         width: 32px !important;
-    margin-left: auto !important;
+        margin-left: auto !important;
     }
-    .token-containers{
-        height:60px !important;
+
+    .token-containers {
+        height: 60px !important;
     }
-    .tables{
-        width:90%;
-        margin-top:0px !important;
+
+    .tables {
+        width: 90%;
+        margin-top: 0px !important;
     }
-    .table-head{
+
+    .table-head {
         border-top: 1px solid rgba(46, 53, 87, 0.8);
-        padding:13px 0px
+        padding: 13px 0px
     }
-    .token-symbols{
-        display:none !important;
+
+    .token-symbols {
+        display: none !important;
     }
-    .token-percentage{
+
+    .token-percentage {
         width: 27px !important;
-        margin-right:10px;
+        margin-right: 10px;
     }
+
     .token-infos {
-        margin:0px;
+        margin: 0px;
         margin-right: 160px;
     }
-    .tables{
+
+    .tables {
         white-space: wrap !important;
     }
+
     /* @keyframes scrollTxt{
         0%{
             transform: translate(-100%,0);
@@ -419,154 +492,172 @@
             transform:translate(0%, 0);
         }
     } */
-  }
-  @media screen and (max-width: 580px) {
-    .blockchain-btn-three{
+}
+
+@media screen and (max-width: 580px) {
+    .blockchain-btn-three {
         padding: 6px 6px !important;
     }
-    .blockchain-container{
-        width:100%
+
+    .blockchain-container {
+        width: 100%
     }
-    .eth-btn{
+
+    .eth-btn {
         height: 22px;
-        width:22px;
+        width: 22px;
     }
-    .blockchain-name{
-        margin-left:0px;
+
+    .blockchain-name {
+        margin-left: 0px;
     }
+
     .three-blockchain-logo:nth-child(1) {
         width: 22px;
         height: 22px;
         top: 5px;
     }
+
     .three-blockchain-logo:nth-child(2) {
         width: 22px;
         height: 22px;
         top: 5px;
     }
+
     .three-blockchain-logo:nth-child(3) {
         width: 22px;
         height: 22px;
         top: 5px;
     }
-    .marginFa{
+
+    .marginFa {
         margin-left: 57px;
     }
-    .blockchain-btn{
+
+    .blockchain-btn {
         width: 74px;
     }
-    .main-news{
+
+    .main-news {
         background-position: 130% 50%, center;
-    background-size: 30vh, contain;
+        background-size: 30vh, contain;
     }
-    .select-button{
+
+    .select-button {
         width: 85px;
     }
-    .main-blockchain-container{
-        padding-bottom:8px;
+
+    .main-blockchain-container {
+        padding-bottom: 8px;
     }
-    .select-button-white{
+
+    .select-button-white {
         padding: 8px 0px;
         width: 48px;
     }
-    .eth-btn-block{
+
+    .eth-btn-block {
         width: 55px !important;
     }
-    .rectangle{
+
+    .rectangle {
         width: 36px;
-    height: 13px;
+        height: 13px;
     }
-    .rond{
+
+    .rond {
         width: 12px;
         height: 12px;
         top: 2px;
-    left: 3px;
+        left: 3px;
     }
-    .fullOnChain{
+
+    .fullOnChain {
         font-size: 9px;
     }
-    .onChain-btn-mobile{
+
+    .onChain-btn-mobile {
         margin-right: 3px;
         margin-bottom: 17px;
     }
-    .arrowDown{
-        margin-right:4px;
-        font-size:13px
+
+    .arrowDown {
+        margin-right: 4px;
+        font-size: 13px
     }
-    .token-percentage-box{
-        align-items:center;
-        display:flex;
-        
+
+    .token-percentage-box {
+        align-items: center;
+        display: flex;
+
     }
-  }
+}
 
 
-  @media screen and (max-width: 730px) {
-      .token-infos{
-          margin-right:00px;
-      }
-  }
-  @media screen and (max-width: 580px) {
-    .token-infos{
-        margin-right:00px;
+@media screen and (max-width: 730px) {
+    .token-infos {
+        margin-right: 00px;
     }
-    .tokens-price{
+}
+
+@media screen and (max-width: 580px) {
+    .token-infos {
+        margin-right: 00px;
+    }
+
+    .tokens-price {
         width: 50px !important;
     }
-    
-    .token-percentage{
+
+    .token-percentage {
         width: 27px !important;
         display: flex;
         margin-left: 20px;
     }
-    .tables{
+
+    .tables {
         width: 95%;
     }
-    .font-char{
-        
-    }
-    .token-percentage-box{
+
+    .font-char {}
+
+    .token-percentage-box {
         font-size: 12px;
     }
-    .triangle-red{
+
+    .triangle-red {
         border-top: 4px solid #EA3943;
         border-right: 4px solid transparent;
         border-left: 4px solid transparent;
     }
 }
+
 @media screen and (max-width: 620px) {
-    .token-title-price{
+    .token-title-price {
         margin-left: 50px;
         width: 153px !important;
     }
-    .token-title-percentage{
+
+    .token-title-percentage {
         width: 83px !important;
     }
-    .token-title-assets{
+
+    .token-title-assets {
         justify-content: start !important;
-    width: 180px !important;
-    margin-left: 10px !important;
-    margin-right: 10px;
+        width: 180px !important;
+        margin-left: 10px !important;
+        margin-right: 10px;
     }
 }
 
 @media screen and (max-width: 384px) {
-    .eth-btn-block{
-        display:none;
+    .eth-btn-block {
+        display: none;
     }
-  }
+}
 
-  @media screen and (max-width: 420px) {
-        .tables{
-            white-space: nowrap;
-
-            
-        }
-
-        .token-title-price{
-            width: 1px ;
-        }
-        .token-title-percentage {
-            width: 37px !important;
-        }
-  }
+@media screen and (max-width: 420px) {
+    .token-title-percentage {
+        width: 60px !important;
+    }
+}
