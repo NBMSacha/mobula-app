@@ -5,8 +5,7 @@ import { ethers } from 'ethers';
 import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import SearchDiv from '../SearchDiv';
 import styles from '../SearchDiv/SearchDiv.module.css';
-import { GiHamburgerMenu } from "@react-icons/all-files/gi/GiHamburgerMenu";
-import { VscChromeClose } from "@react-icons/all-files/vsc/VscChromeClose";
+import { X, Menu } from "react-feather";
 import MenuMobile from "./MenuMobile"
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
@@ -140,7 +139,7 @@ function Wallet(props: any) {
                 >{(active ? account.substring(0, 4) + '..' + account.substring(account.length - 4, account.length) : "Connect")}</button>
                 <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
                 <button className="hamburger-btn" id="btnParent" onClick={() => mobileNav()}>
-                    {nav ? (<VscChromeClose className="hamburger" />) : (<GiHamburgerMenu className="hamburger" />)}
+                    {nav ? (<X className="hamburger" />) : (<Menu className="hamburger" />)}
                 </button>
             </div>
             <MenuMobile />

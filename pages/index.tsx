@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import Token from '../components/Newlisting'
 import { useEffect, useState } from 'react';
 
 import News from "../components/Main/"
@@ -19,9 +18,9 @@ export default function Listing() {
   }, [])
   return (
     <>
-      
+
       <News />
-      
+
     </>
   )
 }

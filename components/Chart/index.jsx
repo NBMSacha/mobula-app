@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "a";
 import axios from 'axios';
 import { Chart, ChartType, registerables } from 'chart.js';
 import Tendance from '../Header/Tendance';
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ImStarEmpty } from "@react-icons/all-files/Im/ImStarEmpty";
-import { AiOutlineArrowDown } from "@react-icons/all-files/Ai/AiOutlineArrowDown";
-import { AiOutlineArrowUp } from "@react-icons/all-files/Ai/AiOutlineArrowUp";
+import { ArrowUp, ArrowDown } from "react-feather";
 import styles from "./Charts.module.css";
 import { formatAmount, getTokenPrice, getTokenPercentage } from '../../helpers/formaters';
 // import { Chart } from "react-google-charts";
@@ -418,13 +416,13 @@ const ChartCryptos = ({ id }) => {
                   <div className={styles["chart-token-rank"]}><span>Rank #{token.rank}</span>{token.rank_change_24h < 0 ? (
                     <span className="token-percentage-box font-char red" id="noColor">
 
-                      <AiOutlineArrowDown className="arrowDown" />
+                      <ArrowDown className="arrowDown" />
                       {Math.abs(token.rank_change_24h)}
                     </span>
                   ) : token.rank_change_24h == 0 ? <div>--</div> : (
                     <span className="token-percentage-box font-char green" id="noColor">
 
-                      <AiOutlineArrowUp className="arrowDown" />
+                      <ArrowUp className="arrowUp" />
                       {token.rank_change_24h}
                     </span>
                   )} </div>

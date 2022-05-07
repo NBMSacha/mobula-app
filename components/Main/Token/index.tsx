@@ -2,15 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
-import { AiOutlineArrowRight } from "@react-icons/all-files/ai/AiOutlineArrowRight";
-import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter";
-import { HiOutlineGlobeAlt } from "@react-icons/all-files/hi/HiOutlineGlobeAlt";
-import { SiDiscord } from "@react-icons/all-files/si/SiDiscord";
-import { ImStarEmpty } from "@react-icons/all-files/im/ImStarEmpty";
-import { IoIosGlobe } from "@react-icons/all-files/Io/IoIosGlobe";
-import { FaDiscord } from "@react-icons/all-files/Fa/FaDiscord";
-import { AiOutlineArrowDown } from "@react-icons/all-files/ai/AiOutlineArrowDown"
-import { AiOutlineArrowUp } from "@react-icons/all-files/ai/AiOutlineArrowUp"
+import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount } from '../../../helpers/formaters';
 function Token(token: {
   name: string
@@ -47,13 +39,13 @@ function Token(token: {
             {token.rank_change_24h < 0 ? (
               <span className="token-percentage-box font-char red" id="noColor">
 
-                <AiOutlineArrowDown className="arrowDown" />
+                <ArrowDown className="arrowDown" />
                 {Math.abs(token.rank_change_24h)}
               </span>
             ) : token.rank_change_24h == 0 ? <div>--</div> : (
               <span className="token-percentage-box font-char green" id="noColor">
 
-                <AiOutlineArrowUp className="arrowDown" />
+                <ArrowUp className="arrowDown" />
                 {token.rank_change_24h}
               </span>
             )}
@@ -74,7 +66,7 @@ function Token(token: {
           {token.price_change_24h < 0.01 ? (
             <span className="token-percentage-box font-char red" id="noColor">
 
-              <AiOutlineArrowDown className="arrowDown" />
+              <ArrowDown className="arrowDown" />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           ) || (
@@ -82,7 +74,7 @@ function Token(token: {
             ) : (
             <span className="token-percentage-box font-char green" id="noColor">
 
-              <AiOutlineArrowUp className="arrowDown" />
+              <ArrowUp className="arrowDown" />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
 
@@ -98,9 +90,8 @@ function Token(token: {
         </td>
         <td className="tokens-links">
 
-          {token.website ? <a href={token.website} className="nomargin white fis"><IoIosGlobe className="fi" /></a> : <></>}
-          {token.twitter ? <a href={token.twitter} className="nomargin white fus"><FaTwitter className="fu" /></a> : <></>}
-          {token.discord ? <a href={token.discord} className="white fos"><SiDiscord className="fo" /></a> : <></>}
+          {token.website ? <a href={token.website} className="nomargin white fis"><Globe className="fi" /></a> : <></>}
+          {token.twitter ? <a href={token.twitter} className="nomargin white fus"><Twitter className="fu" /></a> : <></>}
         </td>
         <td className="token-chart">
           <img src={"http://136.244.118.168:2112/spark?id=" + token.id + '.svg'} className="chart-image" />
