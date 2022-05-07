@@ -196,6 +196,11 @@ input::placeholder {
     position: relative;
 }
 
+.container {
+    width: 100%;
+    max-width: 1000px;
+}
+
 .title-news {
     font-family: 'Poppins';
     font-style: normal;
@@ -696,6 +701,16 @@ input::placeholder {
 
 body {
     background: #05062A;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: white;
+}
+
+input:focus {
+    outline: none;
 }
 
 .datas-title {
