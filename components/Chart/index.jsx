@@ -459,10 +459,10 @@ const ChartCryptos = ({ id }) => {
                   {
                     token.price_change_24h < 0 ?
                       <div className={styles["chart-lose"]}>
-                        <span><AiOutlineArrowDown className={styles["downArrow"]} /></span>
+                        <span><ArrowDown className={styles["downArrow"]} /></span>
                         <span>{getTokenPercentage(token.price_change_24h)}%</span>
                       </div> : <div className={styles["chart-gain"]}>
-                        <span><AiOutlineArrowUp className="upArrow" /></span>
+                        <span><ArrowUp className="upArrow" /></span>
                         <span>{getTokenPercentage(token.price_change_24h)}%</span>
                       </div>
                   }
