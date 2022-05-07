@@ -44,6 +44,7 @@ code {
 .listing h2 {
   font-size: 1.75rem;
   margin-bottom: 1.5rem;
+  font-family: "Poppins", "sans serif";
 }
 
 .listing header {
@@ -515,6 +516,9 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .listing h1 {
+    font-size: 29px;
+  }
   .tokenpage-name {
     font-size: 30px !important;
   }

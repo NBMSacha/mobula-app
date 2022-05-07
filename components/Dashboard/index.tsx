@@ -3,11 +3,8 @@ import { useAlert } from "react-alert";
 import { ethers } from "ethers";
 import styles from "./dashboard.module.scss";
 import { Text, Heading, Flex, Box } from "@chakra-ui/react";
-
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from "../../constants";
 
-import ChartCrypto from "../Chart";
-import { style } from "@mui/system";
 function Dashboard() {
   const alert = useAlert();
   const [firstTokensOwed, setFirstTokensOwed] = useState(0);
@@ -135,7 +132,7 @@ function Dashboard() {
             <Heading as="h1" mb={"20px"}>
               Dashboard
             </Heading>
-            <Text fontSize="17px">
+            <Text fontSize={["14px", "14px", "16px", "17px"]}>
               If you helped the Protocol, you deserve a reward. You're free to
               claim your tokens.
               <a
@@ -148,13 +145,20 @@ function Dashboard() {
           </header>
 
           <div className={styles.line}></div>
-          <Flex justifyContent={"space-evenly"} p="60px">
+          <Flex
+            justifyContent={["space-evenly"]}
+            flexDir={["column", "column", "column", "row"]}
+            alignItems={["center", "center", "center", "stretch"]}
+            paddingTop="60px"
+          >
             {/* Rank I Stats */}
             <Box
               p="10px"
-              bg={"rgba(163, 212, 244, 0.25);"}
+              bg={"#a3d4f440"}
               borderRadius="10px"
-              w="375px"
+              w={["90%", "90%", "90%", "30%"]}
+              textAlign={["center", "center", "center", "left"]}
+              mb={[7, 7, 7, 0]}
             >
               <h2 className={styles.title}>
                 Rank I <span className={styles.titleColor}>Stats</span>
@@ -172,45 +176,53 @@ function Dashboard() {
                 <Text fontWeight="800"> {firstBadChoice + " times"}</Text>
               </Box>
 
-              <button
-                className="button"
-                style={{ width: 158 }}
-                onClick={async (e) => {
-                  e.preventDefault();
-
-                  try {
-                    var provider = new ethers.providers.Web3Provider(
-                      (window as any).ethereum
-                    );
-                    var signer = provider.getSigner();
-                  } catch (e) {
-                    alert.show(
-                      "You must connect your wallet to access the Dashboard."
-                    );
-                  }
-
-                  try {
-                    const value = await new ethers.Contract(
-                      PROTOCOL_ADDRESS,
-                      ["function claimRewards() external"],
-                      signer
-                    ).claimRewards();
-                  } catch (e) {
-                    alert.show("You don't have anything to claim.");
-                    console.log(e);
-                  }
-                }}
+              <Flex
+                width="100%"
+                justifyContent={["center", "center", "center", "left"]}
               >
-                Claim
-              </button>
+                {" "}
+                <button
+                  className="button"
+                  style={{ width: 158 }}
+                  onClick={async (e) => {
+                    e.preventDefault();
+
+                    try {
+                      var provider = new ethers.providers.Web3Provider(
+                        (window as any).ethereum
+                      );
+                      var signer = provider.getSigner();
+                    } catch (e) {
+                      alert.show(
+                        "You must connect your wallet to access the Dashboard."
+                      );
+                    }
+
+                    try {
+                      const value = await new ethers.Contract(
+                        PROTOCOL_ADDRESS,
+                        ["function claimRewards() external"],
+                        signer
+                      ).claimRewards();
+                    } catch (e) {
+                      alert.show("You don't have anything to claim.");
+                      console.log(e);
+                    }
+                  }}
+                >
+                  Claim
+                </button>
+              </Flex>
             </Box>
 
             {/* Rank II Stats */}
             <Box
               p="10px"
-              bg={"rgba(163, 212, 244, 0.25);"}
+              bg={"#a3d4f440"}
               borderRadius="10px"
-              w="375px"
+              w={["90%", "90%", "90%", "30%"]}
+              textAlign={["center", "center", "center", "left"]}
+              mb={[7, 7, 7, 0]}
             >
               <h2 className={styles.title}>
                 Rank II <span className={styles.titleColor}>Stats</span>
@@ -229,47 +241,54 @@ function Dashboard() {
                 <Text fontWeight="800"> {finalBadChoice + " times"}</Text>
               </Box>
 
-              <button
-                className="button"
-                style={{ width: 158 }}
-                onClick={async (e) => {
-                  e.preventDefault();
-
-                  try {
-                    var provider = new ethers.providers.Web3Provider(
-                      (window as any).ethereum
-                    );
-                    var signer = provider.getSigner();
-                  } catch (e) {
-                    alert.show(
-                      "You must connect your wallet to access the Dashboard."
-                    );
-                  }
-
-                  try {
-                    const value = await new ethers.Contract(
-                      PROTOCOL_ADDRESS,
-                      ["function claimFinalRewards() external"],
-                      signer
-                    ).claimFinalRewards();
-                  } catch (e) {
-                    alert.show("You don't have anything to claim.");
-                    console.log(e);
-                  }
-                }}
+              <Flex
+                width="100%"
+                justifyContent={["center", "center", "center", "left"]}
               >
-                Claim
-              </button>
+                {" "}
+                <button
+                  className="button"
+                  style={{ width: 158 }}
+                  onClick={async (e) => {
+                    e.preventDefault();
+
+                    try {
+                      var provider = new ethers.providers.Web3Provider(
+                        (window as any).ethereum
+                      );
+                      var signer = provider.getSigner();
+                    } catch (e) {
+                      alert.show(
+                        "You must connect your wallet to access the Dashboard."
+                      );
+                    }
+
+                    try {
+                      const value = await new ethers.Contract(
+                        PROTOCOL_ADDRESS,
+                        ["function claimFinalRewards() external"],
+                        signer
+                      ).claimFinalRewards();
+                    } catch (e) {
+                      alert.show("You don't have anything to claim.");
+                      console.log(e);
+                    }
+                  }}
+                >
+                  Claim
+                </button>
+              </Flex>
             </Box>
 
             {/* DAO Faucet */}
             <Flex
               p="10px"
-              bg={"rgba(163, 212, 244, 0.25);"}
-              borderRadius="10px"
-              w="375px"
               flexDir={"column"}
               justifyContent="space-between"
+              bg={"#a3d4f440"}
+              borderRadius="10px"
+              w={["90%", "90%", "90%", "30%"]}
+              textAlign={["center", "center", "center", "left"]}
             >
               <h2 className={styles.title}>DAO Faucet</h2>
 
@@ -282,43 +301,48 @@ function Dashboard() {
                 </Box>
                 <Box fontSize="15px" mb={5}>
                   <Text mb={2}>You already claimed</Text>
-                  <Text fontWeight="800"> {claimed}</Text>
+                  <Text fontWeight="800">{claimed}</Text>
                 </Box>
               </Box>
-              <button
-                className="button"
-                style={{ width: 158 }}
-                onClick={async (e) => {
-                  e.preventDefault();
-
-                  try {
-                    var provider = new ethers.providers.Web3Provider(
-                      (window as any).ethereum
-                    );
-                    var signer = provider.getSigner();
-                  } catch (e) {
-                    alert.show(
-                      "You must connect your wallet to access the Dashboard."
-                    );
-                  }
-
-                  try {
-                    const value = await new ethers.Contract(
-                      VAULT_ADDRESS,
-                      ["function claim() external"],
-                      signer
-                    ).claim();
-                  } catch (e) {
-                    if (e.data && e.data.message) {
-                      alert.error(e.data.message);
-                    } else {
-                      alert.error("Something went wrong.");
-                    }
-                  }
-                }}
+              <Flex
+                width="100%"
+                justifyContent={["center", "center", "center", "left"]}
               >
-                Claim MATIC
-              </button>
+                <button
+                  className="button"
+                  style={{ width: 158 }}
+                  onClick={async (e) => {
+                    e.preventDefault();
+
+                    try {
+                      var provider = new ethers.providers.Web3Provider(
+                        (window as any).ethereum
+                      );
+                      var signer = provider.getSigner();
+                    } catch (e) {
+                      alert.show(
+                        "You must connect your wallet to access the Dashboard."
+                      );
+                    }
+
+                    try {
+                      const value = await new ethers.Contract(
+                        VAULT_ADDRESS,
+                        ["function claim() external"],
+                        signer
+                      ).claim();
+                    } catch (e) {
+                      if (e.data && e.data.message) {
+                        alert.error(e.data.message);
+                      } else {
+                        alert.error("Something went wrong.");
+                      }
+                    }
+                  }}
+                >
+                  Claim MATIC
+                </button>
+              </Flex>
             </Flex>
           </Flex>
         </div>
