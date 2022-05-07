@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import Token from "../Token";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../constants";
-import { Heading, Text, Flex, Box } from "@chakra-ui/react";
+import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
 import styles from "./firstsort.module.scss";
 
 function FirstSort() {
   const [tokenDivs, setTokenDivs]: [JSX.Element[], any] = useState([]);
+  const [tokenArray, setTokenArray] = useState([]);
 
   function getFirstSorts() {
     console.log("Starting the first sort");
@@ -125,7 +126,6 @@ function FirstSort() {
 
   useEffect(() => {
     console.log("Effect : " + tokenDivs.length);
-    console.log(tokenDivs);
   });
 
   return (
@@ -155,27 +155,41 @@ function FirstSort() {
           alignItems={["center", "center", "center", "stretch"]}
           flexWrap="wrap"
         >
-          <Box
-            w={["90%", "90%", "70%", "30%"]}
-            h="400px"
-            bg="blue"
-            mb={5}
-          ></Box>
-          <Box
-            w={["90%", "90%", "70%", "30%"]}
-            h="400px"
-            bg="blue"
-            mb={5}
-          ></Box>
-          <Box
-            w={["90%", "90%", "70%", "30%"]}
-            h="400px"
-            bg="blue"
-            mb={5}
-          ></Box>
-        </Flex>
+          {tokenDivs.map((element) => {
+            let token = element.props;
+            console.log(token);
 
-        <div className="tokens-div">{tokenDivs}</div>
+            return (
+              <Box
+                w={["90%", "90%", "70%", "40%"]}
+                bg="#a3d4f433"
+                mb={10}
+                borderRadius="10px"
+                p="20px"
+              >
+                <Flex alignItems="center" mb={10}>
+                  <Image src={token.logo} h={50} w={50} mr={5} />
+                  <Text fontSize={["17px", "18px", "25px", "30px"]}>
+                    {token.name}
+                  </Text>
+                </Flex>
+                <Text
+                  textAlign="justify"
+                  fontSize={["13px", "15px", "15px", "20px"]}
+                >
+                  WEB3 Game is an unique play-to-earn game that strives to
+                  return ownership back to the gamers. Like many of the
+                  traditional games, all characters, items, rewards and any of
+                  the digital assets that gamers received within in-game are the
+                  culmination of the gamers’ effort, time and money.
+                </Text>
+                <button className="button">Vote</button>
+              </Box>
+            );
+          })}
+        </Flex>
+        {/* 
+        <div className="tokens-div">{tokenDivs}</div> */}
       </div>
     </div>
   );
