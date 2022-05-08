@@ -67,7 +67,7 @@ function MainBlock(props: any) {
 
             <a href="https://docs.mobula.finance" className={styles.disabled}>
               <div className="texts-box texts-box-1">
-                <div className="logo-box"></div>
+                <div className="logo-box"><img className={styles.inside} src="fullicon.png"></img></div>
                 <p className={styles.text}>
                   Discover Mobula<br />
                   <span className="bold-text">Learn and earn $MOBL</span>
@@ -79,7 +79,7 @@ function MainBlock(props: any) {
 
             <a href="https://discord.gg/2a8hqNzkzN">
               <div className="texts-box texts-box-2">
-                <div className="logo-box"></div>
+                <div className="logo-box"><img className={styles.inside} src="fullicon.png"></img></div>
                 <p className={styles.text}>
                   Join the DAO<br />
                   <span className="bold-text">Vote, earn, interact.</span>
@@ -101,7 +101,7 @@ function MainBlock(props: any) {
 
           <a href="https://docs.mobula.finance" className={styles.disabled}>
             <div className="texts-box texts-box-1">
-              <div className="logo-box"></div>
+              <div className="logo-box"><img className={styles.inside} src="fullicon.png"></img></div>
               <p className={styles.text}>
                 Discover Mobula<br />
                 <span className="bold-text">Learn and earn $MOBL</span>
@@ -113,7 +113,7 @@ function MainBlock(props: any) {
 
           <a href="https://discord.gg/2a8hqNzkzN">
             <div className="texts-box texts-box-2">
-              <div className="logo-box"></div>
+              <div className="logo-box"><img className={styles.inside} src="fullicon.png"></img></div>
               <p className={styles.text}>
                 Join the DAO<br />
                 <span className="bold-text">Vote, earn, interact.</span>
