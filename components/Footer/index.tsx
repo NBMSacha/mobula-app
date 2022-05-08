@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import styles from "./footer.module.css"
 function Footer() {
     const [displaySort, setDisplaySort] = useState('none');
     const [displayData, setDisplayData] = useState('none');
@@ -35,60 +36,53 @@ function Footer() {
 
     const isGood = width <= breakpoint;
 
-    return <> </>
-    {/* </div> (
-        <>
-            {
-                (isGood ?
-                    (<>
-                        <div className="footer">
-                            <div className="line-footer"></div>
-                            <span className="footext">Mobula © All right reserved</span>
-                        </div>
-                        <div className="footer-mobile">
-                            <div className="links">
-                                <span className="footext" onClick={() => {
-                                    setDisplaySort('none')
-                                    setDisplayData((displayData == 'none' ? 'flex' : 'none'))
-                                    setDisplayDAO('none')
-                                }}>Data</span>
-                                <div className="footop-data" style={{ display: displayData }}>
-                                    <span onClick={() => document.location.href = 'new'}>Recently Added</span>
-                                    <span onClick={() => document.location.href = 'dataprovider'}>Query Data</span>
-                                </div>
-                                <span className="footext" onClick={() => {
-                                    setDisplayDAO((displayDAO == 'none' ? 'flex' : 'none'))
-                                    setDisplayData('none')
-                                    setDisplaySort('none')
-                                }}>DAO</span>
-                                <div className="footop-dao" style={{ display: displayDAO }}>
-                                    <span onClick={() => document.location.href = 'governance'}>Governance</span>
-                                    <span onClick={() => document.location.href = 'elections'}>Elections</span>
-                                </div>
-                                <span className="footext" onClick={() => document.location.href = 'dashboard'}>Dashboard</span>
-                                <span className="footext" onClick={() => {
-                                    setDisplaySort((displaySort == 'none' ? 'flex' : 'none'))
-                                    setDisplayData('none')
-                                    setDisplayDAO('none')
-                                }}>Sort</span>
-                                <div className="footop-sort" style={{ display: displaySort }}>
-                                    <span onClick={() => document.location.href = 'sort'}>First Sort</span>
-                                    <span onClick={() => document.location.href = 'validation'}>Final Validation</span>
-                                </div>
+    return (
+        <div className={styles["footer-main"]}>
+            <div className={styles["footer-left"]}>
+                <img src="newIcon.png" className={styles["logo-footer"]} />
+                <div className={styles["social-container"]}>
+                    <a href="https://t.me/MobulaFi" className={styles['social-link']}><img src='send.svg' className={styles["social-logo"]} /></a>
+                    <a href="https://github.com/NBMSacha/mobula-app" className={styles['social-link']}><img src='github.svg' className={styles["social-logo"]} /></a>
+                    <a href="https://twitter.com/MobulaFi" className={styles['social-link']}><img src='twitter.svg' className={styles["social-logo"]} /></a>
+                </div>
+            </div> 
+            <div className={styles["footer-right"]}>
+                <div className={styles["community"]}>
+                    <span>Community</span>
+                    <ul>
+                        <a href="https://discord.gg/nrkVNNke8Q"><li>Discord</li></a>
+                        <a href="https://t.me/MobulaFi"><li>Telegram</li></a>
+                        <a href="https://twitter.com/MobulaFi"><li>Twitter</li></a>
+                    </ul>
+                </div>
+                <div className={styles["community"]}>
+                    <span>Press</span>
+                    <ul>
+                        <a href=""><li>Press kit</li></a>
+                        <a href=""><li>Contact</li></a>
+                        <a href=""><li>News</li></a>
+                    </ul>
+                </div>
+                <div className={styles["community"]}>
+                    <span>Ressources</span>
+                    <ul>
+                        <a href=""><li>Documentation</li></a>
+                        <a href=""><li>Whitepaper</li></a>
+                        <a href=""><li>Medium</li></a>
+                    </ul>
+                </div>
+                <div className={styles["help"]}>
+                    <span>Help</span>
+                    <ul>
+                    <a href=""><li>FAQs</li></a>
+                    <a href=""><li>Support</li></a>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-                                <span className="footext" onClick={() => document.location.href = 'list'}>Listing</span>
-                            </div>
-                        </div>
-
-                    </>)
-                    :
-                    <div className="footer">
-                        <div className="line-footer"></div>
-                        <span className="footext">Mobula © All right reserved</span>
-                    </div>)
-            }
-        </>
-    ) */}
+    )
+    
 }
 
 export default Footer
