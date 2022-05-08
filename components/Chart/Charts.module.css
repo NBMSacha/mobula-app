@@ -179,8 +179,6 @@
     padding: 5px 8px;
     border-radius: 8px;
     position: absolute;
-    top: -6px;
-    right: -80px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -188,6 +186,7 @@
     line-height: 18px;
     color: #FFFFFF;
     margin-right: 10px;
+    margin-top: 40px;
 }
 
 .chart-gain {
@@ -694,10 +693,13 @@
 
 @media screen and (max-width: 768px) {
 
-    .chart-gain {
+    .chart-gain,
+    .chart-lose {
         margin-top: 30px;
         height: 25%
     }
+
+
 
     .warning {
         font-size: 1.5rem;
@@ -814,19 +816,6 @@
 
     .grey {
         font-size: 10px;
-    }
-
-    .chart-lose {
-        background-color: transparent;
-        padding: 0px;
-        font-size: 12px;
-        right: -60px;
-        top: 0px
-    }
-
-    .chart-lose>span {
-        margin-right: 5px;
-        color: #D8494A
     }
 
     .chart-top-token {
