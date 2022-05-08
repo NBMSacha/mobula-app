@@ -144,17 +144,21 @@
     color: #FFFFFF;
     width: 150px;
     margin-bottom: 20px;
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 700px;
 }
 
 .chart-right-info>p {
     margin: 0px;
 }
 
+.absolute-mobile,
 .absolute-mobile {
     display: none;
     position: relative;
 }
+
 
 .dollard {
     position: absolute;
@@ -175,8 +179,6 @@
     padding: 5px 8px;
     border-radius: 8px;
     position: absolute;
-    top: -6px;
-    right: -80px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -184,6 +186,7 @@
     line-height: 18px;
     color: #FFFFFF;
     margin-right: 10px;
+    margin-top: 40px;
 }
 
 .chart-gain {
@@ -193,8 +196,6 @@
     padding: 5px 8px;
     border-radius: 8px;
     position: absolute;
-    top: -6px;
-    right: -80px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -202,7 +203,7 @@
     line-height: 18px;
     color: #FFFFFF;
     margin-right: 10px;
-
+    margin-top: 40px;
 }
 
 .box-info {
@@ -477,6 +478,7 @@
     margin-bottom: 1px;
     background-color: #dee4ffb4;
     transform: translateX(0%);
+    transition: right 250ms ease-in-out
 }
 
 .button-chart {
@@ -487,16 +489,23 @@
     font-size: 18px;
     margin-right: 1.8rem;
     height: 28px;
-    width: 28px;
+    width: 38px;
     border-radius: 6px;
     margin-top: 2px;
     margin-left: 3px;
     margin-bottom: 2px;
+    transition: right 250ms ease-in-out;
 }
 
 .button-chart {
     color: white;
     z-index: 2;
+
+}
+
+.button-chart:focus {
+    background-color: #dee4ffb4;
+
 }
 
 .d {
@@ -515,7 +524,15 @@
     font-weight: 500;
     font-size: 14px;
 
+}
 
+.warning {
+    font-size: 2rem;
+    font-weight: 700;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    z-index: 1000;
 }
 
 /* ============================ MEDIA QUERY ============================ */
@@ -675,6 +692,20 @@
 }
 
 @media screen and (max-width: 768px) {
+
+    .chart-gain,
+    .chart-lose {
+        margin-top: 30px;
+        height: 25%
+    }
+
+
+
+    .warning {
+        font-size: 1.5rem;
+    }
+
+
     .active-chart {
         padding: 5px 10px;
     }
@@ -787,19 +818,6 @@
         font-size: 10px;
     }
 
-    .chart-lose {
-        background-color: transparent;
-        padding: 0px;
-        font-size: 12px;
-        right: -60px;
-        top: 0px
-    }
-
-    .chart-lose>span {
-        margin-right: 5px;
-        color: #D8494A
-    }
-
     .chart-top-token {
         margin-top: 14px;
         margin-bottom: -3px;
@@ -858,7 +876,6 @@
     }
 
     .mobile-grades {
-        position: absolute;
         top: 19px;
         left: 0px;
         background: #2E3557;
@@ -881,7 +898,33 @@
         height: 22px
     }
 
+    .absolute-mobile-dis {
+        background: #2E3557;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 8px;
+        margin-bottom: 9px;
+        width: 115px;
+        display: flex !important;
+        margin-top: 8px;
+        margin-left: 10px;
+        height: 22px;
+        opacity: 0.4
+    }
+
     .absolute-mobile>span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 18px;
+        color: #DEE4FF;
+        opacity: 0.6;
+    }
+
+    .absolute-mobile-dis>span {
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 500;

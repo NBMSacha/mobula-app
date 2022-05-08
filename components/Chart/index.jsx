@@ -6,7 +6,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { ArrowUp, ArrowDown } from "react-feather";
 import styles from "./Charts.module.css";
 import { formatAmount, getTokenPrice, getTokenPercentage } from '../../helpers/formaters';
-// import { Chart } from "react-google-charts";
+import { setTimeout } from "timers";
 
 const ChartCryptos = ({ id }) => {
   const [coins, setCoins] = useState([])
@@ -18,6 +18,7 @@ const ChartCryptos = ({ id }) => {
   const [all, setAll] = useState({})
   const [timeFormat, setTimeFormat] = useState("");
   const [token, setToken] = useState({});
+  const [visible, setVisible] = useState(false);
 
   const formatData = data => {
     return data.map(el => {
@@ -36,26 +37,26 @@ const ChartCryptos = ({ id }) => {
 
     if (timeframe == '1D') {
       const { data } = await supabase.from('assets').select('price_history').match({ id });
-      return data[0] ? data[0].price_history.price.filter(entry => entry[0] + 24 * 60 * 60 * 1000 > Date.now()) : null
+      return data[0] ? data[0].price_history.price.filter(entry => entry[0] + 24 * 60 * 60 * 1000 > Date.now()).map(price => [price[0], price[1] * 1000000000]) : null
     } else if (timeframe == '7D') {
       const { data } = await supabase.from('assets').select('price_history').match({ id });
-      return data[0] ? data[0].price_history.price.filter(entry => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now()) : null
+      return data[0] ? data[0].price_history.price.filter(entry => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now()).map(price => [price[0], price[1] * 1000000000]) : null
     } else if (timeframe == '1M') {
       const { data: recent } = await supabase.from('assets').select('price_history').match({ id });
       const { data: old } = await supabase.from('history').select('price_history').match({ asset: id });
-      return old[0] ? old[0].price_history.filter(entry => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price) : null
+      return old[0] ? old[0].price_history.filter(entry => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price).map(price => [price[0], price[1] * 1000000000]) : null
     } else if (timeframe == '3M') {
       const { data: recent } = await supabase.from('assets').select('price_history').match({ id });
       const { data: old } = await supabase.from('history').select('price_history').match({ asset: id });
-      return old[0] ? old[0].price_history.filter(entry => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price) : null
+      return old[0] ? old[0].price_history.filter(entry => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price).map(price => [price[0], price[1] * 1000000000]) : null
     } else if (timeframe == '1Y') {
       const { data: recent } = await supabase.from('assets').select('price_history').match({ id });
       const { data: old } = await supabase.from('history').select('price_history').match({ asset: id });
-      return old[0] ? old[0].price_history.filter(entry => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price) : null
+      return old[0] ? old[0].price_history.filter(entry => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()).concat(recent[0].price_history.price).map(price => [price[0], price[1] * 1000000000]) : null
     } else if (timeframe == 'ALL') {
       const { data: recent } = await supabase.from('assets').select('price_history').match({ id });
       const { data: old } = await supabase.from('history').select('price_history').match({ asset: id });
-      return old[0] ? old[0].price_history.concat(recent[0].price_history.price) : null
+      return old[0] ? old[0].price_history.concat(recent[0].price_history.price).map(price => [price[0], price[1] * 1000000000]) : null
     }
   }
 
@@ -294,7 +295,7 @@ const ChartCryptos = ({ id }) => {
               return "                     ";
             },
             afterLabel: function (tooltipItem, data) {
-              return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel;
+              return data.datasets[tooltipItem.datasetIndex].label + ': ' + tooltipItem.yLabel / 1000000000;
             },
             afterBody: function (tooltipItem, data) {
               return "";
@@ -305,14 +306,17 @@ const ChartCryptos = ({ id }) => {
           mode: 'index',
         },
         legend: {
-          display: false //This will do the task
+          display: false
         },
         scales: {
           yAxes: [{
             gridLines: { color: "#0c1230" },
             ticks: {
               beginAtZero: false,
-              maxTicksLimit: isMobile ? 4 : 8
+              maxTicksLimit: isMobile ? 4 : 8,
+              callback: function (tick) {
+                return parseFloat(tick / 1000000000).toFixed(Math.max(12 - String(parseInt(tick)).length, 0))
+              }
             }
           }],
           xAxes: [{
@@ -333,6 +337,17 @@ const ChartCryptos = ({ id }) => {
         }
       },
     });
+
+    if (!data || data.length == 0) {
+      setVisible(true)
+    } else {
+      setVisible(false)
+    }
+
+
+
+
+
 
   }, [timeFormat, day])
 
@@ -362,12 +377,14 @@ const ChartCryptos = ({ id }) => {
       if (hide.style.display == "none") {
         console.log('changin style to flex')
         change.innerHTML = "Less Stats"
-        return hide.style.display = "flex";
+        document.getElementById('hidedao').style.display = ''
 
+        return hide.style.display = "flex";
       } else {
         console.log(hide.style.display)
 
         change.innerHTML = "More Stats"
+        document.getElementById('hidedao').style.setProperty('display', 'none', 'important')
         return hide.style.display = "none";
       }
     } catch (err) {
@@ -428,46 +445,24 @@ const ChartCryptos = ({ id }) => {
                   )} </div>
                 </div>
               </div>
-              <button className={styles["absolute-mobile"]} onClick={() => mobileDaoBtn()}>
-                <span>DAO Score</span>
-                <span>{token.utility_score + token.social_score + token.market_score + token.trust_score}/20</span>
-                <div style={{ display: 'none' }} className={styles["mobile-grades"]} id="daoBtn-mobile">
-                  <div className={styles["mobile-notes-boxs"]}>
-                    <span>Utility</span>
-                    <span>{token.utility_score}/5</span>
-                  </div>
-                  <div className={styles["mobile-notes-boxs"]}>
-                    <span>Social</span>
-                    <span>{token.social_score}/5</span>
-                  </div>
-                  <div className={styles["mobile-notes-boxs"]}>
-                    <span>Trust</span>
-                    <span>{token.trust_score}/5</span>
-                  </div>
-                  <div className={styles["mobile-notes-boxs"]}>
-                    <span>Market</span>
-                    <span>{token.market_score}/5</span>
-                  </div>
-                </div>
-              </button>
+
             </div>
             <div className={styles["chart-right-top"]}>
               <div className={styles["chart-box-container"]}>
                 <div className={styles["chart-right-info"]}>
                   <p className={styles["test"]}>${getTokenPrice(token.price)}</p>
-
                   {
                     token.price_change_24h < 0 ?
                       <div className={styles["chart-lose"]}>
-                        <span><ArrowDown className={styles["downArrow"]} /></span>
+                        <span><ArrowDown /></span>
                         <span>{getTokenPercentage(token.price_change_24h)}%</span>
                       </div> : <div className={styles["chart-gain"]}>
-                        <span><ArrowUp className="upArrow" /></span>
+                        <span><ArrowUp /></span>
                         <span>{getTokenPercentage(token.price_change_24h)}%</span>
                       </div>
                   }
                 </div>
-                <div className={styles["chart-info-box"]}>
+                {/* <div className={styles["chart-info-box"]}>
                   <div className={styles["box-info"]}>
                     <p className={styles["grey"]} style={{ marginRight: "14px !important" }}>High:</p>
                     <p className={styles["numbers"]}>--</p>
@@ -476,7 +471,7 @@ const ChartCryptos = ({ id }) => {
                     <p className={`${styles["margin-Rnc"]} ${styles["grey"]}`} >Low:</p>
                     <p className={styles["numbers"]} >--</p>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className={styles["chart-buy"]}>
@@ -511,10 +506,37 @@ const ChartCryptos = ({ id }) => {
                 </div>
                 <div className={styles["mobbox"]}>
                   <span className={styles["grey"]}>LIQUIDITY </span>
-                  <p className={styles["numbers"]}>${formatAmount(token.market_cap_diluted)}</p>
+                  <p className={styles["numbers"]}>${token.liquidity ? '$' + formatAmount(token.liquidity) : '???'}</p>
+
+                </div>
+
+              </div>
+
+            </div>
+            <button id="hidedao" style={{ "display": "none !important;" }} className={(token.utility_score + token.social_score + token.market_score + token.trust_score == 0 ? styles["absolute-mobile-dis"] : styles["absolute-mobile"])} onClick={() => {
+              // mobileDaoBtn()
+            }}>
+              <span>DAO Score</span>
+              <span>{token.utility_score + token.social_score + token.market_score + token.trust_score}/20</span>
+              <div style={{ display: 'none' }} className={styles["mobile-grades"]} id="daoBtn-mobile">
+                <div className={styles["mobile-notes-boxs"]}>
+                  <span>Utility</span>
+                  <span>{token.utility_score}/5</span>
+                </div>
+                <div className={styles["mobile-notes-boxs"]}>
+                  <span>Social</span>
+                  <span>{token.social_score}/5</span>
+                </div>
+                <div className={styles["mobile-notes-boxs"]}>
+                  <span>Trust</span>
+                  <span>{token.trust_score}/5</span>
+                </div>
+                <div className={styles["mobile-notes-boxs"]}>
+                  <span>Market</span>
+                  <span>{token.market_score}/5</span>
                 </div>
               </div>
-            </div>
+            </button>
             <button className={styles["btn-more-less"]} onClick={() => moreStats()}><span id="change">More Stats</span></button>
           </div>
           <div className={styles["chart-bottom-container"]}>
@@ -542,7 +564,7 @@ const ChartCryptos = ({ id }) => {
                 </span>
                 <span>
                   <p className={styles["text-top-chart"]}>LIQUIDITY</p>
-                  <p className={styles["text-bottom-chart"]}>${formatAmount(token.liquidity)}</p>
+                  <p className={styles["text-bottom-chart"]}>${token.liquidity ? '$' + formatAmount(token.liquidity) : '???'}</p>
                 </span>
               </div>
               <div className={(token.utility_score + token.social_score + token.market_score + token.trust_score == 0 ? styles["left-bottom-box-dis"] : styles["left-bottom-box"])} id="dropdown">
@@ -587,27 +609,27 @@ const ChartCryptos = ({ id }) => {
               </div>
             </div>
             <div className={styles["chart-bottom-right"]}>
-              <div className={styles["chart-box"]}>
+              <div className={styles["chart-box"]} id="chart-box">
                 <div className={styles["chart-header"]}>
                   <a href="" className={`${styles["chart-header-link"]} ${styles["active-chart"]}`}>Overview</a>
                   <a href="" className={styles["chart-header-link"]}><span>Market</span></a>
                   <a href="" className={styles["chart-header-link"]}><span>Details</span></a>
                   <a href="" className={styles["chart-header-link"]}><span>Socials</span></a>
-                  <a href="" className={`${styles["chart-header-link"]} ${styles["report-problem"]}`}><span id="inner">A problem ? Report to the DAO</span></a>
+                  <a href="https://discord.gg/2a8hqNzkzN" className={`${styles["chart-header-link"]} ${styles["report-problem"]}`}><span id="inner">Report</span></a>
                 </div>
                 <div className={styles["chart-content"]}>
 
                   <div className={styles["canvas-container"]}>
 
                     <canvas id="chart"></canvas>
+                    {visible ? <p className={styles['warning']}>Coming soon...</p> : <></>}
 
                     <div className={styles["change-chart-date"]} style={{ display: "flex", justifyContent: "end", margin: "auto" }}>
-                      <div className={styles["activeMoover"]} id="moover"></div>
-                      <button onClick={() => { setTimeFormat("1D"); console.log('1D'); }} className={`${styles["button-chart"]} ${styles["button-chart-active"]} ${styles["d"]}`} id="1d">1D</button>
-                      <button onClick={() => { setTimeFormat("7D"); console.log('7D'); }} className={styles["button-chart"]} id="7d">7D</button>
-                      <button onClick={() => { setTimeFormat("30D"); console.log('30D'); }} className={styles["button-chart"]} id="30d">1M</button>
-                      <button onClick={() => { setTimeFormat("1Y"); console.log('1Y', year); }} className={styles["button-chart"]} id="1y">1Y</button>
-                      <button onClick={() => { setTimeFormat("ALL"); console.log('ALL'); }} className={styles["button-chart"]} id="all">ALL</button>
+                      <button onClick={() => { setTimeFormat("1D"); }} className={`${styles["button-chart"]} ${styles["button-chart-active"]} ${styles["d"]}`} id="1d">1D</button>
+                      <button onClick={() => { setTimeFormat("7D"); }} className={styles["button-chart"]} id="7d">7D</button>
+                      <button onClick={() => { setTimeFormat("30D"); }} className={styles["button-chart"]} id="30d">1M</button>
+                      <button onClick={() => { setTimeFormat("1Y"); }} className={styles["button-chart"]} id="1y">1Y</button>
+                      <button onClick={() => { setTimeFormat("ALL"); }} className={styles["button-chart"]} id="all">ALL</button>
                     </div>
                   </div>
                 </div>

@@ -860,9 +860,15 @@ input:focus {
     display: flex;
     flex-direction: column;
     position: relative;
-    align-items: end !important;
-    margin-right: 45px !important;
+    margin-right: 25px !important;
     width: 80px !important;
+}
+
+.media-icons {
+    margin-bottom: auto;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column
 }
 
 .tokens-price {
