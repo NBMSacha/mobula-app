@@ -34,8 +34,9 @@ export default class Root extends App {
       <>
 
         <Head>
-          <title>Mobula App</title>
+          <title>Mobula | The decentralized data aggregator [Alpha]</title>
           <link rel="icon" type="image/png" href="/fullicon.png" />
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
 
         <Provider template={AlertTemplate} {...alertOptions}>
