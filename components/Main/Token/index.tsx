@@ -98,7 +98,7 @@ function Token(token: {
 
         </td>
         <td className="token-chart">
-          <img src={"https:/mobulaspark.com/spark?id=" + token.id + '.svg'} className="chart-image" />
+          <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className="chart-image" />
         </td>
       </tr>
     </tbody>
