@@ -90,11 +90,15 @@ function Token(token: {
         </td>
         <td className="tokens-links">
 
-          {token.website ? <a href={token.website} className="nomargin white fis"><Globe className="fi" /></a> : <></>}
-          {token.twitter ? <a href={token.twitter} className="nomargin white fus"><Twitter className="fu" /></a> : <></>}
+          <div className="media-icons">
+            {token.website ? <a href={token.website} className="nomargin white fis"><Globe className="fi" /></a> : <></>}
+            {token.twitter ? <a href={token.twitter} className="nomargin white fus"><Twitter className="fu" /></a> : <></>}
+          </div>
+
+
         </td>
         <td className="token-chart">
-          <img src={"http://136.244.118.168:2112/spark?id=" + token.id + '.svg'} className="chart-image" />
+          <img src={"https:/mobulaspark.com/spark?id=" + token.id + '.svg'} className="chart-image" />
         </td>
       </tr>
     </tbody>

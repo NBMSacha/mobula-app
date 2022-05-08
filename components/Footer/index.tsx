@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { GitHub, Send, Twitter } from 'react-feather'
 import styles from "./footer.module.css"
 function Footer() {
     const [displaySort, setDisplaySort] = useState('none');
@@ -41,11 +42,11 @@ function Footer() {
             <div className={styles["footer-left"]}>
                 <img src="newIcon.png" className={styles["logo-footer"]} />
                 <div className={styles["social-container"]}>
-                    <a href="https://t.me/MobulaFi" className={styles['social-link']}><img src='send.svg' className={styles["social-logo"]} /></a>
-                    <a href="https://github.com/NBMSacha/mobula-app" className={styles['social-link']}><img src='github.svg' className={styles["social-logo"]} /></a>
-                    <a href="https://twitter.com/MobulaFi" className={styles['social-link']}><img src='twitter.svg' className={styles["social-logo"]} /></a>
+                    <a href="https://t.me/MobulaFi" className={styles['social-link']}><Send className={styles["social-logo"]} /></a>
+                    <a href="https://github.com/NBMSacha/mobula-app" className={styles['social-link']}><GitHub className={styles["social-logo"]} /></a>
+                    <a href="https://twitter.com/MobulaFi" className={styles['social-link']}><Twitter className={styles["social-logo"]} /></a>
                 </div>
-            </div> 
+            </div>
             <div className={styles["footer-right"]}>
                 <div className={styles["community"]}>
                     <span>Community</span>
@@ -74,15 +75,15 @@ function Footer() {
                 <div className={styles["help"]}>
                     <span>Help</span>
                     <ul>
-                    <a href=""><li>FAQs</li></a>
-                    <a href=""><li>Support</li></a>
+                        <a href=""><li>FAQs</li></a>
+                        <a href=""><li>Support</li></a>
                     </ul>
                 </div>
             </div>
         </div>
 
     )
-    
+
 }
 
 export default Footer
