@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { formatName } from '../../../../helpers/formaters'
 import styles from '../Block.module.scss'
-
+import { getTokenPrice } from '../../../../helpers/formaters';
 function GainerBlock(tokens: {
   logo1: string
   name1: string
@@ -23,30 +23,30 @@ function GainerBlock(tokens: {
       <h3 className='gainer-main-title'>🟢 Top Gainers</h3>
       <div className='gainer-container'>
         <div className='left-gainer'>
-          <div className='line-gainer' onClick={() => router.push(String(tokens.id1))}>
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>1</span>
               <img src={tokens.logo1} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name1}</span>
             </div>
             <span className='green'>
               <div className='triangle-green'></div>
-              {tokens.change1}%
+              {getTokenPrice(tokens.change1)}%
             </span>
           </div>
-          <div className='line-gainer' onClick={() => router.push(String(tokens.id2))} >
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id2))} >
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>2</span>
               <img src={tokens.logo2} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name2}</span>
             </div>
             <span className='green'>
               <div className='triangle-green'></div>
-              {tokens.change2}%
+              {getTokenPrice(tokens.change2)}%
             </span>
           </div>
-          <div className='line-gainer' onClick={() => router.push(String(tokens.id3))}>
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id3))}>
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>3</span>
               <img src={tokens.logo3} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name3}</span>
@@ -54,7 +54,7 @@ function GainerBlock(tokens: {
 
             <span className='green'>
               <div className='triangle-green'></div>
-              {tokens.change3}%
+              {getTokenPrice(tokens.change3)}%
             </span>
           </div>
         </div>

@@ -10,13 +10,13 @@ export function getTokenPrice(status: any) {
 
     if (status) {
 
-        if (status >= 1000) {
+        if (Math.abs(status) >= 1000) {
             return status.toFixed(0)
         }
-        if (status >= 1) {
+        if (Math.abs(status) >= 1) {
             return status.toFixed(2);
         }
-        if (status < 0.0001) {
+        if (Math.abs(status) < 0.0001) {
             return status.toFixed(10);
         }
         return status.toFixed(4);
