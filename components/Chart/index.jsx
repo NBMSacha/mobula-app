@@ -46,8 +46,8 @@ const ChartCryptos = ({ id }) => {
         .match({ id })
       return data[0]
         ? data[0].price_history.price
-            .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-            .map((price) => [price[0], price[1] * 1000000000])
+          .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '7D') {
       const { data } = await supabase
@@ -56,8 +56,8 @@ const ChartCryptos = ({ id }) => {
         .match({ id })
       return data[0]
         ? data[0].price_history.price
-            .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-            .map((price) => [price[0], price[1] * 1000000000])
+          .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '1M') {
       const { data: recent } = await supabase
@@ -70,9 +70,9 @@ const ChartCryptos = ({ id }) => {
         .match({ asset: id })
       return old[0]
         ? old[0].price_history
-            .filter((entry) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now())
-            .concat(recent[0].price_history.price)
-            .map((price) => [price[0], price[1] * 1000000000])
+          .filter((entry) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now())
+          .concat(recent[0].price_history.price)
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '3M') {
       const { data: recent } = await supabase
@@ -85,9 +85,9 @@ const ChartCryptos = ({ id }) => {
         .match({ asset: id })
       return old[0]
         ? old[0].price_history
-            .filter((entry) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now())
-            .concat(recent[0].price_history.price)
-            .map((price) => [price[0], price[1] * 1000000000])
+          .filter((entry) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now())
+          .concat(recent[0].price_history.price)
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '1Y') {
       const { data: recent } = await supabase
@@ -100,11 +100,11 @@ const ChartCryptos = ({ id }) => {
         .match({ asset: id })
       return old[0]
         ? old[0].price_history
-            .filter(
-              (entry) => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()
-            )
-            .concat(recent[0].price_history.price)
-            .map((price) => [price[0], price[1] * 1000000000])
+          .filter(
+            (entry) => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()
+          )
+          .concat(recent[0].price_history.price)
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == 'ALL') {
       const { data: recent } = await supabase
@@ -117,8 +117,8 @@ const ChartCryptos = ({ id }) => {
         .match({ asset: id })
       return old[0]
         ? old[0].price_history
-            .concat(recent[0].price_history.price)
-            .map((price) => [price[0], price[1] * 1000000000])
+          .concat(recent[0].price_history.price)
+          .map((price) => [price[0], price[1] * 1000000000])
         : null
     }
   }
@@ -136,7 +136,6 @@ const ChartCryptos = ({ id }) => {
       .select('*')
       .match({ id: parseInt(id) })
       .then((r) => {
-        console.log('YOOAAA')
 
         if (r.data && r.data[0]) {
           console.log(r.data[0])
@@ -393,6 +392,7 @@ const ChartCryptos = ({ id }) => {
                 beginAtZero: false,
                 maxTicksLimit: isMobile ? 4 : 8,
                 callback: function (tick) {
+                  if (tick == 0) return 0
                   return parseFloat(tick / 1000000000).toFixed(
                     Math.max(12 - String(parseInt(tick)).length, 0)
                   )
@@ -583,7 +583,7 @@ const ChartCryptos = ({ id }) => {
               <div className={styles['mobile-info-left-column']}>
                 <div className={styles['mobbox']}>
                   <span className={styles['grey']}>MARKET CAP</span>
-                  <p className={styles['numbers']}>
+                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
                     ${formatAmount(token.market_cap)}
                   </p>
                 </div>
@@ -608,7 +608,7 @@ const ChartCryptos = ({ id }) => {
               <div className={styles['mobile-info-right-column']}>
                 <div className={styles['mobbox']}>
                   <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                  <p className={styles['numbers']}>
+                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
                     {token.circulating_supply
                       ? formatAmount(token.circulating_supply)
                       : '???'}{' '}
@@ -627,7 +627,7 @@ const ChartCryptos = ({ id }) => {
                 <div className={styles['mobbox']}>
                   <span className={styles['grey']}>LIQUIDITY </span>
                   <p className={styles['numbers']}>
-                    $
+
                     {token.liquidity
                       ? '$' + formatAmount(token.liquidity)
                       : '???'}
@@ -643,7 +643,7 @@ const ChartCryptos = ({ id }) => {
                   token.social_score +
                   token.market_score +
                   token.trust_score ==
-                0
+                  0
                   ? styles['absolute-mobile-dis']
                   : styles['absolute-mobile']
               }
@@ -698,8 +698,9 @@ const ChartCryptos = ({ id }) => {
                   >
                     MARKET CAP
                   </p>
-                  <p className={styles['text-bottom-chart']}>
+                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
                     ${formatAmount(token.market_cap)}
+                    {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
                   </p>
                 </span>
                 <span>
@@ -721,7 +722,7 @@ const ChartCryptos = ({ id }) => {
                 </span>
                 <span>
                   <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                  <p className={styles['text-bottom-chart']}>
+                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
                     {token.circulating_supply
                       ? formatAmount(token.circulating_supply)
                       : '???'}{' '}
@@ -740,7 +741,7 @@ const ChartCryptos = ({ id }) => {
                 <span>
                   <p className={styles['text-top-chart']}>LIQUIDITY</p>
                   <p className={styles['text-bottom-chart']}>
-                    $
+
                     {token.liquidity
                       ? '$' + formatAmount(token.liquidity)
                       : '???'}
@@ -753,7 +754,7 @@ const ChartCryptos = ({ id }) => {
                     token.social_score +
                     token.market_score +
                     token.trust_score ==
-                  0
+                    0
                     ? styles['left-bottom-box-dis']
                     : styles['left-bottom-box']
                 }

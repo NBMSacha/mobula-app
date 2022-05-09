@@ -41,7 +41,9 @@ function News(props: any) {
       await new Promise(r => setTimeout(r, 1000))
       if (window.pageYOffset > 500) {
         supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(100).then(r => {
-          setTokens(r.data)
+          if (r.data) {
+            setTokens(r.data)
+          }
         });
         loaded = true
       }
@@ -163,7 +165,7 @@ function News(props: any) {
               <th className="token-title-chart datas-title">Chart</th>
             </tr>
           </thead>
-          {tokens.map((token, index) => <Token
+          {tokens ? tokens.map((token, index) => <Token
             key={token.id}
             id={token.id}
             name={token.name}
@@ -181,7 +183,7 @@ function News(props: any) {
             price={token.price}
             rank_change_24h={token.rank_change_24h}
             rank={index + 1}
-          />)}
+          />) : <></>}
         </table>
 
       </div>
