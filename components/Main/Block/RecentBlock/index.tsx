@@ -1,55 +1,70 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../Block.module.scss'
+import { useRouter } from 'next/router'
 
 function RecentBlock(tokens: {
   logo1: string
   name1: string
+  id1: number
   change1: number
   logo2: string
   name2: string
+  id2: number
   change2: number
   logo3: string
   name3: string
+  id3: number
   change3: number
 }) {
+  const router = useRouter()
   return (
     <div className={styles['gainer-box']}>
       <h3 className='gainer-main-title'>⏱ Recently Added</h3>
       <div className='gainer-container'>
         <div className='left-gainer'>
-          <div className='line-gainer'>
+          <div className='line-gainer' onClick={() => router.push(String(tokens.id1))}>
             <div className='token-info-pack'>
               <span className='line-number'>1</span>
               <img src={tokens.logo1} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name1}</span>
             </div>
-            <span className='green'>
+
+            {(tokens.change1 >= 0 ? <span className='green'>
               <div className='triangle-green'></div>
               {tokens.change1}%
-            </span>
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
+              {tokens.change1}%
+            </span>)}
           </div>
-          <div className='line-gainer'>
+          <div className='line-gainer' onClick={() => router.push(String(tokens.id2))}>
             <div className='token-info-pack'>
               <span className='line-number'>2</span>
               <img src={tokens.logo2} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name2}</span>
             </div>
-            <span className='green'>
+            {(tokens.change2 >= 0 ? <span className='green'>
               <div className='triangle-green'></div>
               {tokens.change2}%
-            </span>
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
+              {tokens.change2}%
+            </span>)}
           </div>
-          <div className='line-gainer'>
+          <div className='line-gainer' onClick={() => router.push(String(tokens.id3))}>
             <div className='token-info-pack'>
               <span className='line-number'>3</span>
               <img src={tokens.logo3} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name3}</span>
             </div>
 
-            <span className='green'>
+            {(tokens.change3 >= 0 ? <span className='green'>
               <div className='triangle-green'></div>
               {tokens.change3}%
-            </span>
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
+              {tokens.change3}%
+            </span>)}
           </div>
         </div>
         {/* <div className="right-loser">

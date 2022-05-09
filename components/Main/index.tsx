@@ -31,7 +31,7 @@ function News(props: any) {
   const [tokens, setTokens] = useState([]);
   const [gainers, setGainers] = useState([]);
   const [recents, setRecents] = useState([]);
-  const [losers, setLosers] = useState([]);
+  //const [losers, setLosers] = useState([]);
   const [loaded, setLoaded] = useState(false);
   //const scrollPosition = useScrollPosition();
 
@@ -73,15 +73,15 @@ function News(props: any) {
       setTokens(r.data)
     });
 
-    supabase.from('assets').select('name,price_change_24h,logo').order('price_change_24h', { ascending: false }).limit(3).then(r => {
+    supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(3).then(r => {
       setGainers(r.data)
     });
 
-    supabase.from('assets').select('name,price_change_24h,logo').order('price_change_24h', { ascending: true }).limit(3).then(r => {
-      setLosers(r.data)
-    });
+    // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
+    //   setLosers(r.data)
+    // });
 
-    supabase.from('assets').select('name,price_change_24h,logo').order('created_at', { ascending: false }).limit(3).then(r => {
+    supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3).then(r => {
       setRecents(r.data)
     });
 
@@ -95,26 +95,32 @@ function News(props: any) {
       <div className="main-news">
         <MainBlock />
         <div className="three-container">
-          {gainers.length + losers.length == 6 ?
+          {gainers.length == 3 ?
             <GainerBlock
               logo1={gainers[0].logo}
               name1={gainers[0].name}
+              id1={gainers[0].id}
               change1={gainers[0].price_change_24h}
               logo2={gainers[1].logo}
               name2={gainers[1].name}
+              id2={gainers[1].id}
               change2={gainers[1].price_change_24h}
               logo3={gainers[2].logo}
               name3={gainers[2].name}
+              id3={gainers[2].id}
               change3={gainers[2].price_change_24h}
             /> : <GainerBlock
               logo1={''}
               name1={'Loading...'}
+              id1={0}
               change1={0}
               logo2={''}
               name2={'Loading...'}
+              id2={0}
               change2={0}
               logo3={''}
               name3={'Loading...'}
+              id3={0}
               change3={0} />}
           <TrendingBlock
             logo1={''}
@@ -130,22 +136,28 @@ function News(props: any) {
             <RecentBlock
               logo1={recents[0].logo}
               name1={recents[0].name}
+              id1={recents[0].id}
               change1={recents[0].price_change_24h}
               logo2={recents[1].logo}
               name2={recents[1].name}
+              id2={recents[1].id}
               change2={recents[1].price_change_24h}
               logo3={recents[2].logo}
               name3={recents[2].name}
+              id3={recents[2].id}
               change3={recents[2].price_change_24h}
             /> : <RecentBlock
               logo1={''}
               name1={'Loading...'}
+              id1={0}
               change1={0}
               logo2={''}
               name2={'Loading...'}
+              id2={0}
               change2={0}
               logo3={''}
               name3={'Loading...'}
+              id3={0}
               change3={0} />}
         </div>
         <ButtonBlock />
