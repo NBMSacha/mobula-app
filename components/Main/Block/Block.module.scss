@@ -1,0 +1,13 @@
+.gainer-box {
+  background: rgba(163, 212, 244, 0.25);
+  border-radius: 10px;
+  width: 28%;
+  padding: 10px 20px 15px 20px;
+  margin-top: 2rem;
+  backdrop-filter: blur(13.94px);
+  transition: 0.1s;
+}
+
+.gainer-box:hover {
+  background: rgba(163, 212, 244, 0.35);
+}
