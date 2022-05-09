@@ -4,7 +4,8 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 import { ethers } from 'ethers'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import SearchDiv from '../SearchDiv'
-import styles from '../SearchDiv/SearchDiv.module.scss'
+import styles from './wallet.module.scss'
+// import styles from '../SearchDiv/SearchDiv.module.scss'
 import { X, Menu } from 'react-feather'
 import MenuMobile from './MenuMobile'
 
@@ -129,9 +130,9 @@ function Wallet(props: any) {
   useOutsideAlerter(wrapperRef, setTriggerSearch)
   return (
     <>
-      <div className='relative'>
+      <div className={styles['relative']}>
         <FiSearch
-          className='loupe'
+          className={styles['loupe']}
           onClick={() => {
             setTriggerSearch(true)
           }}
@@ -145,7 +146,10 @@ function Wallet(props: any) {
           name='search'
           placeholder='Search Crypto Assets'
         />
-        <button className='connect-wallet-btn' onClick={handleConnect}>
+        <button
+          className={styles['connect-wallet-btn']}
+          onClick={handleConnect}
+        >
           {active
             ? account.substring(0, 4) +
               '..' +
@@ -154,11 +158,15 @@ function Wallet(props: any) {
         </button>
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
         <button
-          className='hamburger-btn'
+          className={styles['hamburger-btn']}
           id='btnParent'
           onClick={() => mobileNav()}
         >
-          {nav ? <X className='hamburger' /> : <Menu className='hamburger' />}
+          {nav ? (
+            <X className={styles['hamburger']} />
+          ) : (
+            <Menu className={styles['hamburger']} />
+          )}
         </button>
       </div>
       <MenuMobile />

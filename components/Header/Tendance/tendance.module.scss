@@ -1,0 +1,34 @@
+.info-text {
+  color: #b4cfff;
+  font-family: 'Inter', 'Sans-sérif';
+  font-size: 10px;
+  margin-left: 2rem;
+}
+
+.info-tendance {
+  display: flex;
+  align-items: center;
+  width: auto;
+  padding: 15px 15px 15px 15px;
+  justify-content: space-between;
+  background-color: #05062a;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info-left {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.blue-data {
+  color: #64d1ff;
+  font-family: 'Inter', 'Sans-sérif';
+  font-size: 10px;
+  margin-left: 0.6rem;
+}
+$primary: 'blue';
+
+:export {
+  primary: $primary;
+}

@@ -5,14 +5,13 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Web3Provider } from '@ethersproject/providers'
 import { Web3ReactProvider } from '@web3-react/core'
+import { positions, Provider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 import '../styles.scss'
 import '../styles/header.scss'
 import '../styles/responsive.scss'
 import '../styles/SubmitForm.scss'
 import '../styles/respChart.scss'
-import { positions, Provider } from 'react-alert'
-import AlertTemplate from 'react-alert-template-basic'
-import { ChakraProvider } from '@chakra-ui/react'
 
 const alertOptions = {
   timeout: 5000,

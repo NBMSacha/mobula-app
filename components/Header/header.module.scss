@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap');
+
+.header {
+  padding: 20px 3.2rem;
+  width: auto;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid rgb(46 53 87 / 50%);
+  /* background: linear-gradient(90deg, rgba(47, 54, 88, 0.1) 0%, rgba(47, 54, 88, 0.1) 100%); */
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: none;
+  max-width: none;
+  justify-content: space-between;
+}
+
+/* *{
+      border: 1px solid red
+  } */
+
+.connect-wallet-btn {
+  border: none;
+  background: rgb(0, 63, 225);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 63, 225, 1) 0%,
+    rgba(100, 208, 255, 1) 100%
+  );
+  font-size: 1.125rem;
+  width: 12.5rem;
+  height: 48px;
+  transition: 0.5s;
+  cursor: pointer;
+  border-radius: 8px;
+  line-height: 18px;
+  font-family: 'Inter', sans-serif;
+  color: #f7f7f7;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.search-input {
+  font-size: 0.8rem;
+  width: 14rem;
+  height: 48px;
+  opacity: 1;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #2d3558;
+  padding-left: 50px;
+  border: none;
+  color: white;
+  margin-right: 2.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+// input::placeholder {
+//   color: #f7f7f7;
+//   opacity: 1;
+// }
+
+.relative {
+  position: relative;
+  display: flex;
+}
+
+.loupe {
+  color: #f7f7f7;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 13px;
+  left: 13px;
+}
+
+.nomargin-box {
+  margin-left: 0px !important;
+}

@@ -75,8 +75,8 @@ function SearchDiv(props: any) {
   if (props.trigger) {
     return (
       <div ref={props.wrapperRef}>
-        <div className={`${styles['search-div']}`}>
-          <FiSearch className='loupe' />
+        <div className={styles['search-div']}>
+          <FiSearch className={styles['loupe']} />
           <input
             value={token}
             type='text'

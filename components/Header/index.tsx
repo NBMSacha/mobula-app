@@ -7,6 +7,7 @@ import Link from './Link'
 import Brand from './Brand'
 import Tendance from './Tendance'
 import { createClient } from '@supabase/supabase-js'
+import styles from './header.module.scss'
 
 function Header(props: any) {
   const [metrics, setMetrics] = useState({
@@ -113,7 +114,7 @@ function Header(props: any) {
 
   return (
     <>
-      <div className='header'>
+      <div className={styles['header']}>
         <div className='main'>
           <Brand />
           <Link />
