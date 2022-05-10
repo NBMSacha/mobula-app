@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
@@ -7,7 +7,7 @@ import Tendance from '../Header/Tendance';
 import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../constants';
 import { useAlert } from "react-alert";
-import styles from "./ListingForm.module.scss"
+import styles from "./ListingForm.module.scss";
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -185,6 +185,8 @@ function ListAToken(props: any) {
     }
 
     const [count, setCount] = useState(0);
+    const [counts, setCounts] = useState(0);
+    // const [excluded, setExcluded ] = useState()
 
     function test() {
         try {
@@ -208,53 +210,171 @@ function ListAToken(props: any) {
         } catch (err) { }
     }
 
+    const [excluded1, setExcluded1] = useState('');
+    const [excluded2, setExcluded2] = useState('');
+    const [excluded3, setExcluded3] = useState('');
+    const [excluded4, setExcluded4] = useState('');
+    const [excluded5, setExcluded5] = useState('');
 
-
-    function moreInput() {
+    function moreInputExcluded() {
         const parent = document.getElementById("parent") as any;
         setCount(() => count + 1)
-        if (count <= 4) {
-            var input = document.createElement('input') as any;
-            input.classList.add("inputCreated");
-            input.placeholder = "0x...";
-            input.type = "text"
-            // input.value = 
-            // value={twitter}
-            //                     onChange={(e) => setTwitter(e.target.value)}
-            parent.appendChild(input);
+        if (count <= 4 ) {
+            var inputs = document.createElement('input') as any;
+            inputs.classList.add("inputCreated");
+            inputs.placeholder = "0x...";
+            inputs.type = "text"
+            inputs.addEventListener("change", () => {
+                //  
+                console.log(inputs.value);
+            })
+            parent.appendChild(inputs);
+        }
+        if (counts == 0 ) {
+            inputs.addEventListener("change", () => {
+                setExcluded1(inputs.value);
+            })
+            inputs.value = excluded1;
+        }
+
+ 
+        if (counts == 1) {
+            inputs.addEventListener("change", () => {
+                setExcluded2(inputs.value);
+            })
+            inputs.value = excluded2;
+        }
+        if (counts == 2) {
+            inputs.addEventListener("change", () => {
+                setExcluded3(inputs.value);
+            })
+            inputs.value = excluded3;
+        }
+        if (counts == 3) {
+            inputs.addEventListener("change", () => {
+                setExcluded4(inputs.value);
+            })
+            inputs.value = excluded4;
+        }
+        if (counts == 4) {
+            inputs.addEventListener("change", () => {
+                setExcluded5(inputs.value);
+            })
+            inputs.value = excluded5;
         }
     }
 
+    var objectForExcluded = {
+        excluded: excluded,
+        excluded1: excluded5,
+        excluded2: excluded,
+        excluded3: excluded,
+        excluded4: excluded,
+        excluded5: excluded
+    }
+    console.log(objectForExcluded)
+
+    const [contract1, setContract1] = useState('');
+    const [contract2, setContract2] = useState('');
+    const [contract3, setContract3] = useState('');
+    const [contract4, setContract4] = useState('');
+    const [contract5, setContract5] = useState('');
+
+    function moreInputAddress() {
+        const contracts = document.getElementById('parents') as any;
+        setCounts(() => counts + 1);
+        const appears = document.getElementById('noappears') as any;
+        if (counts <= 4 ) {
+            var addressCreated = document.createElement('input') as any;
+            addressCreated.classList.add("inputCreatedAddress");
+            addressCreated.placeholder = "0x";
+            addressCreated.type = "text"
+            appears.style.display = "flex"
+            contracts.appendChild(addressCreated)
+        }
+        if (counts == 0 ) {
+            addressCreated.addEventListener("change", () => {
+                setContract1(addressCreated.value);
+            })
+            addressCreated.value = contract1;
+        }
+        if (counts == 1) {
+            addressCreated.addEventListener("change", () => {
+                setContract2(addressCreated.value);
+            })
+            addressCreated.value = contract2;
+        }
+        if (counts == 2) {
+            addressCreated.addEventListener("change", () => {
+                setContract3(addressCreated.value);
+            })
+            addressCreated.value = contract3;
+        }
+        if (counts == 3) {
+            addressCreated.addEventListener("change", () => {
+                setContract4(addressCreated.value);
+            })
+            addressCreated.value = contract4;
+        }
+        if (counts == 4) {
+            addressCreated.addEventListener("change", () => {
+                setContract5(addressCreated.value);
+            })
+            addressCreated.value = contract5;
+        } 
+    }
+ 
+    var objectForContract = {
+        contract: contract,
+        contract1: contract1,
+        contract2: contract2,
+        contract3: contract3,
+        contract4: contract4,
+        contract5: contract5
+    }
+    console.log(objectForContract)
+
     return (
         <div>
-            <div className={styles["listToken-container"]}>
-                <div className={styles["title-listToken"]}>
-                    <h2 className={styles["listingForm-title"]}>Listing Form</h2>
-                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
+            <div className="listToken-container">
+                <div className="title-listToken">
+                    <h2 className="listingForm-title">Listing Form</h2>
+                    <p className="listingForm-text">Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
-                <div className={styles["listToken-main"]}>
-                    <form className={styles["all-forms"]} id="myForm">
-                        <div className={styles["three-forms"]}>
+                <div className="listToken-main">
+                    <form className="all-forms" id="myForm">
+                        <div className="three-forms">
                             <h2>General Data</h2>
-                            <div className={styles["form-container-box"]}>
+                            <div className={styles["form-container-box"]} id='parents'>
                                 <label >Contract Address *</label>
                                 <input
                                     type="text"
                                     id="contract"
                                     value={contract}
-                                    className={styles["inputs"]}
+                                    className="inputs"
                                     placeholder="0x"
                                     onChange={(e) => setContract(e.target.value)}
                                     required
                                 ></input>
+                                 <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
+                                 
                             </div>
-
-                            <div className={styles["form-container-box"]}>
+                            <div className={styles["noappears"]} id="noappears">
+                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
+                                        <input type="radio" id="scales" name="scales" checked/>
+                                        <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
+                                    </div>
+                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
+                                        <input type="radio" id="scale" name="scales" />
+                                        <label htmlFor="scale">The total supply is the sum of all the contracts</label>
+                                    </div>
+                                </div>
+                            <div className="form-container-box">
                                 <label >Description *</label>
                                 <textarea
                                     id="msg"
                                     name="description"
-                                    className={styles["inputs"]}
+                                    className="inputs"
                                     placeholder="Mobula the first decentralized data aggregator."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
@@ -264,9 +384,9 @@ function ListAToken(props: any) {
                             </div >
 
                         </div>
-                        <div className={styles["three-forms"]}>
+                        <div className="three-forms">
                             <h2>Social Data</h2>
-                            <div className={styles["form-container-box"]}>
+                            <div className="form-container-box">
                                 <label >Twitter *</label>
                                 <input
                                     type="text"
@@ -278,7 +398,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setTwitter(e.target.value)}
                                 ></input>
                             </div>
-                            <div className={styles["form-container-box"]}>
+                            <div className="form-container-box">
                                 <label >Chat *</label>
                                 <input
                                     value={telegram}
@@ -289,7 +409,7 @@ function ListAToken(props: any) {
                                     name="telegram"
                                     placeholder="https://t.me/WhelerWorld" />
                             </div>
-                            <div className={styles["form-container-box"]}>
+                            <div className="form-container-box">
                                 <label >Website *</label>
                                 <input
                                     required
@@ -300,11 +420,11 @@ function ListAToken(props: any) {
                                     onChange={(e) => setWebsite(e.target.value)}
                                 ></input>
                             </div>
-                            <div className={styles["form-container-box"]} >
+                            <div className="form-container-box" >
                                 <label >Logo Link *</label>
                                 <input
                                     id="logo"
-                                    className={styles["inputs"]}
+                                    className="inputs"
                                     name="logo"
                                     value={logo}
                                     onChange={(e) => setLogo(e.target.value)}
@@ -313,9 +433,9 @@ function ListAToken(props: any) {
                                 ></input>
                             </div>
                         </div>
-                        <div className={styles["three-forms"]}>
+                        <div className="three-forms">
                             <h2>Security Data</h2>
-                            <div className={styles["form-container-box"]}>
+                            <div className="form-container-box">
                                 <label >Audit Link (Optional) </label>
                                 <input
                                     type="text"
@@ -326,7 +446,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setAudit(e.target.value)}
                                 ></input>
                             </div>
-                            <div className={styles["form-container-box"]}>
+                            <div className="form-container-box">
                                 <label >KYC Link (Optional) &nbsp;:</label>
                                 <input
                                     type="text"
@@ -337,22 +457,22 @@ function ListAToken(props: any) {
                                     onChange={(e) => setKYC(e.target.value)}
                                 ></input>
                             </div>
-                            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
+                            <div className="form-container-box relative-form" id='parent'>
                                 <label>Excluded from Circulation *</label>
                                 <input
                                     name="excluded"
                                     placeholder="0x..."
-                                    className={styles["inputPlus"]}
+                                    className="inputPlus"
                                     value={excluded}
                                     onChange={(e) => setExcluded(e.target.value)}
                                 ></input>
-                                <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInput()}>+</button>
+                                <button type="button" className="absolute-btn" id="moreInput" onClick={() => moreInputExcluded()}>+</button>
                             </div>
                             <div className="button-submit" id="void">
-                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}>Submit</button>
+                                <button className="button-submit-form" id="submitForm" onClick={(e) => submit(e)}>Submit</button>
                             </div>
-                            <div className={styles["button-submit"]} id="mobile-void">
-                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}>Submit</button>
+                            <div className="button-submit" id="mobile-void">
+                                <button className="button-submit-form" onClick={(e) => submit(e)}>Submit</button>
                             </div>
                         </div>
                     </form>
