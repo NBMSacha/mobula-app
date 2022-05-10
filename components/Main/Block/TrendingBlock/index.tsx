@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { formatName } from '../../../../helpers/formaters'
-import styles from '../Block.module.scss'
+import styles from '../GainerBlock/GainerBlock.module.scss'
 
 function TrendingBlock(tokens: {
   logo1: string
@@ -15,40 +15,41 @@ function TrendingBlock(tokens: {
 }) {
   return (
     <div className={styles['gainer-box']}>
-      <h3 className='gainer-main-title'>🔥 Trendings</h3>
-      <div className='gainer-container'>
-        <div className='left-gainer'>
+      <h3 className={styles['gainer-main-title']}>🔥 Trendings</h3>
+      <div className={styles['gainer-container']}>
+        <div className={styles['left-gainer']}>
           <div className={styles['line-gainer']}>
             <div className={styles['token-info-pack']}>
-              <span className='line-number'>1</span>
-              <img src={tokens.logo1} className='logo-inBox' />
-              <span className='crypto-assests'>{tokens.name1}</span>
+              <span className={styles['line-number']}>1</span>
+              <img src={tokens.logo1} className={styles['logo-inBox']} />
+              <span className={styles['crypto-assests']}>{tokens.name1}</span>
             </div>
-            <span className='green'>
-              <div className='triangle-green'></div>
+            <span className={styles['green']}>
+              <div className={styles['triangle-green']}></div>
               {tokens.change1}%
             </span>
           </div>
           <div className={styles['line-gainer']}>
             <div className={styles['token-info-pack']}>
-              <span className='line-number'>2</span>
-              <img src={tokens.logo2} className='logo-inBox' />
-              <span className='crypto-assests'>{tokens.name2}</span>
+              <span className={styles['line-number']}>2</span>
+              <img src={tokens.logo2} className={styles['logo-inBox']} />
+              <span className={styles['crypto-assests']}>{tokens.name2}</span>
             </div>
-            <span className='green'>
-              <div className='triangle-green'></div>
+            <span className={styles['green']}>
+              <div className={styles['triangle-green']}></div>
               {tokens.change2}%
             </span>
           </div>
           <div className={styles['line-gainer']}>
             <div className={styles['token-info-pack']}>
-              <span className='line-number'>3</span>
-              <img src={tokens.logo3} className='logo-inBox' />
-              <span className='crypto-assests'>{tokens.name3}</span>
+              <span className={styles['line-number']}>3</span>
+              <img src={tokens.logo3} className={styles['logo-inBox']} />
+              <span className={styles['crypto-assests']}>{tokens.name3}</span>
+
             </div>
 
-            <span className='green'>
-              <div className='triangle-green'></div>
+            <span className={styles['green']}>
+              <div className={styles['triangle-green']}></div>
               {tokens.change3}%
             </span>
           </div>

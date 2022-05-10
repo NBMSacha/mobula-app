@@ -4,6 +4,8 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount } from '../../../helpers/formaters';
+import styles from "../Token/Token.module.scss"
+
 function Token(token: {
   name: string
   symbol: string
@@ -32,73 +34,73 @@ function Token(token: {
 
   console.log(token.id)
   return (
-    <tbody className="border-bot" onClick={() => document.location.href = String(token.id)}>
-      <tr className="token-containers">
-        <td className="token-ids font-char">
-          <a href="" className="white">
+    <tbody className={styles["border-bot"]} onClick={() => document.location.href = String(token.id)}>
+      <tr className={styles["token-containers"]}>
+        <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
+          <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
-              <span className="token-percentage-box font-char red" id="noColor">
+              <span className={`${styles['red']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
 
-                <ArrowDown className="arrowDown" />
+                <ArrowDown className={styles["arrowDown"]} />
                 {Math.abs(token.rank_change_24h)}
               </span>
             ) : token.rank_change_24h == 0 ? <div>--</div> : (
-              <span className="token-percentage-box font-char green" id="noColor">
+              <span className={`${styles['green']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
 
-                <ArrowUp className="arrowDown" />
+                <ArrowUp className={styles["arrowDown"]} />
                 {token.rank_change_24h}
               </span>
             )}
           </a>
           <span>{token.rank}</span></td>
-        <td className="token-infos">
-          <img src={token.logo} className="token-logos" />
+        <td className={styles["token-infos"]}>
+          <img src={token.logo} className={styles["token-logos"]} />
           <div>
-            <span className="token-names font-char">{getNameFormat(token.name)}</span>
-            <span className="token-symbols font-char">{token.symbol}</span>
+            <span className={`${styles["token-names"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
+            <span className={`${styles["font-char"]} ${styles["token-symbols"]}`}>{token.symbol}</span>
           </div>
         </td>
-        <td className="tokens-price">
-          <span className="token-price-box font-char">${getTokenPrice(token.price)}</span>
+        <td className={styles["tokens-price"]}>
+          <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
 
         </td>
-        <td className="token-percentage">
+        <td className={styles["token-percentage"]}>
           {token.price_change_24h < 0.01 ? (
-            <span className="token-percentage-box font-char red" id="noColor">
+            <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
 
-              <ArrowDown className="arrowDown" />
+              <ArrowDown className={styles["arrowDown"]} />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           ) || (
               <div></div>
             ) : (
-            <span className="token-percentage-box font-char green" id="noColor">
+            <span className={`${styles['green']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
 
-              <ArrowUp className="arrowDown" />
+              <ArrowUp className={styles["arrowDown"]} />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
 
 
           )}
         </td>
-        <td className="token-marketCap">
-          <span className="token-marketCap-box font-char">${formatAmount(token.market_cap)}</span>
+        <td className={styles["token-marketCap"]}>
+          <span className={`${styles["font-char"]} ${styles["token-marketCap-box"]}`}>${formatAmount(token.market_cap)}</span>
 
         </td>
-        <td className="token-marketFully">
-          <span className="token-marketFully-box font-char">${formatAmount(token.volume)}</span>
+        <td className={styles["token-marketFully"]}>
+          <span className={`${styles["token-marketFully-box"]} ${styles["font-char"]}`}>${formatAmount(token.volume)}</span>
         </td>
-        <td className="tokens-links">
+        <td className={styles["tokens-links"]}>
 
-          <div className="media-icons">
-            {token.website ? <a href={token.website} className="nomargin white fis"><Globe className="fi" /></a> : <></>}
-            {token.twitter ? <a href={token.twitter} className="nomargin white fus"><Twitter className="fu" /></a> : <></>}
+          <div className={styles["media-icons"]}>
+            {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
+            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><Twitter className={styles["fu"]} /></a> : <></>}
           </div>
 
 
         </td>
-        <td className="token-chart">
-          <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className="chart-image" />
+        <td className={styles["token-chart"]}>
+          <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} />
         </td>
       </tr>
     </tbody>

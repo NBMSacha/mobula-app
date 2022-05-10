@@ -34,30 +34,30 @@ function MainBlock(props: any) {
           </p>
         </div>
         <div className={styles['quadBox-container']}>
-          <div className='quad-box-1'>
-            <a href='https://docs.mobula.finance' className={styles.disabled}>
-              <div className='texts-box texts-box-1'>
+          <div className={styles['quad-box-1']}>
+            <a href='https://docs.mobula.finance' className={styles["disabled"]}>
+              <div className={`${styles["texts-box-1"]} ${styles["texts-box"]}`}>
                 <div className={styles['logo-box']}>
                   <img className={styles.inside} src='fullicon.png'></img>
                 </div>
                 <p className={styles.text}>
                   Discover Mobula
                   <br />
-                  <span className='bold-text'>Learn and earn $MOBL</span>
+                  <span className={styles['bold-text']}>Learn and earn $MOBL</span>
                 </p>
               </div>
             </a>
           </div>
-          <div className='quad-box-2'>
+          <div className={styles['quad-box-2']}>
             <a href='https://discord.gg/2a8hqNzkzN'>
-              <div className='texts-box texts-box-2'>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
                 <div className={styles['logo-box']}>
                   <img className={styles.inside} src='fullicon.png'></img>
                 </div>
                 <p className={styles.text}>
                   Join the DAO
                   <br />
-                  <span className='bold-text'>Vote, earn, interact.</span>
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
                 </p>
               </div>
             </a>

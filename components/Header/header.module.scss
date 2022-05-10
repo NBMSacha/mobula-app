@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap');
+
+.header {
+  padding: 20px 3.2rem;
+  width: auto;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid rgb(46 53 87 / 50%);
+  /* background: linear-gradient(90deg, rgba(47, 54, 88, 0.1) 0%, rgba(47, 54, 88, 0.1) 100%); */
+}
+.main {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: none;
+  max-width: none;
+  justify-content: space-between;
+}
+
+.header .right span {
+  margin-right: 2.5rem;
+  cursor: pointer;
+}
+
+.header {
+  color: white;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.relative {
+  position: relative;
+  display: flex;
+}
+
+.nomargin-box {
+  margin-left: 0px !important;
+}
+
+@media screen and (max-width: 1450px) {
+  .header {
+    padding: 20px 1.19rem;
+  }
+  .header .right {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    border-bottom: 1px solid #2b5177;
+    padding: 7px 0.18999999999999995rem;
+  }
+}

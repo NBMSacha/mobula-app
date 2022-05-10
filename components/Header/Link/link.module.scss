@@ -1,0 +1,43 @@
+.link-container {
+  display: flex;
+  justify-content: space-around;
+  margin-right: -30px;
+  font-weight: 500;
+  font-size: 15px;
+  width: 50%;
+  margin-right: 10px;
+}
+.link-common {
+  color: white;
+  margin-left: 3.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 200ms ease-in-out;
+}
+
+.link-common:hover {
+  color: #556b90;
+  transition: color 200ms ease-in-out;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1060px) {
+  .link-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 1450px) {
+  .link-container {
+    margin-right: 10px;
+  }
+  .link-common {
+    margin-left: 1.1rem !important;
+  }
+}
+
+@media screen and (max-width: 1650px) {
+  .link-common {
+    margin-left: 1.8rem ;
+  }
+}

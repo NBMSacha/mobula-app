@@ -1,0 +1,144 @@
+.gainer-box {
+    background: rgba(163, 212, 244, 0.25);
+    border-radius: 10px;
+    width: 28%;
+    margin-top: 2rem;
+    backdrop-filter: blur(13.94px);
+    transition: 0.1s;
+}
+
+.gainer-box>* {
+    padding: 10px 20px 15px 20px;
+
+}
+
+.gainer-box:hover {
+    background: rgba(163, 212, 244, 0.35);
+}
+
+.line-gainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.line-gainer>* {
+    margin-right: 20px;
+}
+
+.token-info-pack {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.line-gainer:hover {
+    cursor: pointer;
+    background-color: rgba(163, 212, 244, 0.25)
+}
+
+.gainer-main-title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    margin: 0px;
+    margin-top: 10px;
+}
+
+.left-gainer {
+    width: 100%;
+}
+
+.line-number {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    opacity: 0.6;
+    margin-right: 15px;
+}
+
+.crypto-assests {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    text-overflow: ellipsis;
+    color: #ffffff;
+}
+
+.logo-inBox {
+    height: 18px !important;
+    margin-right: 10px;
+}
+
+.red {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    color: #ea3943;
+}
+
+.triangle-green {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #16c784;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+}
+
+.triangle-red {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid #ea3943;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+}
+
+.green {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    color: #16c784 !important;
+}
+
+.gainer-container {
+    display: flex;
+    flex-direction: row;
+    line-height: 28px;
+    width: 100%;
+}
+
+@media screen and (max-width:1060px) {
+    .gainer-box {
+        margin-left: 0.3rem;
+    }
+}

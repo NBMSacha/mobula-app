@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
-import styles from './SearchDiv.module.scss'
+import styles from './searchdiv.module.scss'
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
   const { data: names } = await supabase
@@ -75,8 +75,8 @@ function SearchDiv(props: any) {
   if (props.trigger) {
     return (
       <div ref={props.wrapperRef}>
-        <div className={`${styles['search-div']}`}>
-          <FiSearch className='loupe' />
+        <div className={styles['search-div']}>
+          <FiSearch className={styles['loupe']} />
           <input
             value={token}
             type='text'
