@@ -45,6 +45,7 @@ function TrendingBlock(tokens: {
               <span className={styles['line-number']}>3</span>
               <img src={tokens.logo3} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name3}</span>
+
             </div>
 
             <span className={styles['green']}>

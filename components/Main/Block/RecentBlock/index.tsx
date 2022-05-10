@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../GainerBlock/GainerBlock.module.scss'
+import { useRouter } from 'next/router'
+import { getTokenPrice } from '../../../../helpers/formaters';
 
 function RecentBlock(tokens: {
   logo1: string
   name1: string
+  id1: number
   change1: number
   logo2: string
   name2: string
+  id2: number
   change2: number
   logo3: string
   name3: string
+  id3: number
   change3: number
 }) {
+  const router = useRouter()
   return (
     <div className={styles['gainer-box']}>
       <h3 className={styles['gainer-main-title']}>⏱ Recently Added</h3>
@@ -23,10 +29,13 @@ function RecentBlock(tokens: {
               <img src={tokens.logo1} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name1}</span>
             </div>
-            <span className={styles['green']}>
-              <div className={styles['triangle-green']}></div>
+            {(tokens.change1 >= 0 ? <span className='green'>
+              <div className='triangle-green'></div>
               {tokens.change1}%
-            </span>
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
+              {getTokenPrice(tokens.change1)}%
+            </span>)}
           </div>
           <div className={styles['line-gainer']}>
             <div className={styles['token-info-pack']}>
@@ -34,10 +43,14 @@ function RecentBlock(tokens: {
               <img src={tokens.logo2} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name2}</span>
             </div>
-            <span className={styles['green']}>
-              <div className={styles['triangle-green']}></div>
+         
+            {(tokens.change2 >= 0 ? <span className='green'>
+              <div className='triangle-green'></div>
               {tokens.change2}%
-            </span>
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
+              {getTokenPrice(tokens.change2)}%
+            </span>)}
           </div>
           <div className={styles['line-gainer']}>
             <div className={styles['token-info-pack']}>
@@ -46,10 +59,13 @@ function RecentBlock(tokens: {
               <span className={styles['crypto-assests']}>{tokens.name3}</span>
             </div>
 
-            <span className={styles['green']}>
-              <div className={styles['triangle-green']}></div>
+            {(tokens.change3 >= 0 ? <span className='green'>
+              <div className='triangle-green'></div>
+              {getTokenPrice(tokens.change3)}%
+            </span> : <span className='red'>
+              <div className='triangle-red'></div>
               {tokens.change3}%
-            </span>
+            </span>)}
           </div>
         </div>
         {/* <div className="right-loser">
@@ -69,8 +85,8 @@ function RecentBlock(tokens: {
               <span className="red"><div className="triangle-red"></div>{tokens.change6}%</span>
           </div>
           </div> */}
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
 

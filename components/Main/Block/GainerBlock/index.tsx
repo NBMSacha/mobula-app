@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { formatName } from '../../../../helpers/formaters'
 import styles from './GainerBlock.module.scss'
-
+import { getTokenPrice } from '../../../../helpers/formaters';
 
 function GainerBlock(tokens: {
   logo1: string
   name1: string
+  id1: number
   change1: number
   logo2: string
   name2: string
+  id2: number
   change2: number
   logo3: string
   name3: string
+  id3: number
   change3: number
 }) {
+  const router = useRouter()
   return (
     <div className={styles['gainer-box']}>
       <h3 className={styles['gainer-main-title']}>🟢 Top Gainers</h3>
@@ -71,8 +76,8 @@ function GainerBlock(tokens: {
               <span className="red"><div className="triangle-red"></div>{tokens.change6}%</span>
           </div>
           </div> */}
-      </div>
-    </div>
+      </div >
+    </div >
   )
 }
 
