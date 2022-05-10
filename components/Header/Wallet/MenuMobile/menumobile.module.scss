@@ -78,7 +78,7 @@
   margin-left: 35px;
 }
 
-.disconnect-wallet-mobile > span {
+.disconnect-wallet-mobile > button {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
@@ -87,4 +87,6 @@
   display: flex;
   align-items: center;
   color: #ea3943;
+  border:none;
+  background:none;
 }
