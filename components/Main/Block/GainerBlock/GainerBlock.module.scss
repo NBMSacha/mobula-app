@@ -2,9 +2,46 @@
     background: rgba(163, 212, 244, 0.25);
     border-radius: 10px;
     width: 28%;
-    padding: 10px 20px 15px 20px;
     margin-top: 2rem;
     backdrop-filter: blur(13.94px);
+    transition: 0.1s;
+}
+
+.gainer-box>* {
+    padding: 10px 20px 15px 20px;
+
+}
+
+.gainer-box:hover {
+    background: rgba(163, 212, 244, 0.35);
+}
+
+.line-gainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    margin-left: -20px;
+}
+
+.line-gainer>* {
+    margin-right: 20px;
+}
+
+.token-info-pack {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    text-overflow: ellipsis;
+}
+
+.line-gainer:hover {
+    cursor: pointer;
+    background-color: rgba(163, 212, 244, 0.25)
 }
 
 .gainer-main-title {
@@ -47,26 +84,9 @@
     display: flex;
     align-items: center;
     text-align: center;
-  
+
     text-overflow: ellipsis;
     color: #ffffff;
-  }
-
-.token-info-pack {
-    display: flex;
-    align-items: center;
-    text-overflow: ellipsis;
-}
-
-.line-gainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 10px;
 }
 
 .logo-inBox {
@@ -80,7 +100,7 @@
     font-weight: 600;
     color: #ea3943;
 }
-  
+
 .triangle-green {
     display: inline-block;
     height: 0;
@@ -91,7 +111,7 @@
     margin-right: 6px;
     margin-bottom: 2px;
 }
-  
+
 .triangle-red {
     display: inline-block;
     height: 0;

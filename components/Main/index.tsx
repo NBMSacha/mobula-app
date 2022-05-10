@@ -74,7 +74,7 @@ function News(props: any) {
     });
 
     supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
-      setGainers(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
+      setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
     });
 
     // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
@@ -95,7 +95,7 @@ function News(props: any) {
       <div className={styles["main-news"]}>
         <MainBlock />
         <div className={styles["three-container"]}>
-          {gainers.length == 3 ?
+          {gainers.length >= 3 ?
             <GainerBlock
               logo1={gainers[0].logo}
               name1={gainers[0].name}

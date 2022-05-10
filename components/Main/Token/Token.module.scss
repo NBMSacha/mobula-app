@@ -1,176 +1,197 @@
 .border-bot {
-    border-bottom: 1px solid rgba(46, 53, 87, 0.8);
-  }
-  
-.border-bot:hover {
-    background-color: #808a9d27;
+  border-bottom: 1px solid rgba(46, 53, 87, 0.8);
+  cursor: pointer;
 }
+
+.border-bot:hover {
+  background-color: #808a9d27;
+}
+
 .tokens-links {
   font-size: 24px;
   position: relative;
-  margin-right: 25px!important;
-  width: 80px!important;
+  margin-right: 25px !important;
+  width: 80px !important;
 }
-.token-containers {
-    width: 100%;
-    display: flex;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px;
-    color: #ffffff;
-    height: 120px;
-  }
 
-  .token-containers > td {
-    width: 154px;
-    display: flex;
-    margin-left: 50px;
-    align-items: center;
-    justify-content: end;
+.token-containers {
+  width: 100%;
+  display: flex;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  color: #ffffff;
+  height: 120px;
+}
+
+.token-containers>td {
+  width: 154px;
+  display: flex;
+  margin-left: 50px;
+  align-items: center;
+  justify-content: end;
+}
+
+.token-ids {
+  display: flex;
+  align-items: center;
+  width: 50px !important;
+  margin-right: 20px;
+  margin-left: 40px;
+}
+
+.token-ids>span {
+  margin-left: 10px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #808a9d;
+}
+
+.chart-image {
+  margin-left: 25px;
+}
+
+.nomargin {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+.font-char {
+  font-size: 15px;
+}
+
+.white:visited {
+  color: #fff;
+}
+
+.red {
+  color: #ea3943 !important;
+}
+
+.green {
+  color: #16c784 !important;
+}
+
+.token-percentage-box {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  color: #ea3943;
+  align-items: center;
+  display: flex;
+}
+
+.token-infos {
+  display: flex;
+  align-items: center;
+  justify-content: start !important;
+  width: 240px !important;
+  margin-left: 10px !important;
+}
+
+.token-infos>div>span {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.token-infos>div {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.token-logos {
+  height: 40px;
+  margin-right: 1rem;
+  border-radius: 50%;
+}
+
+.token-names {
+  margin-right: 5px;
+}
+
+.tokens-price {
+  width: 75px !important;
+  margin-right: 10px;
+}
+
+.token-percentage {
+  width: 125px !important;
+}
+
+.token-marketFully {
+  position: relative;
+}
+
+.media-icons {
+  margin-bottom: auto;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.fi {
+  color: #556b90;
+}
+
+.fu {
+  color: #556b90;
+}
+
+.fo {
+  color: #556b90;
+}
+
+@media screen and (max-width: 768px) {
+  .token-containers {
+    height: 60px !important;
   }
 
   .token-ids {
-    display: flex;
-    align-items: center;
-    width: 50px !important;
-    margin-right: 20px;
-    margin-left: 40px;
+    display: none !important;
   }
-  
-  .token-ids > span {
-    margin-left: 10px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: #808a9d;
-  }
-  .chart-image {
-    margin-left: 25px;
-  }
-  
-  .nomargin {
-    margin-top: 2px !important;
-    margin-bottom: 2px !important;
-  }
-  
-  .font-char {
-    font-size: 15px;
-  }
-  .white:visited {
-    color: #fff;
-  }
-  
-.red {
-    color: #ea3943 !important;
-  }
-  .green{
-      color:#16c784 !important;
-  }
-  
-  .token-percentage-box {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 16px;
-    color: #ea3943;
-    align-items: center;
-    display: flex;
+
+  .token-marketCap {
+    display: none !important;
   }
 
   .token-infos {
-    display: flex;
-    align-items: center;
-    justify-content: start !important;
-    width: 240px !important;
-    margin-left: 10px !important;
+    margin: 0px;
+    margin-right: 160px;
   }
-  .token-infos > div > span {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  
-.token-infos > div {
-    display: flex;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+
   .token-logos {
-    height: 40px;
-    margin-right: 1rem;
-    border-radius: 50%;
+    height: 30px;
   }
-  .token-names {
-    margin-right: 5px;
-  }
-  .tokens-price {
-    width: 75px !important;
-    margin-right: 10px;
-  }
-  .token-percentage {
-    width: 125px !important;
-  }
+
   .token-marketFully {
-    position: relative;
+    display: none !important;
   }
-  .media-icons {
-    margin-bottom: auto;
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
+
+  .tokens-links {
+    display: none !important;
   }
-  .fi {
-    color: #556b90;
+
+  .token-chart {
+    display: none !important;
   }
-  
-  .fu {
-    color: #556b90;
+
+  .token-symbols {
+    display: none !important;
   }
-  
-  .fo {
-    color: #556b90;
-  }
-@media screen and (max-width: 768px) {
-    .token-containers {
-        height: 60px !important;
-    }
-    .token-ids {
-        display: none !important;
-    }
-    .token-marketCap {
-        display: none !important;
-      }
-    .token-infos {
-        margin: 0px;
-        margin-right: 160px;
-    }
-    .token-logos {
-        height: 30px;
-    }
-    .token-marketFully {
-        display: none !important;
-      }
-    
-      .tokens-links {
-        display: none !important;
-      }
-    
-      .token-chart {
-        display: none !important;
-      }
-    .token-symbols {
-        display: none !important;
-      }
-      
+
   .tokens-price {
     width: 32px !important;
     margin-left: auto !important;
   }
-  
+
   .token-percentage {
     width: 27px !important;
     margin-right: 10px;
@@ -179,19 +200,21 @@
 }
 
 @media screen and (max-width: 580px) {
-    .token-percentage-box {
-        align-items: center;
-        display: flex;
-        font-size: 12px;
-      }
-      .arrowDown {
-        margin-right: 4px;
-        font-size: 13px;
-      }
-      .token-infos {
-        margin-right: 00px;
-      }
-      
+  .token-percentage-box {
+    align-items: center;
+    display: flex;
+    font-size: 12px;
+  }
+
+  .arrowDown {
+    margin-right: 4px;
+    font-size: 13px;
+  }
+
+  .token-infos {
+    margin-right: 00px;
+  }
+
   .token-percentage {
     width: 27px !important;
     display: flex;
@@ -204,7 +227,7 @@
 }
 
 @media screen and (max-width: 730px) {
-    .token-infos {
-      margin-right: 00px;
-    }
+  .token-infos {
+    margin-right: 00px;
   }
+}
