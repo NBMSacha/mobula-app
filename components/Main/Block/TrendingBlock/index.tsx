@@ -18,8 +18,8 @@ function TrendingBlock(tokens: {
       <h3 className='gainer-main-title'>🔥 Trendings</h3>
       <div className='gainer-container'>
         <div className='left-gainer'>
-          <div className='line-gainer'>
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']}>
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>1</span>
               <img src={tokens.logo1} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name1}</span>
@@ -29,8 +29,8 @@ function TrendingBlock(tokens: {
               {tokens.change1}%
             </span>
           </div>
-          <div className='line-gainer'>
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']}>
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>2</span>
               <img src={tokens.logo2} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name2}</span>
@@ -40,8 +40,8 @@ function TrendingBlock(tokens: {
               {tokens.change2}%
             </span>
           </div>
-          <div className='line-gainer'>
-            <div className='token-info-pack'>
+          <div className={styles['line-gainer']}>
+            <div className={styles['token-info-pack']}>
               <span className='line-number'>3</span>
               <img src={tokens.logo3} className='logo-inBox' />
               <span className='crypto-assests'>{tokens.name3}</span>
