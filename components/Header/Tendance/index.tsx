@@ -1,24 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { ethers } from 'ethers';
+import { InjectedConnector } from '@web3-react/injected-connector'
+import { ethers } from 'ethers'
+import styles from './tendance.module.scss'
 
 function Tendance(props: any) {
-
-    return (
-        <div className="info-tendance">
-            <div className="info-left">
-                <p className="info-text">Crypto: <span className="blue-data">{props.assets}</span></p>
-                <p className="info-text">DEX: <span className="blue-data">{props.dex}</span></p>
-                <p className="info-text">MOBL: <span className="blue-data">0$</span></p>
-            </div>
-            <div className="info-left">
-                <p className="info-text">DAO member: <span className="blue-data">{props.dao}</span></p>
-                <p className="info-text">7d new listings: <span className="blue-data">{props.listings}</span></p>
-            </div>
-
-        </div>
-    )
+  return (
+    <div className={styles['info-tendance']}>
+      <div className={styles['info-left']}>
+        <p className={styles['info-text']}>
+          Crypto: <span className={styles['blue-data']}>{props.assets}</span>
+        </p>
+        <p className={styles['info-text']}>
+          DEX: <span className={styles['blue-data']}>{props.dex}</span>
+        </p>
+        <p className={styles['info-text']}>
+          MOBL: <span className={styles['blue-data']}>0$</span>
+        </p>
+      </div>
+      <div className={styles['info-left']}>
+        <p className={styles['info-text']}>
+          DAO member: <span className={styles['blue-data']}>{props.dao}</span>
+        </p>
+        <p className={styles['info-text']}>
+          7d new listings:{' '}
+          <span className={styles['blue-data']}>{props.listings}</span>
+        </p>
+      </div>
+    </div>
+  )
 }
 
-export default Tendance;
+export default Tendance

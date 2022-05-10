@@ -1,191 +1,312 @@
 .x {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    color: white;
-    cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: white;
+  cursor: pointer;
 }
 
 .inside {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 .logo-box {
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    width: 60px;
-    height: 60px;
-    background-size: 49px 49px, cover;
-    border-radius: 12px;
-    background-image: linear-gradient(90deg, rgba(183, 209, 255, 1) 0%, rgba(183, 209, 255, 1) 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 60px;
+  height: 60px;
+  background-size: 49px 49px, cover;
+  border-radius: 12px;
+  background-image: linear-gradient(
+    90deg,
+    rgba(183, 209, 255, 1) 0%,
+    rgba(183, 209, 255, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-news {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 00;
-    font-size: 35px;
-    line-height: 35px;
-    letter-spacing: 0.02em;
-    color: #FFF;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 00;
+  font-size: 35px;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+  color: #fff;
 }
 
 .subtitle-news {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 14px;
-    line-height: 16px;
-    color: #B7D1FF;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: #b7d1ff;
 }
 
 .subtitle-news-link {
-    font-weight: 500;
-    color: #B7D1FF;
+  font-weight: 500;
+  color: #b7d1ff;
 }
 
-
 .subtitle-news-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .text {
-    color: black;
+  color: black;
 }
 
 .disabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .container-news {
-    width: 93%;
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: space-around;
-    border: 1px solid black;
-    padding: 30px 35px;
-    background-color: rgba(163, 212, 244, 0.25);
-    backdrop-filter: blur(13.94px);
-    border: 1px solid #000000;
-    border-radius: 10px;
-    min-height: 100px;
-    margin-top: 20px;
-    position: relative;
+  width: 93%;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
+  border: 1px solid black;
+  padding: 30px 35px;
+  background-color: rgba(163, 212, 244, 0.25);
+  backdrop-filter: blur(13.94px);
+  border: 1px solid #000000;
+  border-radius: 10px;
+  min-height: 100px;
+  margin-top: 20px;
+  position: relative;
+}
+.blockcahin-btn-three {
+  padding: 8px 6px;
 }
 
 .text-news {
-    width: 60%
+  width: 60%;
+}
+
+.bold-text {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* or 150% */
+
+  letter-spacing: -0.03em;
+
+  color: #000000;
+}
+
+.texts-box {
+  background-color: white;
+  min-width: 220px;
+  border-radius: 8px;
+  padding: 0.1px 20px 0.1px 60px;
+  position: relative;
+  font-family: "Poppins";
+  font-size: 14px;
+  margin-left: 50px;
 }
 
 .quadBox-container {
-    display: flex;
-    justify-content: space-around;
-    width: 60%;
-    flex-wrap: wrap;
-    height: 100%;
-    margin-right: 5%;
-    flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  flex-wrap: wrap;
+  height: 100%;
+  margin-right: 5%;
+  flex-wrap: nowrap;
 }
 
 @media screen and (min-width: 2200px) {
-    .container-news {
-        width: 90%
-    }
+  .container-news {
+    width: 90%;
+  }
 }
 
-
 @media screen and (min-width: 1651px) and (max-width: 2199px) {
-    .container-news {
-        width: 92%
-    }
+  .container-news {
+    width: 92%;
+  }
+  .texts-box{
+    margin-right: 0px;
+  }
 }
 
 @media screen and (max-width: 1650px) {
-    .link-common {
-        margin-left: 1.8rem !important;
-    }
+  // .link-common {
+  //     margin-left: 1.8rem !important;
+  // }
 
-    .text-news {
-        margin-right: 2rem;
-    }
+  .text-news {
+    margin-right: 2rem;
+  }
 
-    .texts-box {
-        margin-right: 0px;
-    }
-
+  .texts-box {
+    margin-right: 0px;
+  }
 }
 
 @media screen and (max-width: 1450px) {
-
-    .quadBox-container {
-        flex-wrap: nowrap;
-        margin-left: 50px;
-    }
-
+  .quadBox-container {
+    flex-wrap: nowrap;
+    margin-left: 50px;
+  }
+  .texts-box{
+    min-width: 150px;
+    border-radius: 8px;
+    padding: 0.1px 20px 0.1px 48px;
+  }
 }
 
 @media screen and (max-width: 1160px) {
-    .container-news {
-        padding: 25px
-    }
+  .container-news {
+    padding: 25px;
+  }
 
-    .quadBox-container {
-        flex-direction: column;
-    }
+  .quadBox-container {
+    flex-direction: column;
+  }
 
-    .quadBox-container>* {
-        width: 100px;
-    }
+  .quadBox-container > * {
+    width: 100px;
+  }
 
-    .text-news {
-        width: 100%
-    }
+  .text-news {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width:1450px) {
+  .texts-box {
+    min-width: 150px;
+    border-radius: 8px;
+    padding: 0.1px 20px 0.1px 48px;
+    position: relative;
+    font-family: "Poppins";
+    font-size: 14px;
+    margin-left: 50px;
+    background-color: white;
+}
+  .texts-box-1 {
+    margin-left: 0px;
+    margin-bottom: 15px;
+  }
+
+  .texts-box-2 {
+    margin-right: 0px;
+  }
+  .quadBox-container {
+    flex-wrap: nowrap;
+    margin-left: 50px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .main-news {
-        background-image: url(../../../../public/community-bg.png),
-            linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
-        background-position: 120% 10%, center;
-        background-size: 30vh, contain;
-    }
+  .texts-box-1 {
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
+  .inside{
+    width: 40px;
+    height: 40px;
+  }
+  
 
-    .quadBox-container>* {
-        width: 49%;
-    }
+  .bold-text {
+    font-size: 12px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 
-    .container-news {
-        margin-bottom: 150px;
-        width: auto;
-        min-height: auto;
-    }
+  .texts-box-2 {
+    margin-left: 0px;
+    margin-bottom: 0px;
+  }
 
-    .text-news {
-        width: 10000px;
-        margin-right: 0;
-    }
+  .quad-box-1 {
+    position: absolute;
+    bottom: -95px;
+    left: 0px;
+    width: 48%;
+  }
 
-    .title-news {
-        font-size: 18px;
-        font-weight: 700, bold
-    }
+  .quad-box-2 {
+    position: absolute;
+    bottom: -95px;
+    right: 0px;
+    width: 48%;
+  }
+  .main-news {
+    background-image: url(../../../../public/community-bg.png),
+      linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
+    background-position: 120% 10%, center;
+    background-size: 30vh, contain;
+  }
 
-    .main-news {
-        padding: 0px 0%;
-        width: 100% !important;
-    }
+  .texts-box {
+    min-width: auto;
+    height: 60px;
+    background-size: 40px 40px, cover;
+    padding: 0.1px 0px 0.1px 60px;
+  }
 
-    .container-news {
-        padding: 0px 10px;
-        width: 90% !important;
-        margin-top: 20px;
-    }
+  .texts-box > p {
+    margin: 0px;
+    margin-top: 12px;
+    font-size: 12px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
+  .quadBox-container > * {
+    width: 49%;
+  }
+
+
+
+  .container-news {
+    margin-bottom: 150px;
+    width: auto;
+    min-height: auto;
+  }
+
+  .text-news {
+    width: 10000px;
+    margin-right: 0;
+  }
+
+  .title-news {
+    font-size: 18px;
+    font-weight: 700, bold;
+  }
+
+  .main-news {
+    padding: 0px 0%;
+    width: 100% !important;
+  }
+
+  .container-news {
+    padding: 0px 10px;
+    width: 90% !important;
+    margin-top: 20px;
+  }
+  .logo-box {
+    top: 5px !important;
+    left: 5px !important;
+    width: 50px !important;
+    background-size: 42px 42px, cover;
+    height: 50px;
+  }
 }

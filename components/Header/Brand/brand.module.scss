@@ -1,0 +1,25 @@
+.head-logo {
+  width: 60px;
+  height: 60px;
+}
+
+.mobula-title {
+  font-size: 25px;
+  margin-left: 1rem;
+  margin-top: 3px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  line-height: 18px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+@media screen and (max-width: 1450px) {
+  .left {
+    margin-left: 0;
+  }
+}

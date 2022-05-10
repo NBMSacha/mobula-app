@@ -3,7 +3,7 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
-
+import styles from './Main.module.scss';
 import Token from "./Token";
 import TrendingBlock from "./Block/TrendingBlock";
 import ButtonBlock from "./Block/ButtonBlock";
@@ -92,9 +92,9 @@ function News(props: any) {
   return (
     <>
       {/* PAGE 1 */}
-      <div className="main-news">
+      <div className={styles["main-news"]}>
         <MainBlock />
-        <div className="three-container">
+        <div className={styles["three-container"]}>
           {gainers.length == 3 ?
             <GainerBlock
               logo1={gainers[0].logo}
@@ -163,18 +163,18 @@ function News(props: any) {
         <ButtonBlock />
       </div>
       {/* PAGE 2 */}
-      <div className="ranked-main-container">
-        <table className="tables">
+      <div className={styles["ranked-main-container"]}>
+        <table className={styles["tables"]}>
           <thead>
-            <tr className="table-head">
-              <th className="token-title-datas datas-title">Rank</th>
-              <th className="token-title-assets datas-title">Asset</th>
-              <th className="token-title-price datas-title">Price</th>
-              <th className="token-title-percentage datas-title">Change (24h)</th>
-              <th className="token-title-marketCap datas-title">Market cap</th>
-              <th className="token-title-marketFully datas-title">Volume (24h)</th>
-              <th className="token-title-links datas-title">Socials</th>
-              <th className="token-title-chart datas-title">Chart</th>
+            <tr className={styles["table-head"]}>
+              <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
+              <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
+              <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
+              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`}>Change (24h)</th>
+              <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
+              <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
+              <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
+              <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
           </thead>
           {tokens ? tokens.map((token, index) => <Token
