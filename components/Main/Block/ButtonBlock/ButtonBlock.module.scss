@@ -305,6 +305,7 @@
 
   .blockchain-btn-three {
     padding: 8px 6px;
+    
   }
 
   .blockchain-btn {
@@ -346,6 +347,9 @@
       } */
 }
 
+.blockchain-btn-three{
+  width: 90px;
+}
 @media screen and (max-width: 580px) {
   .select-button-white {
     padding: 8px 4px;
@@ -460,3 +464,9 @@
 //   transition: background 200ms ease-in-out, color 200ms ease-in-out;
 //   cursor: pointer;
 // }
+
+@media screen and (max-width:1000px) {
+  .avax-btn{
+    display:none;
+  }
+}

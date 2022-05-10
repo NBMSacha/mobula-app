@@ -32,3 +32,19 @@ $primary: 'blue';
 :export {
   primary: $primary;
 }
+
+@media screen and (max-width: 768px) {
+  .info-tendance{
+    border-bottom: 1px solid #2b5177;
+    padding: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;;
+  }
+  .info-text{
+    margin-left: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
