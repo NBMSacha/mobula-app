@@ -21,6 +21,8 @@ function ListAToken(props: any) {
     const [telegram, setTelegram] = useState('')
     const [website, setWebsite] = useState('');
     const [ipfs, setIPFS] = useState<any>();
+    const [isSum, setIsSum] = useState(false);
+    
 
     async function submit(e: any) {
 
@@ -63,30 +65,41 @@ function ListAToken(props: any) {
             return
         }
 
-        let name: string;
-        let symbol: string;
-        let i = -1;
+        let contracts =  Object.values(objectForContract).filter((contract:any) => contract.length == 42);
+        const chains = []
 
-        while (!name && i < supportedRPCs.length - 1) {
-            i++;
-            const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
-            const tokenContract = new ethers.Contract(contract, [
-                'function name() external view returns(string)',
-                'function symbol() external view returns(string)'
-            ], provider)
-            console.log(tokenContract)
-
-            try {
-                name = await tokenContract.name()
-                symbol = await tokenContract.symbol()
-            } catch (e) {
-                console.log('Token is not on the ' + supportedRPCs[i].name)
+        for (const contract of contracts) {
+            let name: string;
+            let i = -1;
+    
+            while (!name && i < supportedRPCs.length - 1) {
+                i++;
+                const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
+                const tokenContract = new ethers.Contract(contract, [
+                    'function name() external view returns(string)',
+                ], provider)
+                console.log(tokenContract)
+    
+                try {
+                    name = await tokenContract.name()
+                } catch (e) {
+                    console.log('Token is not on the ' + supportedRPCs[i].name)
+                }
             }
+
+            if (supportedRPCs[i].name) {
+                chains.push(supportedRPCs[i].name)
+            } else {
+                contracts[contracts.indexOf(contract)] = null
+            }
+
         }
 
+        contracts = contracts.filter(contract => contract);
+        
         const tokenData = {
-            contracts: [contract],
-            chains: [supportedRPCs[i].name],
+            contracts,
+            chains,
             name: name,
             symbol: symbol,
             logo: logo,
@@ -115,8 +128,6 @@ function ListAToken(props: any) {
             content: bufferFile
         }
 
-
-
         const hash = await new Promise(async resolve => {
             ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
                 resolve(file[0].hash)
@@ -136,16 +147,20 @@ function ListAToken(props: any) {
                 'function submitPrice() external view returns(uint256)',
             ], provider
         ).submitPrice())
-
+    
         console.log(submitPrice, hash)
-
+       
+        const totalSupply = isSum? contracts: contract;
+        const excluded = Object.values(objectForExcluded).filter((excluded:any) => excluded.length == 42);
+        
         try {
+
             const value = await new ethers.Contract(
                 PROTOCOL_ADDRESS,
                 [
                     'function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable',
                 ], signer
-            ).submitIPFS([contract], [contract], (excluded ? [excluded] : []), hash, {
+            ).submitIPFS(contracts, totalSupply, excluded, hash, {
                 value: submitPrice
             });
 
@@ -209,7 +224,8 @@ function ListAToken(props: any) {
             })
         } catch (err) { }
     }
-
+    const [name, setName] = useState('');
+    const [symbol, setSymbol] = useState('');
     const [excluded1, setExcluded1] = useState('');
     const [excluded2, setExcluded2] = useState('');
     const [excluded3, setExcluded3] = useState('');
@@ -224,39 +240,33 @@ function ListAToken(props: any) {
             inputs.classList.add("inputCreated");
             inputs.placeholder = "0x...";
             inputs.type = "text"
-            inputs.addEventListener("change", () => {
-                //  
-                console.log(inputs.value);
-            })
             parent.appendChild(inputs);
         }
-        if (counts == 0 ) {
+        if (count == 0 ) {
             inputs.addEventListener("change", () => {
                 setExcluded1(inputs.value);
             })
             inputs.value = excluded1;
         }
-
- 
-        if (counts == 1) {
+        if (count == 1) {
             inputs.addEventListener("change", () => {
                 setExcluded2(inputs.value);
             })
             inputs.value = excluded2;
         }
-        if (counts == 2) {
+        if (count == 2) {
             inputs.addEventListener("change", () => {
                 setExcluded3(inputs.value);
             })
             inputs.value = excluded3;
         }
-        if (counts == 3) {
+        if (count == 3) {
             inputs.addEventListener("change", () => {
                 setExcluded4(inputs.value);
             })
             inputs.value = excluded4;
         }
-        if (counts == 4) {
+        if (count == 4) {
             inputs.addEventListener("change", () => {
                 setExcluded5(inputs.value);
             })
@@ -266,11 +276,11 @@ function ListAToken(props: any) {
 
     var objectForExcluded = {
         excluded: excluded,
-        excluded1: excluded5,
-        excluded2: excluded,
-        excluded3: excluded,
-        excluded4: excluded,
-        excluded5: excluded
+        excluded1: excluded1,
+        excluded2: excluded2,
+        excluded3: excluded3,
+        excluded4: excluded4,
+        excluded5: excluded5
     }
     console.log(objectForExcluded)
 
@@ -334,47 +344,75 @@ function ListAToken(props: any) {
     }
     console.log(objectForContract)
 
+    var finalSubmit = {
+        contract: objectForContract,
+        excluded: objectForExcluded,
+        symbol: symbol,
+        name: name,
+        website: website,
+        twitter: twitter,
+        description: description,
+        telegram: telegram,
+        logo: logo,
+        audit: audit,
+        kyc: kyc
+    }
+    console.log(finalSubmit)
+
+    function isSumOfTotalSupply() {
+        var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
+        if (sumTotalSupply.checked) { 
+            setIsSum(true)
+            console.log(`isSum : ${isSum}`)
+            console.log(`sum is checked `)
+        } else{
+            setIsSum(false)
+            console.log(`Sum not checked ${isSum}`)
+        }
+    }
+    
+   console.log(isSum)
+
+
     return (
         <div>
-            <div className="listToken-container">
-                <div className="title-listToken">
-                    <h2 className="listingForm-title">Listing Form</h2>
-                    <p className="listingForm-text">Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
+            <div className={styles["listToken-container"]}>
+                <div className={styles["title-listToken"]}>
+                    <h2 className={styles["listingForm-title"]}>Listing Form</h2>
+                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
-                <div className="listToken-main">
-                    <form className="all-forms" id="myForm">
-                        <div className="three-forms">
+                <div className={styles["listToken-main"]}>
+                    <form className={styles["all-forms"]} id="myForm">
+                        <div className={styles["three-forms"]}>
                             <h2>General Data</h2>
-                            <div className={styles["form-container-box"]} id='parents'>
-                                <label >Contract Address *</label>
+                            <div className={styles["form-container-box"]}>
+                                <label >Name *</label>
                                 <input
-                                    type="text"
-                                    id="contract"
-                                    value={contract}
-                                    className="inputs"
-                                    placeholder="0x"
-                                    onChange={(e) => setContract(e.target.value)}
                                     required
+                                    id="msg"
+                                    name="name"
+                                    placeholder="Mobula Finance"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                 ></input>
-                                 <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
-                                 
                             </div>
-                            <div className={styles["noappears"]} id="noappears">
-                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
-                                        <input type="radio" id="scales" name="scales" checked/>
-                                        <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
-                                    </div>
-                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
-                                        <input type="radio" id="scale" name="scales" />
-                                        <label htmlFor="scale">The total supply is the sum of all the contracts</label>
-                                    </div>
-                                </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
+                                <label >Symbol *</label>
+                                <input
+                                    required
+                                    id="msg"
+                                    name="website"
+                                    placeholder="MOBL"
+                                    value={symbol}
+                                    onChange={(e) => setSymbol(e.target.value)}
+                                ></input>
+                            </div>
+                            <div className={styles["form-container-box"]}>
                                 <label >Description *</label>
                                 <textarea
                                     id="msg"
                                     name="description"
-                                    className="inputs"
+                                    className={styles["inputs"]}
                                     placeholder="Mobula the first decentralized data aggregator."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
@@ -382,11 +420,12 @@ function ListAToken(props: any) {
                                 >
                                 </textarea>
                             </div >
+                            
 
                         </div>
-                        <div className="three-forms">
+                        <div className={styles["three-forms"]}>
                             <h2>Social Data</h2>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Twitter *</label>
                                 <input
                                     type="text"
@@ -398,7 +437,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setTwitter(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Chat *</label>
                                 <input
                                     value={telegram}
@@ -409,7 +448,7 @@ function ListAToken(props: any) {
                                     name="telegram"
                                     placeholder="https://t.me/WhelerWorld" />
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Website *</label>
                                 <input
                                     required
@@ -420,11 +459,11 @@ function ListAToken(props: any) {
                                     onChange={(e) => setWebsite(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box" >
+                            <div className={styles["form-container-box"]} >
                                 <label >Logo Link *</label>
                                 <input
                                     id="logo"
-                                    className="inputs"
+                                    className={styles["inputs"]}
                                     name="logo"
                                     value={logo}
                                     onChange={(e) => setLogo(e.target.value)}
@@ -433,9 +472,9 @@ function ListAToken(props: any) {
                                 ></input>
                             </div>
                         </div>
-                        <div className="three-forms">
+                        <div className={styles["three-forms"]}>
                             <h2>Security Data</h2>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Audit Link (Optional) </label>
                                 <input
                                     type="text"
@@ -446,7 +485,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setAudit(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >KYC Link (Optional) &nbsp;:</label>
                                 <input
                                     type="text"
@@ -457,22 +496,59 @@ function ListAToken(props: any) {
                                     onChange={(e) => setKYC(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box relative-form" id='parent'>
+                            <div className={styles["form-container-box"]} id='parents'>
+                                <label >Contract Address *</label>
+                                <input
+                                    type="text"
+                                    id="contract"
+                                    value={contract}
+                                    className={styles["inputs"]}
+                                    placeholder="0x"
+                                    onChange={(e) => setContract(e.target.value)}
+                                    required
+                                ></input>
+                                 <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
+                                 
+                            </div>
+                            <div className={styles["noappears"]} id="noappears">
+                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
+                                        <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()}/>
+                                        <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
+                                    </div>
+                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
+                                        <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
+                                        // onChange={(e) => { 
+                                        //     var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
+                                        //     var totalSupply = document.getElementById("totalSupply") as any;
+                                        //     if(totalSupply.checked == false) {
+                                        //         if(sumTotalSupply.checked == true)
+                                        //         setIsSum(true)
+                                        //     } else {
+                                        //         setIsSum(false)
+                                        //     }
+                                        //     console.log(isSum)
+                                        // }} 
+                                        />
+                                        <label htmlFor="scale">The total supply is the sum of all the contracts</label>
+                                    </div>
+                                </div>
+                            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
                                 <label>Excluded from Circulation *</label>
                                 <input
                                     name="excluded"
                                     placeholder="0x..."
-                                    className="inputPlus"
+                                    className={styles["inputPlus"]}
                                     value={excluded}
+                                    id="excluded"
                                     onChange={(e) => setExcluded(e.target.value)}
                                 ></input>
-                                <button type="button" className="absolute-btn" id="moreInput" onClick={() => moreInputExcluded()}>+</button>
+                                <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
                             </div>
-                            <div className="button-submit" id="void">
-                                <button className="button-submit-form" id="submitForm" onClick={(e) => submit(e)}>Submit</button>
+                            <div className={styles["button-submit"]} id="void">
+                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}>Submit</button>
                             </div>
-                            <div className="button-submit" id="mobile-void">
-                                <button className="button-submit-form" onClick={(e) => submit(e)}>Submit</button>
+                            <div className={styles["button-submit"]} id="mobile-void">
+                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}>Submit</button>
                             </div>
                         </div>
                     </form>
