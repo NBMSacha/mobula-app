@@ -5,10 +5,10 @@ import { ethers } from 'ethers';
 
 function Brand(props: any) {
     return (
-        <div className="left">
-        <img src='newIcon.png' className="head-logo" alt="logo" onClick={() => document.location.href = "/"} />
-        <div className="mobula-title">Mobula</div>
-    </div>
+        <div className="left" style={{ "cursor": "pointer" }} onClick={() => document.location.href = "/"}>
+            <img src='newIcon.png' className="head-logo" alt="logo" />
+            <div className="mobula-title">Mobula</div>
+        </div>
     )
 }
 

@@ -1,12 +1,9 @@
 import ListingForm from '../components/ListingForm'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 
 export default function () {
-    return (
-        <>
-            <ListingForm />
-        </>
-
-    )
+  return (
+    <>
+      <ListingForm />
+    </>
+  )
 }

@@ -142,9 +142,9 @@ function ListAToken(props: any) {
             const value = await new ethers.Contract(
                 PROTOCOL_ADDRESS,
                 [
-                    'function submitIPFS(address token, string hashString) external payable',
+                    'function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable',
                 ], signer
-            ).submitIPFS(contract, hash, {
+            ).submitIPFS([contract], [contract], (excluded ? [excluded] : []), hash, {
                 value: submitPrice
             });
 
