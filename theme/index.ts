@@ -11,14 +11,11 @@ const overrides = {
     global: (props) => ({
       body: {
         fontFamily: 'Poppins',
-        color: mode('gray.800', 'whiteAlpha.900')(props),
         bg: '#05062a',
       },
       button: {
-        fontFamily: 'Inter',
+        fontFamily: 'Poppins',
       },
-      '*::placeholder': {},
-      '*, *::before, &::after': {},
     }),
   },
 }

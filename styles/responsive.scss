@@ -5,9 +5,9 @@
 }
 
 @media screen and (max-width: 1650px) {
-  .link-common {
-    margin-left: 1.8rem !important;
-  }
+  // .link-common {
+  //   margin-left: 1.8rem !important;
+  // }
 
   .quadBox-container {
   }
@@ -28,30 +28,18 @@
 }
 
 @media screen and (max-width: 1450px) {
-  .link-container {
-    margin-right: 10px;
-  }
+  // .search-input {
+  //   width: 10rem;
+  // }
 
-  .search-input {
-    width: 10rem;
-  }
+  // .search-input {
+  //   width: 10rem;
+  //   margin-right: 1.5rem;
+  // }
 
-  .header {
-    padding: 20px 1.19rem;
-  }
-
-  .search-input {
-    width: 10rem;
-    margin-right: 1.5rem;
-  }
-
-  .connect-wallet-btn {
-    width: 10rem;
-  }
-
-  .link-common {
-    margin-left: 1.1rem !important;
-  }
+  // .link-common {
+  //   margin-left: 1.1rem !important;
+  // }
 
   .left {
     margin-left: 0px;
@@ -94,19 +82,15 @@
 
 /* TABLETTE MOBILE  */
 @media screen and (max-width: 1060px) {
-  .link-container {
-    display: none;
-  }
+  // .link-container {
+  //   display: none;
+  // }
 
-  .search-input {
-    margin-right: 0.8rem;
-  }
+  // .search-input {
+  //   margin-right: 0.8rem;
+  // }
 
   .blockchain-btn-matic {
-    display: none;
-  }
-
-  .connect-wallet-btn {
     display: none;
   }
 
@@ -117,22 +101,17 @@
     margin-left: 0.3rem;
   }
 
-  .search-input::placeholder {
-    color: transparent;
-    background-color: none;
-  }
+  // .search-input::placeholder {
+  //   color: transparent;
+  //   background-color: none;
+  // }
 
-  .search-input {
-    background: none;
+  // .search-input {
+  //   background: none;
 
-    width: 1rem;
-    margin-right: 0px;
-  }
-
-  .hamburger-btn {
-    display: inline-block;
-    background: none;
-  }
+  //   width: 1rem;
+  //   margin-right: 0px;
+  // }
 }
 
 @media screen and (max-width: 870px) {
@@ -281,16 +260,6 @@
     text-overflow: ellipsis;
   }
 
-  .header {
-    border-bottom: 1px solid #2b5177;
-  }
-
-  .select-button {
-  }
-
-  .blockchain-btn {
-  }
-
   .avax-btn {
     display: none;
   }
@@ -390,10 +359,6 @@
 
   .main-blockchain-container {
     margin-top: -25px;
-  }
-
-  .header {
-    padding: 7px 0.18999999999999995rem;
   }
 
   .token-ids {

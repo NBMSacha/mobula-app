@@ -95,13 +95,9 @@
 }
 
 @media screen and (max-width: 1060px) {
-  .link-container {
-    display: none;
-  }
-
-  .search-input {
-    margin-right: 0.8rem;
-  }
+  // .search-input {
+  //   margin-right: 0.8rem;
+  // }
 
   .blockchain-btn-matic {
     display: none;
@@ -118,17 +114,17 @@
     margin-left: 0.3rem;
   }
 
-  .search-input::placeholder {
-    color: transparent;
-    background-color: none;
-  }
+  // .search-input::placeholder {
+  //   color: transparent;
+  //   background-color: none;
+  // }
 
-  .search-input {
-    background: none;
+  // .search-input {
+  //   background: none;
 
-    width: 1rem;
-    margin-right: 0px;
-  }
+  //   width: 1rem;
+  //   margin-right: 0px;
+  // }
 
   .hamburger-btn {
     display: inline-block;

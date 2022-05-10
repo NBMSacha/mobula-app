@@ -1,3 +1,5 @@
+@import './SearchDiv/searchdiv.module.scss';
+
 .relative {
   position: relative;
   display: flex;
@@ -9,26 +11,6 @@
   position: absolute;
   top: 13px;
   left: 13px;
-}
-
-.search-input {
-  font-size: 0.8rem;
-  width: 14rem;
-  height: 48px;
-  opacity: 1;
-  cursor: pointer;
-  border-radius: 8px;
-  background-color: #2d3558;
-  padding-left: 50px;
-  border: none;
-  color: white;
-  margin-right: 2.5rem;
-  font-family: 'Inter', sans-serif;
-}
-
-.search-input::placeholder {
-  color: #f7f7f7;
-  opacity: 1;
 }
 
 .connect-wallet-btn {
@@ -60,4 +42,24 @@
 .hamburger {
   color: white;
   font-size: 25px;
+}
+
+@media screen and (max-width: 1450px) {
+  .connect-wallet-btn {
+    width: 10rem;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+}
+
+@media screen and (max-width: 1060px) {
+  .connect-wallet-btn {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: inline-block;
+    background: none;
+  }
 }

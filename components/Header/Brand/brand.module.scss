@@ -17,3 +17,9 @@
   align-items: center;
   margin-left: 1rem;
 }
+
+@media screen and (max-width: 1450px) {
+  .left {
+    margin-left: 0;
+  }
+}

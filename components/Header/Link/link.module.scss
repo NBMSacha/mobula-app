@@ -10,7 +10,6 @@
 .link-common {
   color: white;
   margin-left: 3.8rem;
-  margin-top: 13px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -21,4 +20,24 @@
   color: #556b90;
   transition: color 200ms ease-in-out;
   cursor: pointer;
+}
+
+@media screen and (max-width: 1060px) {
+  .link-container {
+    display: none;
+  }
+}
+@media screen and (max-width: 1450px) {
+  .link-container {
+    margin-right: 10px;
+  }
+  .link-common {
+    margin-left: 1.1rem !important;
+  }
+}
+
+@media screen and (max-width: 1650px) {
+  .link-common {
+    margin-left: 1.8rem !important;
+  }
 }

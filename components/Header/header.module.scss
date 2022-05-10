@@ -8,7 +8,6 @@
   border-bottom: 2px solid rgb(46 53 87 / 50%);
   /* background: linear-gradient(90deg, rgba(47, 54, 88, 0.1) 0%, rgba(47, 54, 88, 0.1) 100%); */
 }
-
 .main {
   display: flex;
   align-items: center;
@@ -18,27 +17,13 @@
   justify-content: space-between;
 }
 
-/* *{
-      border: 1px solid red
-  } */
-
-.connect-wallet-btn {
-  border: none;
-  background: rgb(0, 63, 225);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 63, 225, 1) 0%,
-    rgba(100, 208, 255, 1) 100%
-  );
-  font-size: 1.125rem;
-  width: 12.5rem;
-  height: 48px;
-  transition: 0.5s;
+.header .right span {
+  margin-right: 2.5rem;
   cursor: pointer;
-  border-radius: 8px;
-  line-height: 18px;
-  font-family: 'Inter', sans-serif;
-  color: #f7f7f7;
+}
+
+.header {
+  color: white;
 }
 
 .right {
@@ -51,39 +36,27 @@
   font-size: 0.9rem;
 }
 
-.search-input {
-  font-size: 0.8rem;
-  width: 14rem;
-  height: 48px;
-  opacity: 1;
-  cursor: pointer;
-  border-radius: 8px;
-  background-color: #2d3558;
-  padding-left: 50px;
-  border: none;
-  color: white;
-  margin-right: 2.5rem;
-  font-family: 'Inter', sans-serif;
-}
-
-// input::placeholder {
-//   color: #f7f7f7;
-//   opacity: 1;
-// }
-
 .relative {
   position: relative;
   display: flex;
 }
 
-.loupe {
-  color: #f7f7f7;
-  font-size: 1.5rem;
-  position: absolute;
-  top: 13px;
-  left: 13px;
-}
-
 .nomargin-box {
   margin-left: 0px !important;
+}
+
+@media screen and (max-width: 1450px) {
+  .header {
+    padding: 20px 1.19rem;
+  }
+  .header .right {
+    width: 55%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    border-bottom: 1px solid #2b5177;
+    padding: 7px 0.18999999999999995rem;
+  }
 }

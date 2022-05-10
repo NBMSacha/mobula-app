@@ -13,11 +13,6 @@ body {
   background-color: var(--bg-color);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 .listing {
   background-color: var(--bg-color);
   min-height: 100vh;
@@ -169,28 +164,6 @@ label {
 .listing button {
   width: 50%;
   height: 30px;
-}
-
-.header .right span {
-  margin-right: 2.5rem;
-  cursor: pointer;
-}
-
-.header {
-  color: white;
-}
-
-.header button {
-}
-
-.header .right span {
-}
-
-.header .selected,
-.header .right span:hover {
-}
-
-button:hover {
 }
 
 ::placeholder {
@@ -548,10 +521,6 @@ button:hover {
 
   .right span {
     display: none !important;
-  }
-
-  .header .right {
-    width: 55%;
   }
 }
 

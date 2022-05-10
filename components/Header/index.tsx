@@ -115,7 +115,7 @@ function Header(props: any) {
   return (
     <>
       <div className={styles['header']}>
-        <div className='main'>
+        <div className={styles['main']}>
           <Brand />
           <Link />
           <Wallet />
