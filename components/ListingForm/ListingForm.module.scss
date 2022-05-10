@@ -3,7 +3,6 @@
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
-    
 }
 
 .flex > label {
@@ -129,8 +128,8 @@
 }
 
 @media screen and (max-width: 768px) {
-    #myForm {
-        flex-direction: column;
+    .myForm {
+        flex-direction: column !important;
     }
     .three-forms {
         width: 100% !important;
@@ -150,10 +149,13 @@
     .form-container-box>input::placeholder {
         font-size: 11px;
     }
-    #mobile-void {
+    .mobile-void {
         display: block !important;
     }
-    #void {
+    .contract{
+        width:90% !important
+    }
+    .void {
         display: none !important;
     }
     .inputPlus {
@@ -192,6 +194,10 @@
     .absolute-btn {
         top: 26px !important;
         right: 6px !important;
+        
+    }
+    .contract{
+        width: 85% !important;
     }
 }
 
@@ -199,15 +205,15 @@
     .inputPlus {
         width: 80% !important;
     }
-    #contract{
+    .contract{
         width: 80% !important;
     }
 }
 
-#mobile-void {
+.mobile-void {
     display: none;
 }
-#void {
+.void {
     display: block;
 }
 .listToken-container {
@@ -454,6 +460,6 @@
     }
     .absolute-btn{
         top: 29px !important;
-        right: 6px !important;
+        right: 0px !important;
     }
 }

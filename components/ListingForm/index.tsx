@@ -355,7 +355,8 @@ function ListAToken(props: any) {
         telegram: telegram,
         logo: logo,
         audit: audit,
-        kyc: kyc
+        kyc: kyc,
+        isSumTotalSupply: isSum 
     }
     console.log(finalSubmit)
 
@@ -382,7 +383,7 @@ function ListAToken(props: any) {
                     <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
                 <div className={styles["listToken-main"]}>
-                    <form className={styles["all-forms"]} id="myForm">
+                    <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
                         <div className={styles["three-forms"]}>
                             <h2>General Data</h2>
                             <div className={styles["form-container-box"]}>
@@ -502,7 +503,7 @@ function ListAToken(props: any) {
                                     type="text"
                                     id="contract"
                                     value={contract}
-                                    className={styles["inputs"]}
+                                    className={`${styles["contract"]} ${styles["inputs"]}`}
                                     placeholder="0x"
                                     onChange={(e) => setContract(e.target.value)}
                                     required
@@ -544,10 +545,10 @@ function ListAToken(props: any) {
                                 ></input>
                                 <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
                             </div>
-                            <div className={styles["button-submit"]} id="void">
+                            <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
                                 <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}>Submit</button>
                             </div>
-                            <div className={styles["button-submit"]} id="mobile-void">
+                            <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
                                 <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}>Submit</button>
                             </div>
                         </div>

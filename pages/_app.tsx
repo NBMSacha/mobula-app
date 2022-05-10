@@ -10,7 +10,6 @@ import AlertTemplate from 'react-alert-template-basic'
 import '../styles.scss'
 import '../styles/header.scss'
 import '../styles/responsive.scss'
-import '../styles/SubmitForm.scss'
 
 const alertOptions = {
   timeout: 5000,
