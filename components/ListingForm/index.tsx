@@ -337,7 +337,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setKYC(e.target.value)}
                                 ></input>
                             </div>
-                            <div className={styles["form-container-box relative-form"]} id='parent'>
+                            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
                                 <label>Excluded from Circulation *</label>
                                 <input
                                     name="excluded"

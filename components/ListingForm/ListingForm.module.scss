@@ -1,3 +1,4 @@
+
 .inputPlus{
     width: auto !important;
     margin-bottom: 20px !important;
@@ -14,10 +15,17 @@
     max-width:440px;
 }
 
+@media screen and (min-width: 768px) {
+    
+}
 @media screen and (max-width: 768px) {
 
     #myForm {
         flex-direction: column;
+    }
+
+    .inputPlus{
+        max-width:90% !important;
     }
 
     .three-forms {

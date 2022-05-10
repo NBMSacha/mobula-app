@@ -5,7 +5,12 @@
 .border-bot:hover {
     background-color: #808a9d27;
 }
-
+.tokens-links {
+  font-size: 24px;
+  position: relative;
+  margin-right: 25px!important;
+  width: 80px!important;
+}
 .token-containers {
     width: 100%;
     display: flex;
