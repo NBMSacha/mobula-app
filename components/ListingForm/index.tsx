@@ -7,6 +7,7 @@ import Tendance from '../Header/Tendance';
 import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../constants';
 import { useAlert } from "react-alert";
+import styles from "./ListingForm.module.scss"
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -226,34 +227,34 @@ function ListAToken(props: any) {
 
     return (
         <div>
-            <div className="listToken-container">
-                <div className="title-listToken">
-                    <h2 className="listingForm-title">Listing Form</h2>
-                    <p className="listingForm-text">Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
+            <div className={styles["listToken-container"]}>
+                <div className={styles["title-listToken"]}>
+                    <h2 className={styles["listingForm-title"]}>Listing Form</h2>
+                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
-                <div className="listToken-main">
-                    <form className="all-forms" id="myForm">
-                        <div className="three-forms">
+                <div className={styles["listToken-main"]}>
+                    <form className={styles["all-forms"]} id="myForm">
+                        <div className={styles["three-forms"]}>
                             <h2>General Data</h2>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Contract Address *</label>
                                 <input
                                     type="text"
                                     id="contract"
                                     value={contract}
-                                    className="inputs"
+                                    className={styles["inputs"]}
                                     placeholder="0x"
                                     onChange={(e) => setContract(e.target.value)}
                                     required
                                 ></input>
                             </div>
 
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Description *</label>
                                 <textarea
                                     id="msg"
                                     name="description"
-                                    className="inputs"
+                                    className={styles["inputs"]}
                                     placeholder="Mobula the first decentralized data aggregator."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
@@ -263,9 +264,9 @@ function ListAToken(props: any) {
                             </div >
 
                         </div>
-                        <div className="three-forms">
+                        <div className={styles["three-forms"]}>
                             <h2>Social Data</h2>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Twitter *</label>
                                 <input
                                     type="text"
@@ -277,7 +278,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setTwitter(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Chat *</label>
                                 <input
                                     value={telegram}
@@ -288,7 +289,7 @@ function ListAToken(props: any) {
                                     name="telegram"
                                     placeholder="https://t.me/WhelerWorld" />
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Website *</label>
                                 <input
                                     required
@@ -299,11 +300,11 @@ function ListAToken(props: any) {
                                     onChange={(e) => setWebsite(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box" >
+                            <div className={styles["form-container-box"]} >
                                 <label >Logo Link *</label>
                                 <input
                                     id="logo"
-                                    className="inputs"
+                                    className={styles["inputs"]}
                                     name="logo"
                                     value={logo}
                                     onChange={(e) => setLogo(e.target.value)}
@@ -312,9 +313,9 @@ function ListAToken(props: any) {
                                 ></input>
                             </div>
                         </div>
-                        <div className="three-forms">
+                        <div className={styles["three-forms"]}>
                             <h2>Security Data</h2>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >Audit Link (Optional) </label>
                                 <input
                                     type="text"
@@ -325,7 +326,7 @@ function ListAToken(props: any) {
                                     onChange={(e) => setAudit(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box">
+                            <div className={styles["form-container-box"]}>
                                 <label >KYC Link (Optional) &nbsp;:</label>
                                 <input
                                     type="text"
@@ -336,22 +337,22 @@ function ListAToken(props: any) {
                                     onChange={(e) => setKYC(e.target.value)}
                                 ></input>
                             </div>
-                            <div className="form-container-box relative-form" id='parent'>
+                            <div className={styles["form-container-box relative-form"]} id='parent'>
                                 <label>Excluded from Circulation *</label>
                                 <input
                                     name="excluded"
                                     placeholder="0x..."
-                                    className="inputPlus"
+                                    className={styles["inputPlus"]}
                                     value={excluded}
                                     onChange={(e) => setExcluded(e.target.value)}
                                 ></input>
-                                <button type="button" className="absolute-btn" id="moreInput" onClick={() => moreInput()}>+</button>
+                                <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInput()}>+</button>
                             </div>
                             <div className="button-submit" id="void">
-                                <button className="button-submit-form" id="submitForm" onClick={(e) => submit(e)}>Submit</button>
+                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}>Submit</button>
                             </div>
-                            <div className="button-submit" id="mobile-void">
-                                <button className="button-submit-form" onClick={(e) => submit(e)}>Submit</button>
+                            <div className={styles["button-submit"]} id="mobile-void">
+                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}>Submit</button>
                             </div>
                         </div>
                     </form>

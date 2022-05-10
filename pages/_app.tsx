@@ -11,7 +11,6 @@ import '../styles.scss'
 import '../styles/header.scss'
 import '../styles/responsive.scss'
 import '../styles/SubmitForm.scss'
-import '../styles/respChart.scss'
 
 const alertOptions = {
   timeout: 5000,

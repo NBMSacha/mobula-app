@@ -5,6 +5,10 @@
     align-items: center;
 }
 
+.mobile-info-left-column {
+    width: 50%;
+  }
+
 .btn-more-less {
     background-color: #2E3557;
     border: none;
@@ -121,6 +125,7 @@
     justify-content: space-around;
 }
 
+
 .mobile-grades {
     display: none;
 }
@@ -135,6 +140,20 @@
     margin-top: 13px;
 }
 
+
+
+.chart-box-container {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    margin-left: -50px;
+  }
+
+  .chart-box-container {
+    width: 90%;
+    display: flex;
+  }
+
 .chart-right-info {
     font-family: 'Poppins';
     font-style: normal;
@@ -148,6 +167,17 @@
     flex-direction: row;
     height: 700px;
 }
+
+.chart-right-info {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 18px;
+    color: #ffffff;
+    width: 80%;
+    margin-bottom: 20px;
+  }
 
 .chart-right-info>p {
     margin: 0px;
@@ -273,6 +303,8 @@
     margin-top: 15px;
     margin-bottom: 5px;
 }
+
+
 
 .mobbox {
     display: flex;

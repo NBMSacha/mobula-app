@@ -1,3 +1,19 @@
+.inputPlus{
+    width: auto !important;
+    margin-bottom: 20px !important;
+    height: 32px !important;
+    background: rgba(163, 212, 244, 0.2) !important;
+    border: none;
+    color: white !important;
+    border-radius: 10px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    max-width:440px;
+}
+
 @media screen and (max-width: 768px) {
 
     #myForm {
@@ -38,7 +54,9 @@
     .inputPlus {
         width: 90% !important;
     }
-
+    .listToken-main #parent{
+    position:relative;
+}
     .absolute-btn {
         top: 25px !important;
         right: 6px !important;
@@ -89,11 +107,11 @@
 
 }
 
-#mobile-void {
+.listToken-main #mobile-void {
     display: none;
 }
 
-#void {
+.listToken-main #void {
     display: block;
 }
 
@@ -184,18 +202,18 @@
     justify-content: center
 }
 
-.form-container-box>input {
-    width: auto;
-    margin-bottom: 20px;
-    height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+.form-container-box > input {
+    width: auto !important;
+    margin-bottom: 20px !important;
+    height: 32px !important;
+    background: rgba(163, 212, 244, 0.2) !important;
     border: none;
     color: white !important;
     border-radius: 10px;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 13px ;
     line-height: 18px;
 }
 
@@ -222,7 +240,7 @@
     box-shadow: none;
 }
 
-textarea::placeholder {
+.listToken-container textarea::placeholder {
     color: #ffffff7e !important;
     font-family: 'Poppins';
     font-style: normal;
@@ -231,7 +249,7 @@ textarea::placeholder {
     line-height: 18px;
 }
 
-form>h2 {
+.listToken-container form>h2 {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;

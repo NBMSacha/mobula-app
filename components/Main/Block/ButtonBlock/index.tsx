@@ -23,25 +23,25 @@ function ButtonBlock(props: any) {
   }
 
   return (
-    <div className='main-blockchain-container'>
-      <div className='blockchain-container'>
+    <div className={styles['main-blockchain-container']}>
+      <div className={styles['blockchain-container']}>
         <a className={styles['select-button-white']}>Top 100</a>
         <a className={styles['select-button']}>My Assets</a>
         <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']}`}>
-          <img src='eth.png' className='blockchain-logo eth-btn' />
-          <span className='blockchain-name'>ETH</span>
+          <img src='eth.png' className={ `${styles['blockchain-logo']} ${styles["eth-btn"]}` }/>
+          <span className={styles['blockchain-name']}>ETH</span>
         </a>
         <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']}`}>
-          <img src='bnb.png' className='blockchain-logo' />
-          <span className='blockchain-name'>BNB</span>
+          <img src='bnb.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']}>BNB</span>
         </a>
         <a className={`${styles['blockchain-btn']} ${styles['avax-btn']}`}>
-          <img src='avax.png' className='blockchain-logo' />
-          <span className='blockchain-name'>AVAX</span>
+          <img src='avax.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']}>AVAX</span>
         </a>
         <a className={`${styles['blockchain-btn']} ${styles['matic-btn']}`}>
-          <img src='matic.png' className='blockchain-logo' />
-          <span className='blockchain-name'>MATIC</span>
+          <img src='matic.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']}>MATIC</span>
         </a>
         <a
           className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
@@ -50,17 +50,17 @@ function ButtonBlock(props: any) {
           <img src='eth.png' className={styles['three-blockchain-logo']} />
           <img src='avax.png' className={styles['three-blockchain-logo']} />
           <span>
-            <AiOutlineArrowRight className='marginFa' />
+            <AiOutlineArrowRight className={styles['marginFa']} />
           </span>
         </a>
         <div className={styles['onChain-btn-mobile']}>
-          <span className='fullOnChain'>On-chain only</span>
+          <span className={styles['fullOnChain']}>On-chain only</span>
           <a
-            className='rectangle'
+            className={styles['rectangle']}
             id='rectangle'
             onClick={() => lockerButton()}
           >
-            <div className='rond' id='cercle'></div>
+            <div className={styles['rond']} id='cercle'></div>
           </a>
         </div>
       </div>

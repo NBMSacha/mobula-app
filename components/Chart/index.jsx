@@ -514,17 +514,17 @@ const ChartCryptos = ({ id }) => {
                     <span>Rank #{token.rank}</span>
                     {token.rank_change_24h < 0 ? (
                       <span
-                        className='token-percentage-box font-char red'
+                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
                         id='noColor'
                       >
-                        <ArrowDown className='arrowDown' />
+                        <ArrowDown className={styles['arrowDown']} />
                         {Math.abs(token.rank_change_24h)}
                       </span>
                     ) : token.rank_change_24h == 0 ? (
                       <div>--</div>
                     ) : (
                       <span
-                        className='token-percentage-box font-char green'
+                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
                         id='noColor'
                       >
                         <ArrowUp className='arrowUp' />
