@@ -10,7 +10,8 @@ import {
   getTokenPrice,
   getTokenPercentage,
 } from '../../helpers/formaters'
-import { setTimeout } from 'timers'
+import { setTimeout } from 'timers';
+import ProjectInfo from "./ProjectInfo"
 
 const ChartCryptos = ({ id }) => {
   const [coins, setCoins] = useState([])
@@ -22,7 +23,8 @@ const ChartCryptos = ({ id }) => {
   const [all, setAll] = useState({})
   const [timeFormat, setTimeFormat] = useState('')
   const [token, setToken] = useState({})
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
+  const [state, setState] = useState('Overview');
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -421,6 +423,7 @@ const ChartCryptos = ({ id }) => {
       },
     })
 
+    
     if (!data || data.length == 0) {
       setVisible(true)
     } else {
@@ -496,6 +499,10 @@ const ChartCryptos = ({ id }) => {
     } else {
       daoBtn.preventDefault()
     }
+  }
+
+  function reload() {
+    window.location.reload()
   }
 
   const renderData = () => {
@@ -821,21 +828,59 @@ const ChartCryptos = ({ id }) => {
             <div className={styles['chart-bottom-right']}>
               <div className={styles['chart-box']} id='chart-box'>
                 <div className={styles['chart-header']}>
-                  <a
-                    href=''
+                {state === 'Overview'? (
+                  <button
+                    onClick={() => {setState('Overview');console.log(state);reload()}}
                     className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                   >
                     Overview
-                  </a>
-                  <a href='' className={styles['chart-header-link']}>
-                    <span>Market</span>
-                  </a>
-                  <a href='' className={styles['chart-header-link']}>
-                    <span>Details</span>
-                  </a>
-                  <a href='' className={styles['chart-header-link']}>
-                    <span>Socials</span>
-                  </a>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {setState('Overview');console.log(state);reload()}}
+                    className={`${styles['chart-header-link']} `}
+                  >
+                    Overview
+                  </button>
+                )}
+                  
+                  {state === 'Market'? (
+                      <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
+                        onClick={(e) => {
+                          setState('Market');
+                          console.log(state);
+                        }}>
+                        <span>Market</span>
+                    </button>
+                  ) : ( 
+                    <button className={styles['chart-header-link']} 
+                        onClick={(e) => {
+                          setState('Market');
+                          console.log(state);
+                        }}
+                    >Market</button>
+                  )}
+
+                  {state === 'Details'? (
+                    <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => {setState('Details');console.log(state)}}>
+                    <span>Project Info</span>
+                  </button>
+                  ) : (
+                    <button className={styles['chart-header-link']} onClick={() => {setState('Details');console.log(state)}}>
+                      <span>Project Info</span>
+                    </button>
+                  )}
+                  
+                  {state === 'Socials'? (
+                    <button  onClick={() => {setState('Socials');console.log(state)}} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                      <span>Socials</span>
+                    </button>
+                  ) : (
+                    <button  onClick={() => {setState('Socials');console.log(state)}} className={styles['chart-header-link']}>
+                      <span>Socials</span>
+                    </button>
+                  )}
+                 
                   <a
                     href='https://discord.gg/2a8hqNzkzN'
                     className={`${styles['chart-header-link']} ${styles['report-problem']}`}
@@ -845,13 +890,12 @@ const ChartCryptos = ({ id }) => {
                 </div>
                 <div className={styles['chart-content']}>
                   <div className={styles['canvas-container']}>
+                  {state === 'Details' && (
+                      <ProjectInfo token={token} />
+                  )}
+                  {state === 'Overview' && (
+                    <>
                     <canvas id='chart'></canvas>
-                    {visible ? (
-                      <p className={styles['warning']}>Coming soon...</p>
-                    ) : (
-                      <></>
-                    )}
-
                     <div
                       className={styles['change-chart-date']}
                       style={{
@@ -906,6 +950,17 @@ const ChartCryptos = ({ id }) => {
                         ALL
                       </button>
                     </div>
+                    </>
+                  )}
+                    {visible ? (
+                      <p className={styles['warning']}>Coming soon...</p>
+                    ) : (
+                      <></>
+                    )}
+                    
+                    
+
+               
                   </div>
                 </div>
               </div>

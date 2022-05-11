@@ -457,7 +457,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 2% 0px 60px 0px;
+    padding: 2% 0px 30px 0px;
     justify-content: center;
     width: 100%;
 
@@ -471,6 +471,8 @@
     line-height: 18px;
     color: #FFFFFF;
     margin-right: 30px;
+    background:none;
+    border:none;
 }
 
 .report-problem {
@@ -735,7 +737,9 @@
         margin-top: 30px;
         height: 25%
     }
-
+    .chart-content{
+        width: 95%;
+    }
 
 
     .warning {
