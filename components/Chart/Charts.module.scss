@@ -638,6 +638,9 @@
     .chart-bottom-left {
         min-width: 139px !important;
     }
+    .left-top-box{
+        padding:0px;
+    }
 
     .notes-boxs>span {
         font-size: 11px;
@@ -759,6 +762,10 @@
     }
     .chart-content{
         width: 95%;
+    }
+
+    .chart-bottom-right{
+        border:none;
     }
 
 
