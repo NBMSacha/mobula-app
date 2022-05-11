@@ -144,6 +144,8 @@ const ChartCryptos = ({ id }) => {
           setToken(r.data[0])
         } else {
           console.log(r.error)
+          var redirect = useRoute();
+          redirect.push("/")
         }
       })
 
