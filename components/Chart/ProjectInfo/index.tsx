@@ -34,20 +34,6 @@ const ProjectInfo = ({ token }) => {
         }
     }
 
-    useEffect(() => {
-        for(var i=0;i<5;i++) {
-            try{
-                const newContract = document.createElement("a");
-                newContract.classList.add(`${styles["contract-address"]}`);
-                refContract.current.appendChild(newContract);
-                newContract.href = getExplorer(token.chains) + '/token/' + token.contracts[i];
-                newContract.innerHTML = token.contracts[i]
-            } catch(err) {
-                console.log(err)
-            }
-        }
-    }, [])
-    
     return(
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
@@ -86,6 +72,13 @@ const ProjectInfo = ({ token }) => {
             </div>
             <div className={styles["right"]} ref={refContract}id="contract">
                 <h2 className={styles["contract-title"]} >Contract(s)</h2>
+                {token.contracts.map((contract: string, idx: number) => {
+                    return (
+                        <a href={getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx]} className={styles["contract-address"]}>
+                            {contract}
+                        </a>
+                    )  
+                })}
             </div>
         </div>
     )
