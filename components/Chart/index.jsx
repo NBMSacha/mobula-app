@@ -12,6 +12,7 @@ import {
 } from '../../helpers/formaters'
 import { setTimeout } from 'timers';
 import ProjectInfo from "./ProjectInfo"
+import Head from 'next/head'
 
 const ChartCryptos = ({ id }) => {
   const [coins, setCoins] = useState([])
@@ -509,6 +510,10 @@ const ChartCryptos = ({ id }) => {
 
   const renderData = () => {
     return (
+      <>
+      <Head>
+      <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
+      </Head>
       <div className='App'>
         <div className={styles['chart-main-container']}>
           <div className={styles['chart-top-token']}>
@@ -997,7 +1002,7 @@ const ChartCryptos = ({ id }) => {
           )} */}
           </div>
         </header>
-      </div>
+      </div></>
     )
 
     // return <div>{test()}</div>
