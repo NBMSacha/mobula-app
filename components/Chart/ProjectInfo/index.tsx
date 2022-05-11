@@ -51,7 +51,7 @@ const ProjectInfo = ({ token }) => {
     return(
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
-                <div className={token.kyc == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
+                <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
                         <div className={styles["social-links"]}>
                             <a href={token.website}><Globe className={styles["icons"]}/></a>
                             <a href={token.twitter}><Twitter className={styles["icons"]}/></a>
