@@ -372,14 +372,11 @@
     flex-direction: column;
     align-items: flex-start;
     width: 14vw;
-    border-right: 1px solid #2E3557;
 }
 
 .left-top-box {
     height: 70%;
     width: auto;
-    border-right: 1px solid #2E3557;
-    border-bottom: 1px solid #2E3557;
     padding: 11%;
 }
 
@@ -414,6 +411,7 @@
     flex-direction: column;
     align-items: center;
     padding: 1.8vw 0px;
+    border-top: 1px solid #2E3557;
 }
 
 .left-bottom-box-dis {
@@ -425,6 +423,7 @@
     padding: 1.8vw 0px;
     opacity: 0.3;
     cursor: not-allowed;
+    border-top: 1px solid #2E3557;
 }
 
 .left-bottom-box-dis>* {
@@ -464,6 +463,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    border-left: 1px solid #2E3557;
 }
 
 .chart-box {
