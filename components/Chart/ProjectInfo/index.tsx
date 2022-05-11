@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import { Chart, ChartType, registerables } from 'chart.js'
-import Tendance from '../Header/Tendance'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { ArrowUp, ArrowDown } from 'react-feather'
 import styles from './ProjectInfo.module.scss'
@@ -52,12 +51,13 @@ const ProjectInfo = ({ token }) => {
     return(
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
-                <div className={styles["left-top-box"]}>
-                    <div className={styles["social-links"]}>
-                        <a href={token.website}><Globe className={styles["icons"]}/></a>
-                        <a href={token.twitter}><Twitter className={styles["icons"]}/></a>
-                        <a href={token.chat}><Send className={styles["icons"]}/></a>
-                    </div>   
+                <div className={token.kyc == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
+                        <div className={styles["social-links"]}>
+                            <a href={token.website}><Globe className={styles["icons"]}/></a>
+                            <a href={token.twitter}><Twitter className={styles["icons"]}/></a>
+                            <a href={token.chat}><Send className={styles["icons"]}/></a>
+                        </div>  
+                   
                     <div className={styles["audit-links"]}>
                         {token.kyc !== null && (
                             <button className={styles["kyc"]}>KYC</button>
