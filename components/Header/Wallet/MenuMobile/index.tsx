@@ -167,19 +167,15 @@ function MenuMobile(props: any) {
             : 'Connect'}
           </button>
           <div className={styles['rank-mobile-box']}>
-          {isConnected
+          {active
             ? <><span>Rank {Number(ranked)}</span>
               <span>{walletBalance} MOBL</span></>
-            : 'Rank'}
-            
-
-
-            
+            : ''}
 
           </div>
         </div>
         <div className={styles['disconnect-wallet-mobile']}>
-          <button className={styles['nobg']} onClick={() => setIsConnected(false)}>Disconnect Wallet</button>
+          <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
         </div>
       </div>
     </>
