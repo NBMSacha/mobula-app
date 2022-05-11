@@ -13,6 +13,13 @@
     opacity: 0.4;
 }
 
+.token-percentage-box{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    margin-left: 5px;
+}
+
 .btn-more-less {
     background-color: #2E3557;
     border: none;
@@ -28,6 +35,10 @@
     padding: 2px 8px;
     height: 25px;
     display: none;
+}
+
+.hidedao{
+    display:none !important;
 }
 
 .chart-top-token {
@@ -86,6 +97,18 @@
     margin-bottom: 15px;
 }
 
+.rank-spane{
+    margin-right: 8px;
+}
+
+.red{
+    color:#D8494A !important;
+}
+
+.green{
+    color:#16c784 !important
+}
+
 .chart-token-rank {
     font-family: 'Poppins';
     font-style: normal;
@@ -95,6 +118,8 @@
     color: #FFFFFF;
     display: flex;
     flex-direction: row;
+    display: flex;
+    align-items: center;
 }
 
 .mobile-notes-boxs {
@@ -352,10 +377,10 @@
 
 .left-top-box {
     height: 70%;
-    width: 14vw;
+    width: auto;
     border-right: 1px solid #2E3557;
     border-bottom: 1px solid #2E3557;
-    /* padding:20px 30px;  */
+    padding: 11%;
 }
 
 .text-top-chart {
@@ -366,23 +391,18 @@
     line-height: 18px;
     color: #FFFFFF;
     opacity: 0.6;
-    margin-left: 3vh;
     margin-top: 0px;
     margin-bottom: 0px;
 }
 
-.topOne {
-    margin-top: 3vh;
-}
 
 .text-bottom-chart {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 18px;
     color: #FFFFFF;
-    margin-left: 3vh;
     margin-top: 10px;
     margin-bottom: 15px;
 }
@@ -939,6 +959,8 @@
         height: 22px
     }
 
+  
+
     .absolute-mobile-dis {
         background: #2E3557;
         border-radius: 6px;
@@ -952,7 +974,8 @@
         margin-top: 8px;
         margin-left: 10px;
         height: 22px;
-        opacity: 0.4
+        opacity: 0.4;
+        border:none;
     }
 
     .absolute-mobile>span {

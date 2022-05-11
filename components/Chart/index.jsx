@@ -518,7 +518,7 @@ const ChartCryptos = ({ id }) => {
                     <span>{token.name}</span>
                   </div>
                   <div className={styles['chart-token-rank']}>
-                    <span>Rank #{token.rank}</span>
+                    <span className={styles["rank-span"]}>Rank #{token.rank}</span>
                     {token.rank_change_24h < 0 ? (
                       <span
                         className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
@@ -528,7 +528,7 @@ const ChartCryptos = ({ id }) => {
                         {Math.abs(token.rank_change_24h)}
                       </span>
                     ) : token.rank_change_24h == 0 ? (
-                      <div>--</div>
+                      <div></div>
                     ) : (
                       <span
                         className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
@@ -644,8 +644,7 @@ const ChartCryptos = ({ id }) => {
             </div>
             <button
               id='hidedao'
-              style={{ 'display': 'none !important;' }}
-              className={
+              className={`${
                 token.utility_score +
                   token.social_score +
                   token.market_score +
@@ -653,7 +652,7 @@ const ChartCryptos = ({ id }) => {
                   0
                   ? styles['absolute-mobile-dis']
                   : styles['absolute-mobile']
-              }
+                } ${styles["hidedao"]}`}
               onClick={() => {
                 // mobileDaoBtn()
               }}
@@ -890,6 +889,7 @@ const ChartCryptos = ({ id }) => {
                 </div>
                 <div className={styles['chart-content']}>
                   <div className={styles['canvas-container']}>
+                    
                   {state === 'Details' && (
                       <ProjectInfo token={token} />
                   )}

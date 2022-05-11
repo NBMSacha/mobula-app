@@ -5,6 +5,7 @@ import Tendance from '../Header/Tendance'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { ArrowUp, ArrowDown } from 'react-feather'
 import styles from './ProjectInfo.module.scss'
+import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import {
   formatAmount,
   getTokenPrice,
@@ -17,21 +18,30 @@ import { Send, Twitter, Globe } from "react-feather";
 const ProjectInfo = ({ token }) => {
 
     const [ active, setActive] = useState(false);
-    const [contractActive, setContractActive] = useState(false)
+    const refDescription = useRef(null);
+    const refContract = useRef(null)
 
     function seeMore() {
-        let description = document.getElementById('description') as any;
-        description.innerText = token.description;
+        refDescription.current.innerText = token.description;
         setActive(true)
+    }
+
+    function getExplorer(chain: string) {
+        console.log('chain : ' + chain)
+        for (const rpc of supportedRPCs) {
+            if (rpc.name === chain) {
+                return rpc.explorer;
+            }
+        }
     }
 
     useEffect(() => {
         for(var i=0;i<5;i++) {
             try{
-                const contractParent = document.getElementById('contract') as any;
-                const newContract = document.createElement("div");
+                const newContract = document.createElement("a");
                 newContract.classList.add(`${styles["contract-address"]}`);
-                contractParent.appendChild(newContract);
+                refContract.current.appendChild(newContract);
+                newContract.href = getExplorer(token.chains) + '/token/' + token.contracts[i];
                 newContract.innerHTML = token.contracts[i]
             } catch(err) {
                 console.log(err)
@@ -39,8 +49,6 @@ const ProjectInfo = ({ token }) => {
         }
     }, [])
     
-    console.log(token)
-
     return(
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
@@ -51,12 +59,16 @@ const ProjectInfo = ({ token }) => {
                         <a href={token.chat}><Send className={styles["icons"]}/></a>
                     </div>   
                     <div className={styles["audit-links"]}>
-                        <button className={styles["kyc"]}>KYC</button>
-                        <button className={styles["audit"]}>Audit</button>
+                        {token.kyc !== null && (
+                            <button className={styles["kyc"]}>KYC</button>
+                        )}
+                        {token.audit !== null && (
+                            <button className={styles["audit"]}>Audit</button>
+                        )}
                     </div>
                 </div>
                 <div className={styles["left-top-box"]}>
-                    <p className={styles["description"]} id="description">{formatName(token.description, 700)}
+                    <p className={styles["description"]} id="description" ref={refDescription}>{formatName(token.description, 700)}
                     </p>
                     
                 </div>
@@ -65,18 +77,15 @@ const ProjectInfo = ({ token }) => {
                         seeMore()
                         if(active) {
                             setActive(false);
-                            let description = document.getElementById('description') as any;
-                            description.innerText = formatName(token.description, 700);
+                            refDescription.current.innerText = formatName(token.description, 700);
                             }
                         }
                     }>
                     {active? ( <span>Less</span> ) : ( <span>More</span>)}
                 </button>
             </div>
-            <div className={styles["right"]} id="contract">
+            <div className={styles["right"]} ref={refContract}id="contract">
                 <h2 className={styles["contract-title"]} >Contract(s)</h2>
-                
-                
             </div>
         </div>
     )
