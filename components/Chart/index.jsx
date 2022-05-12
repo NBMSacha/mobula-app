@@ -13,6 +13,7 @@ import {
 import { setTimeout } from 'timers';
 import ProjectInfo from "./ProjectInfo"
 import Head from 'next/head'
+import SkipBtn from './SkipBtn'
 
 const ChartCryptos = ({ id }) => {
   const [coins, setCoins] = useState([])
@@ -316,7 +317,7 @@ const ChartCryptos = ({ id }) => {
             fill: true,
             datasetFill: true,
             borderColor: isWinner ? '#00ba7c' : '#EA3943',
-            tension: 0.6,
+            tension: 0.1,
             // segment: {
             //   borderColor: ctx => up(ctx, "rgba(192, 192, 192, 1)") || down(ctx, "rgba(180, 0, 0, 1)"),
             // },
@@ -974,7 +975,7 @@ const ChartCryptos = ({ id }) => {
             </div>
           </div>
         </div>
-
+       <SkipBtn />
         <header className=''>
           <div
             className='tokenpage-details '
