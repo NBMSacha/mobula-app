@@ -22,7 +22,7 @@ function ListAToken(props: any) {
     const [website, setWebsite] = useState('');
     const [ipfs, setIPFS] = useState<any>();
     const [isSum, setIsSum] = useState(false);
-    
+
 
     async function submit(e: any) {
 
@@ -65,13 +65,13 @@ function ListAToken(props: any) {
             return
         }
 
-        let contracts =  Object.values(objectForContract).filter((contract:any) => contract.length == 42);
+        let contracts = Object.values(objectForContract).filter((contract: any) => contract.length == 42);
         const chains = []
 
         for (const contract of contracts) {
             let name: string;
             let i = -1;
-    
+
             while (!name && i < supportedRPCs.length - 1) {
                 i++;
                 const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
@@ -79,7 +79,7 @@ function ListAToken(props: any) {
                     'function name() external view returns(string)',
                 ], provider)
                 console.log(tokenContract)
-    
+
                 try {
                     name = await tokenContract.name()
                 } catch (e) {
@@ -96,7 +96,7 @@ function ListAToken(props: any) {
         }
 
         contracts = contracts.filter(contract => contract);
-        
+
         const tokenData = {
             contracts,
             chains,
@@ -147,12 +147,12 @@ function ListAToken(props: any) {
                 'function submitPrice() external view returns(uint256)',
             ], provider
         ).submitPrice())
-    
+
         console.log(submitPrice, hash)
-       
-        const totalSupply = isSum? contracts: contract;
-        const excluded = Object.values(objectForExcluded).filter((excluded:any) => excluded.length == 42);
-        
+
+        const totalSupply = isSum ? contracts : [contract];
+        const excluded = Object.values(objectForExcluded).filter((excluded: any) => excluded.length == 42);
+
         try {
 
             const value = await new ethers.Contract(
@@ -170,6 +170,7 @@ function ListAToken(props: any) {
                 alert.error(e.data.message);
             } else {
                 alert.error('Something went wrong.')
+                console.log(e)
             }
 
         }
@@ -203,27 +204,6 @@ function ListAToken(props: any) {
     const [counts, setCounts] = useState(0);
     // const [excluded, setExcluded ] = useState()
 
-    function test() {
-        try {
-            var error;
-            var inputs = (document.getElementsByClassName('inputs') as any);
-            document.getElementById('myForm').addEventListener("submit", (e) => {
-                for (var i = 0; i < inputs.length; i++) {
-                    if (!inputs[i].value) {
-                        error = "Inputs can't be empty";
-                        console.log(error)
-                    }
-                }
-                if (error) {
-                    e.preventDefault();
-                    // WRITE ERROR
-                    return false
-                } else {
-                    console.log("Send")
-                }
-            })
-        } catch (err) { }
-    }
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
     const [excluded1, setExcluded1] = useState('');
@@ -235,14 +215,14 @@ function ListAToken(props: any) {
     function moreInputExcluded() {
         const parent = document.getElementById("parent") as any;
         setCount(() => count + 1)
-        if (count <= 4 ) {
+        if (count <= 4) {
             var inputs = document.createElement('input') as any;
             inputs.classList.add("inputCreated");
             inputs.placeholder = "0x...";
             inputs.type = "text"
             parent.appendChild(inputs);
         }
-        if (count == 0 ) {
+        if (count == 0) {
             inputs.addEventListener("change", () => {
                 setExcluded1(inputs.value);
             })
@@ -294,7 +274,7 @@ function ListAToken(props: any) {
         const contracts = document.getElementById('parents') as any;
         setCounts(() => counts + 1);
         const appears = document.getElementById('noappears') as any;
-        if (counts <= 4 ) {
+        if (counts <= 4) {
             var addressCreated = document.createElement('input') as any;
             addressCreated.classList.add("inputCreatedAddress");
             addressCreated.placeholder = "0x";
@@ -302,7 +282,7 @@ function ListAToken(props: any) {
             appears.style.display = "flex"
             contracts.appendChild(addressCreated)
         }
-        if (counts == 0 ) {
+        if (counts == 0) {
             addressCreated.addEventListener("change", () => {
                 setContract1(addressCreated.value);
             })
@@ -331,9 +311,9 @@ function ListAToken(props: any) {
                 setContract5(addressCreated.value);
             })
             addressCreated.value = contract5;
-        } 
+        }
     }
- 
+
     var objectForContract = {
         contract: contract,
         contract1: contract1,
@@ -356,23 +336,23 @@ function ListAToken(props: any) {
         logo: logo,
         audit: audit,
         kyc: kyc,
-        isSumTotalSupply: isSum 
+        isSumTotalSupply: isSum
     }
     console.log(finalSubmit)
 
     function isSumOfTotalSupply() {
         var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
-        if (sumTotalSupply.checked) { 
+        if (sumTotalSupply.checked) {
             setIsSum(true)
             console.log(`isSum : ${isSum}`)
             console.log(`sum is checked `)
-        } else{
+        } else {
             setIsSum(false)
             console.log(`Sum not checked ${isSum}`)
         }
     }
-    
-   console.log(isSum)
+
+    console.log(isSum)
 
 
     return (
@@ -421,7 +401,7 @@ function ListAToken(props: any) {
                                 >
                                 </textarea>
                             </div >
-                            
+
 
                         </div>
                         <div className={styles["three-forms"]}>
@@ -508,31 +488,31 @@ function ListAToken(props: any) {
                                     onChange={(e) => setContract(e.target.value)}
                                     required
                                 ></input>
-                                 <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
-                                 
+                                <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
+
                             </div>
                             <div className={styles["noappears"]} id="noappears">
-                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
-                                        <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()}/>
-                                        <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
-                                    </div>
-                                    <div className={styles["flex"]} style={{flexDirection: "row-reverse"}}>
-                                        <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
-                                        // onChange={(e) => { 
-                                        //     var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
-                                        //     var totalSupply = document.getElementById("totalSupply") as any;
-                                        //     if(totalSupply.checked == false) {
-                                        //         if(sumTotalSupply.checked == true)
-                                        //         setIsSum(true)
-                                        //     } else {
-                                        //         setIsSum(false)
-                                        //     }
-                                        //     console.log(isSum)
-                                        // }} 
-                                        />
-                                        <label htmlFor="scale">The total supply is the sum of all the contracts</label>
-                                    </div>
+                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
+                                    <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()} />
+                                    <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
                                 </div>
+                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
+                                    <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
+                                    // onChange={(e) => { 
+                                    //     var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
+                                    //     var totalSupply = document.getElementById("totalSupply") as any;
+                                    //     if(totalSupply.checked == false) {
+                                    //         if(sumTotalSupply.checked == true)
+                                    //         setIsSum(true)
+                                    //     } else {
+                                    //         setIsSum(false)
+                                    //     }
+                                    //     console.log(isSum)
+                                    // }} 
+                                    />
+                                    <label htmlFor="scale">The total supply is the sum of all the contracts</label>
+                                </div>
+                            </div>
                             <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
                                 <label>Excluded from Circulation *</label>
                                 <input

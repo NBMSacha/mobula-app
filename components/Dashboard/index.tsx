@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './dashboard.module.scss'
-import { Text, Heading, Flex, Box } from '@chakra-ui/react'
+import { Text, Heading, Flex, Box, Spacer } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../constants'
 import {
   ChakraProvider,
@@ -196,7 +196,7 @@ function Dashboard() {
                     {' '}
                     <button
                       className='button'
-                      style={{ width: 158 }}
+                      style={{ width: 158, 'font-size': '1rem' } as any}
                       onClick={async (e) => {
                         e.preventDefault()
 
@@ -261,7 +261,7 @@ function Dashboard() {
                     {' '}
                     <button
                       className='button'
-                      style={{ width: 158 }}
+                      style={{ width: 158, 'font-size': '1rem' } as any}
                       onClick={async (e) => {
                         e.preventDefault()
 
@@ -297,7 +297,6 @@ function Dashboard() {
                 <Flex
                   p='10px'
                   flexDir={'column'}
-                  justifyContent='space-between'
                   bg={'#a3d4f440'}
                   borderRadius='10px'
                   w={['90%', '90%', '90%', '30%']}
@@ -317,13 +316,15 @@ function Dashboard() {
                       <Text fontWeight='800'>{claimed}</Text>
                     </Box>
                   </Box>
+
+                  <Spacer />
                   <Flex
                     width='100%'
                     justifyContent={['center', 'center', 'center', 'left']}
                   >
                     <button
                       className='button'
-                      style={{ width: 158 }}
+                      style={{ width: 158, 'font-size': '1rem' } as any}
                       onClick={async (e) => {
                         e.preventDefault()
 
@@ -361,7 +362,7 @@ function Dashboard() {
             </ColorModeProvider>
           </ChakraProvider>
         </div>
-      </div>
+      </div >
     </>
   )
 }
