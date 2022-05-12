@@ -850,7 +850,12 @@ const ChartCryptos = ({ id }) => {
                     Overview
                   </button>
                 )}
+                 {state === 'Overview' && visible? (
                   
+                      <p className={styles['warning']}>Coming soon...</p>
+                    ) : (
+                      <></>
+                    )}
                   {state === 'Market'? (
                       <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                         onClick={(e) => {
@@ -958,13 +963,10 @@ const ChartCryptos = ({ id }) => {
                         ALL
                       </button>
                     </div>
+                    
                     </>
                   )}
-                    {visible ? (
-                      <p className={styles['warning']}>Coming soon...</p>
-                    ) : (
-                      <></>
-                    )}
+                    
                     
                     
 

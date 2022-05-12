@@ -11,6 +11,7 @@ import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
 import Tendance from '../Header/Tendance';
 import MainBlock from './Block/MainBlock';
+import TopPages from './TopPages';
 
 const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -197,8 +198,27 @@ function News(props: any) {
             rank={index + 1}
           />) : <></>}
         </table>
-
+        
       </div>
+      {/* {tokens ? tokens.map((token, index) => <TopPages
+            key={token.id}
+            id={token.id}
+            name={token.name}
+            symbol={token.symbol}
+            contract={token.contract}
+            logo={token.logo}
+            twitter={token.twitter}
+            chat={token.chat}
+            discord={token.discord}
+            website={token.website}
+            market_cap={token.market_cap}
+            volume={token.volume}
+            price_change_24h={token.price_change_24h}
+            price_change_7d={token.price_change_7d}
+            price={token.price}
+            rank_change_24h={token.rank_change_24h}
+            rank={index + 1}
+          />) : <></>} */}
     </>
 
   )

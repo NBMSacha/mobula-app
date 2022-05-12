@@ -59,6 +59,9 @@
 
 .text {
   color: black;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .disabled {
@@ -161,11 +164,7 @@
     flex-wrap: nowrap;
     margin-left: 50px;
   }
-  .texts-box{
-    min-width: 150px;
-    border-radius: 8px;
-    padding: 0.1px 20px 0.1px 48px;
-  }
+
 }
 
 @media screen and (max-width: 1160px) {
@@ -220,7 +219,15 @@
     width: 40px;
     height: 40px;
   }
-  
+
+  .texts-box{
+    min-width: 150px;
+    border-radius: 8px;
+    padding: 0.1px 0px 0.1px 15px;
+    display: flex !important;
+    align-items: center !important;
+  }
+
 
   .bold-text {
     font-size: 12px !important;
