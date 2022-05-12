@@ -30,7 +30,6 @@ body {
 
 .listing h2 {
   font-size: 1.75rem;
-  margin-top: 3rem;
   margin-bottom: 1.5rem;
 }
 
@@ -136,12 +135,10 @@ label {
 }
 
 .button {
-  background-image: linear-gradient(
-    to right,
-    #3701f4 0%,
-    #26a0da 41%,
-    #2af0d5 100%
-  );
+  background-image: linear-gradient(to right,
+      #3701f4 0%,
+      #26a0da 41%,
+      #2af0d5 100%);
 }
 
 .button {
@@ -385,7 +382,7 @@ label {
   opacity: 80%;
 }
 
-.buttons > * {
+.buttons>* {
   width: 45%;
   height: 25px;
 }
@@ -407,7 +404,7 @@ label {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv > * {
+.buttonsDiv>* {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -421,7 +418,7 @@ label {
   cursor: pointer;
 }
 
-.list > * :hover {
+.list>* :hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -433,7 +430,7 @@ label {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv > * {
+.buttonsDiv>* {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -447,13 +444,13 @@ label {
   cursor: pointer;
 }
 
-.list > * :hover {
+.list>* :hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 @media screen and (max-width: 1000px) {
-  .footer-mobile > * > * {
+  .footer-mobile>*>* {
     margin-top: 1rem;
     margin-bottom: 1rem;
     color: black;
@@ -514,7 +511,7 @@ label {
     height: auto;
   }
 
-  .tokens-div > * {
+  .tokens-div>* {
     margin-bottom: 1rem;
     height: 350px;
   }

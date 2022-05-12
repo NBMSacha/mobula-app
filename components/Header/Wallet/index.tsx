@@ -123,7 +123,7 @@ function Wallet(props: any) {
           handleConnect()
         }
       })
-    } catch (e) {}
+    } catch (e) { }
   }, [])
 
   useOutsideAlerter(wrapperRef, setTriggerSearch)
@@ -141,7 +141,7 @@ function Wallet(props: any) {
             setTriggerSearch(true)
           }}
           type='text'
-          className={styles['search-input']}
+          className={styles['search-input-off']}
           name='search'
           placeholder='Search Crypto Assets'
         />
@@ -151,8 +151,8 @@ function Wallet(props: any) {
         >
           {active
             ? account.substring(0, 4) +
-              '..' +
-              account.substring(account.length - 4, account.length)
+            '..' +
+            account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
