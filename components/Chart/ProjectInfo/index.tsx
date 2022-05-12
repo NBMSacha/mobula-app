@@ -91,11 +91,20 @@ const ProjectInfo = ({ token }) => {
             )}
                 
                 {token.contracts.map((contract: string, idx: number) => {
-                    return (
-                        <a href={getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx]} className={styles["contract-address"]}>
+                        console.log(idx)
+                        if (idx < 5) {
+                            return <a href={getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx]} className={styles["contract-address"]}>
                             {contract}
-                        </a>
-                    )  
+                        </a>  
+                            
+                            } else {
+                            return <></>}
+                            
+                                  
+                        
+                        
+                        
+                     
                 })}
             </div>
         </div>
