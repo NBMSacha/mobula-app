@@ -65,6 +65,10 @@
   padding-bottom: 7px;
 }
 
+.search-input:focus{
+  width:100vw
+}
+
 .token-infos-search .token-logos {
   padding-left: 20px;
 }
@@ -92,7 +96,10 @@
   opacity: 0.5;
   font-size: 0.9rem;
 }
-
+.search-div > input {
+  width: 100vw !important;
+  color: #fcfcfc;
+}
 @media screen and (max-width: 1450px) {
   .search-input {
     width: 10rem;

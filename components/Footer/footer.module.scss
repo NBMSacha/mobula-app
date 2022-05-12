@@ -125,15 +125,19 @@
    }
    .community > ul > a > li{
       margin-left:40px;
+      font-size: 12px;
    }
    .community > span{
     margin-left:40px;
+    font-size: 15px;
     }
     .help > span{
         margin-left:40px;
-        }
+        font-size: 15px;
+    }
    .help > ul > a > li{
     margin-left:40px;
+    font-size: 12px;
  }
    .community{
     width:50%;
@@ -167,8 +171,8 @@
        display:block
    }
    .logo-footer{
-    height: 90px;
-    width: 90px;
+    height: 70px;
+    width: 70px;
    }
 
 }
