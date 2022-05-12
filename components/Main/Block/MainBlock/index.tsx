@@ -38,7 +38,7 @@ function MainBlock(props: any) {
             <a href='https://docs.mobula.finance' className={styles["disabled"]}>
               <div className={`${styles["texts-box-1"]} ${styles["texts-box"]}`}>
                 <div className={styles['logo-box']}>
-                  <img className={styles.inside} src='fullicon.png'></img>
+                  <img className={styles.inside} src='fullicon.png' />
                 </div>
                 <p className={styles.text}>
                   Discover Mobula

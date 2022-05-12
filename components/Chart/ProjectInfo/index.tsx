@@ -19,12 +19,12 @@ const ProjectInfo = ({ token }) => {
     const [ active, setActive] = useState(false);
     const refDescription = useRef(null);
     const refContract = useRef(null)
+    const [description ,setDescription] = useState(null)
 
     function seeMore() {
-        refDescription.current.innerText = token.description;
-        setActive(true)
+        
     }
-
+    
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
         for (const rpc of supportedRPCs) {
@@ -54,24 +54,42 @@ const ProjectInfo = ({ token }) => {
                     </div>
                 </div>
                 <div className={styles["left-top-box"]}>
-                    <p className={styles["description"]} id="description" ref={refDescription}>{formatName(token.description, 700)}
+                    <p className={styles["description"]} id="description" ref={refDescription}>
+                        {token.description.length > 700? (
+                            formatName(token.description, 700)
+                        ) : ( 
+                            token.description
+                            )}
+                        
+
                     </p>
                     
                 </div>
-                <button className={styles["more"]} 
-                    onClick={() => {
-                        seeMore()
+                {token.description.length > 700? (
+                    <button className={styles["more"]} 
+                    onClick={(e) => {
+                        
                         if(active) {
                             setActive(false);
                             refDescription.current.innerText = formatName(token.description, 700);
-                            }
+                        } else {
+                            refDescription.current.innerText = token.description;
+                            setActive(true)
+                        }
                         }
                     }>
                     {active? ( <span>Less</span> ) : ( <span>More</span>)}
                 </button>
+                    ) : ( 
+                        <div></div>
+                )}
+                
             </div>
             <div className={styles["right"]} ref={refContract}id="contract">
+            {token.contracts[0] && (
                 <h2 className={styles["contract-title"]} >Contract(s)</h2>
+            )}
+                
                 {token.contracts.map((contract: string, idx: number) => {
                     return (
                         <a href={getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx]} className={styles["contract-address"]}>
