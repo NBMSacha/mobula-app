@@ -7,8 +7,11 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
   const { data: names } = await supabase
     .from('assets')
     .select()
-    .textSearch('name', `'` + search + `'`)
+    .or('name.ilike.' + search + `%`, 'symbol.ilike.' + search + `%`)
     .order('market_cap', { ascending: false })
+    .limit(10)
+
+  console.log(names, search)
 
   // const { data: symbols } = await supabase
   //     .from('assets')
@@ -17,6 +20,16 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
 
   if (names && names.length > 0) {
     setResults(names) //names.concat(symbols))
+  }
+
+  const { data: symbols } = await supabase
+    .from('assets')
+    .select()
+    .match({ symbol: search.toUpperCase() })
+
+  if (symbols && symbols.length > 0) {
+    console.log('We found it', symbols)
+    setResults(symbols.concat(names))
   }
 }
 

@@ -5,10 +5,10 @@ import { ethers } from 'ethers'
 import styles from './brand.module.scss'
 
 function Brand(props: any) {
-return (
+  return (
     <div className={styles['left']} style={{ "cursor": "pointer" }} onClick={() => document.location.href = "/"}>
       <img
-        src='newIcon.png'
+        src='https://app.mobula.finance/newIcon.png'
         className={styles['head-logo']}
         alt='logo'
         onClick={() => (document.location.href = '/')}

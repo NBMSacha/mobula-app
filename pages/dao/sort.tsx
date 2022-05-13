@@ -1,4 +1,4 @@
-import FirstSort from '../components/FirstSort/'
+import FirstSort from '../../components/FirstSort/'
 
 export default function () {
     return <FirstSort />

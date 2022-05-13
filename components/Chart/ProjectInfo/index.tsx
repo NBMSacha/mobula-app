@@ -55,7 +55,7 @@ const ProjectInfo = ({ token }) => {
                 </div>
                 <div className={styles["left-top-box"]}>
                     <p className={styles["description"]} id="description" ref={refDescription}>
-                        {token.description ? token.description.length > 700 ? formatName(token.description, 700) : token.description : 'Loading..'}
+                        {token.description ? token.description.length > 700 ? formatName(token.description, 700) : token.description : 'No description for this asset.'}
                     </p>
 
                 </div>

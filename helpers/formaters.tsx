@@ -37,3 +37,16 @@ export function getTokenPercentage(status: any) {
     }
     return status.toFixed(2);
 }
+
+export function getClosest(dataset: [[number, number]], timestamp: number) {
+    let bestTimestamp = 0;
+    let bestPrice = 0;
+
+    for (const data of dataset) {
+        if (Math.abs(timestamp - data[0]) < Math.abs(timestamp - bestTimestamp)) {
+            bestTimestamp = data[0]
+            bestPrice = data[1]
+        }
+    }
+    return bestPrice
+}

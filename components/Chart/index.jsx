@@ -17,8 +17,10 @@ import Head from 'next/head'
 import SkipBtn from './SkipBtn'
 import { volumeOracles, priceOracles, specialTokens, providers } from '../../constants';
 import BigNumber from 'bignumber.js';
+import { useRouter } from 'next/router'
 
 const ChartCryptos = ({ id }) => {
+  const router = useRouter()
   const [coins, setCoins] = useState([])
   const [chart, setChart] = useState({})
   const [day, setDay] = useState({})
@@ -34,7 +36,9 @@ const ChartCryptos = ({ id }) => {
   const [volume, setVolume] = useState(0);
   const [liquidity, setLiquidity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [market_cap, setMarketCap] = useState(0);
+
+  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
+  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?', id: '' })
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -132,8 +136,6 @@ const ChartCryptos = ({ id }) => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
 
-    console.log('YOO', id)
-
     supabase
       .from('assets')
       .select('*')
@@ -141,12 +143,38 @@ const ChartCryptos = ({ id }) => {
       .then((r) => {
 
         if (r.data && r.data[0]) {
-          console.log(r.data[0])
           setToken(r.data[0])
+
+          console.log('LOADING')
+
+          if (r.data[0].rank && r.data[0].rank != 1) {
+            console.log('LOADFING', r.data[0].rank)
+            supabase.from('assets').select('name,id,rank').or('rank.eq.' + (r.data[0].rank - 1) + ',rank.eq.' + (r.data[0].rank + 1)).then(r => {
+              console.log('DONE')
+
+              if (r.data) {
+
+                r.data = r.data.sort((a, b) => a.rank - b.rank)
+
+                setBeforeToken(r.data[0])
+                setAfterToken(r.data[r.data.length - 1])
+
+              }
+            })
+          } else if (r.data[0].rank) {
+            setBeforeToken({ name: 'Back to Top 100', id: '/', rank: '0' })
+            supabase.from('assets').select('name,id,rank').match({ rank: r.data[0].rank + 1 }).then(r => {
+              console.log('yo', r.data)
+              if (r.data) {
+                setAfterToken(r.data[0])
+              }
+            })
+          }
+
+
         } else {
           console.log(r.error)
-          var redirect = useRoute();
-          redirect.push("/")
+          router.push("/")
         }
       })
 
@@ -371,7 +399,6 @@ const ChartCryptos = ({ id }) => {
       for (let i = 0; i < token.contracts.length; i++) {
 
         if (priceOracles[token.blockchains[i]]) {
-          console.log(token.contracts[i])
           const [tokenPrice, tokenLiquidity] = specialTokens.includes(token.contracts[i]) ? await (new ethers.Contract(
             priceOracles[token.blockchains[i]],
             ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
@@ -390,8 +417,6 @@ const ChartCryptos = ({ id }) => {
 
           //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
 
-          console.log('Price : ' + safeTokenPrice.toString(), 'Liquidity : ' + safeTokenLiquidity.toString(), 'Address : ' + token.contracts[i])
-
           //We 
           const decimalsDivider = new BigNumber(10).pow(18 - tokenDecimals.toNumber());
           const normalizer = new BigNumber(10).pow(18);
@@ -399,19 +424,14 @@ const ChartCryptos = ({ id }) => {
           let normalPrice = safeTokenPrice.div(normalizer).div(decimalsDivider);
           let normalLiquidity = safeTokenLiquidity.div(normalizer);
 
-          console.log('Price : ' + normalPrice.toString(), 'Liquidity : ' + normalLiquidity.toString())
-
           averagePrice = averagePrice.plus(normalPrice.times(normalLiquidity));
           totalLiquidity = totalLiquidity.plus(normalLiquidity);
-        } else {
-          console.log('Not scraping price on ' + token.name + ' because ' + token.blockchains[i] + ' not supported.')
         }
 
         if (volumeOracles[token.blockchains[i]]) {
 
           for (const subgraph of volumeOracles[token.blockchains[i]]) {
 
-            console.log('yoo')
             try {
               const { data: result, error } = await axios.post(subgraph.url, {
                 query: `
@@ -424,11 +444,7 @@ const ChartCryptos = ({ id }) => {
                     `
               })
 
-              console.log(error, result)
-
               total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
-
-              console.log('Updated total volume : ' + total_volume, volumeOracles[token.blockchains[i]])
 
             } catch (e) { console.log(e) }
 
@@ -779,7 +795,7 @@ const ChartCryptos = ({ id }) => {
                     <p className={styles['numbers']}>
 
                       {token.liquidity
-                        ? '$' + formatAmount(token.liquidity)
+                        ? '$' + formatAmount(liquidity || token.liquidity)
                         : '???'}
                     </p>
                   </div>
@@ -891,7 +907,7 @@ const ChartCryptos = ({ id }) => {
                     <p className={styles['text-bottom-chart']}>
 
                       {token.liquidity
-                        ? '$' + formatAmount(token.liquidity)
+                        ? '$' + formatAmount(liquidity || token.liquidity)
                         : '???'}
                     </p>
                   </span>
@@ -1107,7 +1123,7 @@ const ChartCryptos = ({ id }) => {
               </div>
             </div>
           </div>
-          <SkipBtn />
+          <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
           <header className=''>
             <div
               className='tokenpage-details '
