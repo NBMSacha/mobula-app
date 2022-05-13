@@ -6,25 +6,25 @@ import { ArrowUp, ArrowDown } from 'react-feather'
 import styles from './ProjectInfo.module.scss'
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import {
-  formatAmount,
-  getTokenPrice,
-  getTokenPercentage,
-  formatName
+    formatAmount,
+    getTokenPrice,
+    getTokenPercentage,
+    formatName
 } from '../../../helpers/formaters';
 import { setTimeout } from 'timers'
 import { Send, Twitter, Globe } from "react-feather";
 
 const ProjectInfo = ({ token }) => {
 
-    const [ active, setActive] = useState(false);
+    const [active, setActive] = useState(false);
     const refDescription = useRef(null);
     const refContract = useRef(null)
-    const [description ,setDescription] = useState(null)
+    const [description, setDescription] = useState(null)
 
     function seeMore() {
-        
+
     }
-    
+
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
         for (const rpc of supportedRPCs) {
@@ -34,16 +34,16 @@ const ProjectInfo = ({ token }) => {
         }
     }
 
-    return(
+    return (
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
                 <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
-                        <div className={styles["social-links"]}>
-                            <a href={token.website}><Globe className={styles["icons"]}/></a>
-                            <a href={token.twitter}><Twitter className={styles["icons"]}/></a>
-                            <a href={token.chat}><Send className={styles["icons"]}/></a>
-                        </div>  
-                   
+                    <div className={styles["social-links"]}>
+                        <a href={token.website}><Globe className={styles["icons"]} /></a>
+                        <a href={token.twitter}><Twitter className={styles["icons"]} /></a>
+                        <a href={token.chat}><Send className={styles["icons"]} /></a>
+                    </div>
+
                     <div className={styles["audit-links"]}>
                         {token.kyc !== null && (
                             <button className={styles["kyc"]}>KYC</button>
@@ -55,60 +55,48 @@ const ProjectInfo = ({ token }) => {
                 </div>
                 <div className={styles["left-top-box"]}>
                     <p className={styles["description"]} id="description" ref={refDescription}>
-                        {token.description.length > 700? (
-                            formatName(token.description, 700)
-                        ) : ( 
-                            token.description
-                            )}
-                        
-
+                        {token.description ? token.description.length > 700 ? formatName(token.description, 700) : token.description : 'Loading..'}
                     </p>
-                    
+
                 </div>
-                {token.description.length > 700? (
-                    <button className={styles["more"]} 
-                    onClick={(e) => {
-                        
-                        if(active) {
-                            setActive(false);
-                            refDescription.current.innerText = formatName(token.description, 700);
-                        } else {
-                            refDescription.current.innerText = token.description;
-                            setActive(true)
-                        }
-                        }
-                    }>
-                    {active? ( <span>Less</span> ) : ( <span>More</span>)}
-                </button>
-                    ) : ( 
-                        <div></div>
-                )}
-                
-            </div>
-            <div className={styles["right"]} ref={refContract}id="contract">
-            {token.contracts[0] && (
-                <h2 className={styles["contract-title"]} >Contract(s)</h2>
-            )}
-                
-                {token.contracts.map((contract: string, idx: number) => {
-                        console.log(idx)
-                        if (idx < 5) {
-                            return <a href={getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx]} className={styles["contract-address"]}>
-                            {contract}
-                        </a>  
-                            
+                {token.description.length > 700 ? (
+                    <button className={styles["more"]}
+                        onClick={(e) => {
+
+                            if (active) {
+                                setActive(false);
+                                refDescription.current.innerText = formatName(token.description, 700);
                             } else {
-                            return <></>}
-                            
-                                  
-                        
-                        
-                        
-                     
+                                refDescription.current.innerText = token.description;
+                                setActive(true)
+                            }
+                        }
+                        }>
+                        {active ? (<span>Less</span>) : (<span>More</span>)}
+                    </button>
+                ) : (
+                    <div></div>
+                )}
+
+            </div>
+            <div className={styles["right"]} ref={refContract} id="contract">
+                {token.contracts[0] && (
+                    <h2 className={styles["contract-title"]} >Contract(s)</h2>
+                )}
+
+                {token.contracts.map((contract: string, idx: number) => {
+                    if (idx < 5) {
+                        return <a href={getExplorer(token.blockchains[idx]) ? getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx] : ''} className={styles["contract-address"]}>
+                            {contract}
+                        </a>
+
+                    } else {
+                        return <></>
+                    }
                 })}
             </div>
         </div>
     )
-} 
+}
 
 export default ProjectInfo

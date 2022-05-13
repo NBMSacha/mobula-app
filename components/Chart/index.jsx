@@ -427,7 +427,7 @@ const ChartCryptos = ({ id }) => {
       },
     })
 
-    
+
     if (!data || data.length == 0) {
       setVisible(true)
     } else {
@@ -512,67 +512,67 @@ const ChartCryptos = ({ id }) => {
   const renderData = () => {
     return (
       <>
-      <Head>
-      <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
-      </Head>
-      <div className='App'>
-        <div className={styles['chart-main-container']}>
-          <div className={styles['chart-top-token']}>
-            <div className={styles['flex']}>
-              <div className={styles['chart-left-top']}>
-                <img src={token.logo} className={styles['chart-token-logo']} />
-                <div className={styles['chart-name-box']}>
-                  <div className={styles['chart-token-name']}>
-                    <span>{token.name}</span>
-                  </div>
-                  <div className={styles['chart-token-rank']}>
-                    <span className={styles["rank-span"]}>Rank #{token.rank}</span>
-                    {token.rank_change_24h < 0 ? (
-                      <span
-                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
-                        id='noColor'
-                      >
-                        <ArrowDown className={styles['arrowDown']} />
-                        {Math.abs(token.rank_change_24h)}
-                      </span>
-                    ) : token.rank_change_24h == 0 ? (
-                      <div></div>
-                    ) : (
-                      <span
-                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
-                        id='noColor'
-                      >
-                        <ArrowUp className='arrowUp' />
-                        {token.rank_change_24h}
-                      </span>
-                    )}{' '}
+        <Head>
+          <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
+        </Head>
+        <div className='App'>
+          <div className={styles['chart-main-container']}>
+            <div className={styles['chart-top-token']}>
+              <div className={styles['flex']}>
+                <div className={styles['chart-left-top']}>
+                  <img src={token.logo} className={styles['chart-token-logo']} />
+                  <div className={styles['chart-name-box']}>
+                    <div className={styles['chart-token-name']}>
+                      <span>{token.name}</span>
+                    </div>
+                    <div className={styles['chart-token-rank']}>
+                      <span className={styles["rank-span"]}>Rank #{token.rank}</span>
+                      {token.rank_change_24h < 0 ? (
+                        <span
+                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
+                          id='noColor'
+                        >
+                          <ArrowDown className={styles['arrowDown']} />
+                          {Math.abs(token.rank_change_24h)}
+                        </span>
+                      ) : token.rank_change_24h == 0 ? (
+                        <div></div>
+                      ) : (
+                        <span
+                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
+                          id='noColor'
+                        >
+                          <ArrowUp className='arrowUp' />
+                          {token.rank_change_24h}
+                        </span>
+                      )}{' '}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={styles['chart-right-top']}>
-              <div className={styles['chart-box-container']}>
-                <div className={styles['chart-right-info']}>
-                  <p className={styles['test']}>
-                    ${getTokenPrice(token.price)}
-                  </p>
-                  {token.price_change_24h < 0 ? (
-                    <div className={styles['chart-lose']}>
-                      <span>
-                        <ArrowDown />
-                      </span>
-                      <span>{getTokenPercentage(token.price_change_24h)}%</span>
-                    </div>
-                  ) : (
-                    <div className={styles['chart-gain']}>
-                      <span>
-                        <ArrowUp />
-                      </span>
-                      <span>{getTokenPercentage(token.price_change_24h)}%</span>
-                    </div>
-                  )}
-                </div>
-                {/* <div className={styles["chart-info-box"]}>
+              <div className={styles['chart-right-top']}>
+                <div className={styles['chart-box-container']}>
+                  <div className={styles['chart-right-info']}>
+                    <p className={styles['test']}>
+                      ${getTokenPrice(token.price)}
+                    </p>
+                    {token.price_change_24h < 0 ? (
+                      <div className={styles['chart-lose']}>
+                        <span>
+                          <ArrowDown />
+                        </span>
+                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                      </div>
+                    ) : (
+                      <div className={styles['chart-gain']}>
+                        <span>
+                          <ArrowUp />
+                        </span>
+                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                      </div>
+                    )}
+                  </div>
+                  {/* <div className={styles["chart-info-box"]}>
                   <div className={styles["box-info"]}>
                     <p className={styles["grey"]} style={{ marginRight: "14px !important" }}>High:</p>
                     <p className={styles["numbers"]}>--</p>
@@ -582,408 +582,407 @@ const ChartCryptos = ({ id }) => {
                     <p className={styles["numbers"]} >--</p>
                   </div>
                 </div> */}
-              </div>
+                </div>
 
-              <div className={styles['chart-buy']}>
-                {/* <button className="chart-btn-buy">Buy / Sell</button> */}
-              </div>
-            </div>
-          </div>
-          <div className={styles['mobile-showInfo-container']}>
-            <div
-              style={{ 'display': 'none' }}
-              className={styles['mobile-info-element']}
-              id='hide'
-            >
-              <div className={styles['mobile-info-left-column']}>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>MARKET CAP</span>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                    ${formatAmount(token.market_cap)}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>VOLUME (24H)</span>
-                  <p className={styles['numbers']}>
-                    ${formatAmount(token.volume)}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>
-                    FULLY DILUTED MARKET CAP
-                  </span>
-                  <p className={styles['numbers']}>
-                    $
-                    {token.market_cap_diluted
-                      ? formatAmount(token.market_cap_diluted)
-                      : '???'}
-                  </p>
-                </div>
-              </div>
-              <div className={styles['mobile-info-right-column']}>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                    {token.circulating_supply
-                      ? formatAmount(token.circulating_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>TOTAL SUPPLY </span>
-                  <p className={styles['numbers']}>
-                    {token.total_supply
-                      ? formatAmount(token.total_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>LIQUIDITY </span>
-                  <p className={styles['numbers']}>
-
-                    {token.liquidity
-                      ? '$' + formatAmount(token.liquidity)
-                      : '???'}
-                  </p>
+                <div className={styles['chart-buy']}>
+                  {/* <button className="chart-btn-buy">Buy / Sell</button> */}
                 </div>
               </div>
             </div>
-            <button
-              id='hidedao'
-              className={`${
-                token.utility_score +
-                  token.social_score +
-                  token.market_score +
-                  token.trust_score ==
-                  0
-                  ? styles['absolute-mobile-dis']
-                  : styles['absolute-mobile']
-                } ${styles["hidedao"]}`}
-              onClick={() => {
-                // mobileDaoBtn()
-              }}
-            >
-              <span>DAO Score</span>
-              <span>
-                {token.utility_score +
-                  token.social_score +
-                  token.market_score +
-                  token.trust_score}
-                /20
-              </span>
+            <div className={styles['mobile-showInfo-container']}>
               <div
-                style={{ display: 'none' }}
-                className={styles['mobile-grades']}
-                id='daoBtn-mobile'
+                style={{ 'display': 'none' }}
+                className={styles['mobile-info-element']}
+                id='hide'
               >
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Utility</span>
-                  <span>{token.utility_score}/5</span>
+                <div className={styles['mobile-info-left-column']}>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>MARKET CAP</span>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      ${formatAmount(token.market_cap)}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>VOLUME (24H)</span>
+                    <p className={styles['numbers']}>
+                      ${formatAmount(token.volume)}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>
+                      FULLY DILUTED MARKET CAP
+                    </span>
+                    <p className={styles['numbers']}>
+                      $
+                      {token.market_cap_diluted
+                        ? formatAmount(token.market_cap_diluted)
+                        : '???'}
+                    </p>
+                  </div>
                 </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Social</span>
-                  <span>{token.social_score}/5</span>
-                </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Trust</span>
-                  <span>{token.trust_score}/5</span>
-                </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Market</span>
-                  <span>{token.market_score}/5</span>
-                </div>
-              </div>
-            </button>
-            <button
-              className={styles['btn-more-less']}
-              onClick={() => moreStats()}
-            >
-              <span id='change'>More Stats</span>
-            </button>
-          </div>
-          <div className={styles['chart-bottom-container']}>
-            <div className={styles['chart-bottom-left']}>
-              <div className={styles['left-top-box']}>
-                <span>
-                  <p
-                    className={`${styles['text-top-chart']} ${styles['topOne']}`}
-                  >
-                    MARKET CAP
-                  </p>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                    ${formatAmount(token.market_cap)}
-                    {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>VOLUME (24H)</p>
-                  <p className={styles['text-bottom-chart']}>
-                    ${formatAmount(token.volume)}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>
-                    FULLY DILUTED MARKET CAP
-                  </p>
-                  <p className={styles['text-bottom-chart']}>
-                    $
-                    {token.market_cap_diluted
-                      ? formatAmount(token.market_cap_diluted)
-                      : '???'}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                    {token.circulating_supply
-                      ? formatAmount(token.circulating_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
-                  <p className={styles['text-bottom-chart']}>
-                    {token.total_supply
-                      ? formatAmount(token.total_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>LIQUIDITY</p>
-                  <p className={styles['text-bottom-chart']}>
+                <div className={styles['mobile-info-right-column']}>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>CIRCULATING SUPPLY</span>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      {token.circulating_supply
+                        ? formatAmount(token.circulating_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>TOTAL SUPPLY </span>
+                    <p className={styles['numbers']}>
+                      {token.total_supply
+                        ? formatAmount(token.total_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>LIQUIDITY </span>
+                    <p className={styles['numbers']}>
 
-                    {token.liquidity
-                      ? '$' + formatAmount(token.liquidity)
-                      : '???'}
-                  </p>
-                </span>
+                      {token.liquidity
+                        ? '$' + formatAmount(token.liquidity)
+                        : '???'}
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div
-                className={
-                  token.utility_score +
+              <button
+                id='hidedao'
+                className={`${token.utility_score +
                     token.social_score +
                     token.market_score +
                     token.trust_score ==
                     0
-                    ? styles['left-bottom-box-dis']
-                    : styles['left-bottom-box']
-                }
-                id='dropdown'
+                    ? styles['absolute-mobile-dis']
+                    : styles['absolute-mobile']
+                  } ${styles["hidedao"]}`}
+                onClick={() => {
+                  // mobileDaoBtn()
+                }}
               >
-                <button
-                  className={styles['notes-boxs']}
-                  id='btnNotes'
-                  onClick={() => daoBtn()}
+                <span>DAO Score</span>
+                <span>
+                  {token.utility_score +
+                    token.social_score +
+                    token.market_score +
+                    token.trust_score}
+                  /20
+                </span>
+                <div
+                  style={{ display: 'none' }}
+                  className={styles['mobile-grades']}
+                  id='daoBtn-mobile'
                 >
-                  <span className={styles['tagV']}>DAO SCORE</span>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Utility</span>
+                    <span>{token.utility_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Social</span>
+                    <span>{token.social_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Trust</span>
+                    <span>{token.trust_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Market</span>
+                    <span>{token.market_score}/5</span>
+                  </div>
+                </div>
+              </button>
+              <button
+                className={styles['btn-more-less']}
+                onClick={() => moreStats()}
+              >
+                <span id='change'>More Stats</span>
+              </button>
+            </div>
+            <div className={styles['chart-bottom-container']}>
+              <div className={styles['chart-bottom-left']}>
+                <div className={styles['left-top-box']}>
                   <span>
-                    {token.utility_score +
+                    <p
+                      className={`${styles['text-top-chart']} ${styles['topOne']}`}
+                    >
+                      MARKET CAP
+                    </p>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      ${formatAmount(token.market_cap)}
+                      {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>VOLUME (24H)</p>
+                    <p className={styles['text-bottom-chart']}>
+                      ${formatAmount(token.volume)}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>
+                      FULLY DILUTED MARKET CAP
+                    </p>
+                    <p className={styles['text-bottom-chart']}>
+                      $
+                      {token.market_cap_diluted
+                        ? formatAmount(token.market_cap_diluted)
+                        : '???'}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      {token.circulating_supply
+                        ? formatAmount(token.circulating_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
+                    <p className={styles['text-bottom-chart']}>
+                      {token.total_supply
+                        ? formatAmount(token.total_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>LIQUIDITY</p>
+                    <p className={styles['text-bottom-chart']}>
+
+                      {token.liquidity
+                        ? '$' + formatAmount(token.liquidity)
+                        : '???'}
+                    </p>
+                  </span>
+                </div>
+                <div
+                  className={
+                    token.utility_score +
                       token.social_score +
                       token.market_score +
-                      token.trust_score}
-                    /20
-                  </span>
-                  <div className={styles['grades']} id='daoBtn'>
-                    <div className={styles['notes-boxs']}>
-                      <span>Utility</span>
-                      <span>{token.utility_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Social</span>
-                      <span>{token.social_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Trust</span>
-                      <span>{token.trust_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Market</span>
-                      <span>{token.market_score}/5</span>
-                    </div>
-                  </div>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                      token.trust_score ==
+                      0
+                      ? styles['left-bottom-box-dis']
+                      : styles['left-bottom-box']
+                  }
+                  id='dropdown'
                 >
-                  <span>Utility</span>
-                  <span>{token.utility_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Social</span>
-                  <span>{token.social_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Trust</span>
-                  <span>{token.trust_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Market</span>
-                  <span>{token.market_score}/5</span>
-                </button>
+                  <button
+                    className={styles['notes-boxs']}
+                    id='btnNotes'
+                    onClick={() => daoBtn()}
+                  >
+                    <span className={styles['tagV']}>DAO SCORE</span>
+                    <span>
+                      {token.utility_score +
+                        token.social_score +
+                        token.market_score +
+                        token.trust_score}
+                      /20
+                    </span>
+                    <div className={styles['grades']} id='daoBtn'>
+                      <div className={styles['notes-boxs']}>
+                        <span>Utility</span>
+                        <span>{token.utility_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Social</span>
+                        <span>{token.social_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Trust</span>
+                        <span>{token.trust_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Market</span>
+                        <span>{token.market_score}/5</span>
+                      </div>
+                    </div>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Utility</span>
+                    <span>{token.utility_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Social</span>
+                    <span>{token.social_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Trust</span>
+                    <span>{token.trust_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Market</span>
+                    <span>{token.market_score}/5</span>
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className={styles['chart-bottom-right']}>
-              <div className={styles['chart-box']} id='chart-box'>
-                <div className={styles['chart-header']}>
-                {state === 'Overview'? (
-                  <button
-                    onClick={() => {setState('Overview');console.log(state);reload()}}
-                    className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                  >
-                    Overview
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {setState('Overview');console.log(state);reload()}}
-                    className={`${styles['chart-header-link']} `}
-                  >
-                    Overview
-                  </button>
-                )}
-                 {state === 'Overview' && visible? (
-                  
+              <div className={styles['chart-bottom-right']}>
+                <div className={styles['chart-box']} id='chart-box'>
+                  <div className={styles['chart-header']}>
+                    {state === 'Overview' ? (
+                      <button
+                        onClick={() => { setState('Overview'); console.log(state); reload() }}
+                        className={`${styles['chart-header-link']} ${styles['active-chart']}`}
+                      >
+                        Overview
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => { setState('Overview'); console.log(state); reload() }}
+                        className={`${styles['chart-header-link']} `}
+                      >
+                        Overview
+                      </button>
+                    )}
+                    {state === 'Overview' && visible ? (
+
                       <p className={styles['warning']}>Coming soon...</p>
                     ) : (
                       <></>
                     )}
-                  {state === 'Market'? (
+                    {state === 'Market' ? (
                       <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                         onClick={(e) => {
                           setState('Market');
                           console.log(state);
                         }}>
                         <span>Market</span>
-                    </button>
-                  ) : ( 
-                    <button className={styles['chart-header-link']} 
+                      </button>
+                    ) : (
+                      <button className={styles['chart-header-link']}
                         onClick={(e) => {
                           setState('Market');
                           console.log(state);
                         }}
-                    >Market</button>
-                  )}
+                      >Market</button>
+                    )}
 
-                  {state === 'Details'? (
-                    <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => {setState('Details');console.log(state)}}>
-                    <span>Project Info</span>
-                  </button>
-                  ) : (
-                    <button className={styles['chart-header-link']} onClick={() => {setState('Details');console.log(state)}}>
-                      <span>Project Info</span>
-                    </button>
-                  )}
-                  
-                  {state === 'Socials'? (
-                    <button  onClick={() => {setState('Socials');console.log(state)}} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                      <span>Socials</span>
-                    </button>
-                  ) : (
-                    <button  onClick={() => {setState('Socials');console.log(state)}} className={styles['chart-header-link']}>
-                      <span>Socials</span>
-                    </button>
-                  )}
-                 
-                  <a
-                    href='https://discord.gg/2a8hqNzkzN'
-                    className={`${styles['chart-header-link']} ${styles['report-problem']}`}
-                  >
-                    <span id='inner'>Report</span>
-                  </a>
-                </div>
-                <div className={styles['chart-content']}>
-                  <div className={styles['canvas-container']}>
-                    
-                  {state === 'Details' && (
-                      <ProjectInfo token={token} />
-                  )}
-                  {state === 'Overview' && (
-                    <>
-                    <canvas id='chart'></canvas>
-                    <div
-                      className={styles['change-chart-date']}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'end',
-                        margin: 'auto',
-                      }}
+                    {state === 'Details' ? (
+                      <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
+                        <span>Infos</span>
+                      </button>
+                    ) : (
+                      <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
+                        <span>Infos</span>
+                      </button>
+                    )}
+
+                    {state === 'Socials' ? (
+                      <button onClick={() => { setState('Socials'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                        <span>Socials</span>
+                      </button>
+                    ) : (
+                      <button onClick={() => { setState('Socials'); console.log(state) }} className={styles['chart-header-link']}>
+                        <span>Socials</span>
+                      </button>
+                    )}
+
+                    <a
+                      href='https://discord.gg/2a8hqNzkzN'
+                      className={`${styles['chart-header-link']} ${styles['report-problem']}`}
                     >
-                      <button
-                        onClick={() => {
-                          setTimeFormat('1D')
-                        }}
-                        className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
-                        id='1d'
-                      >
-                        1D
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('7D')
-                        }}
-                        className={styles['button-chart']}
-                        id='7d'
-                      >
-                        7D
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('30D')
-                        }}
-                        className={styles['button-chart']}
-                        id='30d'
-                      >
-                        1M
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('1Y')
-                        }}
-                        className={styles['button-chart']}
-                        id='1y'
-                      >
-                        1Y
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('ALL')
-                        }}
-                        className={styles['button-chart']}
-                        id='all'
-                      >
-                        ALL
-                      </button>
-                    </div>
-                    
-                    </>
-                  )}
-                    
-                    
-                    
+                      <span id='inner'>Report</span>
+                    </a>
+                  </div>
+                  <div className={styles['chart-content']}>
+                    <div className={styles['canvas-container']}>
 
-               
+                      {state === 'Details' && (
+                        <ProjectInfo token={token} />
+                      )}
+                      {state === 'Overview' && (
+                        <>
+                          <canvas id='chart'></canvas>
+                          <div
+                            className={styles['change-chart-date']}
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'end',
+                              margin: 'auto',
+                            }}
+                          >
+                            <button
+                              onClick={() => {
+                                setTimeFormat('1D')
+                              }}
+                              className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
+                              id='1d'
+                            >
+                              1D
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('7D')
+                              }}
+                              className={styles['button-chart']}
+                              id='7d'
+                            >
+                              7D
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('30D')
+                              }}
+                              className={styles['button-chart']}
+                              id='30d'
+                            >
+                              1M
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('1Y')
+                              }}
+                              className={styles['button-chart']}
+                              id='1y'
+                            >
+                              1Y
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('ALL')
+                              }}
+                              className={styles['button-chart']}
+                              id='all'
+                            >
+                              ALL
+                            </button>
+                          </div>
+
+                        </>
+                      )}
+
+
+
+
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-       <SkipBtn />
-        <header className=''>
-          <div
-            className='tokenpage-details '
-            style={{ display: 'flex', justifyContent: 'start' }}
-          >
-            {/* {coins[0]? (
+          <SkipBtn />
+          <header className=''>
+            <div
+              className='tokenpage-details '
+              style={{ display: 'flex', justifyContent: 'start' }}
+            >
+              {/* {coins[0]? (
             <>
               <img src={coins[0].image} height="180"  alt="logo" />
             <p className="size">
@@ -1003,9 +1002,9 @@ const ChartCryptos = ({ id }) => {
           ) : ( 
           <div>Loading....</div>
           )} */}
-          </div>
-        </header>
-      </div></>
+            </div>
+          </header>
+        </div></>
     )
 
     // return <div>{test()}</div>
