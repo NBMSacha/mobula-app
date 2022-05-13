@@ -173,13 +173,19 @@ const ChartCryptos = ({ id }) => {
       setDay({ price: formatData(days) })
 
       const weeks = await getChart(id, '7D')
-      const months = await getChart(id, '1M')
-      const years = await getChart(id, '1Y')
-      const alls = await getChart(id, 'ALL')
 
       setWeek({ price: formatData(weeks) })
+
+      const months = await getChart(id, '1M')
+
       setMonth({ price: formatData(months) })
+
+      const years = await getChart(id, '1Y')
+
       setYear({ price: formatData(years) })
+
+      const alls = await getChart(id, 'ALL')
+
       setAll({ price: formatData(alls) })
     } catch (err) {
       console.log(err)
@@ -188,85 +194,7 @@ const ChartCryptos = ({ id }) => {
     console.log(chart)
   }
 
-  // const { coin } = useParams()
-  useEffect(() => {
-    fetchData()
-    fetchChart()
-  }, [])
-
-  const externalTooltipHandler = () => {
-    let tooltipEl = document.getElementById('chartjs-tooltip')
-
-    // Create element on first render
-    if (!tooltipEl) {
-      tooltipEl = document.createElement('div')
-      tooltipEl.id = 'chartjs-tooltip'
-      tooltipEl.innerHTML = '<table></table>'
-      document.body.appendChild(tooltipEl)
-    }
-
-    // Hide if no tooltip
-    const tooltipModel = context.tooltip
-    if (tooltipModel.opacity === 0) {
-      tooltipEl.style.opacity = 0
-      return
-    }
-
-    // Set caret Position
-    tooltipEl.classList.remove('above', 'below', 'no-transform')
-    if (tooltipModel.yAlign) {
-      tooltipEl.classList.add('test')
-    } else {
-      tooltipEl.classList.add('no-transform')
-    }
-
-    function getBody(bodyItem) {
-      return bodyItem.lines
-    }
-
-    // Set Text
-    if (tooltipModel.body) {
-      const titleLines = tooltipModel.title || []
-      const bodyLines = tooltipModel.body.map(getBody)
-
-      let innerHtml = '<thead>'
-
-      titleLines.forEach(function (title) {
-        innerHtml += '<tr><th>' + title + '</th></tr>'
-      })
-      innerHtml += '</thead><tbody>'
-
-      bodyLines.forEach(function (body, i) {
-        const colors = tooltipModel.labelColors[i]
-        let style = 'background:' + colors.backgroundColor
-        style += '; border-color:' + colors.borderColor
-        style += '; border-width: 2px'
-        const span = '<span style="' + style + '"></span>'
-        innerHtml += '<tr><td>' + span + body + '</td><tr>'
-      })
-      innerHtml += '</tbody>'
-
-      let tableRoot = tooltipEl.querySelector('table')
-      tableRoot.innerHTML = innerHtml
-    }
-
-    const position = context.chart.canvas.getBoundingClientRect()
-    const bodyFont = Chart.helpers.toFont(tooltipModel.options.bodyFont)
-
-    // Display, position, and set styles for font
-    tooltipEl.style.opacity = 1
-    tooltipEl.style.position = 'absolute'
-    tooltipEl.style.left =
-      position.left + window.pageXOffset + tooltipModel.caretX + 'px'
-    tooltipEl.style.top =
-      position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-    tooltipEl.style.font = bodyFont.string
-    tooltipEl.style.padding =
-      tooltipModel.padding + 'px ' + tooltipModel.padding + 'px'
-    tooltipEl.style.pointerEvents = 'none'
-  }
-
-  useEffect(() => {
+  const generateChart = () => {
     var dayIf
 
     if (timeFormat == '7D') {
@@ -433,7 +361,120 @@ const ChartCryptos = ({ id }) => {
     } else {
       setVisible(false)
     }
+  }
+
+  useEffect(() => {
+    fetchData()
+    fetchChart()
+  }, [])
+
+  const externalTooltipHandler = () => {
+    let tooltipEl = document.getElementById('chartjs-tooltip')
+
+    // Create element on first render
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div')
+      tooltipEl.id = 'chartjs-tooltip'
+      tooltipEl.innerHTML = '<table></table>'
+      document.body.appendChild(tooltipEl)
+    }
+
+    // Hide if no tooltip
+    const tooltipModel = context.tooltip
+    if (tooltipModel.opacity === 0) {
+      tooltipEl.style.opacity = 0
+      return
+    }
+
+    // Set caret Position
+    tooltipEl.classList.remove('above', 'below', 'no-transform')
+    if (tooltipModel.yAlign) {
+      tooltipEl.classList.add('test')
+    } else {
+      tooltipEl.classList.add('no-transform')
+    }
+
+    function getBody(bodyItem) {
+      return bodyItem.lines
+    }
+
+    // Set Text
+    if (tooltipModel.body) {
+      const titleLines = tooltipModel.title || []
+      const bodyLines = tooltipModel.body.map(getBody)
+
+      let innerHtml = '<thead>'
+
+      titleLines.forEach(function (title) {
+        innerHtml += '<tr><th>' + title + '</th></tr>'
+      })
+      innerHtml += '</thead><tbody>'
+
+      bodyLines.forEach(function (body, i) {
+        const colors = tooltipModel.labelColors[i]
+        let style = 'background:' + colors.backgroundColor
+        style += '; border-color:' + colors.borderColor
+        style += '; border-width: 2px'
+        const span = '<span style="' + style + '"></span>'
+        innerHtml += '<tr><td>' + span + body + '</td><tr>'
+      })
+      innerHtml += '</tbody>'
+
+      let tableRoot = tooltipEl.querySelector('table')
+      tableRoot.innerHTML = innerHtml
+    }
+
+    const position = context.chart.canvas.getBoundingClientRect()
+    const bodyFont = Chart.helpers.toFont(tooltipModel.options.bodyFont)
+
+    // Display, position, and set styles for font
+    tooltipEl.style.opacity = 1
+    tooltipEl.style.position = 'absolute'
+    tooltipEl.style.left =
+      position.left + window.pageXOffset + tooltipModel.caretX + 'px'
+    tooltipEl.style.top =
+      position.top + window.pageYOffset + tooltipModel.caretY + 'px'
+    tooltipEl.style.font = bodyFont.string
+    tooltipEl.style.padding =
+      tooltipModel.padding + 'px ' + tooltipModel.padding + 'px'
+    tooltipEl.style.pointerEvents = 'none'
+  }
+
+  useEffect(() => {
+    generateChart()
   }, [timeFormat, day])
+
+  useEffect(() => {
+    if (timeFormat == '7D') {
+      generateChart()
+    }
+  }, [week])
+
+  useEffect(() => {
+    if (timeFormat == '30D') {
+      generateChart()
+    }
+  }, [month])
+
+  useEffect(() => {
+    if (timeFormat == '1Y') {
+      generateChart()
+    }
+  }, [year])
+
+  useEffect(() => {
+    if (timeFormat == 'ALL') {
+      generateChart()
+    }
+  }, [all])
+
+  useEffect(() => {
+
+    if (state == 'Overview') {
+      generateChart()
+    }
+
+  }, [state])
 
   const determineTimeFormat = () => {
     switch (timeFormat) {
@@ -653,12 +694,12 @@ const ChartCryptos = ({ id }) => {
               <button
                 id='hidedao'
                 className={`${token.utility_score +
-                    token.social_score +
-                    token.market_score +
-                    token.trust_score ==
-                    0
-                    ? styles['absolute-mobile-dis']
-                    : styles['absolute-mobile']
+                  token.social_score +
+                  token.market_score +
+                  token.trust_score ==
+                  0
+                  ? styles['absolute-mobile-dis']
+                  : styles['absolute-mobile']
                   } ${styles["hidedao"]}`}
                 onClick={() => {
                   // mobileDaoBtn()
@@ -836,14 +877,14 @@ const ChartCryptos = ({ id }) => {
                   <div className={styles['chart-header']}>
                     {state === 'Overview' ? (
                       <button
-                        onClick={() => { setState('Overview'); console.log(state); reload() }}
+                        onClick={() => { setState('Overview'); }}
                         className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                       >
                         Overview
                       </button>
                     ) : (
                       <button
-                        onClick={() => { setState('Overview'); console.log(state); reload() }}
+                        onClick={() => { setState('Overview'); }}
                         className={`${styles['chart-header-link']} `}
                       >
                         Overview
@@ -851,7 +892,7 @@ const ChartCryptos = ({ id }) => {
                     )}
                     {state === 'Overview' && visible ? (
 
-                      <p className={styles['warning']}>Coming soon...</p>
+                      <p className={styles['warning']}>Loading...</p>
                     ) : (
                       <></>
                     )}
@@ -965,10 +1006,6 @@ const ChartCryptos = ({ id }) => {
 
                         </>
                       )}
-
-
-
-
 
                     </div>
                   </div>
