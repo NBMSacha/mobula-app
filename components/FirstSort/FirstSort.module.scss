@@ -12,6 +12,11 @@
     margin-top: 1rem;
 }
 
+.token-box {
+    display: flex;
+    flex-direction: column;
+}
+
 .token-box:hover {
     opacity: 0.9;
 }
@@ -28,6 +33,7 @@
     border-radius: 10px;
     display: block;
     border: none;
+    margin-top: auto;
 }
 
 .button:hover {

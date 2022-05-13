@@ -30,7 +30,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
     const [socialScore, setSocialScore] = useState(0);
     const [trustScore, setTrustScore] = useState(0);
     const [marketScore, setMarketScore] = useState(0);
-    const [complete, setComplete] = useState(false);
+    const complete = useRef(false);
 
     function seeMore() {
         refDescription.current.innerText = token.description;
@@ -49,7 +49,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
     async function voteToken(validate: boolean) {
 
         console.log(validate)
-        if (!complete) {
+        if (!complete.current) {
             alert.error('You must wait the end of the countdown to vote.')
         } else {
             try {
@@ -83,12 +83,38 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     alert.error('Something went wrong.')
                 }
             }
+
+            // if (token.isFirstSort) {
+
+            // } else {
+            //     try {
+            //         await new ethers.Contract(
+            //             PROTOCOL_ADDRESS,
+            //             [
+            //                 'function finalDecisionVote(address token, bool validate) external',
+            //             ], signer
+            //         ).finalDecisionVote(token.contract, true);
+            //         setVoted(true)
+
+            //     } catch (e) {
+            //         if (e.data && e.data.message) {
+            //             alert.error(e.data.message);
+            //         } else {
+            //             alert.error('Something went wrong.')
+            //         }
+            //     }
+            // }
         }
     }
 
     function getEndDate() {
         if (localStorage.getItem('date' + token.id)) {
-            return parseInt(localStorage.getItem('date' + token.id)) > Date.now() ? parseInt(localStorage.getItem('date' + token.id)) : Date.now()
+            if (parseInt(localStorage.getItem('date' + token.id)) > Date.now()) {
+                return parseInt(localStorage.getItem('date' + token.id))
+            } else {
+                complete.current = true;
+                return Date.now()
+            }
         } else {
             localStorage.setItem('date' + token.id, String(Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000))
             return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000
@@ -143,7 +169,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                 <div className={styles["left"]} ref={refContract} id="contract">
                     <h2 className={styles["contract-title"]} >Contract(s)</h2>
                     {token.contracts.map((contract: string, index: number) => {
-                        return <a className={styles["contract-address"]} href={getExplorer(token.chains[index])}>
+                        return <a className={styles["contract-address"]} href={getExplorer(token.chains[index]) + '/token/' + token.contracts[index]}>
                             {contract}
                         </a>
                     })}
@@ -153,7 +179,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     <div className={styles["left"]} ref={refContract} id="contract">
                         <h2 className={styles["contract-title"]} >Total Supply</h2>
                         {token.totalSupply.map((contract: string, index: number) => {
-                            return <a className={styles["contract-address"]} href={getExplorer(token.chains[index])}>
+                            return <a className={styles["contract-address"]} href={getExplorer(token.chains[index] + '/token/' + token.totalSupply[index])}>
                                 {contract}
                             </a>
                         })}
@@ -164,7 +190,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     <div className={styles["left"]} ref={refContract} id="contract">
                         <h2 className={styles["contract-title"]} >Excluded from circulation(s)</h2>
                         {token.excludedFromCirculation.map((contract: string, index: number) => {
-                            return <a className={styles["contract-address"]} href={getExplorer(token.chains[index])}>
+                            return <a className={styles["contract-address"]} href={getExplorer(token.chains[0]) + '/address/' + token.excludedFromCirculation[index]}>
                                 {contract}
                             </a>
                         })}
@@ -182,7 +208,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     >
                         <Text mt="10px" ml="15px" fontWeight="600" fontSize="1.8rem">Vote</Text>
                         <Countdown
-                            date={getEndDate()} onComplete={() => setComplete(true)}
+                            date={getEndDate()} onComplete={() => complete.current = true}
                             renderer={(props) => <Text mt="15px" mr="15px" fontWeight="600" fontSize="1.5rem">{props.minutes}:{String(props.seconds).length > 1 ? props.seconds : '0' + props.seconds}</Text>}></Countdown>
                     </Flex>
 

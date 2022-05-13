@@ -231,7 +231,7 @@ function FinalValidation() {
 
                         return (
                             <Box
-                                w={["90%", "90%", "70%", "40%"]}
+                                w={["90%", "90%", "70%", "80%"]}
                                 bg="#a3d4f433"
                                 mb={20}
                                 mr={10}
