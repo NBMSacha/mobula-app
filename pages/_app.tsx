@@ -36,6 +36,13 @@ export default class Root extends App {
             name='viewport'
             content='width=device-width, initial-scale=1, maximum-scale=1'
           ></meta>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYC9GNY55E"></script>
+          <script dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-FYC9GNY55E');`}}></script>
         </Head>
 
         <Provider template={AlertTemplate} {...alertOptions}>
