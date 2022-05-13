@@ -163,7 +163,7 @@ function MenuMobile(props: any) {
             <span className={styles['linkTo-tag']}>DAO</span>
           </a>
           <a href='list' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>List and asset</span>
+            <span className={styles['linkTo-tag']}>List an asset</span>
           </a>
         </div>
         <div className={styles['connect-mobile-container']}>
