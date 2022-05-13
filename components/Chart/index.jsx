@@ -9,11 +9,14 @@ import {
   formatAmount,
   getTokenPrice,
   getTokenPercentage,
+  getClosest
 } from '../../helpers/formaters'
-import { setTimeout } from 'timers';
+import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
 import Head from 'next/head'
 import SkipBtn from './SkipBtn'
+import { volumeOracles, priceOracles, specialTokens, providers } from '../../constants';
+import BigNumber from 'bignumber.js';
 
 const ChartCryptos = ({ id }) => {
   const [coins, setCoins] = useState([])
@@ -27,6 +30,11 @@ const ChartCryptos = ({ id }) => {
   const [token, setToken] = useState({})
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
+
+  const [volume, setVolume] = useState(0);
+  const [liquidity, setLiquidity] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [market_cap, setMarketCap] = useState(0);
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -44,22 +52,13 @@ const ChartCryptos = ({ id }) => {
     )
 
     if (timeframe == '1D') {
-      const { data } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
-      return data[0]
-        ? data[0].price_history.price
-          .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-          .map((price) => [price[0], price[1] * 1000000000])
+      return token ? token.price_history.price
+        .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+        .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '7D') {
-      const { data } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
-      return data[0]
-        ? data[0].price_history.price
+      return token
+        ? token.price_history.price
           .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((price) => [price[0], price[1] * 1000000000])
         : null
@@ -363,10 +362,105 @@ const ChartCryptos = ({ id }) => {
     }
   }
 
+  const fetchLiveData = async () => {
+    let total_volume = 0;
+    let averagePrice = new BigNumber(0)
+    let totalLiquidity = new BigNumber(0)
+
+    if (token.contracts && token.total_volume_history && token.blockchains) {
+      for (let i = 0; i < token.contracts.length; i++) {
+
+        if (priceOracles[token.blockchains[i]]) {
+          console.log(token.contracts[i])
+          const [tokenPrice, tokenLiquidity] = specialTokens.includes(token.contracts[i]) ? await (new ethers.Contract(
+            priceOracles[token.blockchains[i]],
+            ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
+            providers[token.blockchains[i]])).getGeneralUSDPriceUsingStable(token.contracts[i]) : await (new ethers.Contract(
+              priceOracles[token.blockchains[i]],
+              ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
+              providers[token.blockchains[i]])).getGeneralUSDPrice(token.contracts[i]);
+
+          const safeTokenPrice = new BigNumber(tokenPrice.toString())
+          const safeTokenLiquidity = new BigNumber(tokenLiquidity.toString())
+
+          const tokenDecimals = await (new ethers.Contract(
+            token.contracts[i],
+            ['function decimals() external view returns (uint256)'],
+            providers[token.blockchains[i]]).decimals());
+
+          //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
+
+          console.log('Price : ' + safeTokenPrice.toString(), 'Liquidity : ' + safeTokenLiquidity.toString(), 'Address : ' + token.contracts[i])
+
+          //We 
+          const decimalsDivider = new BigNumber(10).pow(18 - tokenDecimals.toNumber());
+          const normalizer = new BigNumber(10).pow(18);
+
+          let normalPrice = safeTokenPrice.div(normalizer).div(decimalsDivider);
+          let normalLiquidity = safeTokenLiquidity.div(normalizer);
+
+          console.log('Price : ' + normalPrice.toString(), 'Liquidity : ' + normalLiquidity.toString())
+
+          averagePrice = averagePrice.plus(normalPrice.times(normalLiquidity));
+          totalLiquidity = totalLiquidity.plus(normalLiquidity);
+        } else {
+          console.log('Not scraping price on ' + token.name + ' because ' + token.blockchains[i] + ' not supported.')
+        }
+
+        if (volumeOracles[token.blockchains[i]]) {
+
+          for (const subgraph of volumeOracles[token.blockchains[i]]) {
+
+            console.log('yoo')
+            try {
+              const { data: result, error } = await axios.post(subgraph.url, {
+                query: `
+                      {
+                        tokens(where: {id: "${token.contracts[i]}"}) {
+                          id,
+                          ${subgraph.query}
+                        }
+                      }
+                    `
+              })
+
+              console.log(error, result)
+
+              total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
+
+              console.log('Updated total volume : ' + total_volume, volumeOracles[token.blockchains[i]])
+
+            } catch (e) { console.log(e) }
+
+          }
+
+        }
+
+      }
+
+      if (totalLiquidity.toNumber() > 0) {
+        console.log('MODIFYING PRICE')
+        setPrice(averagePrice.div(totalLiquidity).toNumber())
+        setLiquidity(totalLiquidity.toNumber());
+        console.log('Updated price : ' + price)
+        console.log('Updated liquidity : ' + liquidity)
+      } else {
+        console.log('CLOCHARD')
+      }
+
+      setVolume(total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000));
+    }
+
+  }
+
   useEffect(() => {
     fetchData()
-    fetchChart()
   }, [])
+
+  useEffect(() => {
+    fetchChart()
+    fetchLiveData()
+  }, [token])
 
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
@@ -595,7 +689,7 @@ const ChartCryptos = ({ id }) => {
                 <div className={styles['chart-box-container']}>
                   <div className={styles['chart-right-info']}>
                     <p className={styles['test']}>
-                      ${getTokenPrice(token.price)}
+                      ${getTokenPrice(price || token.price)}
                     </p>
                     {token.price_change_24h < 0 ? (
                       <div className={styles['chart-lose']}>
@@ -646,7 +740,7 @@ const ChartCryptos = ({ id }) => {
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>VOLUME (24H)</span>
                     <p className={styles['numbers']}>
-                      ${formatAmount(token.volume)}
+                      ${formatAmount(volume || token.volume)}
                     </p>
                   </div>
                   <div className={styles['mobbox']}>
@@ -760,7 +854,7 @@ const ChartCryptos = ({ id }) => {
                   <span>
                     <p className={styles['text-top-chart']}>VOLUME (24H)</p>
                     <p className={styles['text-bottom-chart']}>
-                      ${formatAmount(token.volume)}
+                      ${formatAmount(volume || token.volume)}
                     </p>
                   </span>
                   <span>
