@@ -11,7 +11,7 @@ import {
     FormLabel,
     Input,
 } from "@chakra-ui/react";
-import styles from "./elections.module.scss";
+import styles from "./Elections.module.scss";
 
 function Elections() {
     const alert = useAlert();

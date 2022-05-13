@@ -6,34 +6,39 @@ import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'react-feather'
 import styles from './SkipBtn.module.scss'
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import {
-  formatAmount,
-  getTokenPrice,
-  getTokenPercentage,
-  formatName
+    formatAmount,
+    getTokenPrice,
+    getTokenPercentage,
+    formatName
 } from '../../../helpers/formaters';
 import { setTimeout } from 'timers'
 import { Send, Twitter, Globe } from "react-feather";
+import { useRouter } from 'next/router'
 
-const SkipBtn = ({ token }) => { 
-    return(
+const SkipBtn = ({ beforeToken, afterToken }) => {
+    const router = useRouter()
+
+    console.log(afterToken.id)
+
+    return (
         <>
-        <div className={styles["skip-btn-container"]}>
-        <div className={styles["left-skip-btn"]}>
-              <button className={styles["blue-skip-btn"]}><ArrowLeft className={styles["arrows"]}/></button>
-              <div className={styles["rank-box-left"]}>
-                  <span className={styles["grey-rank"]}>RANK #1</span>
-                  <span className={styles["white-name"]}>Bitcoin</span>
-              </div>
-        </div>
-        <div className={styles["right-skip-btn"]}>
-              <div className={styles["rank-box-right"]}>
-                  <span className={styles["grey-rank"]}>RANK #1</span>
-                  <span className={styles["white-name"]}>Bitcoin</span>
-              </div>
-              <button className={styles["blue-skip-btn"]}><ArrowRight size={40} className={styles["arrows"]}/></button>
-        </div>
-  </div>
-  </>
+            <div className={styles["skip-btn-container"]}>
+                {beforeToken.name ? <div className={styles["left-skip-btn"]} onClick={() => document.location.href = beforeToken.id}>
+                    <button className={styles["blue-skip-btn"]}><ArrowLeft className={styles["arrows"]} /></button>
+                    <div className={styles["rank-box-left"]}>
+                        <span className={styles["grey-rank"]}>RANK #{beforeToken.rank}</span>
+                        <span className={styles["white-name"]}>{beforeToken.name}</span>
+                    </div>
+                </div> : <></>}
+                <div className={styles["right-skip-btn"]} onClick={() => document.location.href = afterToken.id}>
+                    <div className={styles["rank-box-right"]}>
+                        <span className={styles["grey-rank"]}>RANK #{afterToken.rank}</span>
+                        <span className={styles["white-name"]}>{afterToken.name}</span>
+                    </div>
+                    <button className={styles["blue-skip-btn"]}><ArrowRight size={40} className={styles["arrows"]} /></button>
+                </div>
+            </div>
+        </>
     )
 }
 

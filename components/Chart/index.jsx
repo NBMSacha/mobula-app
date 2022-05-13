@@ -9,13 +9,18 @@ import {
   formatAmount,
   getTokenPrice,
   getTokenPercentage,
+  getClosest
 } from '../../helpers/formaters'
-import { setTimeout } from 'timers';
+import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
 import Head from 'next/head'
 import SkipBtn from './SkipBtn'
+import { volumeOracles, priceOracles, specialTokens, providers } from '../../constants';
+import BigNumber from 'bignumber.js';
+import { useRouter } from 'next/router'
 
 const ChartCryptos = ({ id }) => {
+  const router = useRouter()
   const [coins, setCoins] = useState([])
   const [chart, setChart] = useState({})
   const [day, setDay] = useState({})
@@ -27,6 +32,13 @@ const ChartCryptos = ({ id }) => {
   const [token, setToken] = useState({})
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
+
+  const [volume, setVolume] = useState(0);
+  const [liquidity, setLiquidity] = useState(0);
+  const [price, setPrice] = useState(0);
+
+  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
+  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?', id: '' })
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -44,22 +56,13 @@ const ChartCryptos = ({ id }) => {
     )
 
     if (timeframe == '1D') {
-      const { data } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
-      return data[0]
-        ? data[0].price_history.price
-          .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-          .map((price) => [price[0], price[1] * 1000000000])
+      return token ? token.price_history.price
+        .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+        .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '7D') {
-      const { data } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
-      return data[0]
-        ? data[0].price_history.price
+      return token
+        ? token.price_history.price
           .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((price) => [price[0], price[1] * 1000000000])
         : null
@@ -133,8 +136,6 @@ const ChartCryptos = ({ id }) => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
 
-    console.log('YOO', id)
-
     supabase
       .from('assets')
       .select('*')
@@ -142,12 +143,38 @@ const ChartCryptos = ({ id }) => {
       .then((r) => {
 
         if (r.data && r.data[0]) {
-          console.log(r.data[0])
           setToken(r.data[0])
+
+          console.log('LOADING')
+
+          if (r.data[0].rank && r.data[0].rank != 1) {
+            console.log('LOADFING', r.data[0].rank)
+            supabase.from('assets').select('name,id,rank').or('rank.eq.' + (r.data[0].rank - 1) + ',rank.eq.' + (r.data[0].rank + 1)).then(r => {
+              console.log('DONE')
+
+              if (r.data) {
+
+                r.data = r.data.sort((a, b) => a.rank - b.rank)
+
+                setBeforeToken(r.data[0])
+                setAfterToken(r.data[r.data.length - 1])
+
+              }
+            })
+          } else if (r.data[0].rank) {
+            setBeforeToken({ name: 'Back to Top 100', id: '/', rank: '0' })
+            supabase.from('assets').select('name,id,rank').match({ rank: r.data[0].rank + 1 }).then(r => {
+              console.log('yo', r.data)
+              if (r.data) {
+                setAfterToken(r.data[0])
+              }
+            })
+          }
+
+
         } else {
           console.log(r.error)
-          var redirect = useRoute();
-          redirect.push("/")
+          router.push("/")
         }
       })
 
@@ -173,13 +200,19 @@ const ChartCryptos = ({ id }) => {
       setDay({ price: formatData(days) })
 
       const weeks = await getChart(id, '7D')
-      const months = await getChart(id, '1M')
-      const years = await getChart(id, '1Y')
-      const alls = await getChart(id, 'ALL')
 
       setWeek({ price: formatData(weeks) })
+
+      const months = await getChart(id, '1M')
+
       setMonth({ price: formatData(months) })
+
+      const years = await getChart(id, '1Y')
+
       setYear({ price: formatData(years) })
+
+      const alls = await getChart(id, 'ALL')
+
       setAll({ price: formatData(alls) })
     } catch (err) {
       console.log(err)
@@ -188,85 +221,7 @@ const ChartCryptos = ({ id }) => {
     console.log(chart)
   }
 
-  // const { coin } = useParams()
-  useEffect(() => {
-    fetchData()
-    fetchChart()
-  }, [])
-
-  const externalTooltipHandler = () => {
-    let tooltipEl = document.getElementById('chartjs-tooltip')
-
-    // Create element on first render
-    if (!tooltipEl) {
-      tooltipEl = document.createElement('div')
-      tooltipEl.id = 'chartjs-tooltip'
-      tooltipEl.innerHTML = '<table></table>'
-      document.body.appendChild(tooltipEl)
-    }
-
-    // Hide if no tooltip
-    const tooltipModel = context.tooltip
-    if (tooltipModel.opacity === 0) {
-      tooltipEl.style.opacity = 0
-      return
-    }
-
-    // Set caret Position
-    tooltipEl.classList.remove('above', 'below', 'no-transform')
-    if (tooltipModel.yAlign) {
-      tooltipEl.classList.add('test')
-    } else {
-      tooltipEl.classList.add('no-transform')
-    }
-
-    function getBody(bodyItem) {
-      return bodyItem.lines
-    }
-
-    // Set Text
-    if (tooltipModel.body) {
-      const titleLines = tooltipModel.title || []
-      const bodyLines = tooltipModel.body.map(getBody)
-
-      let innerHtml = '<thead>'
-
-      titleLines.forEach(function (title) {
-        innerHtml += '<tr><th>' + title + '</th></tr>'
-      })
-      innerHtml += '</thead><tbody>'
-
-      bodyLines.forEach(function (body, i) {
-        const colors = tooltipModel.labelColors[i]
-        let style = 'background:' + colors.backgroundColor
-        style += '; border-color:' + colors.borderColor
-        style += '; border-width: 2px'
-        const span = '<span style="' + style + '"></span>'
-        innerHtml += '<tr><td>' + span + body + '</td><tr>'
-      })
-      innerHtml += '</tbody>'
-
-      let tableRoot = tooltipEl.querySelector('table')
-      tableRoot.innerHTML = innerHtml
-    }
-
-    const position = context.chart.canvas.getBoundingClientRect()
-    const bodyFont = Chart.helpers.toFont(tooltipModel.options.bodyFont)
-
-    // Display, position, and set styles for font
-    tooltipEl.style.opacity = 1
-    tooltipEl.style.position = 'absolute'
-    tooltipEl.style.left =
-      position.left + window.pageXOffset + tooltipModel.caretX + 'px'
-    tooltipEl.style.top =
-      position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-    tooltipEl.style.font = bodyFont.string
-    tooltipEl.style.padding =
-      tooltipModel.padding + 'px ' + tooltipModel.padding + 'px'
-    tooltipEl.style.pointerEvents = 'none'
-  }
-
-  useEffect(() => {
+  const generateChart = () => {
     var dayIf
 
     if (timeFormat == '7D') {
@@ -427,13 +382,209 @@ const ChartCryptos = ({ id }) => {
       },
     })
 
-    
+
     if (!data || data.length == 0) {
       setVisible(true)
     } else {
       setVisible(false)
     }
+  }
+
+  const fetchLiveData = async () => {
+    let total_volume = 0;
+    let averagePrice = new BigNumber(0)
+    let totalLiquidity = new BigNumber(0)
+
+    if (token.contracts && token.total_volume_history && token.blockchains) {
+      for (let i = 0; i < token.contracts.length; i++) {
+
+        if (priceOracles[token.blockchains[i]]) {
+          const [tokenPrice, tokenLiquidity] = specialTokens.includes(token.contracts[i]) ? await (new ethers.Contract(
+            priceOracles[token.blockchains[i]],
+            ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
+            providers[token.blockchains[i]])).getGeneralUSDPriceUsingStable(token.contracts[i]) : await (new ethers.Contract(
+              priceOracles[token.blockchains[i]],
+              ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
+              providers[token.blockchains[i]])).getGeneralUSDPrice(token.contracts[i]);
+
+          const safeTokenPrice = new BigNumber(tokenPrice.toString())
+          const safeTokenLiquidity = new BigNumber(tokenLiquidity.toString())
+
+          const tokenDecimals = await (new ethers.Contract(
+            token.contracts[i],
+            ['function decimals() external view returns (uint256)'],
+            providers[token.blockchains[i]]).decimals());
+
+          //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
+
+          //We 
+          const decimalsDivider = new BigNumber(10).pow(18 - tokenDecimals.toNumber());
+          const normalizer = new BigNumber(10).pow(18);
+
+          let normalPrice = safeTokenPrice.div(normalizer).div(decimalsDivider);
+          let normalLiquidity = safeTokenLiquidity.div(normalizer);
+
+          averagePrice = averagePrice.plus(normalPrice.times(normalLiquidity));
+          totalLiquidity = totalLiquidity.plus(normalLiquidity);
+        }
+
+        if (volumeOracles[token.blockchains[i]]) {
+
+          for (const subgraph of volumeOracles[token.blockchains[i]]) {
+
+            try {
+              const { data: result, error } = await axios.post(subgraph.url, {
+                query: `
+                      {
+                        tokens(where: {id: "${token.contracts[i]}"}) {
+                          id,
+                          ${subgraph.query}
+                        }
+                      }
+                    `
+              })
+
+              total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
+
+            } catch (e) { console.log(e) }
+
+          }
+
+        }
+
+      }
+
+      if (totalLiquidity.toNumber() > 0) {
+        console.log('MODIFYING PRICE')
+        setPrice(averagePrice.div(totalLiquidity).toNumber())
+        setLiquidity(totalLiquidity.toNumber());
+        console.log('Updated price : ' + price)
+        console.log('Updated liquidity : ' + liquidity)
+      } else {
+        console.log('CLOCHARD')
+      }
+
+      setVolume(total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000));
+    }
+
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  useEffect(() => {
+    fetchChart()
+    fetchLiveData()
+  }, [token])
+
+  const externalTooltipHandler = () => {
+    let tooltipEl = document.getElementById('chartjs-tooltip')
+
+    // Create element on first render
+    if (!tooltipEl) {
+      tooltipEl = document.createElement('div')
+      tooltipEl.id = 'chartjs-tooltip'
+      tooltipEl.innerHTML = '<table></table>'
+      document.body.appendChild(tooltipEl)
+    }
+
+    // Hide if no tooltip
+    const tooltipModel = context.tooltip
+    if (tooltipModel.opacity === 0) {
+      tooltipEl.style.opacity = 0
+      return
+    }
+
+    // Set caret Position
+    tooltipEl.classList.remove('above', 'below', 'no-transform')
+    if (tooltipModel.yAlign) {
+      tooltipEl.classList.add('test')
+    } else {
+      tooltipEl.classList.add('no-transform')
+    }
+
+    function getBody(bodyItem) {
+      return bodyItem.lines
+    }
+
+    // Set Text
+    if (tooltipModel.body) {
+      const titleLines = tooltipModel.title || []
+      const bodyLines = tooltipModel.body.map(getBody)
+
+      let innerHtml = '<thead>'
+
+      titleLines.forEach(function (title) {
+        innerHtml += '<tr><th>' + title + '</th></tr>'
+      })
+      innerHtml += '</thead><tbody>'
+
+      bodyLines.forEach(function (body, i) {
+        const colors = tooltipModel.labelColors[i]
+        let style = 'background:' + colors.backgroundColor
+        style += '; border-color:' + colors.borderColor
+        style += '; border-width: 2px'
+        const span = '<span style="' + style + '"></span>'
+        innerHtml += '<tr><td>' + span + body + '</td><tr>'
+      })
+      innerHtml += '</tbody>'
+
+      let tableRoot = tooltipEl.querySelector('table')
+      tableRoot.innerHTML = innerHtml
+    }
+
+    const position = context.chart.canvas.getBoundingClientRect()
+    const bodyFont = Chart.helpers.toFont(tooltipModel.options.bodyFont)
+
+    // Display, position, and set styles for font
+    tooltipEl.style.opacity = 1
+    tooltipEl.style.position = 'absolute'
+    tooltipEl.style.left =
+      position.left + window.pageXOffset + tooltipModel.caretX + 'px'
+    tooltipEl.style.top =
+      position.top + window.pageYOffset + tooltipModel.caretY + 'px'
+    tooltipEl.style.font = bodyFont.string
+    tooltipEl.style.padding =
+      tooltipModel.padding + 'px ' + tooltipModel.padding + 'px'
+    tooltipEl.style.pointerEvents = 'none'
+  }
+
+  useEffect(() => {
+    generateChart()
   }, [timeFormat, day])
+
+  useEffect(() => {
+    if (timeFormat == '7D') {
+      generateChart()
+    }
+  }, [week])
+
+  useEffect(() => {
+    if (timeFormat == '30D') {
+      generateChart()
+    }
+  }, [month])
+
+  useEffect(() => {
+    if (timeFormat == '1Y') {
+      generateChart()
+    }
+  }, [year])
+
+  useEffect(() => {
+    if (timeFormat == 'ALL') {
+      generateChart()
+    }
+  }, [all])
+
+  useEffect(() => {
+
+    if (state == 'Overview') {
+      generateChart()
+    }
+
+  }, [state])
 
   const determineTimeFormat = () => {
     switch (timeFormat) {
@@ -512,67 +663,67 @@ const ChartCryptos = ({ id }) => {
   const renderData = () => {
     return (
       <>
-      <Head>
-      <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
-      </Head>
-      <div className='App'>
-        <div className={styles['chart-main-container']}>
-          <div className={styles['chart-top-token']}>
-            <div className={styles['flex']}>
-              <div className={styles['chart-left-top']}>
-                <img src={token.logo} className={styles['chart-token-logo']} />
-                <div className={styles['chart-name-box']}>
-                  <div className={styles['chart-token-name']}>
-                    <span>{token.name}</span>
-                  </div>
-                  <div className={styles['chart-token-rank']}>
-                    <span className={styles["rank-span"]}>Rank #{token.rank}</span>
-                    {token.rank_change_24h < 0 ? (
-                      <span
-                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
-                        id='noColor'
-                      >
-                        <ArrowDown className={styles['arrowDown']} />
-                        {Math.abs(token.rank_change_24h)}
-                      </span>
-                    ) : token.rank_change_24h == 0 ? (
-                      <div></div>
-                    ) : (
-                      <span
-                        className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
-                        id='noColor'
-                      >
-                        <ArrowUp className='arrowUp' />
-                        {token.rank_change_24h}
-                      </span>
-                    )}{' '}
+        <Head>
+          <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
+        </Head>
+        <div className='App'>
+          <div className={styles['chart-main-container']}>
+            <div className={styles['chart-top-token']}>
+              <div className={styles['flex']}>
+                <div className={styles['chart-left-top']}>
+                  <img src={token.logo} className={styles['chart-token-logo']} />
+                  <div className={styles['chart-name-box']}>
+                    <div className={styles['chart-token-name']}>
+                      <span>{token.name}</span>
+                    </div>
+                    <div className={styles['chart-token-rank']}>
+                      <span className={styles["rank-span"]}>Rank #{token.rank}</span>
+                      {token.rank_change_24h < 0 ? (
+                        <span
+                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
+                          id='noColor'
+                        >
+                          <ArrowDown className={styles['arrowDown']} />
+                          {Math.abs(token.rank_change_24h)}
+                        </span>
+                      ) : token.rank_change_24h == 0 ? (
+                        <div></div>
+                      ) : (
+                        <span
+                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
+                          id='noColor'
+                        >
+                          <ArrowUp className='arrowUp' />
+                          {token.rank_change_24h}
+                        </span>
+                      )}{' '}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className={styles['chart-right-top']}>
-              <div className={styles['chart-box-container']}>
-                <div className={styles['chart-right-info']}>
-                  <p className={styles['test']}>
-                    ${getTokenPrice(token.price)}
-                  </p>
-                  {token.price_change_24h < 0 ? (
-                    <div className={styles['chart-lose']}>
-                      <span>
-                        <ArrowDown />
-                      </span>
-                      <span>{getTokenPercentage(token.price_change_24h)}%</span>
-                    </div>
-                  ) : (
-                    <div className={styles['chart-gain']}>
-                      <span>
-                        <ArrowUp />
-                      </span>
-                      <span>{getTokenPercentage(token.price_change_24h)}%</span>
-                    </div>
-                  )}
-                </div>
-                {/* <div className={styles["chart-info-box"]}>
+              <div className={styles['chart-right-top']}>
+                <div className={styles['chart-box-container']}>
+                  <div className={styles['chart-right-info']}>
+                    <p className={styles['test']}>
+                      ${getTokenPrice(price || token.price)}
+                    </p>
+                    {token.price_change_24h < 0 ? (
+                      <div className={styles['chart-lose']}>
+                        <span>
+                          <ArrowDown />
+                        </span>
+                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                      </div>
+                    ) : (
+                      <div className={styles['chart-gain']}>
+                        <span>
+                          <ArrowUp />
+                        </span>
+                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                      </div>
+                    )}
+                  </div>
+                  {/* <div className={styles["chart-info-box"]}>
                   <div className={styles["box-info"]}>
                     <p className={styles["grey"]} style={{ marginRight: "14px !important" }}>High:</p>
                     <p className={styles["numbers"]}>--</p>
@@ -582,408 +733,403 @@ const ChartCryptos = ({ id }) => {
                     <p className={styles["numbers"]} >--</p>
                   </div>
                 </div> */}
-              </div>
+                </div>
 
-              <div className={styles['chart-buy']}>
-                {/* <button className="chart-btn-buy">Buy / Sell</button> */}
-              </div>
-            </div>
-          </div>
-          <div className={styles['mobile-showInfo-container']}>
-            <div
-              style={{ 'display': 'none' }}
-              className={styles['mobile-info-element']}
-              id='hide'
-            >
-              <div className={styles['mobile-info-left-column']}>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>MARKET CAP</span>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                    ${formatAmount(token.market_cap)}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>VOLUME (24H)</span>
-                  <p className={styles['numbers']}>
-                    ${formatAmount(token.volume)}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>
-                    FULLY DILUTED MARKET CAP
-                  </span>
-                  <p className={styles['numbers']}>
-                    $
-                    {token.market_cap_diluted
-                      ? formatAmount(token.market_cap_diluted)
-                      : '???'}
-                  </p>
-                </div>
-              </div>
-              <div className={styles['mobile-info-right-column']}>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                    {token.circulating_supply
-                      ? formatAmount(token.circulating_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>TOTAL SUPPLY </span>
-                  <p className={styles['numbers']}>
-                    {token.total_supply
-                      ? formatAmount(token.total_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </div>
-                <div className={styles['mobbox']}>
-                  <span className={styles['grey']}>LIQUIDITY </span>
-                  <p className={styles['numbers']}>
-
-                    {token.liquidity
-                      ? '$' + formatAmount(token.liquidity)
-                      : '???'}
-                  </p>
+                <div className={styles['chart-buy']}>
+                  {/* <button className="chart-btn-buy">Buy / Sell</button> */}
                 </div>
               </div>
             </div>
-            <button
-              id='hidedao'
-              className={`${
-                token.utility_score +
+            <div className={styles['mobile-showInfo-container']}>
+              <div
+                style={{ 'display': 'none' }}
+                className={styles['mobile-info-element']}
+                id='hide'
+              >
+                <div className={styles['mobile-info-left-column']}>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>MARKET CAP</span>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      ${formatAmount(token.market_cap)}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>VOLUME (24H)</span>
+                    <p className={styles['numbers']}>
+                      ${formatAmount(volume || token.volume)}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>
+                      FULLY DILUTED MARKET CAP
+                    </span>
+                    <p className={styles['numbers']}>
+                      $
+                      {token.market_cap_diluted
+                        ? formatAmount(token.market_cap_diluted)
+                        : '???'}
+                    </p>
+                  </div>
+                </div>
+                <div className={styles['mobile-info-right-column']}>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>CIRCULATING SUPPLY</span>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      {token.circulating_supply
+                        ? formatAmount(token.circulating_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>TOTAL SUPPLY </span>
+                    <p className={styles['numbers']}>
+                      {token.total_supply
+                        ? formatAmount(token.total_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </div>
+                  <div className={styles['mobbox']}>
+                    <span className={styles['grey']}>LIQUIDITY </span>
+                    <p className={styles['numbers']}>
+
+                      {token.liquidity
+                        ? '$' + formatAmount(liquidity || token.liquidity)
+                        : '???'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button
+                id='hidedao'
+                className={`${token.utility_score +
                   token.social_score +
                   token.market_score +
                   token.trust_score ==
                   0
                   ? styles['absolute-mobile-dis']
                   : styles['absolute-mobile']
-                } ${styles["hidedao"]}`}
-              onClick={() => {
-                // mobileDaoBtn()
-              }}
-            >
-              <span>DAO Score</span>
-              <span>
-                {token.utility_score +
-                  token.social_score +
-                  token.market_score +
-                  token.trust_score}
-                /20
-              </span>
-              <div
-                style={{ display: 'none' }}
-                className={styles['mobile-grades']}
-                id='daoBtn-mobile'
+                  } ${styles["hidedao"]}`}
+                onClick={() => {
+                  // mobileDaoBtn()
+                }}
               >
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Utility</span>
-                  <span>{token.utility_score}/5</span>
-                </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Social</span>
-                  <span>{token.social_score}/5</span>
-                </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Trust</span>
-                  <span>{token.trust_score}/5</span>
-                </div>
-                <div className={styles['mobile-notes-boxs']}>
-                  <span>Market</span>
-                  <span>{token.market_score}/5</span>
-                </div>
-              </div>
-            </button>
-            <button
-              className={styles['btn-more-less']}
-              onClick={() => moreStats()}
-            >
-              <span id='change'>More Stats</span>
-            </button>
-          </div>
-          <div className={styles['chart-bottom-container']}>
-            <div className={styles['chart-bottom-left']}>
-              <div className={styles['left-top-box']}>
+                <span>DAO Score</span>
                 <span>
-                  <p
-                    className={`${styles['text-top-chart']} ${styles['topOne']}`}
-                  >
-                    MARKET CAP
-                  </p>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                    ${formatAmount(token.market_cap)}
-                    {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>VOLUME (24H)</p>
-                  <p className={styles['text-bottom-chart']}>
-                    ${formatAmount(token.volume)}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>
-                    FULLY DILUTED MARKET CAP
-                  </p>
-                  <p className={styles['text-bottom-chart']}>
-                    $
-                    {token.market_cap_diluted
-                      ? formatAmount(token.market_cap_diluted)
-                      : '???'}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                  <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                    {token.circulating_supply
-                      ? formatAmount(token.circulating_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
-                  <p className={styles['text-bottom-chart']}>
-                    {token.total_supply
-                      ? formatAmount(token.total_supply)
-                      : '???'}{' '}
-                    {token.symbol}
-                  </p>
-                </span>
-                <span>
-                  <p className={styles['text-top-chart']}>LIQUIDITY</p>
-                  <p className={styles['text-bottom-chart']}>
-
-                    {token.liquidity
-                      ? '$' + formatAmount(token.liquidity)
-                      : '???'}
-                  </p>
-                </span>
-              </div>
-              <div
-                className={
-                  token.utility_score +
+                  {token.utility_score +
                     token.social_score +
                     token.market_score +
-                    token.trust_score ==
-                    0
-                    ? styles['left-bottom-box-dis']
-                    : styles['left-bottom-box']
-                }
-                id='dropdown'
-              >
-                <button
-                  className={styles['notes-boxs']}
-                  id='btnNotes'
-                  onClick={() => daoBtn()}
+                    token.trust_score}
+                  /20
+                </span>
+                <div
+                  style={{ display: 'none' }}
+                  className={styles['mobile-grades']}
+                  id='daoBtn-mobile'
                 >
-                  <span className={styles['tagV']}>DAO SCORE</span>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Utility</span>
+                    <span>{token.utility_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Social</span>
+                    <span>{token.social_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Trust</span>
+                    <span>{token.trust_score}/5</span>
+                  </div>
+                  <div className={styles['mobile-notes-boxs']}>
+                    <span>Market</span>
+                    <span>{token.market_score}/5</span>
+                  </div>
+                </div>
+              </button>
+              <button
+                className={styles['btn-more-less']}
+                onClick={() => moreStats()}
+              >
+                <span id='change'>More Stats</span>
+              </button>
+            </div>
+            <div className={styles['chart-bottom-container']}>
+              <div className={styles['chart-bottom-left']}>
+                <div className={styles['left-top-box']}>
                   <span>
-                    {token.utility_score +
+                    <p
+                      className={`${styles['text-top-chart']} ${styles['topOne']}`}
+                    >
+                      MARKET CAP
+                    </p>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      ${formatAmount(token.market_cap)}
+                      {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>VOLUME (24H)</p>
+                    <p className={styles['text-bottom-chart']}>
+                      ${formatAmount(volume || token.volume)}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>
+                      FULLY DILUTED MARKET CAP
+                    </p>
+                    <p className={styles['text-bottom-chart']}>
+                      $
+                      {token.market_cap_diluted
+                        ? formatAmount(token.market_cap_diluted)
+                        : '???'}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
+                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      {token.circulating_supply
+                        ? formatAmount(token.circulating_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
+                    <p className={styles['text-bottom-chart']}>
+                      {token.total_supply
+                        ? formatAmount(token.total_supply)
+                        : '???'}{' '}
+                      {token.symbol}
+                    </p>
+                  </span>
+                  <span>
+                    <p className={styles['text-top-chart']}>LIQUIDITY</p>
+                    <p className={styles['text-bottom-chart']}>
+
+                      {token.liquidity
+                        ? '$' + formatAmount(liquidity || token.liquidity)
+                        : '???'}
+                    </p>
+                  </span>
+                </div>
+                <div
+                  className={
+                    token.utility_score +
                       token.social_score +
                       token.market_score +
-                      token.trust_score}
-                    /20
-                  </span>
-                  <div className={styles['grades']} id='daoBtn'>
-                    <div className={styles['notes-boxs']}>
-                      <span>Utility</span>
-                      <span>{token.utility_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Social</span>
-                      <span>{token.social_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Trust</span>
-                      <span>{token.trust_score}/5</span>
-                    </div>
-                    <div className={styles['notes-boxs']}>
-                      <span>Market</span>
-                      <span>{token.market_score}/5</span>
-                    </div>
-                  </div>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                      token.trust_score ==
+                      0
+                      ? styles['left-bottom-box-dis']
+                      : styles['left-bottom-box']
+                  }
+                  id='dropdown'
                 >
-                  <span>Utility</span>
-                  <span>{token.utility_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Social</span>
-                  <span>{token.social_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Trust</span>
-                  <span>{token.trust_score}/5</span>
-                </button>
-                <button
-                  className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                >
-                  <span>Market</span>
-                  <span>{token.market_score}/5</span>
-                </button>
+                  <button
+                    className={styles['notes-boxs']}
+                    id='btnNotes'
+                    onClick={() => daoBtn()}
+                  >
+                    <span className={styles['tagV']}>DAO SCORE</span>
+                    <span>
+                      {token.utility_score +
+                        token.social_score +
+                        token.market_score +
+                        token.trust_score}
+                      /20
+                    </span>
+                    <div className={styles['grades']} id='daoBtn'>
+                      <div className={styles['notes-boxs']}>
+                        <span>Utility</span>
+                        <span>{token.utility_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Social</span>
+                        <span>{token.social_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Trust</span>
+                        <span>{token.trust_score}/5</span>
+                      </div>
+                      <div className={styles['notes-boxs']}>
+                        <span>Market</span>
+                        <span>{token.market_score}/5</span>
+                      </div>
+                    </div>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Utility</span>
+                    <span>{token.utility_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Social</span>
+                    <span>{token.social_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Trust</span>
+                    <span>{token.trust_score}/5</span>
+                  </button>
+                  <button
+                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                  >
+                    <span>Market</span>
+                    <span>{token.market_score}/5</span>
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className={styles['chart-bottom-right']}>
-              <div className={styles['chart-box']} id='chart-box'>
-                <div className={styles['chart-header']}>
-                {state === 'Overview'? (
-                  <button
-                    onClick={() => {setState('Overview');console.log(state);reload()}}
-                    className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                  >
-                    Overview
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => {setState('Overview');console.log(state);reload()}}
-                    className={`${styles['chart-header-link']} `}
-                  >
-                    Overview
-                  </button>
-                )}
-                 {state === 'Overview' && visible? (
-                  
-                      <p className={styles['warning']}>Coming soon...</p>
+              <div className={styles['chart-bottom-right']}>
+                <div className={styles['chart-box']} id='chart-box'>
+                  <div className={styles['chart-header']}>
+                    {state === 'Overview' ? (
+                      <button
+                        onClick={() => { setState('Overview'); }}
+                        className={`${styles['chart-header-link']} ${styles['active-chart']}`}
+                      >
+                        Overview
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => { setState('Overview'); }}
+                        className={`${styles['chart-header-link']} `}
+                      >
+                        Overview
+                      </button>
+                    )}
+                    {state === 'Overview' && visible ? (
+
+                      <p className={styles['warning']}>Loading...</p>
                     ) : (
                       <></>
                     )}
-                  {state === 'Market'? (
+                    {state === 'Market' ? (
                       <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                         onClick={(e) => {
                           setState('Market');
                           console.log(state);
                         }}>
                         <span>Market</span>
-                    </button>
-                  ) : ( 
-                    <button className={styles['chart-header-link']} 
+                      </button>
+                    ) : (
+                      <button className={styles['chart-header-link']}
                         onClick={(e) => {
                           setState('Market');
                           console.log(state);
                         }}
-                    >Market</button>
-                  )}
+                      >Market</button>
+                    )}
 
-                  {state === 'Details'? (
-                    <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => {setState('Details');console.log(state)}}>
-                    <span>Project Info</span>
-                  </button>
-                  ) : (
-                    <button className={styles['chart-header-link']} onClick={() => {setState('Details');console.log(state)}}>
-                      <span>Project Info</span>
-                    </button>
-                  )}
-                  
-                  {state === 'Socials'? (
-                    <button  onClick={() => {setState('Socials');console.log(state)}} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                      <span>Socials</span>
-                    </button>
-                  ) : (
-                    <button  onClick={() => {setState('Socials');console.log(state)}} className={styles['chart-header-link']}>
-                      <span>Socials</span>
-                    </button>
-                  )}
-                 
-                  <a
-                    href='https://discord.gg/2a8hqNzkzN'
-                    className={`${styles['chart-header-link']} ${styles['report-problem']}`}
-                  >
-                    <span id='inner'>Report</span>
-                  </a>
-                </div>
-                <div className={styles['chart-content']}>
-                  <div className={styles['canvas-container']}>
-                    
-                  {state === 'Details' && (
-                      <ProjectInfo token={token} />
-                  )}
-                  {state === 'Overview' && (
-                    <>
-                    <canvas id='chart'></canvas>
-                    <div
-                      className={styles['change-chart-date']}
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'end',
-                        margin: 'auto',
-                      }}
+                    {state === 'Details' ? (
+                      <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
+                        <span>Infos</span>
+                      </button>
+                    ) : (
+                      <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
+                        <span>Infos</span>
+                      </button>
+                    )}
+
+                    {state === 'Socials' ? (
+                      <button onClick={() => { setState('Socials'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                        <span>Socials</span>
+                      </button>
+                    ) : (
+                      <button onClick={() => { setState('Socials'); console.log(state) }} className={styles['chart-header-link']}>
+                        <span>Socials</span>
+                      </button>
+                    )}
+
+                    <a
+                      href='https://discord.gg/2a8hqNzkzN'
+                      className={`${styles['chart-header-link']} ${styles['report-problem']}`}
                     >
-                      <button
-                        onClick={() => {
-                          setTimeFormat('1D')
-                        }}
-                        className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
-                        id='1d'
-                      >
-                        1D
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('7D')
-                        }}
-                        className={styles['button-chart']}
-                        id='7d'
-                      >
-                        7D
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('30D')
-                        }}
-                        className={styles['button-chart']}
-                        id='30d'
-                      >
-                        1M
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('1Y')
-                        }}
-                        className={styles['button-chart']}
-                        id='1y'
-                      >
-                        1Y
-                      </button>
-                      <button
-                        onClick={() => {
-                          setTimeFormat('ALL')
-                        }}
-                        className={styles['button-chart']}
-                        id='all'
-                      >
-                        ALL
-                      </button>
-                    </div>
-                    
-                    </>
-                  )}
-                    
-                    
-                    
+                      <span id='inner'>Report</span>
+                    </a>
+                  </div>
+                  <div className={styles['chart-content']}>
+                    <div className={styles['canvas-container']}>
 
-               
+                      {state === 'Details' && (
+                        <ProjectInfo token={token} />
+                      )}
+                      {state === 'Overview' && (
+                        <>
+                          <canvas id='chart'></canvas>
+                          <div
+                            className={styles['change-chart-date']}
+                            style={{
+                              display: 'flex',
+                              justifyContent: 'end',
+                              margin: 'auto',
+                            }}
+                          >
+                            <button
+                              onClick={() => {
+                                setTimeFormat('1D')
+                              }}
+                              className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
+                              id='1d'
+                            >
+                              1D
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('7D')
+                              }}
+                              className={styles['button-chart']}
+                              id='7d'
+                            >
+                              7D
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('30D')
+                              }}
+                              className={styles['button-chart']}
+                              id='30d'
+                            >
+                              1M
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('1Y')
+                              }}
+                              className={styles['button-chart']}
+                              id='1y'
+                            >
+                              1Y
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTimeFormat('ALL')
+                              }}
+                              className={styles['button-chart']}
+                              id='all'
+                            >
+                              ALL
+                            </button>
+                          </div>
+
+                        </>
+                      )}
+
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-       <SkipBtn />
-        <header className=''>
-          <div
-            className='tokenpage-details '
-            style={{ display: 'flex', justifyContent: 'start' }}
-          >
-            {/* {coins[0]? (
+          <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
+          <header className=''>
+            <div
+              className='tokenpage-details '
+              style={{ display: 'flex', justifyContent: 'start' }}
+            >
+              {/* {coins[0]? (
             <>
               <img src={coins[0].image} height="180"  alt="logo" />
             <p className="size">
@@ -1003,9 +1149,9 @@ const ChartCryptos = ({ id }) => {
           ) : ( 
           <div>Loading....</div>
           )} */}
-          </div>
-        </header>
-      </div></>
+            </div>
+          </header>
+        </div></>
     )
 
     // return <div>{test()}</div>
