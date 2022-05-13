@@ -31,6 +31,7 @@ export default class Root extends App {
         <Head>
           <title>Mobula | The decentralized data aggregator [Alpha]</title>
           <link rel='icon' type='image/png' href='/fullicon.png' />
+          <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap' rel='stylesheet' />
           <meta
             name='viewport'
             content='width=device-width, initial-scale=1, maximum-scale=1'
