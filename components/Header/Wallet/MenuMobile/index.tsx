@@ -7,7 +7,7 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { MOBL_ADDRESS } from "../../../../constants";
 import { PROTOCOL_ADDRESS } from "../../../../constants"
-
+import { useRouter } from 'next/router';
 
 function MenuMobile(props: any) {
 
@@ -17,8 +17,7 @@ function MenuMobile(props: any) {
   const { account, active, activate, deactivate } = useWeb3React()
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
-
-
+  const router = useRouter()
 
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
@@ -84,6 +83,7 @@ function MenuMobile(props: any) {
   }
   const [walletBalance, setWalletBalance] = useState(0)
   const [ranked, setRanked] = useState()
+
   useEffect(() => {
     try {
       const provider = new ethers.providers.Web3Provider(
@@ -139,55 +139,103 @@ function MenuMobile(props: any) {
   }, [])
   console.log(Number(ranked))
 
-  return (
-    <>
-      <div
-        className={styles['mobile-toolbar-container']}
-        id='mobileNav'
-        style={{ display: 'none' }}
-      >
-        <div className={styles['mobile-linkTo']}>
-          <a href='soon' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>New</span>
-          </a>
-          <a href='soon' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>Gainers & Losers</span>
-          </a>
-          <a href='soon' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>Earn</span>
-          </a>
-          <a href='soon' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>DEX</span>
-          </a>
-          <a href='soon' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>DAO</span>
-          </a>
-          <a href='list' className={styles['linkTo']}>
-            <span className={styles['linkTo-tag']}>List an asset</span>
-          </a>
-        </div>
-        <div className={styles['connect-mobile-container']}>
-          <button className={styles['connect-wallet-mobile']} onClick={handleConnect}>
-            {active
-              ? account.substring(0, 4) +
-              '..' +
-              account.substring(account.length - 4, account.length)
-              : 'Connect'}
-          </button>
-          <div className={styles['rank-mobile-box']}>
-            {active
-              ? <><span>Rank {Number(ranked)}</span>
-                <span>{walletBalance} MOBL</span></>
-              : ''}
+  if (router.pathname.includes('dao')) {
+    return (
+      <>
+        <div
+          className={styles['mobile-toolbar-container']}
+          id='mobileNav'
+          style={{ display: 'none' }}
+        >
+          <div className={styles['mobile-linkTo']}>
+            <a href='dashboard' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>Dashboard</span>
+            </a>
+            <a href='elections' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>Elections</span>
+            </a>
+            <a href='sort' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>First Sort</span>
+            </a>
+            <a href='validation' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>Final Validation</span>
+            </a>
+          </div>
+          <div className={styles['connect-mobile-container']}>
+            <button className={styles['connect-wallet-mobile']} onClick={handleConnect}>
+              {active
+                ? account.substring(0, 4) +
+                '..' +
+                account.substring(account.length - 4, account.length)
+                : 'Connect'}
+            </button>
+            <div className={styles['rank-mobile-box']}>
+              {active
+                ? <><span>Rank {Number(ranked)}</span>
+                  <span>{walletBalance} MOBL</span></>
+                : ''}
 
+            </div>
+          </div>
+          <div className={styles['disconnect-wallet-mobile']}>
+            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
           </div>
         </div>
-        <div className={styles['disconnect-wallet-mobile']}>
-          <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <div
+          className={styles['mobile-toolbar-container']}
+          id='mobileNav'
+          style={{ display: 'none' }}
+        >
+          <div className={styles['mobile-linkTo']}>
+            <a href='soon' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>New</span>
+            </a>
+            <a href='soon' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>Gainers & Losers</span>
+            </a>
+            <a href='soon' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>Earn</span>
+            </a>
+            <a href='soon' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>DEX</span>
+            </a>
+            <a href='dao/dashboard' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>DAO</span>
+            </a>
+            <a href='list' className={styles['linkTo']}>
+              <span className={styles['linkTo-tag']}>List an asset</span>
+            </a>
+          </div>
+          <div className={styles['connect-mobile-container']}>
+            <button className={styles['connect-wallet-mobile']} onClick={handleConnect}>
+              {active
+                ? account.substring(0, 4) +
+                '..' +
+                account.substring(account.length - 4, account.length)
+                : 'Connect'}
+            </button>
+            <div className={styles['rank-mobile-box']}>
+              {active
+                ? <><span>Rank {Number(ranked)}</span>
+                  <span>{walletBalance} MOBL</span></>
+                : ''}
+
+            </div>
+          </div>
+          <div className={styles['disconnect-wallet-mobile']}>
+            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
+          </div>
         </div>
-      </div>
-    </>
-  )
+      </>
+    )
+  }
+
+
 }
 
 export default MenuMobile
