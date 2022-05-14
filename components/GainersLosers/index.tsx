@@ -150,8 +150,8 @@ function GainersLosers(token: {
                                         <span className={`${styles["font-char"]} ${styles["token-price-box"]}`}>{getTokenPrice(gainer.price)}</span>
                                     </td>
                                     <td className={styles["token-percentage"]}>
-                                        <span className={`${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-                                            <AiOutlineArrowDown className="arrowDown"/>
+                                        <span className={`${styles["font-char"]} ${styles["token-percentage-box"]} ${styles["green"]}`} id="noColor">
+                                            <AiOutlineArrowUp className={styles["arrowUp"]}/>
                                             {getTokenPercentage(gainer.price_change_24h)}
                                         </span>
                                     </td>

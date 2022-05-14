@@ -32,6 +32,8 @@ const ChartCryptos = ({ id }) => {
   const [token, setToken] = useState({})
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
+  const [dates, setDates] = useState([])
+
 
   const [volume, setVolume] = useState(0);
   const [liquidity, setLiquidity] = useState(0);
@@ -198,10 +200,32 @@ const ChartCryptos = ({ id }) => {
 
       setChart({ price: formatData(days) })
       setDay({ price: formatData(days) })
-
+setDates(weeks)
       const weeks = await getChart(id, '7D')
 
       setWeek({ price: formatData(weeks) })
+<<<<<<< Updated upstream
+=======
+      setMonth({ price: formatData(months) })
+      setYear({ price: formatData(years) })
+      setAll({ price: formatData(alls) })
+      setDates(weeks)
+    } catch (err) {
+      console.log(err)
+    }
+
+    console.log(chart)
+  }
+
+  // const { coin } = useParams()
+  useEffect(() => {
+    fetchData()
+    fetchChart()
+  }, [])
+
+  const externalTooltipHandler = () => {
+    let tooltipEl = document.getElementById('chartjs-tooltip')
+>>>>>>> Stashed changes
 
       const months = await getChart(id, '1M')
 
@@ -240,7 +264,7 @@ const ChartCryptos = ({ id }) => {
     if (window.chartInstance != undefined) {
       window.chartInstance.destroy()
     }
-
+   
     var ctx = document.getElementById('chart').getContext('2d')
 
     const data = determineTimeFormat()
@@ -363,6 +387,12 @@ const ChartCryptos = ({ id }) => {
           ],
           xAxes: [
             {
+              ticks : {
+                min: dates[0],
+                max: dates[dates.length - 1],
+              },
+              min: dates[0],
+                max: dates[dates.length - 1],
               gridLines: { display: false },
               type: 'time',
               distribution: 'linear',
@@ -467,7 +497,42 @@ const ChartCryptos = ({ id }) => {
       setVolume(total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000));
     }
 
+<<<<<<< Updated upstream
   }
+=======
+    function zoom(chart, mousewheel){
+      console.log(chart.config.options.scales.xAxes[0].min)
+      const min = chart.config.options.scales.xAxes[0].min;
+      const max = chart.config.options.scales.xAxes[0].max;
+      console.log(mousewheel.wheelDeltaY)
+      if(mousewheel.wheelDeltaY >= 0) {
+        chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
+        chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
+      }
+      if(mousewheel.wheelDeltaY < 0) {
+        chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
+        chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
+      }
+      if(dates[dates.indexOf(min)] <= 0 ) {
+        chart.config.options.scales.xAxes[0].min = dates[0];
+      }
+      if(dates[dates.indexOf(max)] >= dates[dates.length - 1] ) {
+        chart.config.options.scales.xAxes[0].max = dates[dates.length - 1];
+      }
+      console.log('hello')
+    }
+    window.chartInstance.canvas.addEventListener('mousewheel', (e) => {
+      zoom(window.chartInstance, e)
+    })
+
+    function crosshairLabel(chart, mousemove) {
+        const { ctx, data, chartArea: {top, bottom, left, right, width, height}, scales } = chart;
+        const y = scales["y-axis-0"];
+        ctx.beginPath();
+        ctx.fillStyle = "#2E3557";
+        ctx.fillRect(0, mousemove.offsetY -10, left, 20);
+        ctx.closePath();
+>>>>>>> Stashed changes
 
   useEffect(() => {
     fetchData()
