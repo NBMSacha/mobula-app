@@ -177,9 +177,11 @@ function MenuMobile(props: any) {
 
             </div>
           </div>
-          <div className={styles['disconnect-wallet-mobile']}>
+
+          {active ?? <div className={styles['disconnect-wallet-mobile']}>
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-          </div>
+          </div>}
+
         </div>
       </>
     )
@@ -227,9 +229,10 @@ function MenuMobile(props: any) {
 
             </div>
           </div>
-          <div className={styles['disconnect-wallet-mobile']}>
-            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-          </div>
+          {active ??
+            <div className={styles['disconnect-wallet-mobile']}>
+              <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
+            </div>}
         </div>
       </>
     )
