@@ -32,7 +32,7 @@ function useOutsideAlerter(ref: any, setTriggerHook: any) {
 function Wallet(props: any) {
   const [triggerSearch, setTriggerSearch] = useState(false)
   const wrapperRef = useRef(null)
-
+  const [isMobile, setIsMobile] = useState(true);
   const { account, active, activate, deactivate } = useWeb3React()
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
@@ -99,6 +99,10 @@ function Wallet(props: any) {
     })
   }
 
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 1060)
+  }, [])
+
   const [nav, setNav] = useState(false)
 
   async function mobileNav() {
@@ -143,7 +147,7 @@ function Wallet(props: any) {
           type='text'
           className={styles['search-input-off']}
           name='search'
-          placeholder='Search Crypto Assets'
+          placeholder={!isMobile ? 'Search Crypto Assets' : ''}
         />
         <button
           className={styles['connect-wallet-btn']}
@@ -155,7 +159,7 @@ function Wallet(props: any) {
             account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
-        <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
+        <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
