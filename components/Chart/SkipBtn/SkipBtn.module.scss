@@ -1,40 +1,38 @@
-.skip-btn-container{
+.skip-btn-container {
     width: 90%;
     display: flex;
     justify-content: space-between;
     margin: 0px auto;
-    color:white;
+    color: white;
     height: 109px;
     align-items: center;
 }
 
-.arrows{
+.arrows {
     width: 40px !important;
     height: 40px !important;
 }
 
-.left-skip-btn{
-    display:flex;
+.left-skip-btn,
+.right-skip-btn {
+    display: flex;
+    cursor: pointer;
 }
 
-.right-skip-btn{
-    display:flex;
-}
-
-.rank-box-left{
-    display:flex;
+.rank-box-left {
+    display: flex;
     flex-direction: column;
-    margin-left:5px;
+    margin-left: 5px;
 }
 
-.rank-box-right{
-    display:flex;
+.rank-box-right {
+    display: flex;
     flex-direction: column;
-    margin-right:5px;
+    margin-right: 5px;
     align-items: end;
 }
 
-.grey-rank{
+.grey-rank {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -49,7 +47,7 @@
     margin-bottom: 7px;
 }
 
-.white-name{
+.white-name {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
@@ -61,21 +59,23 @@
     color: #FFFFFF;
 }
 
-.blue-skip-btn{
+.blue-skip-btn {
     color: #003FE1;
-    background:none !important;
-    border:none !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer;
 }
 
 @media screen and (max-width:768px) {
-    .white-name{
+    .white-name {
         font-size: 15px;
     }
 
-    .grey-rank{
-        font-size:15px;
+    .grey-rank {
+        font-size: 15px;
     }
-    .arrows{
+
+    .arrows {
         width: 31px !important;
         height: 31px !important;
     }

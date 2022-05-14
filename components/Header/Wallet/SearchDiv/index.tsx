@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
+import { X } from 'react-feather';
 import styles from './searchdiv.module.scss'
+import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
   const { data: names } = await supabase
@@ -89,17 +91,23 @@ function SearchDiv(props: any) {
     return (
       <div ref={props.wrapperRef}>
         <div className={styles['search-div']}>
-          <FiSearch className={styles['loupe']} />
-          <input
-            value={token}
-            type='text'
-            className={styles['search-input']}
-            name='search'
-            placeholder='Search an asset'
-            onChange={(e) => setToken(e.target.value)}
-            id='search'
-            autoFocus
-          />
+          <div className={styles["search-flex"]}>
+            <FiSearch className={styles['loupe']} />
+            <input
+              value={token}
+              type='text'
+              className={styles['search-input']}
+              name='search'
+              placeholder='Search an asset'
+              onChange={(e) => setToken(e.target.value)}
+              id='search'
+              autoFocus
+            />
+            <X className={styles['X']} onClick={() => props.setTrigger(false)} />
+          </div>
+
+
+
           <div className={styles['search-token']}>
             <h3>Trending</h3>
             {results.map((result) => {

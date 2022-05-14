@@ -8,6 +8,7 @@ import { InjectedConnector } from '@web3-react/injected-connector';
 import { MOBL_ADDRESS } from "../../../../constants";
 import { PROTOCOL_ADDRESS } from "../../../../constants"
 import { useRouter } from 'next/router';
+import { isAddress } from 'ethers/lib/utils';
 
 function MenuMobile(props: any) {
 
@@ -120,7 +121,6 @@ function MenuMobile(props: any) {
     getBalance()
   }, [walletBalance])
 
-
   useEffect(() => {
     const getRanked = async () => {
       if ((window as any).ethereum) {
@@ -137,6 +137,12 @@ function MenuMobile(props: any) {
     }
     getRanked()
   }, [])
+
+  useEffect(() => {
+    if (account && isAddress(account)) {
+      fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
+    }
+  }, [account])
   console.log(Number(ranked))
 
   if (router.pathname.includes('dao')) {
@@ -177,9 +183,11 @@ function MenuMobile(props: any) {
 
             </div>
           </div>
-          <div className={styles['disconnect-wallet-mobile']}>
+
+          {active ?? <div className={styles['disconnect-wallet-mobile']}>
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-          </div>
+          </div>}
+
         </div>
       </>
     )
@@ -198,7 +206,7 @@ function MenuMobile(props: any) {
             <a href='soon' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Gainers & Losers</span>
             </a>
-            <a href='soon' className={styles['linkTo']}>
+            <a href='earn' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Earn</span>
             </a>
             <a href='soon' className={styles['linkTo']}>
@@ -227,9 +235,10 @@ function MenuMobile(props: any) {
 
             </div>
           </div>
-          <div className={styles['disconnect-wallet-mobile']}>
-            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-          </div>
+          {active ??
+            <div className={styles['disconnect-wallet-mobile']}>
+              <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
+            </div>}
         </div>
       </>
     )

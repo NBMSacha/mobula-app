@@ -7,6 +7,8 @@ import SearchDiv from './SearchDiv/index'
 import styles from './wallet.module.scss'
 import { X, Menu } from 'react-feather'
 import MenuMobile from './MenuMobile'
+import { useRouter } from 'next/router'
+import { isAddress } from 'ethers/lib/utils'
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
@@ -32,10 +34,11 @@ function useOutsideAlerter(ref: any, setTriggerHook: any) {
 function Wallet(props: any) {
   const [triggerSearch, setTriggerSearch] = useState(false)
   const wrapperRef = useRef(null)
-
+  const [isMobile, setIsMobile] = useState(true);
   const { account, active, activate, deactivate } = useWeb3React()
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
+  const router = useRouter()
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
 
@@ -50,54 +53,65 @@ function Wallet(props: any) {
       setHasMetamask(false)
     } else {
       const chainId = await provider.request({ method: 'eth_chainId' })
-      if (chainId !== '0x89') {
-        try {
-          await provider.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x89' }],
-          })
-        } catch (switchError) {
+      if (router.pathname.includes('dao')) {
+        if (chainId !== '0x89') {
           try {
             await provider.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: '0x89',
-                  chainName: 'Polygon - MATIC',
-                  rpcUrls: ['https://polygon-rpc.com'],
-                  blockExplorerUrls: ['https://polygonscan.com/'],
-                  nativeCurrency: {
-                    symbol: 'MATIC',
-                    decimals: 18,
-                  },
-                },
-              ],
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x89' }],
             })
-          } catch (addError) {
-            console.log(addError)
+          } catch (switchError) {
+            try {
+              await provider.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: '0x89',
+                    chainName: 'Polygon - MATIC',
+                    rpcUrls: ['https://polygon-rpc.com'],
+                    blockExplorerUrls: ['https://polygonscan.com/'],
+                    nativeCurrency: {
+                      symbol: 'MATIC',
+                      decimals: 18,
+                    },
+                  },
+                ],
+              })
+            } catch (addError) {
+              console.log(addError)
+            }
+            if (switchError.code === 4902) {
+              console.log(
+                'This network is not available in your metamask, please add it'
+              )
+            }
+            console.log('Failed to switch to the network', switchError)
           }
-          if (switchError.code === 4902) {
-            console.log(
-              'This network is not available in your metamask, please add it'
-            )
-          }
-          console.log('Failed to switch to the network', switchError)
         }
       }
-    }
 
-    console.log(account)
-    if (active) {
-      deactivate()
-      return
-    }
-
-    activate(injected, (error) => {
-      if (isNoEthereumObject(error)) {
-        setHasMetamask(false)
+      if (active) {
+        deactivate()
+        return
       }
-    })
+
+      activate(injected, (error) => {
+        if (isNoEthereumObject(error)) {
+          setHasMetamask(false)
+        }
+      })
+    }
   }
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 1060)
+  }, [])
+
+  useEffect(() => {
+    if (account && isAddress(account)) {
+      fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
+    }
+  }, [account])
 
   const [nav, setNav] = useState(false)
 
@@ -143,7 +157,7 @@ function Wallet(props: any) {
           type='text'
           className={styles['search-input-off']}
           name='search'
-          placeholder='Search Crypto Assets'
+          placeholder={!isMobile ? 'Search Crypto Assets' : ''}
         />
         <button
           className={styles['connect-wallet-btn']}
@@ -155,7 +169,7 @@ function Wallet(props: any) {
             account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
-        <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} />
+        <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
