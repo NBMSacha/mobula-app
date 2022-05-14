@@ -211,7 +211,8 @@ margin-bottom:60px;
 
 .column-right{
     padding-top: 50px;
-    width:45%
+    width:45%;
+    
 }
 
 .column-left{
@@ -254,6 +255,7 @@ margin-bottom:30px;
     height:28px;
     width:94px;
     border:none;
+    cursor:pointer;
 }
 
 .btn-winners{
@@ -391,6 +393,7 @@ margin-bottom:30px;
     .column-right{
         width: 80%;
         margin-top: -50px;
+
     }
     .token-ids{
         display: block;
@@ -408,6 +411,9 @@ margin-bottom:30px;
     }
     .both-container{
         justify-content: center;
+    }
+    .column-left{
+        display:block;
     }
     .column-right{
         display:none;

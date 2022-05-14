@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
@@ -44,6 +44,11 @@ function GainersLosers(token: {
     const [tokens, setTokens] = useState([]);
     const [gainers, setGainers] = useState([]);
     const [losers, setLosers] = useState([]);
+    const [state, setState] = useState("gainers");
+    const gainersRef = useRef();
+    const losersRef = useRef();
+
+
     useEffect(() => {
         const supabase = createClient(
           "https://ylcxvfbmqzwinymcjlnx.supabase.co",
@@ -70,44 +75,6 @@ function GainersLosers(token: {
       }, [])
       console.log(tokens)
       
-        function loosersBtn() {
-            let loosers = document.getElementById('loosers') as any;
-            let left = document.getElementById('left') as any;
-            let right = document.getElementById('right') as any;
-            let gainers = document.getElementById('gainers') as any;
-            // SI BGC different de WHITE 
-            if (loosers.style.background !== "#DEE9FF") {
-                loosers.style.background = "#DEE9FF";
-                loosers.style.color = "black";
-                gainers.style.background = "#24274A";
-                gainers.style.color = "#FFF";
-                left.style.display = "none";
-                right.style.display = "block";
-                console.log("loosers is now active")
-            } else {
-                return
-            }
-        }
-
-        function gainersBtn() {
-            let loosers = document.getElementById('loosers') as any;
-            let left = document.getElementById('left') as any;
-            let right = document.getElementById('right') as any;
-            let gainers = document.getElementById('gainers') as any;
-            
-            // SI BGC different de WHITE 
-            if (gainers.style.background !== "#DEE9FF") {
-                gainers.style.background = "#DEE9FF";
-                gainers.style.color = "black";
-                loosers.style.background = "#24274A";
-                loosers.style.color = "#FFF";
-                right.style.display = "none";
-                left.style.display = "block";
-                console.log("loosers is now active")
-            } else {
-                return
-            }
-        }
 
         const [mobSize, setMobSize ] = useState(false);
         useEffect(()=> {
@@ -138,13 +105,23 @@ function GainersLosers(token: {
     return(
         <div className={styles["main-container"]}>
            <div className={styles["both-container"]}>
-               <div className={styles["column-left"]} id="left">
+               <div className={styles["column-left"]} id="left"  ref={gainersRef}>
                 <div className={styles["title-both"]} id="topGainer">Top Gainers 📈 </div>
                 <div className={styles["mobile-btn"]}>
-                    <button className={`${styles["btn-winners"]} ${styles["gainerLooserActive"]}`} id="gainers" onClick={() => gainersBtn()}>Gainers 📈</button>
-                    <button className={styles["btn-loosers"]} id="loosers" onClick={() => loosersBtn()}>Loosers 📉</button>
+                    <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} id="loosers" 
+                        onClick={() => {
+                            setState("gainers")
+                        }
+                    }>Gainers 📈</button>
+                    <button className={styles["btn-loosers"]} id="gainers" 
+                        onClick={() => {
+                            setState("losers")
+                            gainersRef.current.style.display = "none"
+                            losersRef.current.style.display = "block"
+                        } 
+                    }>Loosers 📉</button>
                 </div>
-               <div className={styles["left"]}>
+               <div className={styles["left"]} >
                 <table className={styles["table"]}>
                     <thead className={styles["border-bot"]}>
                         <tr className={styles["table-head"]}>
@@ -188,13 +165,28 @@ function GainersLosers(token: {
                 </table>
                </div>
                </div>
-               <div className={styles["column-right"]} id="right">
+               <div className={styles["column-right"]} ref={losersRef}>
                <div className={styles["title-both"]} id="topLoser">Top Loosers 📉</div>
                <div className={styles["mobile-btn"]}>
-                    <button className={styles["btn-loosers"]} id="gainers" onClick={() => gainersBtn()}>Gainers 📈</button>
-                    <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} id="loosers" onClick={() => loosersBtn()}>Loosers 📉</button>
+       
+               <button className={styles["btn-loosers"]} id="loosers" 
+                            onClick={() => {
+                                setState("gainers");
+                                gainersRef.current.style.display = "block"
+                                losersRef.current.style.display = "none"
+                            }
+                        }>Gainers 📈</button>
+                        <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} id="gainers" 
+                            onClick={() => {
+                                setState("losers")
+        
+                            } 
+                        }>Loosers 📉</button>
+                  
+                    
+                    
                 </div>
-               <div className={styles["right"]}>
+               <div className={styles["right"]} id="right" >
                <table className={styles["table"]}>
                     <thead className={styles["border-bot"]}>
                         <tr className={styles["table-head"]}>
