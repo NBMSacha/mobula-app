@@ -6,22 +6,7 @@ import { AiOutlineArrowUp } from "@react-icons/all-files/ai/AiOutlineArrowUp"
 import { formatName, getTokenPrice, getTokenPercentage } from '../../helpers/formaters';
 import { useRouter } from 'next/router';
 
-function GainersLosers(token: {
-    name: string
-    symbol: string
-    contract: string
-    logo: string
-    twitter: string
-    chat: string
-    discord: string
-    website: string
-    market_cap: number
-    volume: number
-    price_change_24h: number
-    price_change_7d: number
-    price: number
-    rank: number
-}) {
+function GainersLosers() {
     const router = useRouter()
     const [tokens, setTokens] = useState([]);
     const [gainers, setGainers] = useState([]);
