@@ -17,7 +17,8 @@ import Head from 'next/head'
 import SkipBtn from './SkipBtn'
 import { volumeOracles, priceOracles, specialTokens, providers } from '../../constants';
 import BigNumber from 'bignumber.js';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import Swap from "./Swap"
 
 const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
@@ -1002,13 +1003,13 @@ const ChartCryptos = ({ baseAsset }) => {
                       </button>
                     )}
 
-                    {state === 'Socials' ? (
-                      <button onClick={() => { setState('Socials'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                        <span>Socials</span>
+                    {state === 'Buy' ? (
+                      <button onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                        <span>Buy</span>
                       </button>
                     ) : (
-                      <button onClick={() => { setState('Socials'); console.log(state) }} className={styles['chart-header-link']}>
-                        <span>Socials</span>
+                      <button onClick={() => { setState('Buy'); console.log(state) }} className={styles['chart-header-link']}>
+                        <span>Buy</span>
                       </button>
                     )}
 
@@ -1024,6 +1025,9 @@ const ChartCryptos = ({ baseAsset }) => {
 
                       {state === 'Details' && (
                         <ProjectInfo token={baseAsset} />
+                      )}
+                       {state === 'Buy' && (
+                        <Swap token={token} />
                       )}
                       {state === 'Overview' && (
                         <>
