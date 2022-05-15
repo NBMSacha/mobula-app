@@ -18,7 +18,15 @@ import SkipBtn from './SkipBtn'
 import { volumeOracles, priceOracles, specialTokens, providers } from '../../constants';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
-import Swap from "./Swap"
+import Swap from "./Swap";
+import {
+  ChakraProvider,
+  ColorModeProvider,
+  useColorMode,
+} from '@chakra-ui/react'
+import { CSSReset } from '@chakra-ui/react'
+import theme from '../../theme/index'
+
 
 const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
@@ -236,6 +244,7 @@ const ChartCryptos = ({ baseAsset }) => {
             backgroundColor: gradient,
             borderWidth: 2,
             pointRadius: 0,
+            pointHitRadius: 0,
             highlightFill: 'rgba(220,220,220,0.5)',
             highlightStroke: 'rgba(220,220,220,1)',
             maintainAspectRatio: false,
@@ -338,6 +347,87 @@ const ChartCryptos = ({ baseAsset }) => {
         },
       },
     })
+
+    window.chartInstance.canvas.addEventListener('mousemove', (e) => {
+      crosshairLine(window.chartInstance, e)
+    });
+
+    function crosshairLine(chart, mousemove) {
+      console.log("crosshair Line")
+      
+      const { canvas, ctx, chartArea: { left, right, top, bottom}} = chart;
+      chart.update(null);
+      ctx.restore();
+      if (mousemove.offsetX >= left && mousemove.offsetX <= right && mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
+        canvas.style.cursor = "crosshair";
+      } else {
+        canvas.style.cursor = "default";
+      }
+
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#666";
+      ctx.setLineDash([3, 3]);
+
+      ctx.beginPath();
+      if(mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
+        ctx.moveTo(left, mousemove.offsetY);
+        ctx.lineTo(right, mousemove.offsetY);
+        ctx.stroke();
+      }
+      ctx.closePath();
+
+      ctx.beginPath();
+      if(mousemove.offsetX >= left && mousemove.offsetX <= right) {
+        ctx.moveTo(mousemove.offsetX, top);
+        ctx.lineTo( mousemove.offsetX, bottom);
+        ctx.stroke();
+      }
+      ctx.closePath();
+      
+      crosshairLabel(chart, mousemove);
+    }
+   
+    function zoom(chart, mousewheel) {
+      console.log(chart.config.options.scales.xAxes[0].min)
+      console.log(chart.config.options.scales.xAxes[0].max)
+        const min = chart.config.options.scales.xAxes[0].min;
+        const max = chart.config.options.scales.xAxes[0].max;
+        console.log(dates)
+        if(mousewheel.wheelDeltaY >= 0) {
+            chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
+            chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
+        }
+        if(mousewheel.wheelDeltaY < 0) {
+            chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
+            chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
+        }
+        if(dates[dates.indexOf(min[0] + 1) ]) {}
+        console.log()
+        console.log('hello');
+    }
+
+    window.chartInstance.canvas.addEventListener('mousewheel', (e) => {
+      zoom(window.chartInstance, e)
+    })
+
+    function crosshairLabel(chart, mousemove) {
+        const { ctx, data, chartArea: {top, bottom, left, right, width, height}, scales } = chart;
+        const y = scales["y-axis-0"];
+        ctx.beginPath();
+        ctx.fillStyle = "#2E3557";
+        ctx.fillRect(0, mousemove.offsetY -10, left, 20);
+        ctx.closePath();
+
+        ctx.font = '10px Inter';
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "center";
+
+        const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
+        console.log(number)
+
+        ctx.fillText(number.toFixed(2), left / 2, mousemove.offsetY )
+    }
 
 
     if (!data || data.length == 0) {
@@ -629,10 +719,18 @@ const ChartCryptos = ({ baseAsset }) => {
       daoBtn.preventDefault()
     }
   }
-
+  console.log(baseAsset)
   const renderData = () => {
     return (
       <>
+      <ChakraProvider theme={theme}>
+      <CSSReset />
+                        <ColorModeProvider
+                            options={{
+                                initialColorMode: 'light',
+                                useSystemColorMode: true,
+                            }}
+                        ></ColorModeProvider>
         <Head>
           <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
         </Head>
@@ -1027,7 +1125,7 @@ const ChartCryptos = ({ baseAsset }) => {
                         <ProjectInfo token={baseAsset} />
                       )}
                        {state === 'Buy' && (
-                        <Swap token={token} />
+                        <Swap baseAsset={baseAsset} />
                       )}
                       {state === 'Overview' && (
                         <>
@@ -1124,7 +1222,8 @@ const ChartCryptos = ({ baseAsset }) => {
           )} */}
             </div>
           </header>
-        </div></>
+        </div>
+        </ChakraProvider></>
     )
 
     // return <div>{test()}</div>
