@@ -12,6 +12,7 @@ import GainerBlock from "./Block/GainerBlock";
 import Tendance from '../Header/Tendance';
 import MainBlock from './Block/MainBlock';
 import TopPages from './TopPages';
+import Pagination from "./Pagination"
 
 const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -88,6 +89,7 @@ function News(props: any) {
 
   return (
     <>
+    
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
         <MainBlock />
@@ -194,9 +196,12 @@ function News(props: any) {
             rank={index + 1}
           />)}
         </table>
+       
 
       </div>
-      {/* {tokens ? tokens.map((token, index) => <TopPages
+      <Pagination />
+{/*      
+      {tokens ? tokens.map((token, index) => <TopPages
             key={token.id}
             id={token.id}
             name={token.name}
