@@ -174,7 +174,7 @@ function News(props: any) {
               <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
           </thead>
-          {tokens ? tokens.map((token, index) => <Token
+          {(tokens || props.tokens) ?? (tokens || props.tokens).map((token, index) => <Token
             key={token.id}
             id={token.id}
             name={token.name}
@@ -192,7 +192,7 @@ function News(props: any) {
             price={token.price}
             rank_change_24h={token.rank_change_24h}
             rank={index + 1}
-          />) : <></>}
+          />)}
         </table>
 
       </div>
