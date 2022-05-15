@@ -1,68 +1,70 @@
 import React, { useEffect, useState } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { ethers } from 'ethers';
 import styles from './Main.module.scss';
 import Token from "./Token";
 import TrendingBlock from "./Block/TrendingBlock";
 import ButtonBlock from "./Block/ButtonBlock";
 import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
-import Tendance from '../Header/Tendance';
 import MainBlock from './Block/MainBlock';
-import TopPages from './TopPages';
-
-const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
-    }
-    window.addEventListener("scroll", updatePosition);
-    updatePosition();
-    return () => window.removeEventListener("scroll", updatePosition);
-  }, []);
-
-  return scrollPosition;
-};
+import BigNumber from 'bignumber.js';
+import axios from 'axios';
+import { useAlert } from 'react-alert';
+import { ethers } from 'ethers';
+import { RPC_URL } from '../../constants'
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
-  //const [losers, setLosers] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  //const scrollPosition = useScrollPosition();
-
-  console.log(props.gainers, props.recents)
+  const [myAssets, setMyAssets] = useState([]);
+  const [display, setDisplay] = useState('Top 100');
+  const [account, setAccount] = useState(null);
+  const alert = useAlert()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
-    let loaded = false;
-    while (true || loaded) {
-      await new Promise(r => setTimeout(r, 1000))
-      if (window.pageYOffset > 300) {
-        supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(200).then(r => {
-          if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
-          }
-        });
-        loaded = true
-      }
-    }
+    // let loaded = false;
+    // while (true || loaded) {
+    //   await new Promise(r => setTimeout(r, 1000))
+    //   if (window.pageYOffset > 300) {
+    //     supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(200).then(r => {
+    //       if (r.data) {
+    //         setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
+    //       }
+    //     });
+    //     loaded = true
+    //   }
+    // }
   }
 
-  // useEffect(() => {
-  //   if (scrollPosition > 500 && !loaded) {
-  //     const supabase = createClient(
-  //       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
-  //     )
+  function getTokensToDisplay(): any[] {
+    if (display == 'Top 100') {
+      return (tokens.length > 0) ? tokens : (props.tokens || [])
+    } else if (display == 'My Assets') {
 
-  //     setLoaded(true);
+      if (account) {
+        if (myAssets.length == 0) {
+          axios.get('https://mobulaspark.com/holdings?account=' + account).then(r => {
+            if (r.data) {
+              const assets = r.data.holdings
+                .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
+                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
+              setMyAssets(assets)
+              return assets;
+            } else {
+              alert.error('Something went wrong.')
+              return []
+            }
+          })
+          return []
+        } else {
+          return myAssets;
+        }
+      } else {
+        alert.show('You must connect your wallet to see your assets.')
+        return []
+      }
 
-  //   }
-
-  // }, [scrollPosition])
+    }
+  }
 
   useEffect(() => {
     const supabase = createClient(
@@ -70,20 +72,15 @@ function News(props: any) {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
 
-    // supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
-    //   setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
-    // });
-
-    // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
-    //   setLosers(r.data)
-    // });
-
-    // supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3).then(r => {
-    //   setRecents(r.data)
-    // });
-
     shouldLoadMore(supabase)
 
+    setTimeout(() => {
+      const provider = new ethers.providers.Web3Provider((window as any).ethereum)
+      provider.listAccounts().then((accounts) => {
+        console.log(accounts);
+        setAccount(accounts[0]);
+      })
+    }, 1000);
   }, [])
 
   return (
@@ -157,7 +154,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </div>
-        <ButtonBlock />
+        <ButtonBlock display={display} setDisplay={setDisplay} />
       </div>
       {/* PAGE 2 */}
       <div className={styles["ranked-main-container"]}>
@@ -174,49 +171,33 @@ function News(props: any) {
               <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
           </thead>
-          {((tokens.length > 0) ? tokens : (props.tokens || [])).map((token: any, index: number) => <Token
-            key={token.id}
-            id={token.id}
-            name={token.name}
-            symbol={token.symbol}
-            contract={token.contract}
-            logo={token.logo}
-            twitter={token.twitter}
-            chat={token.chat}
-            discord={token.discord}
-            website={token.website}
-            market_cap={token.market_cap}
-            volume={token.volume}
-            price_change_24h={token.price_change_24h}
-            price_change_7d={token.price_change_7d}
-            price={token.price}
-            rank_change_24h={token.rank_change_24h}
-            rank={index + 1}
-          />)}
+
+          {
+            getTokensToDisplay().map((token: any, index: number) => <Token
+              key={token.id || token.balance + token.name}
+              id={token.id}
+              name={token.name}
+              symbol={token.symbol}
+              contract={token.contract}
+              logo={token.logo}
+              twitter={token.twitter}
+              chat={token.chat}
+              discord={token.discord}
+              website={token.website}
+              market_cap={token.market_cap}
+              volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
+              price_change_24h={token.price_change_24h}
+              price_change_7d={token.price_change_7d}
+              price={token.price}
+              rank_change_24h={token.rank_change_24h}
+              rank={index + 1}
+              isMyAsset={display == 'My Assets'}
+            />)
+          }
         </table>
 
       </div>
-      {/* {tokens ? tokens.map((token, index) => <TopPages
-            key={token.id}
-            id={token.id}
-            name={token.name}
-            symbol={token.symbol}
-            contract={token.contract}
-            logo={token.logo}
-            twitter={token.twitter}
-            chat={token.chat}
-            discord={token.discord}
-            website={token.website}
-            market_cap={token.market_cap}
-            volume={token.volume}
-            price_change_24h={token.price_change_24h}
-            price_change_7d={token.price_change_7d}
-            price={token.price}
-            rank_change_24h={token.rank_change_24h}
-            rank={index + 1}
-          />) : <></>} */}
     </>
-
   )
 }
 

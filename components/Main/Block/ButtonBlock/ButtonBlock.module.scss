@@ -41,9 +41,11 @@
   margin-left: 70px;
   font-size: 30px;
 }
+
 .onChain-btn-mobile {
   display: flex;
 }
+
 .main-blockchain-container {
   display: flex;
   align-items: center;
@@ -52,13 +54,16 @@
   justify-content: center;
   padding-bottom: 30px;
 }
+
 .blockchain-name {
   margin-left: 4px;
 }
+
 .blockchain-logo {
   height: 35px;
   width: 35px;
 }
+
 .blockchain-container {
   display: flex;
   width: 100%;
@@ -117,30 +122,17 @@
   cursor: not-allowed;
 }
 
-.select-button-white {
-  background-color: #dee9ff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 13%;
-  border-radius: 12px;
-  padding: 20px 10px;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  color: #000000;
-}
+
 
 .select-button:hover {
   background: #dee9ff;
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
-.select-button {
+.select-button,
+.select-button-white {
   background-color: #24274a;
   display: flex;
   align-items: center;
@@ -156,11 +148,19 @@
   color: #ffffff;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
 }
+
+.select-button-white {
+  background-color: #dee9ff;
+  color: #000000;
+}
+
+
 @media screen and (max-width: 1280px) {
-  .matic-btn{
-    display:none;
+  .matic-btn {
+    display: none;
   }
 }
+
 @media screen and (max-width: 1060px) {
   // .search-input {
   //   margin-right: 0.8rem;
@@ -174,8 +174,7 @@
     display: none;
   }
 
-  .relative {
-  }
+  .relative {}
 
   .gainer-box {
     margin-left: 0.3rem;
@@ -203,6 +202,7 @@
   .matic-btn {
     display: none;
   }
+
   .blockchain-btn-matic {
     display: none;
   }
@@ -213,42 +213,43 @@
     width: 15px;
     height: 15px;
   }
+
   .rectangle {
     width: 45px;
     height: 18px;
   }
+
   .blockchain-name {
     font-size: 14px;
   }
+
   .container-news {
     padding: 0px 10px;
     width: 90% !important;
     margin-top: 20px;
   }
+
   .blockchain-btn {
     width: 80px;
     padding: 6px 6px;
   }
-  .select-button {
+
+  .select-button,
+  .select-button-white {
     width: 100px;
     font-size: 13px;
     padding: 8px 6px;
     border-radius: 8px;
   }
-  .select-button-white {
-    width: 60px;
-    padding: 8px 6px;
-    border-radius: 8px;
-    font-size: 13px !important;
-  }
 
   .blockchain-container {
     width: 80%;
   }
+
   .marginFa {
     font-size: 14px;
   }
-  
+
   .main-blockchain-container {
     margin-top: -25px;
   }
@@ -305,7 +306,7 @@
 
   .blockchain-btn-three {
     padding: 8px 6px;
-    
+
   }
 
   .blockchain-btn {
@@ -322,8 +323,9 @@
     width: 60px !important;
   }
 
+  .select-button,
   .select-button-white {
-    width: 60px;
+    width: 100px;
     padding: 8px 6px;
     border-radius: 8px;
     font-size: 13px !important;
@@ -347,28 +349,34 @@
       } */
 }
 
-.blockchain-btn-three{
+.blockchain-btn-three {
   width: 90px;
 }
+
 @media screen and (max-width: 580px) {
+
+  .select-button,
   .select-button-white {
     padding: 8px 4px;
     width: 60px;
   }
+
   .marginFa {
     margin-left: 57px;
   }
+
   .rond {
     width: 12px;
     height: 12px;
     top: 2px;
     left: 3px;
   }
-  
+
   .rectangle {
     width: 36px;
     height: 13px;
   }
+
   .eth-btn {
     height: 22px;
     width: 22px;
@@ -377,10 +385,11 @@
   .blockchain-name {
     margin-left: 0px;
   }
-  
+
   .blockchain-container {
     width: 100%;
   }
+
   .main-blockchain-container {
     padding-bottom: 8px;
   }
@@ -403,7 +412,8 @@
     top: 9px;
   }
 
-  .select-button {
+  .select-button,
+  .select-button-white {
     width: 85px;
   }
 
@@ -415,25 +425,30 @@
 
   .fullOnChain {
     font-size: 9px;
-    
+
   }
+
   .onChain-btn-mobile {
     margin-right: 3px;
     margin-bottom: 17px;
-   
+
   }
+
   .blockchain-btn {
     width: 74px;
   }
+
   .blockchain-btn-three {
     padding: 6px 6px !important;
   }
 }
+
 @media screen and (max-width: 420px) {
   .onChain-btn-mobile {
-    display:none;
+    display: none;
   }
 }
+
 @media screen and (max-width: 384px) {
   .eth-btn-block {
     display: none;
@@ -466,7 +481,7 @@
 // }
 
 @media screen and (max-width:1000px) {
-  .avax-btn{
-    display:none;
+  .avax-btn {
+    display: none;
   }
 }
