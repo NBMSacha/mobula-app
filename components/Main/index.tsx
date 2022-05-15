@@ -40,7 +40,7 @@ function News(props: any) {
     let loaded = false;
     while (true || loaded) {
       await new Promise(r => setTimeout(r, 1000))
-      if (window.pageYOffset > 500) {
+      if (window.pageYOffset > 300) {
         supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(200).then(r => {
           if (r.data) {
             setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
@@ -69,10 +69,6 @@ function News(props: any) {
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
-
-    supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(35).then(r => {
-      setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
-    });
 
     supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
       setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
@@ -198,7 +194,7 @@ function News(props: any) {
             rank={index + 1}
           />) : <></>}
         </table>
-        
+
       </div>
       {/* {tokens ? tokens.map((token, index) => <TopPages
             key={token.id}

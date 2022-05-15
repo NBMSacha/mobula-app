@@ -396,6 +396,9 @@ const ChartCryptos = ({ id }) => {
     let totalLiquidity = new BigNumber(0)
 
     if (token.contracts && token.total_volume_history && token.blockchains) {
+
+      let error = false;
+
       for (let i = 0; i < token.contracts.length; i++) {
 
         if (priceOracles[token.blockchains[i]]) {
@@ -444,9 +447,14 @@ const ChartCryptos = ({ id }) => {
                     `
               })
 
+              console.log(subgraph.url, result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
+
               total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
 
-            } catch (e) { console.log(e) }
+            } catch (e) {
+              console.log(e)
+              error = true;
+            }
 
           }
 
@@ -464,7 +472,12 @@ const ChartCryptos = ({ id }) => {
         console.log('CLOCHARD')
       }
 
-      setVolume(total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000));
+      const volume = total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
+
+      if (!error) {
+        setVolume(volume);
+      }
+
     }
 
   }
