@@ -154,7 +154,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
       setChart({ price: formatData(days) })
       setDay({ price: formatData(days) })
-
       const weeks = await getChart(baseAsset.id, '7D')
 
       setWeek({ price: formatData(weeks) })
@@ -196,7 +195,7 @@ const ChartCryptos = ({ baseAsset }) => {
     if (window.chartInstance != undefined) {
       window.chartInstance.destroy()
     }
-
+   
     var ctx = document.getElementById('chart').getContext('2d')
 
     const data = determineTimeFormat()
@@ -319,6 +318,12 @@ const ChartCryptos = ({ baseAsset }) => {
           ],
           xAxes: [
             {
+              ticks : {
+                min: dates[0],
+                max: dates[dates.length - 1],
+              },
+              min: dates[0],
+                max: dates[dates.length - 1],
               gridLines: { display: false },
               type: 'time',
               distribution: 'linear',
@@ -435,8 +440,6 @@ const ChartCryptos = ({ baseAsset }) => {
       }
 
     }
-
-  }
 
   useEffect(() => {
     fetchData()
