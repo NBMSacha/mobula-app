@@ -19,7 +19,7 @@ import { volumeOracles, priceOracles, specialTokens, providers } from '../../con
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router'
 
-const ChartCryptos = ({ id }) => {
+const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
   const [coins, setCoins] = useState([])
   const [chart, setChart] = useState({})
@@ -29,16 +29,17 @@ const ChartCryptos = ({ id }) => {
   const [year, setYear] = useState({})
   const [all, setAll] = useState({})
   const [timeFormat, setTimeFormat] = useState('')
-  const [token, setToken] = useState({})
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
-
   const [volume, setVolume] = useState(0);
   const [liquidity, setLiquidity] = useState(0);
   const [price, setPrice] = useState(0);
-
   const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
   const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?', id: '' })
+
+  if (!baseAsset) {
+    var [baseAsset, setBaseAsset] = useState({})
+  }
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -56,21 +57,17 @@ const ChartCryptos = ({ id }) => {
     )
 
     if (timeframe == '1D') {
-      return token ? token.price_history.price
+      return baseAsset ? baseAsset.price_history.price
         .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
         .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '7D') {
-      return token
-        ? token.price_history.price
+      return baseAsset
+        ? baseAsset.price_history.price
           .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '1M') {
-      const { data: recent } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
       const { data: old } = await supabase
         .from('history')
         .select('price_history')
@@ -78,14 +75,9 @@ const ChartCryptos = ({ id }) => {
       return old[0]
         ? old[0].price_history
           .filter((entry) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now())
-          .concat(recent[0].price_history.price)
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '3M') {
-      const { data: recent } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
       const { data: old } = await supabase
         .from('history')
         .select('price_history')
@@ -93,14 +85,9 @@ const ChartCryptos = ({ id }) => {
       return old[0]
         ? old[0].price_history
           .filter((entry) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now())
-          .concat(recent[0].price_history.price)
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == '1Y') {
-      const { data: recent } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
       const { data: old } = await supabase
         .from('history')
         .select('price_history')
@@ -110,21 +97,15 @@ const ChartCryptos = ({ id }) => {
           .filter(
             (entry) => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()
           )
-          .concat(recent[0].price_history.price)
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     } else if (timeframe == 'ALL') {
-      const { data: recent } = await supabase
-        .from('assets')
-        .select('price_history')
-        .match({ id })
       const { data: old } = await supabase
         .from('history')
         .select('price_history')
         .match({ asset: id })
       return old[0]
         ? old[0].price_history
-          .concat(recent[0].price_history.price)
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     }
@@ -136,82 +117,57 @@ const ChartCryptos = ({ id }) => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
 
-    supabase
-      .from('assets')
-      .select('*')
-      .match({ id: parseInt(id) })
-      .then((r) => {
+    if (baseAsset) {
 
-        if (r.data && r.data[0]) {
-          setToken(r.data[0])
+      if (baseAsset.rank && baseAsset.rank != 1) {
+        supabase.from('assets').select('name,id,rank').or('rank.eq.' + (baseAsset.rank - 1) + ',rank.eq.' + (baseAsset.rank + 1)).then(r => {
+          console.log('DONE')
 
-          console.log('LOADING')
+          if (r.data) {
 
-          if (r.data[0].rank && r.data[0].rank != 1) {
-            console.log('LOADFING', r.data[0].rank)
-            supabase.from('assets').select('name,id,rank').or('rank.eq.' + (r.data[0].rank - 1) + ',rank.eq.' + (r.data[0].rank + 1)).then(r => {
-              console.log('DONE')
+            r.data = r.data.sort((a, b) => a.rank - b.rank)
 
-              if (r.data) {
+            setBeforeToken(r.data[0])
+            setAfterToken(r.data[r.data.length - 1])
 
-                r.data = r.data.sort((a, b) => a.rank - b.rank)
-
-                setBeforeToken(r.data[0])
-                setAfterToken(r.data[r.data.length - 1])
-
-              }
-            })
-          } else if (r.data[0].rank) {
-            setBeforeToken({ name: 'Back to Top 100', id: '/', rank: '0' })
-            supabase.from('assets').select('name,id,rank').match({ rank: r.data[0].rank + 1 }).then(r => {
-              console.log('yo', r.data)
-              if (r.data) {
-                setAfterToken(r.data[0])
-              }
-            })
           }
-
-
-        } else {
-          console.log(r.error)
-          router.push("/")
-        }
-      })
-
-    const response = await axios.get(
-      'https://api.coingecko.com/api/v3/coins/markets/',
-      {
-        params: {
-          vs_currency: 'usd',
-          ids: 'ethereum',
-        },
+        })
+      } else if (baseAsset.rank) {
+        setBeforeToken({ name: 'Back to Top 100', id: '/', rank: '0' })
+        supabase.from('assets').select('name,id,rank').match({ rank: baseAsset.rank + 1 }).then(r => {
+          if (r.data) {
+            setAfterToken(r.data[0])
+          }
+        })
       }
-    )
 
-    console.log(response)
-    setCoins(response.data)
+
+    } else {
+
+      router.push("/")
+    }
   }
 
   const fetchChart = async () => {
     try {
-      const days = await getChart(id, '1D')
+      const days = await getChart(baseAsset.id, '1D')
 
       setChart({ price: formatData(days) })
       setDay({ price: formatData(days) })
 
-      const weeks = await getChart(id, '7D')
+      const weeks = await getChart(baseAsset.id, '7D')
 
       setWeek({ price: formatData(weeks) })
 
-      const months = await getChart(id, '1M')
+      const months = await getChart(baseAsset.id, '1M')
 
       setMonth({ price: formatData(months) })
 
-      const years = await getChart(id, '1Y')
+      const years = await getChart(baseAsset.id, '1Y')
 
       setYear({ price: formatData(years) })
 
-      const alls = await getChart(id, 'ALL')
+      const alls = await getChart(baseAsset.id, 'ALL')
 
       setAll({ price: formatData(alls) })
     } catch (err) {
@@ -395,28 +351,28 @@ const ChartCryptos = ({ id }) => {
     let averagePrice = new BigNumber(0)
     let totalLiquidity = new BigNumber(0)
 
-    if (token.contracts && token.total_volume_history && token.blockchains) {
+    if (baseAsset.contracts && baseAsset.total_volume_history && baseAsset.blockchains) {
 
       let error = false;
 
-      for (let i = 0; i < token.contracts.length; i++) {
+      for (let i = 0; i < baseAsset.contracts.length; i++) {
 
-        if (priceOracles[token.blockchains[i]]) {
-          const [tokenPrice, tokenLiquidity] = specialTokens.includes(token.contracts[i]) ? await (new ethers.Contract(
-            priceOracles[token.blockchains[i]],
+        if (priceOracles[baseAsset.blockchains[i]]) {
+          const [tokenPrice, tokenLiquidity] = specialTokens.includes(baseAsset.contracts[i]) ? await (new ethers.Contract(
+            priceOracles[baseAsset.blockchains[i]],
             ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
-            providers[token.blockchains[i]])).getGeneralUSDPriceUsingStable(token.contracts[i]) : await (new ethers.Contract(
-              priceOracles[token.blockchains[i]],
+            providers[baseAsset.blockchains[i]])).getGeneralUSDPriceUsingStable(baseAsset.contracts[i]) : await (new ethers.Contract(
+              priceOracles[baseAsset.blockchains[i]],
               ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
-              providers[token.blockchains[i]])).getGeneralUSDPrice(token.contracts[i]);
+              providers[baseAsset.blockchains[i]])).getGeneralUSDPrice(baseAsset.contracts[i]);
 
           const safeTokenPrice = new BigNumber(tokenPrice.toString())
           const safeTokenLiquidity = new BigNumber(tokenLiquidity.toString())
 
           const tokenDecimals = await (new ethers.Contract(
-            token.contracts[i],
+            baseAsset.contracts[i],
             ['function decimals() external view returns (uint256)'],
-            providers[token.blockchains[i]]).decimals());
+            providers[baseAsset.blockchains[i]]).decimals());
 
           //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
 
@@ -431,15 +387,15 @@ const ChartCryptos = ({ id }) => {
           totalLiquidity = totalLiquidity.plus(normalLiquidity);
         }
 
-        if (volumeOracles[token.blockchains[i]]) {
+        if (volumeOracles[baseAsset.blockchains[i]]) {
 
-          for (const subgraph of volumeOracles[token.blockchains[i]]) {
+          for (const subgraph of volumeOracles[baseAsset.blockchains[i]]) {
 
             try {
               const { data: result, error } = await axios.post(subgraph.url, {
                 query: `
                       {
-                        tokens(where: {id: "${token.contracts[i]}"}) {
+                        tokens(where: {id: "${baseAsset.contracts[i]}"}) {
                           id,
                           ${subgraph.query}
                         }
@@ -472,7 +428,7 @@ const ChartCryptos = ({ id }) => {
         console.log('CLOCHARD')
       }
 
-      const volume = total_volume - getClosest(token.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
+      const volume = total_volume - getClosest(baseAsset.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
 
       if (!error) {
         setVolume(volume);
@@ -484,12 +440,17 @@ const ChartCryptos = ({ id }) => {
 
   useEffect(() => {
     fetchData()
+
+    if (baseAsset) {
+      fetchChart()
+      fetchLiveData()
+    }
   }, [])
 
   useEffect(() => {
     fetchChart()
     fetchLiveData()
-  }, [token])
+  }, [baseAsset])
 
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
@@ -617,7 +578,6 @@ const ChartCryptos = ({ id }) => {
   }
 
   function moreStats() {
-    console.log('calling more stats')
     try {
       let hide = document.getElementById('hide')
       let change = document.getElementById('change')
@@ -669,37 +629,33 @@ const ChartCryptos = ({ id }) => {
     }
   }
 
-  function reload() {
-    window.location.reload()
-  }
-
   const renderData = () => {
     return (
       <>
         <Head>
-          <title>{token.name} price today, {token.symbol} to USD live, marketcap and chart | Mobula</title>
+          <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
         </Head>
         <div className='App'>
           <div className={styles['chart-main-container']}>
             <div className={styles['chart-top-token']}>
               <div className={styles['flex']}>
                 <div className={styles['chart-left-top']}>
-                  <img src={token.logo} className={styles['chart-token-logo']} />
+                  <img src={baseAsset.logo} className={styles['chart-token-logo']} />
                   <div className={styles['chart-name-box']}>
                     <div className={styles['chart-token-name']}>
-                      <span>{token.name}</span>
+                      <span>{baseAsset.name}</span>
                     </div>
                     <div className={styles['chart-token-rank']}>
-                      <span className={styles["rank-span"]}>Rank #{token.rank}</span>
-                      {token.rank_change_24h < 0 ? (
+                      <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
+                      {baseAsset.rank_change_24h < 0 ? (
                         <span
                           className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
                           id='noColor'
                         >
                           <ArrowDown className={styles['arrowDown']} />
-                          {Math.abs(token.rank_change_24h)}
+                          {Math.abs(baseAsset.rank_change_24h)}
                         </span>
-                      ) : token.rank_change_24h == 0 ? (
+                      ) : baseAsset.rank_change_24h == 0 ? (
                         <div></div>
                       ) : (
                         <span
@@ -707,7 +663,7 @@ const ChartCryptos = ({ id }) => {
                           id='noColor'
                         >
                           <ArrowUp className='arrowUp' />
-                          {token.rank_change_24h}
+                          {baseAsset.rank_change_24h}
                         </span>
                       )}{' '}
                     </div>
@@ -718,21 +674,21 @@ const ChartCryptos = ({ id }) => {
                 <div className={styles['chart-box-container']}>
                   <div className={styles['chart-right-info']}>
                     <p className={styles['test']}>
-                      ${getTokenPrice(price || token.price)}
+                      ${getTokenPrice(price || baseAsset.price)}
                     </p>
-                    {token.price_change_24h < 0 ? (
+                    {baseAsset.price_change_24h < 0 ? (
                       <div className={styles['chart-lose']}>
                         <span>
                           <ArrowDown />
                         </span>
-                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
                       </div>
                     ) : (
                       <div className={styles['chart-gain']}>
                         <span>
                           <ArrowUp />
                         </span>
-                        <span>{getTokenPercentage(token.price_change_24h)}%</span>
+                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
                       </div>
                     )}
                   </div>
@@ -762,14 +718,14 @@ const ChartCryptos = ({ id }) => {
                 <div className={styles['mobile-info-left-column']}>
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>MARKET CAP</span>
-                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      ${formatAmount(token.market_cap)}
+                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      ${formatAmount(baseAsset.market_cap)}
                     </p>
                   </div>
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>VOLUME (24H)</span>
                     <p className={styles['numbers']}>
-                      ${formatAmount(volume || token.volume)}
+                      ${formatAmount(volume || baseAsset.volume)}
                     </p>
                   </div>
                   <div className={styles['mobbox']}>
@@ -778,8 +734,8 @@ const ChartCryptos = ({ id }) => {
                     </span>
                     <p className={styles['numbers']}>
                       $
-                      {token.market_cap_diluted
-                        ? formatAmount(token.market_cap_diluted)
+                      {baseAsset.market_cap_diluted
+                        ? formatAmount(baseAsset.market_cap_diluted)
                         : '???'}
                     </p>
                   </div>
@@ -787,28 +743,28 @@ const ChartCryptos = ({ id }) => {
                 <div className={styles['mobile-info-right-column']}>
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      {token.circulating_supply
-                        ? formatAmount(token.circulating_supply)
+                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                      {baseAsset.circulating_supply
+                        ? formatAmount(baseAsset.circulating_supply)
                         : '???'}{' '}
-                      {token.symbol}
+                      {baseAsset.symbol}
                     </p>
                   </div>
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>TOTAL SUPPLY </span>
                     <p className={styles['numbers']}>
-                      {token.total_supply
-                        ? formatAmount(token.total_supply)
+                      {baseAsset.total_supply
+                        ? formatAmount(baseAsset.total_supply)
                         : '???'}{' '}
-                      {token.symbol}
+                      {baseAsset.symbol}
                     </p>
                   </div>
                   <div className={styles['mobbox']}>
                     <span className={styles['grey']}>LIQUIDITY </span>
                     <p className={styles['numbers']}>
 
-                      {token.liquidity
-                        ? '$' + formatAmount(liquidity || token.liquidity)
+                      {baseAsset.liquidity
+                        ? '$' + formatAmount(liquidity || baseAsset.liquidity)
                         : '???'}
                     </p>
                   </div>
@@ -816,10 +772,10 @@ const ChartCryptos = ({ id }) => {
               </div>
               <button
                 id='hidedao'
-                className={`${token.utility_score +
-                  token.social_score +
-                  token.market_score +
-                  token.trust_score ==
+                className={`${baseAsset.utility_score +
+                  baseAsset.social_score +
+                  baseAsset.market_score +
+                  baseAsset.trust_score ==
                   0
                   ? styles['absolute-mobile-dis']
                   : styles['absolute-mobile']
@@ -830,10 +786,10 @@ const ChartCryptos = ({ id }) => {
               >
                 <span>DAO Score</span>
                 <span>
-                  {token.utility_score +
-                    token.social_score +
-                    token.market_score +
-                    token.trust_score}
+                  {baseAsset.utility_score +
+                    baseAsset.social_score +
+                    baseAsset.market_score +
+                    baseAsset.trust_score}
                   /20
                 </span>
                 <div
@@ -843,19 +799,19 @@ const ChartCryptos = ({ id }) => {
                 >
                   <div className={styles['mobile-notes-boxs']}>
                     <span>Utility</span>
-                    <span>{token.utility_score}/5</span>
+                    <span>{baseAsset.utility_score}/5</span>
                   </div>
                   <div className={styles['mobile-notes-boxs']}>
                     <span>Social</span>
-                    <span>{token.social_score}/5</span>
+                    <span>{baseAsset.social_score}/5</span>
                   </div>
                   <div className={styles['mobile-notes-boxs']}>
                     <span>Trust</span>
-                    <span>{token.trust_score}/5</span>
+                    <span>{baseAsset.trust_score}/5</span>
                   </div>
                   <div className={styles['mobile-notes-boxs']}>
                     <span>Market</span>
-                    <span>{token.market_score}/5</span>
+                    <span>{baseAsset.market_score}/5</span>
                   </div>
                 </div>
               </button>
@@ -875,15 +831,15 @@ const ChartCryptos = ({ id }) => {
                     >
                       MARKET CAP
                     </p>
-                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      ${formatAmount(token.market_cap)}
-                      {/* {(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
+                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      ${formatAmount(baseAsset.market_cap)}
+                      {/* {(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
                     </p>
                   </span>
                   <span>
                     <p className={styles['text-top-chart']}>VOLUME (24H)</p>
                     <p className={styles['text-bottom-chart']}>
-                      ${formatAmount(volume || token.volume)}
+                      ${formatAmount(volume || baseAsset.volume)}
                     </p>
                   </span>
                   <span>
@@ -892,45 +848,45 @@ const ChartCryptos = ({ id }) => {
                     </p>
                     <p className={styles['text-bottom-chart']}>
                       $
-                      {token.market_cap_diluted
-                        ? formatAmount(token.market_cap_diluted)
+                      {baseAsset.market_cap_diluted
+                        ? formatAmount(baseAsset.market_cap_diluted)
                         : '???'}
                     </p>
                   </span>
                   <span>
                     <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                    <p className={(!token.circulating_supply_addresses || token.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      {token.circulating_supply
-                        ? formatAmount(token.circulating_supply)
+                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                      {baseAsset.circulating_supply
+                        ? formatAmount(baseAsset.circulating_supply)
                         : '???'}{' '}
-                      {token.symbol}
+                      {baseAsset.symbol}
                     </p>
                   </span>
                   <span>
                     <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
                     <p className={styles['text-bottom-chart']}>
-                      {token.total_supply
-                        ? formatAmount(token.total_supply)
+                      {baseAsset.total_supply
+                        ? formatAmount(baseAsset.total_supply)
                         : '???'}{' '}
-                      {token.symbol}
+                      {baseAsset.symbol}
                     </p>
                   </span>
                   <span>
                     <p className={styles['text-top-chart']}>LIQUIDITY</p>
                     <p className={styles['text-bottom-chart']}>
 
-                      {token.liquidity
-                        ? '$' + formatAmount(liquidity || token.liquidity)
+                      {baseAsset.liquidity
+                        ? '$' + formatAmount(liquidity || baseAsset.liquidity)
                         : '???'}
                     </p>
                   </span>
                 </div>
                 <div
                   className={
-                    token.utility_score +
-                      token.social_score +
-                      token.market_score +
-                      token.trust_score ==
+                    baseAsset.utility_score +
+                      baseAsset.social_score +
+                      baseAsset.market_score +
+                      baseAsset.trust_score ==
                       0
                       ? styles['left-bottom-box-dis']
                       : styles['left-bottom-box']
@@ -944,28 +900,28 @@ const ChartCryptos = ({ id }) => {
                   >
                     <span className={styles['tagV']}>DAO SCORE</span>
                     <span>
-                      {token.utility_score +
-                        token.social_score +
-                        token.market_score +
-                        token.trust_score}
+                      {baseAsset.utility_score +
+                        baseAsset.social_score +
+                        baseAsset.market_score +
+                        baseAsset.trust_score}
                       /20
                     </span>
                     <div className={styles['grades']} id='daoBtn'>
                       <div className={styles['notes-boxs']}>
                         <span>Utility</span>
-                        <span>{token.utility_score}/5</span>
+                        <span>{baseAsset.utility_score}/5</span>
                       </div>
                       <div className={styles['notes-boxs']}>
                         <span>Social</span>
-                        <span>{token.social_score}/5</span>
+                        <span>{baseAsset.social_score}/5</span>
                       </div>
                       <div className={styles['notes-boxs']}>
                         <span>Trust</span>
-                        <span>{token.trust_score}/5</span>
+                        <span>{baseAsset.trust_score}/5</span>
                       </div>
                       <div className={styles['notes-boxs']}>
                         <span>Market</span>
-                        <span>{token.market_score}/5</span>
+                        <span>{baseAsset.market_score}/5</span>
                       </div>
                     </div>
                   </button>
@@ -973,25 +929,25 @@ const ChartCryptos = ({ id }) => {
                     className={`${styles['notes-boxs']} ${styles['disapear']}`}
                   >
                     <span>Utility</span>
-                    <span>{token.utility_score}/5</span>
+                    <span>{baseAsset.utility_score}/5</span>
                   </button>
                   <button
                     className={`${styles['notes-boxs']} ${styles['disapear']}`}
                   >
                     <span>Social</span>
-                    <span>{token.social_score}/5</span>
+                    <span>{baseAsset.social_score}/5</span>
                   </button>
                   <button
                     className={`${styles['notes-boxs']} ${styles['disapear']}`}
                   >
                     <span>Trust</span>
-                    <span>{token.trust_score}/5</span>
+                    <span>{baseAsset.trust_score}/5</span>
                   </button>
                   <button
                     className={`${styles['notes-boxs']} ${styles['disapear']}`}
                   >
                     <span>Market</span>
-                    <span>{token.market_score}/5</span>
+                    <span>{baseAsset.market_score}/5</span>
                   </button>
                 </div>
               </div>
@@ -1067,7 +1023,7 @@ const ChartCryptos = ({ id }) => {
                     <div className={styles['canvas-container']}>
 
                       {state === 'Details' && (
-                        <ProjectInfo token={token} />
+                        <ProjectInfo token={baseAsset} />
                       )}
                       {state === 'Overview' && (
                         <>
