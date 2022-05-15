@@ -1,4 +1,4 @@
-import Soon from '../components/Soon'
+import Soon from '../components/Utils/Soon'
 
 export default function () {
   return (
