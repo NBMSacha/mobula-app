@@ -5,7 +5,7 @@ import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
 import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
 import styles from './ButtonBlock.module.scss'
 
-function ButtonBlock(props: any) {
+function ButtonBlock({ setDisplay, display }) {
   function lockerButton() {
     const rectangle = document.getElementById('rectangle')
     const cercle = window.document.getElementById('cercle')
@@ -25,30 +25,30 @@ function ButtonBlock(props: any) {
   return (
     <div className={styles['main-blockchain-container']}>
       <div className={styles['blockchain-container']}>
-        <a className={styles['select-button-white']}>Top 100</a>
-        <a className={styles['select-button']}>My Assets</a>
-        <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']}`}>
-          <img src='eth.png' className={ `${styles['blockchain-logo']} ${styles["eth-btn"]}` }/>
+        <a className={styles[(display == 'Top 100' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('Top 100')}>Top 100</a>
+        <a className={styles[(display == 'My Assets' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('My Assets')}>My Assets</a>
+        <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']}`} onClick={() => setDisplay('Ethereum')}>
+          <img src='eth.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
           <span className={styles['blockchain-name']}>ETH</span>
         </a>
-        <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']}`}>
+        <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
           <img src='bnb.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>BNB</span>
         </a>
-        <a className={`${styles['blockchain-btn']} ${styles['avax-btn']}`}>
+        <a className={`${styles['blockchain-btn']} ${styles['avax-btn']}`} onClick={() => setDisplay('Avalanche')}>
           <img src='avax.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>AVAX</span>
         </a>
-        <a className={`${styles['blockchain-btn']} ${styles['matic-btn']}`}>
+        <a className={`${styles['blockchain-btn']} ${styles['matic-btn']}`} onClick={() => setDisplay('Polygon')}>
           <img src='matic.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>MATIC</span>
         </a>
         <a
           className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
         >
-          <img src='bnb.png' className={styles['three-blockchain-logo']} />
-          <img src='eth.png' className={styles['three-blockchain-logo']} />
-          <img src='avax.png' className={styles['three-blockchain-logo']} />
+          <img src='harmony.png' className={styles['three-blockchain-logo']} />
+          <img src='optimism.png' className={styles['three-blockchain-logo']} />
+          <img src='arbitrum.png' className={styles['three-blockchain-logo']} />
           <span>
             <AiOutlineArrowRight className={styles['marginFa']} />
           </span>

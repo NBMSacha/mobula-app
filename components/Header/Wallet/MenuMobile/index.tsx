@@ -203,7 +203,7 @@ function MenuMobile(props: any) {
             <a href='soon' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>New</span>
             </a>
-            <a href='soon' className={styles['linkTo']}>
+            <a href='movers' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Gainers & Losers</span>
             </a>
             <a href='earn' className={styles['linkTo']}>

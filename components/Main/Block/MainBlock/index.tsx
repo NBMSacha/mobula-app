@@ -4,7 +4,7 @@ import { useAlert } from 'react-alert'
 import styles from './MainBlock.module.scss'
 
 function MainBlock(props: any) {
-  const [isDisplayed, setIsDisplayed] = useState(true)
+  const [isDisplayed, setIsDisplayed] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const alert = useAlert()
   useEffect(() => {
