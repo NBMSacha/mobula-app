@@ -30,11 +30,11 @@ const useScrollPosition = () => {
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
-  const [gainers, setGainers] = useState([]);
-  const [recents, setRecents] = useState([]);
   //const [losers, setLosers] = useState([]);
   const [loaded, setLoaded] = useState(false);
   //const scrollPosition = useScrollPosition();
+
+  console.log(props.gainers, props.recents)
 
   async function shouldLoadMore(supabase: SupabaseClient) {
     let loaded = false;
@@ -70,17 +70,17 @@ function News(props: any) {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
 
-    supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
-      setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
-    });
+    // supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
+    //   setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
+    // });
 
     // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
     //   setLosers(r.data)
     // });
 
-    supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3).then(r => {
-      setRecents(r.data)
-    });
+    // supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3).then(r => {
+    //   setRecents(r.data)
+    // });
 
     shouldLoadMore(supabase)
 
@@ -92,20 +92,20 @@ function News(props: any) {
       <div className={styles["main-news"]}>
         <MainBlock />
         <div className={styles["three-container"]}>
-          {gainers.length >= 3 ?
+          {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
-              logo1={gainers[0].logo}
-              name1={gainers[0].name}
-              id1={gainers[0].id}
-              change1={gainers[0].price_change_24h}
-              logo2={gainers[1].logo}
-              name2={gainers[1].name}
-              id2={gainers[1].id}
-              change2={gainers[1].price_change_24h}
-              logo3={gainers[2].logo}
-              name3={gainers[2].name}
-              id3={gainers[2].id}
-              change3={gainers[2].price_change_24h}
+              logo1={props.gainers[0].logo}
+              name1={props.gainers[0].name}
+              id1={props.gainers[0].id}
+              change1={props.gainers[0].price_change_24h}
+              logo2={props.gainers[1].logo}
+              name2={props.gainers[1].name}
+              id2={props.gainers[1].id}
+              change2={props.gainers[1].price_change_24h}
+              logo3={props.gainers[2].logo}
+              name3={props.gainers[2].name}
+              id3={props.gainers[2].id}
+              change3={props.gainers[2].price_change_24h}
             /> : <GainerBlock
               logo1={''}
               name1={'Loading...'}
@@ -129,20 +129,20 @@ function News(props: any) {
             logo3={''}
             name3={'????'}
             change3={'??'} />
-          {recents.length > 0 ?
+          {props.recents && props.recents.length > 0 ?
             <RecentBlock
-              logo1={recents[0].logo}
-              name1={recents[0].name}
-              id1={recents[0].id}
-              change1={recents[0].price_change_24h}
-              logo2={recents[1].logo}
-              name2={recents[1].name}
-              id2={recents[1].id}
-              change2={recents[1].price_change_24h}
-              logo3={recents[2].logo}
-              name3={recents[2].name}
-              id3={recents[2].id}
-              change3={recents[2].price_change_24h}
+              logo1={props.recents[0].logo}
+              name1={props.recents[0].name}
+              id1={props.recents[0].id}
+              change1={props.recents[0].price_change_24h}
+              logo2={props.recents[1].logo}
+              name2={props.recents[1].name}
+              id2={props.recents[1].id}
+              change2={props.recents[1].price_change_24h}
+              logo3={props.recents[2].logo}
+              name3={props.recents[2].name}
+              id3={props.recents[2].id}
+              change3={props.recents[2].price_change_24h}
             /> : <RecentBlock
               logo1={''}
               name1={'Loading...'}
@@ -174,7 +174,7 @@ function News(props: any) {
               <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
           </thead>
-          {(tokens || props.tokens) ?? (tokens || props.tokens).map((token, index) => <Token
+          {((tokens.length > 0) ? tokens : (props.tokens || [])).map((token: any, index: number) => <Token
             key={token.id}
             id={token.id}
             name={token.name}
