@@ -23,9 +23,10 @@ function Token(token: {
   price: number
   rank: number
   id: number
+  isMyAsset: boolean
 }) {
 
-  function getNameFormat(status) {
+  function getNameFormat(status: string) {
     if (status.length > 13) {
       return formatName(token.name, 13)
     }
@@ -84,11 +85,12 @@ function Token(token: {
           )}
         </td>
         <td className={styles["token-marketCap"]}>
-          <span className={`${styles["font-char"]} ${styles["token-marketCap-box"]}`}>${formatAmount(token.market_cap)}</span>
+          <span className={`${styles["font-char"]} ${styles["token-marketCap-box"]}`}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
 
         </td>
         <td className={styles["token-marketFully"]}>
-          <span className={`${styles["token-marketFully-box"]} ${styles["font-char"]}`}>${formatAmount(token.volume)}</span>
+          <span className={`${styles["token-marketFully-box"]} ${styles["font-char"]}`}>
+            {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
         </td>
         <td className={styles["tokens-links"]}>
 
@@ -100,7 +102,7 @@ function Token(token: {
 
         </td>
         <td className={styles["token-chart"]}>
-          <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} />
+          {(token.id ? <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> : <></>)}
         </td>
       </tr>
     </tbody>

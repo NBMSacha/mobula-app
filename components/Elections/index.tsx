@@ -24,6 +24,7 @@ function Elections() {
     var provider: any;
     var account: string;
     async function initValues() {
+
         try {
             const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
             const accounts = await provider.listAccounts();
