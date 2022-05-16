@@ -4,6 +4,10 @@
   margin-right: 10px;
 }
 
+.blockchain-btn-three {
+  cursor: not-allowed !important;
+}
+
 .rectangle {
   position: relative;
   display: flex;
@@ -13,6 +17,11 @@
   height: 28px;
   border-radius: 60px;
   padding: 2px;
+}
+
+.white {
+  background-color: #dee9ff !important;
+  color: #000000;
 }
 
 .rond {
@@ -62,6 +71,7 @@
 .blockchain-logo {
   height: 35px;
   width: 35px;
+  border-radius: 50%
 }
 
 .blockchain-container {
@@ -112,14 +122,13 @@
   width: 6%;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   padding: 10px 15px;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
 .blockchain-btn:hover {
   background: #dee9ff;
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  cursor: not-allowed;
 }
 
 

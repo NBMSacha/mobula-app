@@ -28,18 +28,18 @@ function ButtonBlock({ setDisplay, display }) {
         <a className={styles[(display == 'Top 100' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('Top 100')}>Top 100</a>
         <a className={styles[(display == 'My Assets' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('My Assets')}>My Assets</a>
         <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']}`} onClick={() => setDisplay('Ethereum')}>
-          <img src='eth.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
+          <img src='eth.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]} ${display == 'Ethereum' ? styles['white'] : ''}`} />
           <span className={styles['blockchain-name']}>ETH</span>
         </a>
-        <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
+        <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
           <img src='bnb.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>BNB</span>
         </a>
-        <a className={`${styles['blockchain-btn']} ${styles['avax-btn']}`} onClick={() => setDisplay('Avalanche')}>
+        <a className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
           <img src='avax.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>AVAX</span>
         </a>
-        <a className={`${styles['blockchain-btn']} ${styles['matic-btn']}`} onClick={() => setDisplay('Polygon')}>
+        <a className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
           <img src='matic.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']}>MATIC</span>
         </a>
