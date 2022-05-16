@@ -782,7 +782,7 @@ const ChartCryptos = ({ baseAsset }) => {
                     ) : (
                       <div className={styles['chart-gain']}>
                         <span>
-                          <ArrowUp />
+                          <ArrowUp className={styles["arrow"]}/>
                         </span>
                         <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
                       </div>

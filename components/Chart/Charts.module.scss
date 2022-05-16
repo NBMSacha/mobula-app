@@ -248,12 +248,14 @@
     margin-top: 40px;
 }
 
+
+
 .chart-gain {
     display: flex;
     background-color: #00ba7c;
     align-items: center;
-    padding: 5px 8px;
-    border-radius: 8px;
+    padding: 11px 8px;
+    border-radius: 5px;
     position: absolute;
     font-family: 'Poppins';
     font-style: normal;
@@ -760,6 +762,10 @@
     .chart-lose {
         margin-top: 30px;
         height: 25%
+    }
+
+    .arrow{
+        width: 18px;
     }
     .chart-content{
         width: 95%;
