@@ -11,7 +11,9 @@ import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
-import { RPC_URL } from '../../constants'
+import { RPC_URL } from '../../constants';
+import RecentlyAdded from "../RecentlyAdded/index"
+
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -21,6 +23,7 @@ function News(props: any) {
   const [chains, setChains] = useState({});
   const [loaded, setLoaded] = useState(false)
   const alert = useAlert()
+
 
   async function shouldLoadMore(supabase: SupabaseClient) {
     let done = false;
@@ -273,5 +276,6 @@ function News(props: any) {
     </>
   )
 }
+
 
 export default News;
