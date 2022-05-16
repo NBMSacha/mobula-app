@@ -248,6 +248,8 @@
     margin-top: 40px;
 }
 
+
+
 .chart-gain {
     display: flex;
     background-color: #00ba7c;
@@ -519,6 +521,7 @@
     right: 0px;
     background-color: #2E3557;
     justify-content: center;
+    align-items: center;
     padding: 2px;
     width: auto;
     border-radius: 10px;
@@ -758,7 +761,13 @@
     .chart-gain,
     .chart-lose {
         margin-top: 30px;
-        height: 25%
+        height: 25%;
+        padding: 11px 8px;
+        border-radius:5px;
+    }
+
+    .arrow{
+        width: 18px;
     }
     .chart-content{
         width: 95%;
