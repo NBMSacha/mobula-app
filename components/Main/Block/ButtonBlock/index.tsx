@@ -27,8 +27,8 @@ function ButtonBlock({ setDisplay, display }) {
       <div className={styles['blockchain-container']}>
         <a className={styles[(display == 'Top 100' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('Top 100')}>Top 100</a>
         <a className={styles[(display == 'My Assets' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('My Assets')}>My Assets</a>
-        <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']}`} onClick={() => setDisplay('Ethereum')}>
-          <img src='eth.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]} ${display == 'Ethereum' ? styles['white'] : ''}`} />
+        <a className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
+          <img src='eth.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
           <span className={styles['blockchain-name']}>ETH</span>
         </a>
         <a className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
@@ -64,7 +64,7 @@ function ButtonBlock({ setDisplay, display }) {
           </a>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

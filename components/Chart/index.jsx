@@ -351,8 +351,8 @@ const ChartCryptos = ({ baseAsset }) => {
 
     function crosshairLine(chart, mousemove) {
       console.log("crosshair Line")
-      
-      const { canvas, ctx, chartArea: { left, right, top, bottom}} = chart;
+
+      const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
       chart.update(null);
       ctx.restore();
       if (mousemove.offsetX >= left && mousemove.offsetX <= right && mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
@@ -366,7 +366,7 @@ const ChartCryptos = ({ baseAsset }) => {
       ctx.setLineDash([3, 3]);
 
       ctx.beginPath();
-      if(mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
+      if (mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
         ctx.moveTo(left, mousemove.offsetY);
         ctx.lineTo(right, mousemove.offsetY);
         ctx.stroke();
@@ -374,33 +374,30 @@ const ChartCryptos = ({ baseAsset }) => {
       ctx.closePath();
 
       ctx.beginPath();
-      if(mousemove.offsetX >= left && mousemove.offsetX <= right) {
+      if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
         ctx.moveTo(mousemove.offsetX, top);
-        ctx.lineTo( mousemove.offsetX, bottom);
+        ctx.lineTo(mousemove.offsetX, bottom);
         ctx.stroke();
       }
       ctx.closePath();
-      
+
       crosshairLabel(chart, mousemove);
     }
-   
+
     function zoom(chart, mousewheel) {
-      console.log(chart.config.options.scales.xAxes[0].min)
-      console.log(chart.config.options.scales.xAxes[0].max)
+      if (dates) {
         const min = chart.config.options.scales.xAxes[0].min;
         const max = chart.config.options.scales.xAxes[0].max;
-        console.log(dates)
-        if(mousewheel.wheelDeltaY >= 0) {
-            chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
-            chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
+        if (mousewheel.wheelDeltaY >= 0) {
+          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
+          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
         }
-        if(mousewheel.wheelDeltaY < 0) {
-            chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
-            chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
+        if (mousewheel.wheelDeltaY < 0) {
+          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
+          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
         }
-        if(dates[dates.indexOf(min[0] + 1) ]) {}
-        console.log()
-        console.log('hello');
+      }
+
     }
 
     window.chartInstance.canvas.addEventListener('mousewheel', (e) => {
@@ -408,22 +405,22 @@ const ChartCryptos = ({ baseAsset }) => {
     })
 
     function crosshairLabel(chart, mousemove) {
-        const { ctx, data, chartArea: {top, bottom, left, right, width, height}, scales } = chart;
-        const y = scales["y-axis-0"];
-        ctx.beginPath();
-        ctx.fillStyle = "#2E3557";
-        ctx.fillRect(0, mousemove.offsetY -10, left, 20);
-        ctx.closePath();
+      const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
+      const y = scales["y-axis-0"];
+      ctx.beginPath();
+      ctx.fillStyle = "#2E3557";
+      ctx.fillRect(0, mousemove.offsetY - 10, left, 20);
+      ctx.closePath();
 
-        ctx.font = '10px Inter';
-        ctx.fillStyle = "white";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "center";
+      ctx.font = '10px Inter';
+      ctx.fillStyle = "white";
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
 
-        const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
-        console.log(number)
+      const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
+      console.log(number)
 
-        ctx.fillText(number.toFixed(2), left / 2, mousemove.offsetY )
+      ctx.fillText(number.toFixed(2), left / 2, mousemove.offsetY)
     }
 
 
@@ -720,75 +717,75 @@ const ChartCryptos = ({ baseAsset }) => {
   const renderData = () => {
     return (
       <>
-      <ChakraProvider theme={theme}>
-      <CSSReset />
-                        <ColorModeProvider
-                            options={{
-                                initialColorMode: 'light',
-                                useSystemColorMode: true,
-                            }}
-                        ></ColorModeProvider>
-        <Head>
-          <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
-        </Head>
-        <div className='App'>
-          <div className={styles['chart-main-container']}>
-            <div className={styles['chart-top-token']}>
-              <div className={styles['flex']}>
-                <div className={styles['chart-left-top']}>
-                  <img src={baseAsset.logo} className={styles['chart-token-logo']} />
-                  <div className={styles['chart-name-box']}>
-                    <div className={styles['chart-token-name']}>
-                      <span>{baseAsset.name}</span>
-                    </div>
-                    <div className={styles['chart-token-rank']}>
-                      <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
-                      {baseAsset.rank_change_24h < 0 ? (
-                        <span
-                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
-                          id='noColor'
-                        >
-                          <ArrowDown className={styles['arrowDown']} />
-                          {Math.abs(baseAsset.rank_change_24h)}
-                        </span>
-                      ) : baseAsset.rank_change_24h == 0 ? (
-                        <div></div>
-                      ) : (
-                        <span
-                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
-                          id='noColor'
-                        >
-                          <ArrowUp className='arrowUp' />
-                          {baseAsset.rank_change_24h}
-                        </span>
-                      )}{' '}
+        <ChakraProvider theme={theme}>
+          <CSSReset />
+          <ColorModeProvider
+            options={{
+              initialColorMode: 'light',
+              useSystemColorMode: true,
+            }}
+          ></ColorModeProvider>
+          <Head>
+            <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
+          </Head>
+          <div className='App'>
+            <div className={styles['chart-main-container']}>
+              <div className={styles['chart-top-token']}>
+                <div className={styles['flex']}>
+                  <div className={styles['chart-left-top']}>
+                    <img src={baseAsset.logo} className={styles['chart-token-logo']} />
+                    <div className={styles['chart-name-box']}>
+                      <div className={styles['chart-token-name']}>
+                        <span>{baseAsset.name}</span>
+                      </div>
+                      <div className={styles['chart-token-rank']}>
+                        <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
+                        {baseAsset.rank_change_24h < 0 ? (
+                          <span
+                            className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
+                            id='noColor'
+                          >
+                            <ArrowDown className={styles['arrowDown']} />
+                            {Math.abs(baseAsset.rank_change_24h)}
+                          </span>
+                        ) : baseAsset.rank_change_24h == 0 ? (
+                          <div></div>
+                        ) : (
+                          <span
+                            className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
+                            id='noColor'
+                          >
+                            <ArrowUp className='arrowUp' />
+                            {baseAsset.rank_change_24h}
+                          </span>
+                        )}{' '}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className={styles['chart-right-top']}>
-                <div className={styles['chart-box-container']}>
-                  <div className={styles['chart-right-info']}>
-                    <p className={styles['test']}>
-                      ${getTokenPrice(price || baseAsset.price)}
-                    </p>
-                    {baseAsset.price_change_24h < 0 ? (
-                      <div className={styles['chart-lose']}>
-                        <span>
-                          <ArrowDown />
-                        </span>
-                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
-                      </div>
-                    ) : (
-                      <div className={styles['chart-gain']}>
-                        <span>
-                          <ArrowUp className={styles["arrow"]}/>
-                        </span>
-                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
-                      </div>
-                    )}
-                  </div>
-                  {/* <div className={styles["chart-info-box"]}>
+                <div className={styles['chart-right-top']}>
+                  <div className={styles['chart-box-container']}>
+                    <div className={styles['chart-right-info']}>
+                      <p className={styles['test']}>
+                        ${getTokenPrice(price || baseAsset.price)}
+                      </p>
+                      {baseAsset.price_change_24h < 0 ? (
+                        <div className={styles['chart-lose']}>
+                          <span>
+                            <ArrowDown />
+                          </span>
+                          <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
+                        </div>
+                      ) : (
+                        <div className={styles['chart-gain']}>
+                          <span>
+                            <ArrowUp className={styles["arrow"]} />
+                          </span>
+                          <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
+                        </div>
+                      )}
+                    </div>
+                    {/* <div className={styles["chart-info-box"]}>
                   <div className={styles["box-info"]}>
                     <p className={styles["grey"]} style={{ marginRight: "14px !important" }}>High:</p>
                     <p className={styles["numbers"]}>--</p>
@@ -798,406 +795,406 @@ const ChartCryptos = ({ baseAsset }) => {
                     <p className={styles["numbers"]} >--</p>
                   </div>
                 </div> */}
-                </div>
+                  </div>
 
-                <div className={styles['chart-buy']}>
-                  {/* <button className="chart-btn-buy">Buy / Sell</button> */}
-                </div>
-              </div>
-            </div>
-            <div className={styles['mobile-showInfo-container']}>
-              <div
-                style={{ 'display': 'none' }}
-                className={styles['mobile-info-element']}
-                id='hide'
-              >
-                <div className={styles['mobile-info-left-column']}>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>MARKET CAP</span>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      ${formatAmount(baseAsset.market_cap)}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>VOLUME (24H)</span>
-                    <p className={styles['numbers']}>
-                      ${formatAmount(volume || baseAsset.volume)}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>
-                      FULLY DILUTED MARKET CAP
-                    </span>
-                    <p className={styles['numbers']}>
-                      $
-                      {baseAsset.market_cap_diluted
-                        ? formatAmount(baseAsset.market_cap_diluted)
-                        : '???'}
-                    </p>
-                  </div>
-                </div>
-                <div className={styles['mobile-info-right-column']}>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      {baseAsset.circulating_supply
-                        ? formatAmount(baseAsset.circulating_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>TOTAL SUPPLY </span>
-                    <p className={styles['numbers']}>
-                      {baseAsset.total_supply
-                        ? formatAmount(baseAsset.total_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>LIQUIDITY </span>
-                    <p className={styles['numbers']}>
-
-                      {baseAsset.liquidity
-                        ? '$' + formatAmount(liquidity || baseAsset.liquidity)
-                        : '???'}
-                    </p>
+                  <div className={styles['chart-buy']}>
+                    {/* <button className="chart-btn-buy">Buy / Sell</button> */}
                   </div>
                 </div>
               </div>
-              <button
-                id='hidedao'
-                className={`${baseAsset.utility_score +
-                  baseAsset.social_score +
-                  baseAsset.market_score +
-                  baseAsset.trust_score ==
-                  0
-                  ? styles['absolute-mobile-dis']
-                  : styles['absolute-mobile']
-                  } ${styles["hidedao"]}`}
-                onClick={() => {
-                  // mobileDaoBtn()
-                }}
-              >
-                <span>DAO Score</span>
-                <span>
-                  {baseAsset.utility_score +
+              <div className={styles['mobile-showInfo-container']}>
+                <div
+                  style={{ 'display': 'none' }}
+                  className={styles['mobile-info-element']}
+                  id='hide'
+                >
+                  <div className={styles['mobile-info-left-column']}>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>MARKET CAP</span>
+                      <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                        ${formatAmount(baseAsset.market_cap)}
+                      </p>
+                    </div>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>VOLUME (24H)</span>
+                      <p className={styles['numbers']}>
+                        ${formatAmount(volume || baseAsset.volume)}
+                      </p>
+                    </div>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>
+                        FULLY DILUTED MARKET CAP
+                      </span>
+                      <p className={styles['numbers']}>
+                        $
+                        {baseAsset.market_cap_diluted
+                          ? formatAmount(baseAsset.market_cap_diluted)
+                          : '???'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={styles['mobile-info-right-column']}>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>CIRCULATING SUPPLY</span>
+                      <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
+                        {baseAsset.circulating_supply
+                          ? formatAmount(baseAsset.circulating_supply)
+                          : '???'}{' '}
+                        {baseAsset.symbol}
+                      </p>
+                    </div>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>TOTAL SUPPLY </span>
+                      <p className={styles['numbers']}>
+                        {baseAsset.total_supply
+                          ? formatAmount(baseAsset.total_supply)
+                          : '???'}{' '}
+                        {baseAsset.symbol}
+                      </p>
+                    </div>
+                    <div className={styles['mobbox']}>
+                      <span className={styles['grey']}>LIQUIDITY </span>
+                      <p className={styles['numbers']}>
+
+                        {baseAsset.liquidity
+                          ? '$' + formatAmount(liquidity || baseAsset.liquidity)
+                          : '???'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  id='hidedao'
+                  className={`${baseAsset.utility_score +
                     baseAsset.social_score +
                     baseAsset.market_score +
-                    baseAsset.trust_score}
-                  /20
-                </span>
-                <div
-                  style={{ display: 'none' }}
-                  className={styles['mobile-grades']}
-                  id='daoBtn-mobile'
+                    baseAsset.trust_score ==
+                    0
+                    ? styles['absolute-mobile-dis']
+                    : styles['absolute-mobile']
+                    } ${styles["hidedao"]}`}
+                  onClick={() => {
+                    // mobileDaoBtn()
+                  }}
                 >
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Utility</span>
-                    <span>{baseAsset.utility_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Social</span>
-                    <span>{baseAsset.social_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Trust</span>
-                    <span>{baseAsset.trust_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Market</span>
-                    <span>{baseAsset.market_score}/5</span>
-                  </div>
-                </div>
-              </button>
-              <button
-                className={styles['btn-more-less']}
-                onClick={() => moreStats()}
-              >
-                <span id='change'>More Stats</span>
-              </button>
-            </div>
-            <div className={styles['chart-bottom-container']}>
-              <div className={styles['chart-bottom-left']}>
-                <div className={styles['left-top-box']}>
+                  <span>DAO Score</span>
                   <span>
-                    <p
-                      className={`${styles['text-top-chart']} ${styles['topOne']}`}
-                    >
-                      MARKET CAP
-                    </p>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      ${formatAmount(baseAsset.market_cap)}
-                      {/* {(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>VOLUME (24H)</p>
-                    <p className={styles['text-bottom-chart']}>
-                      ${formatAmount(volume || baseAsset.volume)}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>
-                      FULLY DILUTED MARKET CAP
-                    </p>
-                    <p className={styles['text-bottom-chart']}>
-                      $
-                      {baseAsset.market_cap_diluted
-                        ? formatAmount(baseAsset.market_cap_diluted)
-                        : '???'}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      {baseAsset.circulating_supply
-                        ? formatAmount(baseAsset.circulating_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
-                    <p className={styles['text-bottom-chart']}>
-                      {baseAsset.total_supply
-                        ? formatAmount(baseAsset.total_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>LIQUIDITY</p>
-                    <p className={styles['text-bottom-chart']}>
-
-                      {baseAsset.liquidity
-                        ? '$' + formatAmount(liquidity || baseAsset.liquidity)
-                        : '???'}
-                    </p>
-                  </span>
-                </div>
-                <div
-                  className={
-                    baseAsset.utility_score +
+                    {baseAsset.utility_score +
                       baseAsset.social_score +
                       baseAsset.market_score +
-                      baseAsset.trust_score ==
-                      0
-                      ? styles['left-bottom-box-dis']
-                      : styles['left-bottom-box']
-                  }
-                  id='dropdown'
-                >
-                  <button
-                    className={styles['notes-boxs']}
-                    id='btnNotes'
-                    onClick={() => daoBtn()}
+                      baseAsset.trust_score}
+                    /20
+                  </span>
+                  <div
+                    style={{ display: 'none' }}
+                    className={styles['mobile-grades']}
+                    id='daoBtn-mobile'
                   >
-                    <span className={styles['tagV']}>DAO SCORE</span>
+                    <div className={styles['mobile-notes-boxs']}>
+                      <span>Utility</span>
+                      <span>{baseAsset.utility_score}/5</span>
+                    </div>
+                    <div className={styles['mobile-notes-boxs']}>
+                      <span>Social</span>
+                      <span>{baseAsset.social_score}/5</span>
+                    </div>
+                    <div className={styles['mobile-notes-boxs']}>
+                      <span>Trust</span>
+                      <span>{baseAsset.trust_score}/5</span>
+                    </div>
+                    <div className={styles['mobile-notes-boxs']}>
+                      <span>Market</span>
+                      <span>{baseAsset.market_score}/5</span>
+                    </div>
+                  </div>
+                </button>
+                <button
+                  className={styles['btn-more-less']}
+                  onClick={() => moreStats()}
+                >
+                  <span id='change'>More Stats</span>
+                </button>
+              </div>
+              <div className={styles['chart-bottom-container']}>
+                <div className={styles['chart-bottom-left']}>
+                  <div className={styles['left-top-box']}>
                     <span>
-                      {baseAsset.utility_score +
+                      <p
+                        className={`${styles['text-top-chart']} ${styles['topOne']}`}
+                      >
+                        MARKET CAP
+                      </p>
+                      <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                        ${formatAmount(baseAsset.market_cap)}
+                        {/* {(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
+                      </p>
+                    </span>
+                    <span>
+                      <p className={styles['text-top-chart']}>VOLUME (24H)</p>
+                      <p className={styles['text-bottom-chart']}>
+                        ${formatAmount(volume || baseAsset.volume)}
+                      </p>
+                    </span>
+                    <span>
+                      <p className={styles['text-top-chart']}>
+                        FULLY DILUTED MARKET CAP
+                      </p>
+                      <p className={styles['text-bottom-chart']}>
+                        $
+                        {baseAsset.market_cap_diluted
+                          ? formatAmount(baseAsset.market_cap_diluted)
+                          : '???'}
+                      </p>
+                    </span>
+                    <span>
+                      <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
+                      <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
+                        {baseAsset.circulating_supply
+                          ? formatAmount(baseAsset.circulating_supply)
+                          : '???'}{' '}
+                        {baseAsset.symbol}
+                      </p>
+                    </span>
+                    <span>
+                      <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
+                      <p className={styles['text-bottom-chart']}>
+                        {baseAsset.total_supply
+                          ? formatAmount(baseAsset.total_supply)
+                          : '???'}{' '}
+                        {baseAsset.symbol}
+                      </p>
+                    </span>
+                    <span>
+                      <p className={styles['text-top-chart']}>LIQUIDITY</p>
+                      <p className={styles['text-bottom-chart']}>
+
+                        {baseAsset.liquidity
+                          ? '$' + formatAmount(liquidity || baseAsset.liquidity)
+                          : '???'}
+                      </p>
+                    </span>
+                  </div>
+                  <div
+                    className={
+                      baseAsset.utility_score +
                         baseAsset.social_score +
                         baseAsset.market_score +
-                        baseAsset.trust_score}
-                      /20
-                    </span>
-                    <div className={styles['grades']} id='daoBtn'>
-                      <div className={styles['notes-boxs']}>
-                        <span>Utility</span>
-                        <span>{baseAsset.utility_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Social</span>
-                        <span>{baseAsset.social_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Trust</span>
-                        <span>{baseAsset.trust_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Market</span>
-                        <span>{baseAsset.market_score}/5</span>
-                      </div>
-                    </div>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                        baseAsset.trust_score ==
+                        0
+                        ? styles['left-bottom-box-dis']
+                        : styles['left-bottom-box']
+                    }
+                    id='dropdown'
                   >
-                    <span>Utility</span>
-                    <span>{baseAsset.utility_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Social</span>
-                    <span>{baseAsset.social_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Trust</span>
-                    <span>{baseAsset.trust_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Market</span>
-                    <span>{baseAsset.market_score}/5</span>
-                  </button>
-                </div>
-              </div>
-              <div className={styles['chart-bottom-right']}>
-                <div className={styles['chart-box']} id='chart-box'>
-                  <div className={styles['chart-header']}>
-                    {state === 'Overview' ? (
-                      <button
-                        onClick={() => { setState('Overview'); }}
-                        className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                      >
-                        Overview
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => { setState('Overview'); }}
-                        className={`${styles['chart-header-link']} `}
-                      >
-                        Overview
-                      </button>
-                    )}
-                    {state === 'Overview' && visible ? (
-
-                      <p className={styles['warning']}>Loading...</p>
-                    ) : (
-                      <></>
-                    )}
-                    {state === 'Market' ? (
-                      <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                        onClick={(e) => {
-                          setState('Market');
-                          console.log(state);
-                        }}>
-                        <span>Market</span>
-                      </button>
-                    ) : (
-                      <button className={styles['chart-header-link']}
-                        onClick={(e) => {
-                          setState('Market');
-                          console.log(state);
-                        }}
-                      >Market</button>
-                    )}
-
-                    {state === 'Details' ? (
-                      <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
-                        <span>Infos</span>
-                      </button>
-                    ) : (
-                      <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
-                        <span>Infos</span>
-                      </button>
-                    )}
-
-                    {state === 'Buy' ? (
-                      <button onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                        <span>Buy</span>
-                      </button>
-                    ) : (
-                      <button onClick={() => { setState('Buy'); console.log(state) }} className={styles['chart-header-link']}>
-                        <span>Buy</span>
-                      </button>
-                    )}
-
-                    <a
-                      href='https://discord.gg/2a8hqNzkzN'
-                      className={`${styles['chart-header-link']} ${styles['report-problem']}`}
+                    <button
+                      className={styles['notes-boxs']}
+                      id='btnNotes'
+                      onClick={() => daoBtn()}
                     >
-                      <span id='inner'>Report</span>
-                    </a>
+                      <span className={styles['tagV']}>DAO SCORE</span>
+                      <span>
+                        {baseAsset.utility_score +
+                          baseAsset.social_score +
+                          baseAsset.market_score +
+                          baseAsset.trust_score}
+                        /20
+                      </span>
+                      <div className={styles['grades']} id='daoBtn'>
+                        <div className={styles['notes-boxs']}>
+                          <span>Utility</span>
+                          <span>{baseAsset.utility_score}/5</span>
+                        </div>
+                        <div className={styles['notes-boxs']}>
+                          <span>Social</span>
+                          <span>{baseAsset.social_score}/5</span>
+                        </div>
+                        <div className={styles['notes-boxs']}>
+                          <span>Trust</span>
+                          <span>{baseAsset.trust_score}/5</span>
+                        </div>
+                        <div className={styles['notes-boxs']}>
+                          <span>Market</span>
+                          <span>{baseAsset.market_score}/5</span>
+                        </div>
+                      </div>
+                    </button>
+                    <button
+                      className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                    >
+                      <span>Utility</span>
+                      <span>{baseAsset.utility_score}/5</span>
+                    </button>
+                    <button
+                      className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                    >
+                      <span>Social</span>
+                      <span>{baseAsset.social_score}/5</span>
+                    </button>
+                    <button
+                      className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                    >
+                      <span>Trust</span>
+                      <span>{baseAsset.trust_score}/5</span>
+                    </button>
+                    <button
+                      className={`${styles['notes-boxs']} ${styles['disapear']}`}
+                    >
+                      <span>Market</span>
+                      <span>{baseAsset.market_score}/5</span>
+                    </button>
                   </div>
-                  <div className={styles['chart-content']}>
-                    <div className={styles['canvas-container']}>
-
-                      {state === 'Details' && (
-                        <ProjectInfo token={baseAsset} />
+                </div>
+                <div className={styles['chart-bottom-right']}>
+                  <div className={styles['chart-box']} id='chart-box'>
+                    <div className={styles['chart-header']}>
+                      {state === 'Overview' ? (
+                        <button
+                          onClick={() => { setState('Overview'); }}
+                          className={`${styles['chart-header-link']} ${styles['active-chart']}`}
+                        >
+                          Overview
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => { setState('Overview'); }}
+                          className={`${styles['chart-header-link']} `}
+                        >
+                          Overview
+                        </button>
                       )}
-                       {state === 'Buy' && (
-                        <Swap baseAsset={baseAsset} />
-                      )}
-                      {state === 'Overview' && (
-                        <>
-                          <canvas id='chart'></canvas>
-                          <div
-                            className={styles['change-chart-date']}
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'end',
-                              margin: 'auto',
-                            }}
-                          >
-                            <button
-                              onClick={() => {
-                                setTimeFormat('1D')
-                              }}
-                              className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
-                              id='1d'
-                            >
-                              1D
-                            </button>
-                            <button
-                              onClick={() => {
-                                setTimeFormat('7D')
-                              }}
-                              className={styles['button-chart']}
-                              id='7d'
-                            >
-                              7D
-                            </button>
-                            <button
-                              onClick={() => {
-                                setTimeFormat('30D')
-                              }}
-                              className={styles['button-chart']}
-                              id='30d'
-                            >
-                              1M
-                            </button>
-                            <button
-                              onClick={() => {
-                                setTimeFormat('1Y')
-                              }}
-                              className={styles['button-chart']}
-                              id='1y'
-                            >
-                              1Y
-                            </button>
-                            <button
-                              onClick={() => {
-                                setTimeFormat('ALL')
-                              }}
-                              className={styles['button-chart']}
-                              id='all'
-                            >
-                              ALL
-                            </button>
-                          </div>
+                      {state === 'Overview' && visible ? (
 
-                        </>
+                        <p className={styles['warning']}>Loading...</p>
+                      ) : (
+                        <></>
+                      )}
+                      {state === 'Market' ? (
+                        <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
+                          onClick={(e) => {
+                            setState('Market');
+                            console.log(state);
+                          }}>
+                          <span>Market</span>
+                        </button>
+                      ) : (
+                        <button className={styles['chart-header-link']}
+                          onClick={(e) => {
+                            setState('Market');
+                            console.log(state);
+                          }}
+                        >Market</button>
                       )}
 
+                      {state === 'Details' ? (
+                        <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
+                          <span>Infos</span>
+                        </button>
+                      ) : (
+                        <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
+                          <span>Infos</span>
+                        </button>
+                      )}
+
+                      {state === 'Buy' ? (
+                        <button onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                          <span>Buy</span>
+                        </button>
+                      ) : (
+                        <button onClick={() => { setState('Buy'); console.log(state) }} className={styles['chart-header-link']}>
+                          <span>Buy</span>
+                        </button>
+                      )}
+
+                      <a
+                        href='https://discord.gg/2a8hqNzkzN'
+                        className={`${styles['chart-header-link']} ${styles['report-problem']}`}
+                      >
+                        <span id='inner'>Report</span>
+                      </a>
+                    </div>
+                    <div className={styles['chart-content']}>
+                      <div className={styles['canvas-container']}>
+
+                        {state === 'Details' && (
+                          <ProjectInfo token={baseAsset} />
+                        )}
+                        {state === 'Buy' && (
+                          <Swap baseAsset={baseAsset} />
+                        )}
+                        {state === 'Overview' && (
+                          <>
+                            <canvas id='chart'></canvas>
+                            <div
+                              className={styles['change-chart-date']}
+                              style={{
+                                display: 'flex',
+                                justifyContent: 'end',
+                                margin: 'auto',
+                              }}
+                            >
+                              <button
+                                onClick={() => {
+                                  setTimeFormat('1D')
+                                }}
+                                className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
+                                id='1d'
+                              >
+                                1D
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setTimeFormat('7D')
+                                }}
+                                className={styles['button-chart']}
+                                id='7d'
+                              >
+                                7D
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setTimeFormat('30D')
+                                }}
+                                className={styles['button-chart']}
+                                id='30d'
+                              >
+                                1M
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setTimeFormat('1Y')
+                                }}
+                                className={styles['button-chart']}
+                                id='1y'
+                              >
+                                1Y
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setTimeFormat('ALL')
+                                }}
+                                className={styles['button-chart']}
+                                id='all'
+                              >
+                                ALL
+                              </button>
+                            </div>
+
+                          </>
+                        )}
+
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
-          <header className=''>
-            <div
-              className='tokenpage-details '
-              style={{ display: 'flex', justifyContent: 'start' }}
-            >
-              {/* {coins[0]? (
+            <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
+            <header className=''>
+              <div
+                className='tokenpage-details '
+                style={{ display: 'flex', justifyContent: 'start' }}
+              >
+                {/* {coins[0]? (
             <>
               <img src={coins[0].image} height="180"  alt="logo" />
             <p className="size">
@@ -1217,9 +1214,9 @@ const ChartCryptos = ({ baseAsset }) => {
           ) : ( 
           <div>Loading....</div>
           )} */}
-            </div>
-          </header>
-        </div>
+              </div>
+            </header>
+          </div>
         </ChakraProvider></>
     )
 
