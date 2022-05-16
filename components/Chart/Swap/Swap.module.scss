@@ -1,0 +1,12 @@
+.container-main{
+    display:flex !important;
+    justify-content:space-between;
+    flex-direction:row;
+    margin-top:40px;
+}
+
+@media screen and (max-width: 1080px) {
+    .container-main{
+        flex-direction:column ;
+    }
+}

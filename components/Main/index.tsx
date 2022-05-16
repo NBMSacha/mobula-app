@@ -18,21 +18,59 @@ function News(props: any) {
   const [myAssets, setMyAssets] = useState([]);
   const [display, setDisplay] = useState('Top 100');
   const [account, setAccount] = useState(null);
+  const [chains, setChains] = useState({});
+  const [loaded, setLoaded] = useState(false)
   const alert = useAlert()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
-    // let loaded = false;
-    // while (true || loaded) {
-    //   await new Promise(r => setTimeout(r, 1000))
-    //   if (window.pageYOffset > 300) {
-    //     supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(200).then(r => {
-    //       if (r.data) {
-    //         setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
-    //       }
-    //     });
-    //     loaded = true
-    //   }
-    // }
+    let done = false;
+    while (!loaded && !done) {
+      await new Promise(r => setTimeout(r, 1000))
+      if (window.pageYOffset > 700) {
+        console.log('loading more..', loaded)
+        done = true
+
+        console.log(supabase
+          .from('assets')
+          .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+          .filter('volume', 'gt', 50000)
+          .order('market_cap', { ascending: false }).limit(200).then(r => {
+            if (r.data) {
+              setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
+            }
+          }));
+        console.log('Setting loaded to true')
+        setLoaded(true)
+      }
+    }
+  }
+
+  function loadChain(chain) {
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
+
+    supabase
+      .from('assets')
+      .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+      .contains('blockchains[1]', '{ ' + chain + ' }')
+      .filter('volume', 'gt', 50000)
+      .order('market_cap', { ascending: false })
+      .limit(150)
+      .then(r => {
+        console.log(r.data, r.error)
+        if (r.data) {
+          const newChains = {
+            ...chains
+          }
+          newChains[chain] = r.data.filter(token => token.blockchains[0] == chain);
+          setChains(newChains);
+        } else {
+          alert.show('Something went wrong')
+        }
+
+      })
   }
 
   function getTokensToDisplay(): any[] {
@@ -42,6 +80,7 @@ function News(props: any) {
 
       if (account) {
         if (myAssets.length == 0) {
+
           axios.get('https://mobulaspark.com/holdings?account=' + account).then(r => {
             if (r.data) {
               const assets = r.data.holdings
@@ -63,6 +102,40 @@ function News(props: any) {
         return []
       }
 
+    } else if (display == 'Ethereum') {
+
+      if (!chains['Ethereum']) {
+        loadChain('Ethereum')
+        return []
+      } else {
+        return chains['Ethereum']
+      }
+    } else if (display == 'BNB Smart Chain (BEP20)') {
+
+      if (!chains['BNB Smart Chain (BEP20)']) {
+        loadChain('BNB Smart Chain (BEP20)')
+        return []
+      } else {
+        return chains['BNB Smart Chain (BEP20)']
+      }
+    } else if (display == 'Avalanche C-Chain') {
+
+      if (!chains['Avalanche C-Chain']) {
+        loadChain('Avalanche C-Chain')
+        return []
+      } else {
+        return chains['Avalanche C-Chain']
+      }
+    } else if (display == 'Polygon') {
+
+      if (!chains['Polygon']) {
+        loadChain('Polygon')
+        return []
+      } else {
+        return chains['Polygon']
+      }
+    } else {
+      return []
     }
   }
 
@@ -173,7 +246,7 @@ function News(props: any) {
           </thead>
 
           {
-            getTokensToDisplay().map((token: any, index: number) => <Token
+            getTokensToDisplay().map((token: any, index: number) => token ? <Token
               key={token.id || token.balance + token.name}
               id={token.id}
               name={token.name}
@@ -192,7 +265,7 @@ function News(props: any) {
               rank_change_24h={token.rank_change_24h}
               rank={index + 1}
               isMyAsset={display == 'My Assets'}
-            />)
+            /> : <></>)
           }
         </table>
 
