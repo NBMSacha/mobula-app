@@ -237,10 +237,7 @@ const ChartCryptos = ({ baseAsset }) => {
             fill: true,
             datasetFill: true,
             borderColor: isWinner ? '#00ba7c' : '#EA3943',
-            tension: 0.1,
-            // segment: {
-            //   borderColor: ctx => up(ctx, "rgba(192, 192, 192, 1)") || down(ctx, "rgba(180, 0, 0, 1)"),
-            // },
+            tension: 0.4,
             backgroundColor: gradient,
             borderWidth: 2,
             pointRadius: 0,

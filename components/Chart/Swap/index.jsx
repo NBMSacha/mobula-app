@@ -42,54 +42,54 @@ const Swap  = ({baseAsset}) => {
         <Flex direction={["column", "column", "column", "row"]}  justify="space-between" my={8} >
 
             {/* COMPONENTS LEFT */}
-            <VStack my={0} width={["100%","100%","100%","48%"]}>
-                <Flex justify="space-between" direction="column" borderRadius={20} bg="#2e3557" w="90%" p={15}>
-                    <Text mt="0" mb="10" fontSize="18px" fontWeight="600" color='white'>From</Text>
+            <VStack width={["100%","100%","100%","48%"]}  mb={["40px","40px","40px", "0px"]} mt={["-60px", "-20px","-20px","0px"]}>
+                <Flex justify="space-between" direction="column" borderRadius={20} bg="#2e3557" w="90%" pb={["0px !important","0px !important","0px !important","10px !important",]} p={["10px","10px","10px","15px"]}>
+                    <Text mt="0" mb="4" fontSize={["14px","14px","14px","18px"]} fontWeight="600" color='white'>From</Text>
                     <Flex justify="space-between" align="center">
-                        <Input type="number" border="none" fontFamily="Poppins" bg="none"w="50%" h="40px" placeholder="13.33" fontSize="18px" fontWeight="600" color='white' p={0} 
+                        <Input type="number" border="none" fontFamily="Poppins" bg="none"w="50%" h="40px"  placeholder="13.33" fontSize={["14px","14px","14px","18px"]} fontWeight="600" color='white' p={0} 
                          value={getInput}
                          onChange={(e) => setGetInput(e.target.value)} required/>
                         <Flex align="center" h="40px">
                             <Image h={25} w={25} borderRadius={50} src={baseAsset.logo} mr={5}/>
-                            <Text fontSize="18px" fontWeight="600" color='white'>{baseAsset.symbol}</Text>
+                            <Text fontSize={["14px","14px","14px","18px"]}  fontWeight="600" color='white'>{baseAsset.symbol}</Text>
                         </Flex>
                     </Flex>
                 </Flex>
                 <Spacer />
                 <ChevronDown color="white" />
                 <Spacer />
-                <Flex justify="space-between" direction="column" borderRadius={20} bg="#2e3557" w="90%" p={15} >
-                    <Text mt="0" mb="10" fontSize="18px" fontWeight="600" color='white'>To</Text>
+                <Flex justify="space-between" direction="column" borderRadius={20} bg="#2e3557" w="90%" pb={["0px !important","0px !important","0px !important","10px !important",]} p={["10px","10px","10px","15px"]} >
+                    <Text mt="0" mb="4" fontSize={["14px","14px","14px","18px"]} fontWeight="600" color='white' >To</Text>
                     <Flex justify="space-between" align="center">
-                        <Input type="number" border="none" bg="none"w="50%" h="40px" fontFamily="Poppins" placeholder="13.33" fontSize="18px" fontWeight="600" color='white' p={0} value={getInput * 2.63} />
+                        <Input type="number" border="none" bg="none"w="50%" h="40px" fontFamily="Poppins" placeholder="13.33" fontSize={["14px","14px","14px","18px"]} fontWeight="600" color='white' p={0} value={getInput * 2.63} />
                         <Flex align="center" h="40px">
                             <Image h={25} w={25} borderRadius={50} src={baseAsset.logo} mr={5}/>
-                            <Text fontSize="18px" fontWeight="600" color='white' >{baseAsset.symbol}</Text>
+                            <Text fontSize={["14px","14px","14px","18px"]} fontWeight="600" color='white' >{baseAsset.symbol}</Text>
                         </Flex>
                     </Flex>
                 </Flex>
             </VStack>
 
             {/* COMPONENTS RIGHT */}
-            <VStack my={0} color="white" width={["100%","100%","100%","43%"]} align="start">
-                <Heading mt={0} mb={10}>Swap settings</Heading>
-                <Flex direction="column" pb={10}>
+            <VStack my={0} color="white" width={["100%","auto","88%","48%"]} align="start" justify="space-between" m="auto">
+                <Heading mt={0} mb={["5","5","5","8"]} fontSize={["18px","18px","18px","22px"]} w="100%">Swap settings</Heading>
+                <Flex direction="column" fontSize={["13px","13px","13px","15px"]} pb={["5","5","5","8"]} w="100%" >
                     <Text mb={3}>Transaction Speed (GWEI)</Text>
-                    <Box w='50%' h={1} bg="#2E3557"></Box>
-                    <Flex w="100%" mt={15} justify='space-around'>
-                        <Button color="white" fontFamily='Poppins' bg={tsxSpeed === "standard" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={6} px={10}
+                    <Box w='50%' h="1px" bg="#2E3557"></Box>
+                    <Flex w="100%" mt={15} justify='start' align="start" >
+                        <Button color="white" fontFamily='Poppins' fontSize={["12px","12px","12px","13px"]} bg={tsxSpeed === "standard" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={5} px={7}
                             onClick={() => setTsxSpeed("standard")}
                         >
                             Standard 
                             <Text m={0} fontWeight="bold">(5)</Text>
                         </Button>
-                        <Button fontFamily='Poppins' color="white" bg={tsxSpeed === "fast" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={6} px={10}
+                        <Button fontFamily='Poppins' color="white" fontSize={["12px","12px","12px","13px"]} bg={tsxSpeed === "fast" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={5} px={7}
                             onClick={() => setTsxSpeed("fast")}
                         >
                             Fast 
                             <Text  m={0} fontWeight="bold">(5)</Text>
                         </Button>
-                        <Button fontFamily='Poppins' color="white" bg={tsxSpeed === "instant" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={6} px={10}
+                        <Button fontFamily='Poppins' color="white" fontSize={["12px","12px","12px","13px"]} bg={tsxSpeed === "instant" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={5} py={5} px={7}
                             onClick={() => setTsxSpeed("instant")}
                         >
                             Instant 
@@ -97,17 +97,17 @@ const Swap  = ({baseAsset}) => {
                             </Button>
                     </Flex>
                 </Flex>
-                <Flex align="center" pb="40px">
+                <Flex align="center" pb="30px " w="100%" fontSize={["13px","13px","13px","15px"]} pb={["5","5","5","8"]} m={["auto"]}>
                     <Text mr={30} pb={3} borderBottom="1px solid #2E3557" >Slippage</Text>
-                    <Button h={30} fontFamily='Poppins' color="white" bg={slippage === "0.5" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={10} py={5} px={5}
+                    <Button h={30}   fontSize={["12px","12px","12px","13px"]} fontFamily='Poppins' color="white" bg={slippage === "0.5" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4","4","4","5"]} py={4} px={5}
                         onClick={() => setSlippage("0.5")}
                     >
                         0.5%
                     </Button>
-                    <Button h={30} fontFamily='Poppins' color="white" bg={slippage === "1" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={10} py={5} px={5}
+                    <Button h={30}   fontSize={["12px","12px","12px","13px"]} fontFamily='Poppins' color="white" bg={slippage === "1" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4","4","4","5"]} py={4} px={5}
                         onClick={() => setSlippage("1")}
                     >1%</Button>
-                    <Input  border="none" fontFamily='Poppins' bg={slippage === "input" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} color="white" value={slippageInput} placeholder="%" borderRadius="10" w={40} h="41px"  pr={10} 
+                    <Input  border="none" fontFamily='Poppins' bg={slippage === "input" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} color="white" value={slippageInput} placeholder="%" borderRadius="10" w={40} h="35px"  mr={["4","4","4","5"]} 
                         onClick={(e) => {
                                 setSlippageInput(e.target.value);
                                 setSlippage("input");
@@ -115,7 +115,7 @@ const Swap  = ({baseAsset}) => {
                         }
                     />
                 </Flex>
-                <Button type="submit"  fontFamily='Poppins' color="white" bg="rgba(3, 67, 226, 0.96)" border="none" borderRadius="10" py={6} px={16} onClick={(e) => {console.log(object)}}>Swap</Button>
+                <Button type="submit"  fontFamily='Poppins' fontWeight="400" color="white" bg="rgba(3, 67, 226, 0.96)" border="none" borderRadius="10" py={5} px={16} fontSize={["13px","13px","13px","15px"]} onClick={(e) => {console.log(object)}}>Swap</Button>
             </VStack>
         </Flex>
         
