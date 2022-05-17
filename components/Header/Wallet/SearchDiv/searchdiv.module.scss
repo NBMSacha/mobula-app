@@ -68,7 +68,8 @@
 }
 
 .token-infos-search .token-logos {
-  padding-left: 20px;
+  margin-left: 20px;
+  border-radius: 50%;
 }
 
 .token-infos-search:hover {
@@ -78,6 +79,7 @@
 .token-logos {
   height: 40px;
   margin-right: 1rem;
+
 }
 
 .token-names {
