@@ -33,7 +33,7 @@
 }
 
 .tables {
-  width: 1325px;
+  min-width:1240px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -49,18 +49,16 @@
 .table-head {
   width: 100%;
   display: flex;
-  padding: 6px 0px 32px 0px;
+  padding: 32px 0px 14px 0px;
   border-bottom: 1px solid rgba(46, 53, 87, 0.8);
-  margin-top: 15px;
-  margin-bottom: -10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .token-title-datas {
-  width: 50px;
+  width: 97px !important;
   margin-right: 20px;
-  display: flex;
-  margin-left: 50px;
-  align-items: center;
+  margin-left: 8px !important;
   justify-content: end;
 }
 
@@ -78,9 +76,9 @@
 
 .token-title-assets {
   justify-content: center;
-  width: 240px;
-  margin-left: 10px;
-  display: flex;
+    width: 240px;
+    margin-left: 10px;
+    display: flex;
 }
 
 .token-title-price {
@@ -109,7 +107,7 @@
 }
 
 .token-title-marketFully {
-  width: 187px;
+  width: 154px;
   display: flex;
   margin-left: 50px;
   align-items: center;
@@ -117,17 +115,18 @@
 }
 
 .token-title-links {
-  display: flex;
   position: relative;
-  align-items: center;
-  margin-right: 45px;
-  margin-left: 50px;
-  width: 80px;
+  display: flex;
+  justify-content: end;
+  margin-right: 40px !important;
+  width: 80px !important;
+  margin-left: 40px !important;
 }
 
 .token-title-chart {
-  margin-right: 45px;
-  width: 154px;
+  width: 135px !important;
+  margin-left: 44px !important;
+  margin-right: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,33 +135,50 @@
 // ================ 768PX ================= //
 @media screen and (max-width: 768px) {
   .token-title-marketCap {
-    display: none !important;
+    margin-left: 49px !important;
+    width: 80px !important;
+  }
+  .token-title-price{
+    margin-left: 5px !important;
+    width:135px !important;
+    margin-right: 36px !important;
   }
 
   .token-title-chart {
-    display: none !important;
+    justify-content: start !important;
   }
 
+
   .token-title-marketFully {
-    display: none !important;
+    margin-left: 32px !important;
+  }
+
+  .token-title-percentage{
+    width: 27px !important;
+    margin-right: 10px;
+    margin-left: 0px !important;
+    justify-content: center !important;
+  }
+
+  .token-title-datas {
+    display:none
   }
 
   .token-title-links {
-    display: none !important;
+    margin-left: 10px !important;
   }
 
   .three-container {
     display: none;
   }
 
-  .token-title-datas {
-    display: none !important;
-  }
+ 
 
   .tables {
     width: 90%;
     margin-top: 0px !important;
     white-space: wrap !important;
+    min-width: 1002px;
   }
 
   .main-news {
@@ -176,19 +192,15 @@
 
   .table-head {
     border-top: 1px solid rgba(46, 53, 87, 0.8);
-    padding: 13px 0px;
+    padding: 1px 0px;
+    margin-top: 0px;
   }
 
   .token-title-assets {
     justify-content: start !important;
-    width: 240px !important;
+    width: 120px !important;
     margin-left: 10px !important;
-    margin-right: 160px;
-  }
-
-  .token-title-price {
-    margin-left: 50px;
-    width: 153px !important;
+    margin-right: 38px;
   }
 
   .token-title-percentage {
@@ -198,24 +210,7 @@
 
 }
 
-//================ 620 PX ================= //
-@media screen and (max-width: 620px) {
-  .token-title-price {
-    margin-left: 50px;
-    width: 153px !important;
-  }
 
-  .token-title-percentage {
-    width: 83px !important;
-  }
-
-  .token-title-assets {
-    justify-content: start !important;
-    width: 180px !important;
-    margin-left: 10px !important;
-    margin-right: 10px;
-  }
-}
 
 // ================ 580 PX =================  //
 @media screen and(max-width: 580px) {
