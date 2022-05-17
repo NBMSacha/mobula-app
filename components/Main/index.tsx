@@ -12,14 +12,16 @@ import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
 import { RPC_URL } from '../../constants'
+import { useWeb3React } from '@web3-react/core'
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [display, setDisplay] = useState('Top 100');
-  const [account, setAccount] = useState(null);
+  // const [account, setAccount] = useState(null);
   const [chains, setChains] = useState({});
   const [loaded, setLoaded] = useState(false)
+  const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
@@ -146,14 +148,6 @@ function News(props: any) {
     )
 
     shouldLoadMore(supabase)
-
-    setTimeout(() => {
-      const provider = new ethers.providers.Web3Provider((window as any).ethereum)
-      provider.listAccounts().then((accounts) => {
-        console.log(accounts);
-        setAccount(accounts[0]);
-      })
-    }, 1000);
   }, [])
 
   return (

@@ -9,7 +9,7 @@ import {
   formatAmount,
   getTokenPrice,
   getTokenPercentage,
-  getClosest
+  getClosest,
 } from '../../helpers/formaters'
 import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
@@ -418,9 +418,7 @@ const ChartCryptos = ({ baseAsset }) => {
       ctx.textAlign = "center";
 
       const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
-      console.log(number)
-
-      ctx.fillText(number.toFixed(2), left / 2, mousemove.offsetY)
+      ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
     }
 
 

@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from '@web3-react/injected-connector'
-import { ethers } from 'ethers'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
 

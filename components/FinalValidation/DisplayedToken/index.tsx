@@ -128,7 +128,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                 <div className={styles["left"]}>
                     <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
                         <Flex mr={20}>
-                            <Image src={token.logo} mr={20}></Image>
+                            <Image width='50px' src={token.logo} mr={20}></Image>
                             <div className={styles["name"]}>{token.name}</div>
                         </Flex>
                         <div className={styles["social-links"]}>
