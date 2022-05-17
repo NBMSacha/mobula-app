@@ -242,7 +242,7 @@
 
   .blockchain-btn {
     width: 80px;
-    padding: 6px 6px;
+    padding: 6.5px 8px;
   }
 
   .select-button,
@@ -254,7 +254,7 @@
   }
 
   .blockchain-container {
-    width: 80%;
+    width: 90%;
   }
 
   .marginFa {
@@ -341,9 +341,8 @@
     border-radius: 8px;
     font-size: 13px !important;
   }
-
-  .blockchain-container {
-    width: 80%;
+  .fullOnChain{
+    text-align: center;
   }
 
   .main-blockchain-container {
@@ -358,6 +357,10 @@
               transform:translate(0%, 0);
           }
       } */
+}
+
+.blockchain-container a{
+  margin-right: 7px;
 }
 
 .blockchain-btn-three {

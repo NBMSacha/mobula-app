@@ -10,8 +10,9 @@
 .tokens-links {
   font-size: 24px;
   position: relative;
-  margin-right: 25px !important;
+  margin-right: 26px !important;
   width: 80px !important;
+  margin-left: 25px !important;
 }
 
 .token-containers {
@@ -33,12 +34,18 @@
   justify-content: end;
 }
 
+.token-chart{
+  width: 135px !important;
+  margin-left: 44px !important;
+  margin-right: 20px;
+}
+
 .token-ids {
   display: flex;
   align-items: center;
-  width: 50px !important;
+  width: 97px !important;
   margin-right: 20px;
-  margin-left: 40px;
+  margin-left: 8px !important;
 }
 
 .token-ids>span {
@@ -155,16 +162,17 @@
   }
 
   .token-ids {
-    display: none !important;
+    display:none !important
   }
 
   .token-marketCap {
-    display: none !important;
+    margin-left: 0px !important;
+    width: 144px !important;
   }
 
   .token-infos {
     margin: 0px;
-    margin-right: 160px;
+    margin-right: 15px;
   }
 
   .token-logos {
@@ -172,28 +180,34 @@
   }
 
   .token-marketFully {
-    display: none !important;
+    margin-left: 0px !important;
+
   }
 
   .tokens-links {
-    display: none !important;
+    margin-left:0px !important;
   }
 
   .token-chart {
-    display: none !important;
+    margin-left: 10px !important;
+    justify-content:start !important;
   }
 
   .token-symbols {
-    display: none !important;
+
   }
 
   .tokens-price {
     width: 32px !important;
-    margin-left: auto !important;
+    margin-left: 0px !important;
   }
 
   .token-percentage {
-    width: 27px !important;
+    width: 34px !important;
+    margin-right: 10px;
+    margin-left: 40px !important;
+  }
+  .token-logos{
     margin-right: 10px;
   }
 

@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { useAlert } from "react-alert";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../constants';
 
+
 function Token(token: {
     name: string
     symbol: string
@@ -43,6 +44,8 @@ function Token(token: {
     }
 
     return (
+        <>
+        
         <div className={(voted ? "voted token" : "token")}>
             <div className="head">
                 <h2>
@@ -156,7 +159,7 @@ function Token(token: {
                 </div>
             </div>
 
-        </div >
+        </div ></>
     )
 }
 

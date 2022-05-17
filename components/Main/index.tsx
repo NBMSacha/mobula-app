@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import styles from './Main.module.scss';
 import Token from "./Token";
@@ -23,6 +23,8 @@ function News(props: any) {
   const [loaded, setLoaded] = useState(false)
   const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
+  const [textResponsive, setTextResponsive] = useState(false);
+  const percentageRef = useRef()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
     let done = false;
@@ -46,6 +48,24 @@ function News(props: any) {
       }
     }
   }
+  
+  useEffect(() => {
+    if(percentageRef && percentageRef.current) {
+
+    
+    
+        if ((window.matchMedia("(max-width: 768px)").matches)) {
+          setTextResponsive(true)
+        } else {
+          setTextResponsive(false)
+        }
+
+    }
+    
+  },[])
+
+    
+
 
   function loadChain(chain) {
     const supabase = createClient(
@@ -231,7 +251,13 @@ function News(props: any) {
               <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
               <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`}>Change (24h)</th>
+              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
+                {textResponsive? (
+                  <p>24h %</p>
+                ) : (
+                  <p>Change (24h)</p>
+                )}
+                </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
