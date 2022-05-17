@@ -87,7 +87,7 @@ function News(props: any) {
             if (r.data) {
               const assets = r.data.holdings
                 .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
-                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
+                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split('.')[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
               setMyAssets(assets)
               return assets;
             } else {

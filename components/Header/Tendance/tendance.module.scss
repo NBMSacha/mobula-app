@@ -27,6 +27,7 @@
   font-size: 10px;
   margin-left: 0.6rem;
 }
+
 $primary: 'blue';
 
 :export {
@@ -34,14 +35,16 @@ $primary: 'blue';
 }
 
 @media screen and (max-width: 768px) {
-  .info-tendance{
+  .info-tendance {
     border-bottom: 1px solid #2b5177;
     padding: 0;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;;
+    overflow: auto;
+    text-overflow: ellipsis;
+    ;
   }
-  .info-text{
+
+  .info-text {
     margin-left: 0.5rem;
     white-space: nowrap;
     overflow: hidden;

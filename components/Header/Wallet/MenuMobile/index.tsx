@@ -34,7 +34,7 @@ function MenuMobile(props: any) {
       setHasMetamask(false)
     } else {
       const chainId = await provider.request({ method: 'eth_chainId' })
-      if (chainId !== '0x89') {
+      if (chainId !== '0x89' && router.pathname.includes('dao')) {
         try {
           await provider.request({
             method: 'wallet_switchEthereumChain',
