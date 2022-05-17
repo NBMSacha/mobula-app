@@ -176,10 +176,10 @@
  
 
   .tables {
-    width: 90%;
+    width: 90% !important;
     margin-top: 0px !important;
     white-space: wrap !important;
-    min-width: 1002px;
+    min-width: 1002px !important;
   }
 
   .main-news {
@@ -211,7 +211,12 @@
 
 }
 
-
+@media screen and (max-width:1700px) {
+  .tables{
+    width: 1181px;
+    min-width:1181px
+  }
+}
 
 // ================ 580 PX =================  //
 @media screen and(max-width: 580px) {
