@@ -88,7 +88,7 @@ const Swap = ({ baseAsset }) => {
                         </Button>
                     </Flex>
                 </Flex>
-                <Flex align="center" pb="30px " w="100%" fontSize={["13px", "13px", "13px", "15px"]} pb={["5", "5", "5", "8"]} m={["auto"]}>
+                <Flex align="center" pb="30px " w="100%" fontSize={["13px", "13px", "13px", "15px"]} m={["auto"]}>
                     <Text mr={30} pb={3} borderBottom="1px solid #2E3557" >Slippage</Text>
                     <Button h={30} fontSize={["12px", "12px", "12px", "13px"]} fontFamily='Poppins' color="white" bg={slippage === "0.5" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4", "4", "4", "5"]} py={4} px={5}
                         onClick={() => setSlippage("0.5")}

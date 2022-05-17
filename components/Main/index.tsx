@@ -11,17 +11,23 @@ import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
+<<<<<<< HEAD
 import { RPC_URL } from '../../constants';
 import RecentlyAdded from "../RecentlyAdded/index"
 
+=======
+import { RPC_URL } from '../../constants'
+import { useWeb3React } from '@web3-react/core'
+>>>>>>> 44ec6a714a6b3a5d92cc0aaaa8c507fd9190be90
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [display, setDisplay] = useState('Top 100');
-  const [account, setAccount] = useState(null);
+  // const [account, setAccount] = useState(null);
   const [chains, setChains] = useState({});
   const [loaded, setLoaded] = useState(false)
+  const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
 
 
@@ -149,14 +155,6 @@ function News(props: any) {
     )
 
     shouldLoadMore(supabase)
-
-    setTimeout(() => {
-      const provider = new ethers.providers.Web3Provider((window as any).ethereum)
-      provider.listAccounts().then((accounts) => {
-        console.log(accounts);
-        setAccount(accounts[0]);
-      })
-    }, 1000);
   }, [])
 
   return (
