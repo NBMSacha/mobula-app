@@ -123,6 +123,7 @@
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   padding: 10px 15px;
   cursor: pointer;
+  box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 50%) 0px 1px 2px;
 }
 
 .blockchain-btn:hover {
@@ -156,6 +157,7 @@
   line-height: 18px;
   color: #ffffff;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
+  box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 50%) 0px 1px 2px;
 }
 
 .select-button-white {

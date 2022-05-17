@@ -43,6 +43,24 @@ export default class Root extends App {
             gtag('js', new Date());
 
             gtag('config', 'G-FYC9GNY55E');`}}></script>
+          <script dangerouslySetInnerHTML={{
+            __html: ` window.dataLayer = window.dataLayer || [];
+
+            function gtag(){dataLayer.push(arguments);}
+          
+            gtag('js', new Date());
+          
+            gtag('config', 'G-44ZEDM6VY3');
+          `}}></script>
+          <script dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+
+            function gtag(){dataLayer.push(arguments);}
+          
+            gtag('js', new Date());
+          
+            gtag('config', 'UA-225383575-4');
+          `}}></script>
         </Head>
 
         <Provider template={AlertTemplate} {...alertOptions}>
