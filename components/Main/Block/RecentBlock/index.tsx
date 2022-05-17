@@ -34,7 +34,7 @@ function RecentBlock(tokens: {
               {tokens.change1}%
             </span> : <span className={styles['red']}>
               <div className={styles['triangle-red']}></div>
-              {getTokenPrice(tokens.change1)}%
+              {tokens.change1}%
             </span>)}
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id2))}>
@@ -49,7 +49,7 @@ function RecentBlock(tokens: {
               {tokens.change2}%
             </span> : <span className={styles['red']}>
               <div className={styles['triangle-red']}></div>
-              {getTokenPrice(tokens.change2)}%
+              {tokens.change2}%
             </span>)}
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id3))}>
@@ -61,30 +61,13 @@ function RecentBlock(tokens: {
 
             {(tokens.change3 >= 0 ? <span className={styles['green']}>
               <div className={styles['triangle-green']}></div>
-              {getTokenPrice(tokens.change3)}%
+              {tokens.change3}%
             </span> : <span className={styles['red']}>
               <div className={styles['triangle-red']}></div>
               {tokens.change3}%
             </span>)}
           </div>
         </div>
-        {/* <div className="right-loser">
-          <div className="line-gainer">
-              <span className="line-number">1</span>
-              <span className="crypto-assests">{formatName(tokens.name4, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change4}%</span>
-          </div>
-          <div className="line-gainer">
-              <span className="line-number">2</span>
-              <span className="crypto-assests">{formatName(tokens.name5, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change5}%</span>
-          </div>
-          <div className="line-gainer">
-              <span className="line-number">3</span>
-              <span className="crypto-assests">{formatName(tokens.name6, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change6}%</span>
-          </div>
-          </div> */}
       </div >
     </div >
   )
