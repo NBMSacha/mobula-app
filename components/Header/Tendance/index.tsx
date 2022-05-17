@@ -9,10 +9,10 @@ function Tendance(props: any) {
           Crypto: <span className={styles['blue-data']}>{props.assets}</span>
         </p>
         <p className={styles['info-text']}>
-          DEX: <span className={styles['blue-data']}>{props.dex}</span>
+          DEX: <span className={styles['blue-data']}>Coming soon</span>
         </p>
         <p className={styles['info-text']}>
-          MOBL: <span className={styles['blue-data']}>0$</span>
+          MOBL: <span className={styles['blue-data']}>Coming soon</span>
         </p>
       </div>
       <div className={styles['info-left']}>
@@ -20,7 +20,7 @@ function Tendance(props: any) {
           DAO member: <span className={styles['blue-data']}>{props.dao}</span>
         </p>
         <p className={styles['info-text']}>
-          7d new listings:{' '}
+          New listings in the last 7 days:{' '}
           <span className={styles['blue-data']}>{props.listings}</span>
         </p>
       </div>

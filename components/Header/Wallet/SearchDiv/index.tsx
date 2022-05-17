@@ -4,21 +4,16 @@ import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X } from 'react-feather';
 import styles from './searchdiv.module.scss'
 import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
+import { getUrlFromName } from '../../../../helpers/formaters'
+import { useRouter } from 'next/router'
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
   const { data: names } = await supabase
     .from('assets')
     .select()
-    .or('name.ilike.' + search + `%`, 'symbol.ilike.' + search + `%`)
+    .or('name.ilike.' + search + '%,symbol.ilike.' + search + '%,name.ilike.' + search,)
     .order('market_cap', { ascending: false })
     .limit(10)
-
-  console.log(names, search)
-
-  // const { data: symbols } = await supabase
-  //     .from('assets')
-  //     .select()
-  //     .textSearch('symbol', `'` + search + `'`)
 
   if (names && names.length > 0) {
     setResults(names) //names.concat(symbols))
@@ -36,6 +31,7 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
 }
 
 function SearchDiv(props: any) {
+  const router = useRouter();
   const [token, setToken] = useState('')
   const [results, setResults] = useState([
     {
@@ -115,7 +111,7 @@ function SearchDiv(props: any) {
                 <div
                   className={styles['token-infos-search']}
                   key={Math.random()}
-                  onClick={() => (document.location.href = String(result.id))}
+                  onClick={() => router.push('/asset/' + getUrlFromName(result.name))}
                 >
                   <img src={result.logo} className={styles['token-logos']} />
                   <span

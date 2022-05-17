@@ -40,7 +40,7 @@ function Footer() {
   return (
     <div className={styles['footer-main']}>
       <div className={styles['footer-left']}>
-        <img src='newIcon.png' className={styles['logo-footer']} />
+        <img src='https://app.mobula.finance/newIcon.png' className={styles['logo-footer']} />
         <div className={styles['social-container']}>
           <a href='https://t.me/MobulaFi' className={styles['social-link']}>
             <Send className={styles['social-logo']} />

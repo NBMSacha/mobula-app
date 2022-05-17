@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import styles from './Main.module.scss';
 import Token from "./Token";
@@ -23,6 +23,8 @@ function News(props: any) {
   const [loaded, setLoaded] = useState(false)
   const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
+  const [textResponsive, setTextResponsive] = useState(false);
+  const percentageRef = useRef()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
     let done = false;
@@ -46,6 +48,24 @@ function News(props: any) {
       }
     }
   }
+
+  useEffect(() => {
+    if (percentageRef && percentageRef.current) {
+
+
+
+      if ((window.matchMedia("(max-width: 768px)").matches)) {
+        setTextResponsive(true)
+      } else {
+        setTextResponsive(false)
+      }
+
+    }
+
+  }, [])
+
+
+
 
   function loadChain(chain) {
     const supabase = createClient(
@@ -87,7 +107,7 @@ function News(props: any) {
             if (r.data) {
               const assets = r.data.holdings
                 .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
-                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
+                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split('.')[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
               setMyAssets(assets)
               return assets;
             } else {
@@ -161,15 +181,15 @@ function News(props: any) {
               logo1={props.gainers[0].logo}
               name1={props.gainers[0].name}
               id1={props.gainers[0].id}
-              change1={props.gainers[0].price_change_24h}
+              change1={props.gainers[0].price_change_24h.toFixed(2)}
               logo2={props.gainers[1].logo}
               name2={props.gainers[1].name}
               id2={props.gainers[1].id}
-              change2={props.gainers[1].price_change_24h}
+              change2={props.gainers[1].price_change_24h.toFixed(2)}
               logo3={props.gainers[2].logo}
               name3={props.gainers[2].name}
               id3={props.gainers[2].id}
-              change3={props.gainers[2].price_change_24h}
+              change3={props.gainers[2].price_change_24h.toFixed(2)}
             /> : <GainerBlock
               logo1={''}
               name1={'Loading...'}
@@ -198,15 +218,15 @@ function News(props: any) {
               logo1={props.recents[0].logo}
               name1={props.recents[0].name}
               id1={props.recents[0].id}
-              change1={props.recents[0].price_change_24h}
+              change1={props.recents[0].price_change_24h.toFixed(2)}
               logo2={props.recents[1].logo}
               name2={props.recents[1].name}
               id2={props.recents[1].id}
-              change2={props.recents[1].price_change_24h}
+              change2={props.recents[1].price_change_24h.toFixed(2)}
               logo3={props.recents[2].logo}
               name3={props.recents[2].name}
               id3={props.recents[2].id}
-              change3={props.recents[2].price_change_24h}
+              change3={props.recents[2].price_change_24h.toFixed(2)}
             /> : <RecentBlock
               logo1={''}
               name1={'Loading...'}
@@ -231,7 +251,13 @@ function News(props: any) {
               <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
               <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`}>Change (24h)</th>
+              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
+                {textResponsive ? (
+                  <p>24h %</p>
+                ) : (
+                  <p>Change (24h)</p>
+                )}
+              </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>

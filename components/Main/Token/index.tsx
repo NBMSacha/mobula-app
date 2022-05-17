@@ -3,8 +3,9 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
-import { formatName, getTokenPrice, getTokenPercentage, formatAmount } from '../../../helpers/formaters';
+import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
 import styles from "../Token/Token.module.scss"
+import { useRouter } from 'next/router';
 
 function Token(token: {
   name: string
@@ -25,6 +26,7 @@ function Token(token: {
   id: number
   isMyAsset: boolean
 }) {
+  const router = useRouter();
 
   function getNameFormat(status: string) {
     if (status.length > 13) {
@@ -35,7 +37,7 @@ function Token(token: {
 
   console.log(token.id)
   return (
-    <tbody className={styles["border-bot"]} onClick={() => document.location.href = String(token.id)}>
+    <tbody className={styles["border-bot"]} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
       <tr className={styles["token-containers"]}>
         <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
           <a href="" className={styles["white"]}>

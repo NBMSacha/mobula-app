@@ -360,7 +360,7 @@ function ListAToken(props: any) {
             <div className={styles["listToken-container"]}>
                 <div className={styles["title-listToken"]}>
                     <h2 className={styles["listingForm-title"]}>Listing Form</h2>
-                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
+                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you have read the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">

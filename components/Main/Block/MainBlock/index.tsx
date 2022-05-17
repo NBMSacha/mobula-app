@@ -20,10 +20,9 @@ function MainBlock(props: any) {
     return (
       <div className={styles['container-news']}>
         <div className={styles['text-news']}>
-          <h2 className={styles['title-news']}>Welcome to Mobula</h2>
+          <h2 className={styles['title-news']}>Today crypto-assets price by Mobula </h2>
           <p className={styles['subtitle-news']}>
-            Mobula dApp is currently in Alpha version. Bugs/incorrect
-            informations are probably displayed. Please report any bug you find{' '}
+            Mobula dApp is currently in Alpha version. Please report any bug you find{' '}
             <a
               className={styles['subtitle-news-link']}
               href='https://discord.gg/2a8hqNzkzN'
@@ -76,10 +75,9 @@ function MainBlock(props: any) {
     return (
       <div className={styles['container-news']}>
         <div className={styles['text-news']}>
-          <h2 className={styles['title-news']}>Welcome to Mobula</h2>
+          <h2 className={styles['title-news']}>Today crypto-assets price by Mobula</h2>
           <p className={styles['subtitle-news']}>
-            Mobula dApp is currently in Alpha version. Bugs/incorrect
-            informations are probably displayed. Please report any bug you find{' '}
+            Mobula dApp is currently in Alpha version. Please report any bug you find{' '}
             <a
               className={styles['subtitle-news-link']}
               href='https://discord.gg/2a8hqNzkzN'
