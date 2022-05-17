@@ -11,14 +11,8 @@ import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
-<<<<<<< HEAD
-import { RPC_URL } from '../../constants';
-import RecentlyAdded from "../RecentlyAdded/index"
-
-=======
 import { RPC_URL } from '../../constants'
 import { useWeb3React } from '@web3-react/core'
->>>>>>> 44ec6a714a6b3a5d92cc0aaaa8c507fd9190be90
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -29,7 +23,6 @@ function News(props: any) {
   const [loaded, setLoaded] = useState(false)
   const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
-
 
   async function shouldLoadMore(supabase: SupabaseClient) {
     let done = false;
@@ -274,6 +267,5 @@ function News(props: any) {
     </>
   )
 }
-
 
 export default News;
