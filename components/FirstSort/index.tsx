@@ -22,6 +22,7 @@ function FirstSort() {
         contractAddresses: string[]
         excludedFromCirculation: string[]
         totalSupply: string[]
+        alreadyVoted: boolean
     }[], any] = useState([]);
     const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
@@ -159,6 +160,7 @@ function FirstSort() {
                             excludedFromCirculation: string[]
                             totalSupply: string[]
                             lastUpdate: number
+                            alreadyVoted: boolean
                         } = await response.json();
 
                         // const index = await protocolContract.indexOfFirstSortTokens(token.id);
@@ -169,6 +171,7 @@ function FirstSort() {
                         JSONrep.excludedFromCirculation = token.excludedFromCirculation;
                         JSONrep.totalSupply = token.totalSupply;
                         JSONrep.lastUpdate = token.lastUpdate;
+                        JSONrep.alreadyVoted = isAlreadyVoted;
 
                         if (JSONrep.contracts) {
                             setTokenDivs((tokenDivs: any) => [...tokenDivs, JSONrep]);
@@ -238,6 +241,7 @@ function FirstSort() {
                                 ml={10}
                                 borderRadius="10px"
                                 p="20px"
+                                opacity={token.alreadyVoted ? '0.2' : '1'}
                                 className={styles['token-box']}
                             >
                                 <Flex alignItems="center" mb={10}>
