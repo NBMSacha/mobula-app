@@ -119,26 +119,27 @@ export default function RecentlyAdded({tokens}) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
+
+              console.log(token.rank)
            
             return <tbody className={styles["border-bot"]} key={token.id} onClick={() => document.location.href = String(token.id)}>
               <tr className={styles["token-containers"]}>
                 <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
                   <a href="" className={styles["white"]}>
-                    {token.rank_change_24h < 0 ? (
-                      <span className={`${styles['red']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
+                    {token.rank < 0 ? (
+                      <span className={`${styles["white"]} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
         
-                        <ArrowDown className={styles["arrowDown"]} />
-                        {Math.abs(token.rank_change_24h)}
+        {token.rank}
                       </span>
-                    ) : token.rank_change_24h == 0 ? <div>--</div> : (
-                      <span className={`${styles['green']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
+                    ) : token.rank == 0 ? <div>--</div> : (
+                      <span className={` ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
         
-                        <ArrowUp className={styles["arrowDown"]} />
-                        {token.rank_change_24h}
+                      
+                        {token.rank}
                       </span>
                     )}
                   </a>
-                  <span>{token.rank}</span></td>
+                </td>
                 <td className={styles["token-infos"]}>
                   <img src={token.logo} className={styles["token-logos"]} />
                   <div>

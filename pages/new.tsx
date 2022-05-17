@@ -12,7 +12,7 @@ export default function () {
         "https://ylcxvfbmqzwinymcjlnx.supabase.co",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
-    supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity,created_at').order('created_at', { ascending: true }).limit(100).then(r => {
+    supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity,created_at, rank').order('created_at', { ascending: false }).limit(100).then(r => {
         if (r.data) {
             setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
         }
