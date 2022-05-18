@@ -68,7 +68,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     [
                         'function finalDecisionVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
-                ).finalDecisionVote(token.id, true, utilityScore, socialScore, trustScore, marketScore);
+                ).finalDecisionVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
 
                 alert.success('Your vote has been successfully registered.')
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000))
