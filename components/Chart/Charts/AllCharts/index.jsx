@@ -298,7 +298,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             scales: {
               yAxes: [
                 {
-                  gridLines: { color: '#0c1230' },
+                  gridLines: { color: '#343c63' },
                   ticks: {
                     beginAtZero: false,
                     maxTicksLimit: isMobile ? 4 : 8,
@@ -366,7 +366,6 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             ctx.stroke();
           }
           ctx.closePath();
-    
           crosshairLabel(chart, mousemove);
         }
     
@@ -387,7 +386,6 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
           ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
         }
     
-    
         if (!data || data.length == 0) {
           setVisible(true)
         } else {
@@ -395,11 +393,6 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
         }
       }   
 
-
-
-
-    
-    
     return (
             <Box w={["100%","88%","70%","45%"]} mb={["30px"]}>
                 <Text color='white' mb={4}>{title}</Text>
@@ -409,11 +402,33 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                             <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 0px 10px;">
                                 {title === "Volume" && (
                                     <>
-                                        <Button size='xs' mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
-                                        <Button size='xs' mx={1}onClick={() => {setTimeFormat("7D")}}>7D</Button>
-                                        <Button size='xs' mx={1} onClick={() => {setTimeFormat("1M")}}>1M</Button>
-                                        <Button size='xs' mx={1} onClick={() => {setTimeFormat("1Y")}}>1Y</Button>
-                                        <Button size='xs' ml={1} onClick={() => {setTimeFormat("ALL")}}>ALL</Button>
+                                        {timeFormat === "1D" ? (
+                                            <Button size='xs' mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
+                                        ) : (
+                                            <Button size='xs' color="white" bg="none" mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
+                                        )}
+                                        {timeFormat === "7D" ? (
+                                            <Button size='xs' mx={1} onClick={() => {setTimeFormat("7D")}}>7D</Button>
+                                        ) : (
+                                            <Button size='xs' color="white" bg="none" mx={1}onClick={() => {setTimeFormat("7D")}}>7D</Button>
+                                        )}
+                                        {timeFormat === "30D" ? (
+                                            <Button size='xs' mx={1} onClick={() => {setTimeFormat("30D")}}>1M</Button>
+                                        ) : (
+                                            <Button size='xs' color="white" bg="none" mx={1} onClick={() => {setTimeFormat("30D")}}>1M</Button>
+                                        )}
+                                        {timeFormat === "1Y"? (
+                                            <Button size='xs' bg="white" mx={1} onClick={() => {setTimeFormat("1Y")}}>1Y</Button>
+                                        ) :( 
+                                            <Button size='xs' color="white" bg="none" mx={1} onClick={() => {setTimeFormat("1Y")}}>1Y</Button>
+                                        )}
+                                        {timeFormat === "ALL" ? (
+                                            <Button size='xs' bg="white" ml={1} onClick={() => {setTimeFormat("ALL")}}>ALL</Button>
+                                        ) : ( 
+                                            <Button size='xs' color="white" bg="none" ml={1} onClick={() => {setTimeFormat("ALL")}}>ALL</Button>
+                                        )}
+                                        
+                                        
                                     </>
                                 )}
                                 {title === "Rank" && (
@@ -423,8 +438,16 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                                 )}
                                 {title === "Liquidity" && (
                                     <>
-                                        <Button size='xs' mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
-                                        <Button size='xs' ml={1} onClick={() => {setTimeFormat("7D")}}>7D</Button>
+                                        {timeFormat === "1D" ? (
+                                            <Button size='xs' mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
+                                        ) : (
+                                            <Button size='xs' color="white" bg="none" mr={1} onClick={() => {setTimeFormat("1D")}}>1D</Button>
+                                        )}
+                                        {timeFormat === "7D" ? (
+                                            <Button size='xs' mx={1} onClick={() => {setTimeFormat("7D")}}>7D</Button>
+                                        ) : (
+                                            <Button size='xs' color="white" bg="none" mx={1}onClick={() => {setTimeFormat("7D")}}>7D</Button>
+                                        )}
                                     </>
                                 )}   
                             </Box>
