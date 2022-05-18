@@ -298,7 +298,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             scales: {
               yAxes: [
                 {
-                  gridLines: { color: '#343c63' },
+                  gridLines: { color: '#2E3557' },
                   ticks: {
                     beginAtZero: false,
                     maxTicksLimit: isMobile ? 4 : 8,
