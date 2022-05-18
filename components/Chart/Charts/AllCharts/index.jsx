@@ -196,7 +196,6 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
         var dayIf
         var ctx = document.getElementById(`${title}-${idx}`).getContext('2d')
         const data = determineTimeFormat()
-        console.log("chart", data)
         const isMobile = window.innerWidth < 768
         const isGiant = window.innerWidth > 1500
         const isWinner =
@@ -298,7 +297,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             scales: {
               yAxes: [
                 {
-                  gridLines: { color: '#343c63' },
+                  gridLines: { color: '#2E3557' },
                   ticks: {
                     beginAtZero: false,
                     maxTicksLimit: isMobile ? 4 : 8,
@@ -332,60 +331,6 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             },
           },
         })
-    
-        // window.RankChart.canvas.addEventListener('mousemove', (e) => {
-        //   crosshairLine(window.RankChart, e)
-        // });
-    
-        function crosshairLine(chart, mousemove) {
-    
-          const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
-          chart.update(null);
-          ctx.restore();
-          if (mousemove.offsetX >= left && mousemove.offsetX <= right && mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
-            canvas.style.cursor = "crosshair";
-          } else {
-            canvas.style.cursor = "default";
-          }
-    
-          ctx.lineWidth = 1;
-          ctx.strokeStyle = "#666";
-          ctx.setLineDash([3, 3]);
-    
-          ctx.beginPath();
-          if (mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
-            ctx.moveTo(left, mousemove.offsetY);
-            ctx.lineTo(right, mousemove.offsetY);
-            ctx.stroke();
-          }
-          ctx.closePath();
-    
-          ctx.beginPath();
-          if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
-            ctx.moveTo(mousemove.offsetX, top);
-            ctx.lineTo(mousemove.offsetX, bottom);
-            ctx.stroke();
-          }
-          ctx.closePath();
-          crosshairLabel(chart, mousemove);
-        }
-    
-        function crosshairLabel(chart, mousemove) {
-          const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
-          const y = scales["y-axis-0"];
-          ctx.beginPath();
-          ctx.fillStyle = "#2E3557";
-          ctx.fillRect(0, mousemove.offsetY - 10, left, 20);
-          ctx.closePath();
-    
-          ctx.font = '10px Inter';
-          ctx.fillStyle = "white";
-          ctx.textBaseline = "middle";
-          ctx.textAlign = "center";
-    
-          const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
-          ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
-        }
     
         if (!data || data.length == 0) {
           setVisible(true)
