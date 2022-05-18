@@ -218,7 +218,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
           data: {
             datasets: [
               {
-                label: 'Price                ',
+                label: 'Price  ',
                 data: data,
                 fill: true,
                 datasetFill: true,
@@ -228,7 +228,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                 backgroundColor: gradient,
                 borderWidth: 2,
                 pointRadius: 0,
-                pointHitRadius: 0,
+                pointHitRadius: 10,
                 highlightFill: 'rgba(220,220,220,0.5)',
                 highlightStroke: 'rgba(220,220,220,1)',
                 maintainAspectRatio: false,
@@ -326,16 +326,16 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                   ticks: {
                     maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
                   },
-                  display: false,
+                  display:false,
                 },
               ],
             },
           },
         })
     
-        window.RankChart.canvas.addEventListener('mousemove', (e) => {
-          crosshairLine(window.RankChart, e)
-        });
+        // window.RankChart.canvas.addEventListener('mousemove', (e) => {
+        //   crosshairLine(window.RankChart, e)
+        // });
     
         function crosshairLine(chart, mousemove) {
     
