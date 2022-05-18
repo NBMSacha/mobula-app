@@ -298,7 +298,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             scales: {
               yAxes: [
                 {
-                  gridLines: { color: '#2E3557' },
+                  gridLines: { color: '#343c63' },
                   ticks: {
                     beginAtZero: false,
                     maxTicksLimit: isMobile ? 4 : 8,
@@ -317,7 +317,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                   type: 'time',
                   distribution: 'linear',
                   time: {
-                    unit: dayIf,
+                    unit: false,
                     tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
                     displayFormats: {
                       hour: 'HH:mm',
@@ -326,6 +326,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
                   ticks: {
                     maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
                   },
+                  display: false,
                 },
               ],
             },
