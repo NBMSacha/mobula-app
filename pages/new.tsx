@@ -14,7 +14,7 @@ export default function () {
     )
     supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity,created_at, rank').order('created_at', { ascending: false }).limit(100).then(r => {
         if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
+            setTokens(r.data)
         }
     })
     }

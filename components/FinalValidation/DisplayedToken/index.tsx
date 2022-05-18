@@ -18,6 +18,7 @@ import { Send, Twitter, Globe } from "react-feather";
 import Vote from './Vote';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
+import Router from 'next/router';
 
 const DisplayedToken = ({ token, changeDisplay }) => {
 
@@ -60,21 +61,18 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                 alert.error('You must connect your wallet to submit the form.')
             }
 
-            console.log('here')
             try {
-
-                console.log('here1')
 
                 await new ethers.Contract(
                     PROTOCOL_ADDRESS,
                     [
                         'function finalDecisionVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
-                ).finalDecisionVote(token.id, true, utilityScore, socialScore, trustScore, marketScore);
+                ).finalDecisionVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
 
-                console.log('here2')
-
-                changeDisplay(0);
+                alert.success('Your vote has been successfully registered.')
+                await new Promise((resolve, reject) => setTimeout(resolve, 3000))
+                Router.reload()
 
             } catch (e) {
                 if (e.data && e.data.message) {
@@ -132,9 +130,9 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                             <div className={styles["name"]}>{token.name}</div>
                         </Flex>
                         <div className={styles["social-links"]}>
-                            <a href={token.website}><Globe className={styles["icons"]} /></a>
-                            <a href={token.twitter}><Twitter className={styles["icons"]} /></a>
-                            <a href={token.chat}><Send className={styles["icons"]} /></a>
+                            {token.website && <a href={token.website}><Globe className={styles["icons"]} /></a>}
+                            {token.twitter && <a href={token.twitter}><Twitter className={styles["icons"]} /></a>}
+                            {token.chat && <a href={token.chat}><Send className={styles["icons"]} /></a>}
                         </div>
 
                         <div className={styles["audit-links"]}>
