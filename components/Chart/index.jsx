@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
+import Charts from "./Charts/index.jsx"
 
 
 const ChartCryptos = ({ baseAsset }) => {
@@ -118,6 +119,34 @@ const ChartCryptos = ({ baseAsset }) => {
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     }
+
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.volume_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+     
+    // }
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.liquidity_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+    // }
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.rank_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+     
+    // }
+    
   }
 
   const fetchData = async () => {
@@ -159,6 +188,7 @@ const ChartCryptos = ({ baseAsset }) => {
 
   const fetchChart = async () => {
     try {
+      console.log("loading chart")
       const days = await getChart(baseAsset.id, '1D')
 
       setChart({ price: formatData(days) })
@@ -350,8 +380,6 @@ const ChartCryptos = ({ baseAsset }) => {
     });
 
     function crosshairLine(chart, mousemove) {
-      console.log("crosshair Line")
-
       const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
       chart.update(null);
       ctx.restore();
@@ -383,26 +411,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
       crosshairLabel(chart, mousemove);
     }
-
-    function zoom(chart, mousewheel) {
-      if (dates) {
-        const min = chart.config.options.scales.xAxes[0].min;
-        const max = chart.config.options.scales.xAxes[0].max;
-        if (mousewheel.wheelDeltaY >= 0) {
-          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
-          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
-        }
-        if (mousewheel.wheelDeltaY < 0) {
-          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
-          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
-        }
-      }
-
-    }
-
-    window.chartInstance.canvas.addEventListener('mousewheel', (e) => {
-      zoom(window.chartInstance, e)
-    })
 
     function crosshairLabel(chart, mousemove) {
       const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
@@ -527,13 +535,14 @@ const ChartCryptos = ({ baseAsset }) => {
     if (baseAsset) {
       fetchChart()
       fetchLiveData()
+      
     }
   }, [])
 
-  useEffect(() => {
-    fetchChart()
-    fetchLiveData()
-  }, [baseAsset])
+  // useEffect(() => {
+  //   fetchChart()
+  //   fetchLiveData()
+  // }, [baseAsset])
 
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
@@ -711,7 +720,7 @@ const ChartCryptos = ({ baseAsset }) => {
       daoBtn.preventDefault()
     }
   }
-  console.log(baseAsset)
+
   const renderData = () => {
     return (
       <>
@@ -1103,6 +1112,16 @@ const ChartCryptos = ({ baseAsset }) => {
                         </button>
                       )}
 
+                      {state === 'Charts' ? (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                          <span>Charts</span>
+                        </button>
+                      ) : (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={styles['chart-header-link']}>
+                          <span>Charts</span>
+                        </button>
+                      )}
+
                       <a
                         href='https://discord.gg/2a8hqNzkzN'
                         className={`${styles['chart-header-link']} ${styles['report-problem']}`}
@@ -1110,9 +1129,12 @@ const ChartCryptos = ({ baseAsset }) => {
                         <span id='inner'>Report</span>
                       </a>
                     </div>
+                    {state === 'Charts' && (
+                          <Charts  baseAsset={baseAsset}/>
+                        )}
                     <div className={styles['chart-content']}>
                       <div className={styles['canvas-container']}>
-
+                       
                         {state === 'Details' && (
                           <ProjectInfo token={baseAsset} />
                         )}
