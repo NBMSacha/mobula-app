@@ -19,7 +19,7 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
     const [month, setMonth] = useState({})
     const [year, setYear] = useState({})
     const [all, setAll] = useState({})
-    const [timeFormat, setTimeFormat] = useState('')
+    const [timeFormat, setTimeFormat] = useState('7D')
 
     const formatData = (data) => {
         return data.map((el) => {
@@ -209,7 +209,10 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
           isMobile ? 100 : isGiant ? 600 : 400
         )
         gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-        gradient.addColorStop(1, '#05062A')
+        gradient.addColorStop(0.15, isWinner ? '#00ba7c' : '#D8494A')
+        gradient.addColorStop(0.33, '#2e355729')
+        gradient.addColorStop(0.66, '#2e355729')
+        gradient.addColorStop(1, '#2e355729')
         console.log(isWinner, data)
     
         window.RankChart = new Chart(ctx, {
@@ -294,13 +297,20 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
             legend: {
               display: false,
             },
+            datalabels: {
+                display: false,
+              },
             scales: {
               yAxes: [
                 {
+                display:false,
+                    
                   gridLines: { color: '#2E3557' },
                   ticks: {
+                    type: 'category',
                     beginAtZero: false,
                     maxTicksLimit: isMobile ? 4 : 8,
+                
                     callback: function (tick) {
                       if (tick == 0) return 0
                       return parseFloat(tick / 1000000000).toFixed(
@@ -332,6 +342,60 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
           },
         })
     
+        // window.RankChart.canvas.addEventListener('mousemove', (e) => {
+        //   crosshairLine(window.RankChart, e)
+        // });
+    
+        function crosshairLine(chart, mousemove) {
+    
+          const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
+          chart.update(null);
+          ctx.restore();
+          if (mousemove.offsetX >= left && mousemove.offsetX <= right && mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
+            canvas.style.cursor = "crosshair";
+          } else {
+            canvas.style.cursor = "default";
+          }
+    
+          ctx.lineWidth = 1;
+          ctx.strokeStyle = "#666";
+          ctx.setLineDash([3, 3]);
+    
+          ctx.beginPath();
+          if (mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
+            ctx.moveTo(left, mousemove.offsetY);
+            ctx.lineTo(right, mousemove.offsetY);
+            ctx.stroke();
+          }
+          ctx.closePath();
+    
+          ctx.beginPath();
+          if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
+            ctx.moveTo(mousemove.offsetX, top);
+            ctx.lineTo(mousemove.offsetX, bottom);
+            ctx.stroke();
+          }
+          ctx.closePath();
+          crosshairLabel(chart, mousemove);
+        }
+    
+        function crosshairLabel(chart, mousemove) {
+          const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
+          const y = scales["y-axis-0"];
+          ctx.beginPath();
+          ctx.fillStyle = "#2E3557";
+          ctx.fillRect(0, mousemove.offsetY - 10, left, 20);
+          ctx.closePath();
+    
+          ctx.font = '10px Inter';
+          ctx.fillStyle = "white";
+          ctx.textBaseline = "middle";
+          ctx.textAlign = "center";
+    
+          const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
+          ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
+        }
+    
         if (!data || data.length == 0) {
           setVisible(true)
         } else {
@@ -342,10 +406,10 @@ const AllCharts = ({baseAsset, title}, idx,  ) => {
     return (
             <Box w={["100%","88%","70%","45%"]} mb={["30px"]}>
                 <Text color='white' mb={4}>{title}</Text>
-                <Box p="20px 20px 0px 0px" bg={title === "Holders"? "#2e355729" : '#2E3557'} w="100%" borderRadius="18px" position="relative">
+                <Box p="20px 20px 20px 20px" bg={title === "Holders"? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
                     <> 
                         {title !== "Holders" ? (
-                            <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 0px 10px;">
+                            <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
                                 {title === "Volume" && (
                                     <>
                                         {timeFormat === "1D" ? (
