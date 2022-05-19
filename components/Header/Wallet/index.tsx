@@ -132,11 +132,15 @@ function Wallet(props: any) {
       const provider = new ethers.providers.Web3Provider(
         (window as any).ethereum
       )
-      provider.listAccounts().then((accounts) => {
-        if (accounts.length > 0) {
-          handleConnect()
-        }
-      })
+
+      if (provider) {
+        provider.listAccounts().then((accounts) => {
+          if (accounts.length > 0) {
+            handleConnect()
+          }
+        })
+      }
+
     } catch (e) { }
   }, [])
 

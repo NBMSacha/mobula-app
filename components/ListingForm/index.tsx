@@ -8,6 +8,7 @@ import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../constants';
 import { useAlert } from "react-alert";
 import styles from "./ListingForm.module.scss";
+import { Spinner } from '@chakra-ui/react'
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -22,46 +23,66 @@ function ListAToken(props: any) {
     const [website, setWebsite] = useState('');
     const [ipfs, setIPFS] = useState<any>();
     const [isSum, setIsSum] = useState(false);
-
+    const [loading, setLoading] = useState(false);
 
     async function submit(e: any) {
 
         e.preventDefault();
 
+        setLoading(true);
         console.log('submitted')
 
-        if (!/0x[a-zA-z0-9]{40}/.test(contract)) {
+        if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
             alert.error('Contract format is invalid.')
+            setLoading(false)
+            return
+        }
+
+        if (excluded && (!/0x[a-zA-z0-9]{40}/.test(excluded) || excluded.length != 42)) {
+            alert.error('Excluded from circulation format is invalid.')
+            setLoading(false)
             return
         }
 
         if (logo === '' || !isUrl(logo)) {
             alert.error('The logo must be sent as an URL')
+            setLoading(false)
             return
         }
 
         if (description === '') {
             alert.error('A description must be provided.')
+            setLoading(false)
             return
         }
 
         if (audit !== '' && !isUrl(audit)) {
             alert.error('The audit must be sent as an URL')
+            setLoading(false)
+            return
+        }
+
+        if (kyc !== '' && !isUrl(kyc)) {
+            alert.error('The KYC must be sent as an URL')
+            setLoading(false)
             return
         }
 
         if (twitter !== '' && !isUrl(twitter)) {
             alert.error('The Twitter must be sent as an URL')
+            setLoading(false)
             return
         }
 
         if (telegram !== '' && !isUrl(telegram)) {
             alert.error('The chat must be sent as an URL')
+            setLoading(false)
             return
         }
 
         if (website !== '' && !isUrl(website)) {
             alert.error('The website must be sent as an URL')
+            setLoading(false)
             return
         }
 
@@ -151,7 +172,7 @@ function ListAToken(props: any) {
         console.log(submitPrice, hash)
 
         const totalSupply = isSum ? contracts : [contract];
-        const excluded = Object.values(objectForExcluded).filter((excluded: any) => excluded.length == 42);
+        const realExcluded = Object.values(objectForExcluded).filter((excluded: any) => excluded.length == 42);
 
         try {
 
@@ -160,20 +181,22 @@ function ListAToken(props: any) {
                 [
                     'function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable',
                 ], signer
-            ).submitIPFS(contracts, totalSupply, excluded, hash, {
+            ).submitIPFS(contracts, totalSupply, realExcluded, hash, {
                 value: submitPrice
             });
 
             alert.show('Successfully submitted data.');
         } catch (e) {
             if (e.data && e.data.message) {
-                alert.error(e.data.message);
+                alert.error('You don\'t have 10 MATIC in your wallet.');
             } else {
                 alert.error('Something went wrong.')
                 console.log(e)
             }
 
         }
+
+        setLoading(false)
 
     }
 
@@ -360,7 +383,7 @@ function ListAToken(props: any) {
             <div className={styles["listToken-container"]}>
                 <div className={styles["title-listToken"]}>
                     <h2 className={styles["listingForm-title"]}>Listing Form</h2>
-                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you red the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
+                    <p className={styles["listingForm-text"]}>Try to list an asset on Mobula by submitting it here. Make sure you have read the docs before trying to submit. Current charge for submitting : 10 MATIC</p>
                 </div>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
@@ -427,7 +450,7 @@ function ListAToken(props: any) {
                                     type="text"
                                     id="tlg"
                                     name="telegram"
-                                    placeholder="https://t.me/WhelerWorld" />
+                                    placeholder="https://t.me/MobulaFi" />
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >Website *</label>
@@ -484,7 +507,7 @@ function ListAToken(props: any) {
                                     id="contract"
                                     value={contract}
                                     className={`${styles["contract"]} ${styles["inputs"]}`}
-                                    placeholder="0x"
+                                    placeholder="0x9ad6c38be94206ca50bb0d90783181662f0cfa10"
                                     onChange={(e) => setContract(e.target.value)}
                                     required
                                 ></input>
@@ -517,7 +540,7 @@ function ListAToken(props: any) {
                                 <label>Excluded from Circulation *</label>
                                 <input
                                     name="excluded"
-                                    placeholder="0x..."
+                                    placeholder="0x5D3e4C0FE11e0aE4c32F0FF74B4544C49538AC61"
                                     className={styles["inputPlus"]}
                                     value={excluded}
                                     id="excluded"
@@ -526,10 +549,10 @@ function ListAToken(props: any) {
                                 <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
                             </div>
                             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
-                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}>Submit</button>
+                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
                             </div>
                             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}>Submit</button>
+                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
                             </div>
                         </div>
                     </form>

@@ -13,20 +13,38 @@ export async function getStaticProps() {
     .filter('volume', 'gt', 50000)
     .order('market_cap', { ascending: false }).limit(35);
 
+  const { data: gainers } = await supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(20)
+
+  // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
+  //   setLosers(r.data)
+  // });
+
+
+  const { data: recents } = await supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3);
+
+
+  console.log({
+    tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
+    gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
+    recents
+  })
+
   return {
     props: {
       tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
+      gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
+      recents
     },
     revalidate: 120
   }
 }
 
-export default function Listing({ tokens }) {
+export default function Listing({ tokens, gainers, recents }) {
 
   return (
     <>
 
-      <News tokens={tokens} />
+      <News tokens={tokens} gainers={gainers} recents={recents} />
 
     </>
   )

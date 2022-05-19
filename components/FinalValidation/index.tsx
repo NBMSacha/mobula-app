@@ -22,6 +22,7 @@ function FinalValidation() {
         contractAddresses: string[]
         excludedFromCirculation: string[]
         totalSupply: string[]
+        alreadyVoted: boolean
     }[], any] = useState([]);
     const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
@@ -159,6 +160,7 @@ function FinalValidation() {
                             excludedFromCirculation: string[]
                             totalSupply: string[]
                             lastUpdate: number
+                            alreadyVoted: boolean
                         } = await response.json();
 
                         // const index = await protocolContract.indexOfFirstSortTokens(token.id);
@@ -169,6 +171,7 @@ function FinalValidation() {
                         JSONrep.excludedFromCirculation = token.excludedFromCirculation;
                         JSONrep.totalSupply = token.totalSupply;
                         JSONrep.lastUpdate = token.lastUpdate;
+                        JSONrep.alreadyVoted = isAlreadyVoted;
 
                         if (JSONrep.contracts) {
                             setTokenDivs((tokenDivs: any) => [...tokenDivs, JSONrep]);
@@ -239,6 +242,7 @@ function FinalValidation() {
                                 borderRadius="10px"
                                 p="20px"
                                 className={styles['token-box']}
+                                opacity={token.alreadyVoted ? '0.3' : '1.0'}
                             >
                                 <Flex alignItems="center" mb={10}>
                                     <Image src={token.logo} h={50} w={50} mr={5} />

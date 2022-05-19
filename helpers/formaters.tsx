@@ -50,3 +50,11 @@ export function getClosest(dataset: [[number, number]], timestamp: number) {
     }
     return bestPrice
 }
+
+export function fromUrlToName(name: string) {
+    return name.split('-').join(' ').toLowerCase();
+}
+
+export function getUrlFromName(name: string): string {
+    return name.split(' ').join('-').toLowerCase();
+}

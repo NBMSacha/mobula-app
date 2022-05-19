@@ -34,7 +34,7 @@ function MenuMobile(props: any) {
       setHasMetamask(false)
     } else {
       const chainId = await provider.request({ method: 'eth_chainId' })
-      if (chainId !== '0x89') {
+      if (chainId !== '0x89' && router.pathname.includes('dao')) {
         try {
           await provider.request({
             method: 'wallet_switchEthereumChain',
@@ -200,22 +200,22 @@ function MenuMobile(props: any) {
           style={{ display: 'none' }}
         >
           <div className={styles['mobile-linkTo']}>
-            <a href='soon' className={styles['linkTo']}>
+            <a href='/new' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>New</span>
             </a>
-            <a href='soon' className={styles['linkTo']}>
+            <a href='/movers' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Gainers & Losers</span>
             </a>
-            <a href='earn' className={styles['linkTo']}>
+            <a href='/earn' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Earn</span>
             </a>
-            <a href='soon' className={styles['linkTo']}>
+            <a href='/soon' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>DEX</span>
             </a>
-            <a href='dao/dashboard' className={styles['linkTo']}>
+            <a href='/dao/dashboard' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>DAO</span>
             </a>
-            <a href='list' className={styles['linkTo']}>
+            <a href='/list' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>List an asset</span>
             </a>
           </div>

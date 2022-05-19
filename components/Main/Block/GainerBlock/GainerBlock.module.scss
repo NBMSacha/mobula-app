@@ -5,6 +5,7 @@
     margin-top: 2rem;
     backdrop-filter: blur(13.94px);
     transition: 0.1s;
+    box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 90%) 0px 1px 2px
 }
 
 .gainer-box>* {
@@ -92,6 +93,7 @@
 .logo-inBox {
     height: 18px !important;
     margin-right: 10px;
+    border-radius: 50%
 }
 
 .red {

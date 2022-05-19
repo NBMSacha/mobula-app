@@ -8,6 +8,7 @@ import Brand from './Brand'
 import Tendance from './Tendance'
 import { createClient } from '@supabase/supabase-js'
 import styles from './header.module.scss'
+import { useRouter } from 'next/router';
 
 function Header(props: any) {
   const [metrics, setMetrics] = useState({
@@ -19,7 +20,7 @@ function Header(props: any) {
   const { account, active, activate, deactivate } = useWeb3React()
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
-
+  const router = useRouter()
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
 
   const isNoEthereumObject = (err) => {
@@ -37,7 +38,7 @@ function Header(props: any) {
       setHasMetamask(false)
     } else {
       const chainId = await provider.request({ method: 'eth_chainId' })
-      if (chainId !== '0x89') {
+      if (chainId !== '0x89' && router.pathname.includes('dao')) {
         try {
           await provider.request({
             method: 'wallet_switchEthereumChain',
@@ -96,12 +97,16 @@ function Header(props: any) {
       const provider = new ethers.providers.Web3Provider(
         (window as any).ethereum
       )
-      provider.listAccounts().then((accounts) => {
-        if (accounts.length > 0) {
-          handleConnect()
-        }
-      })
-    } catch (e) {}
+
+      if (provider) {
+        provider.listAccounts().then((accounts) => {
+          if (accounts.length > 0) {
+            handleConnect()
+          }
+        })
+      }
+
+    } catch (e) { }
 
     supabase
       .from('metrics')

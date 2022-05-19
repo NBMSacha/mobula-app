@@ -1,69 +1,167 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { ethers } from 'ethers';
 import styles from './Main.module.scss';
 import Token from "./Token";
 import TrendingBlock from "./Block/TrendingBlock";
 import ButtonBlock from "./Block/ButtonBlock";
 import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
-import Tendance from '../Header/Tendance';
 import MainBlock from './Block/MainBlock';
 import TopPages from './TopPages';
 import Pagination from "./Pagination"
-
-const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    const updatePosition = () => {
-      setScrollPosition(window.pageYOffset);
-    }
-    window.addEventListener("scroll", updatePosition);
-    updatePosition();
-    return () => window.removeEventListener("scroll", updatePosition);
-  }, []);
-
-  return scrollPosition;
-};
+import BigNumber from 'bignumber.js';
+import axios from 'axios';
+import { useAlert } from 'react-alert';
+import { ethers } from 'ethers';
+import { RPC_URL } from '../../constants'
+import { useWeb3React } from '@web3-react/core'
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
-  const [gainers, setGainers] = useState([]);
-  const [recents, setRecents] = useState([]);
-  //const [losers, setLosers] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-  //const scrollPosition = useScrollPosition();
+  const [myAssets, setMyAssets] = useState([]);
+  const [display, setDisplay] = useState('Top 100');
+  // const [account, setAccount] = useState(null);
+  const [chains, setChains] = useState({});
+  const [loaded, setLoaded] = useState(false)
+  const { account, active, activate, deactivate } = useWeb3React();
+  const alert = useAlert()
+  const [textResponsive, setTextResponsive] = useState(false);
+  const percentageRef = useRef()
 
   async function shouldLoadMore(supabase: SupabaseClient) {
-    let loaded = false;
-    while (true || loaded) {
+    let done = false;
+    while (!loaded && !done) {
       await new Promise(r => setTimeout(r, 1000))
-      if (window.pageYOffset > 300) {
-        supabase.from('assets').select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity').filter('volume', 'gt', 50000).order('market_cap', { ascending: false }).limit(200).then(r => {
-          if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
-          }
-        });
-        loaded = true
+      if (window.pageYOffset > 700) {
+        console.log('loading more..', loaded)
+        done = true
+
+        console.log(supabase
+          .from('assets')
+          .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+          .filter('volume', 'gt', 50000)
+          .order('market_cap', { ascending: false }).limit(200).then(r => {
+            if (r.data) {
+              setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
+            }
+          }));
+        console.log('Setting loaded to true')
+        setLoaded(true)
       }
     }
   }
 
-  // useEffect(() => {
-  //   if (scrollPosition > 500 && !loaded) {
-  //     const supabase = createClient(
-  //       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
-  //     )
+  useEffect(() => {
+    if (percentageRef && percentageRef.current) {
 
-  //     setLoaded(true);
 
-  //   }
 
-  // }, [scrollPosition])
+      if ((window.matchMedia("(max-width: 768px)").matches)) {
+        setTextResponsive(true)
+      } else {
+        setTextResponsive(false)
+      }
+
+    }
+
+  }, [])
+
+
+
+
+  function loadChain(chain) {
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
+
+    supabase
+      .from('assets')
+      .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+      .contains('blockchains[1]', '{ ' + chain + ' }')
+      .filter('volume', 'gt', 50000)
+      .order('market_cap', { ascending: false })
+      .limit(150)
+      .then(r => {
+        console.log(r.data, r.error)
+        if (r.data) {
+          const newChains = {
+            ...chains
+          }
+          newChains[chain] = r.data.filter(token => token.blockchains[0] == chain);
+          setChains(newChains);
+        } else {
+          alert.show('Something went wrong')
+        }
+
+      })
+  }
+
+  function getTokensToDisplay(): any[] {
+    if (display == 'Top 100') {
+      return (tokens.length > 0) ? tokens : (props.tokens || [])
+    } else if (display == 'My Assets') {
+
+      if (account) {
+        if (myAssets.length == 0) {
+
+          axios.get('https://mobulaspark.com/holdings?account=' + account).then(r => {
+            if (r.data) {
+              const assets = r.data.holdings
+                .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
+                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split('.')[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
+              setMyAssets(assets)
+              return assets;
+            } else {
+              alert.error('Something went wrong.')
+              return []
+            }
+          })
+          return []
+        } else {
+          return myAssets;
+        }
+      } else {
+        alert.show('You must connect your wallet to see your assets.')
+        return []
+      }
+
+    } else if (display == 'Ethereum') {
+
+      if (!chains['Ethereum']) {
+        loadChain('Ethereum')
+        return []
+      } else {
+        return chains['Ethereum']
+      }
+    } else if (display == 'BNB Smart Chain (BEP20)') {
+
+      if (!chains['BNB Smart Chain (BEP20)']) {
+        loadChain('BNB Smart Chain (BEP20)')
+        return []
+      } else {
+        return chains['BNB Smart Chain (BEP20)']
+      }
+    } else if (display == 'Avalanche C-Chain') {
+
+      if (!chains['Avalanche C-Chain']) {
+        loadChain('Avalanche C-Chain')
+        return []
+      } else {
+        return chains['Avalanche C-Chain']
+      }
+    } else if (display == 'Polygon') {
+
+      if (!chains['Polygon']) {
+        loadChain('Polygon')
+        return []
+      } else {
+        return chains['Polygon']
+      }
+    } else {
+      return []
+    }
+  }
 
   useEffect(() => {
     const supabase = createClient(
@@ -71,20 +169,7 @@ function News(props: any) {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
 
-    supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(10).then(r => {
-      setGainers(r.data.filter(token => token.liquidity > 10000 || token.contracts.length == 0))
-    });
-
-    // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
-    //   setLosers(r.data)
-    // });
-
-    supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3).then(r => {
-      setRecents(r.data)
-    });
-
     shouldLoadMore(supabase)
-
   }, [])
 
   return (
@@ -94,20 +179,20 @@ function News(props: any) {
       <div className={styles["main-news"]}>
         <MainBlock />
         <div className={styles["three-container"]}>
-          {gainers.length >= 3 ?
+          {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
-              logo1={gainers[0].logo}
-              name1={gainers[0].name}
-              id1={gainers[0].id}
-              change1={gainers[0].price_change_24h}
-              logo2={gainers[1].logo}
-              name2={gainers[1].name}
-              id2={gainers[1].id}
-              change2={gainers[1].price_change_24h}
-              logo3={gainers[2].logo}
-              name3={gainers[2].name}
-              id3={gainers[2].id}
-              change3={gainers[2].price_change_24h}
+              logo1={props.gainers[0].logo}
+              name1={props.gainers[0].name}
+              id1={props.gainers[0].id}
+              change1={props.gainers[0].price_change_24h.toFixed(2)}
+              logo2={props.gainers[1].logo}
+              name2={props.gainers[1].name}
+              id2={props.gainers[1].id}
+              change2={props.gainers[1].price_change_24h.toFixed(2)}
+              logo3={props.gainers[2].logo}
+              name3={props.gainers[2].name}
+              id3={props.gainers[2].id}
+              change3={props.gainers[2].price_change_24h.toFixed(2)}
             /> : <GainerBlock
               logo1={''}
               name1={'Loading...'}
@@ -131,20 +216,20 @@ function News(props: any) {
             logo3={''}
             name3={'????'}
             change3={'??'} />
-          {recents.length > 0 ?
+          {props.recents && props.recents.length > 0 ?
             <RecentBlock
-              logo1={recents[0].logo}
-              name1={recents[0].name}
-              id1={recents[0].id}
-              change1={recents[0].price_change_24h}
-              logo2={recents[1].logo}
-              name2={recents[1].name}
-              id2={recents[1].id}
-              change2={recents[1].price_change_24h}
-              logo3={recents[2].logo}
-              name3={recents[2].name}
-              id3={recents[2].id}
-              change3={recents[2].price_change_24h}
+              logo1={props.recents[0].logo}
+              name1={props.recents[0].name}
+              id1={props.recents[0].id}
+              change1={props.recents[0].price_change_24h.toFixed(2)}
+              logo2={props.recents[1].logo}
+              name2={props.recents[1].name}
+              id2={props.recents[1].id}
+              change2={props.recents[1].price_change_24h.toFixed(2)}
+              logo3={props.recents[2].logo}
+              name3={props.recents[2].name}
+              id3={props.recents[2].id}
+              change3={props.recents[2].price_change_24h.toFixed(2)}
             /> : <RecentBlock
               logo1={''}
               name1={'Loading...'}
@@ -159,7 +244,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </div>
-        <ButtonBlock />
+        <ButtonBlock display={display} setDisplay={setDisplay} />
       </div>
       {/* PAGE 2 */}
       <div className={styles["ranked-main-container"]}>
@@ -169,59 +254,48 @@ function News(props: any) {
               <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
               <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`}>Change (24h)</th>
+              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
+                {textResponsive ? (
+                  <p>24h %</p>
+                ) : (
+                  <p>Change (24h)</p>
+                )}
+              </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
               <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
           </thead>
-          {(tokens || props.tokens) ?? (tokens || props.tokens).map((token, index) => <Token
-            key={token.id}
-            id={token.id}
-            name={token.name}
-            symbol={token.symbol}
-            contract={token.contract}
-            logo={token.logo}
-            twitter={token.twitter}
-            chat={token.chat}
-            discord={token.discord}
-            website={token.website}
-            market_cap={token.market_cap}
-            volume={token.volume}
-            price_change_24h={token.price_change_24h}
-            price_change_7d={token.price_change_7d}
-            price={token.price}
-            rank_change_24h={token.rank_change_24h}
-            rank={index + 1}
-          />)}
+
+          {
+            getTokensToDisplay().map((token: any, index: number) => token ? <Token
+              key={token.id || token.balance + token.name}
+              id={token.id}
+              name={token.name}
+              symbol={token.symbol}
+              contract={token.contract}
+              logo={token.logo}
+              twitter={token.twitter}
+              chat={token.chat}
+              discord={token.discord}
+              website={token.website}
+              market_cap={token.market_cap}
+              volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
+              price_change_24h={token.price_change_24h}
+              price_change_7d={token.price_change_7d}
+              price={token.price}
+              rank_change_24h={token.rank_change_24h}
+              rank={index + 1}
+              isMyAsset={display == 'My Assets'}
+            /> : <></>)
+          }
         </table>
        
 
       </div>
       <Pagination />
-{/*      
-      {tokens ? tokens.map((token, index) => <TopPages
-            key={token.id}
-            id={token.id}
-            name={token.name}
-            symbol={token.symbol}
-            contract={token.contract}
-            logo={token.logo}
-            twitter={token.twitter}
-            chat={token.chat}
-            discord={token.discord}
-            website={token.website}
-            market_cap={token.market_cap}
-            volume={token.volume}
-            price_change_24h={token.price_change_24h}
-            price_change_7d={token.price_change_7d}
-            price={token.price}
-            rank_change_24h={token.rank_change_24h}
-            rank={index + 1}
-          />) : <></>} */}
     </>
-
   )
 }
 

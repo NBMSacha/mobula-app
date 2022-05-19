@@ -59,23 +59,6 @@ function GainerBlock(tokens: {
             </span>
           </div>
         </div>
-        {/* <div className="right-loser">
-          <div className="line-gainer">
-              <span className="line-number">1</span>
-              <span className="crypto-assests">{formatName(tokens.name4, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change4}%</span>
-          </div>
-          <div className="line-gainer">
-              <span className="line-number">2</span>
-              <span className="crypto-assests">{formatName(tokens.name5, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change5}%</span>
-          </div>
-          <div className="line-gainer">
-              <span className="line-number">3</span>
-              <span className="crypto-assests">{formatName(tokens.name6, 8)}</span>
-              <span className="red"><div className="triangle-red"></div>{tokens.change6}%</span>
-          </div>
-          </div> */}
       </div >
     </div >
   )

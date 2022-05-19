@@ -1,15 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import { Chart, ChartType, registerables } from 'chart.js';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
-import { ArrowUp, ArrowDown } from 'react-feather';
 import styles from './DisplayedToken.module.scss';
 import { Heading, Text, Flex, Box, Image, Spacer, ButtonGroup, Button } from "@chakra-ui/react";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import {
-    formatAmount,
-    getTokenPrice,
-    getTokenPercentage,
     formatName
 } from '../../../helpers/formaters';
 import Countdown from 'react-countdown';
@@ -18,6 +11,7 @@ import { Send, Twitter, Globe } from "react-feather";
 import Vote from './Vote';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
+import Router from "next/router";
 
 const DisplayedToken = ({ token, changeDisplay }) => {
 
@@ -60,21 +54,17 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                 alert.error('You must connect your wallet to submit the form.')
             }
 
-            console.log('here')
             try {
-
-                console.log('here1')
-
                 await new ethers.Contract(
                     PROTOCOL_ADDRESS,
                     [
                         'function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
-                ).firstSortVote(token.id, true, utilityScore, socialScore, trustScore, marketScore);
+                ).firstSortVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
 
-                console.log('here2')
-
-                changeDisplay(0);
+                alert.success('Your vote has been successfully registered.')
+                await new Promise((resolve, reject) => setTimeout(resolve, 3000))
+                Router.reload()
 
             } catch (e) {
                 if (e.data && e.data.message) {
@@ -128,13 +118,13 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                 <div className={styles["left"]}>
                     <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
                         <Flex mr={20}>
-                            <Image src={token.logo} mr={20}></Image>
+                            <Image width='50px' src={token.logo} mr={20}></Image>
                             <div className={styles["name"]}>{token.name}</div>
                         </Flex>
                         <div className={styles["social-links"]}>
-                            <a href={token.website}><Globe className={styles["icons"]} /></a>
-                            <a href={token.twitter}><Twitter className={styles["icons"]} /></a>
-                            <a href={token.chat}><Send className={styles["icons"]} /></a>
+                            {token.website && <a href={token.website}><Globe className={styles["icons"]} /></a>}
+                            {token.twitter && <a href={token.twitter}><Twitter className={styles["icons"]} /></a>}
+                            {token.chat && <a href={token.chat}><Send className={styles["icons"]} /></a>}
                         </div>
 
                         <div className={styles["audit-links"]}>

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from '@web3-react/injected-connector'
-import { ethers } from 'ethers'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
 
-function Link(props: any) {
+function Link() {
   const router = useRouter()
 
   if (router.pathname.includes('dao')) {
@@ -42,45 +39,43 @@ function Link(props: any) {
       <div className={styles['link-container']}>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'soon')}
+          onClick={() => (document.location.href = '/new')}
         >
           New
         </span>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'soon')}
+          onClick={() => (document.location.href = '/movers')}
         >
           Gainers & Losers
         </span>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'earn')}
+          onClick={() => (document.location.href = '/earn')}
         >
           Earn
         </span>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'soon')}
+          onClick={() => (document.location.href = '/soon')}
         >
           DEX
         </span>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'dao/dashboard')}
+          onClick={() => (document.location.href = '/dao/dashboard')}
         >
           DAO
         </span>
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'list')}
+          onClick={() => (document.location.href = '/list')}
         >
           List an asset
         </span>
       </div>
     )
   }
-
-
 }
 
 export default Link
