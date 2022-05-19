@@ -147,11 +147,12 @@
 
   .token-title-chart {
     justify-content: start !important;
+    margin-right: 6px !important;
   }
 
 
   .token-title-marketFully {
-    margin-left: 32px !important;
+    margin-left: 20px !important;
   }
 
   .token-title-percentage{
@@ -166,7 +167,7 @@
   }
 
   .token-title-links {
-    margin-left: 10px !important;
+    margin-left: 26px !important;
   }
 
   .three-container {
@@ -176,10 +177,10 @@
  
 
   .tables {
-    width: 90%;
+    width: 90% !important;
     margin-top: 0px !important;
     white-space: wrap !important;
-    min-width: 1002px;
+    min-width: 1002px !important;
   }
 
   .main-news {
@@ -211,7 +212,12 @@
 
 }
 
-
+@media screen and (max-width:1700px) {
+  .tables{
+    width: 1181px;
+    min-width:1181px
+  }
+}
 
 // ================ 580 PX =================  //
 @media screen and(max-width: 580px) {

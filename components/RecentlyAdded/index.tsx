@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import { ethers } from 'ethers';
 import styles from "./RecentlyAdded.module.scss";
@@ -10,12 +10,24 @@ import { useRouter } from 'next/router';
 export default function RecentlyAdded({ tokens }) {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
+  const [textResponsive, setTextResponsive] = useState(false);
+  const percentageRef = useRef()
+
+  useEffect(() => {
+    if (percentageRef && percentageRef.current) {
+      if ((window.matchMedia("(max-width: 768px)").matches)) {
+        setTextResponsive(true)
+      } else {
+        setTextResponsive(false)
+      }
+    }
+  }, [])
 
   return (
     <div className={styles["listing"]}>
       <div className={styles["dflex"]}>
 
-        <header>
+        <header className={styles["stickyFix"]}>
           <Heading mb={'20px'}>Recently Added assets</Heading>
           <Text whiteSpace="normal" fontSize={['14px', '14px', '16px', '17px']}>
             Here are the latest listings on Mobula. Do you want to see an asset here?
@@ -34,7 +46,15 @@ export default function RecentlyAdded({ tokens }) {
               <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
               <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`}>Change (24h)</th>
+              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
+                {textResponsive === true ? (
+                    <>24h %</>
+                ) : (
+                  <>Change (24h)</>
+                )}
+                
+
+                </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
@@ -70,7 +90,7 @@ export default function RecentlyAdded({ tokens }) {
               format = "days"
             }
 
-            console.log(token.rank)
+           
 
             return <tbody className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
               <tr className={styles["token-containers"]}>
@@ -92,14 +112,22 @@ export default function RecentlyAdded({ tokens }) {
                 </td>
                 <td className={styles["token-infos"]}>
                   <img src={token.logo} className={styles["token-logos"]} />
-                  <div>
-                    <span className={`${styles["token-names"]} ${styles["font-char"]}`}>{token.name}</span>
+                  <div className={styles["name-container"]}>
+                  {token.name.length >= 14 ? (
+                    <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
+                        {formatName(token.name, 15)}
+                    </span>
+                  ) : ( 
+                    <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
+                       {token.name}
+                    </span>
+                  )}
                     <span className={`${styles["font-char"]} ${styles["token-symbols"]}`}>{token.symbol}</span>
                   </div>
                 </td>
                 <td className={styles["tokens-price"]}>
-                  <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
 
+                   <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
                 </td>
                 <td className={styles["token-percentage"]}>
                   {token.price_change_24h < 0.01 ? (
