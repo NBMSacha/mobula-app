@@ -127,7 +127,7 @@ const ChartCryptos = ({ baseAsset }) => {
     //     .map((price) => [price[0], price[1] * 1000000000])
     //     : null
     //   }
-     
+
     // }
     // if (timeframe == '1D') {
     //   if(state === 'Charts') {
@@ -144,9 +144,9 @@ const ChartCryptos = ({ baseAsset }) => {
     //     .map((price) => [price[0], price[1] * 1000000000])
     //     : null
     //   }
-     
+
     // }
-    
+
   }
 
   const fetchData = async () => {
@@ -535,7 +535,7 @@ const ChartCryptos = ({ baseAsset }) => {
     if (baseAsset) {
       fetchChart()
       fetchLiveData()
-      
+
     }
   }, [])
 
@@ -864,7 +864,7 @@ const ChartCryptos = ({ baseAsset }) => {
                       <p className={styles['numbers']}>
 
                         {baseAsset.liquidity
-                          ? '$' + formatAmount(liquidity || baseAsset.liquidity)
+                          ? '$' + formatAmount(parseInt(liquidity || baseAsset.liquidity))
                           : '???'}
                       </p>
                     </div>
@@ -939,7 +939,7 @@ const ChartCryptos = ({ baseAsset }) => {
                     <span>
                       <p className={styles['text-top-chart']}>VOLUME (24H)</p>
                       <p className={styles['text-bottom-chart']}>
-                        ${formatAmount(volume || baseAsset.volume)}
+                        ${formatAmount(volume > 0 ? volume : baseAsset.volume || '???')}
                       </p>
                     </span>
                     <span>
@@ -1075,22 +1075,6 @@ const ChartCryptos = ({ baseAsset }) => {
                       ) : (
                         <></>
                       )}
-                      {state === 'Market' ? (
-                        <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                          onClick={(e) => {
-                            setState('Market');
-                            console.log(state);
-                          }}>
-                          <span>Market</span>
-                        </button>
-                      ) : (
-                        <button className={styles['chart-header-link']}
-                          onClick={(e) => {
-                            setState('Market');
-                            console.log(state);
-                          }}
-                        >Market</button>
-                      )}
 
                       {state === 'Details' ? (
                         <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
@@ -1099,6 +1083,16 @@ const ChartCryptos = ({ baseAsset }) => {
                       ) : (
                         <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
                           <span>Infos</span>
+                        </button>
+                      )}
+
+                      {state === 'Charts' ? (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                          <span>Market</span>
+                        </button>
+                      ) : (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={styles['chart-header-link']}>
+                          <span>Market</span>
                         </button>
                       )}
 
@@ -1112,16 +1106,6 @@ const ChartCryptos = ({ baseAsset }) => {
                         </button>
                       )}
 
-                      {state === 'Charts' ? (
-                        <button onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                          <span>Charts</span>
-                        </button>
-                      ) : (
-                        <button onClick={() => { setState('Charts'); console.log(state) }} className={styles['chart-header-link']}>
-                          <span>Charts</span>
-                        </button>
-                      )}
-
                       <a
                         href='https://discord.gg/2a8hqNzkzN'
                         className={`${styles['chart-header-link']} ${styles['report-problem']}`}
@@ -1130,11 +1114,11 @@ const ChartCryptos = ({ baseAsset }) => {
                       </a>
                     </div>
                     {state === 'Charts' && (
-                          <Charts  baseAsset={baseAsset}/>
-                        )}
+                      <Charts baseAsset={baseAsset} />
+                    )}
                     <div className={styles['chart-content']}>
                       <div className={styles['canvas-container']}>
-                       
+
                         {state === 'Details' && (
                           <ProjectInfo token={baseAsset} />
                         )}
