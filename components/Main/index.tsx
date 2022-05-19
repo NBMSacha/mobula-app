@@ -7,6 +7,8 @@ import ButtonBlock from "./Block/ButtonBlock";
 import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
+import TopPages from './TopPages';
+import Pagination from "./Pagination"
 import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
@@ -172,6 +174,7 @@ function News(props: any) {
 
   return (
     <>
+    
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
         <MainBlock />
@@ -288,8 +291,10 @@ function News(props: any) {
             /> : <></>)
           }
         </table>
+       
 
       </div>
+      <Pagination />
     </>
   )
 }
