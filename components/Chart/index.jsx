@@ -10,6 +10,7 @@ import {
   getTokenPrice,
   getTokenPercentage,
   getClosest,
+  getUrlFromName
 } from '../../helpers/formaters'
 import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
@@ -44,8 +45,8 @@ const ChartCryptos = ({ baseAsset }) => {
   const [volume, setVolume] = useState(0);
   const [liquidity, setLiquidity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
-  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?', id: '' })
+  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?' })
+  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?' })
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})

@@ -2,9 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import styles from './Main.module.scss';
 import Token from "./Token";
-import TrendingBlock from "./Block/TrendingBlock";
 import ButtonBlock from "./Block/ButtonBlock";
-import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
 import TopPages from './TopPages';
