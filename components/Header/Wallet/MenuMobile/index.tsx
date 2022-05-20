@@ -92,7 +92,7 @@ function MenuMobile(props: any) {
       )
 
       if (provider) {
-        provider.listAccounts().then((accounts) => {
+        provider.listAccounts().catch().then((accounts) => {
           if (accounts.length > 0) {
             handleConnect();
             setIsConnected(true)
@@ -106,16 +106,18 @@ function MenuMobile(props: any) {
   useEffect(() => {
     const getBalance = async () => {
       if ((window as any).ethereum) {
-        const provider = new ethers.providers.Web3Provider((window as any).ethereum)
-        if (provider) {
-          const accounts = await provider.listAccounts();
-          var account = accounts[0]
-          const contract = new ethers.Contract(MOBL_ADDRESS, ['function balanceOf(address account) public view returns (uint256)'], provider)
-          var balance = await contract.balanceOf(account);
-          var newBalance = balance / 10 ** 18;
-          setWalletBalance(newBalance)
-          console.log(`You own ${walletBalance} MOBL`)
-        }
+        try {
+          const provider = new ethers.providers.Web3Provider((window as any).ethereum)
+          if (provider) {
+            const accounts = await provider.listAccounts();
+            var account = accounts[0]
+            const contract = new ethers.Contract(MOBL_ADDRESS, ['function balanceOf(address account) public view returns (uint256)'], provider)
+            var balance = await contract.balanceOf(account);
+            var newBalance = balance / 10 ** 18;
+            setWalletBalance(newBalance)
+            console.log(`You own ${walletBalance} MOBL`)
+          }
+        } catch (err) { }
       }
     }
     getBalance()
@@ -124,15 +126,18 @@ function MenuMobile(props: any) {
   useEffect(() => {
     const getRanked = async () => {
       if ((window as any).ethereum) {
-        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-        if (provider) {
-          const accounts = await provider.listAccounts();
-          var account = accounts[0]
-          const protocolContract = new ethers.Contract(PROTOCOL_ADDRESS, ["function rank(address account) public view returns (uint256)"], provider)
-          const rank = await protocolContract.rank(account)
-          setRanked(rank)
-          console.log(Number(rank))
-        }
+        try {
+          const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+          if (provider) {
+            const accounts = await provider.listAccounts();
+            var account = accounts[0]
+            const protocolContract = new ethers.Contract(PROTOCOL_ADDRESS, ["function rank(address account) public view returns (uint256)"], provider)
+            const rank = await protocolContract.rank(account)
+            setRanked(rank)
+            console.log(Number(rank))
+          }
+        } catch (e) { }
+
       }
     }
     getRanked()

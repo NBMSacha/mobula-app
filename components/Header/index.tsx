@@ -99,7 +99,7 @@ function Header(props: any) {
       )
 
       if (provider) {
-        provider.listAccounts().then((accounts) => {
+        provider.listAccounts().catch().then((accounts) => {
           if (accounts.length > 0) {
             handleConnect()
           }

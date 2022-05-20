@@ -108,7 +108,7 @@ function ListAToken(props: any) {
                 }
             }
 
-            if (supportedRPCs[i].name) {
+            if (supportedRPCs[i]?.name) {
                 chains.push(supportedRPCs[i].name)
             } else {
                 contracts[contracts.indexOf(contract)] = null
