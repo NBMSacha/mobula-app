@@ -41,24 +41,24 @@ const ProjectInfo = ({ token }) => {
             <div className={styles["left"]}>
                 <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
                     <div className={styles["social-links"]}>
-                        {token.website !== "" && ( 
-                            <a href={token.website} target="_blank"><Globe className={styles["icons"]} /></a>
-                        )}
-                        {token.twitter !== "" && ( 
+                        {token.website !== ""  ? ( 
+                            <a href={token.website}  target="_blank"><Globe className={styles["icons"]} /></a>
+                        ) : ( <></>)}
+                        {token.twitter !== ""  ? ( 
                             <a href={token.twitter} target="_blank"><Twitter className={styles["icons"]} /></a>
-                        )}
-                        {token.chat !== "" && ( 
+                        ) : ( <></>)}
+                        {token.chat !== ""  ? ( 
                             <a href={token.chat} target="_blank"><Send className={styles["icons"]} /></a>
-                        )}
+                        ) : ( <></>)}
                     </div>
 
                     <div className={styles["audit-links"]}>
-                        {token.kyc !== "" || token.kyc !== null && (
-                            <a href={token.kyc} className={styles["kyc"]}>KYC</a>
-                        )}
-                        {token.audit !== "" || token.audit !== null && (
-                            <a href={token.audit} className={styles["audit"]}>Audit</a>
-                        )}
+                        {token.kyc !== null ? (
+                            <a href={token.kyc} target="_blank" className={styles["kyc"]} onClick={() => console.log(token.kyc)}>KYC</a>
+                        ) : ( <></>)}
+                        {token.audit !== null ? (
+                            <a href={token.audit} target="_blank" className={styles["audit"]} onClick={() => console.log(token.audit)}>Audit</a>
+                        ) : ( <></>)}
                     </div>
                 </div>
                 <div className={styles["left-top-box"]}>
