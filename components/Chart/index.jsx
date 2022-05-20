@@ -10,6 +10,7 @@ import {
   getTokenPrice,
   getTokenPercentage,
   getClosest,
+  getUrlFromName
 } from '../../helpers/formaters'
 import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
@@ -26,6 +27,7 @@ import {
 } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
+import Charts from "./Charts/index.jsx"
 
 
 const ChartCryptos = ({ baseAsset }) => {
@@ -43,8 +45,8 @@ const ChartCryptos = ({ baseAsset }) => {
   const [volume, setVolume] = useState(0);
   const [liquidity, setLiquidity] = useState(0);
   const [price, setPrice] = useState(0);
-  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
-  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?', id: '' })
+  const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?' })
+  const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?' })
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})
@@ -118,6 +120,34 @@ const ChartCryptos = ({ baseAsset }) => {
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     }
+
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.volume_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+
+    // }
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.liquidity_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+    // }
+    // if (timeframe == '1D') {
+    //   if(state === 'Charts') {
+    //     return baseAsset ? baseAsset.rank_history.price
+    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+    //     .map((price) => [price[0], price[1] * 1000000000])
+    //     : null
+    //   }
+
+    // }
+
   }
 
   const fetchData = async () => {
@@ -159,6 +189,7 @@ const ChartCryptos = ({ baseAsset }) => {
 
   const fetchChart = async () => {
     try {
+      console.log("loading chart")
       const days = await getChart(baseAsset.id, '1D')
 
       setChart({ price: formatData(days) })
@@ -350,8 +381,6 @@ const ChartCryptos = ({ baseAsset }) => {
     });
 
     function crosshairLine(chart, mousemove) {
-      console.log("crosshair Line")
-
       const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
       chart.update(null);
       ctx.restore();
@@ -383,26 +412,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
       crosshairLabel(chart, mousemove);
     }
-
-    function zoom(chart, mousewheel) {
-      if (dates) {
-        const min = chart.config.options.scales.xAxes[0].min;
-        const max = chart.config.options.scales.xAxes[0].max;
-        if (mousewheel.wheelDeltaY >= 0) {
-          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) + 1];
-          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) - 1];
-        }
-        if (mousewheel.wheelDeltaY < 0) {
-          chart.config.options.scales.xAxes[0].min = dates[dates.indexOf(min) - 1];
-          chart.config.options.scales.xAxes[0].max = dates[dates.indexOf(max) + 1];
-        }
-      }
-
-    }
-
-    window.chartInstance.canvas.addEventListener('mousewheel', (e) => {
-      zoom(window.chartInstance, e)
-    })
 
     function crosshairLabel(chart, mousemove) {
       const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
@@ -527,13 +536,14 @@ const ChartCryptos = ({ baseAsset }) => {
     if (baseAsset) {
       fetchChart()
       fetchLiveData()
+
     }
   }, [])
 
-  useEffect(() => {
-    fetchChart()
-    fetchLiveData()
-  }, [baseAsset])
+  // useEffect(() => {
+  //   fetchChart()
+  //   fetchLiveData()
+  // }, [baseAsset])
 
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
@@ -711,7 +721,7 @@ const ChartCryptos = ({ baseAsset }) => {
       daoBtn.preventDefault()
     }
   }
-  console.log(baseAsset)
+
   const renderData = () => {
     return (
       <>
@@ -855,7 +865,7 @@ const ChartCryptos = ({ baseAsset }) => {
                       <p className={styles['numbers']}>
 
                         {baseAsset.liquidity
-                          ? '$' + formatAmount(liquidity || baseAsset.liquidity)
+                          ? '$' + formatAmount(parseInt(liquidity || baseAsset.liquidity))
                           : '???'}
                       </p>
                     </div>
@@ -930,7 +940,7 @@ const ChartCryptos = ({ baseAsset }) => {
                     <span>
                       <p className={styles['text-top-chart']}>VOLUME (24H)</p>
                       <p className={styles['text-bottom-chart']}>
-                        ${formatAmount(volume || baseAsset.volume)}
+                        ${formatAmount(volume > 0 ? volume : baseAsset.volume || '???')}
                       </p>
                     </span>
                     <span>
@@ -1066,22 +1076,6 @@ const ChartCryptos = ({ baseAsset }) => {
                       ) : (
                         <></>
                       )}
-                      {state === 'Market' ? (
-                        <button id="market" className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                          onClick={(e) => {
-                            setState('Market');
-                            console.log(state);
-                          }}>
-                          <span>Market</span>
-                        </button>
-                      ) : (
-                        <button className={styles['chart-header-link']}
-                          onClick={(e) => {
-                            setState('Market');
-                            console.log(state);
-                          }}
-                        >Market</button>
-                      )}
 
                       {state === 'Details' ? (
                         <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
@@ -1090,6 +1084,16 @@ const ChartCryptos = ({ baseAsset }) => {
                       ) : (
                         <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
                           <span>Infos</span>
+                        </button>
+                      )}
+
+                      {state === 'Charts' ? (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                          <span>Market</span>
+                        </button>
+                      ) : (
+                        <button onClick={() => { setState('Charts'); console.log(state) }} className={styles['chart-header-link']}>
+                          <span>Market</span>
                         </button>
                       )}
 
@@ -1110,6 +1114,9 @@ const ChartCryptos = ({ baseAsset }) => {
                         <span id='inner'>Report</span>
                       </a>
                     </div>
+                    {state === 'Charts' && (
+                      <Charts baseAsset={baseAsset} />
+                    )}
                     <div className={styles['chart-content']}>
                       <div className={styles['canvas-container']}>
 

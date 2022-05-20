@@ -60,7 +60,7 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                     [
                         'function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
-                ).firstSortVote(token.id, true, utilityScore, socialScore, trustScore, marketScore);
+                ).firstSortVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
 
                 alert.success('Your vote has been successfully registered.')
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000))

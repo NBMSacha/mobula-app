@@ -16,11 +16,9 @@
 .connect-wallet-btn {
   border: none;
   background: rgb(0, 63, 225);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 63, 225, 1) 0%,
-    rgba(100, 208, 255, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 63, 225, 1) 0%,
+      rgba(100, 208, 255, 1) 100%);
   font-size: 1.125rem;
   width: 12.5rem;
   height: 48px;
@@ -50,17 +48,21 @@
   }
 }
 
-@media screen and (max-width: 1060px) {
-}
+@media screen and (max-width: 1060px) {}
 
 @media screen and (max-width: 1060px) {
   .connect-wallet-btn {
     display: none;
   }
-  
+
 
   .hamburger-btn {
     display: inline-block;
     background: none;
   }
+}
+
+.new {
+  top: 0px;
+  position: absolute;
 }

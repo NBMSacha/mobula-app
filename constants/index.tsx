@@ -15,7 +15,8 @@ export const supportedRPCs = [
     { name: 'Polygon', url: 'https://polygon-rpc.com', explorer: 'https://polygonscan.com' },
     { name: 'Cronos', url: 'https://evm-cronos.crypto.org', explorer: 'https://cronos.crypto.org/explorer' },
     { name: 'Metis Andromeda', url: 'https://andromeda.metis.io/owner1088', explorer: 'https://andromeda-explorer.metis.io' },
-    { name: 'Aurora', url: 'https://mainnet.aurora.dev	', explorer: 'https://aurorascan.dev' }
+    { name: 'Aurora', url: 'https://mainnet.aurora.dev', explorer: 'https://aurorascan.dev' },
+    { name: 'Arbitrum', url: 'https://rpc.ankr.com/arbitrum', explorer: 'https://arbiscan.io/' }
 ]
 
 export const volumeOracles = {

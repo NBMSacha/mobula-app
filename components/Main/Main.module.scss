@@ -25,7 +25,6 @@
 .ranked-main-container {
   /* background: rgba(47, 54, 88, 0.1); */
   color: #f7f7f7;
-  padding-bottom: 10rem;
   overflow: auto;
   margin-left: auto;
   margin-right: auto;
@@ -33,7 +32,7 @@
 }
 
 .tables {
-  min-width:1240px;
+  min-width: 1240px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -76,9 +75,9 @@
 
 .token-title-assets {
   justify-content: center;
-    width: 240px;
-    margin-left: 10px;
-    display: flex;
+  width: 240px;
+  margin-left: 10px;
+  display: flex;
 }
 
 .token-title-price {
@@ -139,22 +138,24 @@
     width: 80px !important;
     margin-right: 23px !important;
   }
-  .token-title-price{
+
+  .token-title-price {
     margin-left: 5px !important;
-    width:135px !important;
+    width: 135px !important;
     margin-right: 36px !important;
   }
 
   .token-title-chart {
     justify-content: start !important;
+    margin-right: 6px !important;
   }
 
 
   .token-title-marketFully {
-    margin-left: 32px !important;
+    margin-left: 20px !important;
   }
 
-  .token-title-percentage{
+  .token-title-percentage {
     width: 27px !important;
     margin-right: 10px;
     margin-left: 0px !important;
@@ -162,24 +163,24 @@
   }
 
   .token-title-datas {
-    display:none
+    display: none
   }
 
   .token-title-links {
-    margin-left: 10px !important;
+    margin-left: 26px !important;
   }
 
   .three-container {
     display: none;
   }
 
- 
+
 
   .tables {
-    width: 90%;
+    width: 90% !important;
     margin-top: 0px !important;
     white-space: wrap !important;
-    min-width: 1002px;
+    min-width: 1002px !important;
   }
 
   .main-news {
@@ -211,7 +212,12 @@
 
 }
 
-
+@media screen and (max-width:1700px) {
+  .tables {
+    width: 1181px;
+    min-width: 1181px
+  }
+}
 
 // ================ 580 PX =================  //
 @media screen and(max-width: 580px) {

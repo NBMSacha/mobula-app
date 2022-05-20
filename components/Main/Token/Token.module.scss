@@ -169,6 +169,7 @@
     margin-left: 0px !important;
     width: 144px !important;
   }
+  
 
   .token-infos {
     margin: 0px;
@@ -211,6 +212,12 @@
     margin-right: 10px;
   }
 
+  .token-price-box{
+    background: #05062a;
+    z-index: 2;
+    padding-left: 10px;
+  }
+
 }
 
 @media screen and (max-width: 580px) {
@@ -219,6 +226,7 @@
     display: flex;
     font-size: 12px;
   }
+  
 
   .arrowDown {
     margin-right: 4px;
@@ -230,7 +238,7 @@
   }
 
   .token-percentage {
-    width: 27px !important;
+    width: 40px !important;
     display: flex;
     margin-left: 20px;
   }

@@ -7,29 +7,6 @@ import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
 import { getUrlFromName } from '../../../../helpers/formaters'
 import { useRouter } from 'next/router'
 
-async function updateSearch(search: string, supabase: any, setResults: any) {
-  const { data: names } = await supabase
-    .from('assets')
-    .select()
-    .or('name.ilike.' + search + '%,symbol.ilike.' + search + '%,name.ilike.' + search,)
-    .order('market_cap', { ascending: false })
-    .limit(10)
-
-  if (names && names.length > 0) {
-    setResults(names) //names.concat(symbols))
-  }
-
-  const { data: symbols } = await supabase
-    .from('assets')
-    .select()
-    .match({ symbol: search.toUpperCase() })
-
-  if (symbols && symbols.length > 0) {
-    console.log('We found it', symbols)
-    setResults(symbols.concat(names))
-  }
-}
-
 function SearchDiv(props: any) {
   const router = useRouter();
   const [token, setToken] = useState('')
@@ -69,6 +46,34 @@ function SearchDiv(props: any) {
       id: '',
     },
   ])
+
+  async function updateSearch(search: string, supabase: any, setResults: any) {
+    const { data: names } = await supabase
+      .from('assets')
+      .select()
+      .or('name.ilike.' + search + '%,symbol.ilike.' + search + '%,name.ilike.' + search,)
+      .order('market_cap', { ascending: false })
+      .limit(10)
+
+    if (names && names.length > 0) {
+      if (search == token) {
+        setResults(names)
+      }
+      //names.concat(symbols))
+    }
+
+    const { data: symbols } = await supabase
+      .from('assets')
+      .select()
+      .match({ symbol: search.toUpperCase() })
+
+    if (symbols && symbols.length > 0) {
+      console.log('We found it', symbols)
+      if (search == token) {
+        setResults(symbols.concat(names))
+      }
+    }
+  }
 
   const supabase = createClient(
     'https://ylcxvfbmqzwinymcjlnx.supabase.co',

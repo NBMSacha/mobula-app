@@ -3299,9 +3299,9 @@ bignumber.js@7.2.1:
   resolved "https://registry.npmjs.org/bignumber.js/-/bignumber.js-7.2.1.tgz"
   integrity sha512-S4XzBk5sMB+Rcb/LNcpzXr57VRTxgAvaAEDAl1AwRx27j00hT84O6OkteE7u8UB3NuaaygCRrEpqox4uDOrbdQ==
 
-bignumber.js@^9.0.0, bignumber.js@^9.0.1:
+bignumber.js@^9.0.0, bignumber.js@^9.0.1, bignumber.js@^9.0.2:
   version "9.0.2"
-  resolved "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.2.tgz#71c6c6bed38de64e24a65ebe16cfcf23ae693673"
   integrity sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw==
 
 "bignumber.js@git+https://github.com/frozeman/bignumber.js-nolookahead.git":
@@ -3873,6 +3873,13 @@ cborg@^1.3.1, cborg@^1.3.3, cborg@^1.3.4, cborg@^1.5.4, cborg@^1.6.0:
   version "1.8.1"
   resolved "https://registry.npmjs.org/cborg/-/cborg-1.8.1.tgz"
   integrity sha512-x49Vf1DUrS9rc+ar8QwOqfvA48H9YRn6UzcvlXpd1jKIzq2ebSR1R/yegu7MsskJew4+yc+3znWmud0PMJkR1Q==
+
+chakra-paginator@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/chakra-paginator/-/chakra-paginator-0.7.3.tgz#00539066f890e42d2c2ba54e95d8a74d75feb018"
+  integrity sha512-g8KX03Cw651/W61n9irxSGNBlDC2B0zWVr1PN7tNlvymeizwCyc4Ixb7N9gbvG+zlU9U++1uYuH7Sy1+Tx7Ojg==
+  dependencies:
+    lodash.union "^4.6.0"
 
 chalk@2.4.2, chalk@^2.0.0, chalk@^2.3.0, chalk@^2.4.2:
   version "2.4.2"
@@ -9186,6 +9193,11 @@ lodash.throttle@^4.1.1:
   resolved "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
   integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
 
+lodash.union@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
+  integrity sha1-SLtQiECfFvGCFmZkHETdGqrjzYg=
+
 lodash.uniqby@^4.7.0:
   version "4.7.0"
   resolved "https://registry.npmjs.org/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz"
@@ -11231,6 +11243,13 @@ react-clientside-effect@^1.2.5:
   integrity sha512-XGGGRQAKY+q25Lz9a/4EPqom7WRjz3z9R2k4jhVKA/puQFH/5Nt27vFZYql4m4NVNdUvX8PS3O7r/Zzm7cjUlg==
   dependencies:
     "@babel/runtime" "^7.12.13"
+
+react-countdown@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.3.2.tgz#4cc27f28f2dcd47237ee66e4b9f6d2a21fc0b0ad"
+  integrity sha512-Q4SADotHtgOxNWhDdvgupmKVL0pMB9DvoFcxv5AzjsxVhzOVxnttMbAywgqeOdruwEAmnPhOhNv/awAgkwru2w==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-dom@17.0.2:
   version "17.0.2"
