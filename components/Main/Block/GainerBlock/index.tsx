@@ -31,10 +31,13 @@ function GainerBlock(tokens: {
               <img src={tokens.logo1} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name1}</span>
             </div>
-            <span className={styles['green']}>
+            {(tokens.change1 >= 0 ? <span className={styles['green']}>
               <div className={styles['triangle-green']}></div>
               {tokens.change1}%
-            </span>
+            </span> : <span className={styles['red']}>
+              <div className={styles['triangle-red']}></div>
+              {tokens.change1}%
+            </span>)}
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id2))}>
             <div className={styles['token-info-pack']}>
@@ -42,10 +45,13 @@ function GainerBlock(tokens: {
               <img src={tokens.logo2} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name2}</span>
             </div>
-            <span className={styles['green']}>
+            {(tokens.change2 >= 0 ? <span className={styles['green']}>
               <div className={styles['triangle-green']}></div>
               {tokens.change2}%
-            </span>
+            </span> : <span className={styles['red']}>
+              <div className={styles['triangle-red']}></div>
+              {tokens.change2}%
+            </span>)}
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id3))}>
             <div className={styles['token-info-pack']}>
@@ -54,10 +60,13 @@ function GainerBlock(tokens: {
               <span className={styles['crypto-assests']}>{tokens.name3}</span>
             </div>
 
-            <span className={styles['green']}>
+            {(tokens.change3 >= 0 ? <span className={styles['green']}>
               <div className={styles['triangle-green']}></div>
               {tokens.change3}%
-            </span>
+            </span> : <span className={styles['red']}>
+              <div className={styles['triangle-red']}></div>
+              {tokens.change3}%
+            </span>)}
           </div>
         </div>
       </div >

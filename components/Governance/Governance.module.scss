@@ -1,40 +1,65 @@
-.container-box{
-    width:85%
+@import "../../styles/variables.scss";
+
+.link {
+    color: $secondTextColor;
+    margin-left: 7px;
 }
 
-.current-vote{
-    width:28% !important;
-    padding:0px 15px;
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: $lineColor;
+    margin-top: 1rem;
 }
 
-.proposals{
+.title {
+    font-weight: 800;
+
+    .titleColor {
+        color: $secondTextColor;
+        font-size: inherit;
+    }
+}
+
+.container-box {
+    width: 85%
+}
+
+.current-vote {
+    width: 28% !important;
+    padding: 0px 15px;
+}
+
+.proposals {
     padding: 22px 0px;
 }
 
-.x-space{
-    margin:0px auto;
+.x-space {
+    margin: 0px auto;
 }
 
 @media screen and (max-width: 768px) {
 
-    .container-box{
-        flex-direction:column;
-        align-items:center !important;
-        justify-content:center !important;
+    .container-box {
+        flex-direction: column;
+        align-items: center !important;
+        justify-content: center !important;
     }
-    .current-vote{
-        width:100% !important;
+
+    .current-vote {
+        width: 100% !important;
     }
 
 }
 
 @media screen and (max-width: 1360px) {
 
-    .x-space{
-        margin:0px 20px !important;
+    .x-space {
+        margin: 0px 20px !important;
     }
-    .proposals{
-        min-width:200px;
+
+    .proposals {
+        min-width: 200px;
     }
 
 
@@ -43,36 +68,39 @@
 
 @media screen and (max-width: 1230px) {
 
-       .container-box{
-           width:95% ;
-       }
+    .container-box {
+        width: 95%;
+    }
 }
 
 @media screen and (max-width: 1047px) {
-    .proposals{
+    .proposals {
         padding: 7px 0px;
     }
 }
 
 @media screen and (max-width:980px) {
-    .container-box{
+    .container-box {
         flex-direction: column;
         align-items: center;
-        
+
     }
-    .current-vote{
-        width:80% !important;
+
+    .current-vote {
+        width: 80% !important;
     }
-    .current-vote:nth-child(1){
-        
+
+    .current-vote:nth-child(1) {}
+
+    .current-vote:nth-child(2) {
+        margin-top: 40px !important;
     }
-    .current-vote:nth-child(2){
-       margin-top:40px !important;
+
+    .current-vote:nth-child(3) {
+        margin-top: 40px !important;
     }
-    .current-vote:nth-child(3){
-        margin-top:40px !important;
-    }
-    .proposals{
-        padding:18px 0px;
+
+    .proposals {
+        padding: 18px 0px;
     }
 }
