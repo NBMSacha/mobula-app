@@ -39,7 +39,7 @@ const ChartCryptos = ({ baseAsset }) => {
   const [month, setMonth] = useState({})
   const [year, setYear] = useState({})
   const [all, setAll] = useState({})
-  const [timeFormat, setTimeFormat] = useState('')
+  const [timeFormat, setTimeFormat] = useState('1D')
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
   const [volume, setVolume] = useState(0);
@@ -893,8 +893,8 @@ const ChartCryptos = ({ baseAsset }) => {
                     {baseAsset.utility_score +
                       baseAsset.social_score +
                       baseAsset.market_score +
-                      baseAsset.trust_score}
-                    /20
+                      baseAsset.trust_score} /20
+                     
                   </span>
                   <div
                     style={{ display: 'none' }}
@@ -1140,24 +1140,50 @@ const ChartCryptos = ({ baseAsset }) => {
                                 margin: 'auto',
                               }}
                             >
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('1D')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`}
-                                id='1d'
-                              >
-                                1D
-                              </button>
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('7D')
-                                }}
-                                className={styles['button-chart']}
-                                id='7d'
-                              >
-                                7D
-                              </button>
+                            {timeFormat === "1D" ? (
+                                <button
+                                  onClick={() => {
+                                    setTimeFormat('1D')
+                                  }}
+                                  className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} style={{margin:"0px !important"}}
+                                  id='1d'
+                                >
+                                  1D
+                                </button>
+                            ) : ( 
+                                <button
+                                  onClick={() => {
+                                    setTimeFormat('1D')
+                                  }}
+                                  className={`${styles['button-chart']} ${styles['d']}`}
+                                  
+                                >
+                                  1D
+                                </button>
+                            )}
+                              {timeFormat === "7D" ? (
+                                  <button
+                                  onClick={() => {
+                                    setTimeFormat('7D')
+                                  }}
+                                  className={`${styles['button-chart']} ${styles['button-chart-active']}`}
+                                  
+                                  id='7d'
+                                >
+                                  7D
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={() => {
+                                    setTimeFormat('7D')
+                                  }}
+                                  className={styles['button-chart']}
+                                  id='7d'
+                                >
+                                  7D
+                                </button>
+                              )}
+                              
                               <button
                                 onClick={() => {
                                   setTimeFormat('30D')
