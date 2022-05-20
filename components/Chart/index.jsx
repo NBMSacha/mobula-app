@@ -747,7 +747,10 @@ const ChartCryptos = ({ baseAsset }) => {
                         <span>{baseAsset.name}</span>
                       </div>
                       <div className={styles['chart-token-rank']}>
-                        <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
+                        {baseAsset.rank !== null && (
+                          <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span> 
+                        )}
+                        
                         {baseAsset.rank_change_24h < 0 ? (
                           <span
                             className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
