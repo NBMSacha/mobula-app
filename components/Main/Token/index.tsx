@@ -34,8 +34,6 @@ function Token(token: {
     }
     return token.name
   }
-
-  console.log(token.id)
   return (
     <tbody className={styles["border-bot"]} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
       <tr className={styles["token-containers"]}>
@@ -82,7 +80,6 @@ function Token(token: {
               <ArrowUp className={styles["arrowDown"]} />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
-
 
           )}
         </td>

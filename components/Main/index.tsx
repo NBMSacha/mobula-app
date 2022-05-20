@@ -2,17 +2,18 @@ import React, { useEffect, useState, useRef } from 'react'
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import styles from './Main.module.scss';
 import Token from "./Token";
-import TrendingBlock from "./Block/TrendingBlock";
 import ButtonBlock from "./Block/ButtonBlock";
-import RecentBlock from "./Block/RecentBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
+import TopPages from './TopPages';
+import Pagination from "./Pagination"
 import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ethers } from 'ethers';
 import { RPC_URL } from '../../constants'
 import { useWeb3React } from '@web3-react/core'
+import { useRouter } from 'next/router';
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -25,34 +26,12 @@ function News(props: any) {
   const alert = useAlert()
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
+  const router = useRouter();
+  const page = router.query.page ? parseInt(router.query.page as string) : 1;
 
-  async function shouldLoadMore(supabase: SupabaseClient) {
-    let done = false;
-    while (!loaded && !done) {
-      await new Promise(r => setTimeout(r, 1000))
-      if (window.pageYOffset > 700) {
-        console.log('loading more..', loaded)
-        done = true
-
-        console.log(supabase
-          .from('assets')
-          .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
-          .filter('volume', 'gt', 50000)
-          .order('market_cap', { ascending: false }).limit(200).then(r => {
-            if (r.data) {
-              setTokens(r.data.filter(token => token.liquidity > 1000 || token.contracts.length == 0))
-            }
-          }));
-        console.log('Setting loaded to true')
-        setLoaded(true)
-      }
-    }
-  }
-
+  console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
-
-
 
       if ((window.matchMedia("(max-width: 768px)").matches)) {
         setTextResponsive(true)
@@ -64,10 +43,23 @@ function News(props: any) {
 
   }, [])
 
+  useEffect(() => {
 
+    if (!page) return
 
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
 
-  function loadChain(chain) {
+    if (router.isReady) {
+      console.log(page)
+      shouldLoadMore(supabase)
+    }
+
+  }, [page])
+
+  function loadChain(chain: string) {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
@@ -77,27 +69,26 @@ function News(props: any) {
       .from('assets')
       .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
       .contains('blockchains[1]', '{ ' + chain + ' }')
-      .filter('volume', 'gt', 50000)
+      .filter('volume', 'gte', page < 5 ? 50000 : 0)
       .order('market_cap', { ascending: false })
-      .limit(150)
+      .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
       .then(r => {
         console.log(r.data, r.error)
         if (r.data) {
           const newChains = {
             ...chains
           }
-          newChains[chain] = r.data.filter(token => token.blockchains[0] == chain);
+          newChains[chain] = r.data.filter(token => token.blockchains[0] == chain).slice(0, 100);
           setChains(newChains);
         } else {
           alert.show('Something went wrong')
         }
-
       })
   }
 
   function getTokensToDisplay(): any[] {
     if (display == 'Top 100') {
-      return (tokens.length > 0) ? tokens : (props.tokens || [])
+      return (tokens.length > 0) ? tokens : page == 1 ? (props.tokens || []) : []
     } else if (display == 'My Assets') {
 
       if (account) {
@@ -161,23 +152,55 @@ function News(props: any) {
     }
   }
 
-  useEffect(() => {
-    const supabase = createClient(
-      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
-    )
+  async function shouldLoadMore(supabase: SupabaseClient) {
 
-    shouldLoadMore(supabase)
-  }, [])
+    if (display == 'Top 100') {
+      supabase
+        .from('assets')
+        .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .order('market_cap', { ascending: false })
+        .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
+        .then(r => {
+          if (r.data) {
+            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? 1000 : 0) || token.contracts.length == 0).slice(0, 100))
+          }
+        });
+    } else if (display != 'My Assets') {
+      supabase
+        .from('assets')
+        .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+        .contains('blockchains[1]', '{ ' + display + ' }')
+        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .order('market_cap', { ascending: false })
+        .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
+        .then(r => {
+          console.log(r.data, r.error)
+          if (r.data) {
+            const newChains = {
+              ...chains
+            }
+            newChains[display] = r.data.filter(token => token.blockchains[0] == display).slice(0, 100);
+            setChains(newChains);
+          } else {
+            alert.show('Something went wrong')
+          }
+
+        })
+    }
+
+  }
 
   return (
     <>
+
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
         <MainBlock />
         <div className={styles["three-container"]}>
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
+              title={'🟢 Top Gainers'}
               logo1={props.gainers[0].logo}
               name1={props.gainers[0].name}
               id1={props.gainers[0].id}
@@ -191,6 +214,7 @@ function News(props: any) {
               id3={props.gainers[2].id}
               change3={props.gainers[2].price_change_24h.toFixed(2)}
             /> : <GainerBlock
+              title={'🟢 Top Gainers'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -203,18 +227,37 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
-          <TrendingBlock
+          {props.trendings && props.trendings.length > 0 ? <GainerBlock
+            title={'🔥 Trendings'}
+            logo1={props.trendings[0].logo}
+            name1={props.trendings[0].name}
+            id1={props.trendings[0].id}
+            change1={props.trendings[0].price_change_24h.toFixed(2)}
+            logo2={props.trendings[1].logo}
+            name2={props.trendings[1].name}
+            id2={props.trendings[1].id}
+            change2={props.trendings[1].price_change_24h.toFixed(2)}
+            logo3={props.trendings[2].logo}
+            name3={props.trendings[2].name}
+            id3={props.trendings[2].id}
+            change3={props.trendings[2].price_change_24h.toFixed(2)}
+          /> : <GainerBlock
+            title={'🔥 Trendings'}
             logo1={''}
-            name1={'????'}
-            change1={'??'}
+            name1={'Loading...'}
+            id1={0}
+            change1={0}
             logo2={''}
-            name2={'????'}
-            change2={'??'}
+            name2={'Loading...'}
+            id2={0}
+            change2={0}
             logo3={''}
-            name3={'????'}
-            change3={'??'} />
+            name3={'Loading...'}
+            id3={0}
+            change3={0} />}
           {props.recents && props.recents.length > 0 ?
-            <RecentBlock
+            <GainerBlock
+              title={'⏱ Recently Added'}
               logo1={props.recents[0].logo}
               name1={props.recents[0].name}
               id1={props.recents[0].id}
@@ -227,7 +270,8 @@ function News(props: any) {
               name3={props.recents[2].name}
               id3={props.recents[2].id}
               change3={props.recents[2].price_change_24h.toFixed(2)}
-            /> : <RecentBlock
+            /> : <GainerBlock
+              title={'⏱ Recently Added'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -259,7 +303,7 @@ function News(props: any) {
                 )}
               </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
-              <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
+              <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
               <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
             </tr>
@@ -283,13 +327,13 @@ function News(props: any) {
               price_change_7d={token.price_change_7d}
               price={token.price}
               rank_change_24h={token.rank_change_24h}
-              rank={index + 1}
+              rank={(page - 1) * 100 + index + 1}
               isMyAsset={display == 'My Assets'}
             /> : <></>)
           }
         </table>
-
       </div>
+      {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )
 }

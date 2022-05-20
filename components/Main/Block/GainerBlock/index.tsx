@@ -5,6 +5,7 @@ import styles from './GainerBlock.module.scss'
 import { getTokenPrice } from '../../../../helpers/formaters';
 
 function GainerBlock(tokens: {
+  title: string
   logo1: string
   name1: string
   id1: number
@@ -21,7 +22,7 @@ function GainerBlock(tokens: {
   const router = useRouter()
   return (
     <div className={styles['gainer-box']}>
-      <h3 className={styles['gainer-main-title']}>🟢 Top Gainers</h3>
+      <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
       <div className={styles['gainer-container']}>
         <div className={styles['left-gainer']}>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>

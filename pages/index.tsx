@@ -13,38 +13,53 @@ export async function getStaticProps() {
     .filter('volume', 'gt', 50000)
     .order('market_cap', { ascending: false }).limit(35);
 
+  const { data: metrics } = await supabase.from('metrics').select('*').match({ id: 1 })
+
   const { data: gainers } = await supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(20)
 
   // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
   //   setLosers(r.data)
   // });
 
-
   const { data: recents } = await supabase.from('assets').select('name,price_change_24h,logo,id').order('created_at', { ascending: false }).limit(3);
+
+  const { data: trendings } = await supabase.from('assets').select('name,price_change_24h,logo,id,views_change_24h').order('views_change_24h', { ascending: false }).limit(3);
 
 
   console.log({
     tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
     gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
-    recents
+    recents,
+    trendings
   })
 
   return {
     props: {
       tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
       gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
-      recents
+      recents,
+      trendings,
+      top: (Math.floor(metrics[0].total_assets / 100)),
+      ethereum: (Math.floor(metrics[0].total_ethereum_assets / 100)),
+      bnb: (Math.floor(metrics[0].total_bnb_assets / 100)),
+      polygon: (Math.floor(metrics[0].total_polygon_assets / 100)),
+      avalanche: (Math.floor(metrics[0].total_avalanche_assets / 100)),
     },
     revalidate: 120
   }
 }
 
-export default function Listing({ tokens, gainers, recents }) {
+export default function Listing({ tokens, gainers, recents, trendings, top, ethereum, bnb, avalanche, polygon }) {
 
   return (
     <>
 
-      <News tokens={tokens} gainers={gainers} recents={recents} />
+      <News
+        tokens={tokens} gainers={gainers}
+        recents={recents} trendings={trendings} top={top}
+        ethereum={ethereum} bnb={bnb}
+        avalanche={avalanche} polygon={polygon}
+      />
 
     </>
   )

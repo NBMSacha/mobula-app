@@ -43,18 +43,18 @@ export default function RecentlyAdded({ tokens }) {
         <table className={styles["tables"]}>
           <thead className={styles["thead"]}>
             <tr className={styles["table-head"]}>
-              <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
+              <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>{textResponsive ? 'Logo' : 'Rank'}</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
               <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
               <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
                 {textResponsive === true ? (
-                    <>24h %</>
+                  <>24h %</>
                 ) : (
                   <>Change (24h)</>
                 )}
-                
 
-                </th>
+
+              </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
               <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
@@ -90,7 +90,7 @@ export default function RecentlyAdded({ tokens }) {
               format = "days"
             }
 
-           
+
 
             return <tbody className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
               <tr className={styles["token-containers"]}>
@@ -113,21 +113,21 @@ export default function RecentlyAdded({ tokens }) {
                 <td className={styles["token-infos"]}>
                   <img src={token.logo} className={styles["token-logos"]} />
                   <div className={styles["name-container"]}>
-                  {token.name.length >= 14 ? (
-                    <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
+                    {token.name.length >= 14 ? (
+                      <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
                         {formatName(token.name, 15)}
-                    </span>
-                  ) : ( 
-                    <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
-                       {token.name}
-                    </span>
-                  )}
+                      </span>
+                    ) : (
+                      <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
+                        {token.name}
+                      </span>
+                    )}
                     <span className={`${styles["font-char"]} ${styles["token-symbols"]}`}>{token.symbol}</span>
                   </div>
                 </td>
                 <td className={styles["tokens-price"]}>
 
-                   <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
+                  <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
                 </td>
                 <td className={styles["token-percentage"]}>
                   {token.price_change_24h < 0.01 ? (

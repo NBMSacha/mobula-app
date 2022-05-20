@@ -32,8 +32,13 @@ export const getStaticProps = async ({ params }) => {
     }
 }
 
+
 function Dataprovider({ asset }) {
     const router = useRouter()
+
+    if (asset && asset.id) {
+        fetch('https://mobulaspark.com/ping?id=' + asset.id)
+    }
 
     if (router.isFallback) {
         return <></>
