@@ -19,6 +19,7 @@ function Earn() {
     const alert = useAlert()
     const [referred, setReferred] = useState(0)
     const [claimed, setClaimed] = useState(0)
+    const [balance, setBalance] = useState(0);
     const [owed, setOwed] = useState(0)
     const [copied, setCopied] = useState(false)
     const [account, setAccount] = useState(null);
@@ -40,7 +41,7 @@ function Earn() {
             if (accounts[0]) {
                 setAccount(accounts[0])
 
-                await supabase.from('users').select('claimed,owed,referred,streaks,first_streak').match({ address: accounts[0] }).then(r => {
+                await supabase.from('users').select('claimed,owed,referred,streaks,first_streak,balance').match({ address: accounts[0] }).then(r => {
                     if (r?.data?.[0]) {
                         console.log(r.data[0])
                         setOwed(r.data[0].owed)
@@ -48,6 +49,7 @@ function Earn() {
                         setReferred(r.data[0].referred.length)
                         setStreaks(r.data[0].streaks)
                         setFirstStreak(r.data[0].first_streak)
+                        setBalance(r.data[0].balance)
                     }
                 })
             }
@@ -192,6 +194,52 @@ function Earn() {
                                         }}><Text mr="5px">Copy Link</Text> {copied ? <CheckCircle width='17px' color='#32C784' /> : <Link width='17px' />}</Button>
                                     </Flex>
                                 </Flex>
+                            </Flex>
+
+                            <Flex
+                                justifyContent={['left']}
+                                flexDir={['column']}
+                                alignItems={['left']}
+                                paddingTop='40px'
+                                padding='13px'
+                                bg={'#a3d4f440'}
+                                w={['94%']}
+                                h='100px'
+                                mr='auto'
+                                ml='auto'
+                                borderRadius='10px'
+                            >
+                                <Flex justifyContent={['space-between']} w={['100%']} h='50%'>
+                                    <h2 className={styles.title}>Your balance</h2>
+                                    <Flex justify="space-around" >
+                                        <span>
+                                            {balance}
+                                        </span>
+                                        <Image ml='5px' width='30px' height='30px' src={'/reward1.png'} />
+
+                                    </Flex>
+                                </Flex>
+
+                                <Flex mt='20px' h='30%' justify='center' align='center' >
+                                    <Flex w='100%' justify='space-around' mr='20px'>
+                                        <Box bg={(balance >= 10 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 20 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 30 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 40 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 50 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 60 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 70 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 80 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 90 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 100 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                        <Box bg={(balance >= 150 ? '#32C784' : '#05062A')} w='7.5%' h='20px' borderRadius='5px' />
+                                    </Flex>
+
+                                    <Button width="20% !important" h='25px !important' onClick={() => {
+                                        alert.show('You do not have enough MOBL to withdraw yet.')
+                                    }}><Text mr="5px">Withdraw</Text> </Button>
+                                </Flex>
+
                             </Flex>
                         </ColorModeProvider>
                     </ChakraProvider>

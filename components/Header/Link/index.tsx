@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { Flex } from '@chakra-ui/react'
 
 function Link() {
   const router = useRouter()
@@ -49,12 +51,18 @@ function Link() {
         >
           Gainers & Losers
         </span>
-        <span
-          className={styles['link-common']}
-          onClick={() => (document.location.href = '/earn')}
-        >
-          Earn
-        </span>
+        <Flex justify="space-around" align="center">
+          <span
+            className={styles['link-common']}
+            onClick={() => (document.location.href = '/earn')}
+            style={{ 'marginRight': '5px', color: '#32C784' }}
+          >
+            Earn
+          </span>
+          <Image width={20} height={20} src={'/reward1.png'} />
+
+        </Flex>
+
         <span
           className={styles['link-common']}
           onClick={() => (document.location.href = '/soon')}

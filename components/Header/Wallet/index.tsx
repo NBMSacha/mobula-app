@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import SearchDiv from './SearchDiv/index'
 import styles from './wallet.module.scss'
-import { X, Menu } from 'react-feather'
+import { X, Menu, Circle } from 'react-feather'
 import MenuMobile from './MenuMobile'
 import { useRouter } from 'next/router'
 import { isAddress } from 'ethers/lib/utils'
@@ -182,7 +182,7 @@ function Wallet(props: any) {
           {nav ? (
             <X className={styles['hamburger']} />
           ) : (
-            <Menu className={styles['hamburger']} />
+            <><Menu className={styles['hamburger']} /> <Circle width="10px" fill={'#32C784'} className={styles['new']}></Circle></>
           )}
         </button>
       </div>

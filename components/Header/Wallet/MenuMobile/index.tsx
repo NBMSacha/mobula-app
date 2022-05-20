@@ -9,6 +9,8 @@ import { MOBL_ADDRESS } from "../../../../constants";
 import { PROTOCOL_ADDRESS } from "../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
+import Image from 'next/image'
+import { Flex } from '@chakra-ui/react';
 
 function MenuMobile(props: any) {
 
@@ -211,9 +213,17 @@ function MenuMobile(props: any) {
             <a href='/movers' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>Gainers & Losers</span>
             </a>
-            <a href='/earn' className={styles['linkTo']}>
-              <span className={styles['linkTo-tag']}>Earn</span>
-            </a>
+            <Flex justify="left" align="center" className={styles['linkTo']}>
+              <span
+                className={styles['linkTo-tag']}
+                onClick={() => (document.location.href = '/earn')}
+                style={{ 'marginRight': '5px', color: '#32C784' }}
+              >
+                Earn
+              </span>
+              <Image width={20} height={20} src={'/reward1.png'} />
+
+            </Flex>
             <a href='/soon' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>DEX</span>
             </a>
