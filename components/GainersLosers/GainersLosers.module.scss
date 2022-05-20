@@ -8,7 +8,7 @@
 .both-container {
     width: 90%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .ellipsis {
@@ -215,12 +215,17 @@
 .column-right {
     padding-top: 50px;
     width: 45%;
+    margin-left: -19px;
+    margin-right:auto
+    
 
 }
 
 .column-left {
     padding-top: 50px;
-    width: 45%
+    width: 45%;
+    margin-right: auto;
+    margin-left:auto;
 }
 
 .title-both {
@@ -430,6 +435,16 @@
         margin-left: 3px;
     }
 
+    .column-right {
+        margin-left: 0px;
+        margin-right:0px
+    }
+    
+    .column-left {
+        margin-left: 0px;
+        margin-right:0px
+    }
+
     .mobile-btn {
         display: flex;
     }
@@ -542,5 +557,22 @@
         display: flex;
         justify-content: end;
         width: 82px !important;
+    }
+}
+
+@media screen  and (min-width:1800px) {
+    .column-right {
+        padding-top: 50px;
+        width: 45%;
+        margin-left: auto;
+        margin-right:auto
+
+    }
+    
+    .column-left {
+        padding-top: 50px;
+        width: 45%;
+        margin-right: auto;
+        margin-left:auto;
     }
 }
