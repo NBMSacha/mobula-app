@@ -35,17 +35,19 @@ const DisplayedToken = ({ token, changeDisplay }) => {
     const chatRef = useRef();
     const twitterRef = useRef();
     const websiteRef= useRef();
+    const [isResponsive, setIsResponsive] = useState(false)
+    
 
-    try{
-        if(window.matchMedia("(min-width: 768px)")) {
-            chartRef.target = "_blank";
-            twitterRef.target = "_blank";
-            websiteRef.target = "_blank";
+    useEffect(() => {
+        if(window.matchMedia("(max-width: 768px)")) {
+            setIsResponsive(true)
+        }   else {
+            setIsResponsive(false)
         }
+    }, [])
+        
             
-    }catch(err) {
 
-    }
     
     function seeMore() {
         refDescription.current.innerText = token.description;
@@ -144,10 +146,19 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                             <div className={styles["name"]}>{token.name}</div>
                         </Flex>
                         <div className={styles["social-links"]}>
-                            {token.website && <a href={token.website} target="_blank" ref={websiteRef}><Globe className={styles["icons"]} /></a>}
-                            
-                            {token.twitter && <a href={token.twitter} target="_blank" ref={twitterRef}><Twitter className={styles["icons"]} /></a>}
-                            {token.chat && <a href={token.chat} target="_blank" ref={chatRef}><Send className={styles["icons"]} /></a>}
+                            {isResponsive === true ? (
+                                <>
+                                {token.website && <a href={token.website} target="_blank" ref={websiteRef}><Globe className={styles["icons"]} /></a>}
+                                {token.twitter && <a href={token.twitter} target="_blank" ref={twitterRef}><Twitter className={styles["icons"]} /></a>}
+                                {token.chat && <a href={token.chat} target="_blank" ref={chatRef}><Send className={styles["icons"]} /></a>}
+                                </>
+                            ) : (
+                                <>
+                                {token.website && <a href={token.website} ref={websiteRef}><Globe className={styles["icons"]} /></a>}
+                                {token.twitter && <a href={token.twitter} ref={twitterRef}><Twitter className={styles["icons"]} /></a>}
+                                {token.chat && <a href={token.chat} ref={chatRef}><Send className={styles["icons"]} /></a>}
+                                </>
+                            )}
                         </div>
 
                         <div className={styles["audit-links"]}>
