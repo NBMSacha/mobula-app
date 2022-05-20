@@ -1,515 +1,236 @@
-import React, { useEffect, useState } from 'react'
-import { useAlert } from "react-alert";
-import { ethers } from 'ethers';
-
-import { MOBL_ADDRESS, GOVERNOR_ADDRESS, RPC_URL } from '../../constants';
+import React, { useEffect, useState, useRef } from 'react'
+import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRight'
+import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
+import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
+import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
+import styles from './Governance.module.scss';
+import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../constants"
+import { ethers } from 'ethers'
+import { formatAmount } from "../../helpers/formaters";
+import abi from "./governor_abi.json"
+import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, useMediaQuery} from '@chakra-ui/react'
+import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+  } from '@chakra-ui/react';
 
 function Governance() {
-    const alert = useAlert();
-    const [shares, setShares] = useState('0');
-    const [deposit, setDeposit] = useState('')
-    const [withdrawal, setWithdrawal] = useState('')
-    const [proposal, setProposal] = useState('')
-    const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([<input
+    const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([<Input
         className="long"
         value={'No proposals currently voted.'}
         onChange={(e) => e}
         placeholder="0x..."
         required
-    ></input>])
+    ></Input>])
+    const withdrawRef = useRef();
+    const depositRef = useRef();
+    const proposalRef = useRef();
+    const [withdrawAmount, setWithdrawAmount] = useState("");
+    const [shares, setshares] = useState("0")
+    const [depositAmount, setDepositAmount] = useState("");
+    const [createProposal, setCreateProposal] = useState([]);
 
-    var provider: any;
-    var account: string;
+    const MOBULA_ABI = [
+        "function withdraw(uint256 _amount) external ",
+        "function createProposal(string memory name) external ",
+        "function balanceOf(address account) external view returns (uint256)",
+        " function allowance(address _owner, address spender) external view returns (uint256)",
+        "function name() external view returns (string memory)",
+        "function decimals() external view returns (uint8)",
+        "function deposit(uint256 _amount) external",
+        "function approve(address account, uint256 amount) public",
+    ]
 
+    async function deposit() {
+        try{
+            
+            const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(GOVERNOR_ADDRESS,MOBULA_ABI, signer);   
+            const address = await signer.getAddress();
 
-    async function initValues() {
-        try {
-
-            provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-
-            const governorContract = new ethers.Contract(
-                GOVERNOR_ADDRESS,
+            const mobulaContract = new ethers.Contract(
+                MOBL_ADDRESS,
                 [
-                    {
-                        "inputs": [
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "top",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "getLiveProposals",
-                        "outputs": [
-                            {
-                                "components": [
-                                    {
-                                        "internalType": "uint256",
-                                        "name": "id",
-                                        "type": "uint256"
-                                    },
-                                    {
-                                        "internalType": "address",
-                                        "name": "author",
-                                        "type": "address"
-                                    },
-                                    {
-                                        "internalType": "string",
-                                        "name": "name",
-                                        "type": "string"
-                                    },
-                                    {
-                                        "internalType": "uint256",
-                                        "name": "createdAt",
-                                        "type": "uint256"
-                                    },
-                                    {
-                                        "internalType": "uint256",
-                                        "name": "votesForYes",
-                                        "type": "uint256"
-                                    },
-                                    {
-                                        "internalType": "uint256",
-                                        "name": "votesForNo",
-                                        "type": "uint256"
-                                    },
-                                    {
-                                        "internalType": "enum MobulaGovernor.Status",
-                                        "name": "status",
-                                        "type": "uint8"
-                                    }
-                                ],
-                                //@ts-ignore
-                                "internalType": "struct MobulaGovernor.Proposal[]",
-                                "name": "",
-                                "type": "tuple[]"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                //@ts-ignore
-                                "internalType": "address",
-                                "name": "",
-                                "type": "address"
-                            }
-                        ],
-                        "name": "shares",
-                        "outputs": [
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    },
-                    {
-                        "inputs": [
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "",
-                                "type": "uint256"
-                            }
-                        ],
-                        "name": "proposals",
-                        "outputs": [
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "id",
-                                "type": "uint256"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "address",
-                                "name": "author",
-                                "type": "address"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "string",
-                                "name": "name",
-                                "type": "string"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "createdAt",
-                                "type": "uint256"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "votesForYes",
-                                "type": "uint256"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "uint256",
-                                "name": "votesForNo",
-                                "type": "uint256"
-                            },
-                            {
-                                //@ts-ignore
-                                "internalType": "enum MobulaGovernor.Status",
-                                "name": "status",
-                                "type": "uint8"
-                            }
-                        ],
-                        "stateMutability": "view",
-                        "type": "function"
-                    }
-                ], provider
-            )
+                    "function approve(address account, uint256 amount) public",
+                    "function balanceOf(address account) public view returns(uint256)",
+                    "function allowance(address _owner, address spender) external view returns (uint256)"
+                ], 
+                signer
+            ); 
+            const balance = await mobulaContract.balanceOf(address)
+            const formatedBalance = Number(balance) / 10 ** 18;
 
-            try {
-                const walletProvider = new ethers.providers.Web3Provider((window as any).ethereum)
-                const accounts = await provider.listAccounts();
-                account = accounts[0];
-
-                if (account) {
-                    const shares = ethers.utils.formatEther((await governorContract.shares(account)));
-                    setShares(shares);
+            // const txs = await contract.allowance(MOBL_ADDRESS, address)
+            // await txs.wait();
+            if(formatedBalance >= depositAmount) {
+                const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount)
+                await tx1.wait();
+                console.log(`You own: ${formatedBalance} $MOBL`)
+                try {
+                    const tx = await contract.deposit(depositAmount);
+                    const txResponse = await tx.wait();
+                    console.log(txResponse);
+                } catch(err) {
+                    alert(err.data.message);
                 }
-            } catch (e) { }
-
-            let nextProposals = await governorContract.getLiveProposals(5);
-
-            const newLiveProposals = []
-
-            console.log(nextProposals)
-
-            nextProposals.forEach((prop, index) => {
-                if (prop.name) {
-                    newLiveProposals.push(
-                        <div key={index}>
-                            <div className="form-input">
-                                <div>
-                                    <input
-                                        className="long"
-                                        value={prop.name}
-                                        onChange={(e) => e}
-                                        placeholder="0x..."
-                                        required
-                                    ></input>
-                                </div>
-                            </div>
-                            <div className="buttonsDiv">
-                                <button className="button"
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-
-                                        try {
-                                            var provider = new ethers.providers.Web3Provider((window as any).ethereum)
-                                            var signer = provider.getSigner();
-                                        } catch (e) {
-                                            alert.show('You must connect your wallet to access the Dashboard.')
-                                        }
-
-                                        try {
-                                            const value = await new ethers.Contract(
-                                                GOVERNOR_ADDRESS,
-                                                [
-                                                    {
-                                                        "inputs": [
-                                                            {
-                                                                //@ts-ignore
-                                                                "internalType": "uint256",
-                                                                "name": "_proposalId",
-                                                                "type": "uint256"
-                                                            },
-                                                            {
-                                                                //@ts-ignore
-                                                                "internalType": "enum MobulaGovernor.VotingOptions",
-                                                                "name": "_vote",
-                                                                "type": "uint8"
-                                                            }
-                                                        ],
-                                                        "name": "vote",
-                                                        "outputs": [],
-                                                        "stateMutability": "nonpayable",
-                                                        "type": "function"
-                                                    },], signer
-                                            ).vote(prop.id.toNumber(), 1);
-                                        } catch (e) {
-                                            if (e.data && e.data.message) {
-                                                alert.error(e.data.message);
-                                            } else {
-                                                alert.error('Something went wrong.')
-                                            } console.log(e)
-                                        }
-
-                                    }}
-
-                                >No</button>
-                                <button className="button"
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-
-                                        try {
-                                            var provider = new ethers.providers.Web3Provider((window as any).ethereum)
-                                            var signer = provider.getSigner();
-                                        } catch (e) {
-                                            alert.show('You must connect your wallet to access the Dashboard.')
-                                        }
-
-                                        try {
-                                            const value = await new ethers.Contract(
-                                                GOVERNOR_ADDRESS,
-                                                [
-                                                    {
-                                                        "inputs": [
-                                                            {
-                                                                //@ts-ignore
-                                                                "internalType": "uint256",
-                                                                "name": "_proposalId",
-                                                                "type": "uint256"
-                                                            },
-                                                            {
-                                                                //@ts-ignore
-                                                                "internalType": "enum MobulaGovernor.VotingOptions",
-                                                                "name": "_vote",
-                                                                "type": "uint8"
-                                                            }
-                                                        ],
-                                                        "name": "vote",
-                                                        "outputs": [],
-                                                        "stateMutability": "nonpayable",
-                                                        "type": "function"
-                                                    },], signer
-                                            ).vote(prop.id.toNumber(), 0);
-                                        } catch (e) {
-                                            if (e.data && e.data.message) {
-                                                alert.error(e.data.message);
-                                            } else {
-                                                alert.error('Something went wrong.')
-                                            } console.log(e)
-                                        }
-
-                                    }}
-
-                                >Yes</button>
-                            </div>
-                        </div>);
-                }
-            })
-
-            setLiveProposals(newLiveProposals);
-
-        } catch (e) {
-            //alert.show('You must connect your wallet to submit the form.')
-            console.log(e)
+            } else {
+                alert("Sorry, balance < value...")
+               
+            }
+           
+        }catch(err) {
+            console.log(err.message)
         }
     }
 
+    async function withdraw() { 
+        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+        const contract = new ethers.Contract(GOVERNOR_ADDRESS, MOBULA_ABI, signer);   
+        if(provider !== undefined) {
+            const mobulaContract = new ethers.Contract(
+                MOBL_ADDRESS,
+                [
+                    "function approve(address account, uint256 amount) public",
+                    "function balanceOf(address account) public view returns(uint256)"
+                ], 
+                signer
+            ); 
+            try {
+                const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount)
+                await tx1.wait();
+                const tx = await contract.withdraw(withdrawAmount)
+                const txResponse = tx.wait()
+                console.log(txResponse)
+              } catch (err) {
+                alert(err.message);
+            }
+        }
+    }
+
+    async function createProposals() {
+        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+        if(provider != undefined) {
+            const signer = provider.getSigner();
+            const accounts = await provider.listAccounts();
+            const account = accounts[0];
+            const proposalContract = new ethers.Contract(GOVERNOR_ADDRESS, MOBULA_ABI, signer);    
+            try {
+                const tx = await  proposalContract.createProposal(createProposal)
+                const txResponse = tx.wait()
+                console.log(txResponse);
+            } catch (error) {
+                alert(error.data.message);
+            }
+        }
+    }
+
+    async function getProposals() {
+        const provider = new ethers.providers.Web3Provider((window as any).ethereum);
+        const accounts = await provider.listAccounts();
+        const account = accounts[0];
+        try{
+            const proposalContract = new ethers.Contract(GOVERNOR_ADDRESS, abi.abi, provider);   
+            console.log(proposalContract)
+            let nextProposals = await proposalContract.getLiveProposals(0);
+            
+        } catch(err) {
+            console.log(err.message)
+        }
+        // const newLiveProposals = [];
+        // nextProposals.forEach((props, idx) => {
+        //     newLiveProposals.push(<div>TEST</div>)
+        // })
+    }
+            
     useEffect(() => {
-        initValues()
-    }, [])
-
-    return (
-        <div className="listing">
-            <div className="container">
-                <header>
-                    <h1>Governance</h1>
-                    <span>
-                        You are in charge : deposit MOBL to be able to vote. Learn more <a className="link" href="https://docs.mobula.finance/app/governance">here</a>
-                    </span>
-                </header>
-
-                <div className="line"></div>
-                <form>
-                    <div>
-                        <h2>Voting power</h2>
-                        <div className="form-input" >
-                            <label htmlFor="contract">You currently deposited</label>
-                            <div>
-                                <input
-                                    className="long"
-                                    value={shares + ' $MOBL'}
-                                    onChange={(e) => e}
-                                    placeholder="0x..."
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        <div className="form-input">
-                            <label htmlFor="contract">Deposit new tokens</label>
-                            <div>
-                                <input
-                                    className="long"
-                                    value={deposit}
-                                    onChange={(e) => setDeposit(e.target.value)}
-                                    placeholder="2000"
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        <button className="button" style={{ marginBottom: "1.5rem" }}
-                            onClick={async (e) => {
-                                e.preventDefault();
-
-                                try {
-                                    var provider = new ethers.providers.Web3Provider((window as any).ethereum)
-                                    var signer = provider.getSigner();
-                                } catch (e) {
-                                    alert.show('You must connect your wallet to access the Dashboard.')
-                                }
-
-                                try {
-
-                                    const approval = await new ethers.Contract(
-                                        MOBL_ADDRESS,
-                                        [
-                                            'function approve(address spender, uint256 amount) public returns (bool)',
-                                        ],
-                                        signer,
-                                    ).approve(GOVERNOR_ADDRESS, ethers.utils.parseEther(deposit));
-
-                                    const success = await new ethers.Contract(
-                                        GOVERNOR_ADDRESS,
-                                        [
-                                            'function deposit(uint256 amount) external',
-                                        ], signer
-                                    ).deposit(ethers.utils.parseEther(deposit));
-
-                                    console.log(parseFloat(deposit))
-                                    const newShares = parseFloat(shares) + parseFloat(deposit);
-                                    setShares(String(newShares));
-                                    setDeposit('0')
-                                    alert.show('Deposit successful.')
-                                } catch (e) {
-                                    if (e.data && e.data.message) {
-                                        alert.error(e.data.message);
-                                    } else {
-                                        alert.error('Something went wrong.')
-                                    }
-                                }
-
-                            }}
-
-                        >Deposit</button>
-
-                        <div className="form-input">
-                            <label htmlFor="contract">Withdraw your tokens</label>
-                            <div>
-                                <input
-                                    className="long"
-                                    value={withdrawal}
-                                    onChange={(e) => setWithdrawal(e.target.value)}
-                                    placeholder="150"
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        <button className="button"
-                            onClick={async (e) => {
-                                e.preventDefault();
-
-                                try {
-                                    var provider = new ethers.providers.Web3Provider((window as any).ethereum)
-                                    var signer = provider.getSigner();
-                                } catch (e) {
-                                    alert.show('You must connect your wallet to access the Dashboard.')
-                                }
-
-                                try {
-
-                                    const success = await new ethers.Contract(
-                                        GOVERNOR_ADDRESS,
-                                        [
-                                            'function withdraw(uint256 amount) external',
-                                        ], signer
-                                    ).withdraw(ethers.utils.parseEther(withdrawal));
-
-                                    const newShares = parseFloat(shares) - parseFloat(withdrawal);
-                                    setShares(String(newShares));
-                                    setWithdrawal('0');
-                                    alert.show('Withdrawal successful.');
-                                } catch (e) {
-                                    if (e.data && e.data.message) {
-                                        alert.error(e.data.message);
-                                    } else {
-                                        alert.error('Something went wrong.')
-                                    }
-                                }
-
-                            }}
-
-                        >Withdraw</button>
-                    </div>
+        getProposals()
+    },[])
 
 
-
-                </form>
-
-                <form>
-                    <div>
-                        <h2>Governance process</h2>
-                        <div className="form-input" >
-                            <label htmlFor="contract">Create a proposal</label>
-                            <div>
-                                <input
-                                    className="long"
-                                    value={proposal}
-                                    onChange={(e) => setProposal(e.target.value)}
-                                    placeholder="The listing fee should be reduced to 10$"
-                                    required
-                                ></input>
-                            </div>
-                        </div>
-                        <button className="button" style={{ marginBottom: "1.5rem" }}
-                            onClick={async (e) => {
-                                e.preventDefault();
-
-                                try {
-                                    var provider = new ethers.providers.Web3Provider((window as any).ethereum)
-                                    var signer = provider.getSigner();
-                                } catch (e) {
-                                    alert.show('You must connect your wallet to access the Dashboard.')
-                                }
-
-                                try {
-
-                                    const success = await new ethers.Contract(
-                                        GOVERNOR_ADDRESS,
-                                        [
-                                            'function createProposal(string name) external',
-                                        ], signer
-                                    ).createProposal(proposal);
-
-                                    setProposal('');
-                                    initValues()
-                                    alert.show('Proposal created successfully.');
-                                } catch (e) {
-                                    if (e.data && e.data.message) {
-                                        alert.error(e.data.message);
-                                    } else {
-                                        alert.error('Something went wrong.')
-                                    }
-                                }
-
-                            }}
-
-                        >Create</button>
-                        <h2>Vote for current proposals</h2>
-
-                        {liveProposals}
-
-                    </div>
-
-
-
-                </form>
-            </div >
-        </div >
-    )
+  return (
+    <Flex color="white" direction="column" align="center" >
+        <Box borderBottom="1px solid #2E3557" w="90%">
+            <Heading>Governance</Heading>
+            <Text>You are in charge: deposit MOBL to be able to vote.<a>Learn more here</a></Text>
+        </Box>
+        <Flex my={70} className={styles['container-box']}>
+           
+                <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px"  mx={10} className={styles["current-vote"]}>
+                    <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
+                    <Text color="#ffffff99" fontSize="15px" mb="0px">You are currently deposited</Text>
+                    <Text fontSize="15px" color="white">0 $MOBL</Text>
+                    <FormControl>
+                        <FormLabel htmlFor='deposit' color="#ffffff99" fontSize="15px" mb="15px">Deposit New Token</FormLabel>
+                        <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='deposit' fontFamily="Poppins" borderRadius='10px' type='number' placeholder="3000"
+                            ref={depositRef}
+                            value={depositAmount}
+                            onChange={(e) => setDepositAmount(e.target.value)}
+                        ></Input>
+                    </FormControl>
+                    <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" color="white" fontFamily='Poppins' onClick={() => {console.log(depositAmount);deposit()}}>Deposit</Button>
+                    <FormControl>
+                        <FormLabel htmlFor='withdraw' mt="25px" color="#ffffff99" fontSize="15px">Withdraw New Token</FormLabel>
+                        <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='withdraw' borderRadius='10px' fontFamily="Poppins" type='number' placeholder="3000" 
+                            ref={withdrawRef}
+                            value={withdrawAmount}
+                            onChange={(e) => setWithdrawAmount(e.target.value)}             
+                        >
+                        </Input>
+                    </FormControl>
+                    <Button  onClick={() => {console.log(withdrawAmount);withdraw()}}  bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" mb='50px' color="white" fontFamily='Poppins'  >Withdraw</Button>
+                </Flex>
+                <Flex direction="column" bg="rgba(163, 212, 244, 0.25)"  borderRadius="25px" className={`${styles["current-vote"]} ${styles["x-space"]}`}>
+                    <Heading mb="0px">Governance process</Heading>
+                    <Text>Create a proposal</Text>
+                    <Textarea bg="rgba(163, 212, 244, 0.2)" borderRadius="10px" color="white" placeholder='The listing fee should be reduced to 10$'  h="165px" border="none" p="20px" fontFamily="Poppins" 
+                        ref={proposalRef}
+                        value={createProposal}
+                        onChange={(e) => setCreateProposal(e.target.value)}
+                    />
+                    <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => {console.log(createProposal);createProposals()}}>Create</Button>
+                </Flex>
+                <Flex direction="column"  px={0} ml="auto" mr="auto"  mx={10} className={styles["current-vote"]}>
+                    <Heading mt="0px" >Vote for current proposals</Heading>
+                    <Flex bg="#16C784" align="center" px={15}  justify="space-between" borderRadius="18px" className={styles["proposals"]}>
+                        <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
+                        <Flex align="center">
+                            <Image src="thumbsUp.png" h="25px" mr={15}/>
+                            <Image src="thumbsDown.png" h="25px"  ml="15px" opacity=".5"/>
+                        </Flex>
+                    </Flex>
+                    <Flex bg="#16C784" align="center" px={15}  justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
+                        <Text maxWidth="230px" fontSize="15px" pr="10px" my='0px'>The listing fee should be reduced to 10$</Text>
+                        <Flex align="center">
+                            <Image src="thumbsUp.png" h="25px" mr={15}/>
+                            <Image src="thumbsDown.png" h="25px"  ml="15px" opacity=".5"/>
+                        </Flex>
+                    </Flex>
+                
+                    <Flex bg="#EA3943" align="center" px={15}  justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
+                        <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
+                        <Flex align="center">
+                            <Image src="thumbsUp.png" h="25px" mr={15} opacity=".5"/>
+                            <Image src="thumbsDown.png" h="25px"  ml="15px" />
+                        </Flex>
+                    </Flex>
+                    <Flex bg="#16C784" align="center" px={15}  justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
+                        <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
+                        <Flex align="center">
+                            <Image src="thumbsUp.png" h="25px" mr={15}/>
+                            <Image src="thumbsDown.png" h="25px"  ml="15px" opacity=".5"/>
+                        </Flex>
+                    </Flex>
+                </Flex>
+            
+        </Flex>
+           
+    </Flex>
+  )
 }
 
 export default Governance
