@@ -32,7 +32,21 @@ const DisplayedToken = ({ token, changeDisplay }) => {
     const [trustScore, setTrustScore] = useState(0);
     const [marketScore, setMarketScore] = useState(0);
     const complete = useRef(false);
+    const chatRef = useRef();
+    const twitterRef = useRef();
+    const websiteRef= useRef();
 
+    try{
+        if(window.matchMedia("(min-width: 768px)")) {
+            chartRef.target = "_blank";
+            twitterRef.target = "_blank";
+            websiteRef.target = "_blank";
+        }
+            
+    }catch(err) {
+
+    }
+    
     function seeMore() {
         refDescription.current.innerText = token.description;
         setActive(true)
@@ -130,9 +144,10 @@ const DisplayedToken = ({ token, changeDisplay }) => {
                             <div className={styles["name"]}>{token.name}</div>
                         </Flex>
                         <div className={styles["social-links"]}>
-                            {token.website && <a href={token.website}><Globe className={styles["icons"]} /></a>}
-                            {token.twitter && <a href={token.twitter}><Twitter className={styles["icons"]} /></a>}
-                            {token.chat && <a href={token.chat}><Send className={styles["icons"]} /></a>}
+                            {token.website && <a href={token.website} target="_blank" ref={websiteRef}><Globe className={styles["icons"]} /></a>}
+                            
+                            {token.twitter && <a href={token.twitter} target="_blank" ref={twitterRef}><Twitter className={styles["icons"]} /></a>}
+                            {token.chat && <a href={token.chat} target="_blank" ref={chatRef}><Send className={styles["icons"]} /></a>}
                         </div>
 
                         <div className={styles["audit-links"]}>
