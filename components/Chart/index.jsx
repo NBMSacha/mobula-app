@@ -1002,13 +1002,13 @@ const ChartCryptos = ({ baseAsset }) => {
                       id='btnNotes'
                       onClick={() => daoBtn()}
                     >
-                      <span className={styles['tagV']}>DAO SCORE</span>
+                      <span className={styles['tagV']}>{"DAO SCORE" + " " + ""} </span>
                       <span>
                         {baseAsset.utility_score +
                           baseAsset.social_score +
                           baseAsset.market_score +
-                          baseAsset.trust_score}
-                        /20
+                          baseAsset.trust_score} /20
+                        
                       </span>
                       <div className={styles['grades']} id='daoBtn'>
                         <div className={styles['notes-boxs']}>
