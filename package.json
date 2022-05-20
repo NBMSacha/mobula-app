@@ -21,7 +21,7 @@
     "axios": "^0.26.1",
     "bignumber.js": "^9.0.2",
     "chakra-paginator": "^0.7.3",
-    "chart.js": "2.9.4",
+    "chart.js": "3.7.1",
     "dotenv": "^16.0.0",
     "ethers": "^5.6.1",
     "framer-motion": "^6",
