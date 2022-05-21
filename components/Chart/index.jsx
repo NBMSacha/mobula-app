@@ -748,9 +748,9 @@ const ChartCryptos = ({ baseAsset }) => {
                       </div>
                       <div className={styles['chart-token-rank']}>
                         {baseAsset.rank !== null && (
-                          <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span> 
+                          <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
                         )}
-                        
+
                         {baseAsset.rank_change_24h < 0 ? (
                           <span
                             className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
@@ -894,7 +894,7 @@ const ChartCryptos = ({ baseAsset }) => {
                       baseAsset.social_score +
                       baseAsset.market_score +
                       baseAsset.trust_score} /20
-                     
+
                   </span>
                   <div
                     style={{ display: 'none' }}
@@ -980,7 +980,7 @@ const ChartCryptos = ({ baseAsset }) => {
                       <p className={styles['text-bottom-chart']}>
 
                         {baseAsset.liquidity
-                          ? '$' + formatAmount(liquidity || baseAsset.liquidity)
+                          ? '$' + formatAmount(parseInt(liquidity || baseAsset.liquidity))
                           : '???'}
                       </p>
                     </span>
@@ -1008,7 +1008,7 @@ const ChartCryptos = ({ baseAsset }) => {
                           baseAsset.social_score +
                           baseAsset.market_score +
                           baseAsset.trust_score} /20
-                        
+
                       </span>
                       <div className={styles['grades']} id='daoBtn'>
                         <div className={styles['notes-boxs']}>
@@ -1140,34 +1140,34 @@ const ChartCryptos = ({ baseAsset }) => {
                                 margin: 'auto',
                               }}
                             >
-                            {timeFormat === "1D" ? (
+                              {timeFormat === "1D" ? (
                                 <button
                                   onClick={() => {
                                     setTimeFormat('1D')
                                   }}
-                                  className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} style={{margin:"0px !important"}}
+                                  className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} style={{ margin: "0px !important" }}
                                   id='1d'
                                 >
                                   1D
                                 </button>
-                            ) : ( 
+                              ) : (
                                 <button
                                   onClick={() => {
                                     setTimeFormat('1D')
                                   }}
                                   className={`${styles['button-chart']} ${styles['d']}`}
-                                  
+
                                 >
                                   1D
                                 </button>
-                            )}
+                              )}
                               {timeFormat === "7D" ? (
-                                  <button
+                                <button
                                   onClick={() => {
                                     setTimeFormat('7D')
                                   }}
                                   className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-                                  
+
                                   id='7d'
                                 >
                                   7D
@@ -1183,7 +1183,7 @@ const ChartCryptos = ({ baseAsset }) => {
                                   7D
                                 </button>
                               )}
-                              
+
                               <button
                                 onClick={() => {
                                   setTimeFormat('30D')
