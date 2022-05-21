@@ -383,9 +383,9 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
   return (
     <Box w={["100%", "88%", "70%", "45%"]} mb={["30px"]}>
       <Text color='white' mb={4}>{title}</Text>
-      <Box p="20px 20px 20px 20px" bg={baseAsset.liquidity_history.length !== undefined || title === "Holders"? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
+      <Box p="20px 20px 20px 20px" bg={ title==="No Volume" || title==="No Rank" || title==="No Liquidity" || title === "Holders"? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
-          {title !== "Holders" ? (
+          {title !== "No Volume" || title !== "No Rank" || title !== "No Liquidity" || title !== "Holders" ? (
             <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
               {title === "Volume" && (
                 <>
