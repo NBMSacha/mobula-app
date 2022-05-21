@@ -104,12 +104,12 @@ function GainersLosers() {
                                                 </div>
                                             </td>
                                             <td className={styles["tokens-price"]}>
-                                                <span className={`${styles["font-char"]} ${styles["token-price-box"]}`}>{getTokenPrice(gainer.price)}</span>
+                                                <span className={`${styles["font-char"]} ${styles["token-price-box"]}`}>${getTokenPrice(gainer.price)}</span>
                                             </td>
                                             <td className={styles["token-percentage"]}>
                                                 <span className={`${styles["font-char"]} ${styles["token-percentage-box"]} ${styles["green"]}`} id="noColor">
                                                     <AiOutlineArrowUp className={styles["arrowUp"]} />
-                                                    {getTokenPercentage(gainer.price_change_24h)}
+                                                    {getTokenPercentage(gainer.price_change_24h)}%
                                                 </span>
                                             </td>
                                             <td className={styles["token-marketCap"]}>
@@ -169,12 +169,12 @@ function GainersLosers() {
                                                 </div>
                                             </td>
                                             <td className={styles["tokens-price"]}>
-                                                <span className={`${styles["font-char"]} ${styles["token-price-box"]}`}>{getTokenPrice(loser.price)}</span>
+                                                <span className={`${styles["font-char"]} ${styles["token-price-box"]}`}>${getTokenPrice(loser.price)}</span>
                                             </td>
                                             <td className={styles["token-percentage"]}>
                                                 <span className={`${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
                                                     <AiOutlineArrowDown className="arrowDown" />
-                                                    {getTokenPercentage(loser.price_change_24h)}
+                                                    {getTokenPercentage(loser.price_change_24h)}%
                                                 </span>
                                             </td>
                                             <td className={styles["token-marketCap"]}>

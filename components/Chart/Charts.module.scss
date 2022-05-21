@@ -5,8 +5,30 @@
     align-items: center;
 }
 
+.change-chart-date{
+    width: 250px
+}
+
 .mobile-info-left-column {
     width: 50%;
+}
+
+.button-chart-active{
+    background: #dee4ffd0 !important;
+    color:white !important;
+    
+}
+.button-chart{
+    padding:4px 10px ;
+    margin:1px 10px;
+    border-radius:10px !important
+}
+
+.button-chart:nth-child(1) {
+    margin:1px 10px 1px 0px;
+}
+.button-chart:nth-child(5) {
+    margin:1px 0px 1px 10px;
 }
 
 .unsure {
@@ -403,6 +425,7 @@
     color: #FFFFFF;
     margin-top: 10px;
     margin-bottom: 15px;
+    word-break: break-word;
 }
 
 .left-bottom-box {
@@ -544,18 +567,10 @@
 
 .button-chart {
     background: none;
-    padding: 0px;
     border: none;
     font-family: 'Poppins';
     font-size: 18px;
-    margin-right: 1.8rem;
-    height: 28px;
-    width: 38px;
-    border-radius: 6px;
-    margin-top: 2px;
-    margin-left: 3px;
-    margin-bottom: 2px;
-    transition: right 250ms ease-in-out;
+    border-radius:6px
 }
 
 .button-chart {
@@ -570,7 +585,7 @@
 }
 
 .d {
-    margin-left: 15px
+    
 }
 
 .active-chart {
@@ -658,7 +673,6 @@
         padding: 0.8vw 0px;
         border-top: 1px solid #2E3557;
         margin: 0px auto;
-        height: 4vw;
         margin-top: 8px;
     }
 
@@ -687,6 +701,25 @@
         padding-right: 1.5vw;
 
     }
+
+    .button-chart-active{
+        background: #dee4ffd0 !important;
+        color:white !important;
+        
+    }
+    .button-chart{
+        padding:0px 8px !important;
+        margin:1px 6px;
+        border-radius:10px !important
+    }
+    
+    .button-chart:nth-child(1) {
+        margin:1px 6px 1px 0px;
+    }
+    .button-chart:nth-child(5) {
+        margin:1px 0px 1px 6px;
+    }
+    
 }
 
 @media screen and (max-width: 1350px) {
@@ -795,9 +828,9 @@
     }
 
     .button-chart {
-        margin-right: 15px;
         font-size: 13px;
         color: white;
+        
     }
 
     .activeMoover {
@@ -820,12 +853,22 @@
 
     .button-chart-active {
 
-        border-radius: 5px;
+        
     }
 
     .button-chart {
-        height: 18px;
-        width: 21px;
+        margin: auto;
+        border-radius: 5px;
+        height: auto;
+        width: auto;
+        border-radius:6px !important;
+    }
+    
+    .button-chart:nth-child(1) {
+        margin:2px;
+    }
+    .button-chart:nth-child(5) {
+        margin:2px ;
     }
 
     .change-chart-date {
@@ -835,11 +878,11 @@
         left: 20%;
         background-color: #2E3557;
         justify-content: center;
-        padding: 2px;
+        padding: 1px;
         border-radius: 7px;
         width: auto;
-        height: 20px;
-        max-width: 200px;
+        height: auto;
+        max-width: 210px;
         min-width: 195px;
     }
 
@@ -974,7 +1017,6 @@
         width: 115px;
         display: flex !important;
         margin-top: 8px;
-        margin-left: 10px;
         height: 22px
     }
 

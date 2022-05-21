@@ -19,7 +19,8 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
   const [month, setMonth] = useState({})
   const [year, setYear] = useState({})
   const [all, setAll] = useState({})
-  const [timeFormat, setTimeFormat] = useState('7D')
+  const [timeFormat, setTimeFormat] = useState('7D');
+  const [IsTrueDay, setIsTrueDay] = useState("")
 
   const formatData = (data) => {
     return data.map((el) => {
@@ -74,6 +75,7 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
         return baseAsset ? baseAsset.rank_history.rank
           .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
           .map((price) => [price[0], price[1] * 1000000000])
+          
           : null
       } else if (timeframe == '7D') {
         return baseAsset ? baseAsset.rank_history.rank
@@ -92,7 +94,8 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
         return baseAsset ? baseAsset.liquidity_history.liquidity
           .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((price) => [price[0], price[1] * 1000000000])
-          : null
+          : setIsTrueDay(null)
+          
       }
     }
     if (title == "Volume") {
@@ -142,11 +145,15 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
           .match({ asset: id })
         return old[0] ? old[0].volume_history
           .map((price) => [price[0], price[1] * 1000000000])
-          : null
+          : alert("teeeeeeeeeeeeeeeeeeee")
       }
+      if(null) {
+        alert("no chart avaible")
+      }
+      
     }
   }
-
+  console.log(baseAsset.liquidity_history.length)
   useEffect(() => {
     generateChart()
   }, [timeFormat, week])
@@ -376,57 +383,57 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
   return (
     <Box w={["100%", "88%", "70%", "45%"]} mb={["30px"]}>
       <Text color='white' mb={4}>{title}</Text>
-      <Box p="20px 20px 20px 20px" bg={title === "Holders" ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
+      <Box p="20px 20px 20px 20px" bg={ title==="No Volume" || title==="No Rank" || title==="No Liquidity" || title === "Holders"? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
-          {title !== "Holders" ? (
+          {title !== "No Volume" || title !== "No Rank" || title !== "No Liquidity" || title !== "Holders" ? (
             <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
               {title === "Volume" && (
                 <>
                   {timeFormat === "1D" ? (
-                    <Button size='xs' mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   )}
                   {timeFormat === "7D" ? (
-                    <Button size='xs' mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }}mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   )}
                   {timeFormat === "30D" ? (
-                    <Button size='xs' mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                   )}
                   {timeFormat === "1Y" ? (
-                    <Button size='xs' bg="white" mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]}  mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                    <Button size='xs' color="white" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                   )}
                   {timeFormat === "ALL" ? (
-                    <Button size='xs' bg="white" ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                    <Button size='xs' bg="rgba(222, 228, 255,  0.8156862745) !important" color="white" className={styles["btn-chakra"]} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                    <Button size='xs' color="white" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                   )}
 
 
                 </>
               )}
-              {title === "Rank" && (
+              {title === "Rank" ?(
                 <>
-                  <Button size='xs' onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                  <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 </>
-              )}
+              ) : (<></>)}
               {title === "Liquidity" && (
                 <>
                   {timeFormat === "1D" ? (
-                    <Button size='xs' mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' mr={1} bg="rgba(222, 228, 255, 0.8156862745) !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   )}
                   {timeFormat === "7D" ? (
-                    <Button size='xs' mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' mx={1} bg="rgba(222, 228, 255, 0.8156862745) !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   )}
                 </>
               )}
@@ -435,14 +442,15 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
             <>
             </>
           )}
-          {title === "Holders" ? (
-            <div className={styles["mienai"]}>
-              <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
-            </div>
-          ) : (
+          {title !== "Holders" ?  (
             <div>
               <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
             </div>
+          ) : (
+            <div className={styles["mienai"]}>
+              <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
+            </div>
+            
           )}
         </>
       </Box>

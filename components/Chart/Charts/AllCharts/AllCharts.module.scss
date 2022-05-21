@@ -1,3 +1,15 @@
 .mienai{
     visibility:hidden !important;
+    background-color:red
+}
+.btn-chakra:active{
+    background:rgba(222, 228, 255, 0.8156862745) ;
+    border:none !important;
+}
+.btn-chakra:hover{
+    border:none !important;
+}
+.btn-chakra:focus{
+    background:rgba(222, 228, 255, 0.8156862745) ;
+    border:none !important;
 }
