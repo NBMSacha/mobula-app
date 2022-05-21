@@ -301,6 +301,7 @@
 @media screen and (max-width: 1610px) {
     .both-container {
         width: 95%;
+        justify-content: center;
     }
 }
 
@@ -318,6 +319,7 @@
 
     .column-right {
         width: 48%;
+        margin-left: 0px;
     }
 
     .token-ids {
