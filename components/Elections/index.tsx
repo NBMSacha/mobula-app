@@ -10,6 +10,7 @@ import {
     FormControl,
     FormLabel,
     Input,
+    Button
 } from "@chakra-ui/react";
 import styles from "./Elections.module.scss";
 
@@ -86,7 +87,7 @@ function Elections() {
                         alignItems={["center", "center", "center", "stretch"]}
                     >
                         <Box
-                            p="10px"
+                            p="00px 15px 15px 15px"
                             bg={"#a3d4f440"}
                             borderRadius="10px"
                             w={["90%", "90%", "90%", "30%"]}
@@ -116,6 +117,10 @@ function Elections() {
                                     placeholder="0x .."
                                     isRequired
                                     background="#a3d4f433"
+                                    border="none"
+                                    h="32px"
+                                    mb="45px"
+                                    fontFamily="Poppins"
                                 />
                                 <Flex
                                     width="100%"
@@ -164,7 +169,7 @@ function Elections() {
                         </Box>
 
                         <Box
-                            p="10px"
+                            p="0px 20px 20px 20px"
                             bg={"#a3d4f440"}
                             borderRadius="10px"
                             w={["90%", "90%", "90%", "30%"]}
@@ -188,13 +193,18 @@ function Elections() {
                                     placeholder="0x .."
                                     isRequired
                                     background="#a3d4f433"
+                                    border="none"
+                                    h="32px"
+                                    mb="45px"
+                                    fontFamily="Poppins"
                                 />
                                 <Flex
                                     width="100%"
                                     justifyContent={["center", "center", "center", "left"]}
                                 >
-                                    <button
+                                    <Button
                                         className="button"
+                                        fontFamily="Poppins"
                                         style={{ width: 150 }}
                                         onClick={async (e) => {
                                             e.preventDefault;
@@ -230,7 +240,7 @@ function Elections() {
                                         }}
                                     >
                                         Demote
-                                    </button>
+                                    </Button>
                                 </Flex>
                             </FormControl>
                         </Box>

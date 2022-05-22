@@ -33,3 +33,18 @@
 .daily-box:hover {
     opacity: 0.7;
 }
+
+@media screen and (max-width: 997px) {
+    .floatLeft{
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .alignCenter{
+        display:flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items: center;
+    }
+}

@@ -96,6 +96,8 @@ function Earn() {
                                 flexDir={['column', 'column', 'column', 'row']}
                                 alignItems={['center', 'center', 'center', 'stretch']}
                                 paddingTop='60px'
+                                maxWidth="1020px"
+                                m="auto"
                             >
 
                                 < Flex
@@ -130,9 +132,9 @@ function Earn() {
                                 >
                                     <h2 className={styles.title}>Referral</h2>
 
-                                    <Box>
-                                        <Box fontSize='15px' mb={5}>
-                                            <Text mt={-3} mb={2} color='gray.400'>You referred {referred} friends.</Text>
+                                    <Box className={styles["floatLeft"]}>
+                                        <Box fontSize='15px' mb={5} mr="8px">
+                                            <Text mt={[0,0,-0,-3]} mb={2} color='gray.400' >You referred {referred} friends.</Text>
                                             <Flex ml={['auto', 'auto', 'auto', '0']} mr={['auto', 'auto', 'auto', '0']} justify='space-between' w={['80%', '80%', '70%', '90%']}>
                                                 <Box bg={(referred >= 1 ? '#32C784' : '#05062A')} w='16%' h='20px' borderRadius='5px' />
                                                 <Box bg={(referred >= 2 ? '#32C784' : '#05062A')} w='16%' h='20px' borderRadius='5px' />
@@ -141,12 +143,12 @@ function Earn() {
                                                 <Box bg={(referred >= 5 ? '#32C784' : '#05062A')} w='16%' h='20px' borderRadius='5px' />
                                             </Flex>
                                         </Box>
-                                        <Box fontSize='15px' mb={5}>
-                                            <Text mb={2} color='gray.400'>You already claimed</Text>
+                                        <Box fontSize='15px' mb={5} className={styles["alignCenter"]}>
+                                            <Text mb={2} color='gray.400' >You already claimed</Text>
                                             <Text fontWeight='800'>{claimed} MOBL</Text>
                                         </Box>
-                                        <Box fontSize='15px' mb={5}>
-                                            <Text mb={2} color='gray.400'>Mobula owes you</Text>
+                                        <Box fontSize='15px' mb={5} ml="8px" className={styles["alignCenter"]}>
+                                            <Text mb={2} color='gray.400' >Mobula owes you</Text>
                                             <Text fontWeight='800'>{owed} MOBL</Text>
                                         </Box>
                                     </Box>
@@ -208,6 +210,7 @@ function Earn() {
                                 mr='auto'
                                 ml='auto'
                                 borderRadius='10px'
+                                maxWidth="960px"
                             >
                                 <Flex justifyContent={['space-between']} w={['100%']} h='50%'>
                                     <h2 className={styles.title}>Your balance</h2>
