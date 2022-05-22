@@ -168,10 +168,9 @@ function Governance() {
                         }}
                     >
                         <header>
-                            <Heading mb={'20px'}>Dashboard</Heading>
+                            <Heading mb={'20px'}>Governance</Heading>
                             <Text fontSize={['14px', '14px', '16px', '17px']}>
-                                If you helped the Protocol, you deserve a reward. You're free
-                                to claim your tokens.
+                            You are in charge : deposit MOBL to be able to vote.
                                 <a
                                     className={styles.link}
                                     href='https://docs.mobula.finance/app/dashboard'
