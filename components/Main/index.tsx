@@ -277,6 +277,7 @@ function News(props: any) {
         </div>
         <ButtonBlock display={display} setDisplay={setDisplay} />
       </div>
+      {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
         <table className={styles["table-style"]}>
