@@ -55,7 +55,7 @@ function Token(token: {
         </td>
         <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} >
           <img src={token.logo} className={styles["token-logos"]} />
-          <div>
+          <div className={styles["wrap-name"]}>
             <span className={`${styles["name-title-margin"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
             <span className={`${styles["font-char"]}`}>{token.symbol}</span>
           </div>

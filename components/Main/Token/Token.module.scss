@@ -81,11 +81,22 @@
   display: flex;
   justify-content: flex-start;align-items:center;
   padding: 15px 0px !important;
+  white-space: initial;
+  margin-right: 31px;
 }
 
-// .price-title-center{
-//   padding:15px 5px !important
-// }
+
+.wrap-name{
+  display: flex;
+    flex-wrap: wrap;
+    margin-right: -70px;
+}
+
+.center-social{
+  text-align:center
+}
+
+
 
  .tbodys {
   border-bottom:1px solid rgba(39, 42, 68, 0.301)
@@ -107,7 +118,8 @@
 }
 
 .rank-title-start{
-  vertical-align:middle
+  vertical-align:middle;
+
 }
 
 .ths {
@@ -128,6 +140,8 @@
   align-items: center;
 }
 
+
+
 @media screen and (max-width: 768px) {
   .media-icons{
     display: flex;
@@ -143,9 +157,15 @@
     left: 0px;
     background: #05062a;
     margin: 0px !important;
-    padding: 15px 0px 15px 10px !important;
+    padding: 15px 10px 15px 10px !important;
   }
 
+  .price-title-center{
+    padding:0px 0px 0px 20px !important
+  }
+  .wrap-name{
+    margin-right: 0px;
+  }
   .font-char{
     font-size: 14px;
   }
@@ -174,7 +194,7 @@
   }
   
   .ths {
-    padding:0px 5px ;
+    padding:0px 15px ;
     text-align:end;
     margin: 15px 0px;
   }
@@ -287,10 +307,17 @@
   .token-containers {
     height: 60px !important;
   }
+  .chart-image{
+    margin-right: 10px;
+  }
 
   .token-ids {
     display:none !important
   }
+  .media-icons{
+    margin-left: 10px;
+  }
+
 
   .token-marketCap {
     margin-left: 0px !important;
@@ -378,5 +405,13 @@
 @media screen and (max-width: 730px) {
   .token-infos {
     margin-right: 00px;
+  }
+}
+
+@media screen and (max-width:1595px ) {
+  .wrap-name{
+    display: flex;
+      flex-wrap: wrap;
+      margin-right: -20px;
   }
 }

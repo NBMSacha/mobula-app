@@ -5,7 +5,6 @@ import Token from "./Token";
 import ButtonBlock from "./Block/ButtonBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
-import TopPages from './TopPages';
 import Pagination from "./Pagination"
 import BigNumber from 'bignumber.js';
 import axios from 'axios';
@@ -295,7 +294,7 @@ function News(props: any) {
               </th>
               <th className={`${styles["ths"]}`}>Market cap</th>
               <th className={`${styles["ths"]} ${styles["nowrap"]}` }>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
-              <th className={`${styles["ths"]}`}>Socials</th>
+              <th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</th>
               <th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</th>
             </tr>
           </thead>
