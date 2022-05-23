@@ -121,6 +121,7 @@ function Elections() {
                                     h="32px"
                                     mb="45px"
                                     fontFamily="Poppins"
+                                    w="90%"
                                 />
                                 <Flex
                                     width="100%"
@@ -197,6 +198,7 @@ function Elections() {
                                     h="32px"
                                     mb="45px"
                                     fontFamily="Poppins"
+                                    w="90%"
                                 />
                                 <Flex
                                     width="100%"
