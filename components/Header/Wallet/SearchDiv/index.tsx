@@ -90,7 +90,7 @@ function SearchDiv(props: any) {
 
   if (props.trigger) {
     return (
-      <div ref={props.wrapperRef}>
+      <div  ref={props.wrapperRef}>
         <div className={styles['search-div']}>
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} />
@@ -113,6 +113,7 @@ function SearchDiv(props: any) {
             <h3>Trending</h3>
             {results.map((result) => {
               return (
+                <div >
                 <div
                   className={styles['token-infos-search']}
                   key={Math.random()}
@@ -130,6 +131,7 @@ function SearchDiv(props: any) {
                     {result.symbol}
                   </span>
                   <span className={styles['token-rank']}>#{result.rank}</span>
+                </div>
                 </div>
               )
             })}

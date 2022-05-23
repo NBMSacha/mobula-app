@@ -52,7 +52,7 @@ function Token(token: {
     return token.name
   }
   return (
-    <tbody className={styles["tbodys"]}  onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+    <tbody id="nul"className={styles["tbodys"]}   onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
       <tr>
         <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} >
           <a href="" className={styles["white"]}>
