@@ -1,14 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ethers } from 'ethers';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../helpers/formaters';
-import { Text, Heading, Flex, Box, Spacer, Button, Image } from '@chakra-ui/react'
+import { Text, Heading} from '@chakra-ui/react'
 import { useRouter } from 'next/router';
 
 export default function RecentlyAdded({ tokens }) {
-  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
@@ -26,7 +23,6 @@ export default function RecentlyAdded({ tokens }) {
   return (
     <div className={styles["listing"]}>
       <div className={styles["dflex"]}>
-
         <header className={styles["stickyFix"]}>
           <Heading mb={'20px'}>Recently Added assets</Heading>
           <Text whiteSpace="normal" fontSize={['14px', '14px', '16px', '17px']}>
@@ -52,8 +48,6 @@ export default function RecentlyAdded({ tokens }) {
                 ) : (
                   <>Change (24h)</>
                 )}
-
-
               </th>
               <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
               <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
@@ -90,21 +84,16 @@ export default function RecentlyAdded({ tokens }) {
               format = "days"
             }
 
-
-
             return <tbody className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
               <tr className={styles["token-containers"]}>
                 <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
                   <a href="" className={styles["white"]}>
                     {token.rank < 0 ? (
                       <span className={`${styles["white"]} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-
                         {token.rank}
                       </span>
                     ) : token.rank == 0 ? <div>--</div> : (
                       <span className={` ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-
-
                         {token.rank}
                       </span>
                     )}
@@ -132,7 +121,6 @@ export default function RecentlyAdded({ tokens }) {
                 <td className={styles["token-percentage"]}>
                   {token.price_change_24h < 0.01 ? (
                     <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-
                       <ArrowDown className={styles["arrowDown"]} />
                       {getTokenPercentage(token.price_change_24h)}%
                     </span>
@@ -144,8 +132,6 @@ export default function RecentlyAdded({ tokens }) {
                       <ArrowUp className={styles["arrowDown"]} />
                       {getTokenPercentage(token.price_change_24h)}%
                     </span>
-
-
                   )}
                 </td>
                 <td className={styles["token-marketCap"]}>
@@ -162,8 +148,6 @@ export default function RecentlyAdded({ tokens }) {
                     {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
                     {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><Twitter className={styles["fu"]} /></a> : <></>}
                   </div>
-
-
                 </td>
                 <td className={styles["token-chart"]}>
                   {format == "seconds" && <span>{postedDate} seconds ago</span>}
@@ -174,16 +158,9 @@ export default function RecentlyAdded({ tokens }) {
                   {format == "day" && <span>{Math.floor(postedDate / 86400)} day ago</span>}
                   {format == "days" && <span>{Math.floor(postedDate / 86400)} days ago</span>}
                 </td>
-
-
               </tr>
-
             </tbody>
-
           })}
-
-
-
         </table>
       </div>
     </div>

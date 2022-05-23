@@ -20,11 +20,7 @@ import { volumeOracles, priceOracles, specialTokens, providers } from '../../con
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import Swap from "./Swap";
-import {
-  ChakraProvider,
-  ColorModeProvider,
-  useColorMode,
-} from '@chakra-ui/react'
+import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
 import Charts from "./Charts/index.jsx"
@@ -32,7 +28,6 @@ import Charts from "./Charts/index.jsx"
 
 const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
-  const [coins, setCoins] = useState([])
   const [chart, setChart] = useState({})
   const [day, setDay] = useState({})
   const [week, setWeek] = useState({})
@@ -47,6 +42,11 @@ const ChartCryptos = ({ baseAsset }) => {
   const [price, setPrice] = useState(0);
   const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?' })
   const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?' })
+  const daoRef = useRef();
+  const dropdownRef = useRef();
+  const hideRef = useRef();
+  const hidedaoRef = useRef();
+  const changeRef = useRef();
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})
@@ -66,7 +66,6 @@ const ChartCryptos = ({ baseAsset }) => {
       'https://ylcxvfbmqzwinymcjlnx.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
-
     if (timeframe == '1D') {
       return baseAsset ? baseAsset.price_history.price
         .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
@@ -120,34 +119,6 @@ const ChartCryptos = ({ baseAsset }) => {
           .map((price) => [price[0], price[1] * 1000000000])
         : null
     }
-
-    // if (timeframe == '1D') {
-    //   if(state === 'Charts') {
-    //     return baseAsset ? baseAsset.volume_history.price
-    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-    //     .map((price) => [price[0], price[1] * 1000000000])
-    //     : null
-    //   }
-
-    // }
-    // if (timeframe == '1D') {
-    //   if(state === 'Charts') {
-    //     return baseAsset ? baseAsset.liquidity_history.price
-    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-    //     .map((price) => [price[0], price[1] * 1000000000])
-    //     : null
-    //   }
-    // }
-    // if (timeframe == '1D') {
-    //   if(state === 'Charts') {
-    //     return baseAsset ? baseAsset.rank_history.price
-    //     .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-    //     .map((price) => [price[0], price[1] * 1000000000])
-    //     : null
-    //   }
-
-    // }
-
   }
 
   const fetchData = async () => {
@@ -160,8 +131,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
       if (baseAsset.rank && baseAsset.rank != 1) {
         supabase.from('assets').select('name,id,rank').or('rank.eq.' + (baseAsset.rank - 1) + ',rank.eq.' + (baseAsset.rank + 1)).then(r => {
-          console.log('DONE')
-
           if (r.data) {
 
             r.data = r.data.sort((a, b) => a.rank - b.rank)
@@ -179,10 +148,7 @@ const ChartCryptos = ({ baseAsset }) => {
           }
         })
       }
-
-
     } else {
-
       router.push("/")
     }
   }
@@ -430,7 +396,6 @@ const ChartCryptos = ({ baseAsset }) => {
       ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
     }
 
-
     if (!data || data.length == 0) {
       setVisible(true)
     } else {
@@ -468,7 +433,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
           //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
 
-          //We 
           const decimalsDivider = new BigNumber(10).pow(18 - tokenDecimals.toNumber());
           const normalizer = new BigNumber(10).pow(18);
 
@@ -494,22 +458,15 @@ const ChartCryptos = ({ baseAsset }) => {
                       }
                     `
               })
-
               console.log(subgraph.url, result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
-
               total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
-
             } catch (e) {
               console.log(e)
               error = true;
             }
-
           }
-
         }
-
       }
-
       if (totalLiquidity.toNumber() > 0) {
         console.log('MODIFYING PRICE')
         setPrice(averagePrice.div(totalLiquidity).toNumber())
@@ -519,31 +476,21 @@ const ChartCryptos = ({ baseAsset }) => {
       } else {
         console.log('CLOCHARD')
       }
-
       const volume = total_volume - getClosest(baseAsset.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
 
       if (!error) {
         setVolume(volume);
       }
-
     }
-
   }
 
   useEffect(() => {
     fetchData()
-
     if (baseAsset) {
       fetchChart()
       fetchLiveData()
-
     }
   }, [])
-
-  // useEffect(() => {
-  //   fetchChart()
-  //   fetchLiveData()
-  // }, [baseAsset])
 
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
@@ -646,11 +593,9 @@ const ChartCryptos = ({ baseAsset }) => {
   }, [all])
 
   useEffect(() => {
-
     if (state == 'Overview') {
       generateChart()
     }
-
   }, [state])
 
   const determineTimeFormat = () => {
@@ -672,53 +617,37 @@ const ChartCryptos = ({ baseAsset }) => {
 
   function moreStats() {
     try {
-      let hide = document.getElementById('hide')
-      let change = document.getElementById('change')
-      if (hide.style.display == 'none') {
+      if (hideRef.current.style.display == 'none') {
         console.log('changin style to flex')
-        change.innerHTML = 'Less Stats'
-        document.getElementById('hidedao').style.display = ''
+        changeRef.current.innerHTML = 'Less Stats'
+        hidedaoRef.current.style.display = 'flex'
 
-        return (hide.style.display = 'flex')
+        return (hideRef.current.style.display = 'flex')
       } else {
-        console.log(hide.style.display)
 
-        change.innerHTML = 'More Stats'
-        document
-          .getElementById('hidedao')
-          .style.setProperty('display', 'none', 'important')
-        return (hide.style.display = 'none')
+        changeRef.current.innerHTML = 'More Stats'
+        hidedaoRef.current.style.setProperty('display', 'none', 'important')
+        return (hideRef.current.style.display = 'none')
       }
     } catch (err) {
       console.log(err)
     }
   }
 
-  function mobileDaoBtn() {
-    var btnMobile = document.getElementById('daoBtn-mobile')
-    if (btnMobile.style.display == 'none') {
-      btnMobile.style.display = 'block'
-    } else {
-      btnMobile.style.display = 'none'
-    }
-  }
-
   function daoBtn() {
     var x = window.matchMedia('(max-width: 1650px')
-    let daoBtn = window.document.getElementById('daoBtn')
-    let btnNotes = window.document.getElementById('btnNotes')
     if (x.matches) {
-      if (daoBtn.style.display == 'none') {
-        daoBtn.style.display = 'block'
-        window.document.getElementById('dropdown').style.margin =
+      if (daoRef.current.style.display == 'none') {
+        daoRef.current.style.display = 'block'
+        dropdownRef.current.style.margin =
           '0px 0px 150px 0px'
       } else {
-        daoBtn.style.display = 'none'
-        window.document.getElementById('dropdown').style.margin =
+        daoRef.current.style.display = 'none'
+        dropdownRef.current.style.margin =
           '0px 0px 0px 0px'
       }
     } else {
-      daoBtn.preventDefault()
+      daoRef.current.preventDefault()
     }
   }
 
@@ -818,6 +747,7 @@ const ChartCryptos = ({ baseAsset }) => {
                   style={{ 'display': 'none' }}
                   className={styles['mobile-info-element']}
                   id='hide'
+                  ref={hideRef}
                 >
                   <div className={styles['mobile-info-left-column']}>
                     <div className={styles['mobbox']}>
@@ -876,6 +806,7 @@ const ChartCryptos = ({ baseAsset }) => {
                 </div>
                 <button
                   id='hidedao'
+                  ref={hidedaoRef}
                   className={`${baseAsset.utility_score +
                     baseAsset.social_score +
                     baseAsset.market_score +
@@ -923,7 +854,7 @@ const ChartCryptos = ({ baseAsset }) => {
                   className={styles['btn-more-less']}
                   onClick={() => moreStats()}
                 >
-                  <span id='change'>More Stats</span>
+                  <span id='change' ref={changeRef}>More Stats</span>
                 </button>
               </div>
               <div className={styles['chart-bottom-container']}>
@@ -996,6 +927,7 @@ const ChartCryptos = ({ baseAsset }) => {
                         : styles['left-bottom-box']
                     }
                     id='dropdown'
+                    ref={dropdownRef}
                   >
                     <button
                       className={styles['notes-boxs']}
@@ -1010,7 +942,7 @@ const ChartCryptos = ({ baseAsset }) => {
                           baseAsset.trust_score} /20
 
                       </span>
-                      <div className={styles['grades']} id='daoBtn'>
+                      <div className={styles['grades']} id='daoBtn' ref={daoRef}>
                         <div className={styles['notes-boxs']}>
                           <span>Utility</span>
                           <span>{baseAsset.utility_score}/5</span>

@@ -1,14 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Chart, ChartType, registerables } from 'chart.js'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'react-feather'
+import React, { useEffect, useState} from 'react'
+import { Chart} from 'chart.js'
+import { createClient} from '@supabase/supabase-js'
 import styles from "./AllCharts.module.scss"
-import { extendTheme, Flex, Box, Text, Spacer, Image, Button } from '@chakra-ui/react'
-import {
-  getTokenPrice,
-  getTokenPercentage,
-  formatAmount
-} from '../../../../helpers/formaters';
+import { Box, Text, Button } from '@chakra-ui/react'
+import {formatAmount} from '../../../../helpers/formaters';
 
 const AllCharts = ({ baseAsset, title }, idx,) => {
 
@@ -24,7 +19,6 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
 
   const formatData = (data) => {
     return data.map((el) => {
-
       if (el[1] != 0) {
         return {
           t: el[0],
@@ -34,7 +28,6 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
         return {
         }
       }
-
     })
   }
 
@@ -153,7 +146,6 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
       
     }
   }
-  console.log(baseAsset.liquidity_history.length)
   useEffect(() => {
     generateChart()
   }, [timeFormat, week])

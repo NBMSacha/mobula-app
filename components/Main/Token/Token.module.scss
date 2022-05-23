@@ -58,9 +58,6 @@
   color: #808a9d;
 }
 
-.chart-image {
-  margin-left: 25px;
-}
 
 .nomargin {
   margin-top: 2px !important;
@@ -70,10 +67,140 @@
 .font-char {
   font-size: 15px;
 }
+// ==========================================================================
+
+//===========================================================================
+
+.media-icons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asset-title-start{
+  display: flex;
+  justify-content: flex-start;align-items:center;
+  padding: 15px 0px !important;
+}
+
+// .price-title-center{
+//   padding:15px 5px !important
+// }
+
+ .tbodys {
+  border-bottom:1px solid rgba(39, 42, 68, 0.301)
+}
+
+.tbodys tr {
+  align-items: center;
+}
+
+.name-title-margin{
+  margin-right:15px;
+  white-space: nowrap;
+}
+
+.white{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.rank-title-start{
+  vertical-align:middle
+}
+
+.ths {
+  padding:15px 20px;
+  text-align:end;
+  margin: 15px 0px;
+}
+
+.green{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.red{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .media-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .asset-title-start{
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+    position: sticky;
+    left: 0px;
+    background: #05062a;
+    margin: 0px !important;
+    padding: 15px 0px 15px 10px !important;
+  }
+
+  .font-char{
+    font-size: 14px;
+  }
+  
+   .tbodys {
+    border-bottom:1px solid rgba(39, 42, 68, 0.301)
+  }
+  
+  .tbodys tr {
+    align-items: center;
+  }
+  
+  .name-title-margin{
+    margin-right: 10px;
+  }
+  
+  .white{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .rank-title-start{
+    vertical-align:middle;
+    display:none;
+  }
+  
+  .ths {
+    padding:0px 5px ;
+    text-align:end;
+    margin: 15px 0px;
+  }
+  
+  .green{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .red{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+}
+
+// ==============================
+
+// ==============================
+
 
 .white:visited {
   color: #fff;
 }
+
 
 .red {
   color: #ea3943 !important;
