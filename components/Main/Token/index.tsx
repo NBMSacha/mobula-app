@@ -29,30 +29,21 @@ function Token(token: {
   const router = useRouter();
   const [ price, setPrice ] = useState()
  
-
-  function test() {
-    var price = getTokenPrice(token.price);
-    
-    if (price > 999) {
-      console.log(price)
-      console.log(price.length)
-      console.log(price.slice(3, price.length ))
-      const newprice = price.slice(0, price.length -3) + "," + price.slice(3, price.length )
-      console.log(newprice)
-
-      // if(price.length > 3) 
-    }
-  }
-  test()
   useEffect(() => {
     setPrice(getTokenPrice(token.price))
   }, [price])
 
-  function separator(numb) {
-    var str = numb.toString().split(".");
-    str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return str.join(".");
-  }
+
+    const separator = (numb: number) => {
+      if(numb){
+        var str = numb.toString().split(".");
+        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return str.join(".");
+      }
+     
+    }
+
+  
   
   function getNameFormat(status: string) {
     if (status.length > 13) {
