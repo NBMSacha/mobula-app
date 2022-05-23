@@ -59,7 +59,7 @@ function SearchDiv(props: any) {
       .limit(10)
 
     if (names && names.length > 0) {
-      if (search == token) {
+      if (search = token) {
         setResults(names)
       }
       //names.concat(symbols))
