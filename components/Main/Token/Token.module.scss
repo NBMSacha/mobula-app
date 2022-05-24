@@ -15,6 +15,10 @@
   margin-left: 25px !important;
 }
 
+.trs:hover{
+  background: #2E3557!important
+}
+
 .token-containers {
   width: 100%;
   display: flex;
@@ -58,9 +62,6 @@
   color: #808a9d;
 }
 
-.chart-image {
-  margin-left: 25px;
-}
 
 .nomargin {
   margin-top: 2px !important;
@@ -70,10 +71,165 @@
 .font-char {
   font-size: 15px;
 }
+// ==========================================================================
+
+//===========================================================================
+
+.media-icons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.asset-title-start{
+  display: flex;
+  justify-content: flex-start;align-items:center;
+  padding: 15px 0px !important;
+  white-space: initial;
+  margin-right: 31px;
+}
+
+
+.wrap-name{
+  display: flex;
+    flex-wrap: wrap;
+    margin-right: -70px;
+}
+
+.center-social{
+  text-align:center
+}
+
+
+
+ .tbodys {
+  border-bottom:1px solid #2E3557
+}
+
+.tbodys tr {
+  align-items: center;
+}
+
+.name-title-margin{
+  margin-right:15px;
+  white-space: nowrap;
+}
+
+.white{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.rank-title-start{
+  vertical-align:middle;
+
+}
+
+.ths {
+  padding:15px 20px;
+  text-align:end;
+  margin: 15px 0px;
+}
+
+.green{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.red{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .media-icons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .asset-title-start{
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+    position: sticky;
+    left: 0px;
+    background: #05062a;
+    margin: 0px !important;
+    padding: 15px 10px 15px 10px !important;
+  }
+
+
+
+  .price-title-center{
+    padding:0px 0px 0px 20px !important
+  }
+  .wrap-name{
+    margin-right: 0px;
+  }
+  .font-char{
+    font-size: 14px;
+  }
+  
+   .tbodys {
+    border-bottom:1px solid rgba(39, 42, 68, 0.301)
+  }
+  .tbodys:hover {
+    background:green !important
+  }
+  
+  .tbodys tr {
+    align-items: center;
+  }
+  
+  .name-title-margin{
+    margin-right: 10px;
+  }
+  
+  .white{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .rank-title-start{
+    vertical-align:middle;
+    display:none;
+  }
+  
+  .ths {
+    padding:0px 15px ;
+    text-align:end;
+    margin: 15px 0px;
+  }
+  
+  .green{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .red{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+}
+
+// ==============================
+
+// ==============================
+
 
 .white:visited {
   color: #fff;
 }
+
 
 .red {
   color: #ea3943 !important;
@@ -160,10 +316,17 @@
   .token-containers {
     height: 60px !important;
   }
+  .chart-image{
+    margin-right: 10px;
+  }
 
   .token-ids {
     display:none !important
   }
+  .media-icons{
+    margin-left: 10px;
+  }
+
 
   .token-marketCap {
     margin-left: 0px !important;
@@ -251,5 +414,13 @@
 @media screen and (max-width: 730px) {
   .token-infos {
     margin-right: 00px;
+  }
+}
+
+@media screen and (max-width:1595px ) {
+  .wrap-name{
+    display: flex;
+      flex-wrap: wrap;
+      margin-right: -20px;
   }
 }

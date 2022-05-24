@@ -1,18 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-import {useRouter} from 'next/router'
-import axios from 'axios'
-import { Chart, ChartType, registerables } from 'chart.js'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ArrowUp, ArrowDown } from 'react-feather'
+import React, { useState, useRef } from 'react'
 import styles from './ProjectInfo.module.scss'
-import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
-import {
-    formatAmount,
-    getTokenPrice,
-    getTokenPercentage,
-    formatName
-} from '../../../helpers/formaters';
-import { setTimeout } from 'timers'
+import { supportedRPCs } from '../../../constants';
+import {formatName} from '../../../helpers/formaters';
 import { Send, Twitter, Globe } from "react-feather";
 
 const ProjectInfo = ({ token }) => {
@@ -20,11 +9,6 @@ const ProjectInfo = ({ token }) => {
     const [active, setActive] = useState(false);
     const refDescription = useRef(null);
     const refContract = useRef(null)
-    const [description, setDescription] = useState(null)
-
-    function seeMore() {
-
-    }
 
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
@@ -34,8 +18,6 @@ const ProjectInfo = ({ token }) => {
             }
         }
     }
-    console.log(token)
-    const router = useRouter()
     return (
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>

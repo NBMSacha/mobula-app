@@ -219,7 +219,10 @@ function FirstSort() {
             </header>
 
             <div className={styles.line}></div>
-
+            {tokenDivs.length == 0 && (
+                <Text align="center" mt="80px">No token waiting for first sort yet</Text>
+            )}
+            
             {(displayedToken ?
                 <DisplayedToken changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
 
@@ -261,7 +264,7 @@ function FirstSort() {
                             </Box>
                         );
                     })}
-                </Flex>)}
+                </Flex>) }
             {/* 
         <div className="tokens-div">{tokenDivs}</div> */}
         </div>

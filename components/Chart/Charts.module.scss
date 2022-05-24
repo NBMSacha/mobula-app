@@ -1020,19 +1020,17 @@
         height: 22px
     }
 
-
-
     .absolute-mobile-dis {
         background: #2E3557;
         border-radius: 6px;
-        display: flex;
+        display: flex !important;
         justify-content: space-between;
         align-items: center;
         padding: 2px 8px;
-        margin-bottom: 9px;
+        margin-bottom: 0px;
+
         width: 115px;
-        margin-top: 8px;
-        margin-left: 10px;
+        margin-top: 15px;
         height: 22px;
         opacity: 0.4;
         border: none;

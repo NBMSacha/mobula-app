@@ -1,20 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-import axios from 'axios'
-import { Chart, ChartType, registerables } from 'chart.js'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from 'react-feather'
+import React from 'react'
+import {ArrowLeft, ArrowRight } from 'react-feather'
 import styles from './SkipBtn.module.scss'
-import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
-import {
-    formatAmount,
-    getTokenPrice,
-    getTokenPercentage,
-    formatName,
-    getUrlFromName
-} from '../../../helpers/formaters';
-import { setTimeout } from 'timers'
-import { Send, Twitter, Globe } from "react-feather";
-import { useRouter } from 'next/router'
+import {getUrlFromName} from '../../../helpers/formaters';
 
 const SkipBtn = ({ beforeToken, afterToken }) => {
     const router = useRouter()

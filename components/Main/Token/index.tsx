@@ -27,7 +27,24 @@ function Token(token: {
   isMyAsset: boolean
 }) {
   const router = useRouter();
+  const [ price, setPrice ] = useState()
+ 
+  useEffect(() => {
+    setPrice(getTokenPrice(token.price))
+  }, [price])
 
+
+    const separator = (numb: number) => {
+      if(numb){
+        var str = numb.toString().split(".");
+        str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return str.join(".");
+      }
+     
+    }
+
+  
+  
   function getNameFormat(status: string) {
     if (status.length > 13) {
       return formatName(token.name, 13)
@@ -35,72 +52,63 @@ function Token(token: {
     return token.name
   }
   return (
-    <tbody className={styles["border-bot"]} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-      <tr className={styles["token-containers"]}>
-        <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
+    <tbody id="nul"className={styles["tbodys"]}   onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+      <tr className={styles["trs"]}>
+        <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
-              <span className={`${styles['red']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-
+              <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
                 <ArrowDown className={styles["arrowDown"]} />
                 {Math.abs(token.rank_change_24h)}
               </span>
             ) : token.rank_change_24h == 0 ? <div>--</div> : (
-              <span className={`${styles['green']} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-
+              <span className={`${styles['green']} ${styles["font-char"]} `} id="noColor">
                 <ArrowUp className={styles["arrowDown"]} />
                 {token.rank_change_24h}
               </span>
             )}
+          <span style={{marginLeft: "10px"}}>{token.rank}</span>
           </a>
-          <span>{token.rank}</span></td>
-        <td className={styles["token-infos"]}>
+        </td>
+        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} >
           <img src={token.logo} className={styles["token-logos"]} />
-          <div>
-            <span className={`${styles["token-names"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
-            <span className={`${styles["font-char"]} ${styles["token-symbols"]}`}>{token.symbol}</span>
+          <div className={styles["wrap-name"]}>
+            <span className={`${styles["name-title-margin"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
+            <span className={`${styles["font-char"]}`}>{token.symbol}</span>
           </div>
         </td>
-        <td className={styles["tokens-price"]}>
-          <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
-
+        <td className={`${styles["ths"]} ${styles["price-title-center"]}`}>
+          <span className={` ${styles["font-char"]}`}>${separator(price)}</span>
         </td>
-        <td className={styles["token-percentage"]}>
+        <td className={styles["ths"]}>
           {token.price_change_24h < 0.01 ? (
-            <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-
+            <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
               <ArrowDown className={styles["arrowDown"]} />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           ) || (
               <div></div>
             ) : (
-            <span className={`${styles['green']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-
+            <span className={`${styles['green']} ${styles["font-char"]}`} id="noColor">
               <ArrowUp className={styles["arrowDown"]} />
               {getTokenPercentage(token.price_change_24h)}%
             </span>
-
           )}
         </td>
-        <td className={styles["token-marketCap"]}>
-          <span className={`${styles["font-char"]} ${styles["token-marketCap-box"]}`}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
-
+        <td className={styles["ths"]}>
+          <span className={`${styles["font-char"]} `}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
         </td>
-        <td className={styles["token-marketFully"]}>
-          <span className={`${styles["token-marketFully-box"]} ${styles["font-char"]}`}>
+        <td className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+          <span className={` ${styles["font-char"]}`}>
             {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
         </td>
-        <td className={styles["tokens-links"]}>
-
+        <td className={styles["ths"]}>
           <div className={styles["media-icons"]}>
             {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
             {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><Twitter className={styles["fu"]} /></a> : <></>}
           </div>
-
-
         </td>
-        <td className={styles["token-chart"]}>
+        <td className={styles["ths"]}>
           {(token.id ? <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> : <></>)}
         </td>
       </tr>

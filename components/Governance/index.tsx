@@ -1,19 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRight'
-import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
-import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
-import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
 import styles from './Governance.module.scss';
 import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../constants"
 import { ethers } from 'ethers'
-import { formatAmount } from "../../helpers/formaters";
 import abi from "./governor_abi.json"
-import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, useMediaQuery } from '@chakra-ui/react'
+import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea } from '@chakra-ui/react'
 import {
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     ColorModeProvider,
     CSSReset
 } from '@chakra-ui/react';
@@ -32,9 +25,10 @@ function Governance() {
     const depositRef = useRef();
     const proposalRef = useRef();
     const [withdrawAmount, setWithdrawAmount] = useState("");
-    const [shares, setshares] = useState("0")
     const [depositAmount, setDepositAmount] = useState("");
     const [createProposal, setCreateProposal] = useState("");
+    const [proposals, setProposals] = useState([]);
+    const [vote, setVote] = useState(0)
 
     const MOBULA_ABI = [
         "function withdraw(uint256 _amount) external ",
@@ -67,18 +61,19 @@ function Governance() {
             const balance = await mobulaContract.balanceOf(address)
             const formatedBalance = Number(balance) / 10 ** 18;
 
-            // const txs = await contract.allowance(MOBL_ADDRESS, address)
-            // await txs.wait();
-            if (formatedBalance > parseInt(depositAmount)) {
+            if (formatedBalance >= parseInt(depositAmount)) {
                 const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount)
                 await tx1.wait();
                 console.log(`You own: ${formatedBalance} $MOBL`)
+              
                 try {
+                    const tx2 = await contract.allowance(MOBL_ADDRESS, address)
+                    await tx2.wait()
                     const tx = await contract.deposit(depositAmount);
                     const txResponse = await tx.wait();
                     console.log(txResponse);
                 } catch (err) {
-                    alert(err.data.message);
+                    alert(err.message);
                 }
             } else {
                 alert("Sorry, balance < value...")
@@ -105,6 +100,7 @@ function Governance() {
                 signer
             );
             try {
+                
                 const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount)
                 await tx1.wait();
                 const tx = await contract.withdraw(withdrawAmount)
@@ -139,21 +135,28 @@ function Governance() {
         const account = accounts[0];
         try {
             const proposalContract = new ethers.Contract(GOVERNOR_ADDRESS, abi.abi, provider);
-            console.log(proposalContract)
-            let nextProposals = await proposalContract.getLiveProposals(0);
-
+            let nextProposals = await proposalContract.proposals(5);
+            setProposals(nextProposals)
+            console.log(nextProposals)
+          
+           
         } catch (err) {
             console.log(err.message)
         }
-        // const newLiveProposals = [];
-        // nextProposals.forEach((props, idx) => {
-        //     newLiveProposals.push(<div>TEST</div>)
-        // })
+        
     }
 
     useEffect(() => {
         getProposals()
-    }, [])
+        if(!proposals)[
+          console.log(proposals)
+        ]
+    }, [!proposals])
+
+   proposals.map((number) => {
+        console.log(Number(number))
+        
+    })
 
 
     return (
@@ -168,10 +171,9 @@ function Governance() {
                         }}
                     >
                         <header>
-                            <Heading mb={'20px'}>Dashboard</Heading>
+                            <Heading mb={'20px'}>Governance</Heading>
                             <Text fontSize={['14px', '14px', '16px', '17px']}>
-                                If you helped the Protocol, you deserve a reward. You're free
-                                to claim your tokens.
+                            You are in charge : deposit MOBL to be able to vote.
                                 <a
                                     className={styles.link}
                                     href='https://docs.mobula.finance/app/dashboard'
@@ -186,8 +188,8 @@ function Governance() {
 
                             <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px" mx={10} className={styles["current-vote"]}>
                                 <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
-                                <Text color="#ffffff99" fontSize="15px" mb="0px">You are currently deposited</Text>
-                                <Text fontSize="15px" color="white">0 $MOBL</Text>
+                                <Text color="#ffffff99" fontSize="15px" mb="15px">You are currently deposited</Text>
+                                <Text fontSize="15px" color="white" mb="15px">0 $MOBL</Text>
                                 <FormControl>
                                     <FormLabel htmlFor='deposit' color="#ffffff99" fontSize="15px" mb="15px">Deposit New Token</FormLabel>
                                     <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='deposit' fontFamily="Poppins" borderRadius='10px' type='number' placeholder="3000"
@@ -210,45 +212,43 @@ function Governance() {
                             </Flex>
                             <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" borderRadius="25px" className={`${styles["current-vote"]} ${styles["x-space"]}`}>
                                 <Heading mb="0px">Governance process</Heading>
-                                <Text>Create a proposal</Text>
+                                <Text fontSize="15px" mb="15px">Create a proposal</Text>
                                 <Textarea bg="rgba(163, 212, 244, 0.2)" borderRadius="10px" color="white" placeholder='The listing fee should be reduced to 10$' h="165px" border="none" p="20px" fontFamily="Poppins"
                                     ref={proposalRef}
                                     value={createProposal}
                                     onChange={(e) => setCreateProposal(e.target.value)}
                                 />
-                                <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => { console.log(createProposal); createProposals() }}>Create</Button>
+                                <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="37%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => { console.log(createProposal); createProposals() }}>Create</Button>
                             </Flex>
                             <Flex direction="column" px={0} ml="auto" mr="auto" mx={10} className={styles["current-vote"]}>
-                                <Heading mt="0px" >Vote for current proposals</Heading>
-                                <Flex bg="#16C784" align="center" px={15} justify="space-between" borderRadius="18px" className={styles["proposals"]}>
-                                    <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
-                                    <Flex align="center">
-                                        <Image src="/thumbsUp.png" h="25px" mr={15} />
-                                        <Image src="/thumbsDown.png" h="25px" ml="15px" opacity=".5" />
-                                    </Flex>
-                                </Flex>
-                                <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
-                                    <Text maxWidth="230px" fontSize="15px" pr="10px" my='0px'>The listing fee should be reduced to 10$</Text>
-                                    <Flex align="center">
-                                        <Image src="/thumbsUp.png" h="25px" mr={15} />
-                                        <Image src="/thumbsDown.png" h="25px" ml="15px" opacity=".5" />
-                                    </Flex>
-                                </Flex>
+                                <Heading  mt="-12px">Vote for current proposals</Heading>
+                               
 
-                                <Flex bg="#EA3943" align="center" px={15} justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
-                                    <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
-                                    <Flex align="center">
-                                        <Image src="/thumbsUp.png" h="25px" mr={15} opacity=".5" />
-                                        <Image src="/thumbsDown.png" h="25px" ml="15px" />
-                                    </Flex>
-                                </Flex>
-                                <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={20} borderRadius="18px" className={styles["proposals"]}>
-                                    <Text maxWidth="230px" pr="10px" fontSize="15px" my='0px'>The listing fee should be reduced to 10$</Text>
-                                    <Flex align="center">
-                                        <Image src="/thumbsUp.png" h="25px" mr={15} />
-                                        <Image src="/thumbsDown.png" h="25px" ml="15px" opacity=".5" />
-                                    </Flex>
-                                </Flex>
+                               
+                                {proposals.map((proposal, idx) => ( 
+                                    <>
+                                    {console.log(idx)}
+                                    {Number(proposal) == 0 ? (
+                                        <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
+                                            <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
+                                            <Flex align="center" display="inline-flex">
+                                                <Image src="/thumbsUp.png" h="25px" />
+                                                <Image src="/thumbsDown.png" h="25px" ml="25px" opacity=".5" mr="10px"/>
+                                            </Flex>
+                                        </Flex>
+                                    ): (
+                                        <Flex bg="#EA3943" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
+                                            <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
+                                            <Flex align="center" display="inline-flex">
+                                                <Image src="/thumbsUp.png" h="25px"  opacity=".5" />
+                                                <Image src="/thumbsDown.png" h="25px" ml="25px" mr="10px"/>
+                                            </Flex>
+                                        </Flex>
+                                    )}
+                                        
+                                    </>
+                                ))}
+                                
                             </Flex>
 
                         </Flex>
