@@ -53,7 +53,7 @@ function Token(token: {
   }
   return (
     <tbody id="nul"className={styles["tbodys"]}   onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-      <tr>
+      <tr className={styles["trs"]}>
         <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (

@@ -15,6 +15,10 @@
   margin-left: 25px !important;
 }
 
+.trs:hover{
+  background: #2E3557!important
+}
+
 .token-containers {
   width: 100%;
   display: flex;
@@ -99,7 +103,7 @@
 
 
  .tbodys {
-  border-bottom:1px solid rgba(39, 42, 68, 0.301)
+  border-bottom:1px solid #2E3557
 }
 
 .tbodys tr {
@@ -159,6 +163,8 @@
     margin: 0px !important;
     padding: 15px 10px 15px 10px !important;
   }
+
+
 
   .price-title-center{
     padding:0px 0px 0px 20px !important
