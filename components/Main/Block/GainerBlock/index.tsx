@@ -19,10 +19,20 @@ function GainerBlock(tokens: {
   id3: number
   change3: number
 }) {
+  console.log(tokens.title)
   const router = useRouter()
   return (
     <div className={styles['gainer-box']}>
-      <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
+      {tokens.title === "Top Gainers" && (
+          <h3 className={styles['gainer-main-title']}><img src="fire.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+      )}
+      {tokens.title === "Trendings" && (
+          <h3 className={styles['gainer-main-title']}><img src="green.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+      )}
+      {tokens.title === "Recently Added" && (
+          <h3 className={styles['gainer-main-title']}><img src="stopwatch.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+      )}
+
       <div className={styles['gainer-container']}>
         <div className={styles['left-gainer']}>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>

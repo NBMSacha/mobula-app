@@ -251,3 +251,117 @@
     padding: 0px 10px;
   }
 }
+
+
+
+
+
+
+
+
+// =================================================================
+
+// =================================================================
+
+.table-style{
+  border-collapse: collapse;
+  width: 100%;
+  cursor:pointer;
+  max-width:1400px;
+  color:rgba(255, 255, 255, 0.952);
+  margin: 0px auto;
+}
+
+.table-style thead tr {
+  text-align:left;
+  border-bottom:1px solid rgba(194, 194, 194, 0.267)
+}
+
+.ths {
+  padding:15px 20px;
+  text-align:end;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.chart-title-center{
+  text-align:center !important;
+}
+
+// .price-title-center{
+//   padding:15px 5px !important
+// }
+
+.asset-title-start{
+  text-align:start !important;
+}
+
+.tables-main-container{
+  display:block;
+  white-space:nowrap;
+  overflow:auto;
+}
+
+.nowrap{
+  white-space:nowrap;
+}
+
+@media screen and (max-width: 768px) {
+
+  .table-style{
+    border-collapse: collapse;
+    min-width:900px;
+    width:auto;
+    cursor:pointer;
+    max-width:1400px;
+    color:rgba(255, 255, 255, 0.952);
+    margin: 0px auto;
+  }
+  
+  .table-style thead tr {
+    text-align:left;
+    border-bottom:1px solid rgba(194, 194, 194, 0.267)
+  }
+
+  .removes{
+    display:none;
+  }
+  
+
+  .ths {
+    padding: 0px 12px;
+    text-align:end;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .chart-title-center{
+    text-align:center !important;
+  }
+  
+  .asset-title-start{
+    text-align:start !important;
+    position: sticky;
+    left: 0px;
+    background: #05062a;
+    margin: 0px 0px 0px 10px !important;
+    padding: 15px 10px !important;
+  }
+  
+  .tables-main-container{
+    display:block;
+    white-space:nowrap;
+    overflow: auto;
+  }
+  
+  .nowrap{
+    white-space:nowrap;
+  }
+  
+}
+
+@media screen and (max-width: 1590px) {
+  .table-style{
+      max-width:1280px
+  }
+}

@@ -225,10 +225,12 @@ function FinalValidation() {
 
                 <Flex
                     paddingTop="60px"
+                    maxWidth="1100px"
                     justifyContent={["center"]}
                     flexDir={["column", "column", "column", "row"]}
                     alignItems={["center", "center", "center", "stretch"]}
                     flexWrap="wrap"
+                    m="auto"
                 >
                     {tokenDivs.map((token) => {
 
@@ -240,7 +242,7 @@ function FinalValidation() {
                                 mr={10}
                                 ml={10}
                                 borderRadius="10px"
-                                p="20px"
+                                p={["0px 25px 25px 25px"]}
                                 className={styles['token-box']}
                                 opacity={token.alreadyVoted ? '0.3' : '1.0'}
                             >
@@ -252,7 +254,7 @@ function FinalValidation() {
                                 </Flex>
                                 <Text
                                     textAlign="justify"
-                                    fontSize={["13px", "15px", "15px", "20px"]}
+                                    fontSize={["13px", "15px", "15px", "17px"]}
                                 >
                                     {token.description}
                                 </Text>

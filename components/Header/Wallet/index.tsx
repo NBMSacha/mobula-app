@@ -53,7 +53,7 @@ function Wallet(props: any) {
       setHasMetamask(false)
     } else {
       const chainId = await provider.request({ method: 'eth_chainId' })
-      if (router.pathname.includes('dao')) {
+      if (router.pathname.includes('dao') || router.pathname.includes('list')) {
         if (chainId !== '0x89') {
           try {
             await provider.request({

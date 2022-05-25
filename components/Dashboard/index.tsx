@@ -166,7 +166,7 @@ function Dashboard() {
               >
                 {/* Rank I Stats */}
                 <Box
-                  p='10px'
+                  p='10px 15px 15px 15px'
                   bg={'#a3d4f440'}
                   borderRadius='10px'
                   w={['90%', '90%', '90%', '30%']}
@@ -230,7 +230,7 @@ function Dashboard() {
 
                 {/* Rank II Stats */}
                 <Box
-                  p='10px'
+                  p='10px 15px 15px 15px'
                   bg={'#a3d4f440'}
                   borderRadius='10px'
                   w={['90%', '90%', '90%', '30%']}
@@ -295,7 +295,7 @@ function Dashboard() {
 
                 {/* DAO Faucet */}
                 <Flex
-                  p='10px'
+                  p='10px 15px 15px 15px'
                   flexDir={'column'}
                   bg={'#a3d4f440'}
                   borderRadius='10px'

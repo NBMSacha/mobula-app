@@ -19,6 +19,15 @@
   }
 }
 
+.red{
+  color:#D8494A !important;
+  opacity:1 !important;
+}
+.green{
+  color:#00ba7c !important;
+  opacity:1 !important;
+}
+
 .search-input,
 .search-input-off {
   font-size: 0.8rem;
@@ -89,12 +98,25 @@
 .font-char {
   font-size: 15px;
 }
+.result-nul{
+  color:white !important
+}
 
 .token-rank {
   margin-left: auto;
   margin-right: 20px;
   opacity: 0.5;
   font-size: 0.9rem;
+  color:white;
+  display:flex;
+  justify-content:end;
+  align-items:center
+}
+
+.arrowUp{
+  font-size:15px;
+  width: 19px;
+  margin-right: 3px;
 }
 
 .search-div>input {
@@ -109,7 +131,7 @@
   }
 
   .search-input-off {
-    width: 10rem;
+    width: 50%;
     margin-right: 1.5rem;
   }
 }
@@ -190,4 +212,35 @@
   margin-right: 10px;
   width: 20px;
   cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+  .search-div{
+    position: fixed;
+    display: block;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    width: 96%;
+    height: 98%;
+    margin-left: auto;
+    box-shadow: 0px 0px 0px 50px #05062a;
+    margin-right: auto;
+    border-radius:10px;
+    background:#05062a;
+  }
+  .search-flex{
+    margin: auto;
+    width: 95%;
+    margin-bottom:15px;
+  }
+  .search-flex{
+    border-bottom: 1px solid #181f48;
+  }
+
+  .token-names{
+    font-size: 14px !important; 
+  }
+
+
 }

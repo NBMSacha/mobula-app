@@ -5,13 +5,10 @@ import Token from "./Token";
 import ButtonBlock from "./Block/ButtonBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
-import TopPages from './TopPages';
 import Pagination from "./Pagination"
 import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
-import { ethers } from 'ethers';
-import { RPC_URL } from '../../constants'
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 
@@ -19,9 +16,7 @@ function News(props: any) {
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [display, setDisplay] = useState('Top 100');
-  // const [account, setAccount] = useState(null);
   const [chains, setChains] = useState({});
-  const [loaded, setLoaded] = useState(false)
   const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert()
   const [textResponsive, setTextResponsive] = useState(false);
@@ -32,26 +27,21 @@ function News(props: any) {
   console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
-
       if ((window.matchMedia("(max-width: 768px)").matches)) {
         setTextResponsive(true)
       } else {
         setTextResponsive(false)
       }
-
     }
-
   }, [])
 
   useEffect(() => {
 
     if (!page) return
-
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
-
     if (router.isReady) {
       console.log(page)
       shouldLoadMore(supabase)
@@ -200,7 +190,7 @@ function News(props: any) {
         <div className={styles["three-container"]}>
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
-              title={'🟢 Top Gainers'}
+              title={'Top Gainers'}
               logo1={props.gainers[0].logo}
               name1={props.gainers[0].name}
               id1={props.gainers[0].id}
@@ -214,7 +204,7 @@ function News(props: any) {
               id3={props.gainers[2].id}
               change3={props.gainers[2].price_change_24h.toFixed(2)}
             /> : <GainerBlock
-              title={'🟢 Top Gainers'}
+              title={'Top Gainers'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -228,7 +218,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
           {props.trendings && props.trendings.length > 0 ? <GainerBlock
-            title={'🔥 Trendings'}
+            title={'Trendings'}
             logo1={props.trendings[0].logo}
             name1={props.trendings[0].name}
             id1={props.trendings[0].id}
@@ -242,7 +232,7 @@ function News(props: any) {
             id3={props.trendings[2].id}
             change3={props.trendings[2].price_change_24h.toFixed(2)}
           /> : <GainerBlock
-            title={'🔥 Trendings'}
+            title={'Trendings'}
             logo1={''}
             name1={'Loading...'}
             id1={0}
@@ -257,7 +247,7 @@ function News(props: any) {
             change3={0} />}
           {props.recents && props.recents.length > 0 ?
             <GainerBlock
-              title={'⏱ Recently Added'}
+              title={'Recently Added'}
               logo1={props.recents[0].logo}
               name1={props.recents[0].name}
               id1={props.recents[0].id}
@@ -271,7 +261,7 @@ function News(props: any) {
               id3={props.recents[2].id}
               change3={props.recents[2].price_change_24h.toFixed(2)}
             /> : <GainerBlock
-              title={'⏱ Recently Added'}
+              title={'Recently Added'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -287,25 +277,26 @@ function News(props: any) {
         </div>
         <ButtonBlock display={display} setDisplay={setDisplay} />
       </div>
+      {console.log(display)}
       {/* PAGE 2 */}
-      <div className={styles["ranked-main-container"]}>
-        <table className={styles["tables"]}>
+      <div className={styles["tables-main-container"]}>
+        <table className={styles["table-style"]}>
           <thead>
-            <tr className={styles["table-head"]}>
-              <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>Rank</th>
-              <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
-              <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
+            <tr className={styles[""]}>
+              <th className={`${styles["ths"]} ${styles["removes"]}`}>Rank</th>
+              <th className={`${styles["ths"]} ${styles["asset-title-start"]}`}>Asset</th>
+              <th className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</th>
+              <th className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
                 {textResponsive ? (
                   <p>24h %</p>
                 ) : (
                   <p>Change (24h)</p>
                 )}
               </th>
-              <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
-              <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
-              <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
-              <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Chart</th>
+              <th className={`${styles["ths"]}`}>Market cap</th>
+              <th className={`${styles["ths"]} ${styles["nowrap"]}` }>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
+              <th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</th>
+              <th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</th>
             </tr>
           </thead>
 

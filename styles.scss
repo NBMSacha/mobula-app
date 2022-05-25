@@ -49,7 +49,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1350px;
 }
 
 input {
@@ -137,6 +137,7 @@ label {
 }
 
 .button {
+  font-family: "Poppins";
   background-image: linear-gradient(to right,
       #3701f4 0%,
       #26a0da 41%,
@@ -161,8 +162,8 @@ label {
 }
 
 .listing button {
-  width: 50%;
-  height: 30px;
+  width: 38%;
+  height: 40px;
 }
 
 ::placeholder {

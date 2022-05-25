@@ -15,7 +15,7 @@ export async function getStaticProps() {
 
   const { data: metrics } = await supabase.from('metrics').select('*').match({ id: 1 })
 
-  const { data: gainers } = await supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(20)
+  const { data: gainers } = await supabase.from('assets').select('name,price_change_24h,logo,id,liquidity,contracts').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: false }).limit(40)
 
   // supabase.from('assets').select('name,price_change_24h,logo,id').filter('volume', 'gt', 50000).order('price_change_24h', { ascending: true }).limit(3).then(r => {
   //   setLosers(r.data)
