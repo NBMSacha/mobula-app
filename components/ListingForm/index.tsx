@@ -162,6 +162,8 @@ function ListAToken(props: any) {
             alert.show('You must connect your wallet to submit the form.')
         }
 
+        console.log(provider, signer)
+
         const submitPrice = (await new ethers.Contract(
             PROTOCOL_ADDRESS,
             [

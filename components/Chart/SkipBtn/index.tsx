@@ -1,7 +1,8 @@
 import React from 'react'
-import {ArrowLeft, ArrowRight } from 'react-feather'
+import { ArrowLeft, ArrowRight } from 'react-feather'
 import styles from './SkipBtn.module.scss'
-import {getUrlFromName} from '../../../helpers/formaters';
+import { getUrlFromName } from '../../../helpers/formaters';
+import { useRouter } from 'next/router';
 
 const SkipBtn = ({ beforeToken, afterToken }) => {
     const router = useRouter()

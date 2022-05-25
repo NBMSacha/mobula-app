@@ -469,8 +469,8 @@ const ChartCryptos = ({ baseAsset }) => {
       }
       if (totalLiquidity.toNumber() > 0) {
         console.log('MODIFYING PRICE')
-        setPrice(averagePrice.div(totalLiquidity).toNumber())
-        setLiquidity(totalLiquidity.toNumber());
+        //setPrice(averagePrice.div(totalLiquidity).toNumber())
+        //setLiquidity(totalLiquidity.toNumber());
         console.log('Updated price : ' + price)
         console.log('Updated liquidity : ' + liquidity)
       } else {
@@ -479,7 +479,7 @@ const ChartCryptos = ({ baseAsset }) => {
       const volume = total_volume - getClosest(baseAsset.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
 
       if (!error) {
-        setVolume(volume);
+        //setVolume(volume);
       }
     }
   }
