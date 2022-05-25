@@ -126,7 +126,10 @@ function SearchDiv(props: any) {
                     <div
                       className={styles['token-infos-search']}
                       key={Math.random()}
-                      onClick={() => router.push('/asset/' + getUrlFromName(result.name))}
+                      onClick={() => {
+                        router.push('/asset/' + getUrlFromName(result.name))
+                        props.setTrigger(false)
+                      }}
                     >
                       <img src={result.logo} className={styles['token-logos']} />
                       <span
