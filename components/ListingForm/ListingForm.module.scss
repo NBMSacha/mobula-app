@@ -43,7 +43,7 @@
     right: 0px;
     width: 32px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -84,7 +84,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     border: none;
     color: white !important;
     border-radius: 10px;
@@ -98,7 +98,7 @@
 .form-container-box > label {
     width: 100%;
     margin-bottom: 15px;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.6;
     font-size: 14px;
 }
@@ -294,7 +294,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     border: none;
     color: white !important;
     border-radius: 10px;
@@ -312,7 +312,7 @@
     margin-bottom: 15px;
     height: 150px;
     background: #A3D4F433;
-    color: white;
+    color: var(--text-color);
     font-family: 'Poppins';
     border: none;
     border-radius: 15px;
@@ -428,7 +428,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);;
     border: none;
     color: white !important;
     border-radius: 10px;

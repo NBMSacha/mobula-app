@@ -8,17 +8,57 @@
 .line {
     width: 100%;
     height: 2px;
-    background-color: $lineColor;
+    background-color: var(--border-color);;
     margin-top: 1rem;
 }
 
 .title {
     font-weight: 800;
-
+    font-size: 22px !important;
     .titleColor {
         color: $secondTextColor;
-        font-size: inherit;
+        
     }
+}
+
+.clickCopy{
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size:16px !important
+}
+
+.chain-logo{
+    display:inline-block;
+    font-size:15px;
+    width:15px;
+    margin-left:10px
+}
+
+.title-referral > span {
+    color:var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin-left:5px;
+}
+
+.title-referral{
+    color:rgb(121, 121, 121);
+    vertical-align: middle;
+    font-size:18px;
+}
+
+.title-referral-mobl{
+    color:rgb(121, 121, 121);
+    vertical-align: middle;
+    font-size:18px;
+}
+
+.title-referral-mobl > span{
+    color:var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin-left:5px;
 }
 
 .load-rect {
@@ -28,6 +68,9 @@
 .daily-box {
     transition: 0.2s ease-in-out;
     margin-bottom: 30px;
+    margin: 0px 5px 30px 5px;
+    width:140px;
+    height:115px;
 }
 
 .daily-box:hover {
@@ -46,5 +89,35 @@
         flex-direction: column;
         justify-content:center;
         align-items: center;
+    }
+    .daily-box{
+        width: 140px !important;
+        height: 110px ;
+    }
+
+    .title{
+        white-space: pre-wrap;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .daily-box{
+        width: 111px ;
+        height: 110px ;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .title-referral{
+        font-size:15px;
+    }
+    .title-referral-mobl{
+        font-size:15px;
+    }
+    .title-referral-mobl > span{
+        font-size:16px;
+    }
+    .title-referral > span{
+        font-size:16px;
     }
 }

@@ -8,6 +8,7 @@ import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
 
 function Token(token: {
+
   name: string
   symbol: string
   contract: string
@@ -25,6 +26,7 @@ function Token(token: {
   rank: number
   id: number
   isMyAsset: boolean
+  darkTheme: boolean 
 }) {
   const router = useRouter();
   const [ price, setPrice ] = useState()
@@ -42,7 +44,7 @@ function Token(token: {
       }
      
     }
-
+    console.log(token.darkTheme)
   
   
   function getNameFormat(status: string) {
@@ -58,12 +60,12 @@ function Token(token: {
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
               <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
-                <ArrowDown className={styles["arrowDown"]} />
+                <div className={styles['triangle-red']}></div>
                 {Math.abs(token.rank_change_24h)}
               </span>
             ) : token.rank_change_24h == 0 ? <div>--</div> : (
               <span className={`${styles['green']} ${styles["font-char"]} `} id="noColor">
-                <ArrowUp className={styles["arrowDown"]} />
+               <div className={styles['triangle-green']}></div>
                 {token.rank_change_24h}
               </span>
             )}
@@ -74,7 +76,7 @@ function Token(token: {
           <img src={token.logo} className={styles["token-logos"]} />
           <div className={styles["wrap-name"]}>
             <span className={`${styles["name-title-margin"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
-            <span className={`${styles["font-char"]}`}>{token.symbol}</span>
+            <span className={`${styles["font-char"]} ${styles["symbol-weight"]}`}>{token.symbol}</span>
           </div>
         </td>
         <td className={`${styles["ths"]} ${styles["price-title-center"]}`}>

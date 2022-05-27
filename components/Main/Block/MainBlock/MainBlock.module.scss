@@ -119,7 +119,8 @@
 }
 .texts-box {
   background: var(--bg-white);
-  box-shadow: 0 0 10px var(--shadow-color-btn);
+  box-shadow: 0px 1px 12px 3px var(--shadow-color);
+  margin: 10px;
   min-width: 280px;
   border-radius: 12px;
   display: flex;

@@ -21,16 +21,14 @@
 }
 
 .image-earn{
-  width:20px;
-  height:20px;
+  width:25px;
+  height:25px;
+  margin-right:10px
 }
 
 .connect-wallet-btn {
   border: none;
-  background: rgb(0, 63, 225);
-  background: linear-gradient(90deg,
-      rgba(0, 63, 225, 1) 0%,
-      rgba(100, 208, 255, 1) 100%);
+  background: var(--bg-wallet);
   font-size: 1.125rem;
   width: 12.5rem;
   height: 48px;
@@ -44,9 +42,9 @@
 
 .earn{
   height: 50px;
-  box-shadow: 0 0 10px var(--shadow-color-btn);
+  box-shadow: 0px 1px 12px 3px var(--shadow-color);
   border-radius: 10px;
-  padding:0px 20px;
+  padding:0px 10px;
   background:var(--bg-earn);
   margin-right: 20px;
   cursor:pointer

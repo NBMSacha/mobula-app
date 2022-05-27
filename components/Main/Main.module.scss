@@ -281,7 +281,8 @@
 
 .table-style thead tr {
   text-align:left;
-  border-bottom:1px solid var(--border-color);
+  border-bottom:1px solid var(--border-top);
+  border-top:1px solid var(--border-top);
   color:var(--text-color)
 }
 
@@ -308,6 +309,7 @@
   display:block;
   white-space:nowrap;
   overflow:auto;
+  background:var(--bg-top)
 }
 
 .nowrap{
@@ -328,7 +330,7 @@
   
   .table-style thead tr {
     text-align:left;
-    border-bottom:1px solid rgba(194, 194, 194, 0.267)
+    border-bottom:1px solid var(--border-top)
   }
 
   .removes{

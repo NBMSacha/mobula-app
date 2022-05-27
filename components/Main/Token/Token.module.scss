@@ -16,11 +16,13 @@
 }
 
 .trs:hover{
-  background:var(--hover-top)
+  background-color: var(--btn-hover)
+
 }
 
 .trs:hover  .asset-title-start{
-  background: var(--hover-top)
+  background-color: var(--btn-hover)
+
 }
 
 .token-containers {
@@ -88,7 +90,7 @@
 
 .asset-title-start{
   display: flex;
-  background: var(--bg-news);
+  background: var(--bg-top);
   justify-content: flex-start;align-items:center;
   padding: 15px 0px !important;
   white-space: initial;
@@ -109,7 +111,7 @@
 
 
  .tbodys {
-  border-bottom:1px solid var(--border-color);
+  border-bottom:1px solid var(--border-top-body);
   color:var(--text-color);
 }
 
@@ -149,6 +151,11 @@
   display: flex;
   justify-content: end;
   align-items: center;
+  font-weight:600
+}
+
+.symbol-weight{
+  opacity:0.6
 }
 
 
@@ -166,7 +173,7 @@
     align-items:center;
     position: sticky;
     left: 0px;
-    background: var(--bg-news);
+    background: var(--bg-top);
     margin: 0px !important;
     padding: 15px 10px 15px 10px !important;
   }
@@ -187,7 +194,7 @@
     border-bottom:1px solid rgba(39, 42, 68, 0.301)
   }
   .tbodys:hover {
-    background:var(--bg-news) !important
+    background:var(--btn-hover)
   }
   
   .tbodys tr {

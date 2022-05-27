@@ -38,6 +38,7 @@
   cursor: pointer;
   border-radius: 8px;
   background: var(--bg-search);
+  box-shadow:0 0 10px var(--shadow-color);
   padding-left: 50px;
   border: none;
   color: var(--text-color);
@@ -225,7 +226,7 @@
     width: 96%;
     height: 98%;
     margin-left: auto;
-    box-shadow: 0px 0px 0px 50px var(--bg-color);
+    box-shadow: none;
     margin-right: auto;
     border-radius:10px;
     background:var(--bg-color);

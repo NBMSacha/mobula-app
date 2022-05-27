@@ -301,7 +301,8 @@ function News(props: any) {
           </thead>
 
           {
-            getTokensToDisplay().map((token: any, index: number) => token ? <Token
+            getTokensToDisplay().map((token: any, index: number) => token ? <Token 
+              
               key={token.id || token.balance + token.name}
               id={token.id}
               name={token.name}
@@ -320,6 +321,7 @@ function News(props: any) {
               rank_change_24h={token.rank_change_24h}
               rank={(page - 1) * 100 + index + 1}
               isMyAsset={display == 'My Assets'}
+              darkTheme={props.darkTheme}
             /> : <></>)
           }
         </table>

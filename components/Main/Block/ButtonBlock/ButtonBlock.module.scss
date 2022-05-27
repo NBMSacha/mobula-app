@@ -37,7 +37,7 @@ align-items: center;
   align-items:center;
   justify-content:center;
   background: var(--bg-search);
-  box-shadow:0 0 10px var(--bg-news);
+  box-shadow:0 0 10px var(--shadow-color);
   height:54px;
   color:var(--text-color);
   font-size:24px;
@@ -159,11 +159,11 @@ align-items: center;
   padding: 10px 15px;
   cursor: pointer;
   color:var(--text-color);
-  box-shadow: 2px 3px 10px var(--bg-news);
+  box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 .blockchain-btn:hover {
-  background: var(--btn-hover);
+  background: var(--active-btn);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
 }
@@ -171,7 +171,7 @@ align-items: center;
 
 
 .select-button:hover {
-  background: var(--btn-hover);
+  background: var(--active-btn);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   cursor: pointer;
@@ -194,11 +194,11 @@ align-items: center;
   line-height: 18px;
   color: var(--text-color);
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  box-shadow: 2px 3px 10px var(--bg-news);
+  box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 .select-button-white {
-  background-color: var(--btn-hover);
+  background-color: var(--active-btn);
   color: #000000;
 }
 
@@ -323,8 +323,9 @@ align-items: center;
     display: none;
   }
 
-  .bsc-btn {
-    display: none;
+  .bsc-btn > img{
+    height:22px;
+    width:22px;
   }
 
   .three-blockchain-logo:nth-child(1) {
@@ -519,6 +520,7 @@ align-items: center;
   .eth-btn-block {
     width: 55px !important;
   }
+ 
 
 
 
@@ -542,9 +544,12 @@ align-items: center;
   }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 460px) {
   .onChain-btn-mobile {
     display: none;
+  }
+  .bsc-btn {
+    display: none !important;
   }
 }
 
@@ -552,6 +557,7 @@ align-items: center;
   .eth-btn-block {
     display: none;
   }
+ 
 }
 
 // .blockchain-btn-three {

@@ -7,7 +7,7 @@
     backdrop-filter: blur(13.94px);
     transition: 0.1s;
     margin-top: 2.5rem;
-    box-shadow: 2px 3px 10px var(--shadow-color)
+    box-shadow: 2px 3px 10px var(--shadow-color-btn)
 }
 
 .gainer-box>* {
@@ -39,7 +39,8 @@
 
 .gainer-box:hover {
     
-    background:var(--shadow-color)
+    background-color: var(--btn-hover)
+
 }
 
 .line-gainer {

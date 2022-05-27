@@ -33,7 +33,7 @@ function MainBlock(props: any) {
           </p>
         </div>
         <div className={styles['quadBox-container']}>
-          <div className={styles['quad-box-1']}>
+          <div className={styles['quad-box-2']}>
             <a href='https://docs.mobula.finance' className={styles["disabled"]}>
               <div className={`${styles["texts-box-1"]} ${styles["texts-box"]}`}>
                 <div className={styles['logo-box']}>
