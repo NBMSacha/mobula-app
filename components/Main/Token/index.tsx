@@ -26,7 +26,7 @@ function Token(token: {
   rank: number
   id: number
   isMyAsset: boolean
-  darkTheme: boolean 
+  darkTheme:boolean
 }) {
   const router = useRouter();
   const [ price, setPrice ] = useState()
