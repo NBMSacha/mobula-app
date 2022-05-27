@@ -151,7 +151,7 @@
 
 }
 
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 1070px) {
 
   .search-input::placeholder,
   .search-input-off {
@@ -163,20 +163,28 @@
   .search-input-off {
     background: none;
 
-    width: 1rem;
+    width: 1rem !important;
     margin-right: 0px;
+  }
+  
+}
+
+@media screen and (max-width:1090px) {
+  .earn{
+    margin-right:0px !important
   }
 }
 
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 1070px) {
 
   .search-input:focus {
     width: 50vw
   }
-
+  
   .search-desk {
     display: none;
   }
+ 
 
   .search-mob {
     display: block;
@@ -198,8 +206,8 @@
   .search-input,
   .search-input-off {
     background: none;
-
-    width: 1rem;
+    padding-left:42px !important;
+    width: 6rem;
     margin-right: 0px;
   }
 }

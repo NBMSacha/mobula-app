@@ -47,8 +47,8 @@ export default function App ({ Component, pageProps }) {
       root?.style.setProperty("--bg-top", isDark ? "#05062a" : "#f1f1f1");
       root?.style.setProperty("--border-top", isDark ? "#2E3557" : "#DADADA");
       root?.style.setProperty("--border-top-body", isDark ? "#2e35574d" : "#dadada6b");
-
-     
+      root?.style.setProperty("--bg-listing", isDark ? "rgba(163, 212, 244, 0.2)" : "#F9F9F9");
+      
       root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");
       root?.style.setProperty("--bg-white", isDark ? "none" : "#F7F7F7");
       root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");

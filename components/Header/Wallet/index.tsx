@@ -150,7 +150,7 @@ function Wallet(props: any) {
   return (
     <>
         <Flex justify="center" align="center" className={styles['earn']} position='relative'>
-        <img src='fullicon.png' className={styles["image-earn"]} />
+        <img src='/fullicon.png' className={styles["image-earn"]} />
           <span
             
             
@@ -160,7 +160,7 @@ function Wallet(props: any) {
             Earn
           </span>
           
-          <Flex justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+          <Flex justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" zIndex="2" className={styles["notif-earn"]}>
               <Text fontSize="12px" color="white">+1</Text>
           </Flex>
         </Flex>
