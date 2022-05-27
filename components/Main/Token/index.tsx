@@ -83,14 +83,14 @@ function Token(token: {
         <td className={styles["ths"]}>
           {token.price_change_24h < 0.01 ? (
             <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
-              <ArrowDown className={styles["arrowDown"]} />
+              <div className={styles['triangle-red']} ></div>
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           ) || (
               <div></div>
             ) : (
             <span className={`${styles['green']} ${styles["font-char"]}`} id="noColor">
-              <ArrowUp className={styles["arrowDown"]} />
+              <div className={styles['triangle-green']}></div>
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           )}

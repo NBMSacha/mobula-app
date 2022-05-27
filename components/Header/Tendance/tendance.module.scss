@@ -1,5 +1,5 @@
 .info-text {
-  color: #b4cfff;
+  color: var(--text-tendance);
   font-family: 'Inter', 'Sans-sérif';
   font-size: 10px;
   margin-left: 2rem;
@@ -11,7 +11,7 @@
   width: auto;
   padding: 15px 15px 15px 15px;
   justify-content: space-between;
-  background-color: #05062a;
+  
   margin-left: auto;
   margin-right: auto;
 }
@@ -22,7 +22,7 @@
 }
 
 .blue-data {
-  color: #64d1ff;
+  color: var(--text-color-tendance);
   font-family: 'Inter', 'Sans-sérif';
   font-size: 10px;
   margin-left: 0.6rem;
@@ -36,7 +36,7 @@ $primary: 'blue';
 
 @media screen and (max-width: 768px) {
   .info-tendance {
-    border-bottom: 1px solid #2b5177;
+    border-bottom: 1px solid var(--border-color);
     padding: 0;
     white-space: nowrap;
     overflow: auto;

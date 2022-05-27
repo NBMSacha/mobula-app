@@ -20,16 +20,16 @@ function MainBlock(props: any) {
     return (
       <div className={styles['container-news']}>
         <div className={styles['text-news']}>
-          <h2 className={styles['title-news']}>Today crypto-assets price by Mobula </h2>
+          <h2 className={styles['title-news']}>Today's Crypto-assets  by <span>Mobula</span></h2>
           <p className={styles['subtitle-news']}>
-            Mobula dApp is currently in Alpha version. Please report any bug you find{' '}
-            <a
+          The global crypto total value locked is <b>$105M</b> a <a
               className={styles['subtitle-news-link']}
               href='https://discord.gg/2a8hqNzkzN'
-            >
-              in our Discord server
-            </a>
-            .{' '}
+            >1.05%</a> decrease over the last day.
+
+          {' '}
+            
+        
           </p>
         </div>
         <div className={styles['quadBox-container']}>
@@ -47,11 +47,27 @@ function MainBlock(props: any) {
               </div>
             </a>
           </div>
+          
           <div className={styles['quad-box-2']}>
             <a href='https://discord.gg/2a8hqNzkzN'>
               <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
                 <div className={styles['logo-box']}>
-                  <img className={styles.inside} src='fullicon.png'></img>
+                  <img className={styles.inside} src='portfolio.png'></img>
+                </div>
+                <p className={styles.text}>
+                  Portfolio
+                  <img src="fire.png" height="15px" className={styles["marginR"]}/>
+                  <br />
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
+                </p>
+              </div>
+            </a>
+          </div>
+          <div className={styles['quad-box-2']}>
+            <a href='https://discord.gg/2a8hqNzkzN'>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='Imagedao.png'></img>
                 </div>
                 <p className={styles.text}>
                   Join the DAO
@@ -75,48 +91,63 @@ function MainBlock(props: any) {
     return (
       <div className={styles['container-news']}>
         <div className={styles['text-news']}>
-          <h2 className={styles['title-news']}>Today crypto-assets price by Mobula</h2>
+          <h2 className={styles['title-news']}>Today's Crypto-assets  by <span>Mobula</span></h2>
           <p className={styles['subtitle-news']}>
-            Mobula dApp is currently in Alpha version. Please report any bug you find{' '}
-            <a
+          The global crypto total value locked is <b>$105M</b> a <a
               className={styles['subtitle-news-link']}
               href='https://discord.gg/2a8hqNzkzN'
-            >
-              in our Discord server
-            </a>
-            .{' '}
+            >1.05%</a> decrease over the last day.
+
+          {' '}
+            
+        
           </p>
         </div>
         <div className={styles['quadBox-container']}>
-          <div className='quad-box-1'>
-            <a href='https://docs.mobula.finance' className={styles.disabled}>
-              <div className='texts-box texts-box-1'>
-                <div className='logo-box'>
-                  <img className={styles.inside} src='fullicon.png'></img>
+     
+            <a href='https://docs.mobula.finance' className={styles["disabled"]}>
+              <div className={`${styles["texts-box-1"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='fullicon.png' />
                 </div>
                 <p className={styles.text}>
                   Discover Mobula
                   <br />
-                  <span className='bold-text'>Learn and earn $MOBL</span>
+                  <span className={styles['bold-text']}>Learn and earn $MOBL</span>
                 </p>
               </div>
             </a>
-          </div>
-          <div className='quad-box-2'>
+          
+          
+  
             <a href='https://discord.gg/2a8hqNzkzN'>
-              <div className='texts-box texts-box-2'>
-                <div className='logo-box'>
-                  <img className={styles.inside} src='fullicon.png'></img>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='portfolio.png'></img>
+                </div>
+                <p className={styles.text}>
+                  Portfolio
+                  <img src="fire.png" height="15px" className={styles["marginR"]}/>
+                  <br />
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
+                </p>
+              </div>
+            </a>
+       
+            <a href='https://discord.gg/2a8hqNzkzN'>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='Imagedao.png'></img>
                 </div>
                 <p className={styles.text}>
                   Join the DAO
                   <br />
-                  <span className='bold-text'>Vote, earn, interact.</span>
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
                 </p>
               </div>
             </a>
           </div>
-        </div>
+    
         <X
           className={styles.x}
           onClick={() => {
@@ -130,30 +161,46 @@ function MainBlock(props: any) {
     return (
       <div className={styles['container-news']} style={{ 'border': 'none' }}>
         <div className={styles['quadBox-container']}>
-          <div className='quad-box-1'>
-            <a href='https://docs.mobula.finance' className={styles.disabled}>
-              <div className='texts-box texts-box-1'>
-                <div className='logo-box'>
-                  <img className={styles.inside} src='fullicon.png'></img>
+          <div className={styles['quad-box-1']}>
+            <a href='https://docs.mobula.finance' className={styles["disabled"]}>
+              <div className={`${styles["texts-box-1"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='fullicon.png' />
                 </div>
                 <p className={styles.text}>
                   Discover Mobula
                   <br />
-                  <span className='bold-text'>Learn and earn $MOBL</span>
+                  <span className={styles['bold-text']}>Learn and earn $MOBL</span>
                 </p>
               </div>
             </a>
           </div>
-          <div className='quad-box-2'>
+          
+          <div className={styles['quad-box-2']}>
             <a href='https://discord.gg/2a8hqNzkzN'>
-              <div className='texts-box texts-box-2'>
-                <div className='logo-box'>
-                  <img className={styles.inside} src='fullicon.png'></img>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='portfolio.png'></img>
+                </div>
+                <p className={styles.text}>
+                  Portfolio
+                  <img src="fire.png" height="15px" className={styles["marginR"]}/>
+                  <br />
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
+                </p>
+              </div>
+            </a>
+          </div>
+          <div className={styles['quad-box-2']}>
+            <a href='https://discord.gg/2a8hqNzkzN'>
+              <div className={`${styles["texts-box-2"]} ${styles["texts-box"]}`}>
+                <div className={styles['logo-box']}>
+                  <img className={styles.inside} src='Imagedao.png'></img>
                 </div>
                 <p className={styles.text}>
                   Join the DAO
                   <br />
-                  <span className='bold-text'>Vote, earn, interact.</span>
+                  <span className={styles['bold-text']}>Vote, earn, interact.</span>
                 </p>
               </div>
             </a>

@@ -3,7 +3,9 @@ import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRig
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
 import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
 import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
-import styles from './ButtonBlock.module.scss'
+import styles from './ButtonBlock.module.scss';
+import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
+import { X, Settings} from 'react-feather';
 
 function ButtonBlock({ setDisplay, display }) {
   function lockerButton() {
@@ -52,17 +54,28 @@ function ButtonBlock({ setDisplay, display }) {
           <span>
             <AiOutlineArrowRight className={styles['marginFa']} />
           </span>
+          <span className={`${styles['mienai']} ${styles['blockchain-name']}`}>Other Chains</span>
+         
         </a>
-        <div className={styles['onChain-btn-mobile']}>
-          <span className={styles['fullOnChain']}>On-chain only</span>
-          <a
-            className={styles['rectangle']}
-            id='rectangle'
-            onClick={() => lockerButton()}
-          >
-            <div className={styles['rond']} id='cercle'></div>
-          </a>
-        </div>
+        
+        <button className={styles["params"]}>
+            <Settings className={styles["colors"]}/>
+        </button>
+        <div className={styles["input-btn"]}>
+            <FiSearch className={styles['loupe']} />
+            <input
+              // value={token}
+              type='text'
+              className={styles['input-search']}
+              name='search'
+              placeholder='Search crypto-asset...'
+              // onChange={(e) => setToken(e.target.value)}
+              id='search'
+              autoFocus
+            ></input>
+            {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
+          </div>
+        
       </div>
     </div >
   )

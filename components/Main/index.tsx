@@ -141,7 +141,7 @@ function News(props: any) {
       return []
     }
   }
-
+  console.log(props)
   async function shouldLoadMore(supabase: SupabaseClient) {
 
     if (display == 'Top 100') {
@@ -324,7 +324,7 @@ function News(props: any) {
           }
         </table>
       </div>
-      {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
+      {display != 'My Assets' ? <Pagination darkTheme={props.darkTheme} maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )
 }

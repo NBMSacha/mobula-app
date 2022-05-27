@@ -4,13 +4,25 @@
   position: relative;
   display: flex;
 }
+.notif-earn{
+  height:22px;
+  width:22px;
+  top:-9px !important;
+  right:-9px !important
+ 
+}
 
 .loupe {
-  color: #f7f7f7;
+  color: var(--text-color);
   font-size: 1.5rem;
   position: absolute;
   top: 13px;
   left: 13px;
+}
+
+.image-earn{
+  width:20px;
+  height:20px;
 }
 
 .connect-wallet-btn {
@@ -27,7 +39,20 @@
   border-radius: 8px;
   line-height: 18px;
   font-family: 'Inter', sans-serif;
-  color: #f7f7f7;
+  color: white;
+}
+
+.earn{
+  height: 50px;
+  box-shadow: 0 0 10px var(--shadow-color-btn);
+  border-radius: 10px;
+  padding:0px 20px;
+  background:var(--bg-earn);
+  margin-right: 20px;
+  cursor:pointer
+}
+.earn:hover{
+  background:var(--bg-news)
 }
 
 .hamburger-btn {
@@ -38,7 +63,7 @@
 }
 
 .hamburger {
-  color: white;
+  color: var(--text-color);
   font-size: 25px;
 }
 
@@ -54,6 +79,10 @@
   .connect-wallet-btn {
     display: none;
   }
+  .earn{
+    margin-left: auto;
+    
+  }
 
 
   .hamburger-btn {
@@ -65,4 +94,23 @@
 .new {
   top: 0px;
   position: absolute;
+}
+
+@media screen and (max-width: 768px) {
+  .earn{
+ display:none !important
+  }
+  .notif-earn{
+    height:17px;
+    width:17px;
+    top:-6px !important;
+    right:-6px !important
+   
+  }
+  .notif-earn > p {
+    font-size:10px;
+    display: flex;
+    justify-content:center;
+    align-items:center
+  }
 }

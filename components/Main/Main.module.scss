@@ -1,20 +1,28 @@
 .main-news {
   display: flex;
   flex-direction: column;
-  padding: 0px 10%;
   width: auto;
   height: auto;
-  background-image: url(../../public/lines.png);
-  background-repeat: no-repeat;
-  background-position: 12% 10%, center;
-  background-position-y: 50px;
-  background-size: 52vh, contain;
+  background: var(--bg-news-box);
 }
 
 .three-container {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+  align-items:center;
+
+}
+
+.three-container-white{
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.three-container-white > *{
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .three-container>* {
@@ -184,11 +192,10 @@
   }
 
   .main-news {
-    background-image: url(../../public/community-bg.png),
-      linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
-    background-position: 120% 10%, center;
-    background-size: 30vh, contain;
-    padding: 0px 0% !important;
+    background-image: url(../../public/community-bg.png);
+    background-position: 120% 10%;
+    background-size: 30vh;
+    background-repeat: no-repeat;
     width: 100% !important;
   }
 
@@ -241,14 +248,14 @@
 // 1450 PX //
 @media screen and (max-width:1450px) {
   .main-news {
-    padding: 0px 4%;
+
   }
 }
 
 // 1160 PX //
 @media screen and (max-width: 1160px) {
   .main-news {
-    padding: 0px 10px;
+  
   }
 }
 
@@ -274,7 +281,8 @@
 
 .table-style thead tr {
   text-align:left;
-  border-bottom:1px solid rgba(194, 194, 194, 0.267)
+  border-bottom:1px solid var(--border-color);
+  color:var(--text-color)
 }
 
 .ths {
@@ -343,7 +351,7 @@
     text-align:start !important;
     position: sticky;
     left: 0px;
-    background: #05062a;
+    background: var(--bg-news);
     margin: 0px 0px 0px 10px !important;
     padding: 15px 10px !important;
   }

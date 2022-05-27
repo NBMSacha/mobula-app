@@ -6,6 +6,19 @@
 
 .blockchain-btn-three {
   cursor: not-allowed !important;
+  height: 35px ;
+ 
+}
+
+.blockchain-btn-three > span {
+ 
+display:flex;
+align-items: center;
+  
+}
+
+.blockchain-name{
+  white-space: nowrap;
 }
 
 .rectangle {
@@ -19,8 +32,29 @@
   padding: 2px;
 }
 
+.input-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: var(--bg-search);
+  box-shadow:0 0 10px var(--bg-news);
+  height:54px;
+  color:var(--text-color);
+  font-size:24px;
+  padding-left:10px;
+  border-radius:10px;
+  font-family:"Poppins", sans-serif;
+}
+
+.input-search{
+  border:none;
+  height:50px;
+  font-family:"Poppins", sans-serif;
+  background:none;
+}
+
 .white {
-  background-color: #dee9ff !important;
+  background-color: var(----btn-hover) !important;
   color: #000000;
 }
 
@@ -47,8 +81,8 @@
 }
 
 .marginFa {
-  margin-left: 70px;
-  font-size: 30px;
+  margin-left: 60px;
+  font-size: 24px;
 }
 
 .onChain-btn-mobile {
@@ -59,7 +93,7 @@
   display: flex;
   align-items: center;
   width: auto;
-  margin-top: 6rem;
+  margin-top: 3rem;
   justify-content: center;
   padding-bottom: 30px;
 }
@@ -76,9 +110,9 @@
 
 .blockchain-container {
   display: flex;
-  width: 100%;
+  width: 86%;
   justify-content: space-around;
-  color: white;
+  color: var(--text-color);
   align-items: center;
 }
 
@@ -87,7 +121,7 @@
 }
 
 .three-blockchain-logo:nth-child(1) {
-  top: 7px;
+  top: 6px;
   left: 8px;
   z-index: 1;
   width: 30px;
@@ -113,21 +147,23 @@
 }
 
 .blockchain-btn {
-  background-color: #24274a;
+  background-color: var(--bg-main);
   position: relative;
   border-radius: 10px;
   display: flex;
+  background: var(--bg-white);
   align-items: center;
   justify-content: space-around;
   width: 6%;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   padding: 10px 15px;
   cursor: pointer;
-  box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 50%) 0px 1px 2px;
+  color:var(--text-color);
+  box-shadow: 2px 3px 10px var(--bg-news);
 }
 
 .blockchain-btn:hover {
-  background: #dee9ff;
+  background: var(--btn-hover);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
 }
@@ -135,7 +171,7 @@
 
 
 .select-button:hover {
-  background: #dee9ff;
+  background: var(--btn-hover);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   cursor: pointer;
@@ -143,11 +179,12 @@
 
 .select-button,
 .select-button-white {
-  background-color: #24274a;
+  background-color: var(--bg-white);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 13%;
+  white-space: nowrap;
   border-radius: 12px;
   padding: 20px 10px;
   font-family: 'Poppins';
@@ -155,16 +192,20 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  color: #ffffff;
+  color: var(--text-color);
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 50%) 0px 1px 2px;
+  box-shadow: 2px 3px 10px var(--bg-news);
 }
 
 .select-button-white {
-  background-color: #dee9ff;
+  background-color: var(--btn-hover);
   color: #000000;
 }
 
+.colors{
+  color: rgba(187, 187, 187, 0.76);
+  font-weight: bold;
+}
 
 @media screen and (max-width: 1280px) {
   .matic-btn {
@@ -209,6 +250,10 @@
   }
 }
 
+.params{
+  display:none;
+}
+
 @media screen and (max-width: 870px) {
   .matic-btn {
     display: none;
@@ -234,6 +279,8 @@
     font-size: 14px;
   }
 
+
+
   .container-news {
     padding: 0px 10px;
     width: 90% !important;
@@ -251,6 +298,9 @@
     font-size: 13px;
     padding: 8px 6px;
     border-radius: 8px;
+  }
+  .input-btn{
+    height:34px
   }
 
   .blockchain-container {
@@ -280,19 +330,22 @@
   .three-blockchain-logo:nth-child(1) {
     width: 25px;
     height: 25px;
-    top: 6px;
+    top: 4px;
+    left:5px
   }
 
   .three-blockchain-logo:nth-child(2) {
     width: 25px;
     height: 25px;
-    top: 6px;
+    top: 4px;
+    left:15px
   }
 
   .three-blockchain-logo:nth-child(3) {
     width: 25px;
     height: 25px;
-    top: 6px;
+    top: 4px;
+    left:25px
   }
 
   .rond {
@@ -317,7 +370,32 @@
 
   .blockchain-btn-three {
     padding: 8px 6px;
+    height:22px !important;
+    width: 72px !important;
+  }
 
+  .params{
+    display:flex;
+    align-items: center;
+    background:none;border:none;
+  }
+
+  .input-search{
+ display:none
+  }
+  .input-btn{
+    display:none;
+  }
+
+  .mienai{
+    display:none !important;
+    
+  }
+
+
+
+  .marginFa{
+    margin-left:48px;
   }
 
   .blockchain-btn {
@@ -332,6 +410,7 @@
 
   .eth-btn-block {
     width: 60px !important;
+    height:22px;
   }
 
   .select-button,
@@ -364,8 +443,12 @@
 }
 
 .blockchain-btn-three {
-  width: 90px;
+  width: 250px;
+  height: 35px;
+  display:flex;
+  align-items: center;
 }
+
 
 @media screen and (max-width: 580px) {
 
@@ -411,21 +494,23 @@
   .three-blockchain-logo:nth-child(1) {
     width: 22px;
     height: 22px;
-    top: 9px;
+    top: 4px;
   }
 
   .three-blockchain-logo:nth-child(2) {
     width: 22px;
     height: 22px;
-    top: 9px;
+    top: 6px;
   }
 
   .three-blockchain-logo:nth-child(3) {
     width: 22px;
     height: 22px;
-    top: 9px;
+    top: 8px;
   }
-
+  .marginFa{
+    margin-left:40px;
+  }
   .select-button,
   .select-button-white {
     width: 85px;

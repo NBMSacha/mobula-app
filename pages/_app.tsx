@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import App from 'next/app'
 import Head from 'next/head'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -22,9 +21,80 @@ function getLibrary(provider: any): Web3Provider {
   return library
 }
 
-export default class Root extends App {
-  render() {
-    const { Component, pageProps } = this.props
+export default function App ({ Component, pageProps }) {
+
+  const [darkThemes, setDarkThemes] = useState(false);
+  // const [darkThemes, setDarkThemes] = useState( !isDark || false );
+
+      // var isDark = localStorage.getItem("isDark"); 
+
+    useEffect(() => {
+     
+      var isDark = localStorage.getItem("isDark") == "true"; 
+      const root = document.documentElement;
+
+      252742
+      root?.style.setProperty("--bg-search",isDark ? "#252742" : "white");
+
+      root?.style.setProperty("--bg-color",isDark ? "#05062a" : "#F5F5F5");
+      root?.style.setProperty("--text-color", isDark ? "#F5F5F5" : "#05062a");
+      root?.style.setProperty("--text-color-tendance", isDark ? "#64D1FF" : "#3861FB");
+      root?.style.setProperty("--text-tendance", isDark ? "#b4cfff" : "#58667E");
+      root?.style.setProperty("--hover-", isDark ? "#b4cfff" : "#58667E");
+      
+      root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");
+      root?.style.setProperty("--bg-white", isDark ? "none" : "white");
+      root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");
+      root?.style.setProperty("--bg-wallet", isDark ? "#5C7DF9" : "#6B5DE0");
+      root?.style.setProperty("--border-color", isDark ? "#262a4d" : "rgb(250 250 250 / 100%)");
+      root?.style.setProperty("--hover-top",isDark  ? "#2E3557" : "#F1F1F1");
+      root?.style.setProperty("--shadow-color-btn", isDark ? "none" : "#F1F1F1");
+      root?.style.setProperty("--shadow-color", isDark ? "#c8c8c821" : "#c8c8c863");
+      root?.style.setProperty("--shadow-search", isDark ? "none" : "#b1b1b196");
+      root?.style.setProperty("--bg-main", isDark ? "none" : "linear-gradient(180deg,  rgba(248, 250, 252, 0) 0%, #EEEEEE 170.94%)");
+      root?.style.setProperty("--active-btn", isDark ? "none" : "#F5F5F5");
+      root?.style.setProperty("--bg-news", isDark ? "#05062a" : "#F5F5F5");
+      root?.style.setProperty("--bg-earn", isDark ? "rgba(37, 39, 66, 0.3)" : "#fff");
+      root?.style.setProperty("--subtitle", isDark ? "#B1CEFF" : "#05062a");
+      root?.style.setProperty("--up-down", isDark ? "#B1CEFF" : "#05062a");
+      root?.style.setProperty("--pagination", isDark ? "#F5F5F5" : "#E5E5E5");
+      root?.style.setProperty("--btn-hover", isDark ? "#dee9ff" : "#E5E5E5");
+      root?.style.setProperty("--main-mobile", isDark ? "none" : "#ffffff9e");
+      
+      root?.style.setProperty("--bg-news-box", isDark ? "linear-gradient(180deg, rgba(92, 92, 92, 0.17) 50%, rgba(1, 0, 34, 0.25) 75.97%, #010042 170.91%)" : "linear-gradient(180deg, #EEEEEE 0%, rgba(248, 250, 252, 0) 170.94%)");
+      root?.style.setProperty("--border-header", isDark ? "rgba(19, 28, 71, 0.5)" : "rgb(244 244 244 / 50%)");
+      root?.style.setProperty("--bg-gainer", isDark ? "rgba(163, 212, 244, 0.05)" : "white");
+      root?.style.setProperty("--border-tendance", isDark ? "#2b5177" : "rgb(232, 230, 230)");
+
+      root?.style.setProperty("--input-focus-bg", isDark ? "#05062a" : "white");
+      console.log(`Inside UseEffect : ${isDark}`)
+      setDarkThemes(isDark)
+    }, [darkThemes]);
+    console.log(`_app darkThemes : ${darkThemes}`)
+  
+   
+    // useEffect(() => {
+    //   const root = document.documentElement;
+    //   root?.style.setProperty("--bg-color",darkThemes ? "#05062a" : "#fff");
+    //   root?.style.setProperty("--text-color", darkThemes ? "#FFF" : "#05062a");
+    //   root?.style.setProperty("--text-color-tendance", darkThemes ? "#b4cfff" : "#05062a");
+    //   root?.style.setProperty("--brand-title", darkThemes ? "#fff" : "#3753B3");
+    //   root?.style.setProperty("--bg-white", darkThemes ? "#262A4D" : "#fff");
+    //   root?.style.setProperty("--brand-title", darkThemes ? "#fff" : "#3753B3");
+    //   root?.style.setProperty("--bg-wallet", darkThemes ? "#5C7DF9" : "#6B5DE0");
+    //   root?.style.setProperty("--border-color", darkThemes ? "#262a4d" : "rgb(250 250 250 / 100%)");
+    //   root?.style.setProperty("--hover-top", darkThemes ? "#2E3557" : "#F1F1F1");
+    //   root?.style.setProperty("--shadow-color-btn", darkThemes ? "#b1b1b196" : "#F1F1F1");
+    //   root?.style.setProperty("--shadow-color", darkThemes ? "#c8c8c863" : "#c8c8c863");
+    //   root?.style.setProperty("--shadow-search", darkThemes ? "none" : "#b1b1b196");
+    //   root?.style.setProperty("--bg-main", darkThemes ? "none" : "#f6f6f62b");
+    //   root?.style.setProperty("--active-btn", darkThemes ? "none" : "#f6f6f6");
+    //   root?.style.setProperty("--border-header", darkThemes ? "#rgb(46 53 87 / 80%)" : "rgb(244 244 244 / 50%)");
+    //   root?.style.setProperty("--bg-gainer", darkThemes ? "rgba(163, 212, 244, 0.05)" : "white");
+    //   root?.style.setProperty("--border-tendance", darkThemes ? "#2b5177" : "rgb(232, 230, 230)");
+    //   console.log(`Inside UseEffect : ${darkThemes}`)
+    // }, [darkThemes]);
+    // console.log(`_app darkThemes : ${darkThemes}`)
 
     return (
       <>
@@ -65,14 +135,15 @@ export default class Root extends App {
 
         <Provider template={AlertTemplate} {...alertOptions}>
           <Web3ReactProvider getLibrary={getLibrary}>
-            <Header />
+            <Header darkTheme={darkThemes} />
 
-            <Component {...pageProps}></Component>
+            <Component darkTheme={darkThemes} {...pageProps}></Component>
 
-            <Footer />
+
+            <Footer darkTheme={darkThemes} setDarkTheme={setDarkThemes}/>
+
           </Web3ReactProvider>
         </Provider>
       </>
     )
   }
-}

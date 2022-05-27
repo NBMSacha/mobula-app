@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { GitHub, Send, Twitter } from 'react-feather'
 import styles from './footer.module.scss'
-function Footer() {
+import { Moon, Sun } from "react-feather"
+function Footer({darkTheme, setDarkTheme}) {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
   const [displayDAO, setDisplayDAO] = useState('none')
@@ -40,7 +41,12 @@ function Footer() {
   return (
     <div className={styles['footer-main']}>
       <div className={styles['footer-left']}>
-        <img src='https://app.mobula.finance/newIcon.png' className={styles['logo-footer']} />
+        {darkTheme ? (
+          <img src='https://app.mobula.finance/newIcon.png' className={styles['logo-footer']} />
+        ) : (
+          <img src='https://app.mobula.finance/icon.png' className={styles['logo-footer-1']} />
+        )}
+        
         <div className={styles['social-container']}>
           <a href='https://t.me/MobulaFi' className={styles['social-link']}>
             <Send className={styles['social-logo']} />
@@ -112,6 +118,30 @@ function Footer() {
               <li>Support</li>
             </a>
           </ul>
+        </div>
+        <div className={styles['darkmode']}>
+          {darkTheme ? (
+            <button className={styles["darkmode-btn"]} onClick={() => {
+              console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
+              localStorage.setItem("isDark", String(!darkTheme));
+              setDarkTheme(!darkTheme)
+          }}>  
+              <Moon />
+              <span>White mode</span>
+            </button>
+          ) : ( 
+            <button className={styles["whitemode-btn"]} onClick={() => {
+              console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
+              localStorage.setItem("isDark",String(!darkTheme));
+              setDarkTheme(!darkTheme)
+          }}>  
+              <Sun />
+              <span>Dark mode</span>
+            </button>
+          )}
+         
+
+
         </div>
       </div>
     </div>

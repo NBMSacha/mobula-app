@@ -2,16 +2,17 @@
   position: absolute;
   width: calc(14rem + 155px);
   height: 400px;
-  background-color: #2d3558;
+  // background-color: #2d3558;
+  background-color: var(--bg-search);
   z-index: 100;
   top: 0px;
   left: -100px;
   border-radius: 10px;
   box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 90%) 0px 1px 5px;
   overflow: scroll;
-
+  
   .loupe {
-    color: #f7f7f7;
+    color: var(--text-color);
     font-size: 1.5rem;
     position: absolute;
     top: 13px;
@@ -36,17 +37,17 @@
   opacity: 1;
   cursor: pointer;
   border-radius: 8px;
-  background-color: #2d3558;
+  background: var(--bg-search);
   padding-left: 50px;
   border: none;
-  color: white;
+  color: var(--text-color);
   margin-right: 2.5rem;
   font-family: 'Inter', sans-serif;
 }
 
 .search-input::placeholder,
 .search-input-off {
-  color: #8d8d8d;
+  color: var(--text-color);
   opacity: 1;
 }
 
@@ -82,7 +83,7 @@
 }
 
 .token-infos-search:hover {
-  background-color: #424968;
+  background-color: var(--hover-top);
 }
 
 .token-logos {
@@ -99,7 +100,7 @@
   font-size: 15px;
 }
 .result-nul{
-  color:white !important
+  color: var(--text-color);
 }
 
 .token-rank {
@@ -107,7 +108,7 @@
   margin-right: 20px;
   opacity: 0.5;
   font-size: 0.9rem;
-  color:white;
+  color: var(--text-color);
   display:flex;
   justify-content:end;
   align-items:center
@@ -121,7 +122,7 @@
 
 .search-div>input {
   width: 100vw !important;
-  color: #fcfcfc;
+  color: var(--text-color);
 }
 
 @media screen and (max-width: 1450px) {
@@ -224,10 +225,10 @@
     width: 96%;
     height: 98%;
     margin-left: auto;
-    box-shadow: 0px 0px 0px 50px #05062a;
+    box-shadow: 0px 0px 0px 50px var(--bg-color);
     margin-right: auto;
     border-radius:10px;
-    background:#05062a;
+    background:var(--bg-color);
   }
   .search-flex{
     margin: auto;
