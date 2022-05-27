@@ -49,12 +49,13 @@ export async function getStaticProps() {
   }
 }
 
-export default function Listing({ tokens, gainers, recents, trendings, top, ethereum, bnb, avalanche, polygon }) {
+export default function Listing({ darkTheme, tokens, gainers, recents, trendings, top, ethereum, bnb, avalanche, polygon }) {
 
   return (
     <>
 
       <News
+        darkTheme={darkTheme}
         tokens={tokens} gainers={gainers}
         recents={recents} trendings={trendings} top={top}
         ethereum={ethereum} bnb={bnb}
