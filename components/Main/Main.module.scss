@@ -268,15 +268,15 @@
   width: 100%;
   cursor: pointer;
   max-width: 1400px;
-  color: rgba(255, 255, 255, 0.952);
+  color: rgb(245, 245, 245);
   margin: 0px auto;
 }
 
 .table-style thead tr {
-  text-align:left;
-  border-bottom:1px solid var(--border-top);
-  border-top:1px solid var(--border-top);
-  color:var(--text-color)
+  text-align: left;
+  border-bottom: 1px solid var(--border-top);
+  border-top: 1px solid var(--border-top);
+  color: var(--text-color)
 }
 
 .ths {
@@ -298,11 +298,11 @@
   text-align: start !important;
 }
 
-.tables-main-container{
-  display:block;
-  white-space:nowrap;
-  overflow:auto;
-  background:var(--bg-top)
+.tables-main-container {
+  display: block;
+  white-space: nowrap;
+  overflow: auto;
+  background: var(--bg-top);
 }
 
 .nowrap {
@@ -317,13 +317,12 @@
     width: auto;
     cursor: pointer;
     max-width: 1400px;
-    color: rgba(255, 255, 255, 0.952);
     margin: 0px auto;
   }
 
   .table-style thead tr {
-    text-align:left;
-    border-bottom:1px solid var(--border-top)
+    text-align: left;
+    border-bottom: 1px solid var(--border-top)
   }
 
   .removes {
@@ -366,5 +365,12 @@
 @media screen and (max-width: 1590px) {
   .table-style {
     max-width: 1280px
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tables-main-container {
+    margin-left: 20px;
+    color: #000119
   }
 }

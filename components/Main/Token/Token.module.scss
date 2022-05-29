@@ -3,6 +3,14 @@
   cursor: pointer;
 }
 
+.tbodys span {
+  font-weight: 500;
+}
+
+.hide {
+  opacity: 0.3;
+}
+
 .border-bot:hover {
   background-color: #808a9d27;
 }
@@ -15,15 +23,16 @@
   margin-left: 25px !important;
 }
 
-.trs:hover{
+.trs:hover {
   background-color: var(--btn-hover)
-
 }
 
-.trs:hover  .asset-title-start{
-  background-color: var(--btn-hover)
-
+.trs:hover .asset-title-start {
+  background-color: var(--btn-hover);
 }
+
+/* align-items / display table-cell / font-size / justify-content flex start
+*/
 
 .token-containers {
   width: 100%;
@@ -44,7 +53,7 @@
   justify-content: end;
 }
 
-.token-chart{
+.token-chart {
   width: 135px !important;
   margin-left: 44px !important;
   margin-right: 20px;
@@ -77,100 +86,103 @@
 .font-char {
   font-size: 15px;
 }
+
 // ==========================================================================
 
 //===========================================================================
 
-.media-icons{
+.media-icons {
   display: flex;
 
   align-items: center;
   justify-content: center;
 }
 
-.asset-title-start{
-  display: flex;
+.asset-title-start {
+  display: table-cell !important;
   background: var(--bg-top);
-  justify-content: flex-start;align-items:center;
+  justify-content: flex-start;
+  align-items: center;
   padding: 15px 0px !important;
-  white-space: initial;
+  white-space: nowrap;
   margin-right: 31px;
 }
 
 
-.wrap-name{
+.wrap-name {
   display: flex;
-    flex-wrap: wrap;
-    margin-right: -70px;
+  flex-wrap: wrap;
+  margin-right: -70px;
 }
 
-.center-social{
-  text-align:center
+.center-social {
+  text-align: center
 }
 
 
 
- .tbodys {
-  border-bottom:1px solid var(--border-top-body);
-  color:var(--text-color);
+.tbodys {
+  border-bottom: 1px solid var(--border-top-body);
+  color: var(--text-color);
 }
 
 .tbodys tr {
   align-items: center;
 }
 
-.name-title-margin{
-  margin-right:15px;
+.name-title-margin {
+  margin-right: 15px;
   white-space: nowrap;
+  font-weight: 800 !important;
 }
 
-.white{
+.white {
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
 
-.rank-title-start{
-  vertical-align:middle;
+.rank-title-start {
+  vertical-align: middle;
 
 }
 
 .ths {
-  padding:15px 20px;
-  text-align:end;
+  padding: 15px 20px;
+  text-align: end;
   margin: 15px 0px;
 }
 
-.green{
+.green {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.red{
+.red {
   display: flex;
   justify-content: end;
   align-items: center;
-  font-weight:600
+  font-weight: 600 !important
 }
 
-.symbol-weight{
-  opacity:0.6
+.symbol-weight {
+  opacity: 0.6
 }
 
 
 
 @media screen and (max-width: 768px) {
-  .media-icons{
+  .media-icons {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
-  .asset-title-start{
+
+  .asset-title-start {
     display: flex;
     justify-content: flex-start;
-    align-items:center;
+    align-items: center;
     position: sticky;
     left: 0px;
     background: var(--bg-top);
@@ -180,55 +192,58 @@
 
 
 
-  .price-title-center{
-    padding:0px 0px 0px 20px !important
+  .price-title-center {
+    padding: 0px 0px 0px 20px !important;
   }
-  .wrap-name{
+
+  .wrap-name {
     margin-right: 0px;
   }
-  .font-char{
+
+  .font-char {
     font-size: 14px;
   }
-  
-   .tbodys {
-    border-bottom:1px solid rgba(39, 42, 68, 0.301)
+
+  .tbodys {
+    border-bottom: 1px solid rgba(39, 42, 68, 0.301)
   }
+
   .tbodys:hover {
-    background:var(--btn-hover)
+    background: var(--btn-hover)
   }
-  
+
   .tbodys tr {
     align-items: center;
   }
-  
-  .name-title-margin{
+
+  .name-title-margin {
     margin-right: 10px;
   }
-  
-  .white{
+
+  .white {
     display: flex;
     align-items: center;
     justify-content: space-around;
   }
-  
-  .rank-title-start{
-    vertical-align:middle;
-    display:none;
+
+  .rank-title-start {
+    vertical-align: middle;
+    display: none;
   }
-  
+
   .ths {
-    padding:0px 15px ;
-    text-align:end;
+    padding: 0px 15px;
+    text-align: end;
     margin: 15px 0px;
   }
-  
-  .green{
+
+  .green {
     display: flex;
     justify-content: end;
     align-items: center;
   }
-  
-  .red{
+
+  .red {
     display: flex;
     justify-content: end;
     align-items: center;
@@ -256,7 +271,7 @@
 .token-percentage-box {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 600;
+  font-weight: 600 !important;
   font-size: 14px;
   line-height: 16px;
   color: #ea3943;
@@ -316,12 +331,12 @@
 
 .fi {
   color: #556b90;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .fu {
   color: #556b90;
-  margin-right:10px;
+  margin-right: 10px;
 }
 
 .fo {
@@ -332,14 +347,17 @@
   .token-containers {
     height: 60px !important;
   }
-  .chart-image{
+
+  .chart-image {
     margin-right: 10px;
+    width: 110%
   }
 
   .token-ids {
-    display:none !important
+    display: none !important
   }
-  .media-icons{
+
+  .media-icons {
     margin-left: 10px;
   }
 
@@ -348,7 +366,7 @@
     margin-left: 0px !important;
     width: 144px !important;
   }
-  
+
 
   .token-infos {
     margin: 0px;
@@ -365,17 +383,15 @@
   }
 
   .tokens-links {
-    margin-left:0px !important;
+    margin-left: 0px !important;
   }
 
   .token-chart {
     margin-left: 10px !important;
-    justify-content:start !important;
+    justify-content: start !important;
   }
 
-  .token-symbols {
-
-  }
+  .token-symbols {}
 
   .tokens-price {
     width: 32px !important;
@@ -387,17 +403,19 @@
     margin-right: 10px;
     margin-left: 40px !important;
   }
-  .token-logos{
+
+  .token-logos {
     margin-right: 10px;
   }
 
-  .token-price-box{
+  .token-price-box {
     background: var(--bg-color);
     z-index: 2;
     padding-left: 10px;
   }
 
 }
+
 .triangle-green {
   display: inline-block;
   height: 0;
@@ -426,13 +444,13 @@
     display: flex;
     font-size: 12px;
   }
-  
 
 
-  .green{
+
+  .green {
     font-family: "Inter";
     font-style: normal;
-    font-weight: 600;
+    font-weight: 600 !important;
     font-size: 14px;
     color: var(--text-green);
   }
@@ -458,10 +476,10 @@
   }
 }
 
-@media screen and (max-width:1595px ) {
-  .wrap-name{
+@media screen and (max-width:1595px) {
+  .wrap-name {
     display: flex;
-      flex-wrap: wrap;
-      margin-right: -20px;
+    flex-wrap: wrap;
+    margin-right: -20px;
   }
 }

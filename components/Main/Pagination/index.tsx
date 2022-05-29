@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 function Pagination({ maxPage, darkTheme }) {
     const router = useRouter();
     const page = router.query.page ? parseInt(router.query.page as string) : 1;
+    console.log('Hey', darkTheme)
 
     return (
         <VStack my={40}>
@@ -37,7 +38,7 @@ function Pagination({ maxPage, darkTheme }) {
                         <Text color={darkTheme ? "#FFF" : "#000"}>1</Text>
                     </Button>
 
-                    {page >= 5 && <Button mx={5}  bg="none" border="none" type="button" disabled>...</Button>}
+                    {page >= 5 && <Button mx={5} bg="none" border="none" type="button" disabled>...</Button>}
 
                     {Math.max(Math.min(page - 2, maxPage - 5), 2) < maxPage && <Button mx={5} bg={Math.max(Math.min(page - 2, maxPage - 5), 2) == page ? "blue" : "none"} d="flex" border="none" justifyContent="center" alignItems="center" p={3} h={25} w={25} borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page - 2, maxPage - 5), 2))
@@ -72,7 +73,7 @@ function Pagination({ maxPage, darkTheme }) {
 
                     {page < maxPage - 5 && <Button mx={5} bg="none" border="none" type="button" color={darkTheme ? "#FFF" : "#000"} disabled>...</Button>}
 
-                    {maxPage > 1 && <Button mx={5} d="flex" bg={maxPage == page ? "blue" : "none"} border="none" justifyContent="center" alignItems="center" p={3} h={25} w={25}  borderRadius={8} cursor="pointer" onClick={() => {
+                    {maxPage > 1 && <Button mx={5} d="flex" bg={maxPage == page ? "blue" : "none"} border="none" justifyContent="center" alignItems="center" p={3} h={25} w={25} borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + maxPage)
                     }}>
                         <Text color={darkTheme ? "#FFF" : "#000"}>{maxPage}</Text>

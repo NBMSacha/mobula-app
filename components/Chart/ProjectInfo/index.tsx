@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react'
 import styles from './ProjectInfo.module.scss'
 import { supportedRPCs } from '../../../constants';
-import {formatName} from '../../../helpers/formaters';
+import { formatName } from '../../../helpers/formaters';
 import { Send, Twitter, Globe } from "react-feather";
+import Contract from '../../Utils/Contract';
 
 const ProjectInfo = ({ token }) => {
 
@@ -23,24 +24,24 @@ const ProjectInfo = ({ token }) => {
             <div className={styles["left"]}>
                 <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
                     <div className={styles["social-links"]}>
-                        {token.website !== ""  ? ( 
-                            <a href={token.website}  target="_blank"><Globe className={styles["icons"]} /></a>
-                        ) : ( <></>)}
-                        {token.twitter !== ""  ? ( 
+                        {token.website !== "" ? (
+                            <a href={token.website} target="_blank"><Globe className={styles["icons"]} /></a>
+                        ) : (<></>)}
+                        {token.twitter !== "" ? (
                             <a href={token.twitter} target="_blank"><Twitter className={styles["icons"]} /></a>
-                        ) : ( <></>)}
-                        {token.chat !== ""  ? ( 
+                        ) : (<></>)}
+                        {token.chat !== "" ? (
                             <a href={token.chat} target="_blank"><Send className={styles["icons"]} /></a>
-                        ) : ( <></>)}
+                        ) : (<></>)}
                     </div>
 
                     <div className={styles["audit-links"]}>
                         {token.kyc !== null ? (
                             <a href={token.kyc} target="_blank" className={styles["kyc"]} onClick={() => console.log(token.kyc)}>KYC</a>
-                        ) : ( <></>)}
+                        ) : (<></>)}
                         {token.audit !== null ? (
                             <a href={token.audit} target="_blank" className={styles["audit"]} onClick={() => console.log(token.audit)}>Audit</a>
-                        ) : ( <></>)}
+                        ) : (<></>)}
                     </div>
                 </div>
                 <div className={styles["left-top-box"]}>
@@ -76,9 +77,10 @@ const ProjectInfo = ({ token }) => {
 
                 {token.contracts.map((contract: string, idx: number) => {
                     if (idx < 5) {
-                        return <a href={getExplorer(token.blockchains[idx]) ? getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx] : ''} className={styles["contract-address"]}>
-                            {contract}
-                        </a>
+                        return <Contract contract={contract} blockchain={token.blockchains[idx]}></Contract>
+                        // return <a href={getExplorer(token.blockchains[idx]) ? getExplorer(token.blockchains[idx]) + '/token/' + token.contracts[idx] : ''} className={styles["contract-address"]}>
+                        //     {contract}
+                        // </a>
 
                     } else {
                         return <></>

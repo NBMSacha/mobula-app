@@ -149,21 +149,21 @@ function Wallet(props: any) {
   useOutsideAlerter(wrapperRef, setTriggerSearch)
   return (
     <>
-        <Flex justify="center" align="center" className={styles['earn']} position='relative'>
-        <img src='fullicon.png' className={styles["image-earn"]} />
-          <span
-            
-            
-            onClick={() => (document.location.href = '/earn')}
-            style={{ 'marginRight': '5px', color: 'var(--text-color)' }}
-          >
-            Earn
-          </span>
-          
-          <Flex justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
-              <Text fontSize="12px" color="white">+1</Text>
-          </Flex>
+      <Flex justify="center" align="center" className={styles['earn']} position='relative'>
+        <img src='/fullicon.png' className={styles["image-earn"]} />
+        <span
+
+
+          onClick={() => (document.location.href = '/earn')}
+          style={{ 'marginRight': '5px', color: 'var(--text-color)' }}
+        >
+          Earn
+        </span>
+
+        <Flex justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+          <Text fontSize="12px" color="white">+1</Text>
         </Flex>
+      </Flex>
       <div className={styles['relative']}>
         <FiSearch
           className={styles['loupe']}
