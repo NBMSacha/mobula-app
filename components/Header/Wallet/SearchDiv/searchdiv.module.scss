@@ -15,8 +15,10 @@
     color: var(--text-color);
     font-size: 1.5rem;
     position: absolute;
+    opacity:0.6 !important;
     top: 13px;
     left: 13px;
+    
   }
 }
 
@@ -163,8 +165,8 @@
   .search-input-off {
     background: none;
 
-    width: 1rem !important;
-    margin-right: 0px;
+    width: 0rem !important;
+    margin-right: 12px !important;
   }
   
 }
@@ -196,6 +198,10 @@
     left: 0px;
     width: 100vw;
   }
+  .search-input,
+.search-input-off {
+ box-shadow:none !important
+}
 
   .search-input::placeholder,
   .search-input-off {

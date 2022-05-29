@@ -2,9 +2,9 @@
     width:auto;
     display:flex;
     justify-content:space-between;
-    margin-bottom:40px;
-    padding-top: 40px;
-    border-top: 1px solid #1B1B3D;
+    margin-bottom:20px;
+    padding-top: 00px;
+   
 }
 
 .left{
@@ -42,7 +42,7 @@
 }
 
 .right > span {
-    color:white;
+    color:var(--text-color);
 }
 
 .audit-links{
@@ -58,7 +58,7 @@
     align-items:center;
     justify-content:center;
     border:none;
-    color:white;
+    color:var(--text-color);
     border-radius:8px;
     margin-right:20px;
     font-family: 'Poppins';
@@ -76,7 +76,7 @@
     align-items:center;
     justify-content:center;
     border:none;
-    color:white;
+    color:var(--text-color);
     border-radius:8px;
     font-family: 'Poppins';
     font-style: normal;
@@ -93,7 +93,7 @@
     line-height: 35px;
     display: flex;
     align-items: center;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.8;
     margin-top:30px;
     word-break: break-all;
@@ -111,10 +111,11 @@
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
+    margin-bottom:10px;
     line-height: 18px;
     display: flex;
     align-items: center;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 
 .contract-address{
@@ -125,13 +126,13 @@
     line-height: 18px;
     display: flex;
     align-items: center;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.8;
     margin-top:34px;
 }
 
 .more{
-    background: linear-gradient(90deg, rgb(0, 63, 225) 0%, rgb(100, 208, 255) 100%);
+    background: var(--bg-wallet);
     border:none;
     width: 150px;
     height:40px;
@@ -142,6 +143,7 @@
     line-height: 18px;
     font-family: "Inter", sans-serif;
     color: #f7f7f7;
+    margin-top:20px
 }
 
 @media screen and (max-width:768px) {
@@ -158,6 +160,7 @@
     .left{
         width:100%
     }
+    
     .description{
         font-size: 10px;
         margin-top: 11px;
@@ -170,6 +173,9 @@
     .contract-address{
         font-size:10px;
         margin-top: 15px;
+    }
+    .social-links{
+        margin-top:20px;
     }
     .more{
         width: 100px;

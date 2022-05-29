@@ -377,10 +377,6 @@ function ListAToken(props: any) {
             console.log(`Sum not checked ${isSum}`)
         }
     }
-
-    console.log(isSum)
-
-
     return (
         <div>
             <div className={styles["listToken-container"]}>
@@ -388,10 +384,7 @@ function ListAToken(props: any) {
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
                         <div className={styles["three-forms"]}>
-                           
-                           
                             <div className={styles["form-container-box-flex"]}>
-                               
                                 <div className={styles["inputs-container"]}>
                                     <label >Symbol *</label>
                                     <input
@@ -404,7 +397,6 @@ function ListAToken(props: any) {
                                         onChange={(e) => setSymbol(e.target.value)}
                                     ></input>
                                 </div>
-                               
                                 <div className={styles["inputs-container"]}>
                                      <label >Name *</label>
                                     <input
@@ -441,33 +433,29 @@ function ListAToken(props: any) {
                                         placeholder="https://app.mobula.finance/logo.png"
                                         required
                                     ></input>
-                            </div>
                                 </div>
-                                
-                                 
+                            </div>  
+                        </div>
+                        <div className={styles["form-container-box"]} id='parents'>
+                            <label >Contract Address *</label>
+                            <input
+                                type="text"
+                                id="contract"
+                                value={contract}
+                                className={`${styles["contract"]} ${styles["inputs"]}`}
+                                placeholder="0x9ad6c38be94206.."
+                                onChange={(e) => setContract(e.target.value)}
+                                required
+                            ></input>
+                            <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>   
+                        </div>
+                        <div className={styles["noappears"]} id="noappears">
+                            <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
+                                <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()} />
+                                <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
                             </div>
-                            <div className={styles["form-container-box"]} id='parents'>
-                                <label >Contract Address *</label>
-                                <input
-                                    type="text"
-                                    id="contract"
-                                    value={contract}
-                                    className={`${styles["contract"]} ${styles["inputs"]}`}
-                                    placeholder="0x9ad6c38be94206.."
-                                    onChange={(e) => setContract(e.target.value)}
-                                    required
-                                ></input>
-                                
-                                <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
-                                
-                            </div>
-                            <div className={styles["noappears"]} id="noappears">
-                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()} />
-                                    <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
-                                </div>
-                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
+                            <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
+                                <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
                                     onChange={(e) => { 
                                         var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
                                         var totalSupply = document.getElementById("totalSupply") as any;
@@ -479,82 +467,74 @@ function ListAToken(props: any) {
                                         }
                                         console.log(isSum)
                                     }} 
-                                    />
-                                    <label htmlFor="scale">The total supply is the sum of all the contracts</label>
-                                </div>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Description *</label>
-                                <textarea
-                                     id="msg"
-                                     name="description"
-                                     className={styles["inputs"]}
-                                     placeholder="Mobula Finance is the first decentralized data aggregator supporting all chains ..."
-                                     value={description}
-                                     onChange={(e) => setDescription(e.target.value)}
-                                     required
-                                ></textarea>
-                              
-                            </div >
-
-                            
-
-
-                        </div>
-                        
-                        <div className={styles["three-forms"]}>
-                            <div className={styles["form-container-box"]}>
-                                <label >Website *</label>
-                                <input
-                                    
-                                    required
-                                    id="msg"
-                                    name="website"
-                                    placeholder="https:/app.mobula.finance"
-                                    value={website}
-                                    onChange={(e) => setWebsite(e.target.value)}
-                                ></input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Twitter *</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="twitter"
-                                    placeholder="https://twitter.com/MobulaFi"
-                                    value={twitter}
-                                    required
-                                    onChange={(e) => setTwitter(e.target.value)}
-                                ></input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Telegram *</label>
-                                <input
-                                    value={telegram}
-                                    required
-                                    onChange={(e) => setTelegram(e.target.value)}
-                                    type="text"
-                                    id="tlg"
-                                    name="telegram"
-                                    placeholder="https://t.me/MobulaFinance" />
-                            </div>
-                            <div className={styles["form-container-box"]} >
-                                <label >Discord *</label>
-                                <input
-                                    id="discord"
-                                    className={styles["inputs"]}
-                                    name="discord"
-                                    value={logo}
-                                    onChange={(e) => setLogo(e.target.value)}
-                                    placeholder="https://t.me/MobulaFi"
-                                    required
-                                ></input>
+                                />
+                                <label htmlFor="scale">The total supply is the sum of all the contracts</label>
                             </div>
                         </div>
-                        <div className={styles["three-forms"]}>
-                           
-                            <div className={styles["form-container-box"]}>
-                                <label >Audit Link (Optional) </label>
+                        <div className={styles["form-container-box"]}>
+                            <label >Description *</label>
+                            <textarea
+                                id="msg"
+                                name="description"
+                                className={styles["inputs"]}
+                                placeholder="Mobula Finance is the first decentralized data aggregator supporting all chains ..."
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                required
+                            ></textarea>  
+                        </div >
+                    </div>
+                    <div className={styles["three-forms"]}>
+                        <div className={styles["form-container-box"]}>
+                            <label >Website *</label>
+                            <input
+                                required
+                                id="msg"
+                                name="website"
+                                placeholder="https:/app.mobula.finance"
+                                value={website}
+                                onChange={(e) => setWebsite(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className={styles["form-container-box"]}>
+                            <label >Twitter *</label>
+                            <input
+                                type="text"
+                                 id="name"
+                                name="twitter"
+                                placeholder="https://twitter.com/MobulaFi"
+                                value={twitter}
+                                required
+                                onChange={(e) => setTwitter(e.target.value)}
+                            ></input>
+                        </div>
+                        <div className={styles["form-container-box"]}>
+                            <label >Telegram *</label>
+                            <input
+                                value={telegram}
+                                required
+                                onChange={(e) => setTelegram(e.target.value)}
+                                type="text"
+                                id="tlg"
+                                name="telegram"
+                                placeholder="https://t.me/MobulaFinance" />
+                        </div>
+                        <div className={styles["form-container-box"]} >
+                            <label >Discord *</label>
+                            <input
+                                 id="discord"
+                                className={styles["inputs"]}
+                                name="discord"
+                                value={logo}
+                                onChange={(e) => setLogo(e.target.value)}
+                                placeholder="https://t.me/MobulaFi"
+                                required
+                            ></input>
+                        </div>
+                    </div>
+                    <div className={styles["three-forms"]}>
+                        <div className={styles["form-container-box"]}>
+                            <label >Audit Link (Optional) </label>
                                 <input
                                     type="text"
                                     id="audit"

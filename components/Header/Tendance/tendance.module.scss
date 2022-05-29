@@ -36,8 +36,8 @@ $primary: 'blue';
 
 @media screen and (max-width: 768px) {
   .info-tendance {
-    border-bottom: 1px solid var(--border-color);
-    padding: 0;
+    border-bottom: 1px solid var(--border-chart);
+    padding: 5px 0px;
     white-space: nowrap;
     overflow: auto;
     text-overflow: ellipsis;

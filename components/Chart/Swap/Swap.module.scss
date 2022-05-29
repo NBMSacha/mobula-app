@@ -10,3 +10,16 @@
         flex-direction:column ;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .wrap{
+        width:100% !important;
+        margin-bottom:30px !important;
+        align-items:center;
+    }
+    .wrap-box{
+        flex-direction:column !important;
+        align-items:center !important;
+        justify-content:center !important
+    }
+}

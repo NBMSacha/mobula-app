@@ -11,7 +11,7 @@ const overrides = {
     global: (props) => ({
       body: {
         fontFamily: 'Poppins',
-        bg: '#05062a',
+        bg: '#131727',
       },
       button: {
         fontFamily: 'Poppins',

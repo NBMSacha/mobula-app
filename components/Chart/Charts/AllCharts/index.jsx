@@ -373,38 +373,38 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
   }
 
   return (
-    <Box w={["100%", "88%", "70%", "45%"]} mb={["30px"]}>
-      <Text color='white' mb={4}>{title}</Text>
+    <Box w={["100%", "88%", "70%", "45%"]} mb={["30px"]} className={styles["box-charts"]}>
+      <Text color="var(--text-color)" mb={4}>{title}</Text>
       <Box p="20px 20px 20px 20px" bg={ title==="No Volume" || title==="No Rank" || title==="No Liquidity" || title === "Holders"? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
           {title !== "No Volume" || title !== "No Rank" || title !== "No Liquidity" || title !== "Holders" ? (
-            <Box position="absolute" top="-12.5px" right="0px" bg="#2e3557" p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
+            <Box position="absolute" top="-12.5px" right="0px"  boxShadow="0px 1px 12px 3px var(--shadow-color)" bg="var(--charts)" p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
               {title === "Volume" && (
                 <>
                   {timeFormat === "1D" ? (
-                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`}  bg="rgba(222, 228, 255, 0.8156862745) !important" color="var(--text-color)" p="0px 5px"  mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} `} color="var(--text-color)" p="0px 5px" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   )}
                   {timeFormat === "7D" ? (
-                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`} p="0px 5px" bg="rgba(222, 228, 255, 0.8156862745) !important" color="var(--text-color)"  mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }}mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} `} p="0px 5px" color="var(--text-color)" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }}mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   )}
                   {timeFormat === "30D" ? (
-                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]} mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`} p="0px 5px" bg="rgba(222, 228, 255, 0.8156862745) !important" color="var(--text-color)" mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]}`} p="0px 5px" color="var(--text-color)" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                   )}
                   {timeFormat === "1Y" ? (
-                    <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" color="white" className={styles["btn-chakra"]}  mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`} p="0px 5px" bg="rgba(222, 228, 255, 0.8156862745) !important" color="var(--text-color)"   mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]}`} p="0px 5px" color="var(--text-color)" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                   )}
                   {timeFormat === "ALL" ? (
-                    <Button size='xs' bg="rgba(222, 228, 255,  0.8156862745) !important" color="white" className={styles["btn-chakra"]} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`} p="0px 5px" bg="rgba(222, 228, 255,  0.8156862745) !important" color="var(--text-color)"  ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]}`} p="0px 5px" color="var(--text-color)" bg="none"  _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                   )}
 
 
@@ -412,20 +412,20 @@ const AllCharts = ({ baseAsset, title }, idx,) => {
               )}
               {title === "Rank" ?(
                 <>
-                  <Button size='xs' bg="rgba(222, 228, 255, 0.8156862745) !important" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                  <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`} p="0px 5px" bg="rgba(222, 228, 255, 0.8156862745) !important" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }}  color="var(--text-color)" onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 </>
               ) : (<></>)}
               {title === "Liquidity" && (
                 <>
                   {timeFormat === "1D" ? (
-                    <Button size='xs' mr={1} bg="rgba(222, 228, 255, 0.8156862745) !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`}  mr={1} bg=" !important"  color="var(--text-color)" onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]}`} color="var(--text-color)" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mr={1} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                   )}
                   {timeFormat === "7D" ? (
-                    <Button size='xs' mx={1} bg="rgba(222, 228, 255, 0.8156862745) !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]} ${styles["btn-chakra"]}`}mx={1} bg="rgba(222, 228, 255, 0.8156862745) !important"  color="var(--text-color)" onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   ) : (
-                    <Button size='xs' color="white" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                    <Button size='xs' className={`${styles["commun-bt"]}`}color="var(--text-color)" bg="none" _hover={{ bg: 'rgba(222, 228, 255,  0.8156862745)' }} mx={1} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                   )}
                 </>
               )}

@@ -224,13 +224,15 @@
         width: 90% !important;
     }
     .three-forms:nth-child(1){
-       
+        background:none !important;
     }
     .three-forms:nth-child(2){
        box-shadow:none !important;
+       background:none !important;
     }
     .three-forms:nth-child(3){
         box-shadow:none !important;
+        background:none !important;
     }
     
     .form-container-box {
@@ -343,6 +345,7 @@
     width: 28%;
     box-shadow: 0px 1px 12px 3px var(--shadow-color);
     padding:20px;
+    background: var(--bg-list);
     border-radius:20px;
     max-width: 450px ;
     margin-top:50px;

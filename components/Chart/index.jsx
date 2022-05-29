@@ -26,7 +26,7 @@ import theme from '../../theme/index'
 import Charts from "./Charts/index.jsx"
 
 
-const ChartCryptos = ({ baseAsset }) => {
+const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const router = useRouter()
   const [chart, setChart] = useState({})
   const [day, setDay] = useState({})
@@ -60,7 +60,7 @@ const ChartCryptos = ({ baseAsset }) => {
       }
     })
   }
-
+  console.log(darkTheme)
   const getChart = async (id, timeframe) => {
     const supabase = createClient(
       'https://ylcxvfbmqzwinymcjlnx.supabase.co',
@@ -220,7 +220,7 @@ const ChartCryptos = ({ baseAsset }) => {
       isMobile ? 100 : isGiant ? 600 : 400
     )
     gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-    gradient.addColorStop(1, '#05062A')
+    gradient.addColorStop(1, darkTheme ? '#131727' : "#f5f5f5")
 
     console.log(isWinner, data)
 
@@ -308,7 +308,7 @@ const ChartCryptos = ({ baseAsset }) => {
         scales: {
           yAxes: [
             {
-              gridLines: { color: '#0c1230' },
+              gridLines: { color:darkTheme ? '#282C3A' : "#EAEAEA" },
               ticks: {
                 beginAtZero: false,
                 maxTicksLimit: isMobile ? 4 : 8,
@@ -492,6 +492,8 @@ const ChartCryptos = ({ baseAsset }) => {
     }
   }, [])
 
+
+
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
 
@@ -650,18 +652,13 @@ const ChartCryptos = ({ baseAsset }) => {
       daoRef.current.preventDefault()
     }
   }
-
+  console.log(baseAsset)
   const renderData = () => {
     return (
       <>
-        <ChakraProvider theme={theme}>
+       
           <CSSReset />
-          <ColorModeProvider
-            options={{
-              initialColorMode: 'light',
-              useSystemColorMode: true,
-            }}
-          ></ColorModeProvider>
+        
           <Head>
             <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
           </Head>
@@ -1056,7 +1053,8 @@ const ChartCryptos = ({ baseAsset }) => {
                       <div className={styles['canvas-container']}>
 
                         {state === 'Details' && (
-                          <ProjectInfo token={baseAsset} />
+                          
+                          <ProjectInfo token={baseAsset} blockchain={baseAsset.blockchains}/>
                         )}
                         {state === 'Buy' && (
                           <Swap baseAsset={baseAsset} />
@@ -1160,30 +1158,10 @@ const ChartCryptos = ({ baseAsset }) => {
                 className='tokenpage-details '
                 style={{ display: 'flex', justifyContent: 'start' }}
               >
-                {/* {coins[0]? (
-            <>
-              <img src={coins[0].image} height="180"  alt="logo" />
-            <p className="size">
-              {coins[0].name} <br />
-              Current Price : {coins[0].current_price} $<br />
-            {coins[0].price_change_percentage_24h < 0?(
-              <span style={{color:"red"}}>
-                  24h: {coins[0].price_change_percentage_24h} % 
-            </span>
-            ) : (
-              <span style={{color:"green"}}>
-                  Profit : {coins[0].price_change_percentage_24h} %
-              </span>
-            )}
-            </p>
-            </>
-          ) : ( 
-          <div>Loading....</div>
-          )} */}
               </div>
             </header>
           </div>
-        </ChakraProvider></>
+       </>
     )
 
     // return <div>{test()}</div>

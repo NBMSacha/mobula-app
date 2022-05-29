@@ -5,12 +5,12 @@ import { formatName } from '../../../helpers/formaters';
 import { Send, Twitter, Globe } from "react-feather";
 import Contract from '../../Utils/Contract';
 
-const ProjectInfo = ({ token }) => {
+const ProjectInfo = ({ token, blockchain }) => {
 
     const [active, setActive] = useState(false);
     const refDescription = useRef(null);
     const refContract = useRef(null)
-
+    
     function getExplorer(chain: string) {
         console.log('chain : ' + chain)
         for (const rpc of supportedRPCs) {
@@ -70,6 +70,7 @@ const ProjectInfo = ({ token }) => {
                 )}
 
             </div>
+           
             <div className={styles["right"]} ref={refContract} id="contract">
                 {token.contracts[0] && (
                     <h2 className={styles["contract-title"]} >Contract(s)</h2>

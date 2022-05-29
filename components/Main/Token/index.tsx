@@ -305,7 +305,8 @@ function Token(token: {
         <td className={styles["ths"]}>
           <div className={styles["media-icons"]}>
             {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
-            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><Twitter className={styles["fu"]} /></a> : <></>}
+            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
+            {token.discord? <a href={token.discord} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
           </div>
         </td>
         <td className={styles["ths"]}>

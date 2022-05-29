@@ -18,7 +18,7 @@ export async function getStaticPaths() {
     };
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, darkTheme }) => {
     const supabase = createClient(
         "https://ylcxvfbmqzwinymcjlnx.supabase.co",
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
@@ -30,20 +30,21 @@ export const getStaticProps = async ({ params }) => {
 
     return {
         props: {
-            asset: data[0]
+            asset: data[0],
+            darkTheme
         },
         revalidate: 120
     }
 }
 
-function Dataprovider({ asset }) {
+function Dataprovider({ asset, darkTheme }) {
     const router = useRouter()
 
     if (router.isFallback) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} />
+            <Chart baseAsset={asset} darkTheme={darkTheme}/>
         )
     }
 
