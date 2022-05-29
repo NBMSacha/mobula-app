@@ -76,7 +76,7 @@ function Earn({darkTheme}) {
                                 useSystemColorMode: true,
                             }}
                         >
-                        <Flex justify="center" direction={["column","column","column",'row']} >
+                        <Flex justify="center" fontFamily="Poppins" direction={["column","column","column",'row']} >
                             <Flex
                                 justifyContent={['space-evenly']}
                                 flexDir={['column', 'column', 'column', 'column']}
@@ -87,7 +87,7 @@ function Earn({darkTheme}) {
                                 w={["100%","100%","100%","48%"]}
                                 
                             >
-                                <Text textAlign="start" w="85%" m="0px" className={styles["mienai"]}>Earn</Text>
+                                <Text textAlign="start" w="85%" m="0px" className={styles["mienai"]} >Earn</Text>
                                 < Flex
                                     w={['90%', '90%', '90%', 'auto']}
                                     flexDir={'column'}
