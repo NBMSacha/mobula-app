@@ -257,7 +257,7 @@ function FirstSort() {
                                     textAlign="justify"
                                     fontSize={["13px", "15px", "15px", "20px"]}
                                 >
-                                    {token.description}
+                                    {/* {token.description} */}
                                 </Text>
 
                                 <button className={styles["button"]} onClick={() => setDisplayedToken(token.id)}>Vote</button>

@@ -5,7 +5,7 @@
   width: auto;
   display: flex;
   align-items: center;
-  border-bottom: 2px solid rgb(46 53 87 / 50%);
+  border-bottom: 2px solid var(--border-top);
   /* background: linear-gradient(90deg, rgba(47, 54, 88, 0.1) 0%, rgba(47, 54, 88, 0.1) 100%); */
 }
 .main {
@@ -23,16 +23,15 @@
 }
 
 .header {
-  color: white;
+  color: var(--text-color);
 }
 
 .right {
   display: flex;
   align-items: center;
   justify-content: end;
-  color: white;
+  color: var(--text-color);
   font-family: 'Poppins', sans-serif;
-  color: white;
   font-size: 0.9rem;
 }
 
@@ -56,7 +55,7 @@
 
 @media screen and (max-width: 768px) {
   .header {
-    border-bottom: 1px solid #2b5177;
+    border-bottom: 1px solid var(--border-chart);
     padding: 7px 0.18999999999999995rem;
   }
 }

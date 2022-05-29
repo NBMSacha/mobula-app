@@ -185,7 +185,6 @@ function Governance() {
 
                         <div className={styles.line}></div>
                         <Flex my={70} className={styles['container-box']}>
-
                             <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px" mx={10} className={styles["current-vote"]}>
                                 <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
                                 <Text color="#ffffff99" fontSize="15px" mb="15px">You are currently deposited</Text>
@@ -222,9 +221,6 @@ function Governance() {
                             </Flex>
                             <Flex direction="column" px={0} ml="auto" mr="auto" mx={10} className={styles["current-vote"]}>
                                 <Heading  mt="-12px">Vote for current proposals</Heading>
-                               
-
-                               
                                 {proposals.map((proposal, idx) => ( 
                                     <>
                                     {console.log(idx)}
@@ -245,7 +241,6 @@ function Governance() {
                                             </Flex>
                                         </Flex>
                                     )}
-                                        
                                     </>
                                 ))}
                                 

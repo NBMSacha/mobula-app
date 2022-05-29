@@ -24,20 +24,29 @@ function GainerBlock(tokens: {
   return (
     <div className={styles['gainer-box']}>
       {tokens.title === "Top Gainers" && (
-          <h3 className={styles['gainer-main-title']}><img src="fire.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+        <div className={styles["container-title-flex"]}>
+          <h3 className={styles['gainer-main-title']}><img src="fire.png" height="20px" className={styles["marginTitle"]} />{tokens.title}</h3>
+          <a href="/movers">More {">"} </a>
+        </div>
       )}
       {tokens.title === "Trendings" && (
-          <h3 className={styles['gainer-main-title']}><img src="green.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+        <div className={styles["container-title-flex"]}>
+          <h3 className={styles['gainer-main-title']}><img src="green.png" height="20px" className={styles["marginTitle"]} />{tokens.title}</h3>
+          <a href="/new">More {">"}</a>
+        </div>
       )}
       {tokens.title === "Recently Added" && (
-          <h3 className={styles['gainer-main-title']}><img src="stopwatch.png" height="30px" className={styles["marginTitle"]}/>{tokens.title}</h3>
+        <div className={styles["container-title-flex"]}>
+          <h3 className={styles['gainer-main-title']}><img src="stopwatch.png" height="20px" className={styles["marginTitle"]} />{tokens.title}</h3>
+          <a href="/new">More  {">"}</a>
+        </div>
       )}
 
       <div className={styles['gainer-container']}>
         <div className={styles['left-gainer']}>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>
             <div className={styles['token-info-pack']}>
-              <span className={styles['line-number']}>1</span>
+
               <img src={tokens.logo1} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name1}</span>
             </div>
@@ -51,7 +60,7 @@ function GainerBlock(tokens: {
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id2))}>
             <div className={styles['token-info-pack']}>
-              <span className={styles['line-number']}>2</span>
+
               <img src={tokens.logo2} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name2}</span>
             </div>
@@ -65,7 +74,7 @@ function GainerBlock(tokens: {
           </div>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id3))}>
             <div className={styles['token-info-pack']}>
-              <span className={styles['line-number']}>3</span>
+
               <img src={tokens.logo3} className={styles['logo-inBox']} />
               <span className={styles['crypto-assests']}>{tokens.name3}</span>
             </div>

@@ -1,20 +1,27 @@
 .main-news {
   display: flex;
   flex-direction: column;
-  padding: 0px 10%;
   width: auto;
   height: auto;
-  background-image: url(../../public/lines.png);
-  background-repeat: no-repeat;
-  background-position: 12% 10%, center;
-  background-position-y: 50px;
-  background-size: 52vh, contain;
+  background: var(--bg-news-box);
 }
 
 .three-container {
   display: flex;
   justify-content: center;
   flex-wrap: nowrap;
+  align-items: center;
+}
+
+.three-container-white {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.three-container-white>* {
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .three-container>* {
@@ -183,14 +190,13 @@
     min-width: 1002px !important;
   }
 
-  .main-news {
-    background-image: url(../../public/community-bg.png),
-      linear-gradient(90deg, rgba(0, 7, 40, 1) 0%, rgba(0, 5, 29, 1) 100%);
-    background-position: 120% 10%, center;
-    background-size: 30vh, contain;
-    padding: 0px 0% !important;
-    width: 100% !important;
-  }
+  // .main-news {
+  //   background-image: url(../../public/community-bg.png);
+  //   background-position: 120% 10%;
+  //   background-size: 30vh;
+  //   background-repeat: no-repeat;
+  //   width: 100% !important;
+  // }
 
   .table-head {
     border-top: 1px solid rgba(46, 53, 87, 0.8);
@@ -208,8 +214,6 @@
   .token-title-percentage {
     width: 83px !important;
   }
-
-
 }
 
 @media screen and (max-width:1700px) {
@@ -240,16 +244,12 @@
 
 // 1450 PX //
 @media screen and (max-width:1450px) {
-  .main-news {
-    padding: 0px 4%;
-  }
+  .main-news {}
 }
 
 // 1160 PX //
 @media screen and (max-width: 1160px) {
-  .main-news {
-    padding: 0px 10px;
-  }
+  .main-news {}
 }
 
 
@@ -263,105 +263,114 @@
 
 // =================================================================
 
-.table-style{
+.table-style {
   border-collapse: collapse;
   width: 100%;
-  cursor:pointer;
-  max-width:1400px;
-  color:rgba(255, 255, 255, 0.952);
+  cursor: pointer;
+  max-width: 1400px;
+  color: rgb(245, 245, 245);
   margin: 0px auto;
 }
 
 .table-style thead tr {
-  text-align:left;
-  border-bottom:1px solid rgba(194, 194, 194, 0.267)
+  text-align: left;
+  border-bottom: 1px solid var(--border-top);
+  border-top: 1px solid var(--border-top);
+  color: var(--text-color)
 }
 
 .ths {
-  padding:15px 20px;
-  text-align:end;
+  padding: 15px 20px;
+  text-align: end;
   font-size: 15px;
   font-weight: 500;
 }
 
-.chart-title-center{
-  text-align:center !important;
+.chart-title-center {
+  text-align: center !important;
 }
 
 // .price-title-center{
 //   padding:15px 5px !important
 // }
 
-.asset-title-start{
-  text-align:start !important;
+.asset-title-start {
+  text-align: start !important;
 }
 
-.tables-main-container{
-  display:block;
-  white-space:nowrap;
-  overflow:auto;
+.tables-main-container {
+  display: block;
+  white-space: nowrap;
+  overflow: auto;
+  background: var(--bg-top);
 }
 
-.nowrap{
-  white-space:nowrap;
+.nowrap {
+  white-space: nowrap;
 }
 
 @media screen and (max-width: 768px) {
 
-  .table-style{
+  .table-style {
     border-collapse: collapse;
-    min-width:900px;
-    width:auto;
-    cursor:pointer;
-    max-width:1400px;
-    color:rgba(255, 255, 255, 0.952);
+    min-width: 900px;
+    width: auto;
+    cursor: pointer;
+    max-width: 1400px;
     margin: 0px auto;
   }
-  
+
   .table-style thead tr {
-    text-align:left;
-    border-bottom:1px solid rgba(194, 194, 194, 0.267)
+    text-align: left;
+    border-bottom: 1px solid var(--border-top)
   }
 
-  .removes{
-    display:none;
+  .removes {
+    display: none;
   }
-  
+
 
   .ths {
     padding: 0px 12px;
-    text-align:end;
+    text-align: end;
     font-size: 14px;
     font-weight: 500;
   }
-  
-  .chart-title-center{
-    text-align:center !important;
+
+  .chart-title-center {
+    text-align: center !important;
   }
-  
-  .asset-title-start{
-    text-align:start !important;
+
+  .asset-title-start {
+    text-align: start !important;
     position: sticky;
     left: 0px;
-    background: #05062a;
+    background: var(--bg-news);
     margin: 0px 0px 0px 10px !important;
     padding: 15px 10px !important;
   }
-  
-  .tables-main-container{
-    display:block;
-    white-space:nowrap;
+
+  .tables-main-container {
+    display: block;
+    white-space: nowrap;
     overflow: auto;
   }
-  
-  .nowrap{
-    white-space:nowrap;
+
+  .nowrap {
+    white-space: nowrap;
   }
-  
+
 }
 
 @media screen and (max-width: 1590px) {
-  .table-style{
-      max-width:1280px
+  .table-style {
+    max-width: 1280px
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .tables-main-container {
+    margin-left: 20px;
+    color: #000119
   }
 }

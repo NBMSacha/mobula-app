@@ -20,3 +20,80 @@
     font-size: inherit;
   }
 }
+
+.title-rank{
+  position:absolute;
+  top:-45px;
+  left:25px;
+  color: #4C4C4C;
+  font-size:22px !important
+}
+
+.subtitle-rank{
+  color: #828282;
+  font-size:22px !important
+}
+
+.buttons-claim{
+  background: rgba(252, 252, 252, 0.03);
+  border-radius: 10px;
+  height: 60px !important;
+  width: 60% !important;
+}
+
+.dao-title{
+  
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 22px !important;
+line-height: 18px;
+/* or 106% */
+
+display: flex;
+align-items: center;
+
+color: #4C4C4C;
+}
+
+.claim-matic{
+  background: rgba(252, 252, 252, 0.03);
+  border-radius: 10px;
+  height:50px !important;
+  width:145px !important;
+  font-size: 12px !important
+}
+
+@media screen and (max-width:768px) {
+  .noneDis{
+    display:none;
+  }
+  .title-rank{
+    position: absolute;
+    top: -2px;
+    left: 60px;
+    color: #4C4C4C;
+    font-size: 16px !important;
+    display:none;
+  }
+  .buttons-claim-box{
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    border-left: 1px solid white !important;
+    height: 150px;
+  }
+  .dao-title{
+    display:none !important
+  }
+  .claim-mobl-abslt{
+  position:absolute;
+  right:20px;
+  max-width:200px;
+  top:78px;
+
+  }
+ 
+}

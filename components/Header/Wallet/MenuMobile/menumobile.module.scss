@@ -6,7 +6,7 @@
   width: 100%;
   top: 72px;
   right: 0px;
-  background: rgb(5 7 42);
+  background: var(--bg-color);
   height: 90vh;
   z-index: 5;
 }
@@ -26,7 +26,7 @@
   line-height: 18px;
   display: flex;
   align-items: center;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .linkTo {
@@ -55,7 +55,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: #ffffff;
+  color: white;
   border:none;
 }
 .rank-mobile-box {
@@ -63,14 +63,13 @@
   flex-direction: column;
   align-items: start;
   text-align: center;
-  color: #ffffff;
+  color: var(--text-color);
   margin-left: 30px;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
   line-height: 22px;
-  color: #989ebc;
 }
 
 .disconnect-wallet-mobile {
@@ -87,7 +86,7 @@
   line-height: 18px;
   display: flex;
   align-items: center;
-  color: #ea3943;
+  color: #ea3943 !important;
   border:none;
   background:none;
 }

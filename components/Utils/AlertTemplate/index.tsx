@@ -5,7 +5,6 @@ import ErrorIcon from './icons/ErrorIcon'
 import CloseIcon from './icons/CloseIcon'
 
 const alertStyle = {
-    backgroundColor: '#2D3A5C',
     color: 'white',
     padding: '10px',
     textTransform: 'uppercase',
@@ -28,9 +27,9 @@ const buttonStyle = {
     color: '#FFFFFF'
 }
 
-export const AlertTemplate = ({ message, options, style, close }) => {
+export const AlertTemplate = ({ message, options, style, close, darkTheme }) => {
     return (
-        <div style={{ ...alertStyle, ...style }}>
+        <div style={{ ...alertStyle, ...style, 'backgroundColor': (darkTheme ? '#F5F5F5' : '#191D2C') }}>
             {options.type === 'info' && <InfoIcon />}
             {options.type === 'success' && <SuccessIcon />}
             {options.type === 'error' && <ErrorIcon />}

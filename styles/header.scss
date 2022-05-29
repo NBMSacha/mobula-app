@@ -4,7 +4,8 @@
   background-color: #ffff;
   min-width: 220px;
   border-radius: 8px;
-  padding: 0.1px 20px 0.1px 60px;
+  box-shadow: 0 0 10px var(--shadow-search);
+  padding: 0.1px 20px 0.1px 0px;
   position: relative;
   font-family: 'Poppins';
   font-size: 14px;

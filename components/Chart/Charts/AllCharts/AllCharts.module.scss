@@ -1,15 +1,33 @@
-.mienai{
-    visibility:hidden !important;
-    background-color:red
+.mienai {
+    visibility: hidden !important;
+    background-color: red
 }
-.btn-chakra:active{
-    background:rgba(222, 228, 255, 0.8156862745) ;
-    border:none !important;
+
+.btn-chakra:active {
+    background: #b8b8b8;
+    border: none !important;
 }
-.btn-chakra:hover{
-    border:none !important;
+
+.btn-chakra:hover {
+    border: none !important;
 }
-.btn-chakra:focus{
-    background:rgba(222, 228, 255, 0.8156862745) ;
-    border:none !important;
+
+.btn-chakra:focus {
+    background: #b8b8b8;
+    border: none !important;
+}
+
+.commun-bt {
+    border-radius: 6px;
+    padding: 0px 5px !important;
+}
+
+.box-charts {
+    width: 45%;
+}
+
+@media screen and (max-width:768px) {
+    .box-charts {
+        width: 100% !important;
+    }
 }
