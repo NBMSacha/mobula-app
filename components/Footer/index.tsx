@@ -2,10 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { GitHub, Send, Twitter } from 'react-feather'
 import styles from './footer.module.scss'
 import { Moon, Sun } from "react-feather"
-function Footer({darkTheme, setDarkTheme}) {
+import {
+  ChakraProvider,
+  ColorModeProvider,
+  useColorMode,
+} from '@chakra-ui/react'
+
+function Footer({ darkTheme, setDarkTheme }) {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
   const [displayDAO, setDisplayDAO] = useState('none')
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const useWindowDimensions = () => {
     const hasWindow = typeof window !== 'undefined'
@@ -46,7 +53,7 @@ function Footer({darkTheme, setDarkTheme}) {
         ) : (
           <img src='https://app.mobula.finance/icon.png' className={styles['logo-footer-1']} />
         )}
-        
+
         <div className={styles['social-container']}>
           <a href='https://t.me/MobulaFi' className={styles['social-link']}>
             <Send className={styles['social-logo']} />
@@ -125,22 +132,20 @@ function Footer({darkTheme, setDarkTheme}) {
               console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
               localStorage.setItem("isDark", String(!darkTheme));
               setDarkTheme(!darkTheme)
-          }}>  
+            }}>
               <Moon />
               <span>White mode</span>
             </button>
-          ) : ( 
+          ) : (
             <button className={styles["whitemode-btn"]} onClick={() => {
               console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
-              localStorage.setItem("isDark",String(!darkTheme));
+              localStorage.setItem("isDark", String(!darkTheme));
               setDarkTheme(!darkTheme)
-          }}>  
+            }}>
               <Sun />
               <span>Dark mode</span>
             </button>
           )}
-         
-
 
         </div>
       </div>

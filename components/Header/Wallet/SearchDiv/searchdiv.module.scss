@@ -10,25 +10,26 @@
   border-radius: 10px;
   box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 90%) 0px 1px 5px;
   overflow: scroll;
-  
+
   .loupe {
     color: var(--text-color);
     font-size: 1.5rem;
     position: absolute;
-    opacity:0.6 !important;
+    opacity: 0.6 !important;
     top: 13px;
     left: 13px;
-    
+
   }
 }
 
-.red{
-  color:#D8494A !important;
-  opacity:1 !important;
+.red {
+  color: #D8494A !important;
+  opacity: 1 !important;
 }
-.green{
-  color:#00ba7c !important;
-  opacity:1 !important;
+
+.green {
+  color: #00ba7c !important;
+  opacity: 1 !important;
 }
 
 .search-input,
@@ -102,7 +103,8 @@
 .font-char {
   font-size: 15px;
 }
-.result-nul{
+
+.result-nul {
   color: var(--text-color);
 }
 
@@ -112,13 +114,13 @@
   opacity: 0.5;
   font-size: 0.9rem;
   color: var(--text-color);
-  display:flex;
-  justify-content:end;
-  align-items:center
+  display: flex;
+  justify-content: end;
+  align-items: center
 }
 
-.arrowUp{
-  font-size:15px;
+.arrowUp {
+  font-size: 15px;
   width: 19px;
   margin-right: 3px;
 }
@@ -161,19 +163,17 @@
     background-color: none;
   }
 
-  .search-input,
   .search-input-off {
     background: none;
-
     width: 0rem !important;
     margin-right: 12px !important;
   }
-  
+
 }
 
 @media screen and (max-width:1090px) {
-  .earn{
-    margin-right:0px !important
+  .earn {
+    margin-right: 0px !important
   }
 }
 
@@ -182,11 +182,11 @@
   .search-input:focus {
     width: 50vw
   }
-  
+
   .search-desk {
     display: none;
   }
- 
+
 
   .search-mob {
     display: block;
@@ -198,10 +198,11 @@
     left: 0px;
     width: 100vw;
   }
+
   .search-input,
-.search-input-off {
- box-shadow:none !important
-}
+  .search-input-off {
+    box-shadow: none !important
+  }
 
   .search-input::placeholder,
   .search-input-off {
@@ -212,7 +213,7 @@
   .search-input,
   .search-input-off {
     background: none;
-    padding-left:42px !important;
+    padding-left: 42px !important;
     width: 6rem;
     margin-right: 0px;
   }
@@ -231,31 +232,34 @@
 }
 
 @media screen and (max-width:768px) {
-  .search-div{
+  .search-div {
     position: fixed;
     display: block;
     top: 50%;
     transform: translate(-50%, -50%);
     left: 50%;
-    width: 96%;
+    width: 100%;
     height: 98%;
     margin-left: auto;
     box-shadow: none;
     margin-right: auto;
-    border-radius:10px;
-    background:var(--bg-color);
+    border-radius: 10px;
+    background: var(--bg-color);
+    color: var(--text-color);
   }
-  .search-flex{
+
+  .search-flex {
     margin: auto;
     width: 95%;
-    margin-bottom:15px;
+    margin-bottom: 15px;
   }
-  .search-flex{
+
+  .search-flex {
     border-bottom: 1px solid #181f48;
   }
 
-  .token-names{
-    font-size: 14px !important; 
+  .token-names {
+    font-size: 14px !important;
   }
 
 

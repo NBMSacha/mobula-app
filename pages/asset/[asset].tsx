@@ -33,7 +33,7 @@ export const getStaticProps = async ({ params }) => {
 }
 
 
-function Dataprovider({ asset }) {
+function Dataprovider({ asset, darkTheme }) {
     const router = useRouter()
 
     if (asset && asset.id) {
@@ -44,7 +44,7 @@ function Dataprovider({ asset }) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} />
+            <Chart baseAsset={asset} darkTheme={darkTheme} />
         )
     }
 

@@ -60,16 +60,7 @@ function SearchDiv(props: any) {
       .limit(10)
 
     if (names && names.length > 0) {
-
-      if (search = token) {
-        setResults(names)
-      } else {
-        setSearch(search)
-        console.log(search)
-      }
-
-
-      //names.concat(symbols))
+      setResults(names)
     }
 
     const { data: symbols } = await supabase
@@ -77,11 +68,8 @@ function SearchDiv(props: any) {
       .select()
       .match({ symbol: search.toUpperCase() })
 
-    if (symbols && symbols.length > 0) {
-      console.log('We found it', symbols)
-      if (search == token) {
-        setResults(symbols.concat(names))
-      }
+    if (symbols && symbols.length > 0 && symbols[0] && search.toLowerCase() == symbols[0]?.symbol?.toLowerCase()) {
+      setResults(symbols)
     }
   }
 
@@ -127,8 +115,8 @@ function SearchDiv(props: any) {
                       className={styles['token-infos-search']}
                       key={Math.random()}
                       onClick={() => {
-                        router.push('/asset/' + getUrlFromName(result.name))
                         props.setTrigger(false)
+                        router.push('/asset/' + getUrlFromName(result.name))
                       }}
                     >
                       <img src={result.logo} className={styles['token-logos']} />

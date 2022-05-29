@@ -8,10 +8,9 @@ const overrides = {
     useSystemColorMode: false,
   },
   styles: {
-    global: (props) => ({
+    global: () => ({
       body: {
         fontFamily: 'Poppins',
-        bg: '#131727',
       },
       button: {
         fontFamily: 'Poppins',
@@ -20,7 +19,18 @@ const overrides = {
   },
 }
 
-// 3. extend the theme
-const customTheme = extendTheme(overrides)
+const themeUltime = extendTheme({
+  config: {
+    initialColorMode: 'light',
+    useSystemColorMode: false,
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: mode('', "")(props),
+      }
+    })
+  },
+})
 
-export default customTheme
+export default themeUltime;
