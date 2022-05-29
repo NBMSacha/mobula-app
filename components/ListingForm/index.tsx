@@ -25,7 +25,8 @@ function ListAToken(props: any) {
     const [ipfs, setIPFS] = useState<any>();
     const [isSum, setIsSum] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [ discord, setDiscord] = useState("")
+    const [ addNote, setAddNote] = useState("")
     async function submit(e: any) {
 
         e.preventDefault();
@@ -362,7 +363,9 @@ function ListAToken(props: any) {
         logo: logo,
         audit: audit,
         kyc: kyc,
-        isSumTotalSupply: isSum
+        isSumTotalSupply: isSum,
+        discord: discord,
+        addNote: addNote
     }
     console.log(finalSubmit)
 
@@ -525,8 +528,8 @@ function ListAToken(props: any) {
                                  id="discord"
                                 className={styles["inputs"]}
                                 name="discord"
-                                value={logo}
-                                onChange={(e) => setLogo(e.target.value)}
+                                value={discord}
+                                onChange={(e) => setDiscord(e.target.value)}
                                 placeholder="https://t.me/MobulaFi"
                                 required
                             ></input>
@@ -562,13 +565,13 @@ function ListAToken(props: any) {
                                     id="kyc"
                                     name="kyc"
                                     placeholder="Other links , missing infos , notes ..."
-                                    value={kyc}
-                                    onChange={(e) => setKYC(e.target.value)}
+                                    value={addNote}
+                                    onChange={(e) => setAddNote(e.target.value)}
                                 ></input>
                             </div>
                             
                             <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
-                                <label>Excluded from Circulation *</label>
+                                <label>Excluded from Circulation </label>
                                 <input
                                     name="excluded"
                                     placeholder="0x5D3e4C0FE11e0..."

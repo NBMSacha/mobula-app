@@ -57,7 +57,7 @@ export default function App({ Component, pageProps }) {
       root?.style.setProperty("--bg-gainers", isDark ? "#191D2C" : "#f5f5f5");
       root?.style.setProperty("--bg-earn",isDark ? "#2D3A5C" : "linear-gradient(180deg, #5C7DF9 37.08%, rgba(92, 125, 249, 0) 37.55%)");
       
-      root?.style.setProperty("--bg-search",isDark ? "#252742" : "rgba(255, 255, 255, 0.3)");
+      
 
       root?.style.setProperty("--bg-color",isDark ? "#131727" : "#F5F5F5");
       root?.style.setProperty("--text-color", isDark ? "#F5F5F5" : "#05062a");
@@ -105,7 +105,6 @@ export default function App({ Component, pageProps }) {
     root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");
     root?.style.setProperty("--bg-white", isDark ? "#131727" : "#F7F7F7");
     root?.style.setProperty("--brand-title", isDark ? "#F5F5F5" : "#3753B3");
-    root?.style.setProperty("--bg-wallet", isDark ? "#5C7DF9" : "#6B5DE0");
     root?.style.setProperty("--border-color", isDark ? "#262a4d" : "rgb(250 250 250 / 100%)");
     root?.style.setProperty("--hover-top", isDark ? "#2E3557" : "#F1F1F1");
     root?.style.setProperty("--shadow-color-btn", isDark ? "#c8c8c821" : "rgb(208 214 227 / 30%)");
