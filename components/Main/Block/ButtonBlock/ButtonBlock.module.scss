@@ -51,6 +51,7 @@
   height: 50px;
   font-family: "Poppins", sans-serif;
   background: none;
+  box-shadow: none;
 }
 
 .white {
@@ -397,9 +398,9 @@
 
   }
 
-.loupe{
-  opacity:0.5 !important
-}
+  .loupe {
+    opacity: 0.5 !important
+  }
 
   .marginFa {
     margin-left: 48px;

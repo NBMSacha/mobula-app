@@ -34,10 +34,8 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
 
-    var isDark = localStorage.getItem("isDark") == "true";
+    var isDark = localStorage.getItem("isDark") == "true" || !localStorage.getItem("isDark");
     const root = document.documentElement;
-
-    background: ;
 
     root?.style.setProperty("--bg-search", isDark ? "#252742" : "#F7F7F7");
     root?.style.setProperty("--bg-earn", isDark ? "#2D3A5C" : "linear-gradient(180deg, #5C7DF9 37.08%, rgba(92, 125, 249, 0) 37.55%)");
