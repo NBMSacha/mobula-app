@@ -6,7 +6,7 @@ export const styles = {
     body: {
       fontFamily: 'body',
       color: mode('gray.800', 'whiteAlpha.900')(props),
-      bg: mode('white', 'gray.900')(props),
+      bg: "#F5F5F5",
       lineHeight: 'base',
     },
     '*::placeholder': {

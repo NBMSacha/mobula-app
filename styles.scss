@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap');
 
 html {
-  --bg-color: #05062a;
+  --bg-color: #131727;
   --text-color: white;
 }
 
@@ -13,8 +13,8 @@ body {
   background-color: var(--bg-color);
   font-weight: normal;
   font-style: normal;
+  color:var(--text-color)
 }
-
 .listing {
   background-color: var(--bg-color);
   min-height: 100vh;
@@ -53,7 +53,8 @@ body {
 }
 
 input {
-  background-color: var(--bg-color);
+  background-color: var(--bg-search);
+  box-shadow: 0px 1px 12px 3px var(--shadow-color);
   border: 2px solid rgba(47, 0, 255, 0.371);
   width: 10rem;
   height: 1.5rem;
@@ -253,6 +254,8 @@ label {
   width: 90%;
   display: flex;
   align-items: center;
+  
+  
   justify-content: space-around;
 }
 

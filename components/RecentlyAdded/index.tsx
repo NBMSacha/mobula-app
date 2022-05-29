@@ -24,8 +24,8 @@ export default function RecentlyAdded({ tokens }) {
     <div className={styles["listing"]}>
       <div className={styles["dflex"]}>
         <header className={styles["stickyFix"]}>
-          <Heading mb={'20px'}>Recently Added assets</Heading>
-          <Text whiteSpace="normal" fontSize={['14px', '14px', '16px', '17px']}>
+          <Heading mb={'45px'} mt={'55px'} >Recently Added assets</Heading>
+          <Text mb={'40px'} whiteSpace="normal" fontSize={['14px', '14px', '16px', '17px']}>
             Here are the latest listings on Mobula. Do you want to see an asset here?
             <a
               className={styles.link}
@@ -121,7 +121,7 @@ export default function RecentlyAdded({ tokens }) {
                 <td className={styles["token-percentage"]}>
                   {token.price_change_24h < 0.01 ? (
                     <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-                      <ArrowDown className={styles["arrowDown"]} />
+                       <div className={styles['triangle-red']}></div>
                       {getTokenPercentage(token.price_change_24h)}%
                     </span>
                   ) || (
@@ -129,7 +129,7 @@ export default function RecentlyAdded({ tokens }) {
                     ) : (
                     <span className={`${styles['green']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
 
-                      <ArrowUp className={styles["arrowDown"]} />
+                      <div className={styles['triangle-green']}></div>
                       {getTokenPercentage(token.price_change_24h)}%
                     </span>
                   )}

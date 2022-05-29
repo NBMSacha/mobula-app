@@ -9,7 +9,7 @@ export async function getStaticProps() {
   )
 
   const { data } = await supabase.from('assets')
-    .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+    .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
     .filter('volume', 'gt', 50000)
     .order('market_cap', { ascending: false }).limit(35);
 
@@ -49,12 +49,13 @@ export async function getStaticProps() {
   }
 }
 
-export default function Listing({ tokens, gainers, recents, trendings, top, ethereum, bnb, avalanche, polygon }) {
+export default function Listing({ darkTheme, tokens, gainers, recents, trendings, top, ethereum, bnb, avalanche, polygon }) {
 
   return (
     <>
 
       <News
+        darkTheme={darkTheme}
         tokens={tokens} gainers={gainers}
         recents={recents} trendings={trendings} top={top}
         ethereum={ethereum} bnb={bnb}

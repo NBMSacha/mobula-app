@@ -1,10 +1,15 @@
 @import "../../styles/variables.scss";
 
 .link {
-  color: $secondTextColor;
+  color: var(--text-color-tendance);
   margin-left: 7px;
+  
 }
 
+.token-symbols {
+  color: var(--text-color-);
+  opacity:0.6
+}
 
 
 .line {
@@ -17,7 +22,7 @@
 }
 
 .border-bot {
-  border-bottom: 1px solid rgba(46, 53, 87, 0.8);
+  border-bottom: 1px solid var(--border-top-body);
   cursor: pointer;
 }
 
@@ -55,9 +60,9 @@
   font-style: normal;
   font-weight: 500;
   line-height: 22px;
-  color: #ffffff;
+  color: var(--text-color);
   height: 120px;
-  border-bottom: 1px solid rgba(46, 53, 87, 0.8);
+  border-bottom: 1px solid var(--border-top-body);
 }
 
 .token-containers>td {
@@ -75,6 +80,7 @@
 .token-ids {
   display: flex;
   align-items: center;
+  opacity:.55;
   width: 50px !important;
   margin-right: 20px;
   margin-left: 0px !important;
@@ -104,15 +110,17 @@
 }
 
 .white:visited {
-  color: #fff;
+  color: var(--text-color);
 }
 
 .red {
   color: #ea3943 !important;
+  font-weight:700;
 }
 
 .green {
   color: #16c784 !important;
+  font-weight:700;
 }
 
 .token-percentage-box {
@@ -159,6 +167,8 @@
 
 .token-names {
   margin-right: 5px;
+  color:var(--text-color);
+  opacity:0.6
 }
 
 .tokens-price {
@@ -179,19 +189,21 @@
   margin-bottom: auto;
   margin-top: auto;
   display: flex;
-  flex-direction: column;
 }
 
 .fi {
   color: #556b90;
+  margin: 0px 5px
 }
 
 .fu {
   color: #556b90;
+  margin: 0px 5px
 }
 
 .fo {
   color: #556b90;
+  margin: 0px 5px
 }
 
 .token-marketCap {
@@ -335,6 +347,28 @@
   padding-left: 15px;
 }
 
+.triangle-green {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #16c784;
+  border-left: 6px solid transparent;
+  margin-right: 6px;
+  margin-bottom: 2px;
+}
+
+.triangle-red {
+  display: inline-block;
+  height: 0;
+  width: 0;
+  border-top: 6px solid #ea3943;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  margin-right: 6px;
+  margin-bottom: 2px;
+}
+
 @media screen and (max-width: 768px) {
   .token-infos {
     margin-right: 00px;
@@ -348,7 +382,7 @@
 }
 
 .token-price-box {
-  background: #05062a;
+  background: var(--bg-color);
   z-index: 2;
   padding-left: 10px;
 }
@@ -367,7 +401,8 @@
   display: flex;
   align-items: center;
   text-align: center;
-  color: #ffffff;
+  color: var(--text-color);
+  font-family: "Poppins";
 }
 
 .table-head {
@@ -375,10 +410,11 @@
   max-width: auto;
   display: flex;
   padding: 32px 0px 32px 0px;
-  border-bottom: 1px solid rgba(46, 53, 87, 0.8);
+  border-bottom: 1px solid var(--border-top);
   margin-top: 15px;
+  opacity:.6;
   margin-bottom: 0px;
-  border-top: 1px solid rgba(46, 53, 87, 0.8);
+  
 }
 
 .token-title-datas {
@@ -454,6 +490,7 @@
 
 .tables {
   max-width: 1220px;
+  margin-bottom:120px;
 }
 
 .listing {
@@ -465,9 +502,6 @@
   justify-content: center;
 }
 
-
-
-
 @media screen and (max-width:768px) {
 
   .token-title-assets {
@@ -476,6 +510,7 @@
     margin-left: 10px !important;
     margin-right: 86px;
   }
+  
 
   .thead {
     display: flex;
@@ -591,6 +626,7 @@
     margin-left: 0px !important;
     margin-right: 20px !important;
     justify-content: end !important;
+    opacity:0.6;
   }
 
   .tokens-links {
@@ -658,6 +694,7 @@
     margin-right: 0px;
     margin-left: 10px;
     width: 80px;
+    
   }
 
   .token-title-chart {

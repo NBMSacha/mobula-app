@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Flex, Spacer, Heading, extendTheme, Text, Button, Input, Image } from '@chakra-ui/react';
 import { VStack } from '@chakra-ui/react';
 import { ChevronDown } from "react-feather";
-import styles from "./"
+import styles from "./Swap.module.scss"
 
 const Swap = ({ baseAsset }) => {
 
@@ -30,10 +30,10 @@ const Swap = ({ baseAsset }) => {
         }
     }
     return (
-        <Flex opacity='0.2' cursor='not-allowed' direction={["column", "column", "column", "row"]} justify="space-between" my={8} >
+        <Flex opacity='0.2' cursor='not-allowed'  justify="space-between" my={8} className={styles["wrap-box"]}>
 
             {/* COMPONENTS LEFT */}
-            <VStack width={["100%", "100%", "100%", "48%"]} mb={["40px", "40px", "40px", "0px"]} mt={["-60px", "-20px", "-20px", "0px"]}>
+            <VStack width={["100%", "100%", "100%", "48%"]} mb={["40px", "40px", "40px", "0px"]} mt={["-60px", "-20px", "-20px", "0px"]} className={styles["wrap"]}>
                 <Flex justify="space-between" direction="column" borderRadius={20} bg="#2e3557" w="90%" pb={["0px !important", "0px !important", "0px !important", "10px !important",]} p={["10px", "10px", "10px", "15px"]}>
                     <Text mt="0" mb="4" fontSize={["14px", "14px", "14px", "18px"]} fontWeight="600" color='white'>From</Text>
                     <Flex justify="space-between" align="center">
@@ -62,7 +62,7 @@ const Swap = ({ baseAsset }) => {
             </VStack>
 
             {/* COMPONENTS RIGHT */}
-            <VStack my={0} color="white" width={["100%", "auto", "88%", "48%"]} align="start" justify="space-between" m="auto">
+            <VStack my={0} color="white" width={["100%", "auto", "88%", "48%"]} align="start" justify="space-between" m="auto" className={styles["wrap"]}>
                 <Heading mt={0} mb={["5", "5", "5", "8"]} fontSize={["18px", "18px", "18px", "22px"]} w="100%">Swap settings</Heading>
                 <Flex direction="column" fontSize={["13px", "13px", "13px", "15px"]} pb={["5", "5", "5", "8"]} w="100%" >
                     <Text mb={3}>Transaction Speed (GWEI)</Text>
@@ -88,17 +88,17 @@ const Swap = ({ baseAsset }) => {
                         </Button>
                     </Flex>
                 </Flex>
-                <Flex align="center" pb="30px " w="100%" fontSize={["13px", "13px", "13px", "15px"]} m={["auto"]}>
+                <Flex align="center" pb="30px " w="100%" fontSize={["13px", "13px", "13px", "15px"]} m={["auto"]} >
                     <Text mr={30} pb={3} borderBottom="1px solid #2E3557" >Slippage</Text>
-                    <Button h={30} fontSize={["12px", "12px", "12px", "13px"]} fontFamily='Poppins' color="white" bg={slippage === "0.5" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4", "4", "4", "5"]} py={4} px={5}
+                    <Button h={30} fontSize={["12px", "12px", "12px", "13px"]} fontFamily='Poppins'  w={50} color="white" bg={slippage === "0.5" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4px", "4px", "8px", "8px"]} py={1} px={5}
                         onClick={() => setSlippage("0.5")}
                     >
                         0.5%
                     </Button>
-                    <Button h={30} fontSize={["12px", "12px", "12px", "13px"]} fontFamily='Poppins' color="white" bg={slippage === "1" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4", "4", "4", "5"]} py={4} px={5}
+                    <Button h={30} fontSize={["12px", "12px", "12px", "13px"]} fontFamily='Poppins'  w={40} color="white" bg={slippage === "1" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} border="none" borderRadius="10" mr={["4", "4", "8px", "8px"]} py={1} px={5}
                         onClick={() => setSlippage("1")}
                     >1%</Button>
-                    <Input border="none" fontFamily='Poppins' bg={slippage === "input" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} color="white" value={slippageInput} placeholder="%" borderRadius="10" w={40} h="35px" mr={["4", "4", "4", "5"]}
+                    <Input border="none" fontFamily='Poppins' bg={slippage === "input" ? "rgba(3, 67, 226, 0.5)" : "#262A4D"} color="white" value={slippageInput} placeholder="%" borderRadius="10" w={50} h="30px" mr={["4", "4", "8px", "8px"]}
                         onClick={(e) => {
                             setSlippageInput(e.target.value);
                             setSlippage("input");

@@ -6,9 +6,10 @@
   font-size: 15px;
   width: 50%;
   margin-right: 10px;
+  
 }
 .link-common {
-  color: white;
+  color: var(--text-color);
   margin-left: 3.8rem;
   white-space: nowrap;
   overflow: hidden;
@@ -21,6 +22,7 @@
   transition: color 200ms ease-in-out;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 1060px) {
   .link-container {

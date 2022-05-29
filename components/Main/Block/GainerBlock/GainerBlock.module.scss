@@ -1,16 +1,36 @@
 .gainer-box {
-    background: rgba(163, 212, 244, 0.25);
+    background: var(--bg-news);
     border-radius: 10px;
-    width: 28%;
+    width: 27%;
+    color:var(--text-color);
     margin-top: 2rem;
     backdrop-filter: blur(13.94px);
     transition: 0.1s;
-    box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 90%) 0px 1px 2px
+    margin-top: 2.5rem;
+    box-shadow: 2px 3px 10px var(--shadow-color-btn)
 }
 
 .gainer-box>* {
     padding: 10px 20px 15px 20px;
+    color:var(--text-color);
 
+}
+
+.container-title-flex{
+    display:flex;
+    align-items: center;
+    justify-content:space-between;
+    margin-top:10px;
+    padding-bottom:0px;
+}
+
+.container-title-flex > a:visited{
+    color:var(--text-color);
+}
+
+.container-title-flex > a{
+    color:var(--text-color);
+    white-space:nowrap;
 }
 
 .marginTitle{
@@ -18,7 +38,9 @@
 }
 
 .gainer-box:hover {
-    background: rgba(163, 212, 244, 0.35);
+    
+    background-color: var(--btn-hover)
+
 }
 
 .line-gainer {
@@ -41,7 +63,10 @@
     margin-left: 20px;
     display: flex;
     align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
+   
 }
 
 .line-gainer:hover {
@@ -53,13 +78,13 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 600;
-    font-size: 21px;
+    font-size: 16px;
     line-height: 18px;
     display: flex;
     align-items: center;
-    color: #ffffff;
+    color:var(--text-color);
     margin: 0px;
-    margin-top: 10px;
+   
 }
 
 .left-gainer {
@@ -75,7 +100,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #ffffff;
+  color:var(--text-color);
     opacity: 0.6;
     margin-right: 15px;
 }
@@ -84,14 +109,14 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 18px;
     display: flex;
     align-items: center;
     text-align: center;
 
     text-overflow: ellipsis;
-    color: #ffffff;
+    color:var(--text-color);
 }
 
 .logo-inBox {
@@ -104,7 +129,8 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
-    color: #ea3943;
+    font-size:14px;
+    color: #ea3943 !important;
 }
 
 .triangle-green {
@@ -133,7 +159,8 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
-    color: #16c784 !important;
+    font-size:14px;
+    color: #16c784 !important
 }
 
 .gainer-container {

@@ -11,7 +11,7 @@
     font-weight: 400;
     font-size: 12px !important;
     line-height: 18px;
-    color: #FFFFFF;
+    color:var(--text-color);
     padding-bottom: 0px;
     margin-bottom:0px;
     text-align: start;
@@ -31,6 +31,7 @@
 
 .flex > input {
     width:auto;
+
 }
 
 .noappears{
@@ -43,7 +44,7 @@
     right: 0px;
     width: 32px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -74,7 +75,7 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.3019607843);
+    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -84,9 +85,10 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     border: none;
-    color: white !important;
+    color: var(--text-color);
+    box-shadow: 0px 1px 12px 3px var(--shadow-color);
     border-radius: 10px;
     font-family: "Poppins";
     font-style: normal;
@@ -98,8 +100,8 @@
 .form-container-box > label {
     width: 100%;
     margin-bottom: 15px;
-    color: #FFFFFF;
-    opacity: 0.6;
+    color: var(--text-color);
+    opacity: 1;
     font-size: 14px;
 }
 
@@ -107,6 +109,84 @@
     position: relative;
     
 }
+
+.form-container-box-flex > div > label {
+    width: 100%;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    opacity: 1;
+    font-size: 14px;
+}
+.form-container-box-flex > div > input {
+    width: auto;
+    margin-bottom: 20px;
+    height: 32px;
+    background: var(--bg-listing);
+    border: none;
+    color: var(--text-color);
+    box-shadow: 0px 1px 12px 3px var(--shadow-color);
+    border-radius: 10px;
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.form-container-box-flex{
+    display:flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.inputs-container:nth-child(1){
+    width:25%
+}
+
+.inputs-container:nth-child(2){
+    width:70%
+}
+
+.upload-box{
+    width:98px;
+    height:98px;
+    border-radius:10px;
+    padding:2px;
+    background: var(--bg-listing);
+    box-shadow: 0px 1px 12px 3px var(--shadow-color);
+    margin-bottom: 20px;
+}
+
+.select-file{
+    opacity:0;
+    width:150px !important;
+    height:25px !important;
+    background:red !important;
+    position:relative;
+    z-index:2;
+    margin-bottom:8px !important
+}
+
+.file{
+    margin-right: 0px;
+    margin-top: 35px;
+    position:relative;
+    width:70%
+}
+
+.waapu{
+    position:absolute;
+    font-size:14px;
+    display:flex;
+    align-items:center;
+}
+.upload-logo{
+    width:20px;
+    margin-right:8px
+}
+
 
 @media screen and (max-width: 768px) {
     .absolute-btn-address{
@@ -131,9 +211,30 @@
     .myForm {
         flex-direction: column !important;
     }
-    .three-forms {
-        width: 100% !important;
+   
+    .all-forms {
+        color: var(--text-color);
+        align-items: center !important;
+        flex-direction: row;
+        width: 90%;
     }
+    .three-forms {
+        padding: 14px !important;
+        max-width: 100% !important;
+        width: 90% !important;
+    }
+    .three-forms:nth-child(1){
+        background:none !important;
+    }
+    .three-forms:nth-child(2){
+       box-shadow:none !important;
+       background:none !important;
+    }
+    .three-forms:nth-child(3){
+        box-shadow:none !important;
+        background:none !important;
+    }
+    
     .form-container-box {
         width: 100%;
         max-width: 750px !important;
@@ -164,10 +265,15 @@
     .absolute-btn {
         top: 25px !important;
         right: 6px !important;
+
+    }
+    .listToken-container {
+        padding-bottom:80px !important
     }
     .button-submit-form {
         width: 141px !important;
         height: 40px !important;
+        
     }
     .listingForm-title {
         font-size: 20px !important;
@@ -183,8 +289,9 @@
         padding-top: 25px !important;
     }
     .listToken-main {
-        margin-top: 30px !important;
+        margin-top: -35px !important;
     }
+    
 }
 
 @media screen and (max-width: 600px) {
@@ -199,6 +306,7 @@
     .contract{
         width: 85% !important;
     }
+    
 }
 
 @media screen and (max-width: 400px) {
@@ -228,13 +336,19 @@
 .title-listToken {
     width: 90%;
     border-bottom: 1px solid rgba(46, 53, 87, 0.5);
-    color: white;
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .three-forms {
-    width: 30%;
+    width: 28%;
+    box-shadow: 0px 1px 12px 3px var(--shadow-color);
+    padding:20px;
+    background: var(--bg-list);
+    border-radius:20px;
+    max-width: 450px ;
+    margin-top:50px;
 }
 .listToken-main {
     display: flex;
@@ -243,8 +357,8 @@
     margin-top: 20px;
 }
 .all-forms {
-    color: white;
-    align-items: start !important;
+    color: var(--text-color);
+    align-items: start ;
     flex-direction: row;
     width: 90%;
 }
@@ -255,8 +369,8 @@
 .form-container-box>label {
     width: 100%;
     margin-bottom: 15px;
-    color: #FFFFFF;
-    opacity: 0.6;
+    color: var(--text-color);
+    opacity: 1;
 }
 .relative-form {
     position: relative;
@@ -265,9 +379,9 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-);
     border: none;
-    color: #ffffff41;
+    color: var(--text-color);
     border-radius: 10px;
 }
 .absolute-btn {
@@ -276,7 +390,7 @@
     width: 30px;
     height: 30px;
     border-radius: 10px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -294,9 +408,9 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     border: none;
-    color: white !important;
+    color: var(--text-color);
     border-radius: 10px;
     font-family: 'Poppins';
     font-style: normal;
@@ -305,14 +419,17 @@
     line-height: 18px;
 }
 .form-container-box>input::placeholder {
-    color: #ffffff41 !important;
+    color: var(--text-color);
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .form-container-box>textarea {
     width: auto;
     margin-bottom: 15px;
-    height: 150px;
-    background: #A3D4F433;
-    color: white;
+    height: 50px;
+    background: var(--bg-listing);
+    color: var(--text-color);
     font-family: 'Poppins';
     border: none;
     border-radius: 15px;
@@ -324,9 +441,10 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 .listToken-container textarea::placeholder {
-    color: #ffffff7e !important;
+    color: var(--text-color);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -342,27 +460,31 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 .button-submit-form {
     justify-content: center;
-    background: linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%);
+    background: #5C7DF9;
     border-radius: 10px;
-    width: 194px;
-    height: 50px;
+    width: 160px;
+    display: flex;
+
+    height: 36px;
     align-items: center !important;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    display: flex;
-    align-items: center;
-    color: #FFFFFF;
+    color: white;
     border: none;
+    
+    
 }
 .button-submit {
-    margin-top: 20px;
+    margin-top: 0px;
+    margin-left:auto;
+    
 }
 .listingForm-title {
     font-family: 'Poppins';
@@ -370,7 +492,7 @@
     font-weight: 600;
     font-size: 30px;
     line-height: 18px;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 .listingForm-text {
     font-family: 'Poppins';
@@ -378,7 +500,7 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
-    color: #FFFFFF;
+    color: var(--text-color);
     padding-bottom: 30px;
 }
 
@@ -387,7 +509,7 @@
     right: 0px;
     width: 32px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -395,7 +517,7 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.3019607843);
+    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -410,7 +532,7 @@
     width: 32px;
     height: 32px;
     border-radius: 10px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -418,7 +540,7 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.3019607843);
+    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -428,9 +550,9 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: rgba(163, 212, 244, 0.2);
+    background: var(--bg-listing);;
     border: none;
-    color: white !important;
+    color: var(--text-color);
     border-radius: 10px;
     font-family: "Poppins";
     font-style: normal;
@@ -442,14 +564,18 @@
 .form-container-box > label {
     width: 100%;
     margin-bottom: 15px;
-    color: #FFFFFF;
-    opacity: 0.6;
+    color: var(--text-color);
+    opacity: 1;
     font-size: 14px;
 }
 
 .form-container-box {
     position: relative;
     
+}
+
+.title{
+    display:none;
 }
 
 @media screen and (max-width: 768px) {
@@ -461,5 +587,82 @@
     .absolute-btn{
         top: 29px !important;
         right: 0px !important;
+    }
+    .title{
+        text-align: start;
+        width: 90%;
+        margin-top:0px;
+        margin-bottom: 38px !important;
+        display:block;
+    }
+    .three-forms{
+        
+        margin: 12px 0px 0px 0px !important ;
+    }
+    .file{
+        width: 66% !important;
+    }
+    .button-submit{
+        margin-left: auto !important;
+        margin-right: auto;
+        margin-top:10px;
+        width: 100%;
+    }
+    .button-submit-form{
+        width: 100% !important;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 1660px) {
+    .file{
+        margin-right: 0px;
+        margin-top: 35px;
+        position:relative;
+        width:65%
+    }
+}
+
+@media screen and (max-width: 1390px) {
+    .file{
+        margin-right: 0px;
+        margin-top: 35px;
+        position:relative;
+        width:62%
+    }
+}
+
+
+@media screen and (max-width: 1160px) {
+    .file{
+        margin-right: 0px;
+        margin-top: 35px;
+        position:relative;
+        width:58%
+    }
+    .three-forms{
+        width:30%;
+        margin: 10px;
+    }
+    .all-forms{
+        width:95%
+    }
+    
+}
+
+@media screen and (max-width: 940px) {
+    .file{
+        width: 50%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .waapu{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .form-container-box-flex > div > label {
+        white-space: nowrap !important;
     }
 }

@@ -3,11 +3,18 @@
   height: 60px;
 }
 
+.head-logo-1{
+  height:45px;
+  width:45px;
+  padding:7px;
+ 
+}
+
 .mobula-title {
   font-size: 25px;
   margin-left: 1rem;
   margin-top: 3px;
-  color: #fff;
+  color: var(--brand-title);
   font-family: 'Poppins', sans-serif;
   line-height: 18px;
 }

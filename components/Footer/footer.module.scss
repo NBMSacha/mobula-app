@@ -4,9 +4,64 @@
     padding:60px 40px 80px 40px;
 
     
-    border-top:1px solid #2E3557;
-    justify-content:space-between;
+    border-top:1px solid var(--hover-top);
+    justify-content: space-around;
 }
+
+.whitemode-btn{
+    display:flex;
+    align-items:center;
+    opacity: 1;
+    cursor:pointer;
+    background:none !important;
+    border:none; 
+    color: var(--text-color);
+}
+
+.whitemode-btn:hover{
+    color: var(--text-color-tendance)
+}
+
+
+
+.whitemode-btn > span{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-left:10px;
+    color: var(--text-color);
+    font-family: "Poppins"
+}
+
+.darkmode-btn > span{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-left:10px;
+    color: var(--text-color);
+    font-family: "Poppins"
+}
+
+.darkmode-btn{
+    display:flex;
+    align-items:center;
+    opacity: 1;
+    cursor:pointer;
+    background:none !important;
+    border:none; 
+    color: var(--text-color)
+    
+}
+
+.darkmode-btn:hover{
+    color: var(--text-color-tendance)
+}
+
+.head-logo-white{
+    width: 45px;
+    height: 45px;
+    padding: 7px;
+  }
 
 .footer-right{
     width:50%;
@@ -33,7 +88,7 @@
     font-size: 15px;
     line-height: 18px;
     list-style: none;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.6;
     margin-bottom:10px;
     margin-top:25px;
@@ -45,7 +100,7 @@
     font-size: 15px;
     line-height: 18px;
     list-style: none;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.6;
     margin-bottom:10px;
     margin-top:25px;
@@ -59,7 +114,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 .community > span {
     font-family: 'Inter';
@@ -70,7 +125,7 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: #FFFFFF;
+    color: var(--text-color);
     
 }
 .help > ul {
@@ -121,7 +176,7 @@
        padding: 0px 0px 21px 0px;
        flex-wrap: wrap;
        margin-right:0px;
-       border-bottom:1px solid #2E3557;
+       border-bottom:1px solid var(--hover-top);
    }
    .community > ul > a > li{
       margin-left:40px;
@@ -159,7 +214,7 @@
    .social-logo{
        margin-right:20px;
        margin-top:50px;
-       color:white;
+       color:var(--text-color);
    }
 
    .social-links{
@@ -177,3 +232,9 @@
 
 }
 
+.logo-footer-1{
+    height:45px;
+    width:45px;
+    padding:8px;
+    margin-bottom:5px;
+}

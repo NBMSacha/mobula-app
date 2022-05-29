@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     margin: 0px auto;
-    color: white;
+    color: var(--text-color);
     height: 109px;
     align-items: center;
 }
@@ -42,7 +42,7 @@
     align-items: center;
     text-align: right;
     letter-spacing: 0.01em;
-    color: #FFFFFF;
+    color: var(--text-color);
     opacity: 0.3;
     margin-bottom: 7px;
 }
@@ -56,11 +56,11 @@
     display: flex;
     align-items: center;
     text-align: right;
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 
 .blue-skip-btn {
-    color: #003FE1;
+    color: var(--text-color-tendance);
     background: none !important;
     border: none !important;
     cursor: pointer;
