@@ -154,7 +154,7 @@ function Wallet(props: any) {
         <span
 
 
-          onClick={() => (document.location.href = '/earn')}
+          onClick={() => router.push('/earn')}
           style={{ 'marginRight': '5px', color: 'var(--text-color)' }}
         >
           Earn
