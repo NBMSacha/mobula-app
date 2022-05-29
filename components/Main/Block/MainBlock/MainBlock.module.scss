@@ -4,12 +4,17 @@
   right: 15px;
   color: white;
   cursor: pointer;
-  display:none;
+  display: none;
 }
 
 .inside {
   width: 55px;
   height: 55px;
+}
+
+.quad-box-2 {
+  cursor: pointer;
+  width: 200px;
 }
 
 .logo-box {
@@ -83,7 +88,6 @@
   border: 1px solid black;
   padding: 30px 0px 60px 0px;
   background: var(--bg-news);
-  backdrop-filter: blur(13.94px);
   border: none;
   border-radius: 10px;
   min-height: 100px;
@@ -235,7 +239,6 @@
     position: absolute;
     top: 138px;
     left: 5%;
-    width: 100%;
     height: 100px;
     margin-right: auto;
     margin-left: 0px;
@@ -247,13 +250,8 @@
   }
 
   .quad-box-2 {
-    backdrop-filter: blur(13.94px);
     min-width: 200px;
     margin-right: 10px;
-  }
-
-  .quad-box-3 {
-    backdrop-filter: blur(13.94px);
   }
 
   .inside {
@@ -311,15 +309,12 @@
 
   .texts-box>p {
     margin: 0px;
-    margin-top: 12px;
     font-size: 12px !important;
   }
 
   .quadBox-container>* {
     width: 30%;
   }
-
-
 
   .container-news {
     margin-bottom: 150px;
@@ -345,8 +340,6 @@
 
   .container-news {
     padding: 0px 10px;
-    width: 100% !important;
-
   }
 
   .logo-box {

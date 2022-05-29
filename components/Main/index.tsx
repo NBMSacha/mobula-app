@@ -15,6 +15,7 @@ import { useRouter } from 'next/router';
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
+  const [search, setSearch] = useState([]);
   const [display, setDisplay] = useState('Top 100');
   const [chains, setChains] = useState({});
   const { account, active, activate, deactivate } = useWeb3React();
@@ -57,7 +58,7 @@ function News(props: any) {
 
     supabase
       .from('assets')
-      .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+      .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
       .contains('blockchains[1]', '{ ' + chain + ' }')
       .filter('volume', 'gte', page < 5 ? 50000 : 0)
       .order('market_cap', { ascending: false })
@@ -137,17 +138,21 @@ function News(props: any) {
       } else {
         return chains['Polygon']
       }
-    } else {
+    } else if (display == 'search') {
+      return search
+    }
+    else {
       return []
     }
   }
+
   console.log(props)
   async function shouldLoadMore(supabase: SupabaseClient) {
 
     if (display == 'Top 100') {
       supabase
         .from('assets')
-        .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+        .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
         .filter('volume', 'gte', page < 5 ? 50000 : 0)
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
@@ -159,7 +164,7 @@ function News(props: any) {
     } else if (display != 'My Assets') {
       supabase
         .from('assets')
-        .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,liquidity')
+        .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
         .contains('blockchains[1]', '{ ' + display + ' }')
         .filter('volume', 'gte', page < 5 ? 50000 : 0)
         .order('market_cap', { ascending: false })
@@ -186,7 +191,7 @@ function News(props: any) {
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
-        <MainBlock />
+        <MainBlock setDisplay={setDisplay} />
         <div className={styles["three-container"]}>
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
@@ -275,7 +280,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </div>
-        <ButtonBlock display={display} setDisplay={setDisplay} />
+        <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
@@ -294,20 +299,22 @@ function News(props: any) {
                 )}
               </th>
               <th className={`${styles["ths"]}`}>Market cap</th>
-              <th className={`${styles["ths"]} ${styles["nowrap"]}` }>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
+              <th className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
               <th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</th>
               <th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</th>
             </tr>
           </thead>
 
           {
-            getTokensToDisplay().map((token: any, index: number) => token ? <Token 
-              
+            getTokensToDisplay().map((token: any, index: number) => token ? <Token
+
               key={token.id || token.balance + token.name}
               id={token.id}
               name={token.name}
               symbol={token.symbol}
-              contract={token.contract}
+              contracts={token.contracts}
+              blockchains={token.blockchains}
+              pairs={token.pairs}
               logo={token.logo}
               twitter={token.twitter}
               chat={token.chat}
