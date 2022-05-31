@@ -98,10 +98,15 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
           .filter(
             (entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now()
           )
-          .map((price) => [price[0], price[1] * 1000000000])
+          .map((price) => [price[0], price[1] ? price[1] * 1000000000 : 0])
 
-        return oldData.concat(baseAsset.price_history.price.filter((entry) => entry[0] > oldData[oldData.length - 1][0])
-          .map((price) => [price[0], price[1] * 1000000000]))
+        if (oldData.length > 0) {
+          return oldData.concat(baseAsset.price_history.price.filter((entry) => entry[0] > oldData[oldData.length - 1][0])
+            .map((price) => [price[0], price[1] ? price[1] * 1000000000 : 0]))
+        } else {
+          return null
+        }
+
       } else {
         return null
       }
@@ -139,8 +144,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       if (baseAsset.rank && baseAsset.rank != 1) {
         supabase.from('assets').select('name,id,rank,volume,liquidity,contracts').or('rank.eq.' + (baseAsset.rank - 1) + ',rank.eq.' + (baseAsset.rank + 1)).then(r => {
           if (r.data) {
-
-            console.log('YOOOOO', r.data)
             r.data = r.data.filter(asset => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0)).sort((a, b) => a.rank - b.rank)
             setBeforeToken(r.data[0])
             setAfterToken(r.data[r.data.length - 1])
@@ -163,7 +166,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
   const fetchChart = async () => {
     try {
-      console.log("loading chart")
       const days = await getChart(baseAsset.id, '1D')
 
       setChart({ price: formatData(days) })
@@ -174,6 +176,8 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       setWeek({ price: formatData(weeks) })
 
       const months = await getChart(baseAsset.id, '1M')
+
+      console.log('MHHH ok launche', months)
 
       setMonth({ price: formatData(months) })
 
@@ -187,8 +191,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     } catch (err) {
       console.log(err)
     }
-
-    console.log(chart)
   }
 
   const generateChart = () => {
@@ -476,14 +478,12 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
         }
       }
       if (totalLiquidity.toNumber() > 0) {
-        console.log('MODIFYING PRICE')
         //setPrice(averagePrice.div(totalLiquidity).toNumber())
         //setLiquidity(totalLiquidity.toNumber());
         console.log('Updated price : ' + price)
         console.log('Updated liquidity : ' + liquidity)
-      } else {
-        console.log('CLOCHARD')
       }
+
       const volume = total_volume - getClosest(baseAsset.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
 
       if (!error) {
@@ -579,12 +579,15 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   }, [timeFormat, day])
 
   useEffect(() => {
+    console.log('week', week)
     if (timeFormat == '7D') {
       generateChart()
     }
   }, [week])
 
   useEffect(() => {
+    console.log('month', month)
+
     if (timeFormat == '30D') {
       generateChart()
     }
