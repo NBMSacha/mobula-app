@@ -49,9 +49,9 @@ function Footer({ darkTheme, setDarkTheme }) {
     <div className={styles['footer-main']}>
       <div className={styles['footer-left']}>
         {darkTheme ? (
-          <img src='https://app.mobula.finance/newIcon.png' className={styles['logo-footer']} />
+          <img src='/newIcon.png' className={styles['logo-footer']} />
         ) : (
-          <img src='https://app.mobula.finance/icon.png' className={styles['logo-footer-1']} />
+          <img src='/icon.png' className={styles['logo-footer-1']} />
         )}
 
         <div className={styles['social-container']}>
@@ -90,13 +90,13 @@ function Footer({ darkTheme, setDarkTheme }) {
         <div className={styles['community']}>
           <span>Press</span>
           <ul>
-            <a href=''>
+            <a href='https://drive.google.com/drive/folders/1640M2CobvBH822RDE9Hx7YypXlaykPIV'>
               <li>Press kit</li>
             </a>
-            <a href=''>
+            <a href='mailto:contact@mobula.finance'>
               <li>Contact</li>
             </a>
-            <a href=''>
+            <a href='https://medium.com/@Mobula'>
               <li>News</li>
             </a>
           </ul>
@@ -104,13 +104,13 @@ function Footer({ darkTheme, setDarkTheme }) {
         <div className={styles['community']}>
           <span>Ressources</span>
           <ul>
-            <a href=''>
+            <a href='https://docs.mobula.finance'>
               <li>Documentation</li>
             </a>
-            <a href=''>
+            <a href='https://docs.mobula.finance/whitepaper'>
               <li>Whitepaper</li>
             </a>
-            <a href=''>
+            <a href='https://medium.com/@Mobula'>
               <li>Medium</li>
             </a>
           </ul>
@@ -118,10 +118,10 @@ function Footer({ darkTheme, setDarkTheme }) {
         <div className={styles['help']}>
           <span>Help</span>
           <ul>
-            <a href=''>
+            <a href='https://discord.gg/nrkVNNke8Q'>
               <li>FAQs</li>
             </a>
-            <a href=''>
+            <a href='https://discord.gg/nrkVNNke8Q'>
               <li>Support</li>
             </a>
           </ul>

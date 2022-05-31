@@ -54,6 +54,8 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   }
 
   const formatData = (data) => {
+    if (!data) return {}
+
     return data.map((el) => {
       return {
         t: el[0],
@@ -1097,7 +1099,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                                 1D
                               </button>
                             ) : <></>}
-                            {(!week || (week.price && week.price.length != 0)) ? timeFormat === "7D" ? (
+                            {(!week || (week.price && week.price.length)) ? timeFormat === "7D" ? (
                               <button
                                 onClick={() => {
                                   setTimeFormat('7D')
@@ -1120,17 +1122,17 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               </button>
                             ) : <></>}
 
-                            {(!month || (month.price && month.price.length != 0)) ? <button
+                            {(!month || (month.price && month.price.length)) ? <button
                               onClick={() => {
                                 setTimeFormat('30D')
                               }}
                               className={`${styles['button-chart']}${timeFormat === '30D' ? ' ' + styles['button-chart-active'] : ''}`}
                               id='30d'
                             >
-                              1M
+                              1M {JSON.stringify(month.length)}
                             </button> : <></>}
 
-                            {(!year || (year.price && year.price.length != 0)) ? <button
+                            {(!year || (year.price && year.price.length)) ? <button
                               onClick={() => {
                                 setTimeFormat('1Y')
                               }}
@@ -1140,7 +1142,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               1Y
                             </button> : <></>}
 
-                            {(!all || (all.price && all.price.length != 0)) ? <button
+                            {(!all || (all.price && all.price.length)) ? <button
                               onClick={() => {
                                 setTimeFormat('ALL')
                               }}

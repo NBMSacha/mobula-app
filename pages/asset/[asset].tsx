@@ -37,7 +37,7 @@ function Dataprovider({ asset, darkTheme }) {
     const router = useRouter()
 
     if (asset && asset.id) {
-        fetch('https://mobulaspark.com/ping?id=' + asset.id)
+        fetch('https://mobulaspark.com/ping?id=' + asset.id).catch()
     }
 
     if (router.isFallback) {

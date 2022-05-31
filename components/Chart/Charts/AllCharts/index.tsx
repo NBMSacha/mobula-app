@@ -18,6 +18,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   const hiddenTitles = ["No Volume", "No Liquidity", "Holders", "No Rank"];
 
   const formatData = (data: any) => {
+    if (!data) return {}
     return data.map((el: any) => {
       if (el[1] != 0) {
         return {
@@ -537,32 +538,34 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       <Box p="20px 20px 20px 20px" bg={hiddenTitles.includes(title) ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
           {!hiddenTitles.includes(title) ? (
-            <Box position="absolute" top="-12.5px" width="120px" right="0px" bg={darkTheme ? "#2e3557" : "#F9F9F9"} p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
+            <Box position="absolute" top="-12.5px" right="0px" bg={darkTheme ? "#2e3557" : "#F9F9F9"} p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
               <Flex justify="space-around">
-                {(!day || (day.price && day.price.length > 0)) ? timeFormat === "1D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                {(!day || (day.price && day.price.length)) ? timeFormat === "1D" ? (
+                  <Button m={5} size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                  <Button m={5} size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                 ) : <></>}
-                {(!week || (week.price && week.price.length > 0)) ? timeFormat === "7D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                {(!week || (week.price && week.price.length)) ? timeFormat === "7D" ? (
+                  <Button m={5} size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                  <Button m={5} size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 ) : <></>}
-                {(!month || (month.price && month.price.length > 0)) ? timeFormat === "30D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                {(!month || (month.price && month.price.length)) ? timeFormat === "30D" ? (
+                  <Button m={5} size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                  <Button m={5} size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                 ) : <></>}
-                {(!year || (year.price && year.price.length > 0)) ? timeFormat === "1Y" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                {(!year || (year.price && year.price.length)) ?
+                  <Button m={5} size='xs'
+                    bg={timeFormat === "1Y" ? "#b8b8b8 !important" : "none"}
+                    color={timeFormat === "1Y" ? "white" : darkTheme ? "white" : "black"}
+                    className={timeFormat === "1Y" ? styles["btn-chakra"] : ''}
+                    mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                  : <></>}
+                {(!all || (all.price && all.price.length)) ? timeFormat === "ALL" ? (
+                  <Button m={5} size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
-                ) : <></>}
-                {(!all || (all.price && all.price.length > 0)) ? timeFormat === "ALL" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
-                ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                  <Button m={5} size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                 ) : <></>}
               </Flex>
             </Box>
