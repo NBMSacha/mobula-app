@@ -29,12 +29,12 @@ import Charts from "./Charts/index.jsx"
 const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const router = useRouter()
   const [chart, setChart] = useState({})
-  const [day, setDay] = useState({})
-  const [week, setWeek] = useState({})
-  const [month, setMonth] = useState({})
-  const [year, setYear] = useState({})
-  const [all, setAll] = useState({})
-  const [timeFormat, setTimeFormat] = useState('1D')
+  const [day, setDay] = useState()
+  const [week, setWeek] = useState()
+  const [month, setMonth] = useState()
+  const [year, setYear] = useState()
+  const [all, setAll] = useState()
+  const [timeFormat, setTimeFormat] = useState('7D')
   const [visible, setVisible] = useState(false);
   const [state, setState] = useState('Overview');
   const [volume, setVolume] = useState(0);
@@ -47,6 +47,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const hideRef = useRef();
   const hidedaoRef = useRef();
   const changeRef = useRef();
+  const [historyData, setHistoryData] = useState(null);
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})
@@ -56,69 +57,73 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     return data.map((el) => {
       return {
         t: el[0],
-        y: el[1].toFixed(2),
+        y: el[1] ? el[1].toFixed(2) : 0,
       }
     })
   }
-  console.log(darkTheme)
+
   const getChart = async (id, timeframe) => {
     const supabase = createClient(
       'https://ylcxvfbmqzwinymcjlnx.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
-    if (timeframe == '1D') {
+    let multiplier;
+
+    const recentLoad = () => {
       return baseAsset ? baseAsset.price_history.price
-        .filter((entry) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+        .filter((entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now())
         .map((price) => [price[0], price[1] * 1000000000])
         : null
-    } else if (timeframe == '7D') {
-      return baseAsset
-        ? baseAsset.price_history.price
-          .filter((entry) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price) => [price[0], price[1] * 1000000000])
-        : null
-    } else if (timeframe == '1M') {
-      const { data: old } = await supabase
-        .from('history')
-        .select('price_history')
-        .match({ asset: id })
-      return old[0]
-        ? old[0].price_history
-          .filter((entry) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price) => [price[0], price[1] * 1000000000])
-        : null
-    } else if (timeframe == '3M') {
-      const { data: old } = await supabase
-        .from('history')
-        .select('price_history')
-        .match({ asset: id })
-      return old[0]
-        ? old[0].price_history
-          .filter((entry) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price) => [price[0], price[1] * 1000000000])
-        : null
-    } else if (timeframe == '1Y') {
-      const { data: old } = await supabase
-        .from('history')
-        .select('price_history')
-        .match({ asset: id })
-      return old[0]
-        ? old[0].price_history
+    }
+
+    const historyLoad = async () => {
+      let old;
+
+      if (!historyData) {
+        const { data } = await supabase
+          .from('history')
+          .select('price_history')
+          .match({ asset: id })
+
+        old = data
+        setHistoryData(data)
+      } else {
+        old = historyData
+      }
+
+      if (old[0]) {
+        const oldData = old[0].price_history
           .filter(
-            (entry) => entry[0] + 356 * 24 * 60 * 60 * 1000 > Date.now()
+            (entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now()
           )
           .map((price) => [price[0], price[1] * 1000000000])
-        : null
-    } else if (timeframe == 'ALL') {
-      const { data: old } = await supabase
-        .from('history')
-        .select('price_history')
-        .match({ asset: id })
-      return old[0]
-        ? old[0].price_history
-          .map((price) => [price[0], price[1] * 1000000000])
-        : null
+
+        return oldData.concat(baseAsset.price_history.price.filter((entry) => entry[0] > oldData[oldData.length - 1][0])
+          .map((price) => [price[0], price[1] * 1000000000]))
+      } else {
+        return null
+      }
+
     }
+
+    switch (timeframe) {
+      case '1D':
+        multiplier = 1;
+        return recentLoad();
+      case '7D':
+        multiplier = 7;
+        return recentLoad()
+      case '1M':
+        multiplier = 30;
+        return await historyLoad()
+      case '1Y':
+        multiplier = 365;
+        return await historyLoad()
+      case 'ALL':
+        multiplier = Infinity
+        return await historyLoad()
+    }
+
   }
 
   const fetchData = async () => {
@@ -604,17 +609,17 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const determineTimeFormat = () => {
     switch (timeFormat) {
       case '1D':
-        return day.price
+        return day?.price
       case '7D':
-        return week.price
+        return week?.price
       case '30D':
-        return month.price
+        return month?.price
       case '1Y':
-        return year.price
+        return year?.price
       case 'ALL':
-        return all.price
+        return all?.price
       default:
-        return day.price
+        return week?.price
     }
   }
 
@@ -683,7 +688,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                           className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
                           id='noColor'
                         >
-                          <ArrowDown className={styles['arrowDown']} />
+                          <Down className={styles['arrowDown']} />
                           {Math.abs(baseAsset.rank_change_24h)}
                         </span>
                       ) : baseAsset.rank_change_24h == 0 ? (
@@ -1071,7 +1076,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               margin: 'auto',
                             }}
                           >
-                            {timeFormat === "1D" ? (
+                            {(!day || (day.price && day.price.length != 0)) ? timeFormat === "1D" ? (
                               <button
                                 onClick={() => {
                                   setTimeFormat('1D')
@@ -1091,8 +1096,8 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               >
                                 1D
                               </button>
-                            )}
-                            {timeFormat === "7D" ? (
+                            ) : <></>}
+                            {(!week || (week.price && week.price.length != 0)) ? timeFormat === "7D" ? (
                               <button
                                 onClick={() => {
                                   setTimeFormat('7D')
@@ -1113,9 +1118,9 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               >
                                 7D
                               </button>
-                            )}
+                            ) : <></>}
 
-                            <button
+                            {(!month || (month.price && month.price.length != 0)) ? <button
                               onClick={() => {
                                 setTimeFormat('30D')
                               }}
@@ -1123,8 +1128,9 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               id='30d'
                             >
                               1M
-                            </button>
-                            <button
+                            </button> : <></>}
+
+                            {(!year || (year.price && year.price.length != 0)) ? <button
                               onClick={() => {
                                 setTimeFormat('1Y')
                               }}
@@ -1132,8 +1138,9 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               id='1y'
                             >
                               1Y
-                            </button>
-                            <button
+                            </button> : <></>}
+
+                            {(!all || (all.price && all.price.length != 0)) ? <button
                               onClick={() => {
                                 setTimeFormat('ALL')
                               }}
@@ -1141,7 +1148,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               id='all'
                             >
                               ALL
-                            </button>
+                            </button> : <></>}
                           </div>
 
                         </>

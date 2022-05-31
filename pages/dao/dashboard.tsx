@@ -1,5 +1,5 @@
-import DashboardRem from '../../components/DashboardRem/'
+import Dashboard from '../../components/Dashboard/'
 
 export default function () {
-  return  <DashboardRem />
+  return <Dashboard />
 }

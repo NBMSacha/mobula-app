@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import { Chart } from 'chart.js'
 import { createClient } from '@supabase/supabase-js'
 import styles from "./AllCharts.module.scss"
-import { Box, Text, Button } from '@chakra-ui/react'
+import { Box, Text, Button, Flex } from '@chakra-ui/react'
 import { formatAmount } from '../../../../helpers/formaters';
 
 const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
-
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState({})
-  const [day, setDay]: [{ price: { y: string }[] }, any] = useState({ price: null })
-  const [week, setWeek]: [{ price: { y: string }[] }, any] = useState({ price: null })
-  const [month, setMonth]: [{ price: { y: string }[] }, any] = useState({ price: null })
-  const [year, setYear]: [{ price: { y: string }[] }, any] = useState({ price: null })
-  const [all, setAll]: [{ price: { y: string }[] }, any] = useState({ price: null })
+  const [day, setDay]: [{ price: { y: string }[] }, any] = useState()
+  const [week, setWeek]: [{ price: { y: string }[] }, any] = useState()
+  const [month, setMonth]: [{ price: { y: string }[] }, any] = useState()
+  const [year, setYear]: [{ price: { y: string }[] }, any] = useState()
+  const [all, setAll]: [{ price: { y: string }[] }, any] = useState()
   const [timeFormat, setTimeFormat] = useState('7D');
-  const [IsTrueDay, setIsTrueDay] = useState("")
+  const [historyData, setHistoryData]: [any, Function] = useState();
+  const hiddenTitles = ["No Volume", "No Liquidity", "Holders", "No Rank"];
 
   const formatData = (data: any) => {
     return data.map((el: any) => {
@@ -26,6 +26,8 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
         }
       } else {
         return {
+          t: el[0],
+          y: 0,
         }
       }
     })
@@ -33,7 +35,6 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
 
   const fetchChart = async () => {
     try {
-      console.log("loading chart")
       const days = await getChart(baseAsset.id, '1D')
 
       setChart({ price: formatData(days) })
@@ -45,101 +46,91 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       const months = await getChart(baseAsset.id, '1M')
       setMonth({ price: formatData(months) })
 
-      const years = await getChart(baseAsset.id, '1Y')
-      setYear({ price: formatData(years) })
-
-      const alls = await getChart(baseAsset.id, 'ALL')
-      setAll({ price: formatData(alls) })
-
-    } catch (err) {
-      console.log(err)
-    }
+    } catch (err) { }
   }
-
-  // GET CHART DATA DEPENDING OF TITLE 
 
   const getChart = async (id: number, timeframe: string) => {
     const supabase = createClient(
       'https://ylcxvfbmqzwinymcjlnx.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
-    const multiplicator = timeframe == '1M' ? 30 : timeframe == '1Y' ? 365 : Infinity;
+    let multiplier;
 
-    if (title == "Rank") {
-      console.log(baseAsset.rank_history.rank)
-      if (timeframe == '1D') {
-        return baseAsset ? baseAsset.rank_history.rank
-          .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * -1000000000])
-          : null
-      } else if (timeframe == '7D') {
-        return baseAsset ? baseAsset.rank_history.rank
-          .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * -1000000000])
-          : null
-      }
+    const recentLoad = () => {
+      return baseAsset ? baseAsset[title.toLowerCase() + '_history'][title.toLowerCase()]
+        .filter((entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now())
+        .map((price) => [price[0], price[1] * 1000000000])
+        : null
     }
-    if (title == "Liquidity") {
-      if (timeframe == '1D') {
-        return baseAsset ? baseAsset.liquidity_history.liquidity
-          .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * 1000000000])
-          : null
-      } else if (timeframe == '7D') {
-        return baseAsset ? baseAsset.liquidity_history.liquidity
-          .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * 1000000000])
-          : setIsTrueDay(null)
-      }
-      else if (timeframe == '1M' || timeframe == '1Y' || timeframe == 'ALL') {
-        const { data: old } = await supabase
+
+    const historyLoad = async () => {
+      let old;
+
+      if (!historyData) {
+        const { data } = await supabase
           .from('history')
-          .select('liquidity_history')
+          .select(title.toLowerCase() + '_history')
           .match({ asset: id })
 
-        if (old[0]) {
-          const oldData = old[0].liquidity_history
-            .filter((entry: [number, number]) => entry[0] + multiplicator * 24 * 60 * 60 * 1000 > Date.now())
-            .map((price: [number, number]) => [price[0], price[1] * 1000000000]);
-
-          return oldData.concat(baseAsset.liquidity_history.liquidity.filter((entry: [number, number]) => entry[0] > oldData[oldData.length - 1][0])
-            .map((price: [number, number]) => [price[0], price[1] * 1000000000]))
-        } else {
-          return null
-        }
+        old = data
+        setHistoryData(data)
+      } else {
+        old = historyData
       }
-    }
-    if (title == "Volume") {
-      if (timeframe == '1D') {
-        return baseAsset ? baseAsset.volume_history.volume
-          .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * 1000000000])
-          : null
-      } else if (timeframe == '7D') {
-        return baseAsset ? baseAsset.volume_history.volume
-          .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-          .map((price: [number, number]) => [price[0], price[1] * 1000000000])
-          : null
-      } else if (timeframe == '1M' || timeframe == '1Y' || timeframe == 'ALL') {
-        const { data: old } = await supabase
-          .from('history')
-          .select('volume_history')
-          .match({ asset: id })
 
-        if (old[0]) {
-          const oldData = old[0].volume_history
-            .filter((entry: [number, number]) => entry[0] + multiplicator * 24 * 60 * 60 * 1000 > Date.now())
-            .map((price: [number, number]) => [price[0], price[1] * 1000000000]);
+      if (old && old[0]) {
+        try {
+          const oldData = old[0][title.toLowerCase() + '_history']
+            .filter(
+              (entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now()
+            )
+            .map((price) => [price[0], price[1] * 1000000000])
 
-          return oldData.concat(baseAsset.volume_history.volume.filter((entry: [number, number]) => entry[0] > oldData[oldData.length - 1][0])
-            .map((price: [number, number]) => [price[0], price[1] * 1000000000]))
-        } else {
-          return null
+          return oldData.concat(baseAsset[title.toLowerCase() + '_history'][title.toLowerCase()].filter((entry) => entry[0] > oldData[oldData.length - 1][0])
+            .map((price) => [price[0], price[1] * 1000000000]))
+        } catch (e) {
         }
 
+      } else {
+        return null
       }
+
     }
+
+    switch (timeframe) {
+      case '1D':
+        multiplier = 1;
+        return recentLoad();
+      case '7D':
+        multiplier = 7;
+        return recentLoad()
+      case '1M':
+        multiplier = 30;
+        return await historyLoad()
+      case '1Y':
+        multiplier = 365;
+        return await historyLoad()
+      case 'ALL':
+        multiplier = Infinity
+        return await historyLoad()
+    }
+
   }
+
+  useEffect(() => {
+
+    if ((title == "Volume" || title == "Liquidity") && historyData) {
+      getChart(baseAsset.id, '1Y').then(years => {
+        setYear({ price: formatData(years) })
+      })
+
+      getChart(baseAsset.id, 'ALL').then(alls => {
+        setAll({ price: formatData(alls) })
+      })
+    }
+
+  }, [historyData])
+
   useEffect(() => {
     generateChart()
   }, [timeFormat, week])
@@ -169,7 +160,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   }, [all])
 
   useEffect(() => {
-    if (baseAsset) {
+    if (baseAsset && (title == "Volume" || title == "Liquidity")) {
       fetchChart()
     }
   }, [baseAsset])
@@ -177,15 +168,15 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   const determineTimeFormat = () => {
     switch (timeFormat) {
       case '1D':
-        return day.price
+        return day?.price
       case '7D':
-        return week.price
+        return week?.price
       case '30D':
-        return month.price
+        return month?.price
       case '1Y':
-        return year.price
+        return year?.price
       case 'ALL':
-        return all.price
+        return all?.price
       default:
         return week.price
     }
@@ -218,9 +209,6 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
     const allTimeDiff = Math.floor(parseInt(ATH.y) / -1000000000) - Math.floor(parseInt(ATL.y) / -1000000000)
 
     if (title == 'Rank') {
-
-      console.log(ATH.y, Math.floor(parseInt(ATH.y) / -1000000000), Math.floor(parseInt(ATL.y) / -1000000000))
-      console.log(Math.floor(parseInt(ATH.y) / -1000000000) - Math.floor(parseInt(ATL.y) / -1000000000))
 
       window[title] = new Chart(ctx, {
         type: 'line',
@@ -546,84 +534,37 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   return (
     <Box w={window.innerWidth > 768 ? "45%" : "95%"} mb={["30px"]}>
       <Text mb={4}>{title == 'No Rank' ? 'Rank (Coming Soon)' : title == 'Holders' ? 'Holders (Coming Soon)' : title}</Text>
-      <Box p="20px 20px 20px 20px" bg={title === "No Volume" || title === "No Liquidity" || title === "Holders" ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
+      <Box p="20px 20px 20px 20px" bg={hiddenTitles.includes(title) ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
-          {title !== "No Volume" && title !== "No Liquidity" && title !== "Holders" ? (
+          {!hiddenTitles.includes(title) ? (
             <Box position="absolute" top="-12.5px" width="120px" right="0px" bg={darkTheme ? "#2e3557" : "#F9F9F9"} p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
-              {title === "Volume" && (
-                <>
-                  {timeFormat === "1D" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  )}
-                  {timeFormat === "7D" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  )}
-                  {timeFormat === "30D" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
-                  )}
-                  {timeFormat === "1Y" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
-                  )}
-                  {timeFormat === "ALL" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
-                  )}
-
-
-                </>
-              )}
-              {title === "Rank" ? (
-                <>
-                  {timeFormat === "1D" ? (
-                    <Button size='xs' mr={1} bg="#b8b8b8 !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  ) : (
-                    <Button size='xs' color="white" bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  )}
-                  {timeFormat === "7D" ? (
-                    <Button size='xs' mr={3} bg="rgba(222, 228, 255, 0.8156862745) !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  ) : (
-                    <Button size='xs' color="white" bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  )}
-                </>
-              ) : (<></>)}
-              {title === "Liquidity" && (
-                <>
-                  {timeFormat === "1D" ? (
-                    <Button size='xs' mr={1} bg="#b8b8b8 !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
-                  )}
-                  {timeFormat === "7D" ? (
-                    <Button size='xs' mr={3} bg="#b8b8b8 !important" className={styles["btn-chakra"]} color="white" onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
-                  )}
-                  {timeFormat === "30D" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
-                  )}
-                  {timeFormat === "1Y" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
-                  )}
-                  {timeFormat === "ALL" ? (
-                    <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={1} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
-                  ) : (
-                    <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
-                  )}
-                </>
-              )}
+              <Flex justify="space-around">
+                {(!day || (day.price && day.price.length > 0)) ? timeFormat === "1D" ? (
+                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                ) : (
+                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                ) : <></>}
+                {(!week || (week.price && week.price.length > 0)) ? timeFormat === "7D" ? (
+                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                ) : (
+                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                ) : <></>}
+                {(!month || (month.price && month.price.length > 0)) ? timeFormat === "30D" ? (
+                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                ) : (
+                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                ) : <></>}
+                {(!year || (year.price && year.price.length > 0)) ? timeFormat === "1Y" ? (
+                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                ) : (
+                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                ) : <></>}
+                {(!all || (all.price && all.price.length > 0)) ? timeFormat === "ALL" ? (
+                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                ) : (
+                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                ) : <></>}
+              </Flex>
             </Box>
           ) : (
             <>

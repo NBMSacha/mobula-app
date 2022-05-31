@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './dashboard.module.scss'
-import { Text, Heading, Flex, Box, Spacer, ColorModeScript } from '@chakra-ui/react'
+import { Text, Heading, Flex, Box, Spacer, Button } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../constants'
-import DashboardRem from "../DashboardRem"
 import {
   ChakraProvider,
   ColorModeProvider,
@@ -12,8 +11,12 @@ import {
 } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
+import { createClient } from '@supabase/supabase-js'
+import RankStats from './RankStats'
+import History from './History'
+import Leaderboard from './Leaderboard'
 
-function Dashboard({ darkTheme }) {
+function Dashboard() {
   const alert = useAlert()
   const [firstTokensOwed, setFirstTokensOwed] = useState(0)
   const [finalTokensOwed, setFinalTokensOwed] = useState(0)
@@ -23,11 +26,15 @@ function Dashboard({ darkTheme }) {
   const [finalBadChoice, setFinalBadChoice] = useState(0)
   const [countdownValue, setCountdown] = useState('You can claim now')
   const [claimed, setClaimed] = useState(0)
-  //const { colorMode, toggleColorMode }  = useColorMode();
+  const [mobile, setMobile] = useState({})
+  const [recentlyAdded, setRecentlyAdded] = useState([])
 
-  // if (darkTheme! && colorMode) { 
-  //   toggleColorMode()
-  // }
+  useEffect(() => {
+
+    setMobile(window.matchMedia("(max-width: 768px)").matches);
+  }, [mobile])
+
+
   var provider: any
   var account: string
 
@@ -130,6 +137,20 @@ function Dashboard({ darkTheme }) {
       alert.show('You must connect your wallet to access your Dashboard.')
       console.log(e)
     }
+
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
+
+    supabase
+      .from('assets')
+      .select('name,symbol,logo,created_at')
+      .order('created_at', { ascending: false })
+      .limit(5)
+      .then(r => {
+        setRecentlyAdded(r.data)
+      })
   }
 
   useEffect(() => {
@@ -139,380 +160,281 @@ function Dashboard({ darkTheme }) {
   return (
     <>
       <div className='listing'>
-        <Box w="100%" className=''>
+        <Box w="100%" maxWidth="1400px" className=''>
           <ChakraProvider theme={theme}>
             <CSSReset />
-            <Flex
-              justifyContent={['space-evenly']}
-              flexDir={['column-reverse', 'column-reverse', 'column', 'row']}
-              alignItems={['center', 'center', 'center', 'stretch']}
-              paddingTop='60px'
-              w={["100%", "100%", "90%", "90%"]}
-              m="auto"
+            <ColorModeProvider
+              options={{
+                initialColorMode: 'light',
+                useSystemColorMode: true,
+              }}
             >
-              <Flex w="95%" direction="column" align={['center', 'center', 'center', 'space-between']} mt={["50px", "50px", "0px", "0px",]}>
 
-                {/* Rank I Stats */}
-                <Flex w='100%' justify="space-evenly" direction={[, "column", "row", "row"]}>
-                  <Flex
-                    direction={["row", "row", "column", "column"]}
-                    justify={["start", "start", "center", "center"]}
-                    p={['14px 14px 14px 14px', '14px 14px 14px 14px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
-                    bg={["none", "none", '#191D2C', '#191D2C']}
-                    borderRadius='10px'
-                    w={['100%', '100%', '90%', '48%']}
-                    textAlign={['center', 'center', 'center', 'left']}
-                    mb={[7, 7, 7, 0]}
-                    position="relative"
-                  >
-                    <Box position="absolute" display={["block", "block", "none", "none"]} bottom='-20px' h="1px" w="38%" bg="white"></Box>
-                    <h2 className={styles["title-rank"]}>
-                      Rank I <span className={styles["subtitle-rank"]}>Stats</span>
-                    </h2>
-                    <Flex direction={["column", "column", "row", "row"]} w={["50%", "50%", "auto", "auto"]} >
-                      <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="17px">Correct Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}</Flex>
-                      </Flex>
-                      <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
-                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="17px">Wrong Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice}</Flex>
-                      </Flex>
-                    </Flex>
-                    <Box fontSize='15px' mb={5}>
-                      <Text mb={2} textAlign="center" fontSize="13px" bottom="60px" position={["absolute", "absolute", "initial", "initial"]}> The Protocol currently owes you <b>{firstTokensOwed + '  $MOBL'}</b></Text>
-                    </Box>
+              <Flex w="100%" p="0px 5%" mt="30px" className={styles["shinda"]}>
+                <Text>DAO Dashboard</Text>
+              </Flex>
+              {/* <div className={styles.line}></div> */}
+              <Flex
+                justifyContent={['space-evenly']}
+                flexDir={['column-reverse', 'column-reverse', 'row', 'row']}
+                alignItems={['center', 'center', 'center', 'stretch']}
+                paddingTop='60px'
+                className={styles["blitz"]}
+                m="auto"
+                position="relative"
+                mt="-40px"
 
+              >
 
-                    <Flex
-                      width={["45%", "45%", '100%', '100%']}
-                      justifyContent={['center', 'center', 'center', 'center']}
-                      className={styles["buttons-claim-box"]}
-                    >
-                      {' '}
-                      <button
-                        className={styles["buttons-claim"]}
-                        style={{ width: "90%", 'font-size': '1rem' } as any}
-                        onClick={async (e) => {
-                          e.preventDefault()
+                {/* RANK DISPLAY MOBILE */}
 
-                          try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
-                            var signer = provider.getSigner()
-                          } catch (e) {
-                            alert.show(
-                              'You must connect your wallet to access the Dashboard.'
-                            )
-                          }
+                {mobile ? (
 
-                          try {
-                            const value = await new ethers.Contract(
-                              PROTOCOL_ADDRESS,
-                              ['function claimRewards() external'],
-                              signer
-                            ).claimRewards()
-                          } catch (e) {
-                            alert.show("You don't have anything to claim.")
-                            console.log(e)
-                          }
-                        }}
+                  <Flex w="95%" direction="column" boxShadow="0px 1px 12px 3px var(--shadow-color)" borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+
+                    {/* Rank I Stats */}
+                    <Flex w={['95%', '90%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
+                      <Flex
+                        direction={["row", "row", "column", "column"]}
+                        justify={["start", "start", "center", "center"]}
+                        p={['0px', '14px 14px 14px 14px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
+                        bg={["none", "none", '#191D2C', '#191D2C']}
+                        borderRadius='0px'
+                        borderBottom="1px solid var(--border-top-body)"
+                        w={['100%', '100%', '90%', '48%']}
+                        textAlign={['center', 'center', 'center', 'left']}
+                        mb={[7, 7, 7, 0]}
+                        position="relative"
+                        align="center"
                       >
-                        Claim
-                      </button>
+                        <Flex direction={["column", "column", "row", "row"]} w="50%" >
+                          <Text textAlign="start" fontSize="14px" mb={2}>
+                            Rank I <span className={styles['stats']}>Stats</span>
+                          </Text>
+                          <Flex direction="row" fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
+                            <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="16px">Correct Decisions</Text>
+                            <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}</Flex>
+                          </Flex>
+                          <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
+                            <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="16px">Wrong Decisions</Text>
+                            <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice}</Flex>
+                          </Flex>
+                          <Box h="1px" w="90%" bg="rgba(229, 229, 229, 0.1)" mt={2} mb={3}></Box>
+                          <Text textAlign="start" fontSize="14px" mb={2}>
+                            Rank II <span className={styles['stats']}>Stats</span>
+                          </Text>
+                          <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                            <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="16px">Correct Decisions</Text>
+                            <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice}</Flex>
+                          </Flex>
+                          <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                            <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} whiteSpace="nowrap" mb={2}>Wrong Decisions</Text>
+                            <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
+                          </Flex>
+                        </Flex>
+                        <Flex
+                          width={["50%", "50%", '100%', '100%']}
+                          justify="center"
+                          align="center"
+                          direction="column"
+                          className={styles["buttons-claim-box"]}
+                        >
+                          {' '}
+                          <Button
+                            className={styles["buttons-claim"]}
+                            style={{ width: "90%", 'font-size': '1rem' } as any}
+                            onClick={async (e) => {
+                              e.preventDefault()
+                              try {
+                                var provider = new ethers.providers.Web3Provider(
+                                  (window as any).ethereum
+                                )
+                                var signer = provider.getSigner()
+                              } catch (e) {
+                                alert.show(
+                                  'You must connect your wallet to access the Dashboard.'
+                                )
+                              }
+                              try {
+                                const value = await new ethers.Contract(
+                                  PROTOCOL_ADDRESS,
+                                  ['function claimRewards() external'],
+                                  signer
+                                ).claimRewards()
+                              } catch (e) {
+                                alert.show("You don't have anything to claim.")
+                                console.log(e)
+                              }
+                            }}
+                          >       <Flex justify="center" align="center">
+                              <Text ml="15px">Claim MOBL</Text>
+                              <img src="/fullicon.png" height="25px" width="25px" className={styles["matic-logo"]} />
+                            </Flex>
+                          </Button>
+                          <Box fontSize='15px' mb={5} mt={5} w="150px">
+                            <Text mb={0} mt={0} textAlign="center" fontSize="13px" bottom="60px" > The Protocol currently owes you <b>{firstTokensOwed + '  $MOBL'}</b></Text>
+                          </Box>
+                        </Flex>
+                      </Flex>
                     </Flex>
+
                   </Flex>
-
-                  {/* Rank II Stats */}
-                  <Flex
-                    direction={["row", "row", "column", "column"]}
-                    justify={["start", "start", "center", "center"]}
-                    p={['14px 14px 14px 14px', '14px 14px 14px 14px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
-                    bg={["none", "none", '#191D2C', '#191D2C']}
-                    borderRadius='10px'
-                    w={['90%', '90%', '90%', '48%']}
-                    textAlign={['center', 'center', 'center', 'left']}
-                    mb={[7, 7, 7, 0]}
-                    position="relative"
-                  >
-
-                    <h2 className={styles["title-rank"]}>
-                      Rank II <span className={styles["subtitle-rank"]}>Stats</span>
-                    </h2>
-                    <Flex direction={["column", "column", "row", "row"]} mt="20px">
-                      <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["center", "center", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color="#16C784" whiteSpace="nowrap" mb={2}>Correct Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice}</Flex>
-                      </Flex>
-                      <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["center", "center", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color="#FF0000" whiteSpace="nowrap" mb={2}>Wrong Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
-                      </Flex>
+                ) : (
+                  // DESKTOP RANK 
+                  <Flex w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
+                    <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
+                      <RankStats title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
+                      <RankStats title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
                     </Flex>
-                    <Box fontSize='15px' mb={5} className={styles["noneDis"]}>
-                      <Text mb={2} textAlign="center" fontSize="13px"> The Protocol currently owes you <b>{finalTokensOwed + '  $MOBL'}</b></Text>
-                    </Box>
+                    <History recentlyAdded={recentlyAdded} />
+                  </Flex>
+                )}
 
+                <Box className={styles["size-box"]} ml="5px">
+                  {/* DAO Faucet */}
+                  <Flex >
+                    {mobile ? (
+                      <Flex
+                        p='5px'
+                        boxShadow="0px 1px 12px 3px var(--shadow-color)"
+                        bg={["none", "none", '#191D2C', '#191D2C']}
+                        borderRadius='10px'
 
-                    <Flex
-                      width='100%'
+                        w={['96%', '86%', '90%', '95%']}
 
-                      justifyContent={['center', 'center', 'center', 'center']}
-                    >
-                      {' '}
-                      <button
-                        className={`${styles["noneDis"]} ${styles["buttons-claim"]}`}
-
-                        style={{ width: "90%", 'font-size': '1rem' } as any}
-                        onClick={async (e) => {
-                          e.preventDefault()
-
-                          try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
-                            var signer = provider.getSigner()
-                          } catch (e) {
-                            alert.show(
-                              'You must connect your wallet to access the Dashboard.'
-                            )
-                          }
-
-                          try {
-                            const value = await new ethers.Contract(
-                              PROTOCOL_ADDRESS,
-                              ['function claimFinalRewards() external'],
-                              signer
-                            ).claimFinalRewards()
-                          } catch (e) {
-                            alert.show("You don't have anything to claim.")
-                            console.log(e)
-                          }
-                        }}
+                        mx="auto"
                       >
-                        Claim
-                      </button>
-                    </Flex>
+                        <Flex direction="column" w="50%">
+                          <Box fontSize='15px' >
+                            <Text color="#D3D3D3;" mb={2}>MATIC for DAO members</Text>
+                            <Text fontWeight='800' mb="15px" fontSize="17px" color='#16C784'>
+                              {countdownValue}
+                            </Text>
+                          </Box>
+                          <Box h="1px" w="98%" bg="var(--border-top-body);"> </Box>
+                          <Box fontSize='15px' mb={5}>
+                            <Text textAlign="start" fontSize="14px" color="#909090" mt={2} mb={1}>You already claimed</Text>
+                            <Text fontSize="18px" color="var(--text-color)" textAlign="start">{claimed} MATIC</Text>
+                          </Box>
+                        </Flex>
+                        <Spacer />
+                        <Flex
+                          width='50%'
+                          align="center" justify="center"
+                        >
+                          <Button
+                            className={styles["claim-matic"]}
+                            style={{ width: "135px" } as any}
+                            onClick={async (e) => {
+                              e.preventDefault()
+                              try {
+                                var provider = new ethers.providers.Web3Provider(
+                                  (window as any).ethereum
+                                )
+                                var signer = provider.getSigner()
+                              } catch (e) {
+                                alert.show(
+                                  'You must connect your wallet to access the Dashboard.'
+                                )
+                              }
+                              try {
+                                const value = await new ethers.Contract(
+                                  VAULT_ADDRESS,
+                                  ['function claim() external'],
+                                  signer
+                                ).claim()
+                              } catch (e) {
+                                if (e.data && e.data.message) {
+                                  alert.error(e.data.message)
+                                } else {
+                                  alert.error('Something went wrong.')
+                                }
+                              }
+                            }}
+                          >
+                            <Text ml="15px">Claim MATIC</Text>
+                            <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
+                          </Button>
+                        </Flex>
+                      </Flex>
+                    ) : (
+
+                      // DAO FAUCET DESKTOP
+                      <Flex
+                        className={styles["padding-resp"]}
+                        direction={["column-reverse", "column-reverse", "column", "column"]}
+                        bg={["none", "none", 'var(--bg-list)', 'var(--bg-list)']}
+                        borderRadius='10px'
+                        boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]}
+                        w={['100%', '100%', '100%', '100%']}
+                        textAlign={['center', 'center', 'center', 'left']}
+                        mx="auto"
+
+                      >
+                        <Flex justify="space-between" >
+                          <h2 className={styles["dao-title"]} >DAO <span className={styles["faucet"]}>Faucet</span></h2>
+                          <Box fontSize='15px' >
+                            <Text textAlign="end" fontSize="14px" opacity=".6" color="#909090">You already claimed</Text>
+                            <Text fontSize="16px" color=" #909090" fontWeight="600" textAlign="end">{claimed} MATIC</Text>
+                          </Box>
+                        </Flex>
+                        <Box w="95%" textAlign="start">
+                          <Box fontSize='15px' mb={5}>
+                            <Text fontWeight='800' mb="15px" fontSize="17px" color='#16C784'>
+                              {countdownValue}
+                            </Text>
+                            <Text color="#D3D3D3" mb={2}>MATIC for DAO members</Text>
+                          </Box>
+                        </Box>
+                        <Spacer />
+                        <Flex
+                          width='100%'
+                          justifyContent={['center', 'center', 'center', 'right']}
+                        >
+                          <Button
+                            className={styles["claim-matic"]}
+                            style={{ width: "135px", marginTop: "-60px", 'font-size': '1rem' } as any}
+                            onClick={async (e) => {
+                              e.preventDefault()
+                              try {
+                                var provider = new ethers.providers.Web3Provider(
+                                  (window as any).ethereum
+                                )
+                                var signer = provider.getSigner()
+                              } catch (e) {
+                                alert.show(
+                                  'You must connect your wallet to access the Dashboard.'
+                                )
+                              }
+                              try {
+                                const value = await new ethers.Contract(
+                                  VAULT_ADDRESS,
+                                  ['function claim() external'],
+                                  signer
+                                ).claim()
+                              } catch (e) {
+                                if (e.data && e.data.message) {
+                                  alert.error(e.data.message)
+                                } else {
+                                  alert.error('Something went wrong.')
+                                }
+                              }
+                            }}
+                          >
+                            <Flex justify="center" align="center">
+                              <Text ml="5px" mr="5px">Claim MATIC</Text>
+                              <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
+                            </Flex>                          </Button>
+                        </Flex>
+                      </Flex>
+                    )}
                   </Flex>
+                  {/* TITLE LEADERBOARD */}
+                  <Leaderboard top={[]} />
 
-                </Flex>
-                <Box bg="#191D2C" w="97%" borderRadius="10px" mt="10px" p={"40px 40px 40px 40px"} className={styles["noneDis"]}>
-                  <Text color="var(--text-color)" fontSize="22px" opacity="0.6">History</Text>
-                  <Box p="30px">
-                    <Flex fontSize="14px" align="center" mb="20px">
-                      <img src="/fullicon.png" height="25px" width="25px" />
-                      <Text color="var(--text-color)" opacity={.3} mx="10px">Mobula</Text>
-                      <Text color="var(--text-color)" opacity={.8} mr="15px">MOBL</Text>
-                      <Text color="var(--text-color)" opacity={.3} mr="20px">05/26/2022</Text>
-                      <Box h="13px" w="13px" mr="10px" borderRadius="50%" bg="#16C784"></Box>
-                      <Text>Validated by DAO</Text>
-                    </Flex>
-
-                    {/* TO REMOVE */}
-
-                    <Flex fontSize="14px" align="center" mb="20px">
-                      <img src="/fullicon.png" height="25px" width="25px" />
-                      <Text color="var(--text-color)" opacity={.3} mx="10px">Mobula</Text>
-                      <Text color="var(--text-color)" opacity={.8} mr="15px">MOBL</Text>
-                      <Text color="var(--text-color)" opacity={.3} mr="20px">05/26/2022</Text>
-                      <Box h="13px" w="13px" mr="10px" borderRadius="50%" bg="#16C784"></Box>
-                      <Text>Validated by DAO</Text>
-                    </Flex>
-
-                    <Flex fontSize="14px" align="center" mb="20px">
-                      <img src="/fullicon.png" height="25px" width="25px" />
-                      <Text color="var(--text-color)" opacity={.3} mx="10px">Mobula</Text>
-                      <Text color="var(--text-color)" opacity={.8} mr="15px">MOBL</Text>
-                      <Text color="var(--text-color)" opacity={.3} mr="20px">05/26/2022</Text>
-                      <Box h="13px" w="13px" mr="10px" borderRadius="50%" bg="#16C784"></Box>
-                      <Text>Validated by DAO</Text>
-                    </Flex>
-
-                    <Flex fontSize="14px" align="center" mb="20px">
-                      <img src="/fullicon.png" height="25px" width="25px" />
-                      <Text color="var(--text-color)" opacity={.3} mx="10px">Mobula</Text>
-                      <Text color="var(--text-color)" opacity={.8} mr="15px">MOBL</Text>
-                      <Text color="var(--text-color)" opacity={.3} mr="20px">05/26/2022</Text>
-                      <Box h="13px" w="13px" mr="10px" borderRadius="50%" bg="#16C784"></Box>
-                      <Text>Validated by DAO</Text>
-                    </Flex>
-
-                  </Box>
                 </Box>
               </Flex>
-
-
-
-
-              <Box w={['95%', '95%', '40%', '40%']}>
-                {/* DAO Faucet */}
-                <Flex >
-                  <Flex
-                    p='30px 30px 30px 30px'
-                    direction={["column-reverse", "column-reverse", "column", "column"]}
-                    bg={["none", "none", '#191D2C', '#191D2C']}
-                    borderRadius='10px'
-                    w={['100%', '100%', '90%', '95%']}
-                    textAlign={['center', 'center', 'center', 'left']}
-                    mx="auto"
-                  >
-                    <Flex justify="space-between">
-                      <h2 className={styles["dao-title"]} >DAO Faucet</h2>
-                      <Box fontSize='15px' >
-                        <Text textAlign="end" fontSize="14px" color="#909090">You already claimed</Text>
-                        <Text fontSize="16px" color="#909090" textAlign="end">{claimed} MATIC</Text>
-                      </Box>
-                    </Flex>
-
-
-                    <Box w="50%" textAlign="start">
-                      <Box fontSize='15px' mb={5}>
-
-                        <Text fontWeight='800' mb="15px" fontSize="17px" color='#16C784'>
-                          {countdownValue}
-                        </Text>
-                        <Text color="#D3D3D3" mb={2}>MATIC for DAO members</Text>
-                      </Box>
-
-                    </Box>
-
-                    <Spacer />
-                    <Flex
-                      width='100%'
-                      justifyContent={['center', 'center', 'center', 'right']}
-                    >
-                      <button
-                        className={styles["claim-matic"]}
-                        style={{ width: "135px", marginTop: "-60px", 'font-size': '1rem' } as any}
-                        onClick={async (e) => {
-                          e.preventDefault()
-
-                          try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
-                            var signer = provider.getSigner()
-                          } catch (e) {
-                            alert.show(
-                              'You must connect your wallet to access the Dashboard.'
-                            )
-                          }
-
-                          try {
-                            const value = await new ethers.Contract(
-                              VAULT_ADDRESS,
-                              ['function claim() external'],
-                              signer
-                            ).claim()
-                          } catch (e) {
-                            if (e.data && e.data.message) {
-                              alert.error(e.data.message)
-                            } else {
-                              alert.error('Something went wrong.')
-                            }
-                          }
-                        }}
-                      >
-                        Claim MATIC
-                      </button>
-                    </Flex>
-                  </Flex>
-
-                </Flex>
-                <Box bg="#191D2C" w="95%" borderRadius="10px" h="456px" m="10px auto" p={"30px 30px 30px 30px"} className={styles["noneDis"]}>
-                  <Text color="var(--text-color)" fontSize="22px" opacity="0.6">Leaderboard</Text>
-                  <Box p="50px 0px 0px 0px">
-
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">1.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">RohitGuru</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0x3e23..24b4)</Text>
-                      </Flex>
-                      <Flex whiteSpace="nowrap" >
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784" >207 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-
-                    {/* TO REMOVE  */}
-
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">2.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Arch</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0xAeB3..234e)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784">149 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">3.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Prince</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0xAB4c..124a)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784">140 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">4.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Beli</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0x3e23..24Z4)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784">207 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">1.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Beli</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0x3e23..24Z4)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784" >207 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">1.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Beli</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0x3e23..24Z4)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784">207 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-                    <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="5px">1.</Text>
-                        <Text color="var(--text-color)" opacity={.4} mx="5px">Beli</Text>
-                        <Text color="var(--text-color)" opacity=".7" mr="10px">(0x3e23..24Z4)</Text>
-                      </Flex>
-                      <Flex>
-                        <Text color="var(--text-color)" opacity={.3} mr="15px">Score :</Text>
-                        <Text ml="0px" color="#16C784">207 Correct Decisions</Text>
-                      </Flex>
-                    </Flex>
-
-                    {/* END OF REMOVE */}
-
-                  </Box>
-                </Box>
-              </Box>
-            </Flex>
+            </ColorModeProvider>
           </ChakraProvider>
         </Box>
       </div >
