@@ -28,7 +28,7 @@ function ListAToken(props: any) {
     const [discord, setDiscord] = useState("")
     const [addNote, setAddNote] = useState("")
     const [uploadedImage, setUploadedImage]: [any, Function] = useState();
-
+  
     async function submit(e: any) {
 
         e.preventDefault();
@@ -436,6 +436,7 @@ function ListAToken(props: any) {
                                             reader.readAsDataURL(e.target.files[0])
                                         }}
                                     />
+
                                     <span className={styles["waapu"]}>
                                         <Upload className={styles["upload-logo"]} />
                                         Browse to upload
@@ -448,7 +449,6 @@ function ListAToken(props: any) {
                                             value={logo}
                                             onChange={(e) => setLogo(e.target.value)}
                                             placeholder="https://mobula.fi/logo.png"
-                                            required
                                         ></input>
                                     </div>
                                 </div>
@@ -508,7 +508,7 @@ function ListAToken(props: any) {
                                     required
                                     id="msg"
                                     name="website"
-                                    placeholder="https:/app.mobula.finance"
+                                    placeholder="https://mobula.fi"
                                     value={website}
                                     onChange={(e) => setWebsite(e.target.value)}
                                 ></input>

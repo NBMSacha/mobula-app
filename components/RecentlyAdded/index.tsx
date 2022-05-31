@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../helpers/formaters';
-import { Text, Heading} from '@chakra-ui/react'
+import { Text, Heading } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
 
 export default function RecentlyAdded({ tokens }) {
@@ -29,7 +29,7 @@ export default function RecentlyAdded({ tokens }) {
             Here are the latest listings on Mobula. Do you want to see an asset here?
             <a
               className={styles.link}
-              href='https://app.mobula.finance/list'
+              href='https://mobula.fi/list'
             >
               Try to list it.
             </a>
@@ -121,7 +121,7 @@ export default function RecentlyAdded({ tokens }) {
                 <td className={styles["token-percentage"]}>
                   {token.price_change_24h < 0.01 ? (
                     <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-                       <div className={styles['triangle-red']}></div>
+                      <div className={styles['triangle-red']}></div>
                       {getTokenPercentage(token.price_change_24h)}%
                     </span>
                   ) || (

@@ -1040,7 +1040,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       </button>
                     )}
 
-                    {state === 'Buy' ? (
+                    {/* {state === 'Buy' ? (
                       <button onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
                         <span>Buy</span>
                       </button>
@@ -1048,7 +1048,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       <button onClick={() => { setState('Buy'); console.log(state) }} className={styles['chart-header-link']}>
                         <span>Buy</span>
                       </button>
-                    )}
+                    )} */}
 
                     <a
                       href='https://discord.gg/2a8hqNzkzN'
