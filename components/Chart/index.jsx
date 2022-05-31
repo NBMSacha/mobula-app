@@ -1129,7 +1129,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                               className={`${styles['button-chart']}${timeFormat === '30D' ? ' ' + styles['button-chart-active'] : ''}`}
                               id='30d'
                             >
-                              1M {JSON.stringify(month.length)}
+                              1M
                             </button> : <></>}
 
                             {(!year || (year.price && year.price.length)) ? <button
