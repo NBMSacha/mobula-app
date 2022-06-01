@@ -3,6 +3,8 @@ import { theme as ChakraTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 import { ButtonStyles as Button } from "./components/ButtonStyles";
 import { InputStyles as Input } from "./components/InputStyles"
+import { TextStyles as Text } from "./components/TextStyles"
+
 
 const overrides = {
   config: {
@@ -28,22 +30,22 @@ export const themeUltime = extendTheme({
     useSystemColorMode: false,
   },
   styles: {
-  global: (props) => ({
-    body: {
-      fontFamily: 'Poppins',
-      color: mode('#000', 'whiteAlpha.900')(props),
-      bg: mode("bg_white", "dark_primary")(props) ,
-      lineHeight: 'base',
-    },
-    '*::placeholder': {
-      color: mode('gray.400', 'whiteAlpha.400')(props),
-    },
-    '*, *::before, &::after': {
-      borderColor: mode('#000', 'whiteAlpha.300')(props),
-      wordWrap: 'break-word',
-    },
-  }),
- 
+    global: (props) => ({
+      body: {
+        fontFamily: 'Poppins',
+        color: mode('#000', 'whiteAlpha.900')(props),
+        bg: mode("bg_white", "dark_primary")(props),
+        lineHeight: 'base',
+      },
+      '*::placeholder': {
+        color: mode('gray.400', 'whiteAlpha.400')(props),
+      },
+      '*, *::before, &::after': {
+        borderColor: mode('#000', 'whiteAlpha.300')(props),
+        wordWrap: 'break-word',
+      },
+    }),
+
   },
   fontFamily: 'Poppins',
   colors: {
@@ -56,6 +58,7 @@ export const themeUltime = extendTheme({
     dark_border: "rgba(239, 242, 245, 0.05)",
     dark_header: "rgba(41, 44, 56, 0.3)",
     dark_input: "#111521",
+    dark_input_secondary: '#1A1E2F',
     dark_active: "rgba(255, 255, 255, 0.1)",
     dark_mobile_bg: "rgba(50, 53, 80, 0.25)",
     dark_grey: "rgba(255, 255, 255, 0.62)",
@@ -65,14 +68,14 @@ export const themeUltime = extendTheme({
     white_mobile_bg: "rgba(255, 255, 255, 0.25)",
     white_border_tendance: "#E5E5E5",
     dark_border_tendance: "rgba(229, 229, 229, 0.1)",
-    white_border_title:'#DADADA',
+    white_border_title: '#DADADA',
     dark_border_title: "rgb(218, 218, 218, .05)",
     white_sun_moon: '#F8F8F8',
     dark_sun_moon: '#f8f8f86e',
     white_text_tendance: "#3861FB",
     white_border: "#EFF2F5",
     dark_text_tendance: "#5C7DF9",
-    sun_moon_color:"#313131",
+    sun_moon_color: "#313131",
     subtitle: "#58667E",
     white_chart: "#d5d7dc",
     dark_chart: "#171c2f",
@@ -87,19 +90,20 @@ export const themeUltime = extendTheme({
     blue: "#5C7DF9",
     blue_title: "#3753B3",
     shadow: '#d0d6e3',
-    
+
     none: "none",
     green: '#16C784',
     red: '#EA3943'
-  
+
   },
 
   components: {
     Button,
-    Input
+    Input,
+    Text
   }
 
-  
+
 })
 
 
