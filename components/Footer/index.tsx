@@ -46,7 +46,7 @@ function Footer({ darkTheme, setDarkTheme }) {
   const breakpoint = 768
 
   const isGood = width <= breakpoint
-  const shadow = useColorModeValue("shadow", "none")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
   const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
   const hover = useColorModeValue("blue", "blue")

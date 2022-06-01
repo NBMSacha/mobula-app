@@ -329,7 +329,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
           ],
           xAxes: [
             {
-              gridLines: { display: false },
+              gridLines: { color: borderChart },
               type: 'time',
               distribution: 'linear',
               time: {
@@ -661,6 +661,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
   const bgChart = useColorModeValue("#F5F5F5", "#131727")
   const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
+  const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
   
   console.log(baseAsset)
   const renderData = () => {
@@ -677,78 +678,50 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
             <div className={styles['chart-top-token']}>
               <div className={styles['flex']}>
                 <div className={styles['chart-left-top']}>
-                  <img src={baseAsset.logo} className={styles['chart-token-logo']} />
+                  <img style={{marginRight: "20px"}} src={baseAsset.logo} className={styles['chart-token-logo']} />
                   <div className={styles['chart-name-box']}>
                     <div className={styles['chart-token-name']}>
-                      <span>{baseAsset.name}</span>
-                    </div>
-                    <div className={styles['chart-token-rank']}>
-                      {baseAsset.rank !== null && (
-                        <span className={styles["rank-span"]}>Rank #{baseAsset.rank}</span>
-                      )}
-
-                      {baseAsset.rank_change_24h < 0 ? (
-                        <span
-                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["red"]}`}
-                          id='noColor'
-                        >
-                          <Down className={styles['arrowDown']} />
-                          {Math.abs(baseAsset.rank_change_24h)}
-                        </span>
-                      ) : baseAsset.rank_change_24h == 0 ? (
-                        <div></div>
-                      ) : (
-                        <span
-                          className={`${styles["token-percentage-box"]} ${styles["font-char"]} ${styles["green"]}`}
-                          id='noColor'
-                        >
-                          <ArrowUp className='arrowUp' />
-                          {baseAsset.rank_change_24h}
-                        </span>
-                      )}{' '}
+                      <Text className={styles["rank-span"]} mr="15px" color="white_grey">#{baseAsset.rank}</Text>
+                      <Text>{baseAsset.name}</Text>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className={styles['chart-right-top']}>
-                <div className={styles['chart-box-container']}>
-                  <div className={styles['chart-right-info']}>
-                    <p className={styles['test']}>
-                      ${getTokenPrice(price || baseAsset.price)}
-                    </p>
-                    {baseAsset.price_change_24h < 0 ? (
-                      <div className={styles['chart-lose']}>
-                        <span>
-                          <ArrowDown />
-                        </span>
-                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
-                      </div>
-                    ) : (
-                      <div className={styles['chart-gain']}>
-                        <span>
-                          <ArrowUp className={styles["arrow"]} />
-                        </span>
-                        <span>{getTokenPercentage(baseAsset.price_change_24h)}%</span>
-                      </div>
-                    )}
-                  </div>
-                  {/* <div className={styles["chart-info-box"]}>
-                  <div className={styles["box-info"]}>
-                    <p className={styles["grey"]} style={{ marginRight: "14px !important" }}>High:</p>
-                    <p className={styles["numbers"]}>--</p>
-                  </div>
-                  <div className={styles["box-info"]}>
-                    <p className={`${styles["margin-Rnc"]} ${styles["grey"]}`} >Low:</p>
-                    <p className={styles["numbers"]} >--</p>
-                  </div>
-                </div> */}
-                </div>
-
-                <div className={styles['chart-buy']}>
-                  {/* <button className="chart-btn-buy">Buy / Sell</button> */}
-                </div>
-              </div>
+           
             </div>
+            <Flex justify="space-around" w="90%">
+                  {/* DAO SCORE */}
+                  <Flex align="center">
+                        <Text fontSize="14px">DAO Score : <span style={{color:'#3861FB', marginLeft:"14px"}} > {baseAsset.utility_score +
+                    baseAsset.social_score +
+                    baseAsset.market_score +
+                    baseAsset.trust_score} /20</span></Text>
+                  </Flex>
+
+                  {/* SCORE */}
+                  <Flex align="center">
+                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" mr="20px">Market : 
+                      <Text color={baseAsset.market_score >=4  ?'green' :  baseAsset.market_score <= 2 ? "red" :"none"}> {baseAsset.market_score}/5</Text>
+                    </Flex>
+                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" >Reliability : 
+                      <Text color={baseAsset.trust_score >=4  ? 'green' :  baseAsset.trust_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.trust_score}/5</Text>
+                    </Flex>
+                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity : 
+                      <Text color={baseAsset.social_score >=4  ? 'green' :  baseAsset.social_score <= 2 ? "red" :"none"} >{baseAsset.social_score}/5</Text>
+                    </Flex>
+                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between">Utility : 
+                      <Text color={baseAsset.utility_score >=4  ? 'green' :  baseAsset.utility_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.utility_score}/5</Text>
+                    </Flex>
+                  
+                  </Flex>
+                   {/* PRICE */}
+                   <Flex align="center">
+                     <Flex align="center" w="400px" justify="space-between">
+                        <Text fontSize="34px" >$ <span style={{marginLeft:"10px"}}> 1098.22</span></Text>
+                        <Text ml="10px" fontSize="13px" mt="7px" mb="auto">Holders: <span>4353545</span></Text>
+                     </Flex>
+                   </Flex>
+            </Flex>
             <div className={styles['mobile-showInfo-container']}>
               <div
                 style={{ 'display': 'none' }}
@@ -923,7 +896,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                     </p>
                   </span>
                 </div>
-                <div
+                {/* <div
                   className={
                     baseAsset.utility_score +
                       baseAsset.social_score +
@@ -992,7 +965,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                     <span>Market</span>
                     <span>{baseAsset.market_score}/5</span>
                   </button>
-                </div>
+                </div> */}
               </div>
               <div className={styles['chart-bottom-right']} >
                 <Flex className={styles['chart-box']} id='chart-box' borderLeft={`1px solid ${borderBox}`}>
@@ -1025,7 +998,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       href='https://discord.gg/2a8hqNzkzN'
                       className={`${styles['chart-header-link']} ${styles['report-problem']}`}
                     >
-                      <span id='inner'>Report</span>
+                      <span id='inner'>A problem ? report to the DAO </span>
                     </a>
                   </Flex>
                   {state === 'Charts' && (
@@ -1043,13 +1016,15 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       )}
                       {state === 'Overview' && (
                         <>
-                          <canvas id='chart'></canvas>
-                          <div
+                          <canvas id='chart' className={styles["chartCanvas"]}></canvas>
+                          <Flex
+                            bg={dateChangerBg}
                             className={styles['change-chart-date']}
                             style={{
                               display: 'flex',
                               justifyContent: 'end',
                               margin: 'auto',
+
                             }}
                           >
                             {(!day || (day.price && day.price.length != 0)) ? timeFormat === "1D" ? (
@@ -1125,7 +1100,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                             >
                               ALL
                             </button> : <></>}
-                          </div>
+                          </Flex>
 
                         </>
                       )}

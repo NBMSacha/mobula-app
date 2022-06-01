@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import styles from "./AllCharts.module.scss"
 import { Box, Text, Button, Flex, useColorModeValue } from '@chakra-ui/react'
 import { formatAmount } from '../../../../helpers/formaters';
+import { Spinner } from '@chakra-ui/react'
 
 const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   const [visible, setVisible] = useState(false);
@@ -181,7 +182,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
         return week.price
     }
   }
-
+  
   const generateChart = () => {
     var dayIf: any;
     var ctx = (document.getElementById(`${title}-${idx}`) as any).getContext('2d')
@@ -570,15 +571,26 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
             <>
             </>
           )}
-          {title !== "Holders" ? (
+          {title !== "Holders"  ? (
             <div>
               <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
             </div>
           ) : (
-            <div className={styles["mienai"]}>
-              <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
-            </div>
-
+            <>
+           
+            <Flex justify="center" align="center" >
+              <Spinner
+                  thickness='4px'
+                  speed='0.85s'
+                  emptyColor='red'
+                  color='blue'
+                  size='xl'
+                  p="30px"
+                  my="70px"
+                />
+                <canvas style={{display:"none"}} id={`${title}-${idx}`} width="270px" height="100px"></canvas>
+            </Flex>
+            </>
           )}
         </>
       </Box>

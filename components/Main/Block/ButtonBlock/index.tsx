@@ -71,7 +71,7 @@ function ButtonBlock({ setDisplay, display, setResults }) {
   }
   
   const input = useColorModeValue("white_input", "dark_input")
-  const shadow = useColorModeValue("shadow_color", "is_none")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   console.log(`shadow: ${shadow}`)
 
   return (

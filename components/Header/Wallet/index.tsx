@@ -147,7 +147,7 @@ function Wallet(props: any) {
     } catch (e) { }
   }, [])
   const input = useColorModeValue("white_input", "dark_header")
-  const shadow = useColorModeValue("shadow", "none")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   useOutsideAlerter(wrapperRef, setTriggerSearch)
 
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')

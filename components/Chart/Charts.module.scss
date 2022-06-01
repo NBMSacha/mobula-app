@@ -80,7 +80,7 @@
 
 .chart-left-top {
     width: auto;
-    width: 408px;
+    min-width: 320px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -104,6 +104,7 @@
 .chart-token-name>span {
     margin-bottom: 10px;
 }
+
 
 .star-chart {
     font-size: 30px;
@@ -476,7 +477,7 @@
     padding: 2% 0px 30px 0px;
     justify-content: center;
     width: 100%;
-    margin-bottom:40px;
+    margin-bottom:105px;
 
 }
 
@@ -515,8 +516,8 @@
 
 .change-chart-date {
     position: absolute;
-    top: -16px;
-    right: 0px;
+    top: -70px;
+    left: 0px;
     justify-content: center;
     align-items: center;
     padding: 2px;
@@ -741,6 +742,8 @@
     }
 }
 
+
+
 @media screen and (max-width: 768px) {
 
     .chart-gain,
@@ -931,7 +934,7 @@
     }
 
     .chart-left-top {
-        width: 165px;
+        max-width:200px
     }
 
     .chart-token-name {

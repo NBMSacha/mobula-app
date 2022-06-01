@@ -21,7 +21,7 @@ function GainerBlock(tokens: {
 }) {
 
   const containerColor = useColorModeValue("bg_white", "dark_secondary")
-  const shadowColor = useColorModeValue("shadow", "none")
+  const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
   
  
   console.log(tokens.title)
