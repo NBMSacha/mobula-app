@@ -10,7 +10,7 @@ import { PROTOCOL_ADDRESS } from "../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 
 function MenuMobile(props: any) {
 
@@ -199,9 +199,11 @@ function MenuMobile(props: any) {
       </>
     )
   } else {
+    const bg = useColorModeValue("bg_white", "dark_primary")
     return (
       <>
-        <div
+        <Flex
+          bg={bg}
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}
@@ -254,7 +256,7 @@ function MenuMobile(props: any) {
             <div className={styles['disconnect-wallet-mobile']}>
               <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
             </div>}
-        </div>
+        </Flex>
       </>
     )
   }

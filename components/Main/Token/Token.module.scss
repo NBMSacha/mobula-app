@@ -41,7 +41,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 22px;
-  color: var(--text-color);
   height: 120px;
 }
 
@@ -74,7 +73,7 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;
-  color: var(--text-color);
+ 
 }
 
 
@@ -100,7 +99,7 @@
 
 .asset-title-start {
   display: table-cell !important;
-  background: var(--bg-top);
+
   justify-content: flex-start;
   align-items: center;
   padding: 15px 0px !important;
@@ -123,7 +122,7 @@
 
 .tbodys {
   border-bottom: 1px solid var(--border-top-body);
-  color: var(--text-color);
+
 }
 
 .tbodys tr {
@@ -158,7 +157,6 @@
   justify-content: end;
   align-items: center;
 }
-
 .red {
   display: flex;
   justify-content: end;
@@ -185,7 +183,7 @@
     align-items: center;
     position: sticky;
     left: 0px;
-    background: var(--bg-top);
+  
     margin: 0px !important;
     padding: 15px 10px 15px 10px !important;
   }
@@ -256,7 +254,7 @@
 
 
 .white:visited {
-  color: var(--text-color);
+
 }
 
 
@@ -381,6 +379,15 @@
   .token-logos {
     height: 30px;
   }
+  .fu {
+    height:30px !important;
+    width:30px !important;
+    min-width:30px !important
+  }
+  .fi {
+    height:23px;
+    width:23px;
+  }
 
   .token-marketFully {
     margin-left: 0px !important;
@@ -396,7 +403,9 @@
     justify-content: start !important;
   }
 
-  .token-symbols {}
+  .token-symbols {
+
+  }
 
   .tokens-price {
     width: 32px !important;

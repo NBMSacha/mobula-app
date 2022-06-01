@@ -12,7 +12,13 @@ import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 
+import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+
 function News(props: any) {
+
+  
+
+
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [search, setSearch] = useState([]);
@@ -183,16 +189,20 @@ function News(props: any) {
 
         })
     }
-
   }
+
+  const gradient = useColorModeValue("white_gradient", "dark_gradient")
+  const border = useColorModeValue("white_border_title", "dark_border_title")
+  const sticky = useColorModeValue("bg_white", "dark_primary")
 
   return (
     <>
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
+     
         <MainBlock setDisplay={setDisplay} />
-        <div className={styles["three-container"]}>
+        <Flex bg={gradient} display={["none", "none", "flex", "flex"]}  w="100%" justify="space-around" px="50px" pb="50px">
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
               title={'Top Gainers'}
@@ -279,17 +289,17 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
-        </div>
+        </Flex>
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-        <table className={styles["table-style"]}>
-          <thead>
+        <table style={{minWidth: "1220px"}} className={styles["table-style"]}>
+          <thead  style={{borderBottom: `1px solid ${border}`,borderTop: `1px solid ${border}`}} >
             <tr className={styles[""]}>
               <th className={`${styles["ths"]} ${styles["removes"]}`}>Rank</th>
-              <th className={`${styles["ths"]} ${styles["asset-title-start"]}`}>Asset</th>
+              <th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{background: sticky}}>Asset</th>
               <th className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</th>
               <th className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
                 {textResponsive ? (

@@ -1,9 +1,12 @@
 import React from 'react'
 import styles from './tendance.module.scss'
-
+import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import { useMediaQuery } from '@chakra-ui/react'
 function Tendance(props: any) {
+  const border = useColorModeValue("white_border_tendance", "dark_border_tendance")
+  const [isLargerThan768] = useMediaQuery('(max-width: 768px)')
   return (
-    <div className={styles['info-tendance']}>
+    <Flex className={styles['info-tendance']} style={{borderTop: `1px solid ${border}`, borderBottom: isLargerThan768 ? `1px solid ${border}` : "none" }}>
       <div className={styles['info-left']}>
         <p className={styles['info-text']}>
           Crypto: <span className={styles['blue-data']}>{props.assets}</span>
@@ -24,7 +27,7 @@ function Tendance(props: any) {
           <span className={styles['blue-data']}>{props.listings}</span>
         </p>
       </div>
-    </div>
+    </Flex>
   )
 }
 

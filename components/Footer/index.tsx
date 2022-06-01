@@ -7,7 +7,9 @@ import {
   ColorModeProvider,
   useColorMode,
 } from '@chakra-ui/react'
+import { Link } from '@chakra-ui/react'
 
+import { Flex, Text,Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
 function Footer({ darkTheme, setDarkTheme }) {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
@@ -44,110 +46,111 @@ function Footer({ darkTheme, setDarkTheme }) {
   const breakpoint = 768
 
   const isGood = width <= breakpoint
+  const shadow = useColorModeValue("shadow", "none")
+  const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
+  const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
+  const hover = useColorModeValue("blue", "blue")
 
   return (
     <div className={styles['footer-main']}>
       <div className={styles['footer-left']}>
-        {darkTheme ? (
-          <img src='https://app.mobula.finance/newIcon.png' className={styles['logo-footer']} />
-        ) : (
-          <img src='https://app.mobula.finance/icon.png' className={styles['logo-footer-1']} />
-        )}
+      <Image
+          src="https://app.mobula.finance/icon.png"
+          h="45px"
+          mr={["0px","0px","5px","5px"]}
+          alt='logo'
+          onClick={() => (document.location.href = '/')}
+      />
 
         <div className={styles['social-container']}>
-          <a href='https://t.me/MobulaFi' className={styles['social-link']}>
+          <Link href='https://t.me/MobulaFi' _hover={{color: hover, textDecoration:"none"}} className={styles['social-link']}>
             <Send className={styles['social-logo']} />
-          </a>
-          <a
+          </Link>
+          <Link
             href='https://github.com/NBMSacha/mobula-app'
             className={styles['social-link']}
+            _hover={{color: hover, textDecoration:"none"}}
           >
             <GitHub className={styles['social-logo']} />
-          </a>
-          <a
+          </Link>
+          <Link
             href='https://twitter.com/MobulaFi'
             className={styles['social-link']}
+            _hover={{color: hover, textDecoration:"none"}}
           >
             <Twitter className={styles['social-logo']} />
-          </a>
+          </Link>
         </div>
       </div>
       <div className={styles['footer-right']}>
         <div className={styles['community']}>
           <span>Community</span>
           <ul>
-            <a href='https://discord.gg/nrkVNNke8Q'>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='https://discord.gg/nrkVNNke8Q' isExternal>
               <li>Discord</li>
-            </a>
-            <a href='https://t.me/MobulaFi'>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='https://t.me/MobulaFi' isExternal>
               <li>Telegram</li>
-            </a>
-            <a href='https://twitter.com/MobulaFi'>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='https://twitter.com/MobulaFi' isExternal>
               <li>Twitter</li>
-            </a>
+            </Link>
           </ul>
         </div>
         <div className={styles['community']}>
           <span>Press</span>
           <ul>
-            <a href=''>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='' >
               <li>Press kit</li>
-            </a>
-            <a href=''>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
               <li>Contact</li>
-            </a>
-            <a href=''>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
               <li>News</li>
-            </a>
+            </Link>
           </ul>
         </div>
         <div className={styles['community']}>
           <span>Ressources</span>
           <ul>
-            <a href=''>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
               <li>Documentation</li>
-            </a>
-            <a href=''>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
               <li>Whitepaper</li>
-            </a>
-            <a href=''>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
               <li>Medium</li>
-            </a>
+            </Link>
           </ul>
         </div>
         <div className={styles['help']}>
           <span>Help</span>
           <ul>
-            <a href=''>
+            <Link _hover={{color: hover, textDecoration:"none"}} href='' >
               <li>FAQs</li>
-            </a>
-            <a href=''>
+            </Link>
+            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
               <li>Support</li>
-            </a>
+            </Link>
           </ul>
         </div>
-        <div className={styles['darkmode']}>
-          {darkTheme ? (
-            <button className={styles["darkmode-btn"]} onClick={() => {
-              console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
-              localStorage.setItem("isDark", String(!darkTheme));
-              setDarkTheme(!darkTheme)
-            }}>
-              <Moon />
-              <span>White mode</span>
-            </button>
-          ) : (
-            <button className={styles["whitemode-btn"]} onClick={() => {
-              console.log(`CALL BTN : ${darkTheme} ${localStorage.getItem("isDark")}`)
-              localStorage.setItem("isDark", String(!darkTheme));
-              setDarkTheme(!darkTheme)
-            }}>
-              <Sun />
-              <span>Dark mode</span>
-            </button>
-          )}
+        <Flex align="center" h="50px">
+          <IconButton
+            boxShadow={`1px 2px 12px 3px ${shadow}`}
+        
+            onClick={toggleColorMode}
+            aria-label='Call Segun'
+            size='md'
+            borderRadius="12px"
+            color={colorSunMoon}
+            bg={sunMoon}
+            icon={colorMode == "light" ? <Moon/> : <Sun />}
+          />
+          <Text ml="10px">{colorMode == "light" ? "Dark Mode": "White Mode"}</Text>
 
-        </div>
+        </Flex>
       </div>
     </div>
   )

@@ -11,7 +11,6 @@
     font-weight: 400;
     font-size: 12px !important;
     line-height: 18px;
-    color:var(--text-color);
     padding-bottom: 0px;
     margin-bottom:0px;
     text-align: start;
@@ -44,7 +43,6 @@
     right: 0px;
     width: 32px;
     height: 32px;
-    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -52,7 +50,6 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: rgba(255, 255, 255, 0.3019607843);
     display: flex;
     position: absolute;
     align-items: center;
@@ -67,7 +64,6 @@
     width: 32px;
     height: 32px;
     border-radius: 10px;
-    background: rgba(163, 212, 244, 0.2);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -75,7 +71,6 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -85,10 +80,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: var(--bg-listing);
     border: none;
-    color: var(--text-color);
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
     border-radius: 10px;
     font-family: "Poppins";
     font-style: normal;
@@ -100,7 +92,6 @@
 .form-container-box > label {
     width: 100%;
     margin-bottom: 15px;
-    color: var(--text-color);
     opacity: 1;
     font-size: 14px;
 }
@@ -113,7 +104,6 @@
 .form-container-box-flex > div > label {
     width: 100%;
     margin-bottom: 15px;
-    color: var(--text-color);
     opacity: 1;
     font-size: 14px;
 }
@@ -121,10 +111,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: var(--bg-listing);
     border: none;
-    color: var(--text-color);
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
     border-radius: 10px;
     font-family: "Poppins";
     font-style: normal;
@@ -154,8 +141,6 @@
     height:98px;
     border-radius:10px;
     padding:2px;
-    background: var(--bg-listing);
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
     margin-bottom: 20px;
 }
 
@@ -213,7 +198,6 @@
     }
    
     .all-forms {
-        color: var(--text-color);
         align-items: center !important;
         flex-direction: row;
         width: 90%;
@@ -331,21 +315,17 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: 150px;
-    /* background-color: rgba(47, 54, 88, 0.1); */
 }
 .title-listToken {
     width: 90%;
-    border-bottom: 1px solid rgba(46, 53, 87, 0.5);
-    color: var(--text-color);
+
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .three-forms {
     width: 28%;
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
     padding:20px;
-    background: var(--bg-list);
     border-radius:20px;
     max-width: 450px ;
     margin-top:50px;
@@ -357,7 +337,7 @@
     margin-top: 20px;
 }
 .all-forms {
-    color: var(--text-color);
+
     align-items: start ;
     flex-direction: row;
     width: 90%;
@@ -369,7 +349,7 @@
 .form-container-box>label {
     width: 100%;
     margin-bottom: 15px;
-    color: var(--text-color);
+
     opacity: 1;
 }
 .relative-form {
@@ -379,9 +359,8 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: var(--bg-);
+
     border: none;
-    color: var(--text-color);
     border-radius: 10px;
 }
 .absolute-btn {
@@ -390,7 +369,6 @@
     width: 30px;
     height: 30px;
     border-radius: 10px;
-    background: var(--bg-listing);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -398,7 +376,6 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: #ffffff4d;
     display: flex;
     position: absolute;
     align-items: center;
@@ -408,9 +385,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: var(--bg-listing);
     border: none;
-    color: var(--text-color);
     border-radius: 10px;
     font-family: 'Poppins';
     font-style: normal;
@@ -419,7 +394,6 @@
     line-height: 18px;
 }
 .form-container-box>input::placeholder {
-    color: var(--text-color);
     text-overflow:ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -428,8 +402,7 @@
     width: auto;
     margin-bottom: 15px;
     height: 50px;
-    background: var(--bg-listing);
-    color: var(--text-color);
+
     font-family: 'Poppins';
     border: none;
     border-radius: 15px;
@@ -441,10 +414,8 @@
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 .listToken-container textarea::placeholder {
-    color: var(--text-color);
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
@@ -460,7 +431,6 @@
     display: flex;
     align-items: center;
     text-align: center;
-    color: var(--text-color);
 }
 .button-submit-form {
     justify-content: center;
@@ -476,7 +446,6 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    color: white;
     border: none;
     
     
@@ -492,7 +461,6 @@
     font-weight: 600;
     font-size: 30px;
     line-height: 18px;
-    color: var(--text-color);
 }
 .listingForm-text {
     font-family: 'Poppins';
@@ -500,7 +468,6 @@
     font-weight: 400;
     font-size: 15px;
     line-height: 18px;
-    color: var(--text-color);
     padding-bottom: 30px;
 }
 
@@ -509,7 +476,6 @@
     right: 0px;
     width: 32px;
     height: 32px;
-    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -517,7 +483,6 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -532,7 +497,6 @@
     width: 32px;
     height: 32px;
     border-radius: 10px;
-    background: var(--bg-listing);
     font-family: "Poppins";
     font-style: normal;
     font-weight: 400;
@@ -540,7 +504,6 @@
     line-height: 40px;
     display: flex;
     align-items: center;
-    color: var(--text-color);
     display: flex;
     position: absolute;
     align-items: center;
@@ -550,9 +513,7 @@
     width: auto;
     margin-bottom: 20px;
     height: 32px;
-    background: var(--bg-listing);;
     border: none;
-    color: var(--text-color);
     border-radius: 10px;
     font-family: "Poppins";
     font-style: normal;
@@ -564,7 +525,6 @@
 .form-container-box > label {
     width: 100%;
     margin-bottom: 15px;
-    color: var(--text-color);
     opacity: 1;
     font-size: 14px;
 }

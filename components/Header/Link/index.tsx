@@ -1,16 +1,18 @@
 import React from 'react'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
-
+import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
 
 function Link() {
   const router = useRouter()
+
+  const input = useColorModeValue("white_input", "dark_header")
+  const shadow = useColorModeValue("shadow", "none")
 
   if (router.pathname.includes('dao')) {
     return (
       <div className={styles['link-container']}>
         <span
-          className={styles['link-common']}
           onClick={() => (document.location.href = 'dashboard')}
         >
           Dashboard

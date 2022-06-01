@@ -4,10 +4,9 @@
   position: absolute;
   padding-top: 28px;
   width: 100%;
-  top: 72px;
+  top: 55px;
   right: 0px;
-  background: var(--bg-color);
-  height: 90vh;
+  height: 100vh;
   z-index: 5;
 }
 
@@ -26,7 +25,7 @@
   line-height: 18px;
   display: flex;
   align-items: center;
-  color: var(--text-color);
+
 }
 
 .linkTo {
@@ -42,7 +41,7 @@
 }
 
 .connect-wallet-mobile {
-  background: linear-gradient(90deg, #003fe1 8.9%, #64d0ff 87.31%);
+  background: #5C7DF9;
   border-radius: 10px;
   width: 110px;
   height: 46px;
@@ -63,7 +62,7 @@
   flex-direction: column;
   align-items: start;
   text-align: center;
-  color: var(--text-color);
+
   margin-left: 30px;
   font-family: 'Poppins';
   font-style: normal;

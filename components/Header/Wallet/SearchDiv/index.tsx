@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X } from 'react-feather';
 import styles from './searchdiv.module.scss'
-import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
+import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 import { getUrlFromName, getTokenPrice, getTokenPercentage } from '../../../../helpers/formaters'
 import { useRouter } from 'next/router'
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
@@ -48,7 +48,7 @@ function SearchDiv(props: any) {
       id: '',
     },
   ])
-
+  
   console.log(getTokenPercentage(results.price_change_24h))
 
   async function updateSearch(search: string, supabase: any, setResults: any) {
@@ -87,9 +87,11 @@ function SearchDiv(props: any) {
   }, [results])
 
   if (props.trigger) {
+
+    const bg = useColorModeValue("bg_white", "dark_primary")
     return (
-      <div ref={props.wrapperRef}>
-        <div className={styles['search-div']}>
+      <div  ref={props.wrapperRef} >
+        <Box className={styles['search-div']} bg={bg}>
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} />
             <input
@@ -162,7 +164,7 @@ function SearchDiv(props: any) {
               )
             })}
           </div>
-        </div>
+        </Box>
       </div>
     )
   } else {

@@ -20,7 +20,7 @@ import { volumeOracles, priceOracles, specialTokens, providers } from '../../con
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import Swap from "./Swap";
-import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex, Text} from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
 import Charts from "./Charts/index.jsx"
@@ -226,7 +226,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       isMobile ? 100 : isGiant ? 600 : 400
     )
     gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-    gradient.addColorStop(1, darkTheme ? '#131727' : "#f5f5f5")
+    gradient.addColorStop(1, bgChart)
 
     console.log(isWinner, data)
 
@@ -314,7 +314,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
         scales: {
           yAxes: [
             {
-              gridLines: { color: darkTheme ? '#282C3A' : "#EAEAEA" },
+              gridLines: { color: borderChart },
               ticks: {
                 beginAtZero: false,
                 maxTicksLimit: isMobile ? 4 : 8,
@@ -658,6 +658,10 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       daoRef.current.preventDefault()
     }
   }
+  const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
+  const bgChart = useColorModeValue("#F5F5F5", "#131727")
+  const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
+  
   console.log(baseAsset)
   const renderData = () => {
     return (
@@ -860,7 +864,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                 <span id='change' ref={changeRef}>More Stats</span>
               </button>
             </div>
-            <div className={styles['chart-bottom-container']}>
+            <Flex className={styles['chart-bottom-container']} borderTop={`1px solid ${borderBox}` } borderLeft={`1px solid ${borderBox}`}>
               <div className={styles['chart-bottom-left']}>
                 <div className={styles['left-top-box']}>
                   <span>
@@ -990,68 +994,40 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                   </button>
                 </div>
               </div>
-              <div className={styles['chart-bottom-right']}>
-                <div className={styles['chart-box']} id='chart-box'>
-                  <div className={styles['chart-header']}>
-                    {state === 'Overview' ? (
-                      <button
+              <div className={styles['chart-bottom-right']} >
+                <Flex className={styles['chart-box']} id='chart-box' borderLeft={`1px solid ${borderBox}`}>
+                  <Flex className={styles['chart-header']} borderBottom={`1px solid ${borderBox}`} >
+             
+                      <Button
+                        variant={state === 'Overview' ? "secondary" : "none" }
                         onClick={() => { setState('Overview'); }}
                         className={`${styles['chart-header-link']} ${styles['active-chart']}`}
                       >
                         Overview
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => { setState('Overview'); }}
-                        className={`${styles['chart-header-link']} `}
-                      >
-                        Overview
-                      </button>
-                    )}
-                    {state === 'Overview' && visible ? (
+                      </Button>
+                    
+                     {state === 'Overview' && visible ? (
 
-                      <p className={styles['warning']}>Loading...</p>
-                    ) : (
-                      <></>
-                    )}
-
-                    {state === 'Details' ? (
-                      <button className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
+                        <p className={styles['warning']}>Loading...</p>
+                      ) : (
+                        <></>
+                      )}
+                      <Button variant={state === 'Details' ? "secondary" : "none" } className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
                         <span>Infos</span>
-                      </button>
-                    ) : (
-                      <button className={styles['chart-header-link']} onClick={() => { setState('Details'); console.log(state) }}>
-                        <span>Infos</span>
-                      </button>
-                    )}
-
-                    {state === 'Charts' ? (
-                      <button onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                      </Button>
+                      <Button variant={state === 'Charts' ? "secondary" : "none" } onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
                         <span>Market</span>
-                      </button>
-                    ) : (
-                      <button onClick={() => { setState('Charts'); console.log(state) }} className={styles['chart-header-link']}>
-                        <span>Market</span>
-                      </button>
-                    )}
-
-                    {state === 'Buy' ? (
-                      <button onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                      </Button>      
+                      <Button variant={state === 'Buy' ? "secondary" : "none" } onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
                         <span>Buy</span>
-                      </button>
-                    ) : (
-                      <button onClick={() => { setState('Buy'); console.log(state) }} className={styles['chart-header-link']}>
-                        <span>Buy</span>
-                      </button>
-                    )}
-
+                      </Button>
                     <a
                       href='https://discord.gg/2a8hqNzkzN'
                       className={`${styles['chart-header-link']} ${styles['report-problem']}`}
                     >
                       <span id='inner'>Report</span>
                     </a>
-                  </div>
+                  </Flex>
                   {state === 'Charts' && (
                     <Charts baseAsset={baseAsset} darkTheme={darkTheme} />
                   )}
@@ -1156,9 +1132,9 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
                     </div>
                   </div>
-                </div>
+                </Flex>
               </div>
-            </div>
+            </Flex>
           </div>
           <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
           <header className=''>

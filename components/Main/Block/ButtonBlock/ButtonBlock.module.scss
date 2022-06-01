@@ -6,7 +6,7 @@
 
 .blockchain-btn-three {
   cursor: not-allowed !important;
-  height: 35px;
+
 
 }
 
@@ -39,7 +39,6 @@
   background: var(--bg-search);
   box-shadow: 0 0 10px var(--shadow-color);
   height: 54px;
-  color: var(--text-color);
   font-size: 24px;
   padding-left: 10px;
   border-radius: 10px;
@@ -55,11 +54,11 @@
 
 .white {
   background-color: var(----btn-hover) !important;
-  color: #000000;
+
+  
 }
 
 .rond {
-  background: #ffffff;
   position: absolute;
   top: 3px;
   left: 5px;
@@ -93,7 +92,6 @@
   display: flex;
   align-items: center;
   width: auto;
-  margin-top: 3rem;
   justify-content: center;
   padding-bottom: 30px;
 }
@@ -112,7 +110,6 @@
   display: flex;
   width: 86%;
   justify-content: space-around;
-  color: var(--text-color);
   align-items: center;
 }
 
@@ -147,7 +144,7 @@
 }
 
 .blockchain-btn {
-  background-color: var(--bg-main);
+  
   position: relative;
   border-radius: 10px;
   display: flex;
@@ -158,7 +155,6 @@
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   padding: 10px 15px;
   cursor: pointer;
-  color: var(--text-color);
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
@@ -192,18 +188,17 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-color);
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 .select-button-white {
   background-color: var(--active-btn);
-  color: #000000;
+
 }
 
 .colors {
-  color: rgba(187, 187, 187, 0.76);
+  width:20px;
   font-weight: bold;
 }
 
@@ -276,7 +271,7 @@
   }
 
   .blockchain-name {
-    font-size: 14px;
+    font-size: 12px;
   }
 
 
@@ -295,7 +290,7 @@
   .select-button,
   .select-button-white {
     width: 100px;
-    font-size: 13px;
+    font-size: 12px;
     padding: 8px 6px;
     border-radius: 8px;
   }
@@ -314,7 +309,7 @@
 
   .main-blockchain-container {
     margin-top: -45px;
-    margin-left: 20px;
+
   }
 
   .avax-btn {
@@ -333,21 +328,21 @@
   .three-blockchain-logo:nth-child(1) {
     width: 25px;
     height: 25px;
-    top: 4px;
+    top: 2px;
     left: 5px
   }
 
   .three-blockchain-logo:nth-child(2) {
     width: 25px;
     height: 25px;
-    top: 4px;
+    top: 2px;
     left: 15px
   }
 
   .three-blockchain-logo:nth-child(3) {
     width: 25px;
     height: 25px;
-    top: 4px;
+    top: 2px;
     left: 25px
   }
 
@@ -373,7 +368,7 @@
 
   .blockchain-btn-three {
     padding: 8px 6px;
-    height: 22px !important;
+ 
     width: 72px !important;
   }
 
@@ -398,7 +393,8 @@
   }
 
 .loupe{
-  opacity:0.5 !important
+  opacity:0.5 !important;
+
 }
 
   .marginFa {
@@ -416,7 +412,7 @@
   }
 
   .eth-btn-block {
-    width: 60px !important;
+
     height: 22px;
   }
 
@@ -425,7 +421,7 @@
     width: 100px;
     padding: 8px 6px;
     border-radius: 8px;
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
 
   .fullOnChain {
@@ -524,7 +520,7 @@
   }
 
   .eth-btn-block {
-    width: 55px !important;
+
   }
 
 
@@ -555,9 +551,7 @@
     display: none;
   }
 
-  .bsc-btn {
-    display: none !important;
-  }
+
 }
 
 @media screen and (max-width: 384px) {
@@ -595,5 +589,17 @@
 @media screen and (max-width:1000px) {
   .avax-btn {
     display: none;
+  }
+}
+
+@media screen and (max-width:1360px) {
+  .matic-btn {
+    display:none !important;
+  }    
+}
+
+@media screen and (max-width:1360px) {
+  .blockchain-container{
+    width: 95% !important;
   }
 }

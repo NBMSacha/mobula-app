@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Chart } from 'chart.js'
 import { createClient } from '@supabase/supabase-js'
 import styles from "./AllCharts.module.scss"
-import { Box, Text, Button, Flex } from '@chakra-ui/react'
+import { Box, Text, Button, Flex, useColorModeValue } from '@chakra-ui/react'
 import { formatAmount } from '../../../../helpers/formaters';
 
 const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
@@ -530,14 +530,14 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       setVisible(false)
     }
   }
-
+  const bgBoxBtn = useColorModeValue("white_chart", "dark_chart")
   return (
     <Box w={window.innerWidth > 768 ? "45%" : "95%"} mb={["30px"]}>
       <Text mb={4}>{title == 'No Rank' ? 'Rank (Coming Soon)' : title == 'Holders' ? 'Holders (Coming Soon)' : title}</Text>
       <Box p="20px 20px 20px 20px" bg={hiddenTitles.includes(title) ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
         <>
           {!hiddenTitles.includes(title) ? (
-            <Box position="absolute" top="-12.5px" width="120px" right="0px" bg={darkTheme ? "#2e3557" : "#F9F9F9"} p="2.5px 3px" borderRadius="10px 10px 10px 10px;">
+            <Box position="absolute" top="-12.5px" width="auto" right="0px" bg={bgBoxBtn} p="2.5px 3px" borderRadius="10px 10px 0px 10px;" >
               <Flex justify="space-around">
                 {(!day || (day.price && day.price.length > 0)) ? timeFormat === "1D" ? (
                   <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>

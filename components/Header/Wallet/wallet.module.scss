@@ -13,12 +13,10 @@
 }
 
 .loupe {
-  color: var(--text-color);
   font-size: 1.5rem;
-  position: absolute;
-  top: 13px;
-  left: 13px;
+  margin-left:20px;
   opacity:0.5 !important;
+  width: 42px ;
 }
 
 .image-earn{
@@ -29,7 +27,7 @@
 
 .connect-wallet-btn {
   border: none;
-  background: var(--bg-wallet);
+  background: #5C7DF9;
   font-size: 1.125rem;
   width: 12.5rem;
   height: 48px;
@@ -38,7 +36,7 @@
   border-radius: 8px;
   line-height: 18px;
   font-family: 'Inter', sans-serif;
-  color: white;
+  color:white;
 }
 
 .earn{
@@ -62,7 +60,6 @@
 }
 
 .hamburger {
-  color: var(--text-color);
   font-size: 25px;
 }
 
@@ -72,7 +69,11 @@
   }
 }
 
-@media screen and (max-width: 1060px) {}
+@media screen and (max-width: 1080px) {
+  .loupe{
+
+  }
+}
 
 @media screen and (max-width: 1060px) {
   .connect-wallet-btn {
@@ -82,7 +83,7 @@
     margin-left: auto;
     
   }
-
+  
 
   .hamburger-btn {
     display: inline-block;
@@ -99,6 +100,7 @@
   .earn{
  display:none !important
   }
+
   .notif-earn{
     height:17px;
     width:17px;
@@ -111,5 +113,11 @@
     display: flex;
     justify-content:center;
     align-items:center
+  }
+}
+ 
+@media screen and (max-width:991px) {
+  .loupe{
+    margin: auto;
   }
 }

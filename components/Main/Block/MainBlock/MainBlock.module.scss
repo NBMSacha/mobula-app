@@ -40,7 +40,7 @@
   font-size: 30px;
   line-height: 35px;
   letter-spacing: 0.02em;
-  color: var(--text-color);
+
 }
 
 .title-news>span {
@@ -55,7 +55,7 @@
   font-size: 14px;
 
   line-height: 16px;
-  color: var(--subtitle);
+
 }
 
 .subtitle-news-link {
@@ -68,7 +68,7 @@
 }
 
 .text {
-  color: var(--text-color);
+
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -117,7 +117,8 @@
 
   letter-spacing: -0.03em;
 
-  color: var(--text-color);
+
+  
 }
 
 .marginR {
@@ -128,7 +129,7 @@
   background: var(--bg-white);
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
   margin: 10px;
-  min-width: 280px;
+
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -185,7 +186,10 @@
     flex-direction: column;
     width: 100vw;
   }
-
+  .inside {
+    width: 45px;
+    height: 45px;
+  }
 
   .quadBox-container {
     width: 90%;
@@ -234,6 +238,19 @@
     margin-left: 0px;
     margin-bottom: 0px;
   }
+  
+.logo-box {
+  margin-left: 6px;
+  margin-right: 12px;
+  width: 60px;
+
+  background-size: 49px 49px, cover;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
   .quadBox-container {
     position: absolute;
@@ -246,7 +263,6 @@
 
   .texts-box {
     padding: 0px;
-
   }
 
   .quad-box-2 {
@@ -255,8 +271,8 @@
   }
 
   .inside {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
   }
 
   // .container-news {
@@ -342,11 +358,5 @@
     padding: 0px 10px;
   }
 
-  .logo-box {
-    top: 5px !important;
-    left: 5px !important;
-    width: 50px !important;
-    background-size: 42px 42px, cover;
-    height: 50px;
-  }
+
 }

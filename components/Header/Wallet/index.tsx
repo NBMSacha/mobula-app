@@ -10,7 +10,8 @@ import MenuMobile from './MenuMobile'
 import { useRouter } from 'next/router'
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { useMediaQuery } from '@chakra-ui/react'
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
@@ -145,38 +146,50 @@ function Wallet(props: any) {
 
     } catch (e) { }
   }, [])
-
+  const input = useColorModeValue("white_input", "dark_header")
+  const shadow = useColorModeValue("shadow", "none")
   useOutsideAlerter(wrapperRef, setTriggerSearch)
+
+  const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
+  const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
+
   return (
     <>
-      <Flex onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative'>
-        <img src='/fullicon.png' className={styles["image-earn"]} />
-        <span
-          style={{ 'marginRight': '5px', color: 'var(--text-color)' }}
-        >
-          Earn
-        </span>
+      
+      <Flex className={styles['relative']} >
+        <Flex onClick={() => router.push('/earn')} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={input} justify="center" align="center" className={styles['earn']} position='relative' >
+          <img src='/fullicon.png' className={styles["image-earn"]} />
+          <span
+            style={{ 'marginRight': '5px' }}
+          >
+            Earn
+          </span>
 
-        <Flex onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
-          <Text fontSize="12px" color="white">+1</Text>
+          <Flex onClick={() => router.push('/earn')}  justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+            <Text fontSize="12px" color="white">+1</Text>
+          </Flex>
         </Flex>
-      </Flex>
-      <div className={styles['relative']}>
-        <FiSearch
-          className={styles['loupe']}
-          onClick={() => {
-            setTriggerSearch(true)
-          }}
-        />
-        <input
-          onClick={() => {
-            setTriggerSearch(true)
-          }}
-          type='text'
-          className={styles['search-input-off']}
-          name='search'
-          placeholder={!isMobile ? 'Search Crypto Assets' : ''}
-        />
+        <Flex align="center" ml={["20px", "20px", "20px",  isLargerThan1080 ? "0px" : "20px" ]} borderRadius="10px" bg={["none", "none", "none" ,input]} mr="20px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]} w={["30px", "30px","30px", isLargerThan1180 ? "220px" : "160px"]} >
+          <FiSearch
+            className={styles['loupe']}
+            onClick={() => {
+              setTriggerSearch(true)
+            }}
+          />
+          <Input
+          display={["none","none","none", "block"]}
+          border="none"
+            _placeholder={{color: "none"}}
+            onClick={() => {
+              setTriggerSearch(true)
+            }}
+            bg="none"
+            w={["0px","0px","auto","auto"]}
+            type='text'
+            name='search'
+            placeholder={!isMobile ? 'Search ' : ''}
+          />
+        </Flex>
         <button
           className={styles['connect-wallet-btn']}
           onClick={handleConnect}
@@ -187,6 +200,7 @@ function Wallet(props: any) {
             account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
+        
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <button
           className={styles['hamburger-btn']}
@@ -199,7 +213,7 @@ function Wallet(props: any) {
             <><Menu className={styles['hamburger']} /> <Circle width="10px" fill={'#32C784'} className={styles['new']}></Circle></>
           )}
         </button>
-      </div>
+      </Flex>
       <MenuMobile />
     </>
   )

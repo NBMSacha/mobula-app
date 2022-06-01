@@ -1,5 +1,5 @@
 .info-text {
-  color: var(--text-tendance);
+  color: #58667E;
   font-family: 'Inter', 'Sans-sérif';
   font-size: 10px;
   margin-left: 2rem;
@@ -22,7 +22,7 @@
 }
 
 .blue-data {
-  color: var(--text-color-tendance);
+  color: #5C7DF9;
   font-family: 'Inter', 'Sans-sérif';
   font-size: 10px;
   margin-left: 0.6rem;
@@ -36,7 +36,7 @@ $primary: 'blue';
 
 @media screen and (max-width: 768px) {
   .info-tendance {
-    border-bottom: 1px solid var(--border-chart);
+
     padding: 5px 0px;
     white-space: nowrap;
     overflow: auto;

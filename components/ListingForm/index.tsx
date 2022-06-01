@@ -10,6 +10,10 @@ import { useAlert } from "react-alert";
 import { Upload } from "react-feather"
 import styles from "./ListingForm.module.scss";
 import { Spinner } from '@chakra-ui/react'
+import { extendTheme } from "@chakra-ui/react"
+import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea} from '@chakra-ui/react'
+import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
+import { Radio, RadioGroup, Button } from '@chakra-ui/react'
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -248,6 +252,9 @@ function ListAToken(props: any) {
             var inputs = document.createElement('input') as any;
             inputs.classList.add("inputCreated");
             inputs.placeholder = "0x...";
+            inputs.style.background = input
+            inputs.style.paddingLeft = "10px"
+            inputs.style.color = "none"
             inputs.type = "text"
             parent.appendChild(inputs);
         }
@@ -308,6 +315,8 @@ function ListAToken(props: any) {
             addressCreated.classList.add("inputCreatedAddress");
             addressCreated.placeholder = "0x";
             addressCreated.type = "text"
+            addressCreated.style.background = input
+            addressCreated.style.paddingLeft = "10px"
             appears.style.display = "flex"
             contracts.appendChild(addressCreated)
         }
@@ -382,48 +391,68 @@ function ListAToken(props: any) {
             console.log(`Sum not checked ${isSum}`)
         }
     }
+
+    const input = useColorModeValue("white_terciary", "dark_input_list")
+    const box = useColorModeValue('white_terciary', "dark_box_list")
+    const shadow = useColorModeValue("shadow", "none")
+    const btn = useColorModeValue("white", "black")
+
+
     return (
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]}>Listing form</h2>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
-                        <div className={styles["three-forms"]}>
+                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
                             <div className={styles["form-container-box-flex"]}>
                                 <div className={styles["inputs-container"]}>
                                     <label >Symbol *</label>
-                                    <input
+                                    <Input
+                                        pl="10px"
                                         className={styles["inputs"]}
                                         required
+                                        _placeholder={{color: "none"}}
+                                        bg={input}
                                         id="msg"
                                         name="website"
+                                        boxShadow={`1px 2px 12px 3px ${shadow}`}
                                         placeholder="MOBL"
                                         value={symbol}
                                         onChange={(e) => setSymbol(e.target.value)}
-                                    ></input>
+                                    ></Input>
                                 </div>
                                 <div className={styles["inputs-container"]}>
                                     <label >Name *</label>
-                                    <input
+                                    <Input
+                                        pl="10px"
+                                        boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                        variant="filled"
                                         className={styles["inputs"]}
                                         required
+                                        _placeholder={{color: "none"}}
                                         id="msg"
                                         name="name"
+                                        bg={input}
                                         placeholder="Mobula Finance"
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
-                                    ></input>
+                                    ></Input>
                                 </div>
                             </div>
                             <div className={styles["form-container-box-flex"]}>
                                 <div>
                                     <label>Upload Logo *</label>
-                                    <div className={styles["upload-box"]}>
+                                    <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
                                         {uploadedImage || logo ? <img src={uploadedImage ? uploadedImage : logo} /> : <></>}
-                                    </div>
+                                    </Flex>
                                 </div>
                                 <div className={styles["file"]}>
-                                    <input type="file" id="file" name="file" accept="image/png, image/jpg" multiple className={styles["select-file"]}
+                                    <Input type="file" id="file" name="file" accept="image/png, image/jpg" multiple className={styles["select-file"]}
+                                        bg={input}
+                                        
+                                        _placeholder={{color: "none"}}
+                                        
                                         onChange={(e) => {
                                             console.log('Dingue')
                                             const reader = new FileReader();
@@ -441,38 +470,47 @@ function ListAToken(props: any) {
                                         Browse to upload
                                     </span>
                                     <div className={styles["form-container-box"]} >
-                                        <input
+                                        <Input
+                                            pl="10px"
                                             id="logo"
+                                            boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                            variant="filled"
+                                            bg={input}
                                             className={styles["inputs"]}
                                             name="logo"
                                             value={logo}
+                                            _placeholder={{color: "none"}}
                                             onChange={(e) => setLogo(e.target.value)}
                                             placeholder="https://mobula.fi/logo.png"
                                             required
-                                        ></input>
+                                        ></Input>
                                     </div>
                                 </div>
                             </div>
                             <div className={styles["form-container-box"]} id='parents'>
                                 <label >Contract Address *</label>
-                                <input
+                                <Input
+                                    pl="10px"
                                     type="text"
                                     id="contract"
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                    bg={input}
                                     value={contract}
                                     className={`${styles["contract"]} ${styles["inputs"]}`}
                                     placeholder="0x9ad6c38be94206.."
+                                    _placeholder={{color: "none"}}
                                     onChange={(e) => setContract(e.target.value)}
                                     required
-                                ></input>
-                                <button type="button" className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
+                                ></Input>
+                                <button type="button" style={{background:input}} className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
                             </div>
                             <div className={styles["noappears"]} id="noappears">
                                 <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <input type="radio" id="totalSupply" name="scales" onClick={() => isSumOfTotalSupply()} />
+                                    <Radio bg={input} type="radio" id="totalSupply" pl="10px" _placeholder={{color: "none"}} name="scales" onClick={() => isSumOfTotalSupply()} />
                                     <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
                                 </div>
                                 <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <input type="radio" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
+                                    <Radio pl="10px" _placeholder={{color: "none"}} bg={input} type="radio" variant="primary" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
                                         onChange={(e) => {
                                             var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
                                             var totalSupply = document.getElementById("totalSupply") as any;
@@ -490,32 +528,45 @@ function ListAToken(props: any) {
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >Description *</label>
-                                <textarea
+                                <Textarea
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
                                     id="msg"
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                    bg={input}
                                     name="description"
                                     className={styles["inputs"]}
                                     placeholder="Mobula Finance is the first decentralized data aggregator supporting all chains ..."
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     required
-                                ></textarea>
+                                ></Textarea>
                             </div >
-                        </div>
-                        <div className={styles["three-forms"]}>
+                        </Flex>
+                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
                             <div className={styles["form-container-box"]}>
                                 <label >Website *</label>
-                                <input
+                                <Input
+                                    pl="10px"   
+                                    _placeholder={{color: "none"}}
+                                    variant="primary"
                                     required
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     id="msg"
+                                    bg={input}
                                     name="website"
                                     placeholder="https:/app.mobula.finance"
                                     value={website}
                                     onChange={(e) => setWebsite(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >Twitter *</label>
-                                <input
+                                <Input
+                                    pl="10px"   
+                                     _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     type="text"
                                     id="name"
                                     name="twitter"
@@ -523,11 +574,15 @@ function ListAToken(props: any) {
                                     value={twitter}
                                     required
                                     onChange={(e) => setTwitter(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >Telegram *</label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                     _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     value={telegram}
                                     required
                                     onChange={(e) => setTelegram(e.target.value)}
@@ -538,7 +593,11 @@ function ListAToken(props: any) {
                             </div>
                             <div className={styles["form-container-box"]} >
                                 <label >Discord *</label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     id="discord"
                                     className={styles["inputs"]}
                                     name="discord"
@@ -546,63 +605,79 @@ function ListAToken(props: any) {
                                     onChange={(e) => setDiscord(e.target.value)}
                                     placeholder="https://t.me/MobulaFi"
                                     required
-                                ></input>
+                                ></Input>
                             </div>
-                        </div>
-                        <div className={styles["three-forms"]}>
+                        </Flex>
+                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
                             <div className={styles["form-container-box"]}>
                                 <label >Audit Link (Optional) </label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                    bg={input}
                                     type="text"
                                     id="audit"
                                     name="audit"
                                     placeholder="https://safetin.com/audits/mobula"
                                     value={audit}
                                     onChange={(e) => setAudit(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >KYC Link (Optional) </label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     type="text"
                                     id="kyc"
                                     name="kyc"
                                     placeholder="https://staysafu.org/kyc/mobula"
                                     value={kyc}
                                     onChange={(e) => setKYC(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
                             <div className={styles["form-container-box"]}>
                                 <label >Additionnal notes (Optional) </label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     type="text"
                                     id="kyc"
                                     name="kyc"
                                     placeholder="Other links , missing infos , notes ..."
                                     value={addNote}
                                     onChange={(e) => setAddNote(e.target.value)}
-                                ></input>
+                                ></Input>
                             </div>
 
                             <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
                                 <label>Excluded from Circulation </label>
-                                <input
+                                <Input
+                                    pl="10px"
+                                    _placeholder={{color: "none"}}
+                                    bg={input}
+                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
                                     name="excluded"
                                     placeholder="0x5D3e4C0FE11e0..."
                                     className={styles["inputPlus"]}
                                     value={excluded}
                                     id="excluded"
                                     onChange={(e) => setExcluded(e.target.value)}
-                                ></input>
-                                <button type="button" className={styles["absolute-btn"]} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
+                                ></Input>
+                                <button type="button" className={styles["absolute-btn"]} style={{background:input}} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
                             </div>
                             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
-                                <button className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                                <button style={{color:btn}} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
                             </div>
                             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                                <button className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                                <button  style={{color:btn}} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
                             </div>
-                        </div>
+                        </Flex>
                     </form>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import { supportedRPCs } from '../../../constants';
 import { formatName } from '../../../helpers/formaters';
 import { Send, Twitter, Globe } from "react-feather";
 import Contract from '../../Utils/Contract';
+import {Flex, Button, useColorModeValue } from "@chakra-ui/react"
 
 const ProjectInfo = ({ token, blockchain }) => {
 
@@ -23,26 +24,28 @@ const ProjectInfo = ({ token, blockchain }) => {
         <div className={styles["main-container"]}>
             <div className={styles["left"]}>
                 <div className={token.kyc == null && token.audit == null ? styles["left-top-box-center"] : styles["left-top-box"]}>
-                    <div className={styles["social-links"]}>
-                        {token.website !== "" ? (
-                            <a href={token.website} target="_blank"><Globe className={styles["icons"]} /></a>
-                        ) : (<></>)}
-                        {token.twitter !== "" ? (
-                            <a href={token.twitter} target="_blank"><Twitter className={styles["icons"]} /></a>
-                        ) : (<></>)}
-                        {token.chat !== "" ? (
-                            <a href={token.chat} target="_blank"><Send className={styles["icons"]} /></a>
-                        ) : (<></>)}
-                    </div>
+                    <Flex >
+                        <Flex mr="50px" className={styles["social-links"]}>
+                            {token.website !== "" ? (
+                                <a href={token.website} target="_blank"><Globe className={styles["icons"]} /></a>
+                            ) : (<></>)}
+                            {token.twitter !== "" ? (
+                                <a href={token.twitter} target="_blank"><Twitter className={styles["icons"]} /></a>
+                            ) : (<></>)}
+                            {token.chat !== "" ? (
+                                <a href={token.chat} target="_blank"><Send className={styles["icons"]} /></a>
+                            ) : (<></>)}
+                        </Flex>
 
-                    <div className={styles["audit-links"]}>
-                        {token.kyc !== null ? (
-                            <a href={token.kyc} target="_blank" className={styles["kyc"]} onClick={() => console.log(token.kyc)}>KYC</a>
-                        ) : (<></>)}
-                        {token.audit !== null ? (
-                            <a href={token.audit} target="_blank" className={styles["audit"]} onClick={() => console.log(token.audit)}>Audit</a>
-                        ) : (<></>)}
-                    </div>
+                        <div className={styles["audit-links"]}>
+                            {token.kyc == null ? (
+                                <a href={token.kyc} target="_blank" className={styles["kyc"]} onClick={() => console.log(token.kyc)}>KYC</a>
+                            ) : (<></>)}
+                            {token.audit == null ? (
+                                <a href={token.audit} target="_blank" className={styles["audit"]} onClick={() => console.log(token.audit)}>Audit</a>
+                            ) : (<></>)}
+                        </div>
+                    </Flex>
                 </div>
                 <div className={styles["left-top-box"]}>
                     <p className={styles["description"]} id="description" ref={refDescription}>

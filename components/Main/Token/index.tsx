@@ -6,9 +6,9 @@ import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
 import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
-import { Flex } from '@chakra-ui/react';
 import { stableTokens, tokensPerBlockchain, volumeOracles } from '../../../constants';
 import axios from 'axios';
+import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
 
 async function refreshPrice(contracts: string[], blockchains: string[], pairs: string[], setPrice: Function, name) {
   let subgraphSuccess = 0;
@@ -248,8 +248,12 @@ function Token(token: {
     }
     return token.name
   }
+  
+  const border = useColorModeValue("white_border", "dark_border")
+const sticky = useColorModeValue("bg_white", "dark_primary")
+
   return (
-    <tbody id="nul" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+    <tbody id="nul" style={{borderBottom: `1px solid ${border}`}} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
       <tr className={styles["trs"]}>
         <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} >
           <a href="" className={styles["white"]}>
@@ -264,10 +268,10 @@ function Token(token: {
                 {token.rank_change_24h}
               </span>
             )}
-            <span style={{ marginLeft: "10px" }}>{token.rank}</span>
+            <span style={{ marginLeft: "10px", opacity: .6 }}>{token.rank}</span>
           </a>
         </td>
-        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} >
+        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{background: sticky}}>
           <Flex align="center">
             <img src={token.logo} className={styles["token-logos"]} />
             <div className={styles["wrap-name"]}>
@@ -302,7 +306,7 @@ function Token(token: {
           <span className={` ${styles["font-char"]}`}>
             {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
         </td>
-        <td className={styles["ths"]}>
+        <td className={styles["ths"]} style={{display:"flex", justifyContent:"end"}}>
           <div className={styles["media-icons"]}>
             {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
             {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
@@ -310,7 +314,7 @@ function Token(token: {
           </div>
         </td>
         <td className={styles["ths"]}>
-          {(token.id ? <img src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> : <></>)}
+          {(token.id ? <img style={{margin: "0px auto"}} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> : <></>)}
         </td>
       </tr>
     </tbody>

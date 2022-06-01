@@ -13,11 +13,6 @@
     width: 50%;
 }
 
-.button-chart-active{
-    background: #b8b8b8 !important;
-    color:var(--text-color) !important;
-    
-}
 .button-chart{
     padding:4px 10px ;
     margin:1px 10px;
@@ -43,7 +38,7 @@
 }
 
 .btn-more-less {
-    background-color: var(--charts);
+
     border: none;
     margin-top: 15px;
     border-radius: 6px;
@@ -71,7 +66,6 @@
 }
 
 .btn-more-less>span {
-    color: var(--text-color);
     opacity: 0.6;
 }
 
@@ -105,7 +99,6 @@
     line-height: 18px;
     display: flex;
     align-items: center;
-    color: var(--text-color);
 }
 
 .chart-token-name>span {
@@ -115,7 +108,6 @@
 .star-chart {
     font-size: 30px;
     margin-left: 15px;
-    color: var(--text-color);
     margin-bottom: 15px;
 }
 
@@ -137,7 +129,6 @@
     font-weight: 500;
     font-size: 20px;
     line-height: 18px;
-    color: var(--text-color);
     display: flex;
     flex-direction: row;
     display: flex;
@@ -164,13 +155,10 @@
     font-weight: 500;
     font-size: 11px;
     line-height: 18px;
-    color: var(--text-color);
-
 }
 
 .chart-right-top {
     display: flex;
-    color: var(--text-color);
     width: auto;
     justify-content: space-around;
 }
@@ -210,7 +198,6 @@
     font-weight: 500;
     font-size: 30px;
     line-height: 18px;
-    color: var(--text-color);
     width: 150px;
     margin-bottom: 20px;
     display: flex;
@@ -224,7 +211,6 @@
     font-weight: 500;
     font-size: 30px;
     line-height: 18px;
-    color: var(--text-color);
     width: 80%;
     margin-bottom: 20px;
 }
@@ -264,7 +250,6 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    color: #FFFFFF;
     margin-right: 10px;
     margin-top: 40px;
 }
@@ -283,7 +268,6 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    color: #FFFFFF;
     margin-right: 10px;
     margin-top: 40px;
 }
@@ -310,7 +294,6 @@
     font-style: normal;
     font-weight: 500;
     line-height: 18px;
-    color: var(--text-color);
     opacity: 0.6;
     margin-right: 54px;
     margin-bottom: 0px;
@@ -323,7 +306,6 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
-    color: var(--text-color);
     margin-bottom: 0px;
     margin-top: 0px;
 }
@@ -383,9 +365,6 @@
     width: 90%;
     margin-top: 15px;
     /* margin-top: 30px; */
-    border-left: 1px solid var(--border-chart);
-    border-bottom: 1px solid var(--border-chart);
-    border-top: 1px solid var(--border-chart);
 }
 
 .chart-bottom-left {
@@ -409,7 +388,6 @@
     font-weight: 500;
     font-size: 11px;
     line-height: 18px;
-    color: var(--text-color);
     opacity: 0.6;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -422,7 +400,6 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
-    color: var(--text-color);
     margin-top: 10px;
     margin-bottom: 15px;
     word-break: break-word;
@@ -435,7 +412,6 @@
     flex-direction: column;
     align-items: center;
     padding: 1.8vw 0px;
-    border-top: 1px solid var(--border-chart);
 }
 
 .left-bottom-box-dis {
@@ -447,7 +423,6 @@
     padding: 1.8vw 0px;
     opacity: 0.3;
     cursor: not-allowed;
-    border-top: 1px solid var(--border-chart);
 }
 
 .left-bottom-box-dis>* {
@@ -460,12 +435,10 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 18px;
-    color: var(--text-color);
  
 }
 
 .notes-boxs {
-    background: var(--dao-score);
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
@@ -473,7 +446,6 @@
     padding: 10px 10px;
     margin-bottom: 9px;
     width: 9vw;
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 .grades {
@@ -488,7 +460,6 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    border-left: 1px solid var(--border-chart);
 }
 
 .chart-box {
@@ -505,7 +476,6 @@
     padding: 2% 0px 30px 0px;
     justify-content: center;
     width: 100%;
-    border-bottom: 1px solid var(--border-chart);
     margin-bottom:40px;
 
 }
@@ -516,7 +486,6 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-    color: var(--text-color);
     margin-right: 30px;
     background: none;
     border: none;
@@ -548,13 +517,11 @@
     position: absolute;
     top: -16px;
     right: 0px;
-    background-color: var(--bg-listing);
     justify-content: center;
     align-items: center;
     padding: 2px;
     width: auto;
     border-radius: 10px;
-    box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 .activeMoover {
@@ -567,8 +534,6 @@
     margin-top: 2px;
     margin-left: 3px;
     margin-bottom: 1px;
-    color:white;
-    background-color: #191D2C;
     transform: translateX(0%);
     transition: right 250ms ease-in-out
 }
@@ -582,21 +547,13 @@
 }
 
 .button-chart {
-    color: var(--text-color);
     z-index: 2;
-
 }
 
-
-
-.d {
-    
-}
 
 .active-chart {
     background: var(--overview);
     border-radius: 10px;
-    color:var(--text-color)
 }
 
 .text-top-chart {
@@ -614,7 +571,6 @@
     top: 60%;
     left: 50%;
     z-index: 1000;
-    color: var(--text-color);
 }
 
 /* ============================ MEDIA QUERY ============================ */
@@ -647,7 +603,6 @@
         flex-direction: column;
         height: auto;
         width: auto;
-        background-color: rgba(47, 54, 88, 1);
         position: absolute;
         top: 30px;
         left: 0px;
@@ -677,7 +632,6 @@
 
     .left-bottom-box {
         padding: 0.8vw 0px;
-        border-top: 1px solid var(--charts);
         margin: 0px auto;
         margin-top: 8px;
     }
@@ -706,12 +660,6 @@
         margin-right: 1.5vw;
         padding-right: 1.5vw;
 
-    }
-
-    .button-chart-active{
-        background: #b8b8b8 !important;
-        color:white !important;
-        
     }
     .button-chart{
         padding:0px 8px !important;
@@ -748,9 +696,7 @@
         font-weight: 500;
         font-size: 11px;
     }
-
 }
-
 
 @media screen and (max-width: 992px) {
     .chart-header {
@@ -885,7 +831,6 @@
         top: -30px;
         right: 20%;
         left: 20%;
-        background-color: var(--charts);
         justify-content: center;
         padding: 1px;
         border-radius: 7px;
@@ -1051,7 +996,6 @@
         font-weight: 500;
         font-size: 11px;
         line-height: 18px;
-        color: var(--text-color);
         opacity: 0.6;
     }
 
@@ -1061,7 +1005,6 @@
         font-weight: 500;
         font-size: 11px;
         line-height: 18px;
-        color: var(--text-color);
         opacity: 0.6;
     }
 }

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: auto;
+  align-items:center;
   height: auto;
   background: var(--bg-news-box);
 }
@@ -31,7 +32,6 @@
 
 .ranked-main-container {
   /* background: rgba(47, 54, 88, 0.1); */
-  color: #f7f7f7;
   overflow: auto;
   margin-left: auto;
   margin-right: auto;
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   text-align: center;
-  color: #ffffff;
+
 }
 
 .token-title-assets {
@@ -253,8 +253,13 @@
 }
 
 
+.center-social{
+  text-align: center !important;
+}
 
-
+.removes{
+  text-align:center !important;
+}
 
 
 
@@ -267,20 +272,20 @@
   border-collapse: collapse;
   width: 100%;
   cursor: pointer;
-  max-width: 1400px;
-  color: rgb(245, 245, 245);
+
   margin: 0px auto;
+  max-width:1600px;
 }
 
 .table-style thead tr {
   text-align: left;
   border-bottom: 1px solid var(--border-top);
   border-top: 1px solid var(--border-top);
-  color: var(--text-color)
+
 }
 
 .ths {
-  padding: 15px 20px;
+  padding: 25px 20px;
   text-align: end;
   font-size: 15px;
   font-weight: 500;
@@ -345,7 +350,6 @@
     text-align: start !important;
     position: sticky;
     left: 0px;
-    background: var(--bg-news);
     margin: 0px 0px 0px 10px !important;
     padding: 15px 10px !important;
   }
@@ -371,6 +375,18 @@
 @media screen and (max-width: 768px) {
   .tables-main-container {
     margin-left: 20px;
-    color: #000119
+  
+  }
+  .ths {
+    padding: 0px 12px;
+    text-align: end;
+    font-size: 12px !important;
+    font-weight: 500;
+  }
+  .table-style{
+    min-width: 851px !important;
+  }
+  .tables-main-container{
+    margin-left:0px;
   }
 }

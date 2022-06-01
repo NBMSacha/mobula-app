@@ -6,10 +6,9 @@
   font-size: 15px;
   width: 50%;
   margin-right: 10px;
-  
+  max-width: 666px;
 }
 .link-common {
-  color: var(--text-color);
   margin-left: 3.8rem;
   white-space: nowrap;
   overflow: hidden;
@@ -24,11 +23,18 @@
 }
 
 
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 1090px) {
   .link-container {
     display: none;
   }
 }
+
+@media screen and (max-width: 1550px) {
+  .link-container {
+    max-width: 456px;
+  }
+}
+
 @media screen and (max-width: 1450px) {
   .link-container {
     margin-right: 10px;
