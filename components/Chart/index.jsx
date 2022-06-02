@@ -1006,7 +1006,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       <Button variant={state === 'Charts' ? "secondary" : "none" } onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
                         <span>Market</span>
                       </Button>      
-                      <Button variant={state === 'Buy' ? "secondary" : "none" } onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
+                      <Button disabled variant={state === 'Buy' ? "secondary" : "none" } onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
                         <span>Buy</span>
                       </Button>
                     <a

@@ -10,7 +10,7 @@ import {
     ColorModeProvider,
     CSSReset
 } from '@chakra-ui/react';
-import theme from '../../theme/index'
+
 
 
 function Governance() {
@@ -162,14 +162,7 @@ function Governance() {
     return (
         <div className='listing'>
             <div className='container'>
-                <ChakraProvider theme={theme}>
-                    <CSSReset />
-                    <ColorModeProvider
-                        options={{
-                            initialColorMode: 'light',
-                            useSystemColorMode: true,
-                        }}
-                    >
+
                         <header>
                             <Heading mb={'20px'}>Governance</Heading>
                             <Text fontSize={['14px', '14px', '16px', '17px']}>
@@ -248,8 +241,6 @@ function Governance() {
 
                         </Flex>
 
-                    </ColorModeProvider>
-                </ChakraProvider>
             </div>
         </div >)
 }
