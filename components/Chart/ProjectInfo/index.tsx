@@ -40,10 +40,10 @@ const ProjectInfo = ({ token, blockchain }) => {
                         </Flex>
 
                         <div className={styles["audit-links"]}>
-                            {token.kyc == null ? (
+                            {token.kyc !== null ? (
                                 <Link href={token.kyc} bg={bg} boxShadow={`1px 2px 12px 3px ${shdw}`} target="_blank" className={styles["kyc"]} onClick={() => console.log(token.kyc)}>KYC</Link>
                             ) : (<></>)}
-                            {token.audit == null ? (
+                            {token.audit !== null ? (
                                 <Link href={token.audit} bg={bg} boxShadow={`1px 2px 12px 3px ${shdw}`} target="_blank" className={styles["audit"]} onClick={() => console.log(token.audit)}>Audit</Link>
                             ) : (<></>)}
                         </div>

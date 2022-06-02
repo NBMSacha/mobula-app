@@ -817,7 +817,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                    ) : (
                     <>
                   <Flex mt="10px">
-                    <Flex align="center" display={["none","none","none","flex"]} >
+                    <Flex align="center" display={["none","none","none","flex"]} mt="20px">
                           <Text fontSize="14px" marginRight="120px">DAO Score : <span style={{color:'#3861FB', marginLeft:"14px"}} > --/20</span></Text>
                     </Flex>
                     <Flex align="center" display={["none","none","none","flex"]} mt="20px" >

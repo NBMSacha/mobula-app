@@ -532,7 +532,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   console.log(baseAsset)
   const bgBoxBtn = useColorModeValue("none", "dark_chart")
   const bg = useColorModeValue("white", "dark_primary")
-  const shadow = useColorModeValue("#dfdfdf", "none")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow", "none")
   const color = useColorModeValue("#000", "#FFF")
 
   return (
