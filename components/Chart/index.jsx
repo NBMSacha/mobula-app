@@ -20,7 +20,7 @@ import { volumeOracles, priceOracles, specialTokens, providers } from '../../con
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import Swap from "./Swap";
-import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex, Text} from '@chakra-ui/react'
+import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex,Box, Text} from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
 import theme from '../../theme/index'
 import Charts from "./Charts/index.jsx"
@@ -627,13 +627,13 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     try {
       if (hideRef.current.style.display == 'none') {
         console.log('changin style to flex')
-        changeRef.current.innerHTML = 'Less Stats'
+        changeRef.current.innerHTML = ' Show Less Stats -'
         hidedaoRef.current.style.display = 'flex'
 
         return (hideRef.current.style.display = 'flex')
       } else {
 
-        changeRef.current.innerHTML = 'More Stats'
+        changeRef.current.innerHTML = 'Show More Stats +'
         hidedaoRef.current.style.setProperty('display', 'none', 'important')
         return (hideRef.current.style.display = 'none')
       }
@@ -661,10 +661,24 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
   const bgChart = useColorModeValue("#F5F5F5", "#131727")
   const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
+  const active = useColorModeValue("black", "white")
   const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
+  const daoMobile = useColorModeValue("#EFEFEF", "none")
+
   
   console.log(baseAsset)
   const renderData = () => {
+
+    const [scoreVisible, setScoreVisible] = useState(false)
+    const [isRed, setIsRed] = useState(false)
+    // if(baseAsset.utility_score + baseAsset.social_score + baseAsset.market_score + baseAsset.trust_score !== 0) {
+    //   setIsRed(true)
+    // } else {
+    //   setIsRed(false)
+    // }
+    console.log(baseAsset)
+    console.log(Math.abs(baseAsset.price_change_24h))
+    const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
       <>
 
@@ -675,52 +689,156 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
         </Head>
         <div className='App'>
           <div className={styles['chart-main-container']}>
-            <div className={styles['chart-top-token']}>
-              <div className={styles['flex']}>
-                <div className={styles['chart-left-top']}>
-                  <img style={{marginRight: "20px"}} src={baseAsset.logo} className={styles['chart-token-logo']} />
-                  <div className={styles['chart-name-box']}>
-                    <div className={styles['chart-token-name']}>
-                      <Text className={styles["rank-span"]} mr="15px" color="white_grey">#{baseAsset.rank}</Text>
-                      <Text>{baseAsset.name}</Text>
-                    </div>
-                  </div>
-                </div>
-              </div>
-           
-            </div>
-            <Flex justify="space-around" w="90%">
-                  {/* DAO SCORE */}
-                  <Flex align="center">
-                        <Text fontSize="14px">DAO Score : <span style={{color:'#3861FB', marginLeft:"14px"}} > {baseAsset.utility_score +
+            <Flex direction="column" className={styles['chart-top-token']}>
+              <Flex  w="90%" margin="auto" justify={["space-between","space-between","space-between","space-between"]} align="center">
+                <Flex w="45%" h="auto" className={styles['chart-left-top']} justify="center" align={["start","start","start","space-around"]} direction="column">
+                 <Flex  mb="8px" align="center" direction="column">
+                    <Flex>
+                      <img style={{marginRight: "10px"}} src={baseAsset.logo} className={styles['chart-token-logo']} />
+                      <Flex className={styles['chart-name-box']}>
+                        <div className={styles['chart-token-name']}>
+                          <Text className={styles["rank-span"]} mr="5px" color="white_grey">#{baseAsset.rank}</Text>
+                          <Text>{baseAsset.name}</Text>
+                        </div>
+                      </Flex>
+                    </Flex>
+                    
+                      <Text mb="0px" ml="25px" mt={["0px","0px", "-10px",'-10px']} fontSize="10px"><a href="/">Top 100</a> > {baseAsset.name}</Text>
+                    
+                </Flex>
+                <Flex>
+                  <Flex align="center" mt="0px" display={["flex", "flex", "flex", "none"]}>
+                    <Text boxShadow={`1px 2px 12px 3px ${shadowColor}`} borderRadius="6px" p="2px 5px" bg={daoMobile} fontSize="13px">Dao Score <span style={{color: baseAsset.utility_score +
                     baseAsset.social_score +
                     baseAsset.market_score +
-                    baseAsset.trust_score} /20</span></Text>
+                    baseAsset.trust_score !== 0 ? "#5C7DF9" : "#5C7DF9", marginLeft: "20px"}}>{baseAsset.utility_score +
+                      baseAsset.social_score +
+                      baseAsset.market_score +
+                      baseAsset.trust_score } /20</span></Text>
+                    <Button fontSize="12px" ml="10px" onClick={() => {
+
+                      setScoreVisible(!scoreVisible)}
+                      }>+</Button>
+                  </Flex>
+                </Flex>
+                </Flex>
+                <Flex  direction="column">
+                  <Flex whiteSpace="nowrap">
+                    <Text fontSize={["22px", "22px", "22px","34px"]} >$ <span style={{marginLeft:"10px"}}> {getTokenPrice(baseAsset.price)}</span></Text>
+                    <Flex align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
+
+                      <Box className={getTokenPercentage(baseAsset.price_change_24h) > 0 ? styles['triangle-green'] : styles['triangle-red'] }></Box>
+                      {getTokenPercentage(baseAsset.price_change_24h)}%
+                    </Flex>
+                  </Flex>
+                  <Flex>
+                  <Flex fontSize="13px" direction="column" justify="center" w="108px">
+                        <Text display="flex" justifyContent="space-between">High: <span>$2235</span></Text>
+                        <Text display="flex" justifyContent="space-between">Low: <span >$2125</span></Text>
+                  </Flex>
+                  </Flex>
+                </Flex>
+              </Flex>
+              <Flex  w="100%" justify={["space-between","space-between","space-between","start"]} align="center">
+                <Flex w="100%"  justify={["space-between","space-between","space-between","space-around"]}>
+                 
+                  
+                </Flex>
+                
+              </Flex>
+             
+              
+            </Flex>
+             {scoreVisible ? (
+                <Flex  w="100%" justify='center' align="center" mt="20px">
+
+                   
+                <Flex align="center" w='85%' justify={"center"} direction="column" bg={daoMobile} py="10px" boxShadow={`1px 2px 12px 3px ${shadowColor}`} borderRadius="10px"> 
+                  <Flex w="90%" fontSize="12px"  display="flex" justifyContent="space-between" mr="20px" m="auto"> 
+                    <Flex width="120px" justify="space-between">
+                      <Text>Market : </Text>
+                      <Text color={baseAsset.market_score >=4  ?'green' :  baseAsset.market_score == 0 ? "none" : baseAsset.market_score <= 2 ? "red" : "none"} ml="20px"> {baseAsset.market_score > 0 ? baseAsset.market_score : "--"}/5</Text>
+                    </Flex>
+                    <Flex width="120px" justify="space-between">
+                      <Text>Reliability : </Text>
+                      <Text  color={baseAsset.trust_score >=4  ? 'green' :  baseAsset.trust_score == 0 ? "none" : baseAsset.trust_score <= 2 ? "red" : "none"}>{baseAsset.trust_score > 0 ? baseAsset.market_score : "--"}/5</Text>
+                    </Flex>
                   </Flex>
 
-                  {/* SCORE */}
-                  <Flex align="center">
-                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" mr="20px">Market : 
-                      <Text color={baseAsset.market_score >=4  ?'green' :  baseAsset.market_score <= 2 ? "red" :"none"}> {baseAsset.market_score}/5</Text>
+                  <Flex w="90%" fontSize="12px"  display="flex" justifyContent="space-between" mr="20px" m="auto" mt="10px"> 
+                    <Flex width="120px" justify="space-between">
+                      <Text>Ativity : </Text>
+                      <Text  color={baseAsset.social_score >=4  ? 'green' :  baseAsset.social_score == 0 ? "none" : baseAsset.social_score <= 2 ? "red" : "none"} ml="20px">{baseAsset.social_score > 0 ? baseAsset.market_score : "--"}/5</Text>
                     </Flex>
-                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" >Reliability : 
-                      <Text color={baseAsset.trust_score >=4  ? 'green' :  baseAsset.trust_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.trust_score}/5</Text>
+                    <Flex width="120px" justify="space-between">
+                      <Text>Utility : </Text>
+                      <Text  color={baseAsset.utility_score >=4  ? 'green' :  baseAsset.utility_score == 0 ? "none" : baseAsset.utility_score <= 2 ?"red" : "none"} ml="20px">{baseAsset.utility_score > 0 ? baseAsset.market_score : "--"}/5</Text>
                     </Flex>
-                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity : 
-                      <Text color={baseAsset.social_score >=4  ? 'green' :  baseAsset.social_score <= 2 ? "red" :"none"} >{baseAsset.social_score}/5</Text>
-                    </Flex>
-                    <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between">Utility : 
-                      <Text color={baseAsset.utility_score >=4  ? 'green' :  baseAsset.utility_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.utility_score}/5</Text>
-                    </Flex>
-                  
                   </Flex>
-                   {/* PRICE */}
-                   <Flex align="center">
-                     <Flex align="center" w="400px" justify="space-between">
-                        <Text fontSize="34px" >$ <span style={{marginLeft:"10px"}}> 1098.22</span></Text>
-                        <Text ml="10px" fontSize="13px" mt="7px" mb="auto">Holders: <span>4353545</span></Text>
-                     </Flex>
-                   </Flex>
+                </Flex>
+            </Flex>
+              ) : (<></>)} 
+            <Flex justify="center" w="100%" >
+                  {/* DAO SCORE */}
+                  {baseAsset.utility_score +
+                    baseAsset.social_score +
+                    baseAsset.market_score +
+                    baseAsset.trust_score !== 0 ? (
+
+                   <>
+                   <Flex mt={["0px","0px","0px","14px"]}>
+                      <Flex align="center" display={["none","none","none","flex"]} mr="150px">
+                            <Text fontSize="14px" >DAO Score : <span style={{color:'#3861FB', marginLeft:"14px"}} > {baseAsset.utility_score +
+                        baseAsset.social_score +
+                        baseAsset.market_score +
+                        baseAsset.trust_score} /20</span></Text>
+                      </Flex>
+
+                      
+                      <Flex align="center" display={["none","none","none","flex"]}> 
+                        <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" mr="20px">Market : 
+                          <Text color={baseAsset.market_score >=4  ?'green' :  baseAsset.market_score <= 2 ? "red" :"none"}> {baseAsset.market_score}/5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" >Reliability : 
+                          <Text color={baseAsset.trust_score >=4  ? 'green' :  baseAsset.trust_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.trust_score}/5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity : 
+                          <Text color={baseAsset.social_score >=4  ? 'green' :  baseAsset.social_score <= 2 ? "red" :"none"} >{baseAsset.social_score}/5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between">Utility : 
+                          <Text color={baseAsset.utility_score >=4  ? 'green' :  baseAsset.utility_score <= 2 ? "red" :"none"} ml="20px">{baseAsset.utility_score}/5</Text>
+                        </Flex>
+                      
+                      </Flex>
+            
+                    </Flex>
+                  </>
+
+                   ) : (
+                    <>
+                  <Flex mt="10px">
+                    <Flex align="center" display={["none","none","none","flex"]} >
+                          <Text fontSize="14px" marginRight="120px">DAO Score : <span style={{color:'#3861FB', marginLeft:"14px"}} > --/20</span></Text>
+                    </Flex>
+                    <Flex align="center" display={["none","none","none","flex"]} mt="20px" >
+                        <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" mr="20px">Market : 
+                          <Text color={baseAsset.market_score >=4  ?'green' :  baseAsset.market_score <= 2 ? "red" :"none"}>-- /5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" >Reliability : 
+                          <Text color={baseAsset.trust_score >=4  ? 'green' :  baseAsset.trust_score <= 2 ? "red" :"none"} ml="20px">-- /5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity : 
+                          <Text color={baseAsset.social_score >=4  ? 'green' :  baseAsset.social_score <= 2 ? "red" :"none"} >-- /5</Text>
+                        </Flex>
+                        <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between">Utility : 
+                          <Text color={baseAsset.utility_score >=4  ? 'green' :  baseAsset.utility_score <= 2 ? "red" :"none"} ml="20px">-- /5</Text>
+                        </Flex>
+                      </Flex>
+                    </Flex>
+                 
+                    </>)} 
+                 
+                  
             </Flex>
             <div className={styles['mobile-showInfo-container']}>
               <div
@@ -755,7 +873,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                   </div>
                 </div>
                 <div className={styles['mobile-info-right-column']}>
-                  <div className={styles['mobbox']}>
+                  <div className={styles['mobboxx']}>
                     <span className={styles['grey']}>CIRCULATING SUPPLY</span>
                     <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
                       {baseAsset.circulating_supply
@@ -764,7 +882,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       {baseAsset.symbol}
                     </p>
                   </div>
-                  <div className={styles['mobbox']}>
+                  <div className={styles['mobboxx']}>
                     <span className={styles['grey']}>TOTAL SUPPLY </span>
                     <p className={styles['numbers']}>
                       {baseAsset.total_supply
@@ -773,7 +891,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                       {baseAsset.symbol}
                     </p>
                   </div>
-                  <div className={styles['mobbox']}>
+                  <div className={styles['mobboxx']}>
                     <span className={styles['grey']}>LIQUIDITY </span>
                     <p className={styles['numbers']}>
 
@@ -787,58 +905,24 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
               <button
                 id='hidedao'
                 ref={hidedaoRef}
-                className={`${baseAsset.utility_score +
-                  baseAsset.social_score +
-                  baseAsset.market_score +
-                  baseAsset.trust_score ==
-                  0
-                  ? styles['absolute-mobile-dis']
-                  : styles['absolute-mobile']
-                  } ${styles["hidedao"]}`}
                 onClick={() => {
                   // mobileDaoBtn()
                 }}
               >
-                <span>DAO Score</span>
-                <span>
-                  {baseAsset.utility_score +
-                    baseAsset.social_score +
-                    baseAsset.market_score +
-                    baseAsset.trust_score} /20
-
-                </span>
-                <div
-                  style={{ display: 'none' }}
-                  className={styles['mobile-grades']}
-                  id='daoBtn-mobile'
-                >
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Utility</span>
-                    <span>{baseAsset.utility_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Social</span>
-                    <span>{baseAsset.social_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Trust</span>
-                    <span>{baseAsset.trust_score}/5</span>
-                  </div>
-                  <div className={styles['mobile-notes-boxs']}>
-                    <span>Market</span>
-                    <span>{baseAsset.market_score}/5</span>
-                  </div>
-                </div>
+       
               </button>
-              <button
+              <Button
+                w="90%"
+                display={["flex","flex","none","none"]}
+                boxShadow={`1px 2px 13px 3px ${shadowColor}`}
                 className={styles['btn-more-less']}
                 onClick={() => moreStats()}
               >
-                <span id='change' ref={changeRef}>More Stats</span>
-              </button>
+                <span id='change' ref={changeRef} >Show More Stats +</span>
+              </Button>
             </div>
-            <Flex className={styles['chart-bottom-container']} borderTop={`1px solid ${borderBox}` } borderLeft={`1px solid ${borderBox}`}>
-              <div className={styles['chart-bottom-left']}>
+            <Flex className={styles['chart-bottom-container']} borderTop={["none","none","none",`1px solid ${borderBox}`] } borderLeft={["none","none","none",`1px solid ${borderBox}`] }>
+              <Flex className={styles['chart-bottom-left']} display={["none", "none" , "none", "flex"]}>
                 <div className={styles['left-top-box']}>
                   <span>
                     <p
@@ -896,80 +980,11 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                     </p>
                   </span>
                 </div>
-                {/* <div
-                  className={
-                    baseAsset.utility_score +
-                      baseAsset.social_score +
-                      baseAsset.market_score +
-                      baseAsset.trust_score ==
-                      0
-                      ? styles['left-bottom-box-dis']
-                      : styles['left-bottom-box']
-                  }
-                  id='dropdown'
-                  ref={dropdownRef}
-                >
-                  <button
-                    className={styles['notes-boxs']}
-                    id='btnNotes'
-                    onClick={() => daoBtn()}
-                  >
-                    <span className={styles['tagV']}>{"DAO SCORE" + " " + ""} </span>
-                    <span>
-                      {baseAsset.utility_score +
-                        baseAsset.social_score +
-                        baseAsset.market_score +
-                        baseAsset.trust_score} /20
-
-                    </span>
-                    <div className={styles['grades']} id='daoBtn' ref={daoRef}>
-                      <div className={styles['notes-boxs']}>
-                        <span>Utility</span>
-                        <span>{baseAsset.utility_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Social</span>
-                        <span>{baseAsset.social_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Trust</span>
-                        <span>{baseAsset.trust_score}/5</span>
-                      </div>
-                      <div className={styles['notes-boxs']}>
-                        <span>Market</span>
-                        <span>{baseAsset.market_score}/5</span>
-                      </div>
-                    </div>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Utility</span>
-                    <span>{baseAsset.utility_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Social</span>
-                    <span>{baseAsset.social_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Trust</span>
-                    <span>{baseAsset.trust_score}/5</span>
-                  </button>
-                  <button
-                    className={`${styles['notes-boxs']} ${styles['disapear']}`}
-                  >
-                    <span>Market</span>
-                    <span>{baseAsset.market_score}/5</span>
-                  </button>
-                </div> */}
-              </div>
+               
+              </Flex>
               <div className={styles['chart-bottom-right']} >
-                <Flex className={styles['chart-box']} id='chart-box' borderLeft={`1px solid ${borderBox}`}>
-                  <Flex className={styles['chart-header']} borderBottom={`1px solid ${borderBox}`} >
+                <Flex className={styles['chart-box']} id='chart-box' borderLeft={["none","none","none",`1px solid ${borderBox}`] }>
+                  <Flex className={styles['chart-header']} borderBottom={["none","none",`1px solid ${borderBox}`,`1px solid ${borderBox}`] } >
              
                       <Button
                         variant={state === 'Overview' ? "secondary" : "none" }
@@ -1023,83 +1038,133 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                             style={{
                               display: 'flex',
                               justifyContent: 'end',
-                              margin: 'auto',
+                              marginLeft: 'auto',
 
                             }}
                           >
-                            {(!day || (day.price && day.price.length != 0)) ? timeFormat === "1D" ? (
-                              <button
+                         {(!day || (day.price && day.price.length != 0)) ? timeFormat === "1D" ? (
+                              <Button
                                 onClick={() => {
                                   setTimeFormat('1D')
                                 }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} style={{ margin: "0px !important" }}
+                                className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} color={active} style={{ margin: "0px !important"}}
                                 id='1d'
                               >
                                 1D
-                              </button>
+                              </Button>
                             ) : (
-                              <button
+                              <Button
                                 onClick={() => {
                                   setTimeFormat('1D')
                                 }}
                                 className={`${styles['button-chart']} ${styles['d']}`}
-
+                                color="grey"
+                                
                               >
                                 1D
-                              </button>
+                              </Button>
                             ) : <></>}
-                            {(!week || (week.price && week.price.length != 0)) ? timeFormat === "7D" ? (
-                              <button
+                            {(!week || (week.price && week.price.length)) ? timeFormat === "7D" ? (
+                              <Button
+                                color={active} 
                                 onClick={() => {
                                   setTimeFormat('7D')
                                 }}
                                 className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-
+                               
                                 id='7d'
                               >
                                 7D
-                              </button>
+                              </Button>
                             ) : (
                               <button
                                 onClick={() => {
                                   setTimeFormat('7D')
                                 }}
                                 className={styles['button-chart']}
-                                id='7d'
+                                color="grey"
+                               
                               >
                                 7D
                               </button>
                             ) : <></>}
 
-                            {(!month || (month.price && month.price.length != 0)) ? <button
-                              onClick={() => {
-                                setTimeFormat('30D')
-                              }}
-                              className={`${styles['button-chart']}${timeFormat === '30D' ? ' ' + styles['button-chart-active'] : ''}`}
-                              id='30d'
-                            >
-                              1M
-                            </button> : <></>}
+                             
 
-                            {(!year || (year.price && year.price.length != 0)) ? <button
-                              onClick={() => {
-                                setTimeFormat('1Y')
-                              }}
-                              className={`${styles['button-chart']}${timeFormat === '1Y' ? ' ' + styles['button-chart-active'] : ''}`}
-                              id='1y'
-                            >
-                              1Y
-                            </button> : <></>}
 
-                            {(!all || (all.price && all.price.length != 0)) ? <button
-                              onClick={() => {
-                                setTimeFormat('ALL')
-                              }}
-                              className={`${styles['button-chart']}${timeFormat === 'ALL' ? ' ' + styles['button-chart-active'] : ''}`}
-                              id='all'
-                            >
-                              ALL
-                            </button> : <></>}
+                                  {(!month || (month.price && month.price.length)) ? timeFormat === "30D" && (
+                                        <Button
+                                          color={active} 
+                                          onClick={() => {
+                                            setTimeFormat('30D')
+                                          }}
+                                          className={`${styles['button-chart']} ${styles['button-chart-active']}`}
+                                          
+                                          id='30d'
+                                        >
+                                          1M
+                                        </Button>
+                                      ) : (
+                                        <button
+                                          onClick={() => {
+                                            setTimeFormat('30D')
+                                          }}
+                                          className={styles['button-chart']}
+                                          color="grey"
+                                          id='30d'
+                                        >
+                                          1M
+                                        </button>
+                                    )}
+
+                                {(!year || (year.price && year.price.length)) ? timeFormat === "1Y" ? (
+                                  <Button
+                                  color={active} 
+                                    onClick={() => {
+                                      setTimeFormat('1Y')
+                                    }}
+                                    className={`${styles['button-chart']} ${styles['button-chart-active']}`}
+                                  
+                                    id='1Y'
+                                  >
+                                    1Y
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={() => {
+                                      setTimeFormat('1Y')
+                                    }}
+                                    className={styles['button-chart']}
+                                    color="grey"
+                                    id='1Y'
+                                  >
+                                    1Y
+                                  </Button>
+                            ) : <></>}
+                                {(!all || (all.price && all.price.length)) ? timeFormat === "ALL" ? (
+                                  <Button
+                                  color={active} 
+                                    onClick={() => {
+                                      setTimeFormat('ALL')
+                                    }}
+                                    className={`${styles['button-chart']} ${styles['button-chart-active']}`}
+                                  
+                                    id='ALL'
+                                  >
+                                    ALL
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    onClick={() => {
+                                      setTimeFormat('ALL')
+                                    }}
+                                    className={styles['button-chart']}
+                                    color="grey"
+                                    id='ALL'
+                                  >
+                                    ALL
+                                  </Button>
+                            ) : <></>}
                           </Flex>
 
                         </>

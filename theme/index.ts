@@ -77,7 +77,8 @@ export const themeUltime = extendTheme({
     white_chart: "#d5d7dc",
     dark_chart: "#171c2f",
     dark_date_changer: "#6C6C6C",
-    white_date_changer: "#484848",
+    white_date_changer: "#EFEFEF",
+    kyc:"#262A4D",
 
     // WHITE
     white_gradient: "linear-gradient(180deg, #EEEEEE 20%, rgba(248, 250, 252, 0) 100.94%)",

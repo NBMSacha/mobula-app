@@ -19,11 +19,12 @@ export default function Contract({ contract, blockchain }) {
             align="center"
             position="relative"
             justify="left"
-            width="185px"
+            minWidth="165px"
             bg={contracts}
             mt='12px'
-            h="40px"
+            h="30px"
             p="0px 10px"
+            px="10px"
             boxShadow={`0px 1px 12px 3px ${bg}`} 
             borderRadius='10px'
             

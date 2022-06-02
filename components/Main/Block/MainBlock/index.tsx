@@ -14,7 +14,7 @@ function MainBlock(props: any) {
   const [isSmalerThan1560] = useMediaQuery('(max-width: 1660px)')
   // COLOR MODE
   const containerColor = useColorModeValue("bg_white", "dark_secondary")
-  const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
+  const shadowColor = useColorModeValue("shadow", "none")
   const mobileBg = useColorModeValue("white_mobile_bg", "dark_mobile_bg")
 
   if (!isMobile) {

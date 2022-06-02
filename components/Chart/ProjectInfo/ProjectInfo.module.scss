@@ -50,7 +50,7 @@
 }
 
 .kyc{
-    background: #262A4D !important;
+    
     width:110px;
     height:34px;
     display:flex;
@@ -67,7 +67,7 @@
 }
 
 .audit{
-    background: #262A4D !important;
+   
     width:110px;
     height:34px;
     display:flex;
@@ -107,10 +107,32 @@
     font-style: normal;
     font-weight: 600;
     font-size: 20px;
-    margin-bottom:10px;
+    margin-bottom:20px;
     line-height: 18px;
     display: flex;
     align-items: center;
+}
+
+.scroller{
+
+        overflow-y: scroll;
+}
+
+.scrolle::-webkit-scrollbar {
+    width: 12px;
+    background:red !important;
+    color:red
+
+}
+ 
+.scrolle::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(161, 0, 0, 0.3); 
+    border-radius: 10px;
+}
+ 
+.scroller::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(149, 4, 4, 0.5); 
 }
 
 .contract-address{
@@ -148,6 +170,11 @@
         border-top:none;
         padding-top:0px;
         margin-top:-40px;
+    }
+    .scroller{
+    
+      
+        overflow-y: scroll;
     }
     .right{
         margin-left:0px;

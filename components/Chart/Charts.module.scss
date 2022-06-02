@@ -14,8 +14,9 @@
 }
 
 .button-chart{
-    padding:4px 10px ;
+    padding:0px 10px ;
     margin:1px 10px;
+
     border-radius:10px !important
 }
 
@@ -42,7 +43,7 @@
     border: none;
     margin-top: 15px;
     border-radius: 6px;
-    width: 130px;
+    width: 90%;
 
     font-family: 'Poppins';
     font-style: normal;
@@ -296,7 +297,7 @@
     font-weight: 500;
     line-height: 18px;
     opacity: 0.6;
-    margin-right: 54px;
+    
     margin-bottom: 0px;
     margin-top: 0px;
 }
@@ -345,10 +346,21 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding-left: 15px;
+    padding-left: 12%;
 }
 
 .mobbox>span {
+    margin-top: 12px;
+}
+
+.mobboxx {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding-right: 12%;
+}
+
+.mobboxx>span {
     margin-top: 12px;
 }
 
@@ -477,7 +489,7 @@
     padding: 2% 0px 30px 0px;
     justify-content: center;
     width: 100%;
-    margin-bottom:105px;
+    margin-bottom:44px;
 
 }
 
@@ -494,6 +506,7 @@
 }
 .chart-content{
     margin-bottom:30px;
+    margin-top:50px;
 }
 
 .report-problem {
@@ -516,12 +529,13 @@
 
 .change-chart-date {
     position: absolute;
-    top: -70px;
+    top: -62px;
     left: 0px;
     justify-content: center;
     align-items: center;
     padding: 2px;
     width: auto;
+    color:grey;
     border-radius: 10px;
 }
 
@@ -544,7 +558,8 @@
     border: none;
     font-family: 'Poppins';
     font-size: 18px;
-    border-radius:6px
+    border-radius:6px;
+    
 }
 
 .button-chart {
@@ -553,9 +568,9 @@
 
 
 .active-chart {
-    background: var(--overview);
+
     border-radius: 10px;
-}
+}s
 
 .text-top-chart {
     font-family: 'Poppins';
@@ -712,7 +727,12 @@
     .chart-header-link {
         font-size: 12px;
     }
+    .btn-more-less {
+        display: flex !important;
+    }
 }
+
+
 
 @media screen and (max-width: 1160px) {
     .mobile-info-element {
@@ -742,10 +762,34 @@
     }
 }
 
+.triangle-green {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid var(--chakra-colors-green);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
 
-
+.triangle-red {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid #ea3943;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
 @media screen and (max-width: 768px) {
 
+    .chart-header { 
+        margin-bottom:23px;
+        margin-top: -14px;
+    }
+    
     .chart-gain,
     .chart-lose {
         margin-top: 30px;
@@ -754,13 +798,23 @@
         border-radius: 5px;
     }
 
+    .chart-left-top {
+        width: auto;
+        min-width: 150px;
+        justify-content: start !important;
+        flex-direction: row;
+    }
+
     .arrow {
         width: 18px;
     }
 
     .chart-content {
         width: 95%;
+        margin-top:0px
     }
+
+
 
     .chart-bottom-right {
         border: none;
@@ -832,8 +886,7 @@
     .change-chart-date {
         position: absolute;
         top: -30px;
-        right: 20%;
-        left: 20%;
+        right: 0%;
         justify-content: center;
         padding: 1px;
         border-radius: 7px;
@@ -849,12 +902,10 @@
     }
 
     .chart-bottom-left {
-        display: none;
+        display: none !important;
     }
 
-    .btn-more-less {
-        display: block;
-    }
+   
 
     .chart-buy {
         display: none
@@ -938,7 +989,7 @@
     }
 
     .chart-token-name {
-        font-size: 16px;
+        font-size: 20px;
     }
 
     .chart-token-name>span {
@@ -973,21 +1024,21 @@
         margin-bottom: 9px;
         width: 115px;
         display: flex !important;
-        margin-top: 8px;
+      
         height: 22px
     }
 
     .absolute-mobile-dis {
         background: var(--charts);
         border-radius: 6px;
-        display: flex !important;
+        display: none !important;
         justify-content: space-between;
         align-items: center;
         padding: 2px 8px;
         margin-bottom: 0px;
-
+        
         width: 115px;
-        margin-top: 15px;
+   
         height: 22px;
         opacity: 0.4;
         border: none;
@@ -1009,5 +1060,20 @@
         font-size: 11px;
         line-height: 18px;
         opacity: 0.6;
+    }
+}
+
+@media screen and (max-width:460px) {
+    .chart-top-token {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 95px;
+    }
+    .mobboxx{
+        padding-right:5%;
+    }
+    .mobbox{
+        padding-left:5%;
     }
 }
