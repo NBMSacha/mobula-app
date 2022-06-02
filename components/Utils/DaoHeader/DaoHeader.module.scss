@@ -1,0 +1,10 @@
+@import "../../../styles/variables.scss";
+
+.line {
+    width: 100vw;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    background-color: $lineColor;
+    margin-top: 1rem;
+}
