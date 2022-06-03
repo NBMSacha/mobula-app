@@ -84,6 +84,8 @@ export const themeUltime = extendTheme({
     kyc:"#262A4D",
     white_secondary_input: "#F3F3F3",
     white_voting: "#FDFDFD",
+    dark_decision: "#202433",
+    grey_border: "#E5E5E5",
 
     // WHITE
     white_gradient: "linear-gradient(180deg, #EEEEEE 20%, rgba(248, 250, 252, 0) 100.94%)",

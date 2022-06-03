@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './dashboard.module.scss'
-import { Text, Heading, Flex, Box, Spacer, Button } from '@chakra-ui/react'
+import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../constants'
 import {
   ChakraProvider,
@@ -10,7 +10,6 @@ import {
   useColorMode,
 } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
-import theme from '../../theme/index'
 import { createClient } from '@supabase/supabase-js'
 import RankStats from './RankStats'
 import History from './History'
@@ -156,19 +155,16 @@ function Dashboard() {
   useEffect(() => {
     initValues()
   }, [])
-
+  const input =  useColorModeValue("white_sun_moon", "dark_decision")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+  const bg = useColorModeValue("bg_white", "dark_box_list")
+  const border = useColorModeValue("grey_border", "dark_border_tendance")
+  
   return (
     <>
-      <div className='listing'>
+      <Flex align="center" justify="center">
         <Box w="100%" maxWidth="1400px" className=''>
-          <ChakraProvider theme={theme}>
-            <CSSReset />
-            <ColorModeProvider
-              options={{
-                initialColorMode: 'light',
-                useSystemColorMode: true,
-              }}
-            >
+
 
               <Flex w="100%" p="0px 5%" mt="30px" className={styles["shinda"]}>
                 <Text>DAO Dashboard</Text>
@@ -178,6 +174,7 @@ function Dashboard() {
                 justifyContent={['space-evenly']}
                 flexDir={['column-reverse', 'column-reverse', 'row', 'row']}
                 alignItems={['center', 'center', 'center', 'stretch']}
+                
                 paddingTop='60px'
                 className={styles["blitz"]}
                 m="auto"
@@ -190,7 +187,7 @@ function Dashboard() {
 
                 {mobile ? (
 
-                  <Flex w="95%" direction="column" boxShadow="0px 1px 12px 3px var(--shadow-color)" borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+                  <Flex w="95%" direction="column" boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`,`0px 1px 12px 3px ${shadow}`]} borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
 
                     {/* Rank I Stats */}
                     <Flex w={['95%', '90%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
@@ -200,7 +197,8 @@ function Dashboard() {
                         p={['0px', '14px 14px 14px 14px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
                         bg={["none", "none", '#191D2C', '#191D2C']}
                         borderRadius='0px'
-                        borderBottom="1px solid var(--border-top-body)"
+                        
+                        borderBottom={`1px solid ${border}`}
                         w={['100%', '100%', '90%', '48%']}
                         textAlign={['center', 'center', 'center', 'left']}
                         mb={[7, 7, 7, 0]}
@@ -238,11 +236,15 @@ function Dashboard() {
                           align="center"
                           direction="column"
                           className={styles["buttons-claim-box"]}
+                          borderLeft={`1px solid #e5e5e5871`}
                         >
                           {' '}
                           <Button
                             className={styles["buttons-claim"]}
-                            style={{ width: "90%", 'font-size': '1rem' } as any}
+                            boxShadow={`0px 1px 12px 3px ${shadow}`}
+                            borderRadius="10px"
+                            
+                            style={{ width: "90%" } as any}
                             onClick={async (e) => {
                               e.preventDefault()
                               try {
@@ -296,9 +298,10 @@ function Dashboard() {
                     {mobile ? (
                       <Flex
                         p='5px'
-                        boxShadow="0px 1px 12px 3px var(--shadow-color)"
+                        borderRadius="10px"
+                        boxShadow={`0px 1px 12px 3px ${shadow}`}
                         bg={["none", "none", '#191D2C', '#191D2C']}
-                        borderRadius='10px'
+                        
 
                         w={['96%', '86%', '90%', '95%']}
 
@@ -311,10 +314,10 @@ function Dashboard() {
                               {countdownValue}
                             </Text>
                           </Box>
-                          <Box h="1px" w="98%" bg="var(--border-top-body);"> </Box>
+                          <Box h="1px" w="98%" bg={border}> </Box>
                           <Box fontSize='15px' mb={5}>
                             <Text textAlign="start" fontSize="14px" color="#909090" mt={2} mb={1}>You already claimed</Text>
-                            <Text fontSize="18px" color="var(--text-color)" textAlign="start">{claimed} MATIC</Text>
+                            <Text fontSize="18px"  textAlign="start">{claimed} MATIC</Text>
                           </Box>
                         </Flex>
                         <Spacer />
@@ -323,6 +326,8 @@ function Dashboard() {
                           align="center" justify="center"
                         >
                           <Button
+                            borderRadius="10px"
+                            boxShadow={`0px 1px 12px 3px ${shadow}`}
                             className={styles["claim-matic"]}
                             style={{ width: "135px" } as any}
                             onClick={async (e) => {
@@ -352,7 +357,7 @@ function Dashboard() {
                               }
                             }}
                           >
-                            <Text ml="15px">Claim MATIC</Text>
+                            <Text ml="15px" >Claim MATIC</Text>
                             <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
                           </Button>
                         </Flex>
@@ -363,12 +368,13 @@ function Dashboard() {
                       <Flex
                         className={styles["padding-resp"]}
                         direction={["column-reverse", "column-reverse", "column", "column"]}
-                        bg={["none", "none", 'var(--bg-list)', 'var(--bg-list)']}
+                        bg={["none", "none", bg,  bg]}
                         borderRadius='10px'
-                        boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]}
+                        boxShadow={["none", "none",`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
                         w={['100%', '100%', '100%', '100%']}
                         textAlign={['center', 'center', 'center', 'left']}
                         mx="auto"
+                        
 
                       >
                         <Flex justify="space-between" >
@@ -393,6 +399,9 @@ function Dashboard() {
                         >
                           <Button
                             className={styles["claim-matic"]}
+                            bg={input}
+                            boxShadow={`0px 1px 12px 3px ${shadow}`}
+                            borderRadius="12px"
                             style={{ width: "135px", marginTop: "-60px", 'font-size': '1rem' } as any}
                             onClick={async (e) => {
                               e.preventDefault()
@@ -421,7 +430,7 @@ function Dashboard() {
                               }
                             }}
                           >
-                            <Flex justify="center" align="center">
+                            <Flex justify="center" align="center" >
                               <Text ml="5px" mr="5px">Claim MATIC</Text>
                               <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
                             </Flex>                          </Button>
@@ -434,10 +443,8 @@ function Dashboard() {
 
                 </Box>
               </Flex>
-            </ColorModeProvider>
-          </ChakraProvider>
         </Box>
-      </div >
+      </Flex>
     </>
   )
 }
