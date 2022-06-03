@@ -381,12 +381,12 @@
 }
 
 .chart-bottom-left {
-    width: 15%;
+    width: 20%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 14vw;
+
 }
 
 .left-top-box {
@@ -399,7 +399,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 11px;
+    font-size: 16px;
     line-height: 18px;
     opacity: 0.6;
     margin-top: 0px;
@@ -411,7 +411,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 18px;
     margin-top: 10px;
     margin-bottom: 15px;
@@ -524,6 +524,7 @@
 .canvas-container {
     position: relative;
     width: 100%;
+    max-width: 880px;
 }
 
 

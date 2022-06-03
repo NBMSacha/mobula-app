@@ -3,13 +3,17 @@ import styles from './Governance.module.scss';
 import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../constants"
 import { ethers } from 'ethers'
 import abi from "./governor_abi.json"
-import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea } from '@chakra-ui/react'
+import { ChakraProvider, Box, Flex, Button, Image, Input,Spacer, Text, Heading, Textarea } from '@chakra-ui/react'
 import {
     FormControl,
     FormLabel,
     ColorModeProvider,
     CSSReset
 } from '@chakra-ui/react';
+import Idea from "./Idea"
+import Historys from "./History"
+import Vote from "./Vote"
+import Power from "./Power"
 
 
 
@@ -160,89 +164,105 @@ function Governance() {
 
 
     return (
-        <div className='listing'>
-            <div className='container'>
+        // <div className='listing'>
+        //     <div className='container'>
 
-                        <header>
-                            <Heading mb={'20px'}>Governance</Heading>
-                            <Text fontSize={['14px', '14px', '16px', '17px']}>
-                            You are in charge : deposit MOBL to be able to vote.
-                                <a
-                                    className={styles.link}
-                                    href='https://docs.mobula.finance/app/dashboard'
-                                >
-                                    Learn more here
-                                </a>
-                            </Text>
-                        </header>
+        //                 <header>
+        //                     <Heading mb={'20px'}>Governance</Heading>
+        //                     <Text fontSize={['14px', '14px', '16px', '17px']}>
+        //                     You are in charge : deposit MOBL to be able to vote.
+        //                         <a
+        //                             className={styles.link}
+        //                             href='https://docs.mobula.finance/app/dashboard'
+        //                         >
+        //                             Learn more here
+        //                         </a>
+        //                     </Text>
+        //                 </header>
 
-                        <div className={styles.line}></div>
-                        <Flex my={70} className={styles['container-box']}>
-                            <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px" mx={10} className={styles["current-vote"]}>
-                                <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
-                                <Text color="#ffffff99" fontSize="15px" mb="15px">You are currently deposited</Text>
-                                <Text fontSize="15px" color="white" mb="15px">0 $MOBL</Text>
-                                <FormControl>
-                                    <FormLabel htmlFor='deposit' color="#ffffff99" fontSize="15px" mb="15px">Deposit New Token</FormLabel>
-                                    <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='deposit' fontFamily="Poppins" borderRadius='10px' type='number' placeholder="3000"
-                                        ref={depositRef}
-                                        value={depositAmount}
-                                        onChange={(e) => setDepositAmount(e.target.value)}
-                                    ></Input>
-                                </FormControl>
-                                <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" color="white" fontFamily='Poppins' onClick={() => { console.log(depositAmount); deposit() }}>Deposit</Button>
-                                <FormControl>
-                                    <FormLabel htmlFor='withdraw' mt="25px" color="#ffffff99" fontSize="15px">Withdraw New Token</FormLabel>
-                                    <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='withdraw' borderRadius='10px' fontFamily="Poppins" type='number' placeholder="3000"
-                                        ref={withdrawRef}
-                                        value={withdrawAmount}
-                                        onChange={(e) => setWithdrawAmount(e.target.value)}
-                                    >
-                                    </Input>
-                                </FormControl>
-                                <Button onClick={() => { console.log(withdrawAmount); withdraw() }} bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" mb='50px' color="white" fontFamily='Poppins'  >Withdraw</Button>
-                            </Flex>
-                            <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" borderRadius="25px" className={`${styles["current-vote"]} ${styles["x-space"]}`}>
-                                <Heading mb="0px">Governance process</Heading>
-                                <Text fontSize="15px" mb="15px">Create a proposal</Text>
-                                <Textarea bg="rgba(163, 212, 244, 0.2)" borderRadius="10px" color="white" placeholder='The listing fee should be reduced to 10$' h="165px" border="none" p="20px" fontFamily="Poppins"
-                                    ref={proposalRef}
-                                    value={createProposal}
-                                    onChange={(e) => setCreateProposal(e.target.value)}
-                                />
-                                <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="37%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => { console.log(createProposal); createProposals() }}>Create</Button>
-                            </Flex>
-                            <Flex direction="column" px={0} ml="auto" mr="auto" mx={10} className={styles["current-vote"]}>
-                                <Heading  mt="-12px">Vote for current proposals</Heading>
-                                {proposals.map((proposal, idx) => ( 
-                                    <>
-                                    {console.log(idx)}
-                                    {Number(proposal) == 0 ? (
-                                        <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
-                                            <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
-                                            <Flex align="center" display="inline-flex">
-                                                <Image src="/thumbsUp.png" h="25px" />
-                                                <Image src="/thumbsDown.png" h="25px" ml="25px" opacity=".5" mr="10px"/>
-                                            </Flex>
-                                        </Flex>
-                                    ): (
-                                        <Flex bg="#EA3943" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
-                                            <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
-                                            <Flex align="center" display="inline-flex">
-                                                <Image src="/thumbsUp.png" h="25px"  opacity=".5" />
-                                                <Image src="/thumbsDown.png" h="25px" ml="25px" mr="10px"/>
-                                            </Flex>
-                                        </Flex>
-                                    )}
-                                    </>
-                                ))}
+        //                 <div className={styles.line}></div>
+        //                 <Flex my={70} className={styles['container-box']}>
+        //                     <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px" mx={10} className={styles["current-vote"]}>
+        //                         <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
+        //                         <Text color="#ffffff99" fontSize="15px" mb="15px">You are currently deposited</Text>
+        //                         <Text fontSize="15px" color="white" mb="15px">0 $MOBL</Text>
+        //                         <FormControl>
+        //                             <FormLabel htmlFor='deposit' color="#ffffff99" fontSize="15px" mb="15px">Deposit New Token</FormLabel>
+        //                             <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='deposit' fontFamily="Poppins" borderRadius='10px' type='number' placeholder="3000"
+        //                                 ref={depositRef}
+        //                                 value={depositAmount}
+        //                                 onChange={(e) => setDepositAmount(e.target.value)}
+        //                             ></Input>
+        //                         </FormControl>
+        //                         <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" color="white" fontFamily='Poppins' onClick={() => { console.log(depositAmount); deposit() }}>Deposit</Button>
+        //                         <FormControl>
+        //                             <FormLabel htmlFor='withdraw' mt="25px" color="#ffffff99" fontSize="15px">Withdraw New Token</FormLabel>
+        //                             <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='withdraw' borderRadius='10px' fontFamily="Poppins" type='number' placeholder="3000"
+        //                                 ref={withdrawRef}
+        //                                 value={withdrawAmount}
+        //                                 onChange={(e) => setWithdrawAmount(e.target.value)}
+        //                             >
+        //                             </Input>
+        //                         </FormControl>
+        //                         <Button onClick={() => { console.log(withdrawAmount); withdraw() }} bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" mb='50px' color="white" fontFamily='Poppins'  >Withdraw</Button>
+        //                     </Flex>
+        //                     <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" borderRadius="25px" className={`${styles["current-vote"]} ${styles["x-space"]}`}>
+        //                         <Heading mb="0px">Governance process</Heading>
+        //                         <Text fontSize="15px" mb="15px">Create a proposal</Text>
+        //                         <Textarea bg="rgba(163, 212, 244, 0.2)" borderRadius="10px" color="white" placeholder='The listing fee should be reduced to 10$' h="165px" border="none" p="20px" fontFamily="Poppins"
+        //                             ref={proposalRef}
+        //                             value={createProposal}
+        //                             onChange={(e) => setCreateProposal(e.target.value)}
+        //                         />
+        //                         <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="37%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => { console.log(createProposal); createProposals() }}>Create</Button>
+        //                     </Flex>
+        //                     <Flex direction="column" px={0} ml="auto" mr="auto" mx={10} className={styles["current-vote"]}>
+        //                         <Heading  mt="-12px">Vote for current proposals</Heading>
+        //                         {proposals.map((proposal, idx) => ( 
+        //                             <>
+        //                             {console.log(idx)}
+        //                             {Number(proposal) == 0 ? (
+        //                                 <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
+        //                                     <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
+        //                                     <Flex align="center" display="inline-flex">
+        //                                         <Image src="/thumbsUp.png" h="25px" />
+        //                                         <Image src="/thumbsDown.png" h="25px" ml="25px" opacity=".5" mr="10px"/>
+        //                                     </Flex>
+        //                                 </Flex>
+        //                             ): (
+        //                                 <Flex bg="#EA3943" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
+        //                                     <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
+        //                                     <Flex align="center" display="inline-flex">
+        //                                         <Image src="/thumbsUp.png" h="25px"  opacity=".5" />
+        //                                         <Image src="/thumbsDown.png" h="25px" ml="25px" mr="10px"/>
+        //                                     </Flex>
+        //                                 </Flex>
+        //                             )}
+        //                             </>
+        //                         ))}
                                 
-                            </Flex>
+        //                     </Flex>
 
-                        </Flex>
+        //                 </Flex>
 
-            </div>
-        </div >)
+        //     </div>
+        // </div >
+        <Flex justify="center" align={["center", "center", "auto", "auto"]} mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
+            <Spacer />
+            <Spacer />
+            <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction="column" >
+                <Idea proposal={proposals} />
+                <Historys proposal={proposals} />
+            </Flex>
+            <Spacer />
+            <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction={["column-reverse", "column-reverse", "column-reverse", "column"]} >
+                <Vote proposal={proposals} />
+                <Power proposal={proposals} />
+            </Flex>
+            <Spacer />
+            <Spacer />
+        </Flex>
+    )
 }
 
 export default Governance
