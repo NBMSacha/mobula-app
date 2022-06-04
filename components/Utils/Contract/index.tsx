@@ -24,15 +24,15 @@ export default function Contract({ contract, blockchain }) {
             mt='12px'
             h="40px"
             p="0px 10px"
-            boxShadow={`0px 1px 12px 3px ${bg}`} 
+            boxShadow={useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')}
             borderRadius='10px'
-            
+
         >
-            {blockchain ? <Image width={'17px'} borderRadius="50%"  height={'17px'} src={"/" + blockchain.split(' ')[0].toLowerCase() + '.png'} ml="5px" /> : <></>
+            {blockchain ? <Image width={'17px'} borderRadius="50%" height={'17px'} src={"/" + blockchain.split(' ')[0].toLowerCase() + '.png'} ml="5px" /> : <></>
             }
-            <Text ml="10px" py={5} fontSize={'0.8rem'}  textAlign="center">{contract.slice(0, 6) + '...' + contract.slice(contract.length - 5, contract.length - 1)}</Text>
+            <Text ml="10px" py={5} fontSize={'0.8rem'} textAlign="center">{contract.slice(0, 6) + '...' + contract.slice(contract.length - 5, contract.length - 1)}</Text>
             {
-                copied ? <CheckCircle width='17px' color='#32C784' style={{ "position": "absolute", "right": "10px" }} /> : <Copy  width={'15px'} cursor="pointer" style={{ "position": "absolute", "right": "10px" }} onClick={() => {
+                copied ? <CheckCircle width='17px' color='#32C784' style={{ "position": "absolute", "right": "10px" }} /> : <Copy width={'15px'} cursor="pointer" style={{ "position": "absolute", "right": "10px" }} onClick={() => {
                     setCopied(true);
                     navigator.clipboard.writeText(contract)
                 }} />

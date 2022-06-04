@@ -102,7 +102,6 @@
     display: flex;
     flex-direction: column;
     width: auto;
-    margin-left: 100px;
 }
 
 .contract-title {
@@ -161,10 +160,6 @@
         margin-top: -40px;
     }
 
-    .right {
-        margin-left: 0px;
-    }
-
     .left {
         width: 100%
     }
@@ -221,10 +216,6 @@
         padding: 1rem;
     }
 
-    .right {
-        padding: 2rem;
-    }
-
     .left {
         width: 100%;
     }
@@ -233,10 +224,6 @@
         flex-direction: column;
     }
 
-    .right {
-        margin-left: 0px;
-        margin-top: 20px;
-    }
 }
 
 .vote-box {

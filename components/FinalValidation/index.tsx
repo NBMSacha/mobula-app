@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
-import DisplayedToken from "./DisplayedToken";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../constants";
-import { Heading, Text, Flex, Box, Image } from "@chakra-ui/react";
-import styles from "../FirstSort/FirstSort.module.scss";
+import { Heading, Text, Flex, Box, Image, Link } from "@chakra-ui/react";
+import DaoHeader from "../Utils/DaoHeader";
+import TokenDisplay from "../Utils/Sort/TokenDisplay";
+import Blocks from "../Utils/Sort/Blocks";
+import { useAlert } from 'react-alert';
+import Router from "next/router";
 
 function FinalValidation() {
     const [tokenDivs, setTokenDivs]: [{
@@ -26,6 +29,7 @@ function FinalValidation() {
     }[], any] = useState([]);
     const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
+    const alert = useAlert();
 
     function getFinalValidation() {
         console.log("Starting the first sort");
@@ -163,9 +167,6 @@ function FinalValidation() {
                             alreadyVoted: boolean
                         } = await response.json();
 
-                        // const index = await protocolContract.indexOfFirstSortTokens(token.id);
-                        // const fullToken = await protocolContract.firstSortTokens(index);
-
                         JSONrep.id = token.id;
                         JSONrep.contractAddresses = token.contractAddresses;
                         JSONrep.excludedFromCirculation = token.excludedFromCirculation;
@@ -193,6 +194,46 @@ function FinalValidation() {
             });
     }
 
+    async function voteToken(validate: boolean,
+        complete: any, token: any,
+        utilityScore: number, socialScore: number,
+        trustScore: number, marketScore: number) {
+
+        console.log(validate)
+        if (!complete.current) {
+            alert.error('You must wait the end of the countdown to vote.')
+        } else {
+            try {
+                var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+                var signer = provider.getSigner();
+            } catch (e) {
+                console.log(e)
+                alert.error('You must connect your wallet to submit the form.')
+            }
+
+            try {
+
+                await new ethers.Contract(
+                    PROTOCOL_ADDRESS,
+                    [
+                        'function finalDecisionVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
+                    ], signer
+                ).finalDecisionVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
+
+                alert.success('Your vote has been successfully registered.')
+                await new Promise((resolve, reject) => setTimeout(resolve, 3000))
+                Router.reload()
+
+            } catch (e) {
+                if (e.data && e.data.message) {
+                    alert.error(e.data.message);
+                } else {
+                    alert.error('Something went wrong.')
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         getFinalValidation();
     }, []);
@@ -201,73 +242,23 @@ function FinalValidation() {
         console.log("Effect : " + tokenDivs.length);
     });
 
-    return <div className="listing">
-        <div className="container">
-            <header>
-                <Heading as="h1" mb={"20px"}>
-                    Final Validation
-                </Heading>
-                <Text fontSize={["14px", "14px", "16px", "17px"]}>
-                    The Final Validation is the most important step of the Protocol. Vote wisely.
-                    <a
-                        className={styles.link}
-                        href="https://docs.mobula.finance/app/validation"
-                    >
-                        Learn more here
-                    </a>
-                </Text>
-            </header>
+    return <>
+        <DaoHeader
+            title="First Sort"
+            description="New listing requests are displayed here. Vote wisely."
+            url="https://docs.mobula.finance/app/sort"
+        />
 
-            <div className={styles.line}></div>
+        {tokenDivs.length == 0 && (
+            <Text align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
+        )}
 
-            {(displayedToken ?
-                <DisplayedToken changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
+        {(displayedToken ?
+            <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
 
-                <Flex
-                    paddingTop="60px"
-                    maxWidth="1100px"
-                    justifyContent={["center"]}
-                    flexDir={["column", "column", "column", "row"]}
-                    alignItems={["center", "center", "center", "stretch"]}
-                    flexWrap="wrap"
-                    m="auto"
-                >
-                    {tokenDivs.map((token) => {
-
-                        return (
-                            <Box
-                                w={["90%", "90%", "70%", "80%"]}
-                                bg="#a3d4f433"
-                                mb={20}
-                                mr={10}
-                                ml={10}
-                                borderRadius="10px"
-                                p={["0px 25px 25px 25px"]}
-                                className={styles['token-box']}
-                                opacity={token.alreadyVoted ? '0.3' : '1.0'}
-                            >
-                                <Flex alignItems="center" mb={10}>
-                                    <Image src={token.logo} h={50} w={50} mr={5} />
-                                    <Text fontSize={["17px", "18px", "25px", "30px"]}>
-                                        {token.name}
-                                    </Text>
-                                </Flex>
-                                <Text
-                                    textAlign="justify"
-                                    fontSize={["13px", "15px", "15px", "17px"]}
-                                >
-                                    {token.description}
-                                </Text>
-
-                                <button className={styles["button"]} onClick={() => setDisplayedToken(token.id)}>Vote</button>
-                            </Box>
-                        );
-                    })}
-                </Flex>)}
-            {/* 
-        <div className="tokens-div">{tokenDivs}</div> */}
-        </div>
-    </div>;
+            <Blocks tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
+        )}
+    </>;
 }
 
 export default FinalValidation;

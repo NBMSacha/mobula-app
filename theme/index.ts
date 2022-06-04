@@ -90,7 +90,6 @@ export const themeUltime = extendTheme({
     blue: "#5C7DF9",
     blue_title: "#3753B3",
     shadow: '#d0d6e3',
-
     none: "none",
     green: '#16C784',
     red: '#EA3943'
