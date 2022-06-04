@@ -94,8 +94,8 @@ export const themeUltime = extendTheme({
     white_input: "rgba(255, 255, 255, 0.3)",
     blue: "#5C7DF9",
     blue_title: "#3753B3",
-    shadow: 'rgba(208, 214, 227, 0.3)',
-
+    shadow: '#d0d6e3',
+    shadow_2: 'rgba(208, 214, 227, 0.3)',
     none: "none",
     green: '#16C784',
     red: '#EA3943'

@@ -10,7 +10,7 @@ export const TextStyles = {
         primary: (props) => ({
             mb: "15px",
             fontSize: "xl",
-            color: "gray.400"
+            color: mode("gray.600", "gray.400")(props)
         }),
     },
     // default values for `size` and `variant`

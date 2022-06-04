@@ -17,7 +17,7 @@ const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) =
         </Box >
     };
 
-    return <Flex direction="column">
+    return <Flex direction="column" mb="50px">
         <Flex align="center" mb="30px">
             <Box mr="10px" h="30px" w="8px" rounded='xl' bg={promote ? 'green' : 'red'} />
             <Heading mr="10px" color={promote ? 'green' : 'red'} fontWeight="600">{title}</Heading>
@@ -31,13 +31,13 @@ const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) =
             pl="10px"
             mb="15px"
             h="40px"
-            w="25.25rem"
+            w={["20.25rem", "25.25rem"]}
             rounded="xl"
             boxShadow={`1px 2px 12px 3px ${shadow}`}
             variant="filled"
             _focus={{ 'bg': input }}
             required
-            _placeholder={{ color: "none" }}
+            _placeholder={{ color: "gray.500" }}
             id="msg"
             name="name"
             bg={input}
@@ -47,7 +47,7 @@ const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) =
         ></Input>
 
         <Text variant="primary">Why?</Text>
-        <Textarea border="none" bg={input} mb="15px" placeholder={`Explain here why you want to ${action} this member.`} />
+        <Textarea _placeholder={{ color: "gray.500" }} border="none" bg={input} mb="15px" placeholder={`Explain here why you want to ${action} this member.`} />
         <Button h="40px" w="40%" bg={submitBackground} variant="secondary">Submit</Button>
     </Flex >
 }
