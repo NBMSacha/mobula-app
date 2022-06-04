@@ -1,8 +1,14 @@
-import { Flex, Box, Text, Image } from "@chakra-ui/react";
+import { Flex, Box, Text, Image,useColorModeValue } from "@chakra-ui/react";
 import styles from '../dashboard.module.scss'
 
 function History({ recentlyAdded }) {
-    return (<Box bg={["none", "none", 'var(--bg-list)', 'var(--bg-list)']} boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]} w="100%" borderRadius="10px" mt="10px" p={"40px 40px 40px 40px"} className={styles["noneDis"]}>
+
+    const input =  useColorModeValue("white_sun_moon", "dark_decision")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bg = useColorModeValue("bg_white", "dark_box_list")
+   
+    return (
+    <Box bg={["none", "none", bg, bg]} boxShadow={["none", "none",  `0px 1px 12px 3px ${shadow}`,  `0px 1px 12px 3px ${shadow}`]} w="100%" borderRadius="10px" mt="10px" p={"40px 40px 40px 40px"} className={styles["noneDis"]}>
         <Text color="var(--beli)" fontSize="22px" fontWeight="500">History</Text>
         <Box pt="15px">
 

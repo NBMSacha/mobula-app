@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './Earn.module.scss'
-import { Text, Heading, Flex, Box, Spacer, Button, Image } from '@chakra-ui/react'
+import { Text, Heading, Flex, Box, Spacer, Button, Image, Link, useMediaQuery, useColorModeValue } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../constants'
 import {
     ChakraProvider,
@@ -11,8 +11,8 @@ import {
     useColorMode,
 } from '@chakra-ui/react'
 import { CSSReset } from '@chakra-ui/react'
-import theme from '../../theme/index'
-import { Link, CheckCircle } from 'react-feather';
+import { CheckCircle } from 'react-feather';
+import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
 
 function Earn({ darkTheme }) {
@@ -68,46 +68,196 @@ function Earn({ darkTheme }) {
         initValues()
     }, [])
 
+    const [isLessThan11300px] = useMediaQuery('(max-width: 1300px)')
+    const input =  useColorModeValue("white_secondary_input", "dark_input")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bg = useColorModeValue("white_voting", "dark_box_list")
+    const bgSecondary = useColorModeValue("white_voting", "none")
+    
     return (
         <>
-            <div className='listing'>
-                <div className='container'>
-                    <ChakraProvider theme={theme}>
-                        <CSSReset />
-                        <Flex justify="center" fontFamily="Poppins" direction={["column", "column", "column", 'row']} >
+                        <Flex justify="center" fontFamily="Poppins" direction={["column", "column", "column", 'row']} w="100%" mt="50px">
                             <Flex
                                 justifyContent={['space-evenly']}
                                 flexDir={['column', 'column', 'column', 'column']}
                                 alignItems={['center', 'center', 'center', 'stretch']}
                                 paddingTop={['50px', '50px', '50px', '0px',]}
-                                maxWidth="1020px"
                                 marginTop={["-50px", "-50px", "-75px", "-75px"]}
-                                w={["100%", "100%", "100%", "48%"]}
-
+                                w={["100%", "100%", "100%", "100%"]}
                             >
-                                <Text textAlign="start" w="85%" m="0px" className={styles["mienai"]} >Earn</Text>
-                                < Flex
-                                    w={['90%', '90%', '90%', 'auto']}
-                                    flexDir={'column'}
-                                    textAlign='center'
-                                >
-                                    <Flex mt={["100px", "100px", "55px", '20px']} w={'100%'} pb={"25px"} justify={'space-around'} mb={['0px']}  >
-                                        <DayBox darkTheme={darkTheme} day={1} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={2} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={3} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={4} streaks={streaks} account={account} />
+                                {/* MOBILE TITLE */}
+                                <Flex w="90%" mb="16px" display={["flex", "flex", "flex", "none"]}>
+                                    <Text textAlign="start" w="85%" m="0px" display={["flex","flex","flex","none"]} mb="10px">Earn</Text>
+                                    <Flex justify="space-between">
+                                        <Button fontSize="12px" ml="20px" borderRadius="8px" bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`} color="none" h="25px" px="3">Balance : 11 MOBL</Button>
+                                        <Button fontSize="12px" ml="20px" borderRadius="8px" bg="blue" color="white" h="25px" px="5">Claim</Button>
                                     </Flex>
-                                    <Flex mb={['-30px']} w={'100%'} pb={"30px"} justify={'space-around'} borderBottom="1px solid var(--border-chart)" >
-                                        <DayBox darkTheme={darkTheme} day={5} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={6} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={7} streaks={streaks} account={account} />
-                                        <DayBox darkTheme={darkTheme} day={8} streaks={streaks} account={account} />
-                                    </Flex>
-
                                 </Flex>
+                                
+                                {/* TOP DAILY EARNING */}
+                                <Flex w="100%" justify="center"  align={["center", "center", "center", ""]} mt={["0px","0px", "0px", "60px"]} mb={["30px","30px", "30px", ""]} direction={["column","column","column","row"]} fontFamily="Inter">
+                                    {/* DAILY BOX */}
+                                    <Flex w={['95%', '95%', '90%', '45%']} flexDir={'column'} textAlign='center' p={["0px 0px","0px 0px","0px 30px","0px 30px"]}>
+                                        <Flex  w={'100%'} pb={"5px"} justify={'space-around'} mb={['0px']}  >
+                                            <DayBox darkTheme={darkTheme} day={1} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={2} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={3} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={4} streaks={streaks} account={account} />
+                                        </Flex>
+                                        <Flex  w={'100%'} pb={"5px"} justify={'space-around'} borderBottom="1px solid var(--border-chart)" >
+                                            <DayBox darkTheme={darkTheme} day={5} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={6} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={7} streaks={streaks} account={account} />
+                                            <DayBox darkTheme={darkTheme} day={8} streaks={streaks} account={account} />
+                                        </Flex>
+                                    </Flex>
+                                    {/* BORDER LINE */}
+                                    <Box w="2px" h="100%" bg="rgba(40, 44, 58, 0.5)"></Box>
+                                    {/* BALANCE DESKTOP*/}
+                                    <Flex display={["none","none","none","flex"]} minWidth="540px" w={['100%', '100%', '90%', isLessThan11300px ? "50%" : "45%"]} direction="column"  p={["0px 10px","0px 30px","0px 30px","0px 30px"]}>
+                                        <Flex direction="column" mb={["","","","60px"]}>
+                                            <Text mb={["","","","5px"]} fontSize={["18","18","21","21px"]}>Balance</Text>
+                                            <Flex justify="space-between" align="center">
+                                                <Flex fontSize={["15px","15px","17","20px"]} align="center" >
+                                                    <Text mr={["5px","5px","18px","18px"]}>Mobula owes you : </Text>
+                                                    <Flex align="center">
+                                                        <Image src="icon.png" h="30px"/>
+                                                        <Text fontSize="15px" ml={["2px","2px","10px","10px"]}>75 MOBL</Text>
+                                                    </Flex>
+                                                </Flex>
+                                                <Button bg="blue" color="white" w={["80px","80px","140px","140px"]} h={["25px","25px","38px","38px"]} mb={["","","",""]} borderRadius="12px">Claim</Button>
+                                            </Flex>
+                                        </Flex>
+                                        <Flex  w="100%" justify="space-between">
+                                            <Flex direction="column" w='50%'>
+                                                <Text fontSize={["18","18","21","21px"]} fontWeight="500" mb={["","","","0px"]}>Referral system</Text>
+                                                <Text fontSize={["14","14","16","16px"]}>1 Referral : <span style={{fontWeight:"600"}}>25 MOBL</span></Text>
+                                                <Text fontSize={["10","10","11","12px"]} mt={["10px","10px","10px","10px"]}>You have currently referred <span style={{fontWeight:"600"}}>3 people</span></Text>
+                                            </Flex>
+                                            <Flex direction="column">
+                                                <Text fontSize={["13","13","13","14px"]} fontWeight="600" mb={["10px","10px","10px","10px"]}>Affiliation link</Text>
+                                                <Link fontSize={["10","10","14","15"]} whiteSpace="nowrap">http://app.mobula.finance/?ref=0x...</Link>
+                                                <Button w="fit-content" mt={["10px","10px","10px","10px"]}>
+                                                    <LinkIcon mr="5px" />
+                                                    <Text fontSize={["10px","10px","13px","15px"]} > Click to Copy</Text>
+                                                </Button>                                               
+                                            </Flex>                                            
+                                        </Flex>                                       
+                                    </Flex>
+                                    {/* BALANCE MOBILE */}
+                                    <Flex display={["flex","flex","flex","none"]} w="90%" align="start" py="16px" borderTop={`1px solid #E5E5E5`} borderBottom={`1px solid #E5E5E5`} mt={["20px","20px","20px",""]}>
+                                        <Flex direction="column" w="50%" align="start">
+                                            <Text fontSize="16px" color="green">+ 15 MOBL</Text>
+                                            <Text fontSize="13px">You referred 3 friends.</Text>
+                                            <Button w="120px" boxShadow={`1px 2px 12px 3px ${shadow}`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg={bg}>Claim Mobl</Button>
+                                        </Flex>
+                                        <Flex direction="column" w="50%" align="end" mt="3px">
+                                            <Text fontSize="13px" mb="15px">1 Referral : <span>5 MOBL</span></Text>
+                                            <Button fontSize="11px" mb="10px">Click to copy</Button>
+                                            <Button fontSize="11px">http://app.mobula.finance/refer....</Button>
+                                        </Flex>
+                                    </Flex>
+                                </Flex>
+                                <Flex w="100%" justify="center" fontFamily="Inter">
+                                    <Flex w={["95%","95%","95%",isLessThan11300px ? "95%" : "85%"]} direction="column" fontFamily="Inter">
+                                        <Text fontSize={["15px","15px","20px","20px"]} ml={["15px", "15px", "", ""]} mb="30px">Daily Missions</Text>
+                                        <Flex direction={["column", "column", "column", "row"]} >
 
+                                       
+                                            <Flex justify={["","","","space-between"]} w={['90%', '90%', '90%', '50%']}>
+                                                <Flex direction="column">
+                                                    {/* BOX */}
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle color="var(--chakra-colors-green)" width="22px"/>
+                                                        </Box>
+                                                        <Text fontSize={["12px","12px","14px","14px"]} >Visit the ____ token page. Have <span style={{ color:"var(--chakra-colors-green)", marginLeft:"10px",whiteSpace:"nowrap"}}>+ 15 MOBL</span></Text>
+                                                    </Flex>
+                                                    {/* TO REMOVE */}
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle color="var(--chakra-colors-green)" width="22px"/>
+                                                        </Box>
+                                                        <Text fontSize={["12px","12px","14px","14px"]} >Visit the ___ token page. Have a look of all the token.  <span style={{ color:"var(--chakra-colors-green)", marginLeft:"10px",whiteSpace:"nowrap"}}>+ 15 MOBL</span></Text>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle color="var(--chakra-colors-green)" width="22px"/>
+                                                        </Box>
+                                                        <Text fontSize={["12px","12px","14px","14px"]} >Visit the ___ token page. Informations.  <span style={{ color:"var(--chakra-colors-green)", marginLeft:"10px",whiteSpace:"nowrap"}}>+ 15 MOBL</span></Text>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle color="var(--chakra-colors-green)" width="22px"/>
+                                                        </Box>
+                                                        <Text fontSize={["12px","12px","14px","14px"]} >Visit the ___ token page. Have a look of all the token inf <span style={{ color:"var(--chakra-colors-green)", marginLeft:"10px",whiteSpace:"nowrap"}}>+ 15 MOBL</span></Text>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]}  alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle color="var(--chakra-colors-green)" width="22px"/>
+                                                        </Box>
+                                                        <Text fontSize={["12px","12px","14px","14px"]} >Visit the ___ token page. Have a look of all th <span style={{ color:"var(--chakra-colors-green)", marginLeft:"10px",whiteSpace:"nowrap"}}>+ 15 MOBL</span></Text>
+                                                    </Flex>
+                                                </Flex>
+                                            </Flex>
+                                            {/* RIGHT */}
+                                            <Flex justify={["","","","space-between"]} w={['90%', '90%', '90%', '50%']}>
+                                                <Flex direction="column" w="100%">
+                                                    {/* BOX */}
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]}  alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle width="22px" />
+                                                        </Box>
+                                                        <Flex justify={["start","start","start","space-between"]} w="100%">
+                                                            <Text fontSize={["12px","12px","14px","14px"]}>Visit the ___ token page. Have a look of all</Text>
+                                                            <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap"> + 15 MOBL</Text>
+                                                        </Flex>
+                                                    </Flex>
+                                                    {/* TO REMOVE */}
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle width="22px"/>
+                                                        </Box>
+                                                        <Flex justify={["start","start","start","space-between"]} w="100%">
+                                                            <Text fontSize={["12px","12px","14px","14px"]}>Visit the ___ token page. H</Text>
+                                                            <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap"> + 15 MOBL</Text>
+                                                        </Flex>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle width="22px"/>
+                                                        </Box>
+                                                        <Flex justify={["start","start","start","space-between"]} w="100%">
+                                                            <Text fontSize={["12px","12px","14px","14px"]}>Visit the ___ token page. Have a look of all. </Text>
+                                                            <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap"> + 15 MOBL</Text>
+                                                        </Flex>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle width="22px"/>
+                                                        </Box>
+                                                        <Flex justify={["start","start","start","space-between"]} w="100%">
+                                                            <Text fontSize={["12px","12px","14px","14px"]}>Visit the ___ token page. Have </Text>
+                                                            <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap"> + 15 MOBL</Text>
+                                                        </Flex>
+                                                    </Flex>
+                                                    <Flex align="center" mb="30px" w="100%">
+                                                        <Box cursor="pointer" mr={["10px","10px","30px","30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px","10px","10px",5]} px="8px" py="5px" className="noneDis">
+                                                            <CheckCircle width="22px"/>
+                                                        </Box>
+                                                        <Flex justify={["start","start","start","space-between"]} w="100%">
+                                                            <Text fontSize={["12px","12px","14px","14px"]}>Visit the ___ token page. Have a look of all the token inform</Text>
+                                                            <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap"> + 15 MOBL</Text>
+                                                        </Flex>
+                                                       
+                                                    </Flex>
+                                                </Flex>
+                                            </Flex>
+                                        </Flex>
+                                    </Flex>
+                                </Flex>
                                 {/* DAO Faucet */}
-                                <Flex
+                                {/* <Flex
                                     position="relative"
                                     p='10px'
                                     flexDir={'column'}
@@ -180,7 +330,7 @@ function Earn({ darkTheme }) {
                                 </Flex>
                                 {/* TO REMOVE */}
 
-                                <Flex align='center' py="25px" px="15px" borderBottom="1px solid var(--border-chart)">
+                                {/* <Flex align='center' py="25px" px="15px" borderBottom="1px solid var(--border-chart)">
                                     <Flex justify="center" direction="column" align="center" mr="30px">
                                         <Box onClick={showSoon} cursor="pointer" h={["25px", "25px", "40px", "40px"]} w={["25px", "25px", "40px", "40px"]} bg={false ? "#16C784" : "grey"} borderRadius="50%"></Box>
                                         <Text fontSize={["10px", "10px", "13px", "13px"]} mt="10px" color={false ? "#16C784" : ""} textAlign="center">Vote</Text>
@@ -216,12 +366,10 @@ function Earn({ darkTheme }) {
                                             <CheckCircle color="white" />
                                         </Box>
                                     </Flex>
-                                </Flex>
+                                </Flex> */}
                             </Flex>
-                        </Flex>
-                    </ChakraProvider>
-                </div>
-            </div >
+                        </Flex> 
+
         </>
     )
 }

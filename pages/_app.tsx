@@ -88,7 +88,7 @@ export default function App({ Component, pageProps }) {
           <Component darkTheme={darkThemes} {...pageProps}></Component>
 
 
-          <Footer darkTheme={darkThemes} setDarkTheme={setDarkThemes} />
+          <Footer  />
 
         </Web3ReactProvider>
       </Provider>

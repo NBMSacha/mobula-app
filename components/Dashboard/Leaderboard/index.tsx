@@ -1,8 +1,12 @@
-import { Flex, Box, Text, Image, Button } from "@chakra-ui/react";
+import { Flex, Box, Text, Image, Button, useColorModeValue } from "@chakra-ui/react";
 import styles from '../dashboard.module.scss'
 
 function Leaderboard({ top }) {
-    return (<Box bg={["none", "none", 'var(--bg-list)', 'var(--bg-list)']} boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]} w="100%" borderRadius="10px" h="auto" minHeight="458px" m="10px auto" className={`${styles["padding-resp"]} ${styles["noneDis"]}`}>
+    const input =  useColorModeValue("white_sun_moon", "dark_decision")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bg = useColorModeValue("bg_white", "dark_box_list")
+
+    return (<Box bg={["none", "none", bg, bg]} boxShadow={["none", "none",  `0px 1px 12px 3px ${shadow}`,  `0px 1px 12px 3px ${shadow}`]} w="100%" borderRadius="10px" h="auto" minHeight="458px" m="10px auto" className={`${styles["padding-resp"]} ${styles["noneDis"]}`}>
         <Text color="var(--beli)" fontSize="22px" fontWeight="500">Leaderboard</Text>
         <Box p="50px 0px 0px 0px">
             <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
@@ -85,7 +89,10 @@ function Leaderboard({ top }) {
             </Flex>
             {/* TO REMOVE UP */}
         </Box>
-        <Button className={styles["buttons-claim"]} onClick={() => document.location.href = "https://discord.gg/2a8hqNzkzN "}>Join the DAO</Button>
+        <Flex justify="center">
+             <Button bg={input} borderRadius="12px" boxShadow={`0px 1px 12px 3px ${shadow}`} className={styles["buttons-claim"]} onClick={() => document.location.href = "https://discord.gg/2a8hqNzkzN "}>Join the DAO</Button>
+        </Flex>
+      
     </Box >)
 }
 

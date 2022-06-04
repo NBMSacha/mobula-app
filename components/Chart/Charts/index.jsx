@@ -25,7 +25,7 @@ const Charts = ({ baseAsset, darkTheme }) => {
 
     return (
         <Flex w="100%" wrap="wrap" justify="space-around" align="space-around" h="100%" pb={8}>
-            <Flex w="100%" wrap="wrap" justify='space-around' >
+            <Flex w="100%" wrap="wrap" justify='space-around' direction={["column", "column", "column", "row"]}>
                 <AllCharts baseAsset={baseAsset} title={volume} idx={0} darkTheme={darkTheme} />
                 <AllCharts baseAsset={baseAsset} title={rank} idx={1} darkTheme={darkTheme} />
                 <AllCharts baseAsset={baseAsset} title={liquidity} idx={3} darkTheme={darkTheme} />

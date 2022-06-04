@@ -394,7 +394,7 @@ function ListAToken(props: any) {
 
     const input = useColorModeValue("white_terciary", "dark_input_list")
     const box = useColorModeValue('white_terciary', "dark_box_list")
-    const shadow = useColorModeValue("shadow", "none")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
 
 

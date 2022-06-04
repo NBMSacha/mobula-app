@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Button } from "@chakra-ui/react"
+import { Box, Flex, Text, Button,useColorModeValue } from "@chakra-ui/react"
 import { ethers } from "ethers"
 import { PROTOCOL_ADDRESS } from "../../../constants"
 import styles from '../dashboard.module.scss'
@@ -6,13 +6,16 @@ import { useAlert } from 'react-alert'
 
 function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
     const alert = useAlert()
-
+    const input =  useColorModeValue("white_sun_moon", "dark_decision")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bg = useColorModeValue("bg_white", "dark_box_list")
+    
     return (<Flex
         direction={["row", "row", "column", "column"]}
         justify={["start", "start", "center", "center"]}
-        boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]}
+        boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
         className={styles["padding-resps"]}
-        bg={["none", "none", 'var(--bg-list)', 'var(--bg-list)']}
+        bg={["none", "none", bg, bg]}
         borderRadius='10px'
         w={['100%', '100%', '50%', '50%']}
         textAlign={['center', 'center', 'center', 'left']}
@@ -27,11 +30,11 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
         <Flex direction={["column", "column", "row", "row"]} w={["50%", "50%", "auto", "auto"]} >
             <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
                 <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" mr="5px" >Correct Decisions</Text>
-                <Flex align="center" justify="center" fontWeight='800' h="45px" bg={["none", "none", "var(--decision-box)", "var(--decision-box)"]} boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {goodChoices}</Flex>
+                <Flex align="center" justify="center" fontWeight='800' h="45px" bg={["none", "none", input, input]} boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`,`0px 1px 12px 3px ${shadow}`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {goodChoices}</Flex>
             </Flex>
-            <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
+            <Flex direction={["row", "row", "column", "column"]}  fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
                 <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" ml="5px">Wrong Decisions</Text>
-                <Flex align="center" justify="center" h="45px" fontWeight='800' bg={["none", "none", "var(--decision-box)", "var(--decision-box)"]} boxShadow={["none", "none", "0px 1px 12px 3px var(--shadow-color)", "0px 1px 12px 3px var(--shadow-color)"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
+                <Flex align="center" justify="center" h="45px" fontWeight='800' bg={["none", "none", input, input]} boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
             </Flex>
         </Flex>
         <Box fontSize='15px' mb={5}>
@@ -41,6 +44,9 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
             width={["45%", "45%", '100%', '100%']}
             justifyContent={['center', 'center', 'center', 'center']}
             className={styles["buttons-claim-box"]}
+            bg={input}
+            borderRadius='12px'
+            boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`,`0px 1px 12px 3px ${shadow}`]}
         >
             {' '}
             <Button

@@ -19,10 +19,10 @@ export default function Contract({ contract, blockchain }) {
             align="center"
             position="relative"
             justify="left"
-            width="185px"
+            minWidth="165px"
             bg={contracts}
             mt='12px'
-            h="40px"
+            h="30px"
             p="0px 10px"
             boxShadow={useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')}
             borderRadius='10px'

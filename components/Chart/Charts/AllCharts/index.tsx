@@ -58,15 +58,16 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
     let multiplier;
 
     const recentLoad = () => {
+      
       return baseAsset ? baseAsset[title.toLowerCase() + '_history'][title.toLowerCase()]
         .filter((entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now())
         .map((price) => [price[0], price[1] * 1000000000])
         : null
+       
     }
 
     const historyLoad = async () => {
       let old;
-
       if (!historyData) {
         const { data } = await supabase
           .from('history')
@@ -182,7 +183,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
         return week.price
     }
   }
-  
+  const bgChart = useColorModeValue("white", "#131727")
   const generateChart = () => {
     var dayIf: any;
     var ctx = (document.getElementById(`${title}-${idx}`) as any).getContext('2d')
@@ -201,10 +202,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
     )
 
     gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-    gradient.addColorStop(0.15, isWinner ? '#00ba7c' : '#D8494A')
-    gradient.addColorStop(0.33, '#2e355729')
-    gradient.addColorStop(0.66, '#2e355729')
-    gradient.addColorStop(1, '#2e355729')
+    gradient.addColorStop(1,  bgChart)
 
     const { ATH, ATL } = getExtremes(data as any);
     const allTimeDiff = Math.floor(parseInt(ATH.y) / -1000000000) - Math.floor(parseInt(ATL.y) / -1000000000)
@@ -531,39 +529,44 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       setVisible(false)
     }
   }
-  const bgBoxBtn = useColorModeValue("white_chart", "dark_chart")
+  console.log(baseAsset)
+  const bgBoxBtn = useColorModeValue("none", "dark_chart")
+  const bg = useColorModeValue("white", "dark_primary")
+  const shadow = useColorModeValue("var(--chakra-colors-shadow", "none")
+  const color = useColorModeValue("#000", "#FFF")
+
   return (
-    <Box w={window.innerWidth > 768 ? "45%" : "95%"} mb={["30px"]}>
-      <Text mb={4}>{title == 'No Rank' ? 'Rank (Coming Soon)' : title == 'Holders' ? 'Holders (Coming Soon)' : title}</Text>
-      <Box p="20px 20px 20px 20px" bg={hiddenTitles.includes(title) ? "#2e35570d" : '#2e355729'} w="100%" borderRadius="18px" position="relative">
+    <Box w={["95%", "95%", "95%", "45%"]} mb={["30px"]} mx="auto">
+      <Text mb={4}>{title == 'No Rank' ? 'Rank (Coming Soon) ' : title == 'Holders' ? 'Holders (Coming Soon)' : title}</Text>
+      <Box color="grey"  bg={hiddenTitles.includes(title) ? bg: bg} w="100%" borderRadius="18px" position="relative">
         <>
           {!hiddenTitles.includes(title) ? (
-            <Box position="absolute" top="-12.5px" width="auto" right="0px" bg={bgBoxBtn} p="2.5px 3px" borderRadius="10px 10px 0px 10px;" >
+            <Box position="absolute" top="-44.5px" width="auto" right="0px" bg={bgBoxBtn} p="2.5px 3px" borderRadius="10px" >
               <Flex justify="space-around">
                 {(!day || (day.price && day.price.length > 0)) ? timeFormat === "1D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                  <Button size='xs'  color={color} className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
+                  <Button size='xs'  bg="none" mr={3} onClick={() => { setTimeFormat("1D") }}>1D</Button>
                 ) : <></>}
                 {(!week || (week.price && week.price.length > 0)) ? timeFormat === "7D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                  <Button size='xs'  color={color} className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
+                  <Button size='xs'  bg="none" mr={3} onClick={() => { setTimeFormat("7D") }}>7D</Button>
                 ) : <></>}
                 {(!month || (month.price && month.price.length > 0)) ? timeFormat === "30D" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                  <Button size='xs' color={color} className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
+                  <Button size='xs'  bg="none" mr={3} onClick={() => { setTimeFormat("30D") }}>1M</Button>
                 ) : <></>}
                 {(!year || (year.price && year.price.length > 0)) ? timeFormat === "1Y" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                  <Button size='xs'  color={color} className={styles["btn-chakra"]} mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
+                  <Button size='xs'  bg="none" mr={3} onClick={() => { setTimeFormat("1Y") }}>1Y</Button>
                 ) : <></>}
                 {(!all || (all.price && all.price.length > 0)) ? timeFormat === "ALL" ? (
-                  <Button size='xs' bg="#b8b8b8 !important" color="white" className={styles["btn-chakra"]} ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                  <Button size='xs'  color={color} className={styles["btn-chakra"]}  onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                 ) : (
-                  <Button size='xs' color={darkTheme ? "white" : "black"} bg="none" ml={3} onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
+                  <Button size='xs'  bg="none"  onClick={() => { setTimeFormat("ALL") }}>ALL</Button>
                 ) : <></>}
               </Flex>
             </Box>
@@ -572,25 +575,26 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
             </>
           )}
           {title !== "Holders"  ? (
-            <div>
-              <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
-            </div>
-          ) : (
-            <>
-           
-            <Flex justify="center" align="center" >
-              <Spinner
-                  thickness='4px'
-                  speed='0.85s'
-                  emptyColor='red'
-                  color='blue'
-                  size='xl'
-                  p="30px"
-                  my="70px"
-                />
-                <canvas style={{display:"none"}} id={`${title}-${idx}`} width="270px" height="100px"></canvas>
+            <Flex bg="none" borderRadius="18px" boxShadow={`1px 2px 12px 3px ${shadow}`} position="relative">
+              {visible && (
+                    <Spinner
+                    thickness='4px'
+                    speed='0.65s'
+                    emptyColor='gray.200'
+                    color='blue.500'
+                    size='xl'
+                    position="absolute"
+                    top="30%"
+                    left="42%"
+                    bottom="25%"
+                  />
+              )}
+              <canvas style={{borderRadius:"18px"}} id={`${title}-${idx}`} width="270px" height="100px"></canvas>
             </Flex>
-            </>
+          ) : (
+            <Flex bg="none" position="relative" borderRadius="18px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
+                <canvas id={`${title}-${idx}`} width="270px" height="100px"></canvas>
+            </Flex>
           )}
         </>
       </Box>

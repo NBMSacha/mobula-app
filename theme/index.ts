@@ -80,7 +80,12 @@ export const themeUltime = extendTheme({
     white_chart: "#d5d7dc",
     dark_chart: "#171c2f",
     dark_date_changer: "#6C6C6C",
-    white_date_changer: "#484848",
+    white_date_changer: "#EFEFEF",
+    kyc:"#262A4D",
+    white_secondary_input: "#F3F3F3",
+    white_voting: "#FDFDFD",
+    dark_decision: "#202433",
+    grey_border: "#E5E5E5",
 
     // WHITE
     white_gradient: "linear-gradient(180deg, #EEEEEE 20%, rgba(248, 250, 252, 0) 100.94%)",
@@ -90,6 +95,7 @@ export const themeUltime = extendTheme({
     blue: "#5C7DF9",
     blue_title: "#3753B3",
     shadow: '#d0d6e3',
+    shadow_2: 'rgba(208, 214, 227, 0.3)',
     none: "none",
     green: '#16C784',
     red: '#EA3943'
