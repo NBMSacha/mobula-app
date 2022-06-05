@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { X } from 'react-feather'
 import { useAlert } from 'react-alert'
 import styles from './MainBlock.module.scss'
-import { Button, useColorMode, IconButton,useColorModeValue,useMediaQuery, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import { Button, useColorMode, IconButton, useColorModeValue, useMediaQuery, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 
 
 function MainBlock(props: any) {
@@ -19,23 +19,25 @@ function MainBlock(props: any) {
 
   if (!isMobile) {
     return (
-      <Flex  w={["100%", "100%", "90%","90%"]} justify="space-between" pt={[3,3,50,50]} pb={[50,50,50,5]} direction={["column", "column", "row", "row"]} overflow="hidden">
-        <Flex boxShadow={[`0px 1px 12px 3px ${shadowColor}`,`0px 1px 12px 3px ${shadowColor}`,"none", "none" ]}  w={["95%", "95%", "auto","auto"]} direction="column" justify="center"  mr={["auto","auto","auto","50px"]} ml={["auto","auto","10px","10px"]}  borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px","15px","auto","auto"]} bg={[mobileBg, mobileBg, "none", "none"]} >
+      <Flex w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
+        <Flex boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={[mobileBg, mobileBg, "none", "none"]} >
           <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Today's Crypto-assets by <span>Mobula</span></Text>
-          <Text  fontFamily="Poppins" fontSize={["14px", "14px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt="20px" className={styles['subtitle-news']}>
-          The global crypto total value locked is $105M a <span style={{color: "#5C7DF9", fontWeight: "700"}}>1.05%</span> decrease over the last day.
+          <Text fontFamily="Poppins" fontSize={["14px", "14px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt="20px" className={styles['subtitle-news']}>
+            The global crypto total value locked is $105M a <span style={{ color: "#5C7DF9", fontWeight: "700" }}>1.05%</span> decrease over the last day.
 
             {' '}
 
-            
+
           </Text>
         </Flex>
-        <Box w={["100%", "100%","58%",`${isSmalerThan1560 ? "58%" : "58%"}`]} bg={[mobileBg, mobileBg, "none", "none"]} boxShadow={[`0px 1px 12px 3px ${shadowColor}`,`0px 1px 12px 3px ${shadowColor}`,"none", "none" ]} ml="10px"mb={["15px","15px","30px","30px"]}  borderRadius="15px">
+        <Box w={["100%", "100%", "58%", `${isSmalerThan1560 ? "58%" : "58%"}`]} bg={[mobileBg, mobileBg, "none", "none"]} boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} ml="10px" mb={["15px", "15px", "30px", "30px"]} borderRadius="15px">
           <Flex overflow="auto" >
             <Flex justify="center">
               <div >
                 <a href='/earn'>
-                  <Flex boxShadow={["none","none",`0px 1px 12px 3px ${shadowColor}`,`0px 1px 12px 3px ${shadowColor}`]} mr="10px"  bg={["none","none",containerColor,containerColor]} m={["auto", "auto", "auto", "20px 10px"]}  borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={isSmalerThan1560 ? "210px" : "280px"} >
+                  <Flex boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                    mr="10px" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]} >
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='fullicon.png' />
                     </div>
@@ -51,7 +53,9 @@ function MainBlock(props: any) {
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex py={2} boxShadow={["none","none",`0px 1px 12px 3px ${shadowColor}`,`0px 1px 12px 3px ${shadowColor}`]}  bg={["none","none",containerColor,containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={isSmalerThan1560 ? "210px" : "280px"}>
+                  <Flex py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                    bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='portfolio.png'></img>
                     </div>
@@ -65,7 +69,8 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex py={2} boxShadow={["none","none",`0px 1px 12px 3px ${shadowColor}`,`0px 1px 12px 3px ${shadowColor}`]}  bg={["none","none",containerColor,containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={isSmalerThan1560 ? "210px" : "280px"}>
+                  <Flex py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
+                    borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>
                     </div>
@@ -78,9 +83,9 @@ function MainBlock(props: any) {
                 </a>
               </div>
             </Flex>
-            </Flex>
+          </Flex>
           <Flex mt="20px" fontFamily="Poppins" display={["none", "none", "flex", "flex"]}>
-            <Text px="1%" textAlign="center" mr="4px" fontSize="14px"><span style={{color: "#5C7DF9"}}>Mobula’s data is 100% scraped on chain </span>- which means better data, faster and more efficient than any other data aggregator</Text>
+            <Text px="1%" textAlign="center" mr="4px" fontSize="14px"><span style={{ color: "#5C7DF9" }}>Mobula’s data is 100% scraped on chain </span>- which means better data, faster and more efficient than any other data aggregator</Text>
           </Flex>
         </Box>
       </Flex>
