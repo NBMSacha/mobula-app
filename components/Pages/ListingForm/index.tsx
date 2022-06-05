@@ -14,6 +14,7 @@ import { extendTheme } from "@chakra-ui/react"
 import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea } from '@chakra-ui/react'
 import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
 import { Radio, RadioGroup, Button } from '@chakra-ui/react'
+import axios from 'axios';
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -32,6 +33,7 @@ function ListAToken(props: any) {
     const [discord, setDiscord] = useState("")
     const [addNote, setAddNote] = useState("")
     const [uploadedImage, setUploadedImage]: [any, Function] = useState();
+    const [uploadLoading, setUploadLoading] = useState(false);
 
     async function submit(e: any) {
 
@@ -442,8 +444,8 @@ function ListAToken(props: any) {
                                 <div>
                                     <label>Upload Logo *</label>
                                     <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
-                                        {uploadedImage || logo ? <img src={uploadedImage ? uploadedImage : logo} /> : <></>}
-                                    </Flex>
+                                        {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
+                                        {uploadedImage || logo ? <img src={uploadedImage ? uploadedImage : logo} /> : <></>}                                    </Flex>
                                 </div>
                                 <div className={styles["file"]}>
                                     <Input type="file" id="file" name="file" accept="image/png, image/jpg" multiple className={styles["select-file"]}
@@ -454,14 +456,32 @@ function ListAToken(props: any) {
                                         onChange={(e) => {
                                             console.log('Dingue')
                                             const reader = new FileReader();
-                                            reader.addEventListener("load", () => {
+                                            reader.addEventListener("load", async () => {
                                                 if (reader.readyState == 2) {
+                                                    setUploadLoading(true)
+
+                                                    const bufferFile = await e.target.files[0].arrayBuffer();
+                                                    const file =
+                                                    {
+                                                        path: contract + '.json',
+                                                        content: bufferFile
+                                                    }
+
+                                                    const hash = await new Promise(async resolve => {
+                                                        ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
+                                                            resolve(file[0].hash)
+                                                        })
+                                                    })
+
                                                     setUploadedImage(reader.result);
-                                                    fetch('https://mobulaspark.com/upload?' + reader.result);
+                                                    await axios.get('https://mobulaspark.com/upload?hash=' + hash);
+                                                    setUploadLoading(false)
+                                                    setLogo('https://gateway.ipfs.io/ipfs/' + hash)
                                                 }
                                             })
                                             reader.readAsDataURL(e.target.files[0])
                                         }}
+
                                     />
                                     <span className={styles["waapu"]}>
                                         <Upload className={styles["upload-logo"]} />

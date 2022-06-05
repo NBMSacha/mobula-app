@@ -253,9 +253,9 @@ function Token(token: {
   const sticky = useColorModeValue("bg_white", "dark_primary")
 
   return (
-    <tbody id="nul" style={{ borderBottom: `1px solid ${border}` }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-      <tr className={styles["trs"]}>
-        <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} >
+    <tbody id="nul" style={{ borderBottom: `1px solid ${border}` }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+      <tr className={styles["trs"]} >
+        <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
               <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
@@ -271,9 +271,9 @@ function Token(token: {
             <span style={{ marginLeft: "10px", opacity: .6 }}>{token.rank}</span>
           </a>
         </td>
-        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{ background: sticky }}>
+        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{ background: sticky }} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
           <Flex align="center">
-            <img src={token.logo} className={styles["token-logos"]} />
+            <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
             <div className={styles["wrap-name"]}>
               <span className={`${styles["name-title-margin"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
               <span className={`${styles["font-char"]} ${styles["symbol-weight"]}`}>{token.symbol}</span>
@@ -313,8 +313,10 @@ function Token(token: {
             {token.discord ? <a href={token.discord} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
           </div>
         </td>
-        <td className={styles["ths"]}>
-          {(token.id ? <img style={{ margin: "0px auto" }} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> : <></>)}
+        <td >
+          {token.id ?
+            <img style={{ margin: "0px auto" }} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> :
+            token.isMyAsset ? <Button ml={["0%", "0%", "30px"]} borderRadius="12px" w={["100%", "100%", "80%"]} h="30px" fontSize="xs" fontWeight="md" bg="blue" onClick={() => router.push('/list')}>List this asset</Button> : <></>}
         </td>
       </tr>
     </tbody>
