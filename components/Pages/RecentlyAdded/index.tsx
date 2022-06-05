@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
-import { Text, Heading, Link } from '@chakra-ui/react'
+import { Text, Heading, Link, Flex, useColorModeValue } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
 
 export default function RecentlyAdded({ tokens }) {
@@ -19,9 +19,14 @@ export default function RecentlyAdded({ tokens }) {
       }
     }
   }, [])
-
+  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+  const active = useColorModeValue("white", "var(--chakra-colors-dark_active_gainer)")
+  const inactive = useColorModeValue("var(--chakra-colors-grey-loser)", "var(--chakra-colors-dark_inactive_gainer)")
+  const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
   return (
-    <div className={styles["listing"]}>
+    <Flex justify="center">
+
+    
       <div className={styles["dflex"]}>
         <header className={styles["stickyFix"]}>
           <Heading mb={'45px'} mt={'55px'} >Recently Added assets</Heading>
@@ -37,7 +42,7 @@ export default function RecentlyAdded({ tokens }) {
         </header>
         <div className={styles["line"]}></div>
         <table className={styles["tables"]}>
-          <thead className={styles["thead"]}>
+          <thead className={styles["thead"]} style={{borderBottom:`2px solid ${border}`}}>
             <tr className={styles["table-head"]}>
               <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>{textResponsive ? 'Logo' : 'Rank'}</th>
               <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
@@ -84,7 +89,7 @@ export default function RecentlyAdded({ tokens }) {
               format = "days"
             }
 
-            return <tbody className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+            return <tbody style={{borderBottom:`1px solid ${border}`}} className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
               <tr className={styles["token-containers"]}>
                 <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
                   <a href="" className={styles["white"]}>
@@ -163,8 +168,8 @@ export default function RecentlyAdded({ tokens }) {
           })}
         </table>
       </div>
-    </div>
 
+      </Flex>
   )
 
 }
