@@ -222,6 +222,12 @@ function ListAToken(props: any) {
 
     useEffect(() => {
         mountIPFS()
+        try {
+            var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+            var signer = provider.getSigner();
+        } catch (e) {
+            alert.show('You must connect your wallet to submit the form.')
+        }
     }, []);
 
     function isUrl(string: string) {
