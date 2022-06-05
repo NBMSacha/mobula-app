@@ -5,7 +5,11 @@ import { AiOutlineArrowDown } from "@react-icons/all-files/ai/AiOutlineArrowDown
 import { AiOutlineArrowUp } from "@react-icons/all-files/ai/AiOutlineArrowUp"
 import { formatName, getTokenPrice, getTokenPercentage } from '../../../helpers/formaters';
 import { useRouter } from 'next/router';
+<<<<<<< Updated upstream:components/Pages/GainersLosers/index.tsx
 import { Text, Heading, Link, useColorModeValue, Button } from '@chakra-ui/react'
+=======
+import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, IconButton, useColorModeValue } from '@chakra-ui/react'
+>>>>>>> Stashed changes:components/GainersLosers/index.tsx
 
 function GainersLosers() {
     const router = useRouter()
@@ -58,19 +62,22 @@ function GainersLosers() {
         mobileTitle();
     }, [mobSize])
 
-
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const active = useColorModeValue("white", "var(--chakra-colors-dark_active_gainer)")
+    const inactive = useColorModeValue("var(--chakra-colors-grey-loser)", "var(--chakra-colors-dark_inactive_gainer)")
+    const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
     return (
         <div className={styles["main-container"]}>
             <div className={styles["both-container"]}>
                 <div className={styles["column-left"]} id="left" ref={gainersRef}>
                     <Heading color={text} className={styles["title-both"]} id="topGainer">Top Gainers 📈 </Heading>
                     <div className={styles["mobile-btn"]}>
-                        <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} id="loosers"
+                        <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`}  style={{background:active,boxShadow:`1px 2px 13px 3px ${shadow}`}}id="loosers"
                             onClick={() => {
                                 setState("gainers")
                             }
                             }>Gainers 📈</button>
-                        <button className={styles["btn-loosers"]} id="gainers"
+                        <button className={styles["btn-loosers"]} style={{background:inactive,boxShadow:`1px 2px 13px 3px ${shadow}`}} id="gainers"
                             onClick={() => {
                                 setState("losers");
                                 (gainersRef as any).current.style.display = "none";
@@ -80,7 +87,7 @@ function GainersLosers() {
                     </div>
                     <div className={styles["left"]} >
                         <table className={styles["table"]}>
-                            <thead className={styles["border-bot"]}>
+                            <thead className={styles["border-bot"]} style={{borderBottom:`2px solid ${border}`}}>
                                 <tr className={styles["table-head"]}>
                                     <th className={`${styles["data-title"]} ${styles["token-title-data"]}}`}>#</th>
                                     <th className={`${styles["data-title"]} ${styles["token-title-asset"]}}`}>Name</th>
@@ -91,7 +98,7 @@ function GainersLosers() {
                             </thead>
                             {gainers.map((gainer: any, idx: number) => {
                                 return (
-                                    <tbody className={styles["border-bot"]} onClick={() => router.push(String(gainer.id))}>
+                                    <tbody className={styles["border-bot"]} style={{borderBottom:`1px solid ${border}`}} onClick={() => router.push(String(gainer.id))}>
                                         <tr className={styles["token-containers"]}>
                                             <td className={`${styles["font-char"]} ${styles["token-ids"]}`}>
                                                 {/* <span>{gainer.rank}</span> */}
@@ -126,14 +133,23 @@ function GainersLosers() {
                     <Heading color={text} className={styles["title-both"]} id="topLoser">Top Loosers 📉</Heading>
                     <div className={styles["mobile-btn"]}>
 
+<<<<<<< Updated upstream:components/Pages/GainersLosers/index.tsx
                         <Button color={text} className={styles["btn-loosers"]} id="loosers"
+=======
+                        <button className={styles["btn-loosers"]} style={{background:inactive, boxShadow:`1px 2px 13px 3px ${shadow}`}} id="loosers"
+>>>>>>> Stashed changes:components/GainersLosers/index.tsx
                             onClick={() => {
                                 setState("gainers");
                                 (gainersRef as any).current.style.display = "block";
                                 (losersRef as any).current.style.display = "none";
                             }
+<<<<<<< Updated upstream:components/Pages/GainersLosers/index.tsx
                             }>Gainers 📈</Button>
                         <Button color={text} className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} id="gainers"
+=======
+                            }>Gainers 📈</button>
+                        <button className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} style={{background:active, boxShadow:`1px 2px 13px 3px ${shadow}`}} id="gainers"
+>>>>>>> Stashed changes:components/GainersLosers/index.tsx
                             onClick={() => {
                                 setState("losers")
 
@@ -145,8 +161,8 @@ function GainersLosers() {
                     </div>
                     <div className={styles["right"]} id="right" >
                         <table className={styles["table"]}>
-                            <thead className={styles["border-bot"]}>
-                                <tr className={styles["table-head"]}>
+                            <thead className={styles["border-bot"]} style={{borderBottom:`2px solid ${border}`}}>
+                                <tr className={styles["table-head"]} >
                                     <th className={`${styles["data-title"]} ${styles["token-title-data"]}}`}>#</th>
                                     <th className={`${styles["data-title"]} ${styles["token-title-asset"]}}`}>Name</th>
                                     <th className={`${styles["data-title"]} ${styles["token-title-prices"]}`}>Price</th>
@@ -156,7 +172,7 @@ function GainersLosers() {
                             </thead>
                             {losers.map((loser: any, idx: number) => {
                                 return (
-                                    <tbody className={styles["border-bot"]} onClick={() => router.push(String(loser.id))}>
+                                    <tbody className={styles["border-bot"]} style={{borderBottom:`1px solid ${border}`}} onClick={() => router.push(String(loser.id))}>
                                         <tr className={styles["token-containers"]}>
                                             <td className={`${styles["font-char"]} ${styles["token-ids"]}`}>
                                                 {/* <span>{loser.rank}</span> */}
