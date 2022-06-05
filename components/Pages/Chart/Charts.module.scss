@@ -1,0 +1,1084 @@
+.chart-main-container {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.change-chart-date {
+    width: 250px
+}
+
+.mobile-info-left-column {
+    width: 50%;
+}
+
+.button-chart {
+    padding: 0px 10px;
+    margin: 1px 10px;
+
+    border-radius: 10px !important
+}
+
+.button-chart:nth-child(1) {
+    margin: 1px 10px 1px 0px;
+}
+
+.button-chart:nth-child(5) {
+    margin: 1px 0px 1px 10px;
+}
+
+.unsure {
+    opacity: 0.4;
+}
+
+.token-percentage-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+
+.btn-more-less {
+
+    border: none;
+    margin-top: 15px;
+    border-radius: 6px;
+    width: 90%;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 18px;
+    padding: 2px 8px;
+    height: 25px;
+    display: none;
+}
+
+.hidedao {
+    display: none !important;
+}
+
+.chart-top-token {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    height: 95px;
+}
+
+.btn-more-less>span {
+    opacity: 0.6;
+}
+
+.chart-top-token {
+    margin-top: 15px;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.chart-left-top {
+    width: auto;
+    min-width: 320px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.chart-token-logo {
+    width: 60px;
+    height: 60px;
+}
+
+.chart-token-name {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.chart-token-name>span {
+    margin-bottom: 10px;
+}
+
+
+.star-chart {
+    font-size: 30px;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+
+.rank-spane {
+    margin-right: 8px;
+}
+
+.red {
+    color: #D8494A !important;
+}
+
+.green {
+    color: #16c784 !important
+}
+
+.chart-token-rank {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 18px;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+}
+
+.mobile-notes-boxs {
+    background: var(--dao-score);
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 8px;
+    margin-bottom: -4px;
+    width: 99px;
+    display: flex !important;
+    margin-top: 8px;
+    height: 22px;
+    display: flex;
+}
+
+.mobile-notes-boxs>span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 18px;
+}
+
+.chart-right-top {
+    display: flex;
+    width: auto;
+    justify-content: space-around;
+}
+
+
+.mobile-grades {
+    display: none;
+}
+
+.chart-box-container {
+    width: auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-right: 110%;
+    margin-left: 0px;
+    margin-top: 13px;
+}
+
+
+
+.chart-box-container {
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    margin-left: -50px;
+}
+
+.chart-box-container {
+    width: 90%;
+    display: flex;
+}
+
+.chart-right-info {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 18px;
+    width: 150px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    height: 700px;
+}
+
+.chart-right-info {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 18px;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+.chart-right-info>p {
+    margin: 0px;
+}
+
+.absolute-mobile,
+.absolute-mobile {
+    display: none;
+    position: relative;
+}
+
+
+.dollard {
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    font-size: 23px;
+}
+
+.test {
+    font-size: 36px;
+    text-align: start;
+}
+
+.chart-lose {
+    display: flex;
+    background-color: #D8494A;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 8px;
+    position: absolute;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+
+
+
+.chart-gain {
+    display: flex;
+    background-color: #00ba7c;
+    align-items: center;
+    padding: 5px 8px;
+    border-radius: 8px;
+    position: absolute;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+
+.box-info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-top: -3px;
+}
+
+.chart-info-box {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    width: 130px;
+    align-items: center;
+}
+
+.grey {
+    font-size: 9px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    opacity: 0.6;
+
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.numbers {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.chart-buy {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width:270px; */
+}
+
+.mr {
+    margin-right: 3.2rem;
+}
+
+.mobile-showInfo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+}
+
+.mobile-info-element {
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+
+.mobbox {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 12%;
+}
+
+.mobbox>span {
+    margin-top: 12px;
+}
+
+.mobboxx {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    padding-right: 12%;
+}
+
+.mobboxx>span {
+    margin-top: 12px;
+}
+
+
+.mobile-info-left-column {
+    width: 50%
+}
+
+.mobile-info-right-column {
+    width: 50%
+}
+
+.chart-bottom-container {
+    display: flex;
+    width: 90%;
+    margin-top: 15px;
+    /* margin-top: 30px; */
+}
+
+.chart-bottom-left {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.left-top-box {
+    height: 70%;
+    width: auto;
+    padding: 11%;
+}
+
+.text-top-chart {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    opacity: 0.6;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+.text-bottom-chart {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    word-break: break-word;
+}
+
+.left-bottom-box {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.8vw 0px;
+}
+
+.left-bottom-box-dis {
+    height: 30%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.8vw 0px;
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.left-bottom-box-dis>* {
+    cursor: not-allowed;
+}
+
+.notes-boxs>span {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+
+}
+
+.notes-boxs {
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    margin-bottom: 9px;
+    width: 9vw;
+}
+
+.grades {
+    display: none;
+}
+
+.grades:active {
+    border: none;
+}
+
+.chart-bottom-right {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.chart-box {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2% 0px 30px 0px;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 44px;
+
+}
+
+.chart-header-link {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    margin-right: 30px;
+    background: none;
+    border: none;
+    padding: 12px 10px;
+}
+
+.chart-content {
+    margin-bottom: 30px;
+}
+
+.report-problem {
+    color: #D8494A;
+}
+
+.chart-content {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+
+.canvas-container {
+    position: relative;
+    width: 100%;
+    max-width: 880px;
+}
+
+
+.change-chart-date {
+    position: absolute;
+    top: -12px;
+    left: 0px;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    width: auto;
+    color: grey;
+    border-radius: 10px;
+}
+
+.activeMoover {
+    position: absolute;
+    right: 265px;
+    z-index: 1;
+    height: 28px;
+    width: 38px;
+    border-radius: 8px;
+    margin-top: 2px;
+    margin-left: 3px;
+    margin-bottom: 1px;
+    transform: translateX(0%);
+    transition: right 250ms ease-in-out
+}
+
+.button-chart {
+    background: none;
+    border: none;
+    font-family: 'Poppins';
+    font-size: 18px;
+    border-radius: 6px;
+
+}
+
+.button-chart {
+    z-index: 2;
+}
+
+
+.active-chart {
+
+    border-radius: 10px;
+}
+
+s .text-top-chart {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+
+}
+
+.warning {
+    font-size: 2rem;
+    font-weight: 700;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    z-index: 1000;
+}
+
+/* ============================ MEDIA QUERY ============================ */
+/* ============================ MEDIA QUERY ============================ */
+/* ============================ MEDIA QUERY ============================ */
+
+
+
+@media screen and (max-width: 1650px) {
+    .left-bottom-box {
+        height: 9vw;
+        padding: 0px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0px auto;
+    }
+
+    .notes-boxs {
+        position: relative;
+        width: auto
+    }
+
+    .disapear {
+        display: none;
+    }
+
+    .grades {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: auto;
+        position: absolute;
+        top: 30px;
+        left: 0px;
+        border-radius: 0 0 10px 10px;
+        width: 100%;
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1450px) {
+    .chart-bottom-left {
+        min-width: 139px !important;
+    }
+
+    .left-top-box {
+        padding: 0px;
+    }
+
+    .notes-boxs>span {
+        font-size: 11px;
+    }
+
+    .notes-boxs {
+        margin-bottom: 0px;
+        position: relative;
+    }
+
+    .left-bottom-box {
+        padding: 0.8vw 0px;
+        margin: 0px auto;
+        margin-top: 8px;
+    }
+
+    .left-top-box {
+        border-right: none;
+    }
+
+    .left-top-box {
+        border-bottom: none !important;
+    }
+
+    .text-top-chart {
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
+        padding-right: 1.5vw;
+    }
+
+    .topOne {
+        margin-top: 1.5vw
+    }
+
+    .text-bottom-chart {
+        font-size: 13px;
+        margin-left: 1.5vw;
+        margin-right: 1.5vw;
+        padding-right: 1.5vw;
+
+    }
+
+    .button-chart {
+        padding: 0px 8px !important;
+        margin: 1px 6px;
+        border-radius: 10px !important;
+    }
+
+    .button-chart:nth-child(1) {
+        margin: 1px 6px 1px 0px;
+    }
+
+    .button-chart:nth-child(5) {
+        margin: 1px 0px 1px 6px;
+    }
+
+}
+
+@media screen and (max-width: 1350px) {
+    .chart-box {
+        width: 98%
+    }
+
+    .text-top-chart {
+        margin-left: 1.5vw;
+    }
+
+    .text-bottom-chart {
+        font-size: 12px;
+        margin-left: 1.5vw
+    }
+
+    .text-top-chart {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .chart-header {
+        white-space: initial
+    }
+
+    .chart-box-left {
+        width: 30% !important;
+        padding: 5px;
+    }
+
+    .chart-header-link {
+        font-size: 12px;
+    }
+
+    .btn-more-less {
+        display: flex !important;
+    }
+}
+
+
+
+@media screen and (max-width: 1160px) {
+    .mobile-info-element {
+        display: none
+    }
+
+    .chart-header-link {
+        margin-right: 15px;
+    }
+
+    .notes-boxs {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 6px 8px;
+    }
+
+    .tagV {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .chart-header {
+        margin-left: 4%;
+        white-space: nowrap;
+    }
+}
+
+.triangle-green {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid var(--chakra-colors-green);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+}
+
+.triangle-red {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid #ea3943;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .chart-header {
+        margin-bottom: 23px;
+        margin-top: -14px;
+    }
+
+    .chart-gain,
+    .chart-lose {
+        margin-top: 30px;
+        height: 25%;
+        padding: 11px 8px;
+        border-radius: 5px;
+    }
+
+    .chart-left-top {
+        width: auto;
+        min-width: 150px;
+        justify-content: start !important;
+        flex-direction: row;
+    }
+
+    .arrow {
+        width: 18px;
+    }
+
+    .chart-content {
+        width: 95%;
+        margin-top: 0px
+    }
+
+
+
+    .chart-bottom-right {
+        border: none;
+    }
+
+
+    .warning {
+        font-size: 1.5rem;
+        top: 50%;
+        left: 40%
+    }
+
+    .chart-header {
+        padding: 0px 0px 20px 0px !important
+    }
+
+
+    .active-chart {
+        padding: 5px 10px;
+    }
+
+    .d {
+        margin-left: 15px
+    }
+
+    .button-chart {
+        font-size: 13px;
+        color: var(--text-color);
+
+    }
+
+    .activeMoover {
+        position: absolute;
+        right: 162px;
+        z-index: 1;
+        height: 20px !important;
+        width: 30px !important;
+        border-radius: 6px !important;
+        margin-top: 0px !important;
+        margin-left: 3px;
+        margin-bottom: 1px !important;
+        background-color: #dee4ffb4;
+        transform: translateX(0%);
+    }
+
+    .d {
+        margin-left: 15px
+    }
+
+    .button-chart {
+        margin: auto;
+        border-radius: 5px;
+        height: auto;
+        width: auto;
+        border-radius: 6px !important;
+    }
+
+    .button-chart:nth-child(1) {
+        margin: 2px;
+    }
+
+    .button-chart:nth-child(5) {
+        margin: 2px;
+    }
+
+    .change-chart-date {
+        position: absolute;
+        top: -30px;
+        right: 0%;
+        justify-content: center;
+        padding: 1px;
+        border-radius: 7px;
+        width: auto;
+        height: auto;
+        max-width: 210px;
+        min-width: 195px;
+    }
+
+    .chart-header-link {
+        font-size: 12px;
+        margin-right: 14px;
+    }
+
+    .chart-bottom-left {
+        display: none !important;
+    }
+
+
+
+    .chart-buy {
+        display: none
+    }
+
+    .chart-box-container {
+        margin-right: 20px !important;
+    }
+
+    .chart-bottom-container {
+        border: none;
+        margin-top: 21px;
+    }
+
+    .numbers {
+        font-size: 11px;
+    }
+
+    .chart-header {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        justify-content: start;
+        font-size: 12px;
+        padding: 0px 0px 60px 0px;
+        white-space: nowrap;
+        overflow: auto;
+    }
+
+    .dollard {
+        font-size: 25px;
+        top: 0px;
+        left: 0px !important;
+    }
+
+    .downArrow {
+        color: #D8494A;
+    }
+
+    .grey {
+        font-size: 10px;
+    }
+
+    .chart-top-token {
+        margin-top: 14px;
+        margin-bottom: -3px;
+        height: 82px;
+        border-bottom: 1px solid var(--border-chart);
+        padding-bottom: 5px;
+    }
+
+    .test {
+        font-size: 25px;
+        text-align: end;
+    }
+
+    .chart-right-top {
+        margin-right: 20px;
+    }
+
+    .chart-right-info {
+        width: 120px;
+        margin-bottom: 12px;
+    }
+
+    .flex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+    }
+
+    .chart-token-logo {
+        width: 37px;
+        height: 37px;
+    }
+
+    .chart-left-top {
+        max-width: 200px
+    }
+
+    .chart-token-name {
+        font-size: 20px;
+    }
+
+    .chart-token-name>span {
+        margin: 0px;
+    }
+
+    .star-chart {
+        display: none;
+    }
+
+    .chart-token-rank {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mobile-grades {
+        top: 19px;
+        left: 0px;
+        background: var(--charts);
+        box-shadow: 6px 5px 6px 0 rgba(0, 0, 0, 0.3);
+
+    }
+
+    .absolute-mobile {
+        background: var(--charts);
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 8px;
+        margin-bottom: 9px;
+        width: 115px;
+        display: flex !important;
+
+        height: 22px
+    }
+
+    .absolute-mobile-dis {
+        background: var(--charts);
+        border-radius: 6px;
+        display: none !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 8px;
+        margin-bottom: 0px;
+
+        width: 115px;
+
+        height: 22px;
+        opacity: 0.4;
+        border: none;
+    }
+
+    .absolute-mobile>span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 18px;
+        opacity: 0.6;
+    }
+
+    .absolute-mobile-dis>span {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 18px;
+        opacity: 0.6;
+    }
+}
+
+@media screen and (max-width:460px) {
+    .chart-top-token {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        height: 95px;
+    }
+
+    .mobboxx {
+        padding-right: 5%;
+    }
+
+    .mobbox {
+        padding-left: 5%;
+    }
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Chart from '../../components/Chart/index.jsx';
+import Chart from '../../components/Pages/Chart/index.jsx';
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 import { fromUrlToName } from '../../helpers/formaters'
+import { ethers } from 'ethers';
 
 export async function getStaticPaths() {
     return {
@@ -36,9 +37,18 @@ export const getStaticProps = async ({ params }) => {
 function Dataprovider({ asset, darkTheme }) {
     const router = useRouter()
 
-    if (asset && asset.id) {
-        fetch('https://mobulaspark.com/ping?id=' + asset.id)
-    }
+    useEffect(() => {
+        const provider = new ethers.providers.Web3Provider((window as any).ethereum)
+
+        if (asset && asset.id && provider) {
+            provider.listAccounts().then(accounts => {
+                fetch('https://mobulaspark.com/ping?id=' + asset.id + "&name=" + asset.name + "&account=" + accounts[0]).catch(r => { })
+            })
+        } else if (asset && asset.id) {
+            fetch('https://mobulaspark.com/ping?id=' + asset.id + "&name=" + asset.name).catch(r => { })
+        }
+    }, [])
+
 
     if (router.isFallback) {
         return <></>

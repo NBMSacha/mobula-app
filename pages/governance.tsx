@@ -1,4 +1,4 @@
-import Governance from '../components/Governance'
+import Governance from '../components/Pages/Governance'
 
 export default function () {
   return (

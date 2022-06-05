@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react';
-import News from "../components/Main/"
+import News from "../components/Pages/Main"
 
 export async function getStaticProps() {
   const supabase = createClient(

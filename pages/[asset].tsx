@@ -5,7 +5,7 @@ const provider = ethers.getDefaultProvider("https://polygon-rpc.com")
 const API_ADDRESS = "0x76edF9562F2Cca3bc36DB2ed58A4adC0b10F1048"
 const apiContract = new ethers.Contract(API_ADDRESS,
     ['function staticData(address token) external view returns(string)'], provider)
-import Chart from '../components/Chart/index.jsx';
+import Chart from '../components/Pages/Chart/index.jsx';
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 

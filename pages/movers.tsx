@@ -1,4 +1,4 @@
-import GainersLosers from '../components/GainersLosers'
+import GainersLosers from '../components/Pages/GainersLosers'
 
 export default function () {
   return (

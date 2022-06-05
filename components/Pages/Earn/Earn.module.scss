@@ -1,0 +1,277 @@
+@import "../../../styles/variables.scss";
+
+.link {
+    color: $secondTextColor;
+    margin-left: 7px;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-chart);
+    ;
+    margin-top: 1rem;
+}
+
+.title {
+    font-weight: 800;
+
+
+    .titleColor {
+        color: $secondTextColor;
+
+    }
+}
+
+.clickCopy {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 13px !important;
+
+}
+
+.claim-btn {
+    padding: 0px 10px !important;
+    height: 33px !important;
+    width: 120px !important;
+}
+
+.chain-logo {
+    display: inline-block;
+    font-size: 15px;
+    width: 15px;
+    margin-left: 10px
+}
+
+.title-referral>span {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 5px;
+
+}
+
+.title-referral {
+    color: var(--text-referal);
+    vertical-align: middle;
+    font-size: 18px;
+
+}
+
+.title-referral-mobl {
+    color: var(--text-referal);
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.title-referral-mobl>span {
+    color: #5C7DF9;
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 5px;
+}
+
+.load-rect {
+    width: 20px;
+}
+
+.daily-box {
+    transition: 0.2s ease-in-out;
+
+    margin: 7.5px 5px 7.5px 5px;
+    width: 140px;
+    height: 115px;
+}
+
+.daily-box:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 997px) {
+    .floatLeft {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .alignCenter {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .daily-box {
+        width: 20% !important;
+        height: 110px;
+    }
+
+    .title {
+        white-space: pre-wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        margin-bottom: 0px !important
+    }
+
+    .daily-box {
+        width: 20% !important;
+
+        display: flex;
+        align-items: center;
+    }
+
+    .daily {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around !important;
+        width: 80%
+    }
+
+    .daily>p {
+        margin-top: 0px;
+    }
+
+
+}
+
+.day-text {
+    margin-bottom: 28px;
+}
+
+.mienai {
+    display: none;
+}
+
+@media screen and (max-width: 560px) {
+
+    .daily-box {
+        width: 20% !important;
+        height: 80px !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .daily {
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around !important;
+        width: 80%
+    }
+
+    .claim-btn {
+        border-radius: 10px;
+        /* box-shadow: 0px 4px 12px var(--border-color); */
+        background: #5C7DF9;
+        /* padding-top: 3px; */
+        /* padding-bottom: 3px; */
+        /* width: 80px; */
+        display: flex;
+        width: 80px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .daily>p {
+        margin-top: 0px;
+    }
+
+    .day-text {
+        margin-bottom: 17px !important;
+        margin-top: 6px;
+    }
+
+    .balance-abslt {
+        position: absolute;
+        top: 147px;
+        right: 30px !important;
+    }
+
+}
+
+@media screen and (max-width:1200px) {
+    .daily-box {
+        width: 111px;
+        height: 110px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .title-referral {
+        font-size: 15px;
+    }
+
+    .noneDis {
+        display: none !important;
+    }
+
+    .plus {
+        position: absolute;
+        top: -27px;
+    }
+
+    .clickCopy {
+        margin-bottom: -10px;
+    }
+
+    .claim-mobl {
+        margin-top: 5px;
+    }
+
+    .mienai {
+        position: absolute;
+        display: flex;
+        top: 127px;
+    }
+
+    .title-referral-mobl {
+        font-size: 14px;
+        position: absolute;
+        top: -22px;
+        right: 10px;
+    }
+
+    .title-referral-mobl>span {
+        font-size: 16px;
+    }
+
+    .title-referral>span {
+        font-size: 15px;
+    }
+
+    .day-text {
+        margin-bottom: 25px;
+    }
+
+    .balance-abslt {
+        position: absolute;
+        top: 122px;
+        right: 50px;
+    }
+
+    .claim-mobl {
+        background: var(--bg-list-balance) !important;
+        color: var(--text-color);
+        width: 141px;
+        text-align: start;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        font-size: 12px !important;
+        box-shadow: none !important;
+    }
+
+    .chain-logo {
+        display: none;
+    }
+
+}
+
+.claim-mobl {
+    background: #7B96F9;
+}

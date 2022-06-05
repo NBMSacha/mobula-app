@@ -1,7 +1,7 @@
-import Earn from '../components/Earn'
+import Earn from '../components/Pages/Earn'
 
-export default function ({darkTheme}) {
+export default function ({ darkTheme }) {
     return (
-        <Earn darkTheme={darkTheme}/>
+        <Earn darkTheme={darkTheme} />
     )
 }

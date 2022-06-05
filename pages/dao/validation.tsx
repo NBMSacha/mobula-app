@@ -1,4 +1,4 @@
-import FinalValidation from '../../components/FinalValidation/'
+import FinalValidation from '../../components/Pages/FinalValidation'
 
 export default function () {
     return <FinalValidation />

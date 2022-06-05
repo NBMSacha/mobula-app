@@ -1,4 +1,4 @@
-import Elections from '../../components/Elections'
+import Elections from '../../components/Pages/Elections'
 
 export default function () {
     return <Elections />
