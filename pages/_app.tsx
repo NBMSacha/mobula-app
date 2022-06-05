@@ -13,19 +13,16 @@ import { ColorModeScript } from '@chakra-ui/react'
 import { themeUltime } from '../theme/'
 import { ChakraProvider } from "@chakra-ui/react"
 
-
-
 const alertOptions = {
   timeout: 5000,
   position: positions.BOTTOM_CENTER,
 }
 
 function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider, 'any')
-  library.pollingInterval = 12000
-  return library
+  const library = new Web3Provider(provider, "any");
+  library.pollingInterval = 12000;
+  return library;
 }
-
 
 
 export default function App({ Component, pageProps }) {
@@ -90,9 +87,9 @@ export default function App({ Component, pageProps }) {
 
             <Footer darkTheme={darkThemes} setDarkTheme={setDarkThemes} />
 
-          </Web3ReactProvider>
-        </Provider>
-      </ChakraProvider>
+          </Web3ReactProvider >
+        </Provider >
+      </ChakraProvider >
     </>
   )
 }
