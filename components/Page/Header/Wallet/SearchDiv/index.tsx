@@ -86,8 +86,10 @@ function SearchDiv(props: any) {
         <Box className={styles['search-div']} bg={bg}>
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} />
-            <input
+            <Input
+              color="none"
               value={token}
+              _placeholder={{color:"none"}}
               type='text'
               className={styles['search-input']}
               name='search'
