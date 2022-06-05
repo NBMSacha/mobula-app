@@ -151,13 +151,15 @@ function MenuMobile(props: any) {
     }
   }, [account])
   console.log(Number(ranked))
-
+  const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   if (router.pathname.includes('dao')) {
     return (
       <>
-        <div
+        <Flex
+          display="none"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
+          bg={bg}
           style={{ display: 'none' }}
         >
           <div className={styles['mobile-linkTo']}>
@@ -195,15 +197,15 @@ function MenuMobile(props: any) {
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
           </div>}
 
-        </div>
+        </Flex>
       </>
     )
   } else {
-    const bg = useColorModeValue("bg_white", "dark_primary")
+    const bg = useColorModeValue("red", "dark_primary")
     return (
       <>
         <Flex
-          bg={bg}
+          bg="red"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}
