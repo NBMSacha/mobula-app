@@ -16,12 +16,12 @@ import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
 import Head from 'next/head'
 import SkipBtn from './SkipBtn'
-import { volumeOracles, priceOracles, specialTokens, providers } from '../../../constants';
+import { volumeOracles, priceOracles, specialTokens, providers, stableTokens, tokensPerBlockchain, } from '../../../constants';
 import BigNumber from 'bignumber.js';
 import { useRouter } from 'next/router';
 import Swap from "./Swap";
 import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex, Box, Text } from '@chakra-ui/react'
-import { CSSReset } from '@chakra-ui/react'
+import { CSSReset, useMediaQuery } from '@chakra-ui/react'
 import Charts from "./Charts/index.jsx"
 
 const ChartCryptos = ({ baseAsset, darkTheme }) => {
@@ -46,6 +46,9 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const hidedaoRef = useRef();
   const changeRef = useRef();
   const [historyData, setHistoryData] = useState(null);
+  const [mobile] = useMediaQuery('(max-width: 768px)');
+  const fillStyle = useColorModeValue("#666", "#b8b8b8");
+  const [isPriceWinner, setIsWinner] = useState();
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})
@@ -183,8 +186,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     } catch (err) {
       console.log(err)
     }
-
-    console.log(chart)
   }
 
   const generateChart = () => {
@@ -318,9 +319,18 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                 maxTicksLimit: isMobile ? 4 : 8,
                 callback: function (tick) {
                   if (tick == 0) return 0
-                  return parseFloat(tick / 1000000000).toFixed(
+                  const price = parseFloat(tick / 1000000000).toFixed(
                     Math.max(12 - String(parseInt(tick)).length, 0)
                   )
+
+                  const exp = price.match(/0\.0+[1-9]/)?.[0] || ''
+
+                  console.log('exxxp', exp)
+                  if (exp.length > 5) {
+                    return price.split('.')[0] + '...' + price.split(exp.slice(0, exp.length - 2))[1];
+                  } else {
+                    return price
+                  }
                 },
               },
             },
@@ -387,7 +397,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
       const y = scales["y-axis-0"];
       ctx.beginPath();
-      ctx.fillStyle = "#2E3557";
+      ctx.fillStyle = fillStyle;
       ctx.fillRect(0, mousemove.offsetY - 10, left, 20);
       ctx.closePath();
 
@@ -408,9 +418,10 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   }
 
   const fetchLiveData = async () => {
-    let total_volume = 0;
-    let averagePrice = new BigNumber(0)
-    let totalLiquidity = new BigNumber(0)
+    let subgraphSuccess = 0;
+    let expectedPairs = -1;
+    let totalLiquidity = 0;
+    let averagePrice = 0;
 
     if (baseAsset.contracts && baseAsset.total_volume_history && baseAsset.blockchains) {
 
@@ -418,73 +429,167 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
       for (let i = 0; i < baseAsset.contracts.length; i++) {
 
-        if (priceOracles[baseAsset.blockchains[i]]) {
-          const [tokenPrice, tokenLiquidity] = specialTokens.includes(baseAsset.contracts[i]) ? await (new ethers.Contract(
-            priceOracles[baseAsset.blockchains[i]],
-            ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
-            providers[baseAsset.blockchains[i]])).getGeneralUSDPriceUsingStable(baseAsset.contracts[i]) : await (new ethers.Contract(
-              priceOracles[baseAsset.blockchains[i]],
-              ['function getGeneralUSDPrice(address tokenAddress) public view returns(uint256, uint256)'],
-              providers[baseAsset.blockchains[i]])).getGeneralUSDPrice(baseAsset.contracts[i]);
+        try {
+          if (volumeOracles[baseAsset.blockchains[i]]) {
+            let currentSubgraph = 0;
 
-          const safeTokenPrice = new BigNumber(tokenPrice.toString())
-          const safeTokenLiquidity = new BigNumber(tokenLiquidity.toString())
+            for (const subgraph of volumeOracles[baseAsset.blockchains[i]]) {
+              const dead = '0x000000000000000000000000000000000000dead';
 
-          const tokenDecimals = await (new ethers.Contract(
-            baseAsset.contracts[i],
-            ['function decimals() external view returns (uint256)'],
-            providers[baseAsset.blockchains[i]]).decimals());
+              try {
 
-          //console.log(ethers.utils.parseUnits("10", tokenDecimals.toNumber()))
+                const { data: result } = await axios.post(subgraph.url, {
+                  query: `
+                                  {
+                                      tokens(where: {id: "${baseAsset.contracts[i].toLowerCase()}"}) {
+                                          id,
+                                          ${subgraph.query}
+                                      }
+    
+                                     pair0:  pairs(where: {id: "${(baseAsset.pairs[i][currentSubgraph][0] ? baseAsset.pairs[i][currentSubgraph][0] : dead).toLowerCase()}"}) {
+                                        reserveUSD
+                                        reserve0
+                                        reserve1
+                                        id
+                                        token0{
+                                          id
+                                          }
+                                          token1{
+                                          id
+                                          }
+                                        volumeUSD
+                                      }
+    
+                                      pair1:  pairs(where: {id: "${(baseAsset.pairs[i][currentSubgraph][1] ? baseAsset.pairs[i][currentSubgraph][1] : dead).toLowerCase()}"}) {
+                                          reserveUSD
+                                          reserve0
+                                          reserve1
+                                          id
+                                          token0{
+                                              id
+                                          }
+                                          token1{
+                                              id
+                                          }
+                                          volumeUSD
+                                      }
+    
+                                      pair2:  pairs(where: {id: "${(baseAsset.pairs[i][currentSubgraph][2] ? baseAsset.pairs[i][currentSubgraph][2] : dead).toLowerCase()}"}) {
+                                          reserveUSD
+                                          reserve0
+                                          reserve1
+                                          id
+                                          token0{
+                                              id
+                                          }
+                                          token1{
+                                              id
+                                          }
+                                          volumeUSD
+                                      }
+    
+                                      eth: pairs(
+                                          first:1,
+                                          orderBy:reserveUSD,
+                                          orderDirection:desc,
+                                          where: {
+                                              token0_in: ["${tokensPerBlockchain[baseAsset.blockchains[i]][1].toLowerCase()}", "${tokensPerBlockchain[baseAsset.blockchains[i]][0].toLowerCase()}"],
+                                              token1_in: ["${tokensPerBlockchain[baseAsset.blockchains[i]][1].toLowerCase()}", "${tokensPerBlockchain[baseAsset.blockchains[i]][0].toLowerCase()}"],
+                                          }
+                                      ){
+                                      reserveUSD
+                                        reserve0
+                                        reserve1
+                                        token0 {
+                                          id
+                                        }
+                                        volumeUSD
+                                      }
+                                    }
+                                      
+                                  `
+                })
 
-          const decimalsDivider = new BigNumber(10).pow(18 - tokenDecimals.toNumber());
-          const normalizer = new BigNumber(10).pow(18);
+                var prixETH =
+                  tokensPerBlockchain[baseAsset.blockchains[i]][0].toLowerCase() == result.data.eth[0].token0.id ?
+                    (result.data.eth[0].reserve1 / result.data.eth[0].reserve0) :
+                    (result.data.eth[0].reserve0 / result.data.eth[0].reserve1);
 
-          let normalPrice = safeTokenPrice.div(normalizer).div(decimalsDivider);
-          let normalLiquidity = safeTokenLiquidity.div(normalizer);
-
-          averagePrice = averagePrice.plus(normalPrice.times(normalLiquidity));
-          totalLiquidity = totalLiquidity.plus(normalLiquidity);
-        }
-
-        if (volumeOracles[baseAsset.blockchains[i]]) {
-
-          for (const subgraph of volumeOracles[baseAsset.blockchains[i]]) {
-
-            try {
-              const { data: result, error } = await axios.post(subgraph.url, {
-                query: `
-                      {
-                        tokens(where: {id: "${baseAsset.contracts[i]}"}) {
-                          id,
-                          ${subgraph.query}
-                        }
+                for (let k = 0; k < 3; k++) {
+                  let coef = prixETH;
+                  let pair = result.data[`pair${k}`][0];
+                  const ETH = tokensPerBlockchain[baseAsset.blockchains[i]][0].toLowerCase();
+                  if (pair) {
+                    let isBackedOnStable = false;
+                    let prixToken = 0;
+                    for (let l = 0; l < 2; l++) {
+                      const stable = stableTokens[baseAsset.blockchains[i]][0][`vsToken${l}`];
+                      if (!isBackedOnStable && (pair.token0.id == stable || pair.token1.id == stable)) {
+                        isBackedOnStable = true;
+                        coef = 1;
                       }
-                    `
-              })
-              console.log(subgraph.url, result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
-              total_volume += parseInt(result.data.tokens[0] ? result.data.tokens[0][subgraph.query] : 0)
-            } catch (e) {
-              console.log(e)
-              error = true;
+                    }
+
+                    prixToken =
+                      baseAsset.contracts[i].toLowerCase() == pair.token0.id ?
+                        (pair.reserve1 / pair.reserve0) * coef :
+                        (pair.reserve0 / pair.reserve1) * coef;
+
+                    if (isBackedOnStable && (pair.token0.id == ETH || pair.token1.id == ETH)) {
+
+                      prixToken = baseAsset.contracts[i].toLowerCase() == ETH ? prixETH : 1;
+
+                    }
+
+                    let bufferLiquidity =
+                      (pair.reserveUSD / 2) > 500 ?
+                        (pair.reserveUSD / 2) : 0;
+
+                    if (!(pair.reserve1.includes('.') && pair.reserve1.includes('.') && pair.reserve0.includes('.') && pair.reserve0.includes('.'))) {
+                      bufferLiquidity = 0;
+                      console.log(`Price ignored as one reserve does not contain a decimal point`);
+                    }
+
+                    totalLiquidity += bufferLiquidity;
+                    averagePrice += prixToken * bufferLiquidity;
+
+                    if (bufferLiquidity == 0) {
+                      console.log(`LP null or ignored due to the threshold`);
+                    }
+
+                    subgraphSuccess++;
+                    console.log(`Success subgraph: ${subgraphSuccess}/${expectedPairs}`);
+                  }
+
+                }
+
+              } catch (e) {
+                console.log('[SUBGRAPH ISSUE] : ' + '\n' + e, 'low ', e);
+              }
+
+              currentSubgraph++;
+
             }
+
+          } else {
+            console.log('Not scraping volume because ' + baseAsset.blockchains[i] + ' not supported.')
           }
+        } catch (e) {
+          console.log('[VOLUME ISSUE] : ' + name + '\n' + e, 'low', e)
+          console.log(baseAsset.blockchains)
         }
       }
-      if (totalLiquidity.toNumber() > 0) {
-        console.log('MODIFYING PRICE')
-        //setPrice(averagePrice.div(totalLiquidity).toNumber())
-        //setLiquidity(totalLiquidity.toNumber());
-        console.log('Updated price : ' + price)
-        console.log('Updated liquidity : ' + liquidity)
-      } else {
-        console.log('CLOCHARD')
-      }
-      const volume = total_volume - getClosest(baseAsset.total_volume_history.total_volume, Date.now() - 24 * 60 * 60 * 1000)
 
-      if (!error) {
-        //setVolume(volume);
+      if (totalLiquidity > 0) {
+        var price = Number(averagePrice / totalLiquidity);
+        if (price && !isNaN(price)) {
+          setPrice(price);
+          console.log('BORRRRR', price)
+        }
+
+        console.log(price + ':' + name)
       }
+
     }
   }
 
@@ -495,6 +600,22 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
       fetchLiveData()
     }
   }, [])
+
+  useEffect(() => {
+
+    if (price) {
+      if (baseAsset.price < price) {
+        setIsWinner(true)
+      } else if (baseAsset.price > price) {
+        setIsWinner(false)
+      }
+
+      setTimeout(() => {
+        setIsWinner(null)
+      }, 500)
+    }
+
+  }, [price])
 
 
 
@@ -640,22 +761,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     }
   }
 
-  function daoBtn() {
-    var x = window.matchMedia('(max-width: 1650px')
-    if (x.matches) {
-      if (daoRef.current.style.display == 'none') {
-        daoRef.current.style.display = 'block'
-        dropdownRef.current.style.margin =
-          '0px 0px 150px 0px'
-      } else {
-        daoRef.current.style.display = 'none'
-        dropdownRef.current.style.margin =
-          '0px 0px 0px 0px'
-      }
-    } else {
-      daoRef.current.preventDefault()
-    }
-  }
   const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
   const bgChart = useColorModeValue("#F5F5F5", "#131727")
   const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
@@ -669,11 +774,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
     const [scoreVisible, setScoreVisible] = useState(false)
     const [isRed, setIsRed] = useState(false)
-    // if(baseAsset.utility_score + baseAsset.social_score + baseAsset.market_score + baseAsset.trust_score !== 0) {
-    //   setIsRed(true)
-    // } else {
-    //   setIsRed(false)
-    // }
+
     console.log(baseAsset)
     console.log(Math.abs(baseAsset.price_change_24h))
     const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
@@ -702,10 +803,10 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                   <Flex mb="8px" align="center" direction="column">
                     <Flex>
                       <img style={{ marginRight: "10px", borderRadius: "50%" }} src={baseAsset.logo} className={styles['chart-token-logo']} />
-                      <Flex className={styles['chart-name-box']}>
+                      <Flex className={styles['chart-name-box']} w="60vw">
                         <div className={styles['chart-token-name']}>
-                          <Text className={styles["rank-span"]} mr="5px" color="white_grey">#{baseAsset.rank}</Text>
-                          <Text>{baseAsset.name}</Text>
+                          <Text fontSize={["xs", "x-large"]} className={styles["rank-span"]} mr="5px" color="white_grey">#{baseAsset.rank}</Text>
+                          <Text fontSize={["md", "x-large"]}>{baseAsset.name}</Text>
                         </div>
                       </Flex>
                     </Flex>
@@ -713,7 +814,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
                   </Flex>
                   <Flex>
-                    <Flex align="center" mt="0px" display={["flex", "flex", "flex", "none"]}>
+                    <Flex w="50vw" align="center" mt="0px" display={["flex", "flex", "flex", "none"]}>
                       <Text boxShadow={`1px 2px 12px 3px ${shadowColor}`} borderRadius="6px" p="2px 5px" bg={daoMobile} fontSize="13px">DAO Score <span style={{
                         color: baseAsset.utility_score +
                           baseAsset.social_score +
@@ -733,17 +834,22 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
                 </Flex>
                 <Flex direction="column">
                   <Flex whiteSpace="nowrap">
-                    <Text fontSize={["22px", "22px", "22px", "34px"]} >$ <span style={{ marginLeft: "10px" }}> {getTokenPrice(baseAsset.price)}</span></Text>
-                    <Flex align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
-
+                    <Text fontWeight="bold" fontSize={["22px", "22px", "22px", "34px"]} color={isPriceWinner === true ? 'green' : isPriceWinner === false ? 'red' : ''} > <span style={{ marginLeft: "10px" }}>${getTokenPrice(baseAsset.price)}</span></Text>
+                    {!mobile ? <Flex fontWeight="bold" align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
                       <Box className={getTokenPercentage(baseAsset.price_change_24h) > 0 ? styles['triangle-green'] : styles['triangle-red']}></Box>
                       {getTokenPercentage(baseAsset.price_change_24h)}%
-                    </Flex>
+                    </Flex> : <></>}
                   </Flex>
+                  {mobile ? <Flex fontWeight="bold" align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
+                    <Box className={getTokenPercentage(baseAsset.price_change_24h) > 0 ? styles['triangle-green'] : styles['triangle-red']}></Box>
+                    {getTokenPercentage(baseAsset.price_change_24h)}%
+                  </Flex> : <></>}
+
+
                   <Flex>
                     <Flex display={["flex", "flex", "flex", "none"]} fontSize="13px" direction="column" justify="center" w="108px">
-                      <Text display="flex" justifyContent="space-between">High: <span>$2235</span></Text>
-                      <Text display="flex" justifyContent="space-between">Low: <span >$2125</span></Text>
+                      {/* <Text display="flex" justifyContent="space-between">High: <span>$2235</span></Text>
+                      <Text display="flex" justifyContent="space-between">Low: <span >$2125</span></Text> */}
                     </Flex>
                   </Flex>
                 </Flex>

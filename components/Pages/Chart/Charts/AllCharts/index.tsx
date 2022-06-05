@@ -18,6 +18,8 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   const [historyData, setHistoryData]: [any, Function] = useState();
   const hiddenTitles = ["No Volume", "No Liquidity", "Holders", "No Rank"];
   const opacity = useColorModeValue("0.03", "0.10");
+  const fillStyle = useColorModeValue("#666", "#b8b8b8");
+  const textColor = useColorModeValue("black", "white");
 
   const formatData = (data: any) => {
     return data.map((el: any) => {
@@ -405,7 +407,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       ctx.textBaseline = "top";
       ctx.textAlign = "left";
 
-      ctx.fillStyle = darkTheme ? "#2E3557" : "#b8b8b8";
+      ctx.fillStyle = fillStyle;
 
       ctx.fillRect(rectX - 1, pixelY - (isTopSide ? 1 : 35), rectWidth, 16);
       ctx.fillStyle = "white";
@@ -490,9 +492,9 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
         date = date.split('-')[1] + '/' + date.split('-')[2]
       }
 
-      ctx.fillStyle = darkTheme ? "#2E3557" : "b8b8b8";
+      ctx.fillStyle = fillStyle;
       ctx.fillRect(0, mousemove.offsetY, ctx.measureText(text).width + 10, 16);
-      ctx.fillStyle = darkTheme ? "white" : "black";
+      ctx.fillStyle = textColor;
       ctx.font = '16px Inter';
       ctx.fillText(date, 5, 5)
       ctx.fillStyle = "white";
