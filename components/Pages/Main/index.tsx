@@ -193,7 +193,7 @@ function News(props: any) {
 
   const gradient = useColorModeValue("white_gradient", "dark_gradient")
   const border = useColorModeValue("white_border_title", "dark_border_title")
-  const sticky = useColorModeValue("bg_white", "dark_primary")
+  const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
 
   return (
     <>

@@ -250,7 +250,7 @@ function Token(token: {
   }
 
   const border = useColorModeValue("white_border", "dark_border")
-  const sticky = useColorModeValue("bg_white", "dark_primary")
+  const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
 
   return (
     <tbody id="nul" style={{ borderBottom: `1px solid ${border}` }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
