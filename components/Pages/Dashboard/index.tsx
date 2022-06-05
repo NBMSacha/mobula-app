@@ -199,7 +199,7 @@ function Dashboard() {
 
             {mobile ? (
 
-              <Flex w="95%" direction="column" boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+              <Flex w="95%" direction="column" boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
 
                 {/* Rank I Stats */}
                 <Flex w={['95%', '90%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
@@ -229,7 +229,7 @@ function Dashboard() {
                         <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="16px">Wrong Decisions</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice}</Flex>
                       </Flex>
-                      <Box h="1px" w="90%" bg="rgba(229, 229, 229, 0.1)" mt={2} mb={3}></Box>
+                      <Box h="1px" w="90%" bg={border} mt={2} mb={3}></Box>
                       <Text textAlign="start" fontSize="14px" mb={2}>
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
@@ -242,13 +242,14 @@ function Dashboard() {
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
                       </Flex>
                     </Flex>
+                    <Box h="1px" w="1px"mt="10px" h="60%" bg={border} mt={2} mb={3}></Box>
                     <Flex
                       width={["50%", "50%", '100%', '100%']}
                       justify="center"
                       align="center"
                       direction="column"
                       className={styles["buttons-claim-box"]}
-                      borderLeft={`1px solid #e5e5e5871`}
+                      borderLeft={`1px solid ${border}`}
                     >
                       {' '}
                       <Button
@@ -326,7 +327,7 @@ function Dashboard() {
                           {countdownValue}
                         </Text>
                       </Box>
-                      <Box h="1px" w="98%" bg={border}> </Box>
+                      <Box h="1px" w="98%"  bg={border}> </Box>
                       <Box fontSize='15px' mb={5}>
                         <Text textAlign="start" fontSize="14px" color="#909090" mt={2} mb={1}>You already claimed</Text>
                         <Text fontSize="18px" textAlign="start">{claimed} MATIC</Text>
