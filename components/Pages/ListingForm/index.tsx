@@ -244,135 +244,12 @@ function ListAToken(props: any) {
 
     const [count, setCount] = useState(0);
     const [counts, setCounts] = useState(0);
-    // const [excluded, setExcluded ] = useState()
-
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
-    const [excluded1, setExcluded1] = useState('');
-    const [excluded2, setExcluded2] = useState('');
-    const [excluded3, setExcluded3] = useState('');
-    const [excluded4, setExcluded4] = useState('');
-    const [excluded5, setExcluded5] = useState('');
-
-    function moreInputExcluded() {
-        const parent = document.getElementById("parent") as any;
-        setCount(() => count + 1)
-        if (count <= 4) {
-            var inputs = document.createElement('input') as any;
-            inputs.classList.add("inputCreated");
-            inputs.placeholder = "0x...";
-            inputs.style.background = input
-            inputs.style.paddingLeft = "10px"
-            inputs.style.color = "none"
-            inputs.type = "text"
-            parent.appendChild(inputs);
-        }
-        if (count == 0) {
-            inputs.addEventListener("change", () => {
-                setExcluded1(inputs.value);
-            })
-            inputs.value = excluded1;
-        }
-        if (count == 1) {
-            inputs.addEventListener("change", () => {
-                setExcluded2(inputs.value);
-            })
-            inputs.value = excluded2;
-        }
-        if (count == 2) {
-            inputs.addEventListener("change", () => {
-                setExcluded3(inputs.value);
-            })
-            inputs.value = excluded3;
-        }
-        if (count == 3) {
-            inputs.addEventListener("change", () => {
-                setExcluded4(inputs.value);
-            })
-            inputs.value = excluded4;
-        }
-        if (count == 4) {
-            inputs.addEventListener("change", () => {
-                setExcluded5(inputs.value);
-            })
-            inputs.value = excluded5;
-        }
-    }
-
-    var objectForExcluded = {
-        excluded: excluded,
-        excluded1: excluded1,
-        excluded2: excluded2,
-        excluded3: excluded3,
-        excluded4: excluded4,
-        excluded5: excluded5
-    }
-    console.log(objectForExcluded)
-
-    const [contract1, setContract1] = useState('');
-    const [contract2, setContract2] = useState('');
-    const [contract3, setContract3] = useState('');
-    const [contract4, setContract4] = useState('');
-    const [contract5, setContract5] = useState('');
-
-    function moreInputAddress() {
-        const contracts = document.getElementById('parents') as any;
-        setCounts(() => counts + 1);
-        const appears = document.getElementById('noappears') as any;
-        if (counts <= 4) {
-            var addressCreated = document.createElement('input') as any;
-            addressCreated.classList.add("inputCreatedAddress");
-            addressCreated.placeholder = "0x";
-            addressCreated.type = "text"
-            addressCreated.style.background = input
-            addressCreated.style.paddingLeft = "10px"
-            appears.style.display = "flex"
-            contracts.appendChild(addressCreated)
-        }
-        if (counts == 0) {
-            addressCreated.addEventListener("change", () => {
-                setContract1(addressCreated.value);
-            })
-            addressCreated.value = contract1;
-        }
-        if (counts == 1) {
-            addressCreated.addEventListener("change", () => {
-                setContract2(addressCreated.value);
-            })
-            addressCreated.value = contract2;
-        }
-        if (counts == 2) {
-            addressCreated.addEventListener("change", () => {
-                setContract3(addressCreated.value);
-            })
-            addressCreated.value = contract3;
-        }
-        if (counts == 3) {
-            addressCreated.addEventListener("change", () => {
-                setContract4(addressCreated.value);
-            })
-            addressCreated.value = contract4;
-        }
-        if (counts == 4) {
-            addressCreated.addEventListener("change", () => {
-                setContract5(addressCreated.value);
-            })
-            addressCreated.value = contract5;
-        }
-    }
-
-    var objectForContract = {
-        contract: contract,
-        contract1: contract1,
-        contract2: contract2,
-        contract3: contract3,
-        contract4: contract4,
-        contract5: contract5
-    }
 
     var finalSubmit = {
-        contract: objectForContract,
-        excluded: objectForExcluded,
+        // contract: objectForContract,
+        // excluded: objectForExcluded,
         symbol: symbol,
         name: name,
         website: website,
@@ -399,10 +276,59 @@ function ListAToken(props: any) {
         }
     }
 
+    // ==========================================================================
+    // :::::::::::::::::::::::: CHAKRA COLOR MODE :::::::::::::::::::::::::::::::
+    // ==========================================================================
+
     const input = useColorModeValue("white_terciary", "dark_input_list")
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
+
+    // ==========================================================================
+    // :::::::::::::::::: INPUT EXCLUDED CIRCULATION CREATION :::::::::::::::::::
+    // ==========================================================================
+
+    const [inputList, setInputList] = useState([{ excluded: "Exclude from Circulation"}]);
+
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...inputList];
+        list[index][name] = value;
+        setInputList(list);
+    };
+
+    const handleRemoveClick = index => {
+        const list = [...inputList];
+        list.splice(index, 1);
+        setInputList(list);
+    };
+       
+    const handleAddClick = () => {
+        setInputList([...inputList, { excluded: "Exclude from Circulation"}]);
+    };
+
+    // ==========================================================================
+    // :::::::::::::::::::::::: INPUT CONTRACT CREATION :::::::::::::::::::::::::
+    // ==========================================================================
+
+    const [inputListContract, setInputListContract] = useState([{ excluded: "Exclude from Circulation"}]);
+    const handleInputChangeContract = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...inputListContract];
+        list[index][name] = value;
+        setInputListContract(list);
+    };
+         
+    const handleRemoveClickContract = index => {
+        const list = [...inputListContract];
+        list.splice(index, 1);
+        setInputListContract(list);
+    };
+         
+    const handleAddClickContract = () => {
+        setInputListContract([...inputListContract, { excluded: "Exclude from Circulation"}]);
+    };
 
     return (
         <div>
@@ -513,20 +439,32 @@ function ListAToken(props: any) {
                             </div>
                             <div className={styles["form-container-box"]} id='parents'>
                                 <label >Contract Address *</label>
-                                <Input
-                                    pl="10px"
-                                    type="text"
-                                    id="contract"
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    bg={input}
-                                    value={contract}
-                                    className={`${styles["contract"]} ${styles["inputs"]}`}
-                                    placeholder="0x9ad6c38be94206.."
-                                    _placeholder={{ color: "none" }}
-                                    onChange={(e) => setContract(e.target.value)}
-                                    required
-                                ></Input>
-                                <button type="button" style={{ background: input }} className={styles["absolute-btn-address"]} id="moreInput" onClick={() => moreInputAddress()}>+</button>
+                                {inputListContract.map((x, i) => {
+                                            return (
+                                            <>
+                                                <Input
+                                                required
+                                                pl="10px"
+                                                boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                                name="excluded"
+                                                className={`${styles["contract"]} ${styles["inputs"]}`}
+                                                bg={input}
+                                                type="text"
+                                                value={contract}
+                                                _placeholder={{ color: "none" }}
+                                                placeholder="0x5D3e4C0FE11e0..."
+                                                onChange={e => {handleInputChangeContract(e, i);
+                                                    setContract(e.target.value)
+                                                }}
+                                                />
+                                              
+                                                <div className="btn-box">
+                                                {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
+                                                {inputList.length - 1 === i && <button className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</button>}
+                                                </div>
+                                            </>
+                                            );
+                                        })}
                             </div>
                             <div className={styles["noappears"]} id="noappears">
                                 <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
@@ -681,19 +619,27 @@ function ListAToken(props: any) {
 
                             <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
                                 <label>Excluded from Circulation </label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    name="excluded"
-                                    placeholder="0x5D3e4C0FE11e0..."
-                                    className={styles["inputPlus"]}
-                                    value={excluded}
-                                    id="excluded"
-                                    onChange={(e) => setExcluded(e.target.value)}
-                                ></Input>
-                                <button type="button" className={styles["absolute-btn"]} style={{ background: input }} id="moreInput" onClick={() => moreInputExcluded()}>+</button>
+                                        {inputList.map((x, i) => {
+                                            return (
+                                            <>
+                                                <Input
+                                                pl="10px"
+                                                value={x.value}
+                                                boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                                name="excluded"
+                                                bg={input}
+                                                placeholder="0x5D3e4C0FE11e0..."
+                                                className={styles["inputPlus"]}
+                                                onChange={e => handleInputChange(e, i)}
+                                                />
+                                                <div className="btn-box">
+                                                {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
+                                                {inputList.length - 1 === i && <button className={styles["absolute-btn"]} onClick={handleAddClick}>+</button>}
+                                                </div>
+                                            </>
+                                            );
+                                        })}
+                            
                             </div>
                             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
                                 <button style={{ color: btn }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
