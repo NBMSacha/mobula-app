@@ -23,7 +23,7 @@ function MainBlock(props: any) {
         <Flex boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={[mobileBg, mobileBg, "none", "none"]} >
           <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Today's Crypto-assets by <span>Mobula</span></Text>
           <Text fontFamily="Poppins" fontSize={["14px", "14px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt="20px" className={styles['subtitle-news']}>
-            The global crypto total value locked is $105M a <span style={{ color: "#5C7DF9", fontWeight: "700" }}>1.05%</span> decrease over the last day.
+            Mobula is a decentralized alternative to CoinMarketCap, redistributing profit to <span style={{ color: "#5C7DF9", fontWeight: "700" }}>users</span>, scraping data on-chain.
 
             {' '}
 
