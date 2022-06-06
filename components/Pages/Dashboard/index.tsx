@@ -242,7 +242,7 @@ function Dashboard() {
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
                       </Flex>
                     </Flex>
-                    <Box h="1px" w="1px"mt="10px" h="60%" bg={border} mt={2} mb={3}></Box>
+                    <Box h="1px" w="1px" mt="10px" bg={border} mb={3}></Box>
                     <Flex
                       width={["50%", "50%", '100%', '100%']}
                       justify="center"
@@ -327,7 +327,7 @@ function Dashboard() {
                           {countdownValue}
                         </Text>
                       </Box>
-                      <Box h="1px" w="98%"  bg={border}> </Box>
+                      <Box h="1px" w="98%" bg={border}> </Box>
                       <Box fontSize='15px' mb={5}>
                         <Text textAlign="start" fontSize="14px" color="#909090" mt={2} mb={1}>You already claimed</Text>
                         <Text fontSize="18px" textAlign="start">{claimed} MATIC</Text>
