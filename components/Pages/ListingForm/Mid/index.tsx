@@ -24,6 +24,7 @@ function Mid({
                 <label >Website *</label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     variant="primary"
                     required
@@ -40,6 +41,7 @@ function Mid({
                 <label >Twitter *</label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     bg={input}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
@@ -56,6 +58,7 @@ function Mid({
                 <label >Telegram *</label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     bg={input}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
@@ -72,6 +75,7 @@ function Mid({
                 <label >Discord *</label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     bg={input}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}

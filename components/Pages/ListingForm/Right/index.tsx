@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import styles from "../ListingForm.module.scss";
-import { Input, Flex } from '@chakra-ui/react';
+import { Input, Flex, Button } from '@chakra-ui/react';
+import { Spinner } from '@chakra-ui/react';
 
 function Right({
         input,
         audit,
         setAudit,
         kyc,
+        bg,
         setKYC,
         addNote,
         setAddNote,
@@ -42,6 +44,7 @@ function Right({
                 <label >Audit Link (Optional) </label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     bg={input}
@@ -57,6 +60,7 @@ function Right({
                 <label >KYC Link (Optional) </label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     bg={input}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
@@ -72,6 +76,7 @@ function Right({
                 <label >Additionnal notes (Optional) </label>
                 <Input
                     pl="10px"
+                    pr="10px"
                     _placeholder={{ color: "none" }}
                     bg={input}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
@@ -98,11 +103,12 @@ function Right({
                                 _placeholder={{color:"none"}}
                                 placeholder="0x5D3e4C0FE11e0..."
                                 className={styles["inputPlus"]}
+                                pr={["5px", "5px", "30px", "30px"]}
                                 onChange={e => handleInputChange(e, i)}
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <button className={styles["absolute-btn"]} onClick={handleAddClick}>+</button>}
+                                {inputList.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
                             </div>
                         </>
                     );

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Upload } from "react-feather"
 import styles from "../ListingForm.module.scss";
 import { Spinner } from '@chakra-ui/react'
-import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio} from '@chakra-ui/react'
+import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button} from '@chakra-ui/react'
 import axios from 'axios';
 
 function Left({
@@ -55,9 +55,10 @@ function Left({
                     <label >Symbol *</label>
                     <Input
                         pl="10px"
+                        pr="10px"
                         className={styles["inputs"]}
                         required
-                        _placeholder={{ color: "none" }}
+                        _placeholder={{ color: "none",textOverflow: "ellipsis",paddingRight:"5px" }}
                         bg={input}
                         id="msg"
                         name="website"
@@ -71,11 +72,12 @@ function Left({
                     <label >Name *</label>
                     <Input
                         pl="10px"
+                        pr="10px"
                         boxShadow={`1px 2px 12px 3px ${shadow}`}
                         variant="filled"
                         className={styles["inputs"]}
                         required
-                        _placeholder={{ color: "none" }}
+                        _placeholder={{ color: "none",textOverflow: "ellipsis" }}
                         id="msg"
                         name="name"
                         bg={input}
@@ -90,13 +92,13 @@ function Left({
                     <label>Upload Logo *</label>
                     <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
                         {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
-                        {uploadedImage || logo ? <img src={uploadedImage ? uploadedImage : logo} /> : <></>}                                    
+                        {uploadedImage || logo ? <img style={{objectFit:"cover",height:"100%"}}  src={uploadedImage ? uploadedImage : logo} /> : <></>}                                    
                     </Flex>
                 </div>
                 <div className={styles["file"]}>
                     <Input type="file" id="file" name="file" accept="image/png, image/jpg" multiple className={styles["select-file"]}
                         bg={input}
-                        _placeholder={{ color: "none" }}
+                        _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                         onChange={(e) => {
                             console.log('Dingue')
                             const reader = new FileReader();
@@ -131,6 +133,7 @@ function Left({
                     <div className={styles["form-container-box"]} >
                         <Input
                             pl="10px"
+                            pr="10px"
                             id="logo"
                             boxShadow={`1px 2px 12px 3px ${shadow}`}
                             variant="filled"
@@ -138,7 +141,7 @@ function Left({
                             className={styles["inputs"]}
                             name="logo"
                             value={logo}
-                            _placeholder={{ color: "none" }}
+                            _placeholder={{ color: "none",textOverflow: "ellipsis" }}
                             onChange={(e) => setLogo(e.target.value)}
                             placeholder="https://mobula.fi/logo.png"
                             required
@@ -153,6 +156,7 @@ function Left({
                         <>
                             <Input
                                 required
+                                pr={["5px", "5px", "30px", "30px"]}
                                 pl="10px"
                                 boxShadow={`1px 2px 12px 3px ${shadow}`}
                                 name="excluded"
@@ -160,7 +164,7 @@ function Left({
                                 bg={input}
                                 type="text"
                                 value={contract}
-                                _placeholder={{ color: "none" }}
+                                _placeholder={{ color: "none",textOverflow: "ellipsis" }}
                                 placeholder="0x5D3e4C0FE11e0..."
                                 onChange={e => {handleInputChangeContract(e, i);
                                     setContract(e.target.value)
@@ -168,7 +172,8 @@ function Left({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputListContract.length - 1 === i && <button className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</button>}
+                                
+                                {inputListContract.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</Button>}
                             </div>
                         </>
                         );
@@ -180,7 +185,7 @@ function Left({
                     <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
                 </div>
                 <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                    <Radio pl="10px" _placeholder={{ color: "none" }} bg={input} type="radio" variant="primary" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
+                    <Radio pl="10px"   pr="10px" _placeholder={{ color: "none" }} bg={input} type="radio" variant="primary" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
                         onChange={(e) => {
                             var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
                             var totalSupply = document.getElementById("totalSupply") as any;
@@ -200,7 +205,10 @@ function Left({
                 <label >Description *</label>
                 <Textarea
                     pl="10px"
-                    _placeholder={{ color: "none" }}
+                    pr="10px"
+                    fontSize="13px"
+                    textOverflow="ellipsis"
+                    _placeholder={{ color: "none",textOverflow: "ellipsis" }}
                     id="msg"
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     bg={input}

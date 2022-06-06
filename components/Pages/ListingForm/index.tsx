@@ -4,7 +4,6 @@ import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import { useAlert } from "react-alert";
 import styles from "./ListingForm.module.scss";
-import { Spinner } from '@chakra-ui/react'
 import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea } from '@chakra-ui/react'
 import Left from "./Left";
 import Mid from "./Mid";
@@ -201,11 +200,8 @@ function ListAToken(props: any) {
                 alert.error('Something went wrong.')
                 console.log(e)
             }
-
         }
-
         setLoading(false)
-
     }
 
     const mountIPFS = async () => {
@@ -228,13 +224,11 @@ function ListAToken(props: any) {
 
     function isUrl(string: string) {
         let url: URL;
-
         try {
             url = new URL(string);
         } catch (_) {
             return false;
         }
-
         return url.protocol === "http:" || url.protocol === "https:";
     }
 
@@ -278,7 +272,6 @@ function ListAToken(props: any) {
                 <h2 className={styles["title"]}>Listing form</h2>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
-                       {/* ADD COMPONENT */}
                         <Left 
                             input={input}
                             box={box}
