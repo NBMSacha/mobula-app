@@ -24,7 +24,7 @@ import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex, Box
 import { CSSReset, useMediaQuery } from '@chakra-ui/react'
 import Charts from "./Charts/index.jsx"
 
-const ChartCryptos = ({ baseAsset, darkTheme }) => {
+const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
   const [chart, setChart] = useState({})
   const [day, setDay] = useState()
@@ -1153,7 +1153,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
 
 
                   {state === 'Charts' && (
-                    <Charts baseAsset={baseAsset} darkTheme={darkTheme} />
+                    <Charts baseAsset={baseAsset} />
                   )}
 
 

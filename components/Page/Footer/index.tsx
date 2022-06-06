@@ -10,7 +10,7 @@ import {
 import { Link } from '@chakra-ui/react'
 
 import { Flex, Text,Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
-function Footer({ darkTheme, setDarkTheme }) {
+function Footer() {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
   const [displayDAO, setDisplayDAO] = useState('none')

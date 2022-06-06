@@ -338,12 +338,11 @@ function News(props: any) {
               rank_change_24h={token.rank_change_24h}
               rank={(page - 1) * 100 + index + 1}
               isMyAsset={display == 'My Assets'}
-              darkTheme={props.darkTheme}
             /> : <></>)
           }
         </table>
       </div>
-      {display != 'My Assets' ? <Pagination darkTheme={props.darkTheme} maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
+      {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )
 }
