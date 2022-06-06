@@ -192,7 +192,7 @@ function Dashboard() {
             m="auto"
             position="relative"
             mt="-40px"
-            mb="10vh"
+            mb={["0px","0px","0px","10vh"]}
           >
 
             {/* RANK DISPLAY MOBILE */}
