@@ -63,7 +63,7 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                 <Flex width="100%" align="center" flexWrap={["wrap", "wrap", "nowrap"]}>
                     <Flex justify="space-between" width="100%" align="center">
                         <Flex align="center">
-                            <Image width='50px' src={'/fullicon.png'} mr="20px"></Image>
+                            <Image width='50px' src={token.logo} mr="20px"></Image>
                             <Heading fontSize={["xl", "xl", "xx-large"]}>{token.name}</Heading>
                         </Flex>
                         <Flex width={["30%", "30%", "20%"]} justify="space-around" >
