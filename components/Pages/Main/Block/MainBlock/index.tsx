@@ -85,7 +85,7 @@ function MainBlock(props: any) {
             </Flex>
           </Flex>
           <Flex mt="20px" fontFamily="Poppins" display={["none", "none", "flex", "flex"]}>
-            <Text px="1%" textAlign="center" mr="4px" fontSize="14px"><span style={{ color: "#5C7DF9" }}>Mobula’s data is 100% scraped on chain </span>- which means better data, faster and more efficient than any other data aggregator</Text>
+            <Text px="1%" textAlign="center" mr="4px" fontSize="14px"><span style={{ color: "#5C7DF9" }}>Mobula’s data is 100% scraped on-chain </span>- which means trustless data, in opposite to CEX aggregation systems easily falsified.</Text>
           </Flex>
         </Box>
       </Flex>
