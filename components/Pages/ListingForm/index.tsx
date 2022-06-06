@@ -1,20 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { createClient } from '@supabase/supabase-js'
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
-import Tendance from '../../Page/Header/Tendance';
 import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import { useAlert } from "react-alert";
-import { Upload } from "react-feather"
 import styles from "./ListingForm.module.scss";
 import { Spinner } from '@chakra-ui/react'
-import { extendTheme } from "@chakra-ui/react"
 import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea } from '@chakra-ui/react'
-import { Checkbox, CheckboxGroup } from '@chakra-ui/react'
-import { Radio, RadioGroup, Button } from '@chakra-ui/react'
-import axios from 'axios';
+import Left from "./Left";
+import Mid from "./Mid";
+import Right from "./Right";
 
 function ListAToken(props: any) {
     const alert = useAlert();
@@ -34,6 +28,8 @@ function ListAToken(props: any) {
     const [addNote, setAddNote] = useState("")
     const [uploadedImage, setUploadedImage]: [any, Function] = useState();
     const [uploadLoading, setUploadLoading] = useState(false);
+    const [name, setName] = useState('');
+    const [symbol, setSymbol] = useState('');
 
     async function submit(e: any) {
 
@@ -242,11 +238,6 @@ function ListAToken(props: any) {
         return url.protocol === "http:" || url.protocol === "https:";
     }
 
-    const [count, setCount] = useState(0);
-    const [counts, setCounts] = useState(0);
-    const [name, setName] = useState('');
-    const [symbol, setSymbol] = useState('');
-
     var finalSubmit = {
         // contract: objectForContract,
         // excluded: objectForExcluded,
@@ -276,378 +267,67 @@ function ListAToken(props: any) {
         }
     }
 
-    // ==========================================================================
-    // :::::::::::::::::::::::: CHAKRA COLOR MODE :::::::::::::::::::::::::::::::
-    // ==========================================================================
-
     const input = useColorModeValue("white_terciary", "dark_input_list")
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
-
-    // ==========================================================================
-    // :::::::::::::::::: INPUT EXCLUDED CIRCULATION CREATION :::::::::::::::::::
-    // ==========================================================================
-
-    const [inputList, setInputList] = useState([{ excluded: "Exclude from Circulation"}]);
-
-    const handleInputChange = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...inputList];
-        list[index][name] = value;
-        setInputList(list);
-    };
-
-    const handleRemoveClick = index => {
-        const list = [...inputList];
-        list.splice(index, 1);
-        setInputList(list);
-    };
-       
-    const handleAddClick = () => {
-        setInputList([...inputList, { excluded: "Exclude from Circulation"}]);
-    };
-
-    // ==========================================================================
-    // :::::::::::::::::::::::: INPUT CONTRACT CREATION :::::::::::::::::::::::::
-    // ==========================================================================
-
-    const [inputListContract, setInputListContract] = useState([{ excluded: "Exclude from Circulation"}]);
-    const handleInputChangeContract = (e, index) => {
-        const { name, value } = e.target;
-        const list = [...inputListContract];
-        list[index][name] = value;
-        setInputListContract(list);
-    };
-         
-    const handleRemoveClickContract = index => {
-        const list = [...inputListContract];
-        list.splice(index, 1);
-        setInputListContract(list);
-    };
-         
-    const handleAddClickContract = () => {
-        setInputListContract([...inputListContract, { excluded: "Exclude from Circulation"}]);
-    };
-
+    
     return (
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]}>Listing form</h2>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
-                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
-                            <div className={styles["form-container-box-flex"]}>
-                                <div className={styles["inputs-container"]}>
-                                    <label >Symbol *</label>
-                                    <Input
-                                        pl="10px"
-                                        className={styles["inputs"]}
-                                        required
-                                        _placeholder={{ color: "none" }}
-                                        bg={input}
-                                        id="msg"
-                                        name="website"
-                                        boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                        placeholder="MOBL"
-                                        value={symbol}
-                                        onChange={(e) => setSymbol(e.target.value)}
-                                    ></Input>
-                                </div>
-                                <div className={styles["inputs-container"]}>
-                                    <label >Name *</label>
-                                    <Input
-                                        pl="10px"
-                                        boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                        variant="filled"
-                                        className={styles["inputs"]}
-                                        required
-                                        _placeholder={{ color: "none" }}
-                                        id="msg"
-                                        name="name"
-                                        bg={input}
-                                        placeholder="Mobula Finance"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                    ></Input>
-                                </div>
-                            </div>
-                            <div className={styles["form-container-box-flex"]}>
-                                <div>
-                                    <label>Upload Logo *</label>
-                                    <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
-                                        {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
-                                        {uploadedImage || logo ? <img src={uploadedImage ? uploadedImage : logo} /> : <></>}                                    </Flex>
-                                </div>
-                                <div className={styles["file"]}>
-                                    <Input type="file" id="file" name="file" accept="image/png, image/jpg" multiple className={styles["select-file"]}
-                                        bg={input}
-
-                                        _placeholder={{ color: "none" }}
-
-                                        onChange={(e) => {
-                                            console.log('Dingue')
-                                            const reader = new FileReader();
-                                            reader.addEventListener("load", async () => {
-                                                if (reader.readyState == 2) {
-                                                    setUploadLoading(true)
-
-                                                    const bufferFile = await e.target.files[0].arrayBuffer();
-                                                    const file =
-                                                    {
-                                                        path: contract + '.json',
-                                                        content: bufferFile
-                                                    }
-
-                                                    const hash = await new Promise(async resolve => {
-                                                        ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
-                                                            resolve(file[0].hash)
-                                                        })
-                                                    })
-
-                                                    setUploadedImage(reader.result);
-                                                    await axios.get('https://mobulaspark.com/upload?hash=' + hash);
-                                                    setUploadLoading(false)
-                                                    setLogo('https://gateway.ipfs.io/ipfs/' + hash)
-                                                }
-                                            })
-                                            reader.readAsDataURL(e.target.files[0])
-                                        }}
-
-                                    />
-                                    <span className={styles["waapu"]}>
-                                        <Upload className={styles["upload-logo"]} />
-                                        Browse to upload
-                                    </span>
-                                    <div className={styles["form-container-box"]} >
-                                        <Input
-                                            pl="10px"
-                                            id="logo"
-                                            boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                            variant="filled"
-                                            bg={input}
-                                            className={styles["inputs"]}
-                                            name="logo"
-                                            value={logo}
-                                            _placeholder={{ color: "none" }}
-                                            onChange={(e) => setLogo(e.target.value)}
-                                            placeholder="https://mobula.fi/logo.png"
-                                            required
-                                        ></Input>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className={styles["form-container-box"]} id='parents'>
-                                <label >Contract Address *</label>
-                                {inputListContract.map((x, i) => {
-                                            return (
-                                            <>
-                                                <Input
-                                                required
-                                                pl="10px"
-                                                boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                                name="excluded"
-                                                className={`${styles["contract"]} ${styles["inputs"]}`}
-                                                bg={input}
-                                                type="text"
-                                                value={contract}
-                                                _placeholder={{ color: "none" }}
-                                                placeholder="0x5D3e4C0FE11e0..."
-                                                onChange={e => {handleInputChangeContract(e, i);
-                                                    setContract(e.target.value)
-                                                }}
-                                                />
-                                              
-                                                <div className="btn-box">
-                                                {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                                {inputList.length - 1 === i && <button className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</button>}
-                                                </div>
-                                            </>
-                                            );
-                                        })}
-                            </div>
-                            <div className={styles["noappears"]} id="noappears">
-                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <Radio bg={input} type="radio" id="totalSupply" pl="10px" _placeholder={{ color: "none" }} name="scales" onClick={() => isSumOfTotalSupply()} />
-                                    <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
-                                </div>
-                                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                                    <Radio pl="10px" _placeholder={{ color: "none" }} bg={input} type="radio" variant="primary" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
-                                        onChange={(e) => {
-                                            var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
-                                            var totalSupply = document.getElementById("totalSupply") as any;
-                                            if (totalSupply.checked == false) {
-                                                if (sumTotalSupply.checked == true)
-                                                    setIsSum(true)
-                                            } else {
-                                                setIsSum(false)
-                                            }
-                                            console.log(isSum)
-                                        }}
-                                    />
-                                    <label htmlFor="scale">The total supply is the sum of all the contracts</label>
-                                </div>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Description *</label>
-                                <Textarea
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    id="msg"
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    bg={input}
-                                    name="description"
-                                    className={styles["inputs"]}
-                                    placeholder="Mobula Finance is the first decentralized data aggregator supporting all chains ..."
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    required
-                                ></Textarea>
-                            </div >
-                        </Flex>
-                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
-                            <div className={styles["form-container-box"]}>
-                                <label >Website *</label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    variant="primary"
-                                    required
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    id="msg"
-                                    bg={input}
-                                    name="website"
-                                    placeholder="https:/app.mobula.finance"
-                                    value={website}
-                                    onChange={(e) => setWebsite(e.target.value)}
-                                ></Input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Twitter *</label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    type="text"
-                                    id="name"
-                                    name="twitter"
-                                    placeholder="https://twitter.com/MobulaFi"
-                                    value={twitter}
-                                    required
-                                    onChange={(e) => setTwitter(e.target.value)}
-                                ></Input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Telegram *</label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    value={telegram}
-                                    required
-                                    onChange={(e) => setTelegram(e.target.value)}
-                                    type="text"
-                                    id="tlg"
-                                    name="telegram"
-                                    placeholder="https://t.me/MobulaFinance" />
-                            </div>
-                            <div className={styles["form-container-box"]} >
-                                <label >Discord *</label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    id="discord"
-                                    className={styles["inputs"]}
-                                    name="discord"
-                                    value={discord}
-                                    onChange={(e) => setDiscord(e.target.value)}
-                                    placeholder="https://t.me/MobulaFi"
-                                    required
-                                ></Input>
-                            </div>
-                        </Flex>
-                        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
-                            <div className={styles["form-container-box"]}>
-                                <label >Audit Link (Optional) </label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    bg={input}
-                                    type="text"
-                                    id="audit"
-                                    name="audit"
-                                    placeholder="https://safetin.com/audits/mobula"
-                                    value={audit}
-                                    onChange={(e) => setAudit(e.target.value)}
-                                ></Input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >KYC Link (Optional) </label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    type="text"
-                                    id="kyc"
-                                    name="kyc"
-                                    placeholder="https://staysafu.org/kyc/mobula"
-                                    value={kyc}
-                                    onChange={(e) => setKYC(e.target.value)}
-                                ></Input>
-                            </div>
-                            <div className={styles["form-container-box"]}>
-                                <label >Additionnal notes (Optional) </label>
-                                <Input
-                                    pl="10px"
-                                    _placeholder={{ color: "none" }}
-                                    bg={input}
-                                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                    type="text"
-                                    id="kyc"
-                                    name="kyc"
-                                    placeholder="Other links , missing infos , notes ..."
-                                    value={addNote}
-                                    onChange={(e) => setAddNote(e.target.value)}
-                                ></Input>
-                            </div>
-
-                            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
-                                <label>Excluded from Circulation </label>
-                                        {inputList.map((x, i) => {
-                                            return (
-                                            <>
-                                                <Input
-                                                pl="10px"
-                                                value={x.value}
-                                                boxShadow={`1px 2px 12px 3px ${shadow}`}
-                                                name="excluded"
-                                                bg={input}
-                                                placeholder="0x5D3e4C0FE11e0..."
-                                                className={styles["inputPlus"]}
-                                                onChange={e => handleInputChange(e, i)}
-                                                />
-                                                <div className="btn-box">
-                                                {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                                {inputList.length - 1 === i && <button className={styles["absolute-btn"]} onClick={handleAddClick}>+</button>}
-                                                </div>
-                                            </>
-                                            );
-                                        })}
-                            
-                            </div>
-                            <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
-                                <button style={{ color: btn }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
-                            </div>
-                            <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                                <button style={{ color: btn }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
-                            </div>
-                        </Flex>
+                       {/* ADD COMPONENT */}
+                        <Left 
+                            input={input}
+                            box={box}
+                            shadow={shadow}
+                            setSymbol={setSymbol}
+                            setName={setName}
+                            setLogo={setLogo}
+                            setContract={setContract}
+                            setDescription={setDescription}
+                            uploadLoading={uploadLoading}
+                            uploadedImage={uploadedImage}
+                            symbol={symbol}
+                            logo={logo} 
+                            contract={contract}
+                            name={name}
+                            description={description}
+                            isSum={isSum}
+                            setIsSum={setIsSum}
+                            setUploadLoading={setUploadLoading}
+                            setUploadedImage={setUploadedImage}
+                            ipfs={ipfs}
+                        />
+                        <Mid 
+                            input={input}
+                            box={box}
+                            shadow={shadow}
+                            website={website}
+                            setWebsite={setWebsite}
+                            setDiscord={setDiscord}
+                            discord={discord}
+                            telegram={telegram}
+                            setTelegram={setTelegram}
+                            twitter={twitter}
+                            setTwitter={setTwitter}
+                        />
+                        <Right 
+                            input={input}
+                            box={box}
+                            shadow={shadow}
+                            setAddNote={setAddNote}
+                            setAudit={setAudit}
+                            setKYC={setKYC}
+                            addNote={addNote}
+                            kyc={kyc}
+                            audit={audit}
+                            btn={btn}
+                            loading={loading}
+                            submit={submit}
+                          />
                     </form>
                 </div>
             </div>
