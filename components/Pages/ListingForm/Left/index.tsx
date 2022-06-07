@@ -2,9 +2,9 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Upload } from "react-feather"
 import styles from "../ListingForm.module.scss";
 import { Spinner } from '@chakra-ui/react'
-import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button} from '@chakra-ui/react'
+import { ChakraProvider, Input,Stack, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button} from '@chakra-ui/react'
 import axios from 'axios';
-
+import { RadioGroup } from '@chakra-ui/react'
 function Left({
         input,
         ipfs,
@@ -25,16 +25,19 @@ function Left({
         description,
         setLogo,
         setContract, 
-        setDescription
+        setDescription,
+        setTableauContract,
+        tableauContract
     }) {
 
-    const [inputListContract, setInputListContract] = useState([{ excluded: "Exclude from Circulation"}]);
+    const [inputListContract, setInputListContract] = useState([{ value: ""}]);
 
     const handleInputChangeContract = (e, index) => {
         const { name, value } = e.target;
         const list = [...inputListContract];
-        list[index][name] = value;
+        list[index].value = value;
         setInputListContract(list);
+        console.log(list)
     };
          
     const handleRemoveClickContract = index => {
@@ -44,8 +47,13 @@ function Left({
     };
          
     const handleAddClickContract = () => {
-        setInputListContract([...inputListContract, { excluded: "Exclude from Circulation"}]);
+        setInputListContract([...inputListContract, { value: ""}]);
     };
+
+    const [value, setValue] = React.useState('first')
+    useEffect(() => {
+       console.log(value) 
+    })
 
     return (
         
@@ -163,12 +171,10 @@ function Left({
                                 className={`${styles["contract"]} ${styles["inputs"]}`}
                                 bg={input}
                                 type="text"
-                                value={contract}
+                                value={x.value}
                                 _placeholder={{ color: "none",textOverflow: "ellipsis" }}
                                 placeholder="0x5D3e4C0FE11e0..."
-                                onChange={e => {handleInputChangeContract(e, i);
-                                    setContract(e.target.value)
-                                }}
+                                onChange={e => {handleInputChangeContract(e, i)}}
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
@@ -179,28 +185,21 @@ function Left({
                         );
                     })}
             </div>
-            <div className={styles["noappears"]} id="noappears">
-                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                    <Radio bg={input} type="radio" id="totalSupply" pl="10px" _placeholder={{ color: "none" }} name="scales" onClick={() => isSumOfTotalSupply()} />
-                    <label htmlFor="scales">The total supply is the first contract total supply (native token)</label>
-                </div>
-                <div className={styles["flex"]} style={{ flexDirection: "row-reverse" }}>
-                    <Radio pl="10px"   pr="10px" _placeholder={{ color: "none" }} bg={input} type="radio" variant="primary" id="sumTotalSupply" name="scales" onClick={() => isSumOfTotalSupply()}
-                        onChange={(e) => {
-                            var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
-                            var totalSupply = document.getElementById("totalSupply") as any;
-                            if (totalSupply.checked == false) {
-                                if (sumTotalSupply.checked == true)
-                                    setIsSum(true)
-                            } else {
-                                setIsSum(false)
-                            }
-                            console.log(isSum)
-                        }}
-                    />
-                    <label htmlFor="scale">The total supply is the sum of all the contracts</label>
-                </div>
-            </div>
+           {console.log(value)}
+            <RadioGroup onChange={setValue} value={value}>
+                <Flex direction="column" fontSize="10px" >
+                    <Flex align="center" direction="row">
+                        <Text fontSize="10px" w="90%">The total supply is the first contract total supply (native token)</Text>
+                        <Radio value='first'  bg={value == "first" ? "blue" : "none"}></Radio>
+                    </Flex>
+                    <Flex align="center" direction="row">
+                        <Text fontSize="10px" w="90%">The total supply is the sum of all the contracts</Text>
+                        <Radio value='sum' mt="10px" bg={value == "sum" ? "blue" : "none"}></Radio>
+                    </Flex>
+                  
+                </Flex>
+                </RadioGroup>
+            
             <div className={styles["form-container-box"]}>
                 <label >Description *</label>
                 <Textarea

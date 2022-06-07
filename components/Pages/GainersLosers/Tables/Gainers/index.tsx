@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from "next/router";
-import { Tbody, Tr, Td } from '@chakra-ui/react';
+import { Tbody, Tr, Td, useMediaQuery } from '@chakra-ui/react';
 import { getTokenPrice, getTokenPercentage, getUrlFromName } from '../../../../../helpers/formaters';
 import { TriangleUpIcon } from '@chakra-ui/icons';
 
@@ -11,6 +11,7 @@ function Gainers({gainers}) {
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
     const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
 
     return (
             <>
@@ -18,7 +19,7 @@ function Gainers({gainers}) {
                     return ( 
                         <Tbody borderBottom={`2px solid ${border}`} fontSize={["12px","12px","13px", "15px"]} onClick={() => router.push('/asset/' + getUrlFromName(gainer.name))} _hover={{background:hover, cursor:"pointer"}}>
                         <Tr position="relative">     
-                            <Td py={["5px", "5px", "5px", "5px"]} px="5px" position="sticky" left="0px" bg={bg} _hover={{background:"none"}}>
+                            <Td py={["5px", "5px", "5px", "5px"]} px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} _hover={{background:"none"}}>
                                 <Flex align="center" >
                                     <Image mr="15px" h="30px" borderRadius="50%" src={gainer.logo}/>
                                     <Text mr="5px" textOverflow="ellipsis" overflow="hidden" maxWidth="168px">{gainer.name}</Text>

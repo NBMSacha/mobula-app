@@ -19,13 +19,14 @@ function Right({
         submit
     }) {
 
-    const [inputList, setInputList] = useState([{ excluded: "Exclude from Circulation"}]);
+    const [inputList, setInputList] = useState([{ value: ""}]);
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         const list = [...inputList];
-        list[index][name] = value;
+        list[index].value = value;
         setInputList(list);
+        console.log(list)
     };
 
     const handleRemoveClick = index => {
@@ -35,7 +36,7 @@ function Right({
     };
         
     const handleAddClick = () => {
-        setInputList([...inputList, { excluded: "Exclude from Circulation"}]);
+        setInputList([...inputList, { value: ""}]);
     };
 
     return (

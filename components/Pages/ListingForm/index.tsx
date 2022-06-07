@@ -249,6 +249,8 @@ function ListAToken(props: any) {
         addNote: addNote
     }
 
+    const [tableauContract, setTableauContract] = useState([])
+
     function isSumOfTotalSupply() {
         var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
         if (sumTotalSupply.checked) {
@@ -287,6 +289,8 @@ function ListAToken(props: any) {
                             logo={logo} 
                             contract={contract}
                             name={name}
+                            tableauContract={tableauContract}
+                            setTableauContract={setTableauContract}
                             description={description}
                             isSum={isSum}
                             setIsSum={setIsSum}

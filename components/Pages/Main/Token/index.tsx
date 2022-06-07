@@ -8,7 +8,8 @@ import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
 import { stableTokens, tokensPerBlockchain, volumeOracles } from '../../../../constants';
 import axios from 'axios';
-import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react'
 
 async function refreshPrice(contracts: string[], blockchains: string[], pairs: string[], setPrice: Function, name) {
   let subgraphSuccess = 0;
@@ -247,6 +248,7 @@ function Token(token: {
     }
     return token.name
   }
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
@@ -270,7 +272,7 @@ function Token(token: {
             <span style={{ marginLeft: "10px", opacity: .6 }}>{token.rank}</span>
           </a>
         </td>
-        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{ background: sticky }} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{ background: isLargerThan768 ? "none" : sticky }} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
           <Flex align="center">
             <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
             <div className={styles["wrap-name"]}>

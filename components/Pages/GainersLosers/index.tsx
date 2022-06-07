@@ -2,7 +2,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import styles from "./GainersLosers.module.scss";
-
 import { Button, Heading, useColorModeValue } from '@chakra-ui/react'
 import Tables from "./Tables"
 
@@ -33,7 +32,7 @@ function GainersLosers() {
             console.log(r.data)
         });
     }, [])
-
+    
     return (
         <div className={styles["main-container"]} style={{marginBottom:"30px"}}>
             <div className={styles["both-container"]}>
