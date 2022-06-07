@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
@@ -247,12 +247,12 @@ function Token(token: {
     }
     return token.name
   }
-
-  const border = useColorModeValue("white_border", "dark_border")
+  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-
+  const testRef = useRef();
   return (
-    <tbody id="nul" style={{ borderBottom: `1px solid ${border}` }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+    <tbody  id="nul" ref={testRef} style={{ borderBottom: `1px solid ${border}`}}  onMouseEnter={(e) => testRef.current.style.background = hover} onMouseLeave={(e) => testRef.current.style.background ="none"} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
       <tr className={styles["trs"]} >
         <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
           <a href="" className={styles["white"]}>

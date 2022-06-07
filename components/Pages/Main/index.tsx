@@ -11,13 +11,10 @@ import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
-
+import Widget from "../../Utils/Widget"
 import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 
 function News(props: any) {
-
-  
-
 
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
@@ -30,6 +27,7 @@ function News(props: any) {
   const percentageRef = useRef()
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
+  const [ widgetVisible, setWidgetVisible] = useState(false)
 
   console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
@@ -192,7 +190,7 @@ function News(props: any) {
   }
 
   const gradient = useColorModeValue("white_gradient", "dark_gradient")
-  const border = useColorModeValue("white_border_title", "dark_border_title")
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
 
   return (
@@ -290,7 +288,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </Flex>
-        <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} />
+        <ButtonBlock display={display} widget={widgetVisible} setWidget={setWidgetVisible} setDisplay={setDisplay} setResults={setSearch} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
@@ -342,6 +340,10 @@ function News(props: any) {
           }
         </table>
       </div>
+      {widgetVisible && (
+         <Widget />
+      )}
+     
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )

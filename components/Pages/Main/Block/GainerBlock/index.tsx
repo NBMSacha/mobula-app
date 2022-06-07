@@ -22,7 +22,7 @@ function GainerBlock(tokens: {
 
   const containerColor = useColorModeValue("bg_white", "dark_secondary")
   const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
-
+  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
 
   console.log(tokens.title)
   const router = useRouter()
