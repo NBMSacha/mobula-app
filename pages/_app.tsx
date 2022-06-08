@@ -10,10 +10,8 @@ import '../styles.scss'
 import '../styles/header.scss'
 import '../styles/responsive.scss'
 import { ColorModeScript } from '@chakra-ui/react'
-import { themeUltime } from '../theme/'
+import { themeUltime } from '../theme/index.ts'
 import { ChakraProvider } from "@chakra-ui/react"
-
-
 
 const alertOptions = {
   timeout: 5000,
@@ -21,27 +19,13 @@ const alertOptions = {
 }
 
 function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(provider, 'any')
-  library.pollingInterval = 12000
-  return library
+  const library = new Web3Provider(provider, "any");
+  library.pollingInterval = 12000;
+  return library;
 }
 
 
-
 export default function App({ Component, pageProps }) {
-
-  const [darkThemes, setDarkThemes] = useState(false);
-  useEffect(() => {
-
-    var isDark = localStorage.getItem("isDark") == "true";
-    const root = document.documentElement;
-
-    background: ;
-
-    console.log(`Inside UseEffect : ${isDark}`)
-    setDarkThemes(isDark)
-  }, [darkThemes]);
-  console.log(`_app darkThemes : ${darkThemes}`)
 
   return (
     <>
@@ -73,16 +57,13 @@ export default function App({ Component, pageProps }) {
 
         <Provider template={AlertTemplate} {...alertOptions}>
           <Web3ReactProvider getLibrary={getLibrary}>
-            <Header darkTheme={darkThemes} />
+            <Header />
             <ColorModeScript initialColorMode={themeUltime.config.initialColorMode} />
-            <Component darkTheme={darkThemes} {...pageProps}></Component>
-
-
-            <Footer darkTheme={darkThemes} setDarkTheme={setDarkThemes} />
-
-          </Web3ReactProvider>
-        </Provider>
-      </ChakraProvider>
+            <Component {...pageProps}></Component>
+            <Footer />
+          </Web3ReactProvider >
+        </Provider >
+      </ChakraProvider >
     </>
   )
 }

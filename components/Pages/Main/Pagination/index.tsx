@@ -19,11 +19,10 @@ import { VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
 import {  useColorMode, IconButton,useColorModeValue,useMediaQuery, Input, Image, } from "@chakra-ui/react";
 
-function Pagination({ maxPage, darkTheme }) {
+function Pagination({ maxPage}) {
+    
     const router = useRouter();
     const page = router.query.page ? parseInt(router.query.page as string) : 1;
-    console.log('Hey', darkTheme)
-
     const active = useColorModeValue("black", "white")
     const grey = useColorModeValue("white_grey", "dark_grey")
 

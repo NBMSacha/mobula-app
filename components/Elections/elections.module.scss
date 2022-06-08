@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+.line {
+  width: 100%;
+  height: 2px;
+  background-color: $lineColor;
+  margin-top: 1rem;
+}
+
+.title {
+  font-weight: 800;
+}

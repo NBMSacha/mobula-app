@@ -11,13 +11,22 @@ import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
-
+import Widget from "../../Utils/Widget"
 import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
+import ConnectWallet from "../../Utils/ConnectWallet"
 
 function News(props: any) {
-
-  
-
 
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
@@ -30,6 +39,7 @@ function News(props: any) {
   const percentageRef = useRef()
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
+  const [ widgetVisible, setWidgetVisible] = useState(false)
 
   console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
@@ -192,7 +202,7 @@ function News(props: any) {
   }
 
   const gradient = useColorModeValue("white_gradient", "dark_gradient")
-  const border = useColorModeValue("white_border_title", "dark_border_title")
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
 
   return (
@@ -290,30 +300,31 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </Flex>
-        <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} />
+        <ButtonBlock display={display} widget={widgetVisible} setWidget={setWidgetVisible} setDisplay={setDisplay} setResults={setSearch} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-        <table style={{minWidth: "1220px"}} className={styles["table-style"]}>
-          <thead  style={{borderBottom: `1px solid ${border}`,borderTop: `1px solid ${border}`}} >
-            <tr className={styles[""]}>
-              <th className={`${styles["ths"]} ${styles["removes"]}`}>Rank</th>
-              <th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{background: sticky}}>Asset</th>
-              <th className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</th>
-              <th className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
+      <TableContainer>
+        <Table style={{minWidth: "1220px"}} className={styles["table-style"]}>
+          <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
+            <Tr className={styles[""]}>
+              <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px","220px","220px",""]}>Rank</Th>
+              <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{background: sticky}}>Asset</Th>
+              <Th isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
+              <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
                 {textResponsive ? (
                   <p>24h %</p>
                 ) : (
                   <p>Change (24h)</p>
                 )}
-              </th>
-              <th className={`${styles["ths"]}`}>Market cap</th>
-              <th className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</th>
-              <th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</th>
-              <th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</th>
-            </tr>
-          </thead>
+              </Th>
+              <Th isNumeric className={`${styles["ths"]}`}>Market cap</Th>
+              <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
+              <Th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
+              <Th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
+            </Tr>
+          </Thead>
 
           {
             getTokensToDisplay().map((token: any, index: number) => token ? <Token
@@ -338,12 +349,16 @@ function News(props: any) {
               rank_change_24h={token.rank_change_24h}
               rank={(page - 1) * 100 + index + 1}
               isMyAsset={display == 'My Assets'}
-              darkTheme={props.darkTheme}
             /> : <></>)
           }
-        </table>
+        </Table>
+        </TableContainer>
       </div>
-      {display != 'My Assets' ? <Pagination darkTheme={props.darkTheme} maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
+      {widgetVisible && (
+         <Widget />
+      )}
+     
+      {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )
 }

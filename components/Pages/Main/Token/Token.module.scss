@@ -28,7 +28,6 @@
 }
 
 .trs:hover .asset-title-start {
-  background-color: var(--btn-hover);
 }
 
 /* align-items / display table-cell / font-size / justify-content flex start
@@ -99,7 +98,6 @@
 
 .asset-title-start {
   display: table-cell !important;
-
   justify-content: flex-start;
   align-items: center;
   padding: 15px 0px !important;
@@ -143,7 +141,7 @@
 
 .rank-title-start {
   vertical-align: middle;
-
+  max-width:100px !important
 }
 
 .ths {

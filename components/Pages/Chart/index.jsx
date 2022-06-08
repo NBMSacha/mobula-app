@@ -22,9 +22,15 @@ import { useRouter } from 'next/router';
 import Swap from "./Swap";
 import { ChakraProvider, ColorModeProvider, useColorModeValue, Button, Flex, Box, Text } from '@chakra-ui/react'
 import { CSSReset, useMediaQuery } from '@chakra-ui/react'
-import Charts from "./Charts/index.jsx"
+import Charts from "./Charts/index.jsx";
+import MobileInfo from "./MobileInfo";
+import DaoScore from "./daoScore";
+import MobileMarket from "./MobileMarket";
+import Section from "./Section";
+import Navigation from "./Navigation";
+import DesktopMarket from "./DesktopMarket";
 
-const ChartCryptos = ({ baseAsset, darkTheme }) => {
+const ChartCryptos = ({ baseAsset }) => {
   const router = useRouter()
   const [chart, setChart] = useState({})
   const [day, setDay] = useState()
@@ -316,6 +322,7 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
               gridLines: { color: borderChart },
               ticks: {
                 beginAtZero: false,
+                color: "red",
                 maxTicksLimit: isMobile ? 4 : 8,
                 callback: function (tick) {
                   if (tick == 0) return 0
@@ -340,12 +347,15 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
               gridLines: { color: borderChart },
               type: 'time',
               distribution: 'linear',
+              ticks: { color:"red", fontFamily:"Poppins"},
               time: {
                 unit: dayIf,
                 tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
                 displayFormats: {
                   hour: 'HH:mm',
+                  week: "MMM D"
                 },
+        
               },
               ticks: {
                 maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
@@ -742,25 +752,6 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
     }
   }
 
-  function moreStats() {
-    try {
-      if (hideRef.current.style.display == 'none') {
-        console.log('changin style to flex')
-        changeRef.current.innerHTML = ' Show Less Stats -'
-        hidedaoRef.current.style.display = 'flex'
-
-        return (hideRef.current.style.display = 'flex')
-      } else {
-
-        changeRef.current.innerHTML = 'Show More Stats +'
-        hidedaoRef.current.style.setProperty('display', 'none', 'important')
-        return (hideRef.current.style.display = 'none')
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
   const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
   const bgChart = useColorModeValue("#F5F5F5", "#131727")
   const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
@@ -768,558 +759,74 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
   const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
   const daoMobile = useColorModeValue("#EFEFEF", "none")
 
-
-  console.log(baseAsset)
   const renderData = () => {
 
     const [scoreVisible, setScoreVisible] = useState(false)
-    const [isRed, setIsRed] = useState(false)
-
-    console.log(baseAsset)
-    console.log(Math.abs(baseAsset.price_change_24h))
     const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
+
     return (
       <>
-
         <CSSReset />
-
         <Head>
           <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
         </Head>
 
-
-
         <div className='App'>
-
-
-
-
-
           <div className={styles['chart-main-container']}>
-
-            <Flex mb={["", "", "", "-50px"]} direction="column" className={styles['chart-top-token']}>
-              <Flex w={["90%", "100%"]} margin="auto" justify={["space-between", "space-between", "space-between", "space-between"]} align="center">
-                <Flex w="45%" h="auto" className={styles['chart-left-top']} justify="center" align={["start", "start", "start", "space-around"]} direction="column">
-                  <Flex mb="8px" align="center" direction="column">
-                    <Flex>
-                      <img style={{ marginRight: "10px", borderRadius: "50%" }} src={baseAsset.logo} className={styles['chart-token-logo']} />
-                      <Flex className={styles['chart-name-box']} w="60vw">
-                        <div className={styles['chart-token-name']}>
-                          <Text fontSize={["xs", "x-large"]} className={styles["rank-span"]} mr="5px" color="white_grey">#{baseAsset.rank}</Text>
-                          <Text fontSize={["md", "x-large"]}>{baseAsset.name}</Text>
-                        </div>
-                      </Flex>
-                    </Flex>
-
-
-                  </Flex>
-                  <Flex>
-                    <Flex w="50vw" align="center" mt="0px" display={["flex", "flex", "flex", "none"]}>
-                      <Text boxShadow={`1px 2px 12px 3px ${shadowColor}`} borderRadius="6px" p="2px 5px" bg={daoMobile} fontSize="13px">DAO Score <span style={{
-                        color: baseAsset.utility_score +
-                          baseAsset.social_score +
-                          baseAsset.market_score +
-                          baseAsset.trust_score !== 0 ? "#5C7DF9" : "#5C7DF9", marginLeft: "20px"
-                      }}>{baseAsset.utility_score +
-                        baseAsset.social_score +
-                        baseAsset.market_score +
-                        baseAsset.trust_score || '--'} /20</span></Text>
-                      <Button fontSize="12px" ml="10px" onClick={() => {
-
-                        setScoreVisible(!scoreVisible)
-                      }
-                      }>+</Button>
-                    </Flex>
-                  </Flex>
-                </Flex>
-                <Flex direction="column">
-                  <Flex whiteSpace="nowrap">
-                    <Text fontWeight="bold" fontSize={["22px", "22px", "22px", "34px"]} color={isPriceWinner === true ? 'green' : isPriceWinner === false ? 'red' : ''} > <span style={{ marginLeft: "10px" }}>${getTokenPrice(baseAsset.price)}</span></Text>
-                    {!mobile ? <Flex fontWeight="bold" align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
-                      <Box className={getTokenPercentage(baseAsset.price_change_24h) > 0 ? styles['triangle-green'] : styles['triangle-red']}></Box>
-                      {getTokenPercentage(baseAsset.price_change_24h)}%
-                    </Flex> : <></>}
-                  </Flex>
-                  {mobile ? <Flex fontWeight="bold" align="center" ml="10px" color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"}>
-                    <Box className={getTokenPercentage(baseAsset.price_change_24h) > 0 ? styles['triangle-green'] : styles['triangle-red']}></Box>
-                    {getTokenPercentage(baseAsset.price_change_24h)}%
-                  </Flex> : <></>}
-
-
-                  <Flex>
-                    <Flex display={["flex", "flex", "flex", "none"]} fontSize="13px" direction="column" justify="center" w="108px">
-                      {/* <Text display="flex" justifyContent="space-between">High: <span>$2235</span></Text>
-                      <Text display="flex" justifyContent="space-between">Low: <span >$2125</span></Text> */}
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Flex>
-              <Flex w="100%" justify={["space-between", "space-between", "space-between", "start"]} align="center">
-                <Flex w="100%" justify={["space-between", "space-between", "space-between", "space-around"]}>
-                </Flex>
-
-              </Flex>
-            </Flex>
-
-
-            {scoreVisible ? (
-              <Flex w="100%" justify='center' align="center" mt="20px">
-
-
-                <Flex align="center" w='85%' justify={"center"} direction="column" bg={daoMobile} py="10px" boxShadow={`1px 2px 12px 3px ${shadowColor}`} borderRadius="10px">
-                  <Flex w="90%" fontSize="12px" display="flex" justifyContent="space-between" mr="20px" m="auto">
-                    <Flex width="120px" justify="space-between">
-                      <Text>Market : </Text>
-                      <Text color={baseAsset.market_score >= 4 ? 'green' : baseAsset.market_score == 0 ? "none" : baseAsset.market_score <= 2 ? "red" : "none"} ml="20px"> {baseAsset.market_score > 0 ? baseAsset.market_score : "--"}/5</Text>
-                    </Flex>
-                    <Flex width="120px" justify="space-between">
-                      <Text>Reliability : </Text>
-                      <Text color={baseAsset.trust_score >= 4 ? 'green' : baseAsset.trust_score == 0 ? "none" : baseAsset.trust_score <= 2 ? "red" : "none"}>{baseAsset.trust_score > 0 ? baseAsset.market_score : "--"}/5</Text>
-                    </Flex>
-                  </Flex>
-
-                  <Flex w="90%" fontSize="12px" display="flex" justifyContent="space-between" mr="20px" m="auto" mt="10px">
-                    <Flex width="120px" justify="space-between">
-                      <Text>Ativity : </Text>
-                      <Text color={baseAsset.social_score >= 4 ? 'green' : baseAsset.social_score == 0 ? "none" : baseAsset.social_score <= 2 ? "red" : "none"} ml="20px">{baseAsset.social_score > 0 ? baseAsset.market_score : "--"}/5</Text>
-                    </Flex>
-                    <Flex width="120px" justify="space-between">
-                      <Text>Utility : </Text>
-                      <Text color={baseAsset.utility_score >= 4 ? 'green' : baseAsset.utility_score == 0 ? "none" : baseAsset.utility_score <= 2 ? "red" : "none"} ml="20px">{baseAsset.utility_score > 0 ? baseAsset.market_score : "--"}/5</Text>
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Flex>
-            ) : (<></>)}
-
-
-
-
+            {/* TOKEN STATS */}
+            <MobileInfo 
+              baseAsset={baseAsset}
+              shadowColor={shadowColor}
+              daoMobile={daoMobile}
+              setScoreVisible={setScoreVisible} 
+              scoreVisible={scoreVisible}
+              mobile={mobile}
+              isPriceWinner={isPriceWinner}
+            />
+            {/* DAO SCORE */}
             <Flex justify="center" w="100%" >
-              {/* DAO SCORE */}
-              {baseAsset.utility_score +
-                baseAsset.social_score +
-                baseAsset.market_score +
-                baseAsset.trust_score !== 0 ? (
-
-                <>
-                  <Flex mt={["0px", "0px", "0px", "14px"]}>
-                    <Flex align="center" display={["none", "none", "none", "flex"]} mr="150px">
-                      <Text fontSize="14px" >DAO Score : <span style={{ color: '#3861FB', marginLeft: "14px" }} > {baseAsset.utility_score +
-                        baseAsset.social_score +
-                        baseAsset.market_score +
-                        baseAsset.trust_score} /20</span></Text>
-                    </Flex>
-
-
-                    <Flex align="center" display={["none", "none", "none", "flex"]}>
-                      <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" mr="20px">Market :
-                        <Text color={baseAsset.market_score >= 4 ? 'green' : baseAsset.market_score <= 2 ? "red" : "none"}> {baseAsset.market_score}/5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" >Reliability :
-                        <Text color={baseAsset.trust_score >= 4 ? 'green' : baseAsset.trust_score <= 2 ? "red" : "none"} ml="20px">{baseAsset.trust_score}/5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity :
-                        <Text color={baseAsset.social_score >= 4 ? 'green' : baseAsset.social_score <= 2 ? "red" : "none"} >{baseAsset.social_score}/5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="120px" display="flex" justifyContent="space-between">Utility :
-                        <Text color={baseAsset.utility_score >= 4 ? 'green' : baseAsset.utility_score <= 2 ? "red" : "none"} ml="20px">{baseAsset.utility_score}/5</Text>
-                      </Flex>
-
-                    </Flex>
-
-                  </Flex>
-                </>
-
-              ) : (
-                <>
-                  <Flex mt="10px">
-                    <Flex align="center" display={["none", "none", "none", "flex"]} mt="20px">
-                      <Text fontSize="14px" marginRight="120px">DAO Score : <span style={{ color: '#3861FB', marginLeft: "14px" }} > --/20</span></Text>
-                    </Flex>
-                    <Flex align="center" display={["none", "none", "none", "flex"]} mt="20px" >
-                      <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" mr="20px">Market :
-                        <Text color={baseAsset.market_score >= 4 ? 'green' : baseAsset.market_score <= 2 ? "red" : "none"}>-- /5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" >Reliability :
-                        <Text color={baseAsset.trust_score >= 4 ? 'green' : baseAsset.trust_score <= 2 ? "red" : "none"} ml="20px">-- /5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between" ml="20px" mr="20px">Activity :
-                        <Text color={baseAsset.social_score >= 4 ? 'green' : baseAsset.social_score <= 2 ? "red" : "none"} >-- /5</Text>
-                      </Flex>
-                      <Flex fontSize="14px" w="128px" display="flex" justifyContent="space-between">Utility :
-                        <Text color={baseAsset.utility_score >= 4 ? 'green' : baseAsset.utility_score <= 2 ? "red" : "none"} ml="20px">-- /5</Text>
-                      </Flex>
-                    </Flex>
-                  </Flex>
-
-                </>)}
-
-
+              <DaoScore baseAsset={baseAsset} />
             </Flex>
-
-
-
-
-            <div className={styles['mobile-showInfo-container']}>
-              <div
-                style={{ 'display': 'none' }}
-                className={styles['mobile-info-element']}
-                id='hide'
-                ref={hideRef}
-              >
-                <div className={styles['mobile-info-left-column']}>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>MARKET CAP</span>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      ${formatAmount(baseAsset.market_cap)}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>VOLUME (24H)</span>
-                    <p className={styles['numbers']}>
-                      ${formatAmount(volume || baseAsset.volume)}
-                    </p>
-                  </div>
-                  <div className={styles['mobbox']}>
-                    <span className={styles['grey']}>
-                      FULLY DILUTED MARKET CAP
-                    </span>
-                    <p className={styles['numbers']}>
-                      $
-                      {baseAsset.market_cap_diluted
-                        ? formatAmount(baseAsset.market_cap_diluted)
-                        : '???'}
-                    </p>
-                  </div>
-                </div>
-                <div className={styles['mobile-info-right-column']}>
-                  <div className={styles['mobboxx']}>
-                    <span className={styles['grey']}>CIRCULATING SUPPLY</span>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['numbers']} ${styles['unsure']}` : styles['numbers'])}>
-                      {baseAsset.circulating_supply
-                        ? formatAmount(baseAsset.circulating_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </div>
-                  <div className={styles['mobboxx']}>
-                    <span className={styles['grey']}>TOTAL SUPPLY </span>
-                    <p className={styles['numbers']}>
-                      {baseAsset.total_supply
-                        ? formatAmount(baseAsset.total_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </div>
-                  <div className={styles['mobboxx']}>
-                    <span className={styles['grey']}>LIQUIDITY </span>
-                    <p className={styles['numbers']}>
-
-                      {baseAsset.liquidity
-                        ? '$' + formatAmount(parseInt(liquidity || baseAsset.liquidity))
-                        : '???'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <button
-                id='hidedao'
-                ref={hidedaoRef}
-                onClick={() => {
-                  // mobileDaoBtn()
-                }}
-              >
-
-              </button>
-              <Button
-                w="90%"
-                display={["flex", "flex", "none", "none"]}
-                boxShadow={`1px 2px 13px 3px ${shadowColor}`}
-                className={styles['btn-more-less']}
-                onClick={() => moreStats()}
-              >
-                <span id='change' ref={changeRef} >Show More Stats +</span>
-              </Button>
-            </div>
-
-
-
+            {/* INFO MARKET CAP ETC MOBILE */}
+            <MobileMarket
+              baseAsset={baseAsset}
+              formatAMount={formatAmount}
+              volume={volume}
+              liquidity={liquidity}
+              hidedaoRed={hidedaoRef}
+              hideref={hideRef}
+              shadowColor={shadowColor}
+              changeRef={changeRef}
+            />
             <Flex className={styles['chart-bottom-container']} borderTop={["none", "none", "none", `1px solid ${borderBox}`]} borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
-
-
-
-              <Flex className={styles['chart-bottom-left']} display={["none", "none", "none", "flex"]}>
-                <div className={styles['left-top-box']}>
-                  <span>
-                    <p
-                      className={`${styles['text-top-chart']} ${styles['topOne']}`}
-                    >
-                      MARKET CAP
-                    </p>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      ${formatAmount(baseAsset.market_cap)}
-                      {/* {(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? <div className={styles['tooltip']}>This data may not be accurate.</div> : <></>)} */}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>VOLUME (24H)</p>
-                    <p className={styles['text-bottom-chart']}>
-                      ${formatAmount(volume > 0 ? volume : baseAsset.volume || '???')}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>
-                      FULLY DILUTED MARKET CAP
-                    </p>
-                    <p className={styles['text-bottom-chart']}>
-                      $
-                      {baseAsset.market_cap_diluted
-                        ? formatAmount(baseAsset.market_cap_diluted)
-                        : '???'}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>CIRCULATING SUPPLY</p>
-                    <p className={(!baseAsset.circulating_supply_addresses || baseAsset.circulating_supply_addresses.length == 0 ? `${styles['text-bottom-chart']} ${styles['unsure']}` : styles['text-bottom-chart'])}>
-                      {baseAsset.circulating_supply
-                        ? formatAmount(baseAsset.circulating_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>TOTAL SUPPLY </p>
-                    <p className={styles['text-bottom-chart']}>
-                      {baseAsset.total_supply
-                        ? formatAmount(baseAsset.total_supply)
-                        : '???'}{' '}
-                      {baseAsset.symbol}
-                    </p>
-                  </span>
-                  <span>
-                    <p className={styles['text-top-chart']}>LIQUIDITY</p>
-                    <p className={styles['text-bottom-chart']}>
-
-                      {baseAsset.liquidity
-                        ? '$' + formatAmount(parseInt(liquidity || baseAsset.liquidity))
-                        : '???'}
-                    </p>
-                  </span>
-                </div>
-
-              </Flex>
-
-
-
-
+              {/* MARKET CAP INFO DESKTOP */}
+              <DesktopMarket baseAsset={baseAsset} liquidity={liquidity} volume={volume}/>
               <div className={styles['chart-bottom-right']} >
                 <Flex className={styles['chart-box']} id='chart-box' borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
-
-
-
-                  <Flex className={styles['chart-header']} borderBottom={["none", "none", `1px solid ${borderBox}`, `1px solid ${borderBox}`]} >
-
-                    <Button
-                      variant={state === 'Overview' ? "secondary" : "none"}
-                      onClick={() => { setState('Overview'); }}
-                      className={`${styles['chart-header-link']} ${styles['active-chart']}`}
-                    >
-                      Overview
-                    </Button>
-
-                    {state === 'Overview' && visible ? (
-
-                      <p className={styles['warning']}>Loading...</p>
-                    ) : (
-                      <></>
-                    )}
-                    <Button variant={state === 'Details' ? "secondary" : "none"} className={`${styles['chart-header-link']} ${styles['active-chart']}`} onClick={() => { setState('Details'); console.log(state) }}>
-                      <span>Infos</span>
-                    </Button>
-                    <Button variant={state === 'Charts' ? "secondary" : "none"} onClick={() => { setState('Charts'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                      <span>Market</span>
-                    </Button>
-                    <Button disabled variant={state === 'Buy' ? "secondary" : "none"} onClick={() => { setState('Buy'); console.log(state) }} className={`${styles['chart-header-link']} ${styles['active-chart']}`}>
-                      <span>Buy</span>
-                    </Button>
-                    <a
-                      href='https://discord.gg/2a8hqNzkzN'
-                      className={`${styles['chart-header-link']} ${styles['report-problem']}`}
-                    >
-                      <span id='inner'>A problem ? report to the DAO </span>
-                    </a>
-                  </Flex>
-
-
-                  {state === 'Charts' && (
-                    <Charts baseAsset={baseAsset} darkTheme={darkTheme} />
-                  )}
-
-
-                  <div className={styles['chart-content']}>
-                    <div className={styles['canvas-container']}>
-
-                      {state === 'Details' && (
-                        <ProjectInfo token={baseAsset} blockchain={baseAsset.blockchains} />
-                      )}
-                      {state === 'Buy' && (
-                        <Swap baseAsset={baseAsset} />
-                      )}
-                      {state === 'Overview' && (
-                        <Box mt={["0px", "0px", "50px"]}>
-                          <canvas id='chart' className={styles["chartCanvas"]}></canvas>
-                          <Flex
-                            bg={dateChangerBg}
-                            className={styles['change-chart-date']}
-                            style={{
-                              display: 'flex',
-                              justifyContent: 'end',
-                              marginLeft: 'auto',
-                            }}
-                          >
-                            {(!day || (day.price && day.price.length != 0)) ? timeFormat === "1D" ? (
-                              <Button
-                                onClick={() => {
-                                  setTimeFormat('1D')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']} ${styles['d']}`} color={active} style={{ margin: "0px !important" }}
-                                id='1d'
-                              >
-                                1D
-                              </Button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('1D')
-                                }}
-                                className={`${styles['button-chart']} ${styles['d']}`}
-                                color="grey"
-                              >
-                                1D
-                              </button>
-                            ) : <></>}
-                            {(!week || (week.price && week.price.length)) ? timeFormat === "7D" ? (
-                              <Button
-                                color={active}
-                                onClick={() => {
-                                  setTimeFormat('7D')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-
-                                id='7d'
-                              >
-                                7D
-                              </Button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('7D')
-                                }}
-                                className={styles['button-chart']}
-                                color="grey"
-
-                              >
-                                7D
-                              </button>
-                            ) : <></>}
-
-
-                            {(!month || (month.price && month.price.length)) ? timeFormat === "30D" ? (
-                              <Button
-                                color={active}
-                                onClick={() => {
-                                  setTimeFormat('30D')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-
-                                id='30d'
-                              >
-                                1M
-                              </Button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('30D')
-                                }}
-                                className={styles['button-chart']}
-                                color="grey"
-                                id='30d'
-                              >
-                                1M
-                              </button>
-                            ) : <></>}
-
-                            {(!year || (year.price && year.price.length)) ? timeFormat === "1Y" ? (
-                              <Button
-                                color={active}
-                                onClick={() => {
-                                  setTimeFormat('1Y')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-                                id='1Y'
-                              >
-                                1Y
-                              </Button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('1Y')
-                                }}
-                                className={styles['button-chart']}
-                                color="grey"
-                                id='1Y'
-                              >
-                                1Y
-                              </button>
-                            ) : <></>}
-                            {(!all || (all.price && all.price.length)) ? timeFormat === "ALL" ? (
-                              <Button
-                                color={active}
-                                onClick={() => {
-                                  setTimeFormat('ALL')
-                                }}
-                                className={`${styles['button-chart']} ${styles['button-chart-active']}`}
-
-                                id='ALL'
-                              >
-                                ALL
-                              </Button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  setTimeFormat('ALL')
-                                }}
-                                className={styles['button-chart']}
-                                color="grey"
-                                id='ALL'
-                              >
-                                ALL
-                              </button>
-                            ) : <></>}
-                          </Flex>
-
-                        </Box>
-                      )}
-
-                    </div>
-                  </div>
+                  {/* OVERVIEW / CHART / INFOS / MARKET NAV */}
+                  <Navigation
+                    visible={visible}
+                    state={state}
+                    borderBox={borderBox}
+                    setState={setState}
+                  />
+                 {/* OVERVIEW / CHART / INFOS / MARKET CONTENT */}
+                  <Section 
+                    baseAsset={baseAsset}
+                    state={state}
+                    timeFormat={timeFormat}
+                    dateChangerBg={dateChangerBg}
+                    setTimeFormat={setTimeFormat}
+                    day={day}
+                    week={week}
+                    month={month}
+                    year={year}
+                    all={all}
+                  />
                 </Flex>
               </div>
-
-
-
-
             </Flex>
-
-
-
           </div>
-
-
-
-
-
           <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
           <header className=''>
             <div
@@ -1328,18 +835,10 @@ const ChartCryptos = ({ baseAsset, darkTheme }) => {
             >
             </div>
           </header>
-
-
-
-
-
         </div>
       </>
     )
-
-    // return <div>{test()}</div>
   }
-
   return <div>{renderData()}</div>
 }
 

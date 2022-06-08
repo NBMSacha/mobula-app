@@ -15,7 +15,7 @@ import { CheckCircle } from 'react-feather';
 import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
 
-function Earn({ darkTheme }) {
+function Earn() {
     const [copied, setCopied] = useState(false)
     const [user, setUser]: [any, Function] = useState({ tasks_done: [], referred: [] });
     const [tasks, setTasks] = useState([])
@@ -140,16 +140,16 @@ function Earn({ darkTheme }) {
                     {/* DAILY BOX */}
                     <Flex w={['95%', '95%', '90%', '45%']} flexDir={'column'} textAlign='center' p={["0px 0px", "0px 0px", "0px 30px", "0px 30px"]}>
                         <Flex w={'100%'} pb={"5px"} justify={'space-around'} mb={['0px']}  >
-                            <DayBox darkTheme={darkTheme} day={1} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={2} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={3} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={4} streaks={user.streaks} account={account} />
+                            <DayBox day={1} streaks={user.streaks} account={account} />
+                            <DayBox day={2} streaks={user.streaks} account={account} />
+                            <DayBox day={3} streaks={user.streaks} account={account} />
+                            <DayBox day={4} streaks={user.streaks} account={account} />
                         </Flex>
                         <Flex w={'100%'} pb={"5px"} justify={'space-around'} borderBottom="1px solid var(--border-chart)" >
-                            <DayBox darkTheme={darkTheme} day={5} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={6} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={7} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={8} streaks={user.streaks} account={account} />
+                            <DayBox day={5} streaks={user.streaks} account={account} />
+                            <DayBox day={6} streaks={user.streaks} account={account} />
+                            <DayBox day={7} streaks={user.streaks} account={account} />
+                            <DayBox day={8} streaks={user.streaks} account={account} />
                         </Flex>
                     </Flex>
                     {/* BORDER LINE */}

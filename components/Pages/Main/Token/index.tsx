@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from 'ethers';
@@ -8,7 +8,19 @@ import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
 import { stableTokens, tokensPerBlockchain, volumeOracles } from '../../../../constants';
 import axios from 'axios';
-import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react';
+import { useMediaQuery } from '@chakra-ui/react'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
 
 async function refreshPrice(contracts: string[], blockchains: string[], pairs: string[], setPrice: Function, name) {
   let subgraphSuccess = 0;
@@ -205,7 +217,6 @@ function Token(token: {
   rank: number
   id: number
   isMyAsset: boolean
-  darkTheme: boolean
 }) {
   const router = useRouter();
   const [price, setPrice] = useState(token.price)
@@ -248,14 +259,15 @@ function Token(token: {
     }
     return token.name
   }
-
-  const border = useColorModeValue("white_border", "dark_border")
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-
+  const testRef = useRef();
   return (
-    <tbody id="nul" style={{ borderBottom: `1px solid ${border}` }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
-      <tr className={styles["trs"]} >
-        <td className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
+    <Tbody  id="nul" ref={testRef} borderBottom={`2px solid ${border}`}  onMouseEnter={(e) => testRef.current.style.background = hover} onMouseLeave={(e) => testRef.current.style.background ="none"} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+      <Tr  className={styles["trs"]} >
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
               <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
@@ -270,9 +282,9 @@ function Token(token: {
             )}
             <span style={{ marginLeft: "10px", opacity: .6 }}>{token.rank}</span>
           </a>
-        </td>
-        <td className={` ${styles["asset-title-start"]} ${styles["ths"]}`} style={{ background: sticky }} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-          <Flex align="center">
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} minWidth={["220px","220px","220px",""]} className={` ${styles["asset-title-start"]} ${styles["ths"]}`}  bg={isLargerThan768 ? "none" : sticky } onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+          <Flex align="center" >
             <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
             <div className={styles["wrap-name"]}>
               <span className={`${styles["name-title-margin"]} ${styles["font-char"]}`}>{getNameFormat(token.name)}</span>
@@ -280,11 +292,11 @@ function Token(token: {
             </div>
           </Flex>
 
-        </td>
-        <td className={`${styles["ths"]} ${styles["price-title-center"]} ${isWinner === true ? styles['green'] : isWinner === false ? styles['red'] : ''}`}>
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "31px"]} my="0px" isNumeric className={`${styles["ths"]} ${styles["price-title-center"]} ${isWinner === true ? styles['green'] : isWinner === false ? styles['red'] : ''}`}>
           <span className={` ${styles["font-char"]}`}>${separator(getTokenPrice(price))}</span>
-        </td>
-        <td className={styles["ths"]}>
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
           {token.price_change_24h < 0.01 ? (
             <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
               <div className={styles['triangle-red']} ></div>
@@ -298,28 +310,28 @@ function Token(token: {
               {getTokenPercentage(token.price_change_24h)}%
             </span>
           )}
-        </td>
-        <td className={styles["ths"]}>
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
           <span className={`${styles["font-char"]} `}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
-        </td>
-        <td className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
           <span className={` ${styles["font-char"]}`}>
             {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
-        </td>
-        <td className={styles["ths"]} style={{ display: "flex", justifyContent: "end" }}>
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} className={styles["ths"]}>
           <div className={styles["media-icons"]}>
             {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
-            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
-            {token.discord ? <a href={token.discord} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
+            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{minWidth:"30px"}} src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
+            {token.discord ? <a href={token.discord} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{minWidth:"30px"}}  src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
           </div>
-        </td>
-        <td >
+        </Td>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]}> 
           {token.id ?
             <img style={{ margin: "0px auto" }} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> :
             token.isMyAsset ? <Button ml={["0%", "0%", "30px"]} borderRadius="12px" w={["100%", "100%", "80%"]} h="30px" fontSize="xs" fontWeight="md" bg="blue" onClick={() => router.push('/list')}>List this asset</Button> : <></>}
-        </td>
-      </tr>
-    </tbody>
+        </Td>
+      </Tr>
+    </Tbody>
   )
 };
 
