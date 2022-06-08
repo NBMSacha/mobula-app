@@ -1,9 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
-import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
-import { Text, Heading, Link, Flex, useColorModeValue } from '@chakra-ui/react'
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
+import { Text, Heading, Link, Flex, useColorModeValue, Image } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
+import { useMediaQuery } from '@chakra-ui/react'
+import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
 
 export default function RecentlyAdded({ tokens }) {
   const router = useRouter();
@@ -19,14 +32,14 @@ export default function RecentlyAdded({ tokens }) {
       }
     }
   }, [])
-  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const active = useColorModeValue("white", "var(--chakra-colors-dark_active_gainer)")
-  const inactive = useColorModeValue("var(--chakra-colors-grey-loser)", "var(--chakra-colors-dark_inactive_gainer)")
+
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+  const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
+  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
   const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
+
   return (
     <Flex justify="center">
-
-    
       <div className={styles["dflex"]}>
         <header className={styles["stickyFix"]}>
           <Heading mb={'45px'} mt={'55px'} >Recently Added assets</Heading>
@@ -40,121 +53,93 @@ export default function RecentlyAdded({ tokens }) {
             </Link>
           </Text>
         </header>
-        <div className={styles["line"]}></div>
-        <table className={styles["tables"]}>
-          <thead className={styles["thead"]} style={{borderBottom:`2px solid ${border}`}}>
-            <tr className={styles["table-head"]}>
-              <th className={`${styles['token-title-datas']} ${styles["datas-title"]}`}>{textResponsive ? 'Logo' : 'Rank'}</th>
-              <th className={`${styles['token-title-assets']} ${styles["datas-title"]}`}>Asset</th>
-              <th className={`${styles['token-title-price']} ${styles["datas-title"]}`}>Price</th>
-              <th className={`${styles['token-title-percentage']} ${styles["datas-title"]}`} ref={percentageRef}>
-                {textResponsive === true ? (
-                  <>24h %</>
-                ) : (
-                  <>Change (24h)</>
-                )}
-              </th>
-              <th className={`${styles['token-title-marketCap']} ${styles["datas-title"]}`}>Market cap</th>
-              <th className={`${styles['token-title-marketFully']} ${styles["datas-title"]}`}>Volume (24h)</th>
-              <th className={`${styles['token-title-links']} ${styles["datas-title"]}`}>Socials</th>
-              <th className={`${styles['token-title-chart']} ${styles["datas-title"]}`}>Added</th>
-            </tr>
-          </thead>
-
-          {tokens.map((token: any) => {
-
-            let date = new Date(token.created_at);
-            let seconds = date.getTime();
-            let postedDate = Math.round((Date.now() - seconds) / 1000);
-            let format = "";
-            if (postedDate < 60) {
-              format = "seconds";
-            }
-            else if (60 <= postedDate && postedDate < 120) {
-              format = "minute"
-            }
-            else if (120 <= postedDate && postedDate < 3600) {
-              format = "minutes"
-            }
-            else if (3600 <= postedDate && postedDate < 7200) {
-              format = "hour"
-            }
-            else if (7200 <= postedDate && postedDate < 86400) {
-              format = "hours"
-            }
-            else if (86400 <= postedDate && postedDate < 172800) {
-              format = "day"
-            }
-            else if (172800 <= postedDate) {
-              format = "days"
-            }
-
-            return <tbody style={{borderBottom:`1px solid ${border}`}} className={styles["border-bot"]} key={token.id} onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-              <tr className={styles["token-containers"]}>
-                <td className={`${styles["token-ids"]} ${styles["font-char"]}`}>
-                  <a href="" className={styles["white"]}>
-                    {token.rank < 0 ? (
-                      <span className={`${styles["white"]} ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-                        {token.rank}
-                      </span>
-                    ) : token.rank == 0 ? <div>--</div> : (
-                      <span className={` ${styles["font-char"]} ${styles['token-percentage-box']}`} id="noColor">
-                        {token.rank}
-                      </span>
-                    )}
-                  </a>
-                </td>
-                <td className={styles["token-infos"]}>
-                  <img src={token.logo} className={styles["token-logos"]} />
-                  <div className={styles["name-container"]}>
-                    {token.name.length >= 14 ? (
-                      <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
-                        {formatName(token.name, 15)}
-                      </span>
-                    ) : (
-                      <span className={`${styles["token-names"]} ${styles["font-char"]}`}>
-                        {token.name}
-                      </span>
-                    )}
-                    <span className={`${styles["font-char"]} ${styles["token-symbols"]}`}>{token.symbol}</span>
-                  </div>
-                </td>
-                <td className={styles["tokens-price"]}>
-
-                  <span className={`${styles["token-price-box"]} ${styles["font-char"]}`}>${getTokenPrice(token.price)}</span>
-                </td>
-                <td className={styles["token-percentage"]}>
-                  {token.price_change_24h < 0.01 ? (
-                    <span className={`${styles['red']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-                      <div className={styles['triangle-red']}></div>
-                      {getTokenPercentage(token.price_change_24h)}%
-                    </span>
-                  ) || (
-                      <div></div>
-                    ) : (
-                    <span className={`${styles['green']} ${styles["font-char"]} ${styles["token-percentage-box"]}`} id="noColor">
-
-                      <div className={styles['triangle-green']}></div>
-                      {getTokenPercentage(token.price_change_24h)}%
-                    </span>
+        <TableContainer mb="20px" >
+          <Table variant='simple'>
+            <Thead borderBottom={`2px solid ${border}`}>
+              <Tr>
+              {isLargerThan768 && (
+                <Th isNumeric>Rank</Th>
+              )}
+                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg }>Asset</Th>
+                <Th isNumeric>Price</Th>
+                <Th isNumeric>Change (24h)</Th>
+                <Th isNumeric>Market Cap</Th>
+                <Th isNumeric>Volume (24h)</Th>
+                <Th>Socials</Th>
+                <Th>Added</Th>
+              </Tr>
+            </Thead>
+            {tokens.map((token: any) => {
+              
+              let date = new Date(token.created_at);
+              let seconds = date.getTime();
+              let postedDate = Math.round((Date.now() - seconds) / 1000);
+              let format = "";
+              if (postedDate < 60) {
+                format = "seconds";
+              }
+              else if (60 <= postedDate && postedDate < 120) {
+                format = "minute"
+              }
+              else if (120 <= postedDate && postedDate < 3600) {
+                format = "minutes"
+              }
+              else if (3600 <= postedDate && postedDate < 7200) {
+                format = "hour"
+              }
+              else if (7200 <= postedDate && postedDate < 86400) {
+                format = "hours"
+              }
+              else if (86400 <= postedDate && postedDate < 172800) {
+                format = "day"
+              }
+              else if (172800 <= postedDate) {
+                format = "days"
+              }
+              return ( <Tbody  onClick={() => router.push('/asset/' + getUrlFromName(token.name))}  borderBottom={`2px solid ${border}`} _hover={{ background: hover}}>
+                <Tr>
+                  {isLargerThan768 && (
+                    <Td isNumeric>
+                      <Text>{token.rank}</Text>
+                  </Td>
                   )}
-                </td>
-                <td className={styles["token-marketCap"]}>
-                  <span className={`${styles["font-char"]} ${styles["token-marketCap-box"]}`}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
-
-                </td>
-                <td className={styles["token-marketFully"]}>
-                  <span className={`${styles["token-marketFully-box"]} ${styles["font-char"]}`}>
-                    {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
-                </td>
-                <td className={styles["tokens-links"]}>
-
-                  <div className={styles["media-icons"]}>
-                    {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
-                    {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><Twitter className={styles["fu"]} /></a> : <></>}
-                  </div>
-                </td>
-                <td className={styles["token-chart"]}>
+                  <Td px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg } >
+                      <Flex align="center">
+                          <Image borderRadius="50%" h="30px" src={token.logo} mr="10px"/>
+                          <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
+                          <Text opacity="0.6">{token.symbol}</Text>
+                      </Flex>
+                  </Td>
+                  <Td px="5px" isNumeric><Text>${getTokenPrice(token.price)}</Text></Td>
+                  <Td px="5px" isNumeric>
+                    <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}> 
+                        {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px"/> : <TriangleDownIcon mr="5px"/>}
+                        
+                        {getTokenPercentage(token.price_change_24h)}%
+                    </Text>
+                  </Td>
+                  <Td px="5px" isNumeric><Text>${token.market_cap}</Text></Td>
+                  <Td px="5px" isNumeric><Text>${token.volume}</Text></Td>
+                  <Td py={["0px", "0px", "0px", "30px"]}>
+                    <Flex>
+                      {token.website && (
+                        <Link href={token.website}>
+                          <Globe height="30px"  style={{color:"#58667E"}}/>
+                        </Link>
+                      )}
+                      {token.twitter && (
+                        <Link href={token.twitter}>
+                          <Image h="30px" minWidth="30px" w="30px" ml="3px" src="/new-twitter.png" />
+                        </Link>
+                      )}
+                      {token.discord && (
+                        <Link href={token.discord}>
+                          <Image h="30px" minWidth="30px" ml="3px" src="/new-discord.png" />
+                        </Link>
+                      )}
+                    </Flex>
+                  </Td>
+                  <Td px="5px">
                   {format == "seconds" && <span>{postedDate} seconds ago</span>}
                   {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
                   {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}
@@ -162,15 +147,15 @@ export default function RecentlyAdded({ tokens }) {
                   {format == "hours" && <span>{Math.floor(postedDate / 3600)} hours ago</span>}
                   {format == "day" && <span>{Math.floor(postedDate / 86400)} day ago</span>}
                   {format == "days" && <span>{Math.floor(postedDate / 86400)} days ago</span>}
-                </td>
-              </tr>
-            </tbody>
-          })}
-        </table>
+                  </Td>
+                </Tr>
+              </Tbody>
+            )
+            })}
+          </Table>
+        </TableContainer>
       </div>
-
-      </Flex>
+    </Flex>
   )
-
 }
 

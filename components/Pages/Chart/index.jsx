@@ -322,6 +322,7 @@ const ChartCryptos = ({ baseAsset }) => {
               gridLines: { color: borderChart },
               ticks: {
                 beginAtZero: false,
+                color: "red",
                 maxTicksLimit: isMobile ? 4 : 8,
                 callback: function (tick) {
                   if (tick == 0) return 0
@@ -346,12 +347,15 @@ const ChartCryptos = ({ baseAsset }) => {
               gridLines: { color: borderChart },
               type: 'time',
               distribution: 'linear',
+              ticks: { color:"red", fontFamily:"Poppins"},
               time: {
                 unit: dayIf,
                 tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
                 displayFormats: {
                   hour: 'HH:mm',
+                  week: "MMM D"
                 },
+        
               },
               ticks: {
                 maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
@@ -794,9 +798,7 @@ const ChartCryptos = ({ baseAsset }) => {
               shadowColor={shadowColor}
               changeRef={changeRef}
             />
-
             <Flex className={styles['chart-bottom-container']} borderTop={["none", "none", "none", `1px solid ${borderBox}`]} borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
-              
               {/* MARKET CAP INFO DESKTOP */}
               <DesktopMarket baseAsset={baseAsset} liquidity={liquidity} volume={volume}/>
               <div className={styles['chart-bottom-right']} >

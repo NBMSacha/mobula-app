@@ -25,6 +25,10 @@
   margin-left: 20px;
 }
 
+.removes{
+  min-width: 110px !important;
+}
+
 .three-container>* {
   margin-right: 20px;
   margin-left: 20px;
@@ -82,7 +86,7 @@
 
 .token-title-assets {
   justify-content: center;
-  width: 240px;
+  min-width: 240px;
   margin-left: 10px;
   display: flex;
 }
