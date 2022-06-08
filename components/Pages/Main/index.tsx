@@ -302,7 +302,6 @@ function News(props: any) {
         </Flex>
         <ButtonBlock display={display} widget={widgetVisible} setWidget={setWidgetVisible} setDisplay={setDisplay} setResults={setSearch} />
       </div>
-      <ConnectWallet />
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>

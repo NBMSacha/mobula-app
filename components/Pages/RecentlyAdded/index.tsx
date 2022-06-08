@@ -60,7 +60,7 @@ export default function RecentlyAdded({ tokens }) {
               {isLargerThan768 && (
                 <Th isNumeric>Rank</Th>
               )}
-                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg }>Asset</Th>
+                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg } textAlign="start">Asset</Th>
                 <Th isNumeric>Price</Th>
                 <Th isNumeric>Change (24h)</Th>
                 <Th isNumeric>Market Cap</Th>
