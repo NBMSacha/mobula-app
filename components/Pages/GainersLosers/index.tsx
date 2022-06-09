@@ -32,34 +32,34 @@ function GainersLosers() {
             console.log(r.data)
         });
     }, [])
-    
+
     return (
-        <div className={styles["main-container"]} style={{marginBottom:"30px"}}>
+        <div className={styles["main-container"]} style={{ marginBottom: "30px" }}>
             <div className={styles["both-container"]}>
-                <Heading color={text} display={["flex","flex","none","none"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">{state === "gainers" ? "Top Gainers 📈" : "Top Loosers 📉"} </Heading>
-                <div className={styles["mobile-btn"]} style={{width:"95%"}}>
-                    <Button bg={ state === "gainers" ? active : inactive } boxShadow={`1px 2px 13px 3px ${shadow}`} px="10px" borderRadius="8px" mr="10px" className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`}  style={{boxShadow:`1px 2px 13px 3px ${shadow}`}}id="loosers"
+                <Heading color={text} display={["flex", "flex", "none", "none"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">{state === "gainers" ? "Top Gainers 📈" : "Top Loosers 📉"} </Heading>
+                <div className={styles["mobile-btn"]} style={{ width: "95%" }}>
+                    <Button bg={state === "gainers" ? active : inactive} boxShadow={`1px 2px 13px 3px ${shadow}`} px="10px" borderRadius="8px" mr="10px" className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} style={{ boxShadow: `1px 2px 13px 3px ${shadow}` }} id="loosers"
                         onClick={() => {
                             setState("gainers");
                             (gainersRef as any).current.style.display = "block";
                             (losersRef as any).current.style.display = "none"
                         }
-                    }>Gainers 📈</Button>
-                    <Button bg={ state == "losers" ? active : inactive } px="10px" borderRadius="8px" className={styles["btn-loosers"]} style={{boxShadow:`1px 2px 13px 3px ${shadow}`}} id="gainers"
+                        }>Gainers 📈</Button>
+                    <Button bg={state == "losers" ? active : inactive} px="10px" borderRadius="8px" className={styles["btn-loosers"]} style={{ boxShadow: `1px 2px 13px 3px ${shadow}` }} id="gainers"
                         onClick={() => {
                             setState("losers");
                             (gainersRef as any).current.style.display = "none";
                             (losersRef as any).current.style.display = "block"
                         }
-                    }>Loosers 📉</Button>
+                        }>Loosers 📉</Button>
                 </div>
                 <div className={styles["column-left"]} id="left" ref={gainersRef}>
-                    <Heading display={["none","none","flex","flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Gainers 📈</Heading>
-                    <Tables losers={losers} gainers={gainers} gainer={gainer} />
+                    <Heading display={["none", "none", "flex", "flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Gainers 📈</Heading>
+                    <Tables losers={losers} gainers={gainers} gainer={gainer} loser={null} />
                 </div>
                 <div className={styles["column-right"]} ref={losersRef}>
-                    <Heading display={["none","none","flex","flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Loosers 📉</Heading>
-                    <Tables losers={losers} gainers={gainers} loser={loser}/>
+                    <Heading display={["none", "none", "flex", "flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Loosers 📉</Heading>
+                    <Tables losers={losers} gainers={gainers} loser={loser} gainer={null} />
                 </div>
             </div>
         </div>

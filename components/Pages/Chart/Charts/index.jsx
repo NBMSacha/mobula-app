@@ -9,13 +9,13 @@ const Charts = ({ baseAsset, darkTheme }) => {
     var liquidity = "Liquidity";
     var holders = "Holders";
 
-    if (baseAsset.volume_history.volume.length <= 25) {
+    if (baseAsset.volume_history.volume.length < 1) {
         volume = "No Volume"
     }
-    if (baseAsset.rank_history.rank.length <= 1000) {
+    if (baseAsset.rank_history.rank.length < 1) {
         rank = "No Rank"
     }
-    if (baseAsset.liquidity_history.liquidity.length <= 25) {
+    if (baseAsset.liquidity_history.liquidity.length < 1) {
         liquidity = "No Liquidity"
     }
 

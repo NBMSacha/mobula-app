@@ -6,7 +6,7 @@ import styles from './Earn.module.scss'
 import { Text, Heading, Flex, Box, Spacer, Button, Image, useColorModeValue, useMediaQuery } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
 
-export default function DayBox({ day, streaks, account}) {
+export default function DayBox({ day, streaks, account, user, setUser }) {
     const alert = useAlert();
     const [mobile] = useMediaQuery('(max-width: 768px)')
 
@@ -33,7 +33,7 @@ export default function DayBox({ day, streaks, account}) {
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
         <>
-           
+
             <Flex bg={(streaks == day ? active : inactive)}
                 boxShadow={`1px 2px 12px 3px ${shadow}`}
                 borderRadius='10px'
@@ -48,20 +48,24 @@ export default function DayBox({ day, streaks, account}) {
                             .then(r => {
                                 if (r.success) {
                                     alert.success('Successfully claimed your MOBL. ')
+                                    const bufferUser = { ...user };
+                                    bufferUser.balance += prizePerDay(day);
+                                    setUser(bufferUser)
                                 } else {
                                     alert.show('You already claim today\'s rewards.')
                                 }
 
-                        })
+                            })
                     }
                 }}
             >
-            <Text fontSize='13px' fontWeight='800' color="white" className={styles["day-text"]}>Day {day}</Text>
-            <Flex justify="center" align='center' mb="10px">
-                <Image src='fullicon.png' h='30px' />
-                <Text mb="0px !important" fontSize='15px' ml="5px">+{prizePerDay(day)}</Text>
+                <Text fontSize='13px' fontWeight='800' color="white" className={styles["day-text"]}>Day {day}</Text>
+                <Flex justify="center" align='center' mb="10px">
+                    <Image src='fullicon.png' h='30px' />
+                    <Text mb="0px !important" fontSize='15px' ml="5px">+{prizePerDay(day)}</Text>
+                </Flex>
             </Flex>
-        </Flex>
-    </>
-)}
+        </>
+    )
+}
 

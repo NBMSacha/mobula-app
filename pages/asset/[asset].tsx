@@ -8,7 +8,7 @@ import { ethers } from 'ethers';
 export async function getStaticPaths() {
     return {
         paths: [
-            { params: { asset: 'bitcoin' } } // See the "paths" section below
+            { params: { asset: '' } } // See the "paths" section below
         ],
         fallback: true
     };
@@ -60,7 +60,7 @@ function Dataprovider({ asset, darkTheme }) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} darkTheme={darkTheme} />
+            <Chart baseAsset={asset} />
         )
     }
 
