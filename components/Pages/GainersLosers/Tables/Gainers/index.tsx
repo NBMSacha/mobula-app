@@ -26,7 +26,7 @@ function Gainers({ gainers }) {
                                     <Text opacity="0.6">{gainer.symbol}</Text>
                                 </Flex>
                             </Td>
-                            <Td px="5px" isNumeric  >{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: null })}</Td>
+                            <Td px="5px" isNumeric  >{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: 'auto' })}</Td>
                             <Td px="5px" isNumeric color="green">
                                 <TriangleUpIcon boxSize="12px" mb="4px" mr="3px" />
                                 {getTokenPercentage(gainer.price_change_24h)}%

@@ -12,7 +12,7 @@ export function getTokenPrice(price: any) {
 
     if (price) {
         //Making sure we're getting a number without e-7 etc..
-        price = parseFloat(String(price)).toFixed(String(price).includes('-') ? parseInt(String(price).split('-')[1]) + 2 : String(price).split('.')[1].length);
+        price = parseFloat(String(price)).toFixed(String(price).includes('-') ? parseInt(String(price).split('-')[1]) + 2 : String(price).split('.')[1]?.length || 0);
 
         if (parseFloat(price) > 1000) {
             return formatAmount(parseInt(price)).slice(0, 6)
@@ -23,8 +23,10 @@ export function getTokenPrice(price: any) {
             return price.slice(0, 6);
         }
 
-    } else {
+    } else if (isNaN(price)) {
         return <>{'--'}</>
+    } else {
+        return 0
     }
 
 }

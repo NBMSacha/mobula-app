@@ -25,7 +25,7 @@ function Losers({ losers }) {
                                     <Text opacity="0.6">{gainer.symbol}</Text>
                                 </Flex>
                             </Td>
-                            <Td px="5px" isNumeric>{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: null })}</Td>
+                            <Td px="5px" isNumeric>{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: 'auto' })}</Td>
                             <Td px="5px" isNumeric color="red"><TriangleDownIcon boxSize="12px" mb="2px" mr="3px" />{getTokenPercentage(gainer.price_change_24h)}%</Td>
                             <Td px="5px" isNumeric>${gainer.volume}</Td>
                         </Tr>

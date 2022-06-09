@@ -456,6 +456,7 @@ const ChartCryptos = ({ baseAsset }) => {
       const y = scales["y-axis-0"];
 
       const tick = x.getValueForPixel(mousemove.offsetX);
+
       try {
         const [[timestamp1, value1], [timestamp2, value2]] = getClosestUltimate(currentData?.unformatted, tick._i, true);
         const pixel1 = y.getPixelForValue(value1);
@@ -486,6 +487,8 @@ const ChartCryptos = ({ baseAsset }) => {
         ctx.fillStyle = "white";
         ctx.textBaseline = "middle";
         ctx.textAlign = "left";
+
+        console.log(finalPrice)
 
         let price = '$' + getTokenPrice(finalPrice / 1000000000);
 
@@ -787,11 +790,13 @@ const ChartCryptos = ({ baseAsset }) => {
   }
 
   useEffect(() => {
-    generateChart()
+    if (baseAsset.tracked) {
+      generateChart()
+    }
   }, [timeFormat, day])
 
   useEffect(() => {
-    if (timeFormat == '7D') {
+    if (timeFormat == '7D' && baseAsset.tracked) {
       generateChart()
     }
   }, [week])
@@ -815,7 +820,7 @@ const ChartCryptos = ({ baseAsset }) => {
   }, [all])
 
   useEffect(() => {
-    if (state == 'Overview') {
+    if (state == 'Overview' && baseAsset.tracked) {
       generateChart()
     }
   }, [state])

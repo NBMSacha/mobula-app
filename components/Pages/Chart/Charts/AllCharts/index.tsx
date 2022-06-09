@@ -6,7 +6,7 @@ import { Box, Text, Button, Flex, useColorModeValue } from '@chakra-ui/react'
 import { formatAmount } from '../../../../../helpers/formaters';
 import { Spinner } from '@chakra-ui/react'
 
-const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
+const AllCharts = ({ baseAsset, title }, idx: any,) => {
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState({})
   const [day, setDay]: [{ price: { y: string }[] }, any] = useState()
