@@ -34,7 +34,7 @@ export const getStaticProps = async ({ params }) => {
 }
 
 
-function Dataprovider({ asset, darkTheme }) {
+function Dataprovider({ asset }) {
     const router = useRouter()
 
     useEffect(() => {

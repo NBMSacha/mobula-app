@@ -4,22 +4,21 @@ import { Input, Flex, Button } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/react';
 
 function Right({
-        input,
-        audit,
-        setAudit,
-        kyc,
-        bg,
-        setKYC,
-        addNote,
-        setAddNote,
-        btn,
-        box,
-        shadow,
-        loading,
-        submit
-    }) {
-
-    const [inputList, setInputList] = useState([{ value: ""}]);
+    input,
+    audit,
+    setAudit,
+    kyc,
+    setKYC,
+    addNote,
+    setAddNote,
+    btn,
+    box,
+    shadow,
+    loading,
+    submit,
+    inputList,
+    setInputList,
+}) {
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
@@ -34,9 +33,9 @@ function Right({
         list.splice(index, 1);
         setInputList(list);
     };
-        
+
     const handleAddClick = () => {
-        setInputList([...inputList, { value: ""}]);
+        setInputList([...inputList, { value: "" }]);
     };
 
     return (
@@ -101,7 +100,7 @@ function Right({
                                 name="excluded"
                                 bg={input}
                                 color="none"
-                                _placeholder={{color:"none"}}
+                                _placeholder={{ color: "none" }}
                                 placeholder="0x5D3e4C0FE11e0..."
                                 className={styles["inputPlus"]}
                                 pr={["5px", "5px", "30px", "30px"]}
