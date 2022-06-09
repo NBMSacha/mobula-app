@@ -201,11 +201,11 @@ function MenuMobile(props: any) {
       </>
     )
   } else {
-    const bg = useColorModeValue("red", "dark_primary")
+    const bg = useColorModeValue("bg_white", "dark_primary")
     return (
       <>
         <Flex
-          bg="red"
+          bg={bg}
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}

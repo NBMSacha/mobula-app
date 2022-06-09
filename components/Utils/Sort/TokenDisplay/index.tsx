@@ -15,6 +15,7 @@ import Router from "next/router";
 import Contract from '../../Contract';
 
 const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
+    const CountdownAny = Countdown as any;
     const alert = useAlert();
     const [active, setActive] = useState(false);
     const refDescription = useRef(null);
@@ -62,7 +63,7 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                 <Flex width="100%" align="center" flexWrap={["wrap", "wrap", "nowrap"]}>
                     <Flex justify="space-between" width="100%" align="center">
                         <Flex align="center">
-                            <Image width='50px' src={'/fullicon.png'} mr="20px"></Image>
+                            <Image width='50px' src={token.logo} mr="20px"></Image>
                             <Heading fontSize={["xl", "xl", "xx-large"]}>{token.name}</Heading>
                         </Flex>
                         <Flex width={["30%", "30%", "20%"]} justify="space-around" >
@@ -151,9 +152,10 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                     mr={["30px", "30px", "30px", "0px"]} ml={["30px", "30px", "30px", "0px"]} mb="20px"
                 >
                     <Text fontWeight="600" fontSize="xl">Vote</Text>
-                    <Countdown
+                    <CountdownAny
                         date={getEndDate()} onComplete={() => complete.current = true}
-                        renderer={(props) => <Text fontWeight="600" fontSize="1.5rem">{props.minutes}:{String(props.seconds).length > 1 ? props.seconds : '0' + props.seconds}</Text>}></Countdown>
+                        renderer={(props) => <Text fontWeight="600" fontSize="1.5rem">{props.minutes}:{String(props.seconds).length > 1 ? props.seconds : '0' + props.seconds}</Text>}
+                    />
                 </Flex>
 
                 <Vote name={'Utility'} score={utilityScore} updateScore={setUtilityScore} />
