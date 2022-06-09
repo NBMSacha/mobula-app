@@ -210,6 +210,7 @@ function News(props: any) {
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
+      <ConnectWallet />
         <MainBlock setDisplay={setDisplay} />
         <Flex bg={gradient} display={["none", "none", "flex", "flex"]}  w="100%" justify="space-around" px="50px" pb="50px">
           {props.gainers && props.gainers.length >= 3 ?

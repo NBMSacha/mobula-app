@@ -35,7 +35,7 @@ function ListAToken(props: any) {
         e.preventDefault();
 
         setLoading(true);
-        console.log('submitted')
+        console.log('submitted');
 
         if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
             alert.error('Contract format is invalid.')

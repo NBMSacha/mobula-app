@@ -222,7 +222,6 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
               data: data?.map(entry => parseInt(entry.y)),
               borderColor: isWinner ? '#00ba7c' : '#EA3943',
               fill: false,
-              steppedLine: true,
               pointRadius: 0,
             },
           ],
@@ -243,13 +242,9 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
           datalabels: {
             display: false,
           },
-          plugins: {
-            tooltips: {
-              enabled: false,
-            }
-          },
           hover: { mode: null },
           scales: {
+            // @ts-ignore
             yAxes: [
               {
                 display: !!allTimeDiff,
@@ -263,6 +258,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
                 },
               },
             ],
+            // @ts-ignore
             xAxes: [
               {
                 display: false,
@@ -270,7 +266,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
             ],
           }
         }
-      })
+      }) as any;
 
     } else {
       window[title] = new Chart(ctx, {
@@ -281,31 +277,20 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
               label: 'Price  ',
               data: data,
               fill: true,
-              datasetFill: true,
               borderColor: isWinner ? '#00ba7c' : '#EA3943',
               tension: 0.6,
-              responsive: true,
               backgroundColor: gradient,
               borderWidth: 2,
               pointRadius: 0,
               pointHitRadius: 10,
-              highlightFill: 'rgba(220,220,220,0.5)',
-              highlightStroke: 'rgba(220,220,220,1)',
-              maintainAspectRatio: false,
               pointHoverBorderColor: 'white',
               pointHoverBackgroundColor: isWinner ? 'green' : 'red',
               pointHoverBorderWidth: 2,
-              pointHoverBorderRadius: 4,
             },
           ],
         },
         options: {
           responsive: true,
-          plugins: {
-            tooltips: {
-              enabled: false,
-            },
-          },
           animation: {
             duration: 0,
           },
@@ -322,6 +307,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
           },
           hover: { mode: null },
           scales: {
+            // @ts-ignore
             yAxes: [
               {
                 display: false,
@@ -340,6 +326,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
                 },
               },
             ],
+            // @ts-ignore
             xAxes: [
               {
                 gridLines: { display: false },
@@ -360,7 +347,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
             ],
           },
         },
-      })
+      }) as any
 
     }
     const pixelYATH = (window[title] as any).scales["y-axis-0"].getPixelForValue(ATH.y);

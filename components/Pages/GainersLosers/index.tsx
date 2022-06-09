@@ -55,10 +55,12 @@ function GainersLosers() {
                 </div>
                 <div className={styles["column-left"]} id="left" ref={gainersRef}>
                     <Heading display={["none","none","flex","flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Gainers 📈</Heading>
+                    {/* @ts-ignore */}
                     <Tables losers={losers} gainers={gainers} gainer={gainer} />
                 </div>
                 <div className={styles["column-right"]} ref={losersRef}>
                     <Heading display={["none","none","flex","flex"]} color={text} className={styles["title-both"]} id="topLoser" fontSize="24px">Top Loosers 📉</Heading>
+                    {/* @ts-ignore */}
                     <Tables losers={losers} gainers={gainers} loser={loser}/>
                 </div>
             </div>

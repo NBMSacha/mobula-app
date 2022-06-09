@@ -1,41 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import styles from "../Charts.module.scss"
 import { formatAmount } from '../../../../helpers/formaters';
+import { Flex } from "@chakra-ui/react"
 
 function MobileMarket({baseAsset, shadowColor, liquidity, volume}) {
-
-    const hideRef = useRef();
-    const hidedaoRef = useRef();
-    const changeRef = useRef();
-
-    function moreStats() {
-        try {
-          if (hideRef.current.style.display == 'none') {
-            console.log('changin style to flex')
-            changeRef.current.innerHTML = ' Show Less Stats -'
-            hidedaoRef.current.style.display = 'flex'
-    
-            return (hideRef.current.style.display = 'flex')
-          } else {
-    
-            changeRef.current.innerHTML = 'Show More Stats +'
-            hidedaoRef.current.style.setProperty('display', 'none', 'important')
-            return (hideRef.current.style.display = 'none')
-          }
-        } catch (err) {
-          console.log(err)
-        }
-      }
+    const [state, setState ] = useState(false)
 
     return (
     <>
         <div className={styles['mobile-showInfo-container']}>
-            <div
-                style={{ 'display': 'none' }}
+            <Flex
+                display={state ? "flex" : "none"}
                 className={styles['mobile-info-element']}
                 id='hide'
-                ref={hideRef}
             >
                 <div className={styles['mobile-info-left-column']}>
                 <div className={styles['mobbox']}>
@@ -91,10 +69,9 @@ function MobileMarket({baseAsset, shadowColor, liquidity, volume}) {
                     </p>
                 </div>
                 </div>
-            </div>
+            </Flex>
             <button
                 id='hidedao'
-                ref={hidedaoRef}
                 onClick={() => {
                 // mobileDaoBtn()
                 }}
@@ -102,12 +79,15 @@ function MobileMarket({baseAsset, shadowColor, liquidity, volume}) {
             </button>
             <Button
                 w="90%"
+                _focus={{boxShadow: "none"}}
                 display={["flex", "flex", "none", "none"]}
                 boxShadow={`1px 2px 13px 3px ${shadowColor}`}
                 className={styles['btn-more-less']}
-                onClick={() => moreStats()}
+                onClick={() => {
+                    setState(!state)
+                }}
             >
-                <span id='change' ref={changeRef} >Show More Stats +</span>
+                <span id='change' >{state ? "Show Less Stats -" : "Show More Stats +"}</span>
             </Button>
             </div>
         </>
