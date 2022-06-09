@@ -121,7 +121,7 @@ function Header(props: any) {
     <>
       <div className={styles['header']}>
         <div className={styles['main']}>
-          <Brand darkTheme={props.darkTheme}/>
+          <Brand />
           <Link />
           <Wallet />
         </div>

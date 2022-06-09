@@ -192,7 +192,7 @@ function Dashboard() {
             m="auto"
             position="relative"
             mt="-40px"
-            mb="10vh"
+            mb={["0px","0px","0px","10vh"]}
           >
 
             {/* RANK DISPLAY MOBILE */}
@@ -217,28 +217,28 @@ function Dashboard() {
                     position="relative"
                     align="center"
                   >
-                    <Flex direction={["column", "column", "row", "row"]} w="50%" >
-                      <Text textAlign="start" fontSize="14px" mb={2}>
+                    <Flex direction={["column", "column", "row", "row"]} w="50%" pl="" pt="10px" >
+                      <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank I <span className={styles['stats']}>Stats</span>
                       </Text>
                       <Flex direction="row" fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="16px">Correct Decisions</Text>
+                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="14px">Correct Decisions</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}</Flex>
                       </Flex>
                       <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
-                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="16px">Wrong Decisions</Text>
+                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="14px">Wrong Decisions</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice}</Flex>
                       </Flex>
                       <Box h="1px" w="90%" bg={border} mt={2} mb={3}></Box>
-                      <Text textAlign="start" fontSize="14px" mb={2}>
+                      <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
                       <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="16px">Correct Decisions</Text>
+                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="14px">Correct Decisions</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice}</Flex>
                       </Flex>
                       <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} whiteSpace="nowrap" mb={2}>Wrong Decisions</Text>
+                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} whiteSpace="nowrap" mb={2} fontSize="14px">Wrong Decisions</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
                       </Flex>
                     </Flex>
@@ -250,13 +250,14 @@ function Dashboard() {
                       direction="column"
                       className={styles["buttons-claim-box"]}
                       borderLeft={`1px solid ${border}`}
+                      mt="30px"
                     >
                       {' '}
                       <Button
                         className={styles["buttons-claim"]}
                         boxShadow={`0px 1px 12px 3px ${shadow}`}
                         borderRadius="10px"
-
+                       
                         style={{ width: "90%" } as any}
                         onClick={async (e) => {
                           e.preventDefault()
@@ -287,7 +288,7 @@ function Dashboard() {
                         </Flex>
                       </Button>
                       <Box fontSize='15px' mb={5} mt={5} w="150px">
-                        <Text mb={0} mt={0} textAlign="center" fontSize="13px" bottom="60px" > The Protocol currently owes you <b>{firstTokensOwed + '  $MOBL'}</b></Text>
+                        <Text mb={0} mt={0} textAlign="center" fontSize="11px" bottom="60px" > The Protocol currently owes you <b>{firstTokensOwed + '  $MOBL'}</b></Text>
                       </Box>
                     </Flex>
                   </Flex>
@@ -321,16 +322,16 @@ function Dashboard() {
                     mx="auto"
                   >
                     <Flex direction="column" w="50%">
-                      <Box fontSize='15px' >
-                        <Text color="#D3D3D3;" mb={2}>MATIC for DAO members</Text>
-                        <Text fontWeight='800' mb="15px" fontSize="17px" color='#16C784'>
+                      <Box fontSize='15px' pt="10px" pl="10px" >
+                        <Text color="none" fontSize="12px" mb={1}>MATIC for DAO members</Text>
+                        <Text fontWeight='800' mb="10px" fontSize={["13px","13px","15px","17px"]} color='#16C784'>
                           {countdownValue}
                         </Text>
                       </Box>
-                      <Box h="1px" w="98%" bg={border}> </Box>
-                      <Box fontSize='15px' mb={5}>
-                        <Text textAlign="start" fontSize="14px" color="#909090" mt={2} mb={1}>You already claimed</Text>
-                        <Text fontSize="18px" textAlign="start">{claimed} MATIC</Text>
+                      <Box h="1px" w="98%"   bg={border}> </Box>
+                      <Box fontSize='15px' pl="10px" mb={5}>
+                        <Text textAlign="start" fontSize={["13px","13px","15px","15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
+                        <Text fontSize={["14px","14px","16px","18px"]} textAlign="start">{claimed} MATIC</Text>
                       </Box>
                     </Flex>
                     <Spacer />
@@ -340,6 +341,7 @@ function Dashboard() {
                     >
                       <Button
                         borderRadius="10px"
+                        mb="12px"
                         boxShadow={`0px 1px 12px 3px ${shadow}`}
                         className={styles["claim-matic"]}
                         style={{ width: "135px" } as any}

@@ -87,6 +87,7 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 18px;
+    text-overflow: ellipsis;
 }
 
 .form-container-box > label {
@@ -109,6 +110,7 @@
 }
 .form-container-box-flex > div > input {
     width: auto;
+    text-overflow: ellipsis;
     margin-bottom: 20px;
     height: 32px;
     border: none;

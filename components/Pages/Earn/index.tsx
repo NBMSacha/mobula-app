@@ -14,8 +14,9 @@ import { CSSReset } from '@chakra-ui/react'
 import { CheckCircle } from 'react-feather';
 import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
+import { getUrlFromName } from '../../../helpers/formaters'
 
-function Earn({ darkTheme }) {
+function Earn() {
     const [copied, setCopied] = useState(false)
     const [user, setUser]: [any, Function] = useState({ tasks_done: [], referred: [] });
     const [tasks, setTasks] = useState([])
@@ -30,24 +31,9 @@ function Earn({ darkTheme }) {
                 .then(r => {
                     if (r.success) {
                         alert.success('Success! You just received your MOBL in your Polygon wallet.')
-                    } else {
-                        alert.show(r.error)
-                    }
-                })
-        } else if (account) {
-            alert.show('You have nothing to claim.')
-        } else {
-            alert.show('You must connect your wallet.')
-        }
-    }
-
-    const withdraw = () => {
-        if (account && user.owed > 0) {
-            fetch('https://mobulaspark.com/withdraw?account=' + account)
-                .then(r => r.json())
-                .then(r => {
-                    if (r.success) {
-                        alert.success('Success! You received your MOBL in your balance.')
+                        const bufferUser = { ...user };
+                        bufferUser.balance = 0;
+                        setUser(bufferUser)
                     } else {
                         alert.show(r.error)
                     }
@@ -130,7 +116,7 @@ function Earn({ darkTheme }) {
                 <Flex w="90%" mb="16px" display={["flex", "flex", "flex", "none"]}>
                     <Text fontWeight="bold" textAlign="start" w="85%" m="0px" display={["flex", "flex", "flex", "none"]} mb="10px">Earn</Text>
                     <Flex justify="space-between">
-                        <Button fontSize="12px" ml="20px" borderRadius="8px" bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`} color="none" h="25px" px="3">Balance : {user.balance} MOBL</Button>
+                        <Button fontSize="12px" ml="20px" borderRadius="8px" bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`} color="none" h="25px" px="3">Balance : {user.balance || 0} MOBL</Button>
                         <Button onClick={claim} fontSize="12px" ml="20px" borderRadius="8px" bg="blue" color="white" h="25px" px="5">Claim</Button>
                     </Flex>
                 </Flex>
@@ -140,16 +126,16 @@ function Earn({ darkTheme }) {
                     {/* DAILY BOX */}
                     <Flex w={['95%', '95%', '90%', '45%']} flexDir={'column'} textAlign='center' p={["0px 0px", "0px 0px", "0px 30px", "0px 30px"]}>
                         <Flex w={'100%'} pb={"5px"} justify={'space-around'} mb={['0px']}  >
-                            <DayBox darkTheme={darkTheme} day={1} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={2} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={3} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={4} streaks={user.streaks} account={account} />
+                            <DayBox day={1} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={2} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={3} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={4} streaks={user.streaks} account={account} user={user} setUser={setUser} />
                         </Flex>
                         <Flex w={'100%'} pb={"5px"} justify={'space-around'} borderBottom="1px solid var(--border-chart)" >
-                            <DayBox darkTheme={darkTheme} day={5} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={6} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={7} streaks={user.streaks} account={account} />
-                            <DayBox darkTheme={darkTheme} day={8} streaks={user.streaks} account={account} />
+                            <DayBox day={5} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={6} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={7} streaks={user.streaks} account={account} user={user} setUser={setUser} />
+                            <DayBox day={8} streaks={user.streaks} account={account} user={user} setUser={setUser} />
                         </Flex>
                     </Flex>
                     {/* BORDER LINE */}
@@ -190,7 +176,7 @@ function Earn({ darkTheme }) {
                         <Flex direction="column" w="50%" align="start">
                             <Text fontSize="16px" color="green">+ {25 * user.referred.length} MOBL</Text>
                             <Text fontSize="13px">You referred {user.referred.length} friends.</Text>
-                            <Button onClick={withdraw} w="120px" boxShadow={`1px 2px 12px 3px ${shadow}`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg={bg}>Claim MOBL</Button>
+                            <Button onClick={claim} w="120px" boxShadow={`1px 2px 12px 3px ${shadow}`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg={bg}>Claim MOBL</Button>
                         </Flex>
                         <Flex direction="column" w="50%" align="end" mt="3px">
                             <Text fontSize="13px" mb="15px">1 Referral : <span>25 MOBL</span></Text>
@@ -217,7 +203,7 @@ function Earn({ darkTheme }) {
                                                 <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle width="22px" />
                                                 </Box>
-                                                <Text fontSize={["12px", "12px", "14px", "14px"]} >{task.task}<span style={{ color: "var(--chakra-colors-green)", marginLeft: "15px", whiteSpace: "nowrap" }}>+ 15 MOBL</span></Text>
+                                                <Text fontSize={["12px", "12px", "14px", "14px"]} >{task.task.split(task.data.name)[0]} <a href={'/asset/' + getUrlFromName(task.data.name)}>{task.data.name}</a> {task.task.split(task.data.name)[1]}<span style={{ color: "var(--chakra-colors-green)", marginLeft: "15px", whiteSpace: "nowrap" }}>+ 15 MOBL</span></Text>
                                             </Flex>
                                         }
 

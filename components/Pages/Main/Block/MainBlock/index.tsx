@@ -16,8 +16,10 @@ function MainBlock(props: any) {
   const containerColor = useColorModeValue("bg_white", "dark_secondary")
   const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
   const mobileBg = useColorModeValue("white_mobile_bg", "dark_mobile_bg")
+  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
 
   if (!isMobile) {
+
     return (
       <Flex w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
         <Flex boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={[mobileBg, mobileBg, "none", "none"]} >
@@ -35,7 +37,7 @@ function MainBlock(props: any) {
             <Flex justify="center">
               <div >
                 <a href='/earn'>
-                  <Flex boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
                     mr="10px" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]} >
                     <div className={styles['logo-box']}>
@@ -53,7 +55,7 @@ function MainBlock(props: any) {
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
                     bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
                     <div className={styles['logo-box']}>
@@ -69,7 +71,7 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
                     borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>

@@ -27,9 +27,6 @@ export async function getStaticProps() {
 
 
   console.log({
-    tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
-    gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
-    recents,
     trendings
   })
 

@@ -6,7 +6,7 @@ import { Box, Text, Button, Flex, useColorModeValue } from '@chakra-ui/react'
 import { formatAmount } from '../../../../../helpers/formaters';
 import { Spinner } from '@chakra-ui/react'
 
-const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
+const AllCharts = ({ baseAsset, title }, idx: any,) => {
   const [visible, setVisible] = useState(false);
   const [chart, setChart] = useState({})
   const [day, setDay]: [{ price: { y: string }[] }, any] = useState()
@@ -41,14 +41,15 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
     try {
       const days = await getChart(baseAsset.id, '1D')
 
+
       setChart({ price: formatData(days) })
-      setDay({ price: formatData(days) })
+      setDay({ price: formatData(days || []) })
 
       const weeks = await getChart(baseAsset.id, '7D')
-      setWeek({ price: formatData(weeks) })
+      setWeek({ price: formatData(weeks || []) })
 
       const months = await getChart(baseAsset.id, '1M')
-      setMonth({ price: formatData(months) })
+      setMonth({ price: formatData(months || []) })
 
     } catch (err) { }
   }
@@ -59,12 +60,12 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
     )
     let multiplier;
-
+    let formater = title == 'Rank' ? -1000000000 : 1000000000
     const recentLoad = () => {
 
       return baseAsset ? baseAsset[title.toLowerCase() + '_history'][title.toLowerCase()]
         .filter((entry) => entry[0] + multiplier * 24 * 60 * 60 * 1000 > Date.now())
-        .map((price) => [price[0], price[1] * 1000000000])
+        .map((price) => [price[0], price[1] * formater])
         : null
 
     }
@@ -124,13 +125,13 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
 
   useEffect(() => {
 
-    if ((title == "Volume" || title == "Liquidity") && historyData) {
+    if (!hiddenTitles.includes(title) && historyData) {
       getChart(baseAsset.id, '1Y').then(years => {
-        setYear({ price: formatData(years) })
+        setYear({ price: formatData(years || []) })
       })
 
       getChart(baseAsset.id, 'ALL').then(alls => {
-        setAll({ price: formatData(alls) })
+        setAll({ price: formatData(alls || []) })
       })
     }
 
@@ -147,6 +148,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   }, [week])
 
   useEffect(() => {
+    if (title == 'Rank') console.log('NEW MONTH VALUE', month)
     if (timeFormat == '30D') {
       generateChart()
     }
@@ -165,7 +167,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
   }, [all])
 
   useEffect(() => {
-    if (baseAsset && (title == "Volume" || title == "Liquidity")) {
+    if (baseAsset && !hiddenTitles.includes(title)) {
       fetchChart()
     }
   }, [baseAsset])
@@ -209,7 +211,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
 
     const { ATH, ATL } = getExtremes(data as any);
     const allTimeDiff = Math.floor(parseInt(ATH.y) / -1000000000) - Math.floor(parseInt(ATL.y) / -1000000000)
-
+    console.log('iff', allTimeDiff)
     if (title == 'Rank') {
 
       window[title] = new Chart(ctx, {
@@ -410,7 +412,7 @@ const AllCharts = ({ baseAsset, title, darkTheme }, idx: any,) => {
       ctx.fillStyle = fillStyle;
 
       ctx.fillRect(rectX - 1, pixelY - (isTopSide ? 1 : 35), rectWidth, 16);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = color
       ctx.fillText(text, rectX + 5, pixelY + (isTopSide ? 2.5 : -32.5))
 
       if (allTimeDiff == 0 && title == 'Rank') {

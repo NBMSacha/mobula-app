@@ -9,6 +9,7 @@ import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X, Settings } from 'react-feather';
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image } from "@chakra-ui/react";
+
 async function updateSearch(search: string, supabase: any, setResults: any) {
 
   if (search) {
@@ -27,7 +28,7 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
 
 }
 
-function ButtonBlock({ setDisplay, display, setResults }) {
+function ButtonBlock({ setDisplay, display, setResults, widget, setWidget }) {
   const [search, setSearch]: [string | null, Function] = useState();
   const supabase = createClient(
     'https://ylcxvfbmqzwinymcjlnx.supabase.co',
@@ -121,6 +122,9 @@ function ButtonBlock({ setDisplay, display, setResults }) {
           {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
         </Flex>
         <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
+        onClick={() => {
+          setWidget(!widget)
+        }}
           boxShadow={`1px 2px 12px 3px ${shadow}`}
           colorScheme='teal'
           aria-label='Call Segun'
