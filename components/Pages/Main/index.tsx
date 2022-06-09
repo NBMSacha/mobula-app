@@ -210,7 +210,6 @@ function News(props: any) {
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
-     
         <MainBlock setDisplay={setDisplay} />
         <Flex bg={gradient} display={["none", "none", "flex", "flex"]}  w="100%" justify="space-around" px="50px" pb="50px">
           {props.gainers && props.gainers.length >= 3 ?
@@ -242,12 +241,13 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
+              
           {props.trendings && props.trendings.length > 0 ? <GainerBlock
             title={'Trendings'}
             logo1={props.trendings[0].logo}
             name1={props.trendings[0].name}
             id1={props.trendings[0].id}
-            change1={props.trendings[0].price_change_24h.toFixed(2)}
+            // change1={props.trendings[0].price_change_24h.toFixed(2)}
             logo2={props.trendings[1].logo}
             name2={props.trendings[1].name}
             id2={props.trendings[1].id}

@@ -3,7 +3,11 @@ import { getBlockchainFromContract } from '../../../helpers/blockchain';
 import { Flex, Image, Text, useColorModeValue, Button, Link, Radio } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { CheckCircle, Copy } from 'react-feather';
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import { providers } from "ethers";
+
 export default function ConnectWallet({ contract, blockchain }) {
+
     const [copied, setCopied] = useState(false);
     useEffect(() => {
         if (!blockchain) {
@@ -12,6 +16,20 @@ export default function ConnectWallet({ contract, blockchain }) {
             })
         }
     }, [])
+
+    async function test() {
+        const provider = new WalletConnectProvider({
+            rpc: {
+              1: "https://polygon-rpc.com",
+              // ...
+            },
+          });
+          await provider.enable();
+        
+    }
+    
+    test()
+
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_input)")
     const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
     return (
