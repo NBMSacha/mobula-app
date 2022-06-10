@@ -8,7 +8,7 @@ import { ethers } from 'ethers';
 export async function getStaticPaths() {
     return {
         paths: [
-            { params: { asset: '' } } // See the "paths" section below
+            { params: { asset: 'Pundi X' } } // See the "paths" section below
         ],
         fallback: true
     };
