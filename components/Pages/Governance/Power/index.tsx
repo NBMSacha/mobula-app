@@ -35,7 +35,7 @@ function Power({proposal}) {
                             value={deposit}
                             w="75%"
                             color="none"
-                            
+                            marginRight="10px"
                             border="none"
                             px="20px"
                             h='35px'
@@ -48,7 +48,7 @@ function Power({proposal}) {
                                 setDeposit(e.target.value)
                             }}
                         />
-                        <Button variant="outline" color="blue" colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Withdraw</Button>
+                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Withdraw</Button>
                     </Flex>
                 </Flex>
                  {/* WITHDRAW */}
@@ -60,6 +60,7 @@ function Power({proposal}) {
                     <Flex justify="space-between" align="center">
                         <Input 
                             w="75%"
+                            marginRight="10px"
                             value={withdraw}
                             color="none"
                             border="none"
@@ -74,7 +75,7 @@ function Power({proposal}) {
                                 setWithdraw(e.target.value)
                             }}
                         />
-                        <Button variant="outline" color="blue" colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Deposit</Button>
+                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Deposit</Button>
                     </Flex>
                     
                 </Flex>
