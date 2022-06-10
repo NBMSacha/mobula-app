@@ -10,7 +10,7 @@ import '../styles.scss'
 import '../styles/header.scss'
 import '../styles/responsive.scss'
 import { ColorModeScript } from '@chakra-ui/react'
-import { themeUltime } from '../theme/'
+import { themeUltime } from '../theme'
 import { ChakraProvider } from "@chakra-ui/react"
 
 const alertOptions = {
