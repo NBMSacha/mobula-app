@@ -33,7 +33,6 @@ function ListAToken(props: any) {
     async function submit(e: any) {
 
         e.preventDefault();
-
         setLoading(true);
         console.log('submitted');
 
@@ -311,6 +310,7 @@ function ListAToken(props: any) {
                             twitter={twitter}
                             setTwitter={setTwitter}
                         />
+                        
                         <Right 
                             input={input}
                             box={box}

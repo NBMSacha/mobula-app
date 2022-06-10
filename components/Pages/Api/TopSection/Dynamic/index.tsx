@@ -8,45 +8,45 @@ const Static = () => {
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
 
-        <Flex direction="column" bg={bg} borderRadius="12px" p="20px 40px"  ml="10px" boxShadow={`1px 2px 12px 3px ${shadow}`} >
-            <Text fontSize="17px">Dynamic API</Text>
-            <Text color="#8B8B8B" mb="30px" mt="10px" fontSize="16px">An API to retrieve data such as<br /> price, liquidity and volume (only on-chain) of assets.</Text>
+        <Flex direction="column" bg={["none", "none", "none", bg]} borderRadius="12px" p={["10px","10px","10px","20px 40px"]}  ml="10px" boxShadow={`1px 2px 12px 3px ${shadow}`} >
+            <Text fontSize="17px" mb={["20px","20px","20px",""]} color="blue" fontWeight="600">Dynamic API</Text>
+            <Text color="#8B8B8B" mb="30px" mt="10px" fontSize="16px" display={["none","none","none","flex"]}>An API to retrieve data such as<br /> price, liquidity and volume (only on-chain) of assets.</Text>
             <Flex>
-                <Flex direction="column" mr="100px">
+                <Flex direction="column" mr={["none","none","none","100px"]}>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Liquidity</Text>
+                        <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Liquidity</Text>
                     </Flex>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Price</Text>
+                        <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Price</Text>
                     </Flex>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Volume</Text>
+                        <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Volume</Text>
                     </Flex>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Market capitalization</Text>
+                        <Text ml="10px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Market capitalization</Text>
                     </Flex>
                 </Flex>
-                <Flex direction="column">
+                <Flex direction="column" display={["none","none","none","flex"]}>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Fully diluted market cap</Text>
+                        <Text ml="10px" fontSize="14px" whiteSpace="nowrap">Fully diluted market cap</Text>
                     </Flex>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Circulating supply</Text>
+                        <Text ml="10px" fontSize="14px" whiteSpace="nowrap">Circulating supply</Text>
                     </Flex>
                     <Flex mb="30px" align="center">
                         <CheckCircleIcon />
-                        <Text ml="10px" fontSize="14px">Total supply</Text>
+                        <Text ml="10px" fontSize="14px" whiteSpace="nowrap">Total supply</Text>
                     </Flex>
                 </Flex>
             </Flex>
-            <Button w="80%" bg="blue" py="10px">
-                <Text ml="10px" fontSize="14px" color="white">Request dynamic API access</Text>
+            <Button variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
+                <Text  fontSize="14px"  color="blue">Request</Text>
             </Button>
         </Flex>
     )

@@ -8,7 +8,6 @@ function Right({
         audit,
         setAudit,
         kyc,
-        bg,
         setKYC,
         addNote,
         setAddNote,
@@ -16,7 +15,7 @@ function Right({
         box,
         shadow,
         loading,
-        submit
+        submit,
     }) {
 
     const [inputList, setInputList] = useState([{ value: ""}]);

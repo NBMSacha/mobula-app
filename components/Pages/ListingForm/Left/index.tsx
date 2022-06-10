@@ -55,6 +55,8 @@ function Left({
        console.log(value) 
     })
 
+    
+
     return (
         
         <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
