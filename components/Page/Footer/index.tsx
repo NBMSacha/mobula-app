@@ -46,13 +46,14 @@ function Footer() {
   const breakpoint = 768
 
   const isGood = width <= breakpoint
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
   const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
   const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
   const hover = useColorModeValue("blue", "blue")
 
   return (
-    <div className={styles['footer-main']}>
+    <Flex className={styles['footer-main']} borderTop={`2px solid ${border}`}>
       <div className={styles['footer-left']}>
       <Image
           src="https://app.mobula.finance/icon.png"
@@ -152,7 +153,7 @@ function Footer() {
 
         </Flex>
       </div>
-    </div>
+    </Flex>
   )
 }
 
