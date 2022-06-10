@@ -7,7 +7,6 @@ const TopSection = () => {
 
     const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
     return (
-       
         <Flex w="100%" direction="column" align="center">
             <Box w={["80%","80%","80%",""]} maxWidth="1000px" my={["14px","14px","30px","50px"]} mx={["0px","0px","0px","auto"]}>
                 <Text fontFamily='Inter' fontWeight="500" fontSize={["14px","14px","15px","22px"]} >The most trusted authority on crypto-currency data has a professional API made for you.</Text>
