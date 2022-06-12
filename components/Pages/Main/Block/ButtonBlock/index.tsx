@@ -122,9 +122,9 @@ function ButtonBlock({ setDisplay, display, setResults, widget, setWidget }) {
           {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
         </Flex>
         <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
-        onClick={() => {
-          setWidget(!widget)
-        }}
+          onClick={() => {
+            setWidget(!widget)
+          }}
           boxShadow={`1px 2px 12px 3px ${shadow}`}
           colorScheme='teal'
           aria-label='Call Segun'

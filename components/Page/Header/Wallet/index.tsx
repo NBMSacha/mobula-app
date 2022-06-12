@@ -130,22 +130,22 @@ function Wallet(props: any) {
     await nav
   }
 
-  useEffect(() => {
-    try {
-      const provider = new ethers.providers.Web3Provider(
-        (window as any).ethereum
-      )
+  // useEffect(() => {
+  //   try {
+  //     const provider = new ethers.providers.Web3Provider(
+  //       (window as any).ethereum
+  //     )
 
-      if (provider) {
-        provider.listAccounts().catch().then((accounts) => {
-          if (accounts.length > 0) {
-            handleConnect()
-          }
-        })
-      }
+  //     if (provider) {
+  //       provider.listAccounts().catch().then((accounts) => {
+  //         if (accounts.length > 0) {
+  //           handleConnect()
+  //         }
+  //       })
+  //     }
 
-    } catch (e) { }
-  }, [])
+  //   } catch (e) { }
+  // }, [])
   const input = useColorModeValue("white_input", "dark_header")
   const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   useOutsideAlerter(wrapperRef, setTriggerSearch)
@@ -155,7 +155,7 @@ function Wallet(props: any) {
 
   return (
     <>
-      
+
       <Flex className={styles['relative']} >
         <Flex onClick={() => router.push('/earn')} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={input} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
@@ -165,11 +165,11 @@ function Wallet(props: any) {
             Earn
           </span>
 
-          <Flex onClick={() => router.push('/earn')}  justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+          <Flex onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
             <Text fontSize="12px" color="white">+1</Text>
           </Flex>
         </Flex>
-        <Flex align="center" ml={["20px", "20px", "20px",  isLargerThan1080 ? "0px" : "20px" ]} borderRadius="10px" bg={["none", "none", "none" ,input]} mr="20px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]} w={["30px", "30px","30px", isLargerThan1180 ? "220px" : "160px"]} >
+        <Flex align="center" ml={["20px", "20px", "20px", isLargerThan1080 ? "0px" : "20px"]} borderRadius="10px" bg={["none", "none", "none", input]} mr="20px" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} w={["30px", "30px", "30px", isLargerThan1180 ? "220px" : "160px"]} >
           <FiSearch
             className={styles['loupe']}
             onClick={() => {
@@ -177,14 +177,14 @@ function Wallet(props: any) {
             }}
           />
           <Input
-          display={["none","none","none", "block"]}
-          border="none"
-            _placeholder={{color: "none"}}
+            display={["none", "none", "none", "block"]}
+            border="none"
+            _placeholder={{ color: "none" }}
             onClick={() => {
               setTriggerSearch(true)
             }}
             bg="none"
-            w={["0px","0px","auto","auto"]}
+            w={["0px", "0px", "auto", "auto"]}
             type='text'
             name='search'
             placeholder={!isMobile ? 'Search ' : ''}
@@ -200,7 +200,7 @@ function Wallet(props: any) {
             account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
-        
+
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <button
           className={styles['hamburger-btn']}
