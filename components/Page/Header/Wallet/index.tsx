@@ -10,8 +10,14 @@ import MenuMobile from './MenuMobile'
 import { useRouter } from 'next/router'
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
 import { useMediaQuery } from '@chakra-ui/react'
+import { Moon, Sun } from "react-feather"
+import {
+  ChakraProvider,
+  ColorModeProvider,
+  useColorMode,
+} from '@chakra-ui/react'
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
@@ -152,6 +158,9 @@ function Wallet(props: any) {
 
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
   const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
+  const { colorMode, toggleColorMode } = useColorMode();
+  const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
+
 
   return (
     <>
@@ -169,9 +178,10 @@ function Wallet(props: any) {
             <Text fontSize="12px" color="white">+1</Text>
           </Flex>
         </Flex>
-        <Flex align="center" ml={["20px", "20px", "20px", isLargerThan1080 ? "0px" : "20px"]} borderRadius="10px" bg={["none", "none", "none", input]} mr="20px" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} w={["30px", "30px", "30px", isLargerThan1180 ? "220px" : "160px"]} >
+        <Flex align="center" ml={["20px", "20px", "20px", isLargerThan1080 ? "0px" : "20px"]} borderRadius="10px" bg={["none", "none", "none", input]} mr="20px" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} w={["30px", "30px", "30px", isLargerThan1180 ? "190px" : "160px"]} >
           <FiSearch
             className={styles['loupe']}
+            style={{ marginRight: "10px" }}
             onClick={() => {
               setTriggerSearch(true)
             }}
@@ -202,6 +212,24 @@ function Wallet(props: any) {
         </button>
 
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
+        <Flex height="100%" align="center" display={["none", "none", "none", "flex"]}>
+          <IconButton
+            boxShadow={`1px 2px 12px 3px ${shadow}`}
+            _focus={{ boxShadow: "none" }}
+            onClick={toggleColorMode}
+            aria-label='Call Segun'
+            size='md'
+            borderRadius="12px"
+            color={colorSunMoon}
+            bg="none"
+            ml={["0px", "0px", "0px", "20px"]}
+            mr={["20px", "20px", "20px", "0px"]}
+            mt={["4px", "4px", "4px", "4px"]}
+
+            icon={colorMode == "light" ? <Moon /> : <Sun />}
+          />
+        </Flex>
+
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
@@ -213,7 +241,9 @@ function Wallet(props: any) {
             <><Menu className={styles['hamburger']} /> <Circle width="10px" fill={'#32C784'} className={styles['new']}></Circle></>
           )}
         </button>
+
       </Flex>
+
       <MenuMobile />
     </>
   )

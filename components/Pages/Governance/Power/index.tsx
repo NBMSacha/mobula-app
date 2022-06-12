@@ -22,53 +22,62 @@ function Power({proposal}) {
                 <Flex w="85%" mb="30px">
                     <Flex align="end" justify="space-between" w="100%">
                         <Heading fontFamily="Poppins" mb='8px' fontSize="26px">Voting Power</Heading>
-                        <Text mb='8px'>You currently deposited <span style={{color:"blue", marginLeft:"20px"}}>0 $MOBL</span></Text>
+                     
                     </Flex>
                 </Flex>
                 {/* DEPOSIT */}
                 <Flex direction="column" w="85%">
                     <Flex justify="space-between" align="end" mb="15px">
                         <Text>Deposit New Token</Text>
-                        <Button bg="blue" borderRadius="12px" px="10px" w="140px" h="40px"color="white">Deposit</Button>
                     </Flex>
-                    <Input 
-                        value={deposit}
-                        color="none"
-                        mb="50px"
-                        border="none"
-                        px="20px"
-                        h='40px'
-                        bg={input}
-                        borderRadius="10px"
-                        _placeholder={{color:"grey"}}
-                        // boxShadow={`1px 2px 12px 3px ${shadow}`}
-                        placeholder="2000"
-                        onChange={(e) => {
-                            setDeposit(e.target.value)
-                        }}
-                    />
+                    <Flex justify="space-between" align="center" mb="30px">
+                        <Input 
+                            value={deposit}
+                            w="75%"
+                            color="none"
+                            marginRight="10px"
+                            border="none"
+                            px="20px"
+                            h='35px'
+                            bg={input}
+                            borderRadius="10px"
+                            _placeholder={{color:"grey"}}
+                            // boxShadow={`1px 2px 12px 3px ${shadow}`}
+                            placeholder="2000"
+                            onChange={(e) => {
+                                setDeposit(e.target.value)
+                            }}
+                        />
+                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Withdraw</Button>
+                    </Flex>
                 </Flex>
                  {/* WITHDRAW */}
-                 <Flex direction="column" w="85%" pb="150px">
+                 <Flex direction="column" w="85%" pb="100px">
                     <Flex justify="space-between" align="end" mb="15px" >
                         <Text>Withdraw New Token</Text>
-                        <Button bg="blue" px="10px" w="140px" borderRadius="12px" h="40px"color="white">Withdraw</Button>
+                        
                     </Flex>
-                    <Input 
-                        value={withdraw}
-                        color="none"
-                        border="none"
-                        px="20px"
-                        h='40px'
-                        bg={input}
-                        borderRadius="10px"
-                        _placeholder={{color:"grey"}}
-                        // boxShadow={`1px 2px 12px 3px ${shadow}`}
-                        placeholder="2000"
-                        onChange={(e) => {
-                            setWithdraw(e.target.value)
-                        }}
-                    />
+                    <Flex justify="space-between" align="center">
+                        <Input 
+                            w="75%"
+                            marginRight="10px"
+                            value={withdraw}
+                            color="none"
+                            border="none"
+                            px="20px"
+                            h='35px'
+                            bg={input}
+                            borderRadius="10px"
+                            _placeholder={{color:"grey"}}
+                            // boxShadow={`1px 2px 12px 3px ${shadow}`}
+                            placeholder="2000"
+                            onChange={(e) => {
+                                setWithdraw(e.target.value)
+                            }}
+                        />
+                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius="12px" px="10px" w="120px" h="35px" fontSize="13px">Deposit</Button>
+                    </Flex>
+                    
                 </Flex>
             </Flex>
         )

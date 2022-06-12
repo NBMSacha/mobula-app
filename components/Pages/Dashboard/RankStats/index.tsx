@@ -67,11 +67,18 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
                     }
 
                     try {
-                        const value = await new ethers.Contract(
+                        const contract = new ethers.Contract(
                             PROTOCOL_ADDRESS,
-                            ['function claimRewards() external'],
+                            [
+                                'function claimRewards() external',
+                                'function claimFinalRewards() external'
+                            ],
                             signer
-                        ).claimRewards()
+                        )
+
+                        if (title == 'Rank I') await contract.claimRewards()
+                        if (title == 'Rank II') await contract.claimFinalRewards()
+
                     } catch (e) {
                         alert.show("You don't have anything to claim.")
                         console.log(e)

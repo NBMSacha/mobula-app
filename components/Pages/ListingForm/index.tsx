@@ -37,9 +37,8 @@ function ListAToken(props: any) {
     async function submit(e: any) {
 
         e.preventDefault();
-
         setLoading(true);
-        console.log('submitted')
+        console.log('submitted');
 
         for (const contract of inputListContract.map(entry => entry.value)) {
             if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
@@ -292,6 +291,7 @@ function ListAToken(props: any) {
                             twitter={twitter}
                             setTwitter={setTwitter}
                         />
+
                         <Right
                             input={input}
                             box={box}

@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { Link } from '@chakra-ui/react'
 
-import { Flex, Text,Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
+import { Flex, Text, Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
 function Footer() {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
@@ -46,37 +46,38 @@ function Footer() {
   const breakpoint = 768
 
   const isGood = width <= breakpoint
+  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
   const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
   const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
   const hover = useColorModeValue("blue", "blue")
 
   return (
-    <div className={styles['footer-main']}>
+    <Flex className={styles['footer-main']} borderTop={`2px solid ${border}`}>
       <div className={styles['footer-left']}>
-      <Image
+        <Image
           src="https://app.mobula.finance/icon.png"
           h="45px"
-          mr={["0px","0px","5px","5px"]}
+          mr={["0px", "0px", "5px", "5px"]}
           alt='logo'
           onClick={() => (document.location.href = '/')}
-      />
+        />
 
         <div className={styles['social-container']}>
-          <Link href='https://t.me/MobulaFi' _hover={{color: hover, textDecoration:"none"}} className={styles['social-link']}>
+          <Link href='https://t.me/MobulaFi' _hover={{ color: hover, textDecoration: "none" }} className={styles['social-link']}>
             <Send className={styles['social-logo']} />
           </Link>
           <Link
             href='https://github.com/NBMSacha/mobula-app'
             className={styles['social-link']}
-            _hover={{color: hover, textDecoration:"none"}}
+            _hover={{ color: hover, textDecoration: "none" }}
           >
             <GitHub className={styles['social-logo']} />
           </Link>
           <Link
             href='https://twitter.com/MobulaFi'
             className={styles['social-link']}
-            _hover={{color: hover, textDecoration:"none"}}
+            _hover={{ color: hover, textDecoration: "none" }}
           >
             <Twitter className={styles['social-logo']} />
           </Link>
@@ -86,13 +87,13 @@ function Footer() {
         <div className={styles['community']}>
           <span>Community</span>
           <ul>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='https://discord.gg/nrkVNNke8Q' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://discord.gg/nrkVNNke8Q' isExternal>
               <li>Discord</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='https://t.me/MobulaFi' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://t.me/MobulaFi' isExternal>
               <li>Telegram</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='https://twitter.com/MobulaFi' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://twitter.com/MobulaFi' isExternal>
               <li>Twitter</li>
             </Link>
           </ul>
@@ -100,13 +101,13 @@ function Footer() {
         <div className={styles['community']}>
           <span>Press</span>
           <ul>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='' >
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='' >
               <li>Press kit</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href=''>
               <li>Contact</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href=''>
               <li>News</li>
             </Link>
           </ul>
@@ -114,13 +115,13 @@ function Footer() {
         <div className={styles['community']}>
           <span>Ressources</span>
           <ul>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://docs.mobula.finance' isExternal>
               <li>Documentation</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://docs.mobula.finance/whitepaper' isExternal>
               <li>Whitepaper</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='' isExternal>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://medium.com/@mobula' isExternal>
               <li>Medium</li>
             </Link>
           </ul>
@@ -128,10 +129,10 @@ function Footer() {
         <div className={styles['help']}>
           <span>Help</span>
           <ul>
-            <Link _hover={{color: hover, textDecoration:"none"}} href='' >
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' >
               <li>FAQs</li>
             </Link>
-            <Link _hover={{color: hover, textDecoration:"none"}} href=''>
+            <Link _hover={{ color: hover, textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN'>
               <li>Support</li>
             </Link>
           </ul>
@@ -139,20 +140,20 @@ function Footer() {
         <Flex align="center" h="50px">
           <IconButton
             boxShadow={`1px 2px 12px 3px ${shadow}`}
-        
+
             onClick={toggleColorMode}
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
             color={colorSunMoon}
             bg={sunMoon}
-            icon={colorMode == "light" ? <Moon/> : <Sun />}
+            icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text ml="10px">{colorMode == "light" ? "Dark Mode": "White Mode"}</Text>
+          <Text ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
 
         </Flex>
       </div>
-    </div>
+    </Flex>
   )
 }
 

@@ -124,7 +124,7 @@ function Dashboard() {
       setClaimed(totalClaim)
       //console.log(lastClaim);
 
-      console.log(lastClaim)
+      console.log('yo', lastClaim)
 
       console.log(Date.now())
 
@@ -192,7 +192,7 @@ function Dashboard() {
             m="auto"
             position="relative"
             mt="-40px"
-            mb={["0px","0px","0px","10vh"]}
+            mb={["0px", "0px", "0px", "10vh"]}
           >
 
             {/* RANK DISPLAY MOBILE */}
@@ -257,7 +257,7 @@ function Dashboard() {
                         className={styles["buttons-claim"]}
                         boxShadow={`0px 1px 12px 3px ${shadow}`}
                         borderRadius="10px"
-                       
+
                         style={{ width: "90%" } as any}
                         onClick={async (e) => {
                           e.preventDefault()
@@ -272,13 +272,26 @@ function Dashboard() {
                             )
                           }
                           try {
+
+                            console.log('This is final!!')
                             const value = await new ethers.Contract(
                               PROTOCOL_ADDRESS,
-                              ['function claimRewards() external'],
+                              ['function claimFinalRewards() external'],
                               signer
-                            ).claimRewards()
+                            ).claimFinalRewards()
                           } catch (e) {
-                            alert.show("You don't have anything to claim.")
+
+                            try {
+                              const value = await new ethers.Contract(
+                                PROTOCOL_ADDRESS,
+                                ['function claimRewards() external'],
+                                signer
+                              ).claimRewards()
+                            } catch (e) {
+                              alert.show("You don't have anything to claim.")
+                              console.log(e)
+                            }
+
                             console.log(e)
                           }
                         }}
@@ -288,7 +301,7 @@ function Dashboard() {
                         </Flex>
                       </Button>
                       <Box fontSize='15px' mb={5} mt={5} w="150px">
-                        <Text mb={0} mt={0} textAlign="center" fontSize="11px" bottom="60px" > The Protocol currently owes you <b>{firstTokensOwed + '  $MOBL'}</b></Text>
+                        <Text mb={0} mt={0} textAlign="center" fontSize="11px" bottom="60px" > The Protocol currently owes you <b>{(firstTokensOwed + finalTokensOwed) + '  $MOBL'}</b></Text>
                       </Box>
                     </Flex>
                   </Flex>
@@ -324,14 +337,14 @@ function Dashboard() {
                     <Flex direction="column" w="50%">
                       <Box fontSize='15px' pt="10px" pl="10px" >
                         <Text color="none" fontSize="12px" mb={1}>MATIC for DAO members</Text>
-                        <Text fontWeight='800' mb="10px" fontSize={["13px","13px","15px","17px"]} color='#16C784'>
+                        <Text fontWeight='800' mb="10px" fontSize={["13px", "13px", "15px", "17px"]} color='#16C784'>
                           {countdownValue}
                         </Text>
                       </Box>
-                      <Box h="1px" w="98%"   bg={border}> </Box>
+                      <Box h="1px" w="98%" bg={border}> </Box>
                       <Box fontSize='15px' pl="10px" mb={5}>
-                        <Text textAlign="start" fontSize={["13px","13px","15px","15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
-                        <Text fontSize={["14px","14px","16px","18px"]} textAlign="start">{claimed} MATIC</Text>
+                        <Text textAlign="start" fontSize={["13px", "13px", "15px", "15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
+                        <Text fontSize={["14px", "14px", "16px", "18px"]} textAlign="start">{claimed} MATIC</Text>
                       </Box>
                     </Flex>
                     <Spacer />
