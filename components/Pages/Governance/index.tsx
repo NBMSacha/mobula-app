@@ -3,7 +3,7 @@ import styles from './Governance.module.scss';
 import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../../constants"
 import { ethers } from 'ethers'
 import abi from "./governor_abi.json"
-import { ChakraProvider, Box, Flex, Button, Image, Input, Spacer, Text, Heading, Textarea } from '@chakra-ui/react'
+import { ChakraProvider, Box, Flex, Button, Image, Input, Spacer, Text, Heading, Textarea, useColorModeValue } from '@chakra-ui/react'
 import {
     FormControl,
     FormLabel,
@@ -162,7 +162,7 @@ function Governance() {
 
     })
 
-
+    const gradient = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     return (
         // <div className='listing'>
         //     <div className='container'>
@@ -261,6 +261,7 @@ function Governance() {
             </Flex>
             <Spacer />
             <Spacer />
+            <Box w={["100%","100%","100%","50%"]} h="200px" bg={`linear-gradient(180deg,hsla(0,0%,100%,0) 0,${gradient} 70%,${gradient} 100%,#f5f5f5)`} left="0px" position="absolute" bottom={["960px","960px" ,"350px" ,"350px"]}></Box>
         </Flex>
     )
 }

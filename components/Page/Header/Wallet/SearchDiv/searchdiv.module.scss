@@ -9,7 +9,7 @@
   left: -100px;
   border-radius: 10px;
   box-shadow: rgb(88 102 126 / 60%) 0px 4px 14px, rgb(88 102 126 / 90%) 0px 1px 5px;
-  overflow: scroll;
+  overflow: auto;
 
   .loupe {
 
@@ -20,6 +20,20 @@
 
   }
 }
+
+.search-div::-webkit-scrollbar {
+  width: 5px; /* width of the entire scrollbar */
+}
+
+.search-div::-webkit-scrollbar-track {
+  border-radius: 0px 10px 10px 0px
+}
+
+.search-div::-webkit-scrollbar-thumb {/* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  
+}
+
 
 .red {
   color: #D8494A !important;

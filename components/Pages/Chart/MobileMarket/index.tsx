@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from '@chakra-ui/react';
 import styles from "../Charts.module.scss"
 import { formatAmount } from '../../../../helpers/formaters';
+import { Flex } from "@chakra-ui/react"
 
 function MobileMarket({ baseAsset, shadowColor, liquidity, volume }) {
 

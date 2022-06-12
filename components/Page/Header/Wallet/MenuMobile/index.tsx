@@ -87,23 +87,23 @@ function MenuMobile(props: any) {
   const [walletBalance, setWalletBalance] = useState(0)
   const [ranked, setRanked] = useState()
 
-  useEffect(() => {
-    try {
-      const provider = new ethers.providers.Web3Provider(
-        (window as any).ethereum
-      )
+  // useEffect(() => {
+  //   try {
+  //     const provider = new ethers.providers.Web3Provider(
+  //       (window as any).ethereum
+  //     )
 
-      if (provider) {
-        provider.listAccounts().catch().then((accounts) => {
-          if (accounts.length > 0) {
-            handleConnect();
-            setIsConnected(true)
-          }
-        })
-      }
+  //     if (provider) {
+  //       provider.listAccounts().catch().then((accounts) => {
+  //         if (accounts.length > 0) {
+  //           handleConnect();
+  //           setIsConnected(true)
+  //         }
+  //       })
+  //     }
 
-    } catch (e) { }
-  }, [])
+  //   } catch (e) { }
+  // }, [])
 
   useEffect(() => {
     const getBalance = async () => {
