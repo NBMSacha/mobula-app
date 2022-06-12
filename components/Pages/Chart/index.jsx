@@ -9,9 +9,10 @@ import {
   formatAmount,
   getTokenPrice,
   getTokenPercentage,
-  getClosest,
+  getClosestUltimate,
   getUrlFromName
 } from '../../../helpers/formaters'
+
 import { ethers } from 'ethers';
 import ProjectInfo from "./ProjectInfo"
 import Head from 'next/head'
@@ -31,6 +32,13 @@ import Navigation from "./Navigation";
 import DesktopMarket from "./DesktopMarket";
 
 const ChartCryptos = ({ baseAsset }) => {
+  const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
+  const bgChart = useColorModeValue("#F5F5F5", "#131727")
+  const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
+  const active = useColorModeValue("black", "white")
+  const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
+  const daoMobile = useColorModeValue("#EFEFEF", "none")
+
   const router = useRouter()
   const [chart, setChart] = useState({})
   const [day, setDay] = useState()
@@ -55,6 +63,43 @@ const ChartCryptos = ({ baseAsset }) => {
   const [mobile] = useMediaQuery('(max-width: 768px)');
   const fillStyle = useColorModeValue("#666", "#b8b8b8");
   const [isPriceWinner, setIsWinner] = useState();
+  const [scoreVisible, setScoreVisible] = useState(false)
+  const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
+
+
+  function roundRect(
+    ctx,
+    x,
+    y,
+    width,
+    height,
+    radius = 5,
+    fill = false,
+    stroke = false
+  ) {
+    if (typeof radius === 'number') {
+      radius = { tl: radius, tr: radius, br: radius, bl: radius };
+    } else {
+      radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+    if (fill) {
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.stroke();
+    }
+  }
 
   if (!baseAsset) {
     var [baseAsset, setBaseAsset] = useState({})
@@ -66,6 +111,12 @@ const ChartCryptos = ({ baseAsset }) => {
         t: el[0],
         y: el[1] ? el[1].toFixed(2) : 0,
       }
+    })
+  }
+
+  const unformatData = (data) => {
+    return data.map((el) => {
+      return [el.t, el.y]
     })
   }
 
@@ -171,24 +222,33 @@ const ChartCryptos = ({ baseAsset }) => {
       console.log("loading chart")
       const days = await getChart(baseAsset.id, '1D')
 
-      setChart({ price: formatData(days) })
-      setDay({ price: formatData(days) })
+      setChart({
+        price: formatData(days), unformatted: days
+      })
+
+      setDay({
+        price: formatData(days), unformatted: days,
+      })
 
       const weeks = await getChart(baseAsset.id, '7D')
 
-      setWeek({ price: formatData(weeks) })
+      setWeek({
+        price: formatData(weeks), unformatted: weeks,
+      })
 
       const months = await getChart(baseAsset.id, '1M')
 
-      setMonth({ price: formatData(months) })
+      setMonth({
+        price: formatData(months), unformatted: months,
+      })
 
       const years = await getChart(baseAsset.id, '1Y')
 
-      setYear({ price: formatData(years) })
+      setYear({ price: formatData(years), unformatted: years })
 
       const alls = await getChart(baseAsset.id, 'ALL')
 
-      setAll({ price: formatData(alls) })
+      setAll({ price: formatData(alls), unformatted: alls })
     } catch (err) {
       console.log(err)
     }
@@ -216,7 +276,7 @@ const ChartCryptos = ({ baseAsset }) => {
 
     var ctx = document.getElementById('chart').getContext('2d')
 
-    const data = determineTimeFormat()
+    const data = timeFormat ? allChartData[timeFormat]?.price : week?.price;
     const isMobile = window.innerWidth < 768
     const isGiant = window.innerWidth > 1500
     const isWinner =
@@ -299,11 +359,22 @@ const ChartCryptos = ({ baseAsset }) => {
               return '                     '
             },
             afterLabel: function (tooltipItem, data) {
-              return (
-                data.datasets[tooltipItem.datasetIndex].label +
-                ': ' +
-                tooltipItem.yLabel / 1000000000
+
+              if (tick == 0) return 0
+              const price = parseFloat(tick / 1000000000).toFixed(
+                Math.max(12 - String(parseInt(tick)).length, 0)
               )
+
+              const exp = price.match(/0\.0+[1-9]/)?.[0] || ''
+
+              if (exp.length > 5) {
+                return price.split('.')[0] + '...' + price.split(exp.slice(0, exp.length - 2))[1];
+              } else if (parseInt(price) >= 1000) {
+                return price.slice(0, price.length - 3) + (price.length < 5 ? '.' : '') + price.slice(price.length - 3, price.length - 5) + 'k'
+              } else {
+                return price.slice(0, 6)
+              }
+
             },
             afterBody: function (tooltipItem, data) {
               return ''
@@ -320,9 +391,9 @@ const ChartCryptos = ({ baseAsset }) => {
           yAxes: [
             {
               gridLines: { color: borderChart },
+              color: "white",
               ticks: {
                 beginAtZero: false,
-                color: "red",
                 maxTicksLimit: isMobile ? 4 : 8,
                 callback: function (tick) {
                   if (tick == 0) return 0
@@ -332,11 +403,12 @@ const ChartCryptos = ({ baseAsset }) => {
 
                   const exp = price.match(/0\.0+[1-9]/)?.[0] || ''
 
-                  console.log('exxxp', exp)
                   if (exp.length > 5) {
                     return price.split('.')[0] + '...' + price.split(exp.slice(0, exp.length - 2))[1];
+                  } else if (parseInt(price) >= 1000) {
+                    return price.slice(0, price.length - 3) + '.' + price.slice(price.length - 3, 3) + 'k'
                   } else {
-                    return price
+                    return price.slice(0, 6)
                   }
                 },
               },
@@ -347,7 +419,7 @@ const ChartCryptos = ({ baseAsset }) => {
               gridLines: { color: borderChart },
               type: 'time',
               distribution: 'linear',
-              ticks: { color:"red", fontFamily:"Poppins"},
+              ticks: { color: "red", fontFamily: "Poppins" },
               time: {
                 unit: dayIf,
                 tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
@@ -355,7 +427,7 @@ const ChartCryptos = ({ baseAsset }) => {
                   hour: 'HH:mm',
                   week: "MMM D"
                 },
-        
+
               },
               ticks: {
                 maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
@@ -371,54 +443,72 @@ const ChartCryptos = ({ baseAsset }) => {
     });
 
     function crosshairLine(chart, mousemove) {
-      const { canvas, ctx, chartArea: { left, right, top, bottom } } = chart;
+      const { canvas, ctx, chartArea: { left, right, top, bottom }, data, scales } = chart;
       chart.update(null);
       ctx.restore();
-      if (mousemove.offsetX >= left && mousemove.offsetX <= right && mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
-        canvas.style.cursor = "crosshair";
-      } else {
-        canvas.style.cursor = "default";
-      }
 
-      ctx.lineWidth = 1;
-      ctx.strokeStyle = "#666";
-      ctx.setLineDash([3, 3]);
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = isWinner ? '#00ba7c' : '#D8494A';
 
-      ctx.beginPath();
-      if (mousemove.offsetY >= top && mousemove.offsetY <= bottom) {
-        ctx.moveTo(left, mousemove.offsetY);
-        ctx.lineTo(right, mousemove.offsetY);
-        ctx.stroke();
-      }
-      ctx.closePath();
+      const currentData = timeFormat ? allChartData[timeFormat] : week;
 
-      ctx.beginPath();
-      if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
-        ctx.moveTo(mousemove.offsetX, top);
-        ctx.lineTo(mousemove.offsetX, bottom);
-        ctx.stroke();
-      }
-      ctx.closePath();
-
-      crosshairLabel(chart, mousemove);
-    }
-
-    function crosshairLabel(chart, mousemove) {
-      const { ctx, data, chartArea: { top, bottom, left, right, width, height }, scales } = chart;
+      const x = scales["x-axis-0"];
       const y = scales["y-axis-0"];
-      ctx.beginPath();
-      ctx.fillStyle = fillStyle;
-      ctx.fillRect(0, mousemove.offsetY - 10, left, 20);
-      ctx.closePath();
 
-      ctx.font = '10px Inter';
-      ctx.fillStyle = "white";
-      ctx.textBaseline = "middle";
-      ctx.textAlign = "center";
+      const tick = x.getValueForPixel(mousemove.offsetX);
 
-      const number = y.getValueForPixel(mousemove.offsetY) / 1000000000;
-      ctx.fillText(getTokenPrice(number), left / 2, mousemove.offsetY)
+      try {
+        const [[timestamp1, value1], [timestamp2, value2]] = getClosestUltimate(currentData?.unformatted, tick._i, true);
+        const pixel1 = y.getPixelForValue(value1);
+        const pixel2 = y.getPixelForValue(value2);
+
+        const finalPixel = pixel1 + ((pixel2 - pixel1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+        const finalPrice = value1 + ((value2 - value1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+        const h = Math.max(finalPixel - 100, top + 20)
+
+        ctx.beginPath();
+        if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
+          ctx.moveTo(mousemove.offsetX, h);
+          ctx.lineTo(mousemove.offsetX, finalPixel);
+          ctx.stroke();
+        }
+        ctx.closePath();
+
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'white'
+        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+        ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, 45 * Math.PI / 180, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.stroke()
+        ctx.closePath();
+
+        ctx.font = '15px Inter';
+        ctx.fillStyle = "white";
+        ctx.textBaseline = "middle";
+        ctx.textAlign = "left";
+
+        console.log(finalPrice)
+
+        let price = '$' + getTokenPrice(finalPrice / 1000000000);
+
+        const rectWidth = ctx.measureText(price).width + 20
+        roundRect(ctx, mousemove.offsetX, h - 15, rectWidth, 30, 15, true);
+
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'white'
+        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+        ctx.ellipse(mousemove.offsetX + 10, h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
+        ctx.closePath();
+
+        ctx.fillStyle = 'grey'
+        ctx.fillText(price, mousemove.offsetX + 15, h)
+
+      } catch (e) { }
+
     }
+
 
     if (!data || data.length == 0) {
       setVisible(true)
@@ -627,8 +717,6 @@ const ChartCryptos = ({ baseAsset }) => {
 
   }, [price])
 
-
-
   const externalTooltipHandler = () => {
     let tooltipEl = document.getElementById('chartjs-tooltip')
 
@@ -702,11 +790,13 @@ const ChartCryptos = ({ baseAsset }) => {
   }
 
   useEffect(() => {
-    generateChart()
+    if (baseAsset.tracked) {
+      generateChart()
+    }
   }, [timeFormat, day])
 
   useEffect(() => {
-    if (timeFormat == '7D') {
+    if (timeFormat == '7D' && baseAsset.tracked) {
       generateChart()
     }
   }, [week])
@@ -730,116 +820,94 @@ const ChartCryptos = ({ baseAsset }) => {
   }, [all])
 
   useEffect(() => {
-    if (state == 'Overview') {
+    if (state == 'Overview' && baseAsset.tracked) {
       generateChart()
     }
   }, [state])
 
-  const determineTimeFormat = () => {
-    switch (timeFormat) {
-      case '1D':
-        return day?.price
-      case '7D':
-        return week?.price
-      case '30D':
-        return month?.price
-      case '1Y':
-        return year?.price
-      case 'ALL':
-        return all?.price
-      default:
-        return week?.price
-    }
+  const allChartData = {
+    '1D': day,
+    '7D': week,
+    '30D': month,
+    '1Y': year,
+    'ALL': all
   }
 
-  const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
-  const bgChart = useColorModeValue("#F5F5F5", "#131727")
-  const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
-  const active = useColorModeValue("black", "white")
-  const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
-  const daoMobile = useColorModeValue("#EFEFEF", "none")
+  return (
+    <>
+      <CSSReset />
+      <Head>
+        <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
+      </Head>
 
-  const renderData = () => {
-
-    const [scoreVisible, setScoreVisible] = useState(false)
-    const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
-
-    return (
-      <>
-        <CSSReset />
-        <Head>
-          <title>{baseAsset.name} price today, {baseAsset.symbol} to USD live, marketcap and chart | Mobula</title>
-        </Head>
-
-        <div className='App'>
-          <div className={styles['chart-main-container']}>
-            {/* TOKEN STATS */}
-            <MobileInfo 
-              baseAsset={baseAsset}
-              shadowColor={shadowColor}
-              daoMobile={daoMobile}
-              setScoreVisible={setScoreVisible} 
-              scoreVisible={scoreVisible}
-              mobile={mobile}
-              isPriceWinner={isPriceWinner}
-            />
-            {/* DAO SCORE */}
-            <Flex justify="center" w="100%" >
-              <DaoScore baseAsset={baseAsset} />
-            </Flex>
-            {/* INFO MARKET CAP ETC MOBILE */}
-            <MobileMarket
-              baseAsset={baseAsset}
-              formatAMount={formatAmount}
-              volume={volume}
-              liquidity={liquidity}
-              hidedaoRed={hidedaoRef}
-              hideref={hideRef}
-              shadowColor={shadowColor}
-              changeRef={changeRef}
-            />
-            <Flex className={styles['chart-bottom-container']} borderTop={["none", "none", "none", `1px solid ${borderBox}`]} borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
-              {/* MARKET CAP INFO DESKTOP */}
-              <DesktopMarket baseAsset={baseAsset} liquidity={liquidity} volume={volume}/>
-              <div className={styles['chart-bottom-right']} >
-                <Flex className={styles['chart-box']} id='chart-box' borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
-                  {/* OVERVIEW / CHART / INFOS / MARKET NAV */}
-                  <Navigation
-                    visible={visible}
-                    state={state}
-                    borderBox={borderBox}
-                    setState={setState}
-                  />
-                 {/* OVERVIEW / CHART / INFOS / MARKET CONTENT */}
-                  <Section 
-                    baseAsset={baseAsset}
-                    state={state}
-                    timeFormat={timeFormat}
-                    dateChangerBg={dateChangerBg}
-                    setTimeFormat={setTimeFormat}
-                    day={day}
-                    week={week}
-                    month={month}
-                    year={year}
-                    all={all}
-                  />
-                </Flex>
-              </div>
-            </Flex>
-          </div>
-          <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
-          <header className=''>
-            <div
-              className='tokenpage-details '
-              style={{ display: 'flex', justifyContent: 'start' }}
-            >
+      <div className='App'>
+        <div className={styles['chart-main-container']}>
+          {/* TOKEN STATS */}
+          <MobileInfo
+            baseAsset={baseAsset}
+            shadowColor={shadowColor}
+            daoMobile={daoMobile}
+            setScoreVisible={setScoreVisible}
+            scoreVisible={scoreVisible}
+            mobile={mobile}
+            isPriceWinner={isPriceWinner}
+          />
+          {/* DAO SCORE */}
+          <Flex justify="center" w="100%" >
+            <DaoScore baseAsset={baseAsset} />
+          </Flex>
+          {/* INFO MARKET CAP ETC MOBILE */}
+          <MobileMarket
+            baseAsset={baseAsset}
+            formatAMount={formatAmount}
+            volume={volume}
+            liquidity={liquidity}
+            hidedaoRed={hidedaoRef}
+            hideref={hideRef}
+            shadowColor={shadowColor}
+            changeRef={changeRef}
+          />
+          <Flex className={styles['chart-bottom-container']} borderTop={["none", "none", "none", `1px solid ${borderBox}`]} borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
+            {/* MARKET CAP INFO DESKTOP */}
+            <DesktopMarket baseAsset={baseAsset} liquidity={liquidity} volume={volume} />
+            <div className={styles['chart-bottom-right']} >
+              <Flex className={styles['chart-box']} id='chart-box' borderLeft={["none", "none", "none", `1px solid ${borderBox}`]}>
+                {/* OVERVIEW / CHART / INFOS / MARKET NAV */}
+                <Navigation
+                  visible={visible}
+                  state={state}
+                  borderBox={borderBox}
+                  setState={setState}
+                />
+                {/* OVERVIEW / CHART / INFOS / MARKET CONTENT */}
+                <Section
+                  baseAsset={baseAsset}
+                  state={state}
+                  timeFormat={timeFormat}
+                  dateChangerBg={dateChangerBg}
+                  setTimeFormat={setTimeFormat}
+                  day={day}
+                  week={week}
+                  month={month}
+                  year={year}
+                  all={all}
+                />
+              </Flex>
             </div>
-          </header>
+          </Flex>
         </div>
-      </>
-    )
-  }
-  return <div>{renderData()}</div>
+        <SkipBtn beforeToken={beforeToken} afterToken={afterToken} />
+        <header className=''>
+          <div
+            className='tokenpage-details '
+            style={{ display: 'flex', justifyContent: 'start' }}
+          >
+          </div>
+        </header>
+      </div>
+    </>
+  )
+
 }
 
 export default ChartCryptos

@@ -12,7 +12,7 @@ import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 import Widget from "../../Utils/Widget"
-import { Button, useColorMode, IconButton,useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 import {
   Table,
   Thead,
@@ -39,7 +39,7 @@ function News(props: any) {
   const percentageRef = useRef()
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
-  const [ widgetVisible, setWidgetVisible] = useState(false)
+  const [widgetVisible, setWidgetVisible] = useState(false)
 
   console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
@@ -210,9 +210,8 @@ function News(props: any) {
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
-      
         <MainBlock setDisplay={setDisplay} />
-        <Flex bg={gradient} display={["none", "none", "flex", "flex"]}  w="100%" justify="space-around" px="50px" pb="50px">
+        <Flex bg={gradient} display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px">
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
               title={'Top Gainers'}
@@ -248,15 +247,16 @@ function News(props: any) {
             logo1={props.trendings[0].logo}
             name1={props.trendings[0].name}
             id1={props.trendings[0].id}
-            // change1={props.trendings[0].price_change_24h.toFixed(2)}
+
+            change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
             logo2={props.trendings[1].logo}
             name2={props.trendings[1].name}
             id2={props.trendings[1].id}
-            change2={props.trendings[1].price_change_24h.toFixed(2)}
+            change2={props.trendings[1]?.price_change_24h?.toFixed(2)}
             logo3={props.trendings[2].logo}
             name3={props.trendings[2].name}
             id3={props.trendings[2].id}
-            change3={props.trendings[2].price_change_24h.toFixed(2)}
+            change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
           /> : <GainerBlock
             title={'Trendings'}
             logo1={''}
@@ -306,59 +306,59 @@ function News(props: any) {
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-      <TableContainer>
-        <Table style={{minWidth: "1220px"}} className={styles["table-style"]}>
-          <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
-            <Tr className={styles[""]}>
-              <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px","220px","220px",""]}>Rank</Th>
-              <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{background: sticky}}>Asset</Th>
-              <Th isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
-              <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
-                {textResponsive ? (
-                  <p>24h %</p>
-                ) : (
-                  <p>Change (24h)</p>
-                )}
-              </Th>
-              <Th isNumeric className={`${styles["ths"]}`}>Market cap</Th>
-              <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
-              <Th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
-              <Th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
-            </Tr>
-          </Thead>
+        <TableContainer>
+          <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
+            <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
+              <Tr className={styles[""]}>
+                <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
+                <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>
+                <Th isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
+                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
+                  {textResponsive ? (
+                    <p>24h %</p>
+                  ) : (
+                    <p>Change (24h)</p>
+                  )}
+                </Th>
+                <Th isNumeric className={`${styles["ths"]}`}>Market cap</Th>
+                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
+                <Th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
+                <Th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
+              </Tr>
+            </Thead>
 
-          {
-            getTokensToDisplay().map((token: any, index: number) => token ? <Token
+            {
+              getTokensToDisplay().map((token: any, index: number) => token ? <Token
 
-              key={token.id || token.balance + token.name}
-              id={token.id}
-              name={token.name}
-              symbol={token.symbol}
-              contracts={token.contracts}
-              blockchains={token.blockchains}
-              pairs={token.pairs}
-              logo={token.logo}
-              twitter={token.twitter}
-              chat={token.chat}
-              discord={token.discord}
-              website={token.website}
-              market_cap={token.market_cap}
-              volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
-              price_change_24h={token.price_change_24h}
-              price_change_7d={token.price_change_7d}
-              price={token.price}
-              rank_change_24h={token.rank_change_24h}
-              rank={(page - 1) * 100 + index + 1}
-              isMyAsset={display == 'My Assets'}
-            /> : <></>)
-          }
-        </Table>
+                key={token.id || token.balance + token.name}
+                id={token.id}
+                name={token.name}
+                symbol={token.symbol}
+                contracts={token.contracts}
+                blockchains={token.blockchains}
+                pairs={token.pairs}
+                logo={token.logo}
+                twitter={token.twitter}
+                chat={token.chat}
+                discord={token.discord}
+                website={token.website}
+                market_cap={token.market_cap}
+                volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
+                price_change_24h={token.price_change_24h}
+                price_change_7d={token.price_change_7d}
+                price={token.price}
+                rank_change_24h={token.rank_change_24h}
+                rank={(page - 1) * 100 + index + 1}
+                isMyAsset={display == 'My Assets'}
+              /> : <></>)
+            }
+          </Table>
         </TableContainer>
       </div>
       {widgetVisible && (
-         <Widget />
+        <Widget />
       )}
-     
+
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )

@@ -36,14 +36,14 @@ export const getStaticProps = async ({ params }) => {
     }
 }
 
-function Dataprovider({ asset, darkTheme }) {
+function Dataprovider({ asset }) {
     const router = useRouter()
 
     if (router.isFallback) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} darkTheme={darkTheme} />
+            <Chart baseAsset={asset} />
         )
     }
 

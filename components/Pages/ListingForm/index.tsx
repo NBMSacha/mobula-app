@@ -11,8 +11,6 @@ import Right from "./Right";
 
 function ListAToken(props: any) {
     const alert = useAlert();
-    const [excluded, setExcluded] = useState('')
-    const [contract, setContract] = useState('')
     const [logo, setLogo] = useState('')
     const [description, setDescription] = useState('')
     const [audit, setAudit] = useState('')
@@ -21,7 +19,6 @@ function ListAToken(props: any) {
     const [telegram, setTelegram] = useState('')
     const [website, setWebsite] = useState('');
     const [ipfs, setIPFS] = useState<any>();
-    const [isSum, setIsSum] = useState(false);
     const [loading, setLoading] = useState(false);
     const [discord, setDiscord] = useState("")
     const [addNote, setAddNote] = useState("")
@@ -29,6 +26,13 @@ function ListAToken(props: any) {
     const [uploadLoading, setUploadLoading] = useState(false);
     const [name, setName] = useState('');
     const [symbol, setSymbol] = useState('');
+    const [inputListContract, setInputListContract] = useState([{ value: "" }]);
+    const [inputListExcluded, setInputListExcluded] = useState([{ value: "" }]);
+    const [isSum, setIsSum] = useState('true');
+
+    useEffect(() => {
+        console.log(inputListContract)
+    }, [inputListContract])
 
     async function submit(e: any) {
 
@@ -36,16 +40,20 @@ function ListAToken(props: any) {
         setLoading(true);
         console.log('submitted');
 
-        if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
-            alert.error('Contract format is invalid.')
-            setLoading(false)
-            return
+        for (const contract of inputListContract.map(entry => entry.value)) {
+            if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
+                alert.error('Contract format is invalid.')
+                setLoading(false)
+                return
+            }
         }
 
-        if (excluded && (!/0x[a-zA-z0-9]{40}/.test(excluded) || excluded.length != 42)) {
-            alert.error('Excluded from circulation format is invalid.')
-            setLoading(false)
-            return
+        for (const excluded of inputListExcluded.map(entry => entry.value)) {
+            if (excluded && (!/0x[a-zA-z0-9]{40}/.test(excluded) || excluded.length != 42)) {
+                alert.error('Excluded from circulation format is invalid.')
+                setLoading(false)
+                return
+            }
         }
 
         if (logo === '' || !isUrl(logo)) {
@@ -90,7 +98,7 @@ function ListAToken(props: any) {
             return
         }
 
-        let contracts = Object.values(objectForContract).filter((contract: any) => contract.length == 42);
+        let contracts: any = inputListContract.map(entry => entry.value).filter((contract: any) => contract.length == 42);
         const chains = []
 
         for (const contract of contracts) {
@@ -120,7 +128,7 @@ function ListAToken(props: any) {
 
         }
 
-        contracts = contracts.filter(contract => contract);
+        contracts = contracts.filter((contract: any) => contract);
 
         const tokenData = {
             contracts,
@@ -147,12 +155,6 @@ function ListAToken(props: any) {
         let fileReader = new FileReader()
         fileReader.readAsBinaryString(JSONFile);
 
-        const file =
-        {
-            path: contract + '.json',
-            content: bufferFile
-        }
-
         const hash = await new Promise(async resolve => {
             ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
                 resolve(file[0].hash)
@@ -166,8 +168,6 @@ function ListAToken(props: any) {
             alert.show('You must connect your wallet to submit the form.')
         }
 
-        console.log(provider, signer)
-
         const submitPrice = (await new ethers.Contract(
             PROTOCOL_ADDRESS,
             [
@@ -175,10 +175,8 @@ function ListAToken(props: any) {
             ], provider
         ).submitPrice())
 
-        console.log(submitPrice, hash)
-
-        const totalSupply = isSum ? contracts : [contract];
-        const realExcluded = Object.values(objectForExcluded).filter((excluded: any) => excluded.length == 42);
+        const totalSupply = isSum === 'true' ? contracts : [contracts[0]];
+        const realExcluded = inputListExcluded.map(entry => entry.value).filter((excluded: any) => excluded.length == 42);
 
         try {
 
@@ -243,61 +241,44 @@ function ListAToken(props: any) {
         logo: logo,
         audit: audit,
         kyc: kyc,
-        isSumTotalSupply: isSum,
         discord: discord,
         addNote: addNote
-    }
-
-    const [tableauContract, setTableauContract] = useState([])
-
-    function isSumOfTotalSupply() {
-        var sumTotalSupply = document.getElementById("sumTotalSupply") as any;
-        if (sumTotalSupply.checked) {
-            setIsSum(true)
-            console.log(`isSum : ${isSum}`)
-            console.log(`sum is checked `)
-        } else {
-            setIsSum(false)
-            console.log(`Sum not checked ${isSum}`)
-        }
     }
 
     const input = useColorModeValue("white_terciary", "dark_input_list")
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
-    
+
     return (
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]}>Listing form</h2>
                 <div className={styles["listToken-main"]}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
-                        <Left 
+                        <Left
                             input={input}
                             box={box}
                             shadow={shadow}
                             setSymbol={setSymbol}
                             setName={setName}
                             setLogo={setLogo}
-                            setContract={setContract}
+                            inputListContract={inputListContract}
+                            setInputListContract={setInputListContract}
                             setDescription={setDescription}
                             uploadLoading={uploadLoading}
                             uploadedImage={uploadedImage}
                             symbol={symbol}
-                            logo={logo} 
-                            contract={contract}
+                            logo={logo}
                             name={name}
-                            tableauContract={tableauContract}
-                            setTableauContract={setTableauContract}
                             description={description}
-                            isSum={isSum}
-                            setIsSum={setIsSum}
                             setUploadLoading={setUploadLoading}
                             setUploadedImage={setUploadedImage}
                             ipfs={ipfs}
+                            isSum={isSum}
+                            setIsSum={setIsSum}
                         />
-                        <Mid 
+                        <Mid
                             input={input}
                             box={box}
                             shadow={shadow}
@@ -310,8 +291,9 @@ function ListAToken(props: any) {
                             twitter={twitter}
                             setTwitter={setTwitter}
                         />
-                        
+
                         <Right 
+                        <Right
                             input={input}
                             box={box}
                             shadow={shadow}
@@ -324,7 +306,9 @@ function ListAToken(props: any) {
                             btn={btn}
                             loading={loading}
                             submit={submit}
-                          />
+                            inputList={inputListExcluded}
+                            setInputList={setInputListExcluded}
+                        />
                     </form>
                 </div>
             </div>

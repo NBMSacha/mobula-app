@@ -16,7 +16,7 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import { useMediaQuery } from '@chakra-ui/react'
-import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName } from '../../../helpers/formaters';
+import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
 export default function RecentlyAdded({ tokens }) {
   const router = useRouter();
@@ -57,10 +57,10 @@ export default function RecentlyAdded({ tokens }) {
           <Table variant='simple'>
             <Thead borderBottom={`2px solid ${border}`}>
               <Tr>
-              {isLargerThan768 && (
-                <Th isNumeric>Rank</Th>
-              )}
-                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg } textAlign="start">Asset</Th>
+                {isLargerThan768 && (
+                  <Th isNumeric>Rank</Th>
+                )}
+                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} textAlign="start">Asset</Th>
                 <Th isNumeric>Price</Th>
                 <Th isNumeric>Change (24h)</Th>
                 <Th isNumeric>Market Cap</Th>
@@ -70,7 +70,7 @@ export default function RecentlyAdded({ tokens }) {
               </Tr>
             </Thead>
             {tokens.map((token: any) => {
-              
+
               let date = new Date(token.created_at);
               let seconds = date.getTime();
               let postedDate = Math.round((Date.now() - seconds) / 1000);
@@ -96,26 +96,26 @@ export default function RecentlyAdded({ tokens }) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
-              return ( <Tbody  onClick={() => router.push('/asset/' + getUrlFromName(token.name))}  borderBottom={`2px solid ${border}`} _hover={{ background: hover}}>
+              return (<Tbody onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
                 <Tr>
                   {isLargerThan768 && (
                     <Td isNumeric>
                       <Text>{token.rank}</Text>
-                  </Td>
+                    </Td>
                   )}
-                  <Td px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg } >
-                      <Flex align="center">
-                          <Image borderRadius="50%" h="30px" src={token.logo} mr="10px"/>
-                          <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
-                          <Text opacity="0.6">{token.symbol}</Text>
-                      </Flex>
+                  <Td px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} >
+                    <Flex align="center">
+                      <Image borderRadius="50%" h="30px" src={token.logo} mr="10px" />
+                      <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
+                      <Text opacity="0.6">{token.symbol}</Text>
+                    </Flex>
                   </Td>
-                  <Td px="5px" isNumeric><Text>${getTokenPrice(token.price)}</Text></Td>
+                  <Td px="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
                   <Td px="5px" isNumeric>
-                    <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}> 
-                        {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px"/> : <TriangleDownIcon mr="5px"/>}
-                        
-                        {getTokenPercentage(token.price_change_24h)}%
+                    <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
+                      {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
+
+                      {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>
                   <Td px="5px" isNumeric><Text>${token.market_cap}</Text></Td>
@@ -124,7 +124,7 @@ export default function RecentlyAdded({ tokens }) {
                     <Flex>
                       {token.website && (
                         <Link href={token.website}>
-                          <Globe height="30px"  style={{color:"#58667E"}}/>
+                          <Globe height="30px" style={{ color: "#58667E" }} />
                         </Link>
                       )}
                       {token.twitter && (
@@ -140,17 +140,17 @@ export default function RecentlyAdded({ tokens }) {
                     </Flex>
                   </Td>
                   <Td px="5px">
-                  {format == "seconds" && <span>{postedDate} seconds ago</span>}
-                  {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
-                  {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}
-                  {format == "hour" && <span>{Math.floor(postedDate / 3600)} hour ago</span>}
-                  {format == "hours" && <span>{Math.floor(postedDate / 3600)} hours ago</span>}
-                  {format == "day" && <span>{Math.floor(postedDate / 86400)} day ago</span>}
-                  {format == "days" && <span>{Math.floor(postedDate / 86400)} days ago</span>}
+                    {format == "seconds" && <span>{postedDate} seconds ago</span>}
+                    {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
+                    {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}
+                    {format == "hour" && <span>{Math.floor(postedDate / 3600)} hour ago</span>}
+                    {format == "hours" && <span>{Math.floor(postedDate / 3600)} hours ago</span>}
+                    {format == "day" && <span>{Math.floor(postedDate / 86400)} day ago</span>}
+                    {format == "days" && <span>{Math.floor(postedDate / 86400)} days ago</span>}
                   </Td>
                 </Tr>
               </Tbody>
-            )
+              )
             })}
           </Table>
         </TableContainer>

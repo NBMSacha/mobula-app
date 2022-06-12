@@ -2,35 +2,31 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Upload } from "react-feather"
 import styles from "../ListingForm.module.scss";
 import { Spinner } from '@chakra-ui/react'
-import { ChakraProvider, Input,Stack, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button} from '@chakra-ui/react'
+import { ChakraProvider, Input, Stack, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button } from '@chakra-ui/react'
 import axios from 'axios';
 import { RadioGroup } from '@chakra-ui/react'
 function Left({
-        input,
-        ipfs,
-        box,
-        symbol,
-        shadow,
-        setSymbol,
-        setName,
-        uploadLoading,
-        isSum,
-        setIsSum,
-        uploadedImage,
-        setUploadedImage,
-        setUploadLoading,
-        logo,
-        contract,
-        name,
-        description,
-        setLogo,
-        setContract, 
-        setDescription,
-        setTableauContract,
-        tableauContract
-    }) {
-
-    const [inputListContract, setInputListContract] = useState([{ value: ""}]);
+    input,
+    ipfs,
+    box,
+    symbol,
+    shadow,
+    setSymbol,
+    setName,
+    uploadLoading,
+    uploadedImage,
+    setUploadedImage,
+    setUploadLoading,
+    logo,
+    name,
+    description,
+    setLogo,
+    setDescription,
+    inputListContract,
+    setInputListContract,
+    isSum,
+    setIsSum
+}) {
 
     const handleInputChangeContract = (e, index) => {
         const { name, value } = e.target;
@@ -39,26 +35,13 @@ function Left({
         setInputListContract(list);
         console.log(list)
     };
-         
-    const handleRemoveClickContract = index => {
-        const list = [...inputListContract];
-        list.splice(index, 1);
-        setInputListContract(list);
-    };
-         
+
     const handleAddClickContract = () => {
-        setInputListContract([...inputListContract, { value: ""}]);
+        setInputListContract([...inputListContract, { value: "" }]);
     };
-
-    const [value, setValue] = React.useState('first')
-    useEffect(() => {
-       console.log(value) 
-    })
-
-    
 
     return (
-        
+
         <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box-flex"]}>
                 <div className={styles["inputs-container"]}>
@@ -68,7 +51,7 @@ function Left({
                         pr="10px"
                         className={styles["inputs"]}
                         required
-                        _placeholder={{ color: "none",textOverflow: "ellipsis",paddingRight:"5px" }}
+                        _placeholder={{ color: "none", textOverflow: "ellipsis", paddingRight: "5px" }}
                         bg={input}
                         id="msg"
                         name="website"
@@ -87,7 +70,7 @@ function Left({
                         variant="filled"
                         className={styles["inputs"]}
                         required
-                        _placeholder={{ color: "none",textOverflow: "ellipsis" }}
+                        _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                         id="msg"
                         name="name"
                         bg={input}
@@ -102,7 +85,7 @@ function Left({
                     <label>Upload Logo *</label>
                     <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
                         {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
-                        {uploadedImage || logo ? <img style={{objectFit:"cover",height:"100%"}}  src={uploadedImage ? uploadedImage : logo} /> : <></>}                                    
+                        {uploadedImage || logo ? <img style={{ objectFit: "cover", height: "100%" }} src={uploadedImage ? uploadedImage : logo} /> : <></>}
                     </Flex>
                 </div>
                 <div className={styles["file"]}>
@@ -116,12 +99,6 @@ function Left({
                                 if (reader.readyState == 2) {
                                     setUploadLoading(true)
                                     const bufferFile = await e.target.files[0].arrayBuffer();
-                                    const file =
-                                    {
-                                        path: contract + '.json',
-                                        content: bufferFile
-                                    }
-
                                     const hash = await new Promise(async resolve => {
                                         ipfs.files.add(Buffer.from(bufferFile), (err: any, file: any) => {
                                             resolve(file[0].hash)
@@ -151,7 +128,7 @@ function Left({
                             className={styles["inputs"]}
                             name="logo"
                             value={logo}
-                            _placeholder={{ color: "none",textOverflow: "ellipsis" }}
+                            _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                             onChange={(e) => setLogo(e.target.value)}
                             placeholder="https://mobula.fi/logo.png"
                             required
@@ -174,34 +151,31 @@ function Left({
                                 bg={input}
                                 type="text"
                                 value={x.value}
-                                _placeholder={{ color: "none",textOverflow: "ellipsis" }}
+                                _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                                 placeholder="0x5D3e4C0FE11e0..."
-                                onChange={e => {handleInputChangeContract(e, i)}}
+                                onChange={e => { handleInputChangeContract(e, i) }}
                             />
                             <div className="btn-box">
-                                {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                
                                 {inputListContract.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</Button>}
                             </div>
                         </>
-                        );
-                    })}
+                    );
+                })}
             </div>
-           {console.log(value)}
-            <RadioGroup onChange={setValue} value={value}>
-                <Flex direction="column" fontSize="10px" >
-                    <Flex align="center" direction="row">
-                        <Text fontSize="10px" w="90%">The total supply is the first contract total supply (native token)</Text>
-                        <Radio value='first'  bg={value == "first" ? "blue" : "none"}></Radio>
+            {inputListContract.length > 1 ?
+                <RadioGroup onChange={setIsSum} value={isSum}>
+                    <Flex direction="column" fontSize="10px" >
+                        <Flex align="center" direction="row">
+                            <Text fontSize="10px" w="90%">The total supply is the first contract total supply (native token)</Text>
+                            <Radio checked={true} value='true' bg={isSum === "true" ? "blue" : "none"}></Radio>
+                        </Flex>
+                        <Flex align="center" direction="row">
+                            <Text fontSize="10px" w="90%">The total supply is the sum of all the contracts</Text>
+                            <Radio value='false' mt="10px" bg={isSum === "false" ? "blue" : "none"}></Radio>
+                        </Flex>
                     </Flex>
-                    <Flex align="center" direction="row">
-                        <Text fontSize="10px" w="90%">The total supply is the sum of all the contracts</Text>
-                        <Radio value='sum' mt="10px" bg={value == "sum" ? "blue" : "none"}></Radio>
-                    </Flex>
-                  
-                </Flex>
-                </RadioGroup>
-            
+                </RadioGroup> : <></>}
+
             <div className={styles["form-container-box"]}>
                 <label >Description *</label>
                 <Textarea
@@ -209,7 +183,7 @@ function Left({
                     pr="10px"
                     fontSize="13px"
                     textOverflow="ellipsis"
-                    _placeholder={{ color: "none",textOverflow: "ellipsis" }}
+                    _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                     id="msg"
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     bg={input}
