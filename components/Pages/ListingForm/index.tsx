@@ -4,12 +4,14 @@ import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import { useAlert } from "react-alert";
 import styles from "./ListingForm.module.scss";
-import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea } from '@chakra-ui/react'
+import { Button, ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Heading, Link } from '@chakra-ui/react'
 import Left from "./Left";
 import Mid from "./Mid";
 import Right from "./Right";
+import { useRouter } from 'next/router'
 
 function ListAToken(props: any) {
+    const router = useRouter();
     const alert = useAlert();
     const [logo, setLogo] = useState('')
     const [description, setDescription] = useState('')
@@ -29,6 +31,7 @@ function ListAToken(props: any) {
     const [inputListContract, setInputListContract] = useState([{ value: "" }]);
     const [inputListExcluded, setInputListExcluded] = useState([{ value: "" }]);
     const [isSum, setIsSum] = useState('true');
+    const [display, setDisplay] = useState('form');
 
     useEffect(() => {
         console.log(inputListContract)
@@ -189,10 +192,11 @@ function ListAToken(props: any) {
                 value: submitPrice
             });
 
-            alert.show('Successfully submitted data.');
+            setDisplay('success');
+
         } catch (e) {
             if (e.data && e.data.message) {
-                alert.error('You don\'t have 10 MATIC in your wallet.');
+                alert.error(e.data.message);
             } else {
                 alert.error('Something went wrong.')
                 console.log(e)
@@ -229,22 +233,6 @@ function ListAToken(props: any) {
         return url.protocol === "http:" || url.protocol === "https:";
     }
 
-    var finalSubmit = {
-        // contract: objectForContract,
-        // excluded: objectForExcluded,
-        symbol: symbol,
-        name: name,
-        website: website,
-        twitter: twitter,
-        description: description,
-        telegram: telegram,
-        logo: logo,
-        audit: audit,
-        kyc: kyc,
-        discord: discord,
-        addNote: addNote
-    }
-
     const input = useColorModeValue("white_terciary", "dark_input_list")
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
@@ -254,64 +242,80 @@ function ListAToken(props: any) {
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]}>Listing form</h2>
-                <div className={styles["listToken-main"]}>
-                    <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
-                        <Left
-                            input={input}
-                            box={box}
-                            shadow={shadow}
-                            setSymbol={setSymbol}
-                            setName={setName}
-                            setLogo={setLogo}
-                            inputListContract={inputListContract}
-                            setInputListContract={setInputListContract}
-                            setDescription={setDescription}
-                            uploadLoading={uploadLoading}
-                            uploadedImage={uploadedImage}
-                            symbol={symbol}
-                            logo={logo}
-                            name={name}
-                            description={description}
-                            setUploadLoading={setUploadLoading}
-                            setUploadedImage={setUploadedImage}
-                            ipfs={ipfs}
-                            isSum={isSum}
-                            setIsSum={setIsSum}
-                        />
-                        <Mid
-                            input={input}
-                            box={box}
-                            shadow={shadow}
-                            website={website}
-                            setWebsite={setWebsite}
-                            setDiscord={setDiscord}
-                            discord={discord}
-                            telegram={telegram}
-                            setTelegram={setTelegram}
-                            twitter={twitter}
-                            setTwitter={setTwitter}
-                        />
 
-                        <Right
-                            input={input}
-                            box={box}
-                            shadow={shadow}
-                            setAddNote={setAddNote}
-                            setAudit={setAudit}
-                            setKYC={setKYC}
-                            addNote={addNote}
-                            kyc={kyc}
-                            audit={audit}
-                            btn={btn}
-                            loading={loading}
-                            submit={submit}
-                            inputList={inputListExcluded}
-                            setInputList={setInputListExcluded}
-                        />
-                    </form>
-                </div>
+                {display == 'form' ?
+                    <div className={styles["listToken-main"]}>
+                        <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
+                            <Left
+                                input={input}
+                                box={box}
+                                shadow={shadow}
+                                setSymbol={setSymbol}
+                                setName={setName}
+                                setLogo={setLogo}
+                                inputListContract={inputListContract}
+                                setInputListContract={setInputListContract}
+                                setDescription={setDescription}
+                                uploadLoading={uploadLoading}
+                                uploadedImage={uploadedImage}
+                                symbol={symbol}
+                                logo={logo}
+                                name={name}
+                                description={description}
+                                setUploadLoading={setUploadLoading}
+                                setUploadedImage={setUploadedImage}
+                                ipfs={ipfs}
+                                isSum={isSum}
+                                setIsSum={setIsSum}
+                            />
+                            <Mid
+                                input={input}
+                                box={box}
+                                shadow={shadow}
+                                website={website}
+                                setWebsite={setWebsite}
+                                setDiscord={setDiscord}
+                                discord={discord}
+                                telegram={telegram}
+                                setTelegram={setTelegram}
+                                twitter={twitter}
+                                setTwitter={setTwitter}
+                            />
+
+                            <Right
+                                input={input}
+                                box={box}
+                                shadow={shadow}
+                                setAddNote={setAddNote}
+                                setAudit={setAudit}
+                                setKYC={setKYC}
+                                addNote={addNote}
+                                kyc={kyc}
+                                audit={audit}
+                                btn={btn}
+                                loading={loading}
+                                submit={submit}
+                                inputList={inputListExcluded}
+                                setInputList={setInputListExcluded}
+                            />
+                        </form>
+                    </div>
+                    :
+                    <div className={styles["listToken-main"]}>
+                        <Flex p="30px" flexDirection="column" className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+                            <Heading fontSize="xx-large" fontWeight="medium" mb='30px' ml='auto' mr='auto'>Success!</Heading>
+                            <Text mb='15px'>Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>
+                            <Text mb='15px'>You can now track your listing in the DAO tab, starting in the First Sort.</Text>
+                            <Text mb='15px'>If your crypto-asset is validated by the Mobula DAO, you will be able to access our <Link color="blue" href="/partners">Partner Ecosystem</Link>.</Text>
+                            <Text mb='35px'>Feel free to join our Discord to ask for any kind of support regarding your listing.</Text>
+                            <Button bg={'blue'} color={'white'} w='100%' h='30px' onClick={() => {
+                                router.push('/dao/sort')
+                            }}>Go To First Sort</Button>
+                        </Flex>
+                    </div>}
+
             </div>
-        </div>
+        </div >
     )
 }
 

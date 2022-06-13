@@ -27,7 +27,6 @@ import {
 import ConnectWallet from "../../Utils/ConnectWallet"
 
 function News(props: any) {
-
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [search, setSearch] = useState([]);
@@ -39,9 +38,9 @@ function News(props: any) {
   const percentageRef = useRef()
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
-  const [widgetVisible, setWidgetVisible] = useState(false)
+  const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
+  const [widgetVisibility, setWidgetVisibility] = useState(false);
 
-  console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
       if ((window.matchMedia("(max-width: 768px)").matches)) {
@@ -53,17 +52,11 @@ function News(props: any) {
   }, [])
 
   useEffect(() => {
-
     if (!page) return
-    const supabase = createClient(
-      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
-    )
     if (router.isReady) {
       console.log(page)
-      shouldLoadMore(supabase)
+      shouldLoadMore()
     }
-
   }, [page])
 
   function loadChain(chain: string) {
@@ -76,7 +69,7 @@ function News(props: any) {
       .from('assets')
       .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
       .contains('blockchains[1]', '{ ' + chain + ' }')
-      .filter('volume', 'gte', page < 5 ? 50000 : 0)
+      .filter('volume', 'gte', page < 5 ? settings.volume : 0)
       .order('market_cap', { ascending: false })
       .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
       .then(r => {
@@ -162,19 +155,22 @@ function News(props: any) {
     }
   }
 
-  console.log(props)
-  async function shouldLoadMore(supabase: SupabaseClient) {
+  async function shouldLoadMore() {
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
 
     if (display == 'Top 100') {
       supabase
         .from('assets')
         .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
-        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .filter('volume', 'gte', page < 5 ? settings.volume : 0)
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
           if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? 1000 : 0) || token.contracts.length == 0).slice(0, 100))
+            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? settings.liquidity : 0) || (token.contracts.length == 0 && !settings.onChainOnly)).slice(0, 100))
           }
         });
     } else if (display != 'My Assets') {
@@ -182,7 +178,7 @@ function News(props: any) {
         .from('assets')
         .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
         .contains('blockchains[1]', '{ ' + display + ' }')
-        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .filter('volume', 'gte', page < 5 ? settings.volume : 0)
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
@@ -200,6 +196,12 @@ function News(props: any) {
         })
     }
   }
+
+  useEffect(() => {
+    if (settings && !settings.default) {
+      shouldLoadMore()
+    }
+  }, [settings])
 
   const gradient = useColorModeValue("white_gradient", "dark_gradient")
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
@@ -241,7 +243,7 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
-              {/* @ts-ignore */}
+          {/* @ts-ignore */}
           {props.trendings && props.trendings.length > 0 ? <GainerBlock
             title={'Trendings'}
             logo1={props.trendings[0].logo}
@@ -301,7 +303,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </Flex>
-        <ButtonBlock display={display} widget={widgetVisible} setWidget={setWidgetVisible} setDisplay={setDisplay} setResults={setSearch} />
+        <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
@@ -355,10 +357,7 @@ function News(props: any) {
           </Table>
         </TableContainer>
       </div>
-      {widgetVisible && (
-        <Widget />
-      )}
-
+      <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}
     </>
   )

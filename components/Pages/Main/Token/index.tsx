@@ -101,8 +101,8 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                                   
                               `
             })
-            console.log(`Reserve0ETH: ${result.data.eth[0].reserve0}`);
-            console.log(`Reserve1ETH: ${result.data.eth[0].reserve1}`);
+            // console.log(`Reserve0ETH: ${result.data.eth[0].reserve0}`);
+            // console.log(`Reserve1ETH: ${result.data.eth[0].reserve1}`);
             var prixETH =
               tokensPerBlockchain[blockchains[i]][0].toLowerCase() == result.data.eth[0].token0.id ?
                 (result.data.eth[0].reserve1 / result.data.eth[0].reserve0) :
@@ -133,29 +133,29 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                     (pair.reserveUSD / 2) : 0;
                 if (!(pair.reserve1.includes('.') && pair.reserve1.includes('.') && pair.reserve0.includes('.') && pair.reserve0.includes('.'))) {
                   bufferLiquidity = 0;
-                  console.log(`Price ignored as one reserve does not contain a decimal point`);
+                  // console.log(`Price ignored as one reserve does not contain a decimal point`);
                 }
                 totalLiquidity += bufferLiquidity;
                 averagePrice += prixToken * bufferLiquidity;
                 //console.log(`Liquidity: ${pair.reserveUSD/2}`);
                 if (bufferLiquidity == 0) {
-                  console.log(`LP null or ignored due to the threshold`);
+                  // console.log(`LP null or ignored due to the threshold`);
                 }
                 subgraphSuccess++;
-                console.log(`Success subgraph: ${subgraphSuccess}/${expectedPairs}`);
+                // console.log(`Success subgraph: ${subgraphSuccess}/${expectedPairs}`);
               }
             }
           } catch (e) {
-            console.log('[SUBGRAPH ISSUE] : ' + '\n' + e, 'low ', e);
+            // console.log('[SUBGRAPH ISSUE] : ' + '\n' + e, 'low ', e);
           }
           currentSubgraph++;
         }
       } else {
-        console.log('Not scraping volume because ' + blockchains[i] + ' not supported.')
+        // console.log('Not scraping volume because ' + blockchains[i] + ' not supported.')
       }
     } catch (e) {
-      console.log('[VOLUME ISSUE] : ' + name + '\n' + e, 'low', e)
-      console.log(blockchains)
+      // console.log('[VOLUME ISSUE] : ' + name + '\n' + e, 'low', e)
+      // console.log(blockchains)
     }
   }
   if (totalLiquidity > 0) {
@@ -163,7 +163,7 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
     if (price && !isNaN(price)) {
       setPrice(price);
     }
-    console.log(price + ':' + name)
+    //console.log(price + ':' + name)
   }
 }
 function Token(token: {
@@ -227,8 +227,8 @@ function Token(token: {
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const testRef = useRef();
   return (
-    <Tbody  id="nul" ref={testRef} borderBottom={`2px solid ${border}`} _hover={{background: hover}} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
-      <Tr  className={styles["trs"]} >
+    <Tbody id="nul" ref={testRef} borderBottom={`2px solid ${border}`} _hover={{ background: hover }} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+      <Tr className={styles["trs"]} >
         <Td py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
@@ -245,7 +245,7 @@ function Token(token: {
             <span style={{ marginLeft: "10px", opacity: .6 }}>{token.rank}</span>
           </a>
         </Td>
-        <Td py={["5px", "5px", "5px", "5px", "15px"]} minWidth={["220px","220px","220px",""]} bg={[sticky,sticky, "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+        <Td py={["5px", "5px", "5px", "5px", "15px"]} minWidth={["220px", "220px", "220px", ""]} bg={[sticky, sticky, "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
           <Flex align="center" >
             <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
             <div className={styles["wrap-name"]}>
