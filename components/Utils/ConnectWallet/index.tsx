@@ -11,7 +11,7 @@ import { InjectedConnector } from "@web3-react/injected-connector"
 import { CloseIcon } from '@chakra-ui/icons'
 import { walletlink, bsc, injected, walletconnect, resetWalletConnector, trezor, ledger, portis } from "./Connector"
 
-export default function ConnectWallet({ contract, blockchain }) {
+export default function ConnectWallet({ contract, blockchain, close, setClose }) {
 
     const [copied, setCopied] = useState(false);
     useEffect(() => {
@@ -106,12 +106,11 @@ export default function ConnectWallet({ contract, blockchain }) {
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_input)")
     const btn = useColorModeValue("var(--chakra-colors-bg_white)", "#1C1F34")
     const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
-
     return (
         <Flex direction="column" align="center" w="420px" position="fixed" zIndex="10" bg={bg} top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
             <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
                 <Text>Connect Wallet</Text>
-                <Button><CloseIcon /></Button>
+                <Button onClick={() => setClose(true)}><CloseIcon /></Button>
             </Flex>
             <Flex align="center" h="60px" bg={btn} mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
                 <Radio></Radio>

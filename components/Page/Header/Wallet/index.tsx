@@ -18,6 +18,8 @@ import {
   ColorModeProvider,
   useColorMode,
 } from '@chakra-ui/react'
+import ConnectWallet from "../../../Utils/ConnectWallet";
+
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
@@ -48,6 +50,8 @@ function Wallet(props: any) {
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
   const router = useRouter()
+  const [ connect, setConnect] = useState(false)
+  const [ close, setClose ] = useState(false)
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
 
@@ -203,7 +207,9 @@ function Wallet(props: any) {
         </Flex>
         <button
           className={styles['connect-wallet-btn']}
-          onClick={handleConnect}
+          onClick={() => {
+              setConnect(true)
+          }}
         >
           {active
             ? account.substring(0, 4) +
@@ -230,7 +236,9 @@ function Wallet(props: any) {
             icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-
+        {connect&& (
+            <ConnectWallet close={close} setClose={setClose} />
+        )}
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
