@@ -107,7 +107,7 @@ export default function ConnectWallet({ contract, blockchain, close, setClose })
     const btn = useColorModeValue("var(--chakra-colors-bg_white)", "#1C1F34")
     const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
     return (
-        <Flex direction="column" align="center" w="420px" position="fixed" zIndex="10" bg={bg} top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
+        <Flex display={close ? "none" : "flex"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg={bg} top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
             <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
                 <Text>Connect Wallet</Text>
                 <Button onClick={() => setClose(true)}><CloseIcon /></Button>
