@@ -28,7 +28,7 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
 
 }
 
-function ButtonBlock({ setDisplay, display, setResults, widget, setWidget }) {
+function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWidgetVisibility }) {
   const [search, setSearch]: [string | null, Function] = useState();
   const supabase = createClient(
     'https://ylcxvfbmqzwinymcjlnx.supabase.co',
@@ -123,7 +123,7 @@ function ButtonBlock({ setDisplay, display, setResults, widget, setWidget }) {
         </Flex>
         <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
           onClick={() => {
-            setWidget(!widget)
+            setWidgetVisibility(!widgetVisibility)
           }}
           boxShadow={`1px 2px 12px 3px ${shadow}`}
           colorScheme='teal'

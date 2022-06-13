@@ -474,6 +474,8 @@ const ChartCryptos = ({ baseAsset }) => {
         }
         ctx.closePath();
 
+        const shouldBeRight = mousemove.offsetX < (right - 100);
+
 
         ctx.beginPath();
         ctx.strokeStyle = 'white'
@@ -488,22 +490,20 @@ const ChartCryptos = ({ baseAsset }) => {
         ctx.textBaseline = "middle";
         ctx.textAlign = "left";
 
-        console.log(finalPrice)
-
         let price = '$' + getTokenPrice(finalPrice / 1000000000);
 
         const rectWidth = ctx.measureText(price).width + 20
-        roundRect(ctx, mousemove.offsetX, h - 15, rectWidth, 30, 15, true);
+        roundRect(ctx, mousemove.offsetX - (shouldBeRight ? 0 : rectWidth), h - 15, rectWidth, 30, 15, true);
 
 
         ctx.beginPath();
         ctx.strokeStyle = 'white'
         ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
-        ctx.ellipse(mousemove.offsetX + 10, h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
+        ctx.ellipse(mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth), h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
         ctx.closePath();
 
         ctx.fillStyle = 'grey'
-        ctx.fillText(price, mousemove.offsetX + 15, h)
+        ctx.fillText(price, mousemove.offsetX + 15 - (shouldBeRight ? 0 : rectWidth), h)
 
       } catch (e) { }
 
@@ -684,10 +684,8 @@ const ChartCryptos = ({ baseAsset }) => {
         var price = Number(averagePrice / totalLiquidity);
         if (price && !isNaN(price)) {
           setPrice(price);
-          console.log('BORRRRR', price)
         }
 
-        console.log(price + ':' + name)
       }
 
     }

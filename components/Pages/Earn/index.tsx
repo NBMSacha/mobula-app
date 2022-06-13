@@ -4,7 +4,7 @@ import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './Earn.module.scss'
 import { Text, Heading, Flex, Box, Spacer, Button, Image, Link, useMediaQuery, useColorModeValue } from '@chakra-ui/react'
-import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
+import { MOBL_ADDRESS, PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
 import {
     ChakraProvider,
     ColorModeProvider,
@@ -25,11 +25,33 @@ function Earn() {
     const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
 
     const claim = () => {
+
         if (account && user.balance > 0) {
+
             fetch('https://mobulaspark.com/claim?account=' + account)
                 .then(r => r.json())
                 .then(r => {
+
                     if (r.success) {
+
+                        const ethereum = (window as any).ethereum
+                        if (ethereum && !localStorage.getItem('added')) {
+                            localStorage.setItem('added', 'true')
+
+                            ethereum.request({
+                                method: 'wallet_watchAsset',
+                                params: {
+                                    type: 'ERC20', // Initially only supports ERC20, but eventually more!
+                                    options: {
+                                        address: MOBL_ADDRESS, // The address that the token is at.
+                                        symbol: 'MOBL', // A ticker symbol or shorthand, up to 5 chars.
+                                        decimals: 18, // The number of decimals in the token
+                                        image: 'https://mobula.fi/fullicon.png', // A string url of the token logo
+                                    },
+                                },
+                            });
+                        }
+
                         alert.success('Success! You just received your MOBL in your Polygon wallet.')
                         const bufferUser = { ...user };
                         bufferUser.balance = 0;

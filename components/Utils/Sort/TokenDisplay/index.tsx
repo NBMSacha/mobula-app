@@ -67,9 +67,9 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                             <Heading fontSize={["xl", "xl", "xx-large"]}>{token.name}</Heading>
                         </Flex>
                         <Flex width={["30%", "30%", "20%"]} justify="space-around" >
-                            {token.website && <a href={token.website}><Globe className={styles["icons"]} /></a>}
-                            {token.twitter && <a href={token.twitter}><Twitter className={styles["icons"]} /></a>}
-                            {token.chat && <a href={token.chat}><Send className={styles["icons"]} /></a>}
+                            {token.website && <a target='_blank' href={token.website}><Globe className={styles["icons"]} /></a>}
+                            {token.twitter && <a target='_blank' href={token.twitter}><Twitter className={styles["icons"]} /></a>}
+                            {token.chat && <a target='_blank' href={token.chat}><Send className={styles["icons"]} /></a>}
                         </Flex>
                     </Flex>
 
