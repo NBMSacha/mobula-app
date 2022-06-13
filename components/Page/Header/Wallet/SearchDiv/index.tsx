@@ -80,13 +80,14 @@ function SearchDiv(props: any) {
 
   if (props.trigger) {
 
+
     const bg = useColorModeValue("bg_white", "dark_primary")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
     const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
     return (
       <div ref={props.wrapperRef} >
-        <Box className={styles['search-div']} position="absolute" h="400px" left="30px" w="300px" zIndex="1000" top="0px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="20px">
+        <Box className={styles['search-div']} position="absolute" h="400px" left="-00px" w="300px" zIndex="1000" top="0px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} style={{width:"40px", marginLeft:"10px", marginRight:"10px"}}/>
             <Input
