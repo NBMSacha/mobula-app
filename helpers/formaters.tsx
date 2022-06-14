@@ -8,6 +8,26 @@ export function formatAmount(amount: number | string) {
     return String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export function formatBigAmount(amount: number | string) {
+    amount = formatAmount(amount);
+    let letter;
+    switch (amount.split(',').length) {
+        case 1:
+            letter = ''
+            break
+        case 2:
+            letter = 'k'
+            break
+        case 3:
+            letter = 'M'
+            break
+        case 4:
+            letter = 'B'
+            break
+    }
+    return amount.split(',')[0] + letter;
+}
+
 export function getTokenPrice(price: any) {
 
     if (price) {
