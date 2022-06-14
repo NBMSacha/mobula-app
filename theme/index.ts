@@ -87,9 +87,9 @@ export const themeUltime = extendTheme({
     dark_decision: "#202433",
     grey_border: "#E5E5E5",
     border_dark_gainer: "rgba(40, 44, 58, 0.5)",
-    dark_inactive_gainer:"rgba(50, 53, 80, 0.46)",
-    dark_active_gainer:"#405472",
-    grey_loser:"#E9E9E9",
+    dark_inactive_gainer: "rgba(50, 53, 80, 0.46)",
+    dark_active_gainer: "#405472",
+    grey_loser: "#E9E9E9",
 
     // WHITE
     white_gradient: "linear-gradient(180deg, #EEEEEE 20%, rgba(248, 250, 252, 0) 100.94%)",
@@ -100,6 +100,7 @@ export const themeUltime = extendTheme({
     blue_title: "#3753B3",
     shadow_2: '#d0d6e3',
     shadow: 'rgba(208, 214, 227, 0.3)',
+    'shadow-hard': 'rgba(208, 214, 227, 0.5)',
     none: "none",
     green: '#16C784',
     red: '#EA3943'
