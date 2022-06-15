@@ -39,7 +39,7 @@ function MainBlock(props: any) {
                 <a href='/earn'>
                   <Flex _hover={{background: hover, cursor:"pointer"}} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
                     mr="10px" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]} >
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]} >
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='fullicon.png' />
                     </div>
@@ -57,7 +57,7 @@ function MainBlock(props: any) {
                 }}>
                   <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
                     bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='portfolio.png'></img>
                     </div>
@@ -72,7 +72,7 @@ function MainBlock(props: any) {
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
                   <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
-                   borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
+                   borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "230px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>
                     </div>
