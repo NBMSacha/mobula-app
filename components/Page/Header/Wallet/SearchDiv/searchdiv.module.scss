@@ -6,7 +6,7 @@
 
   z-index: 100;
   top: 0px;
-  left: -100px;
+  left: 0px;
   border-radius: 10px;
   box-shadow: rgba(88, 102, 126, 0.082) 0px 4px 14px, rgba(88, 102, 126, 0.062) 0px 1px 10px;
   overflow: auto;
@@ -198,9 +198,10 @@
   }
 
   .search-div {
-    position: fixed;
+    position: absolute;
     top: 0px;
-    left: 0px;
+    left:-160px;
+    right:-100px;
     width: 100vw;
   }
 
@@ -244,7 +245,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     left: 50%;
-    width: 101%;
+    width: 100vw !important;
     height: 100%;
     margin-left: 0px !important;
     box-shadow: none;

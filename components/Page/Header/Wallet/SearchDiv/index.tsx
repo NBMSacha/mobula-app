@@ -87,7 +87,7 @@ function SearchDiv(props: any) {
     const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
     return (
       <div ref={props.wrapperRef} >
-        <Box className={styles['search-div']} position="absolute" h="400px" left="-00px" w="300px" zIndex="1000" top="0px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
+        <Box className={styles['search-div']} h={["100vh","100vh","400px","400px"]}w="300px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} style={{width:"40px", marginLeft:"10px", marginRight:"10px"}}/>
             <Input
@@ -105,7 +105,7 @@ function SearchDiv(props: any) {
             <X className={styles['X']} onClick={() => props.setTrigger(false)}  style={{width:"40px", marginRight:"10px"}}/>
           </div>
 
-          <Flex direction="column" className={styles['search-token']} borderTop={`1px solid ${border}`}>
+          <Flex direction="column" className={styles['search-token']}>
             
             
             {token ? (
