@@ -27,29 +27,26 @@ function GainerBlock(tokens: {
   console.log(tokens.title)
   const router = useRouter()
   return (
-    <Box bg={containerColor} boxShadow={`1px 1px 10px ${shadowColor}`} className={styles['gainer-box']}>
+    <Box className={styles['gainer-box']}>
       {tokens.title === "Top Gainers" && (
         <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}><Image h="20px" w="20px" src="fire.png" className={styles["marginTitle"]} />{tokens.title}</h3>
-          <a href="/movers">More {">"} </a>
+          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
         </div>
       )}
       {tokens.title === "Trendings" && (
         <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}><Image h="20px" w="20px" src="green.png" className={styles["marginTitle"]} />{tokens.title}</h3>
-          <a href="/new">More {">"}</a>
+          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
         </div>
       )}
       {tokens.title === "Recently Added" && (
         <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}><Image h="20px" w="20px" src="stopwatch.png" className={styles["marginTitle"]} />{tokens.title}</h3>
-          <a href="/new">More  {">"}</a>
+          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
         </div>
       )}
 
-      <div className={styles['gainer-container']}>
+      <Flex bg={containerColor} boxShadow={`1px 1px 10px ${shadowColor}`} className={styles['gainer-container']} borderRadius="25px" mt="15px">
         <div className={styles['left-gainer']}>
-          <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>
+          <Flex mt="0px" className={styles['line-gainer']} onClick={() => router.push(String(tokens.id1))}>
             <div className={styles['token-info-pack']}>
 
               <Image h="20px" w="20px" src={tokens.logo1} className={styles['logo-inBox']} />
@@ -62,7 +59,7 @@ function GainerBlock(tokens: {
               <div className={styles['triangle-red']}></div>
               {tokens.change1}%
             </span>)}
-          </div>
+          </Flex>
           <div className={styles['line-gainer']} onClick={() => router.push(String(tokens.id2))}>
             <div className={styles['token-info-pack']}>
 
@@ -93,7 +90,7 @@ function GainerBlock(tokens: {
             </span>)}
           </div>
         </div>
-      </div >
+      </Flex >
     </Box >
   )
 }

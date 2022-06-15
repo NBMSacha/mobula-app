@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
+import { ThumbsUp, ThumbsDown } from "react-feather"
+import Left from "./Left"
+import Mid from "./Mid"
+import Right from "./Right"
 import {
     Heading,
     Text,
@@ -69,16 +73,36 @@ function Elections() {
     }, []);
 
     return (
-        <>
-            <DaoHeader title={'Elections'}
-                description={'Decide who deserves to be part of the Protocol DAO.'}
-                url={'https://docs.mobula.finance/whitepaper'} />
+        <Flex direction={"column"} w="100%" align="center" mt="50px" mb="50px">
+            <Flex fontSize={['12px', '12px', '14px', '14px']} margin="auto" w="85%" align="end" justify="space-between" maxWidth="1400px">
+                <Flex  direction="column">
+                    <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Elections</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    See here the tokenss who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
+                    </Text>
+                </Flex>
+                <Text display={["none", "none", "none", "flex"]}>
+                      See here the lists token who got validated by the Mobula DAO
+                </Text>
+              
+            </Flex>
+            <Flex direction={["column-reverse","column-reverse","column-reverse","row"]} mt={["0px","0px","0px","50px"]} w="85%" maxWidth="1400px">
+                <Flex w={["100%","100%","100%","75%"]}>
+                    {/* LEFT COMPONENT */}
+                    <Left />
+                    <Mid />
+                  
+                </Flex>
+                <Flex w={["100%","100%","100%","25%"]} mt={["0px","0px","0px", "0px"]} mb={["10px","10px","10px", "0px"]}>
+                    <Right />
+                </Flex>
+            </Flex>
 
-            <Flex mb="10vh" pl="20px" pr="15px" flexWrap="wrap" mr="auto" ml="auto" justify="space-around" w="90%" maxWidth="1240px" >
+            {/* <Flex mb="10vh" pl="20px" pr="15px" flexWrap="wrap" mr="auto" ml="auto" justify="space-around" w="90%" maxWidth="1240px" >
                 <Vote promote={true} firstInput={membersToPromoteOne} secondInput={membersToPromoteTwo} setFirstInput={setPromoteAddress} firstValue={promoteAddress} />
                 <Vote promote={false} firstInput={membersToDemoteOne} secondInput={membersToDemoteTwo} setFirstInput={setDemoteAddress} firstValue={demoteAddress} />
-            </Flex>
-        </>
+            </Flex> */}
+        </Flex>
     );
 }
 

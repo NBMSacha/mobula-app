@@ -25,6 +25,7 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import ConnectWallet from "../../Utils/ConnectWallet"
+import Data from "../../Utils/Data";
 
 function News(props: any) {
 
@@ -201,9 +202,10 @@ function News(props: any) {
     }
   }
 
-  const gradient = useColorModeValue("white_gradient", "dark_gradient")
+  const gradient = useColorModeValue("white_gradient", "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)")
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
+  const bg = useColorModeValue("none", "#121626")
 
   return (
     <>
@@ -306,8 +308,11 @@ function News(props: any) {
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-        <TableContainer>
-          <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
+        
+        <TableContainer bg={bg} display="flex" flexDirection="column" alignItems="center">
+          {/* <Data /> */}
+          <Table  style={{ minWidth: "1220px" }} className={styles["table-style"]}>
+            
             <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
               <Tr className={styles[""]}>
                 <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>

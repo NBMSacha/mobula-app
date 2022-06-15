@@ -39,7 +39,7 @@ function Right({
     };
 
     return (
-        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box"]}>
                 <label >Audit Link (Optional) </label>
                 <Input
@@ -47,7 +47,7 @@ function Right({
                     pr="10px"
                     _placeholder={{ color: "none" }}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
-                    bg={input}
+                    bg={box}
                     type="text"
                     id="audit"
                     name="audit"
@@ -62,7 +62,7 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     type="text"
                     id="kyc"
@@ -78,7 +78,7 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     type="text"
                     id="kyc"
@@ -98,7 +98,7 @@ function Right({
                                 value={x.value}
                                 boxShadow={`1px 2px 12px 3px ${shadow}`}
                                 name="excluded"
-                                bg={input}
+                                bg={box}
                                 color="none"
                                 _placeholder={{ color: "none" }}
                                 placeholder="0x5D3e4C0FE11e0..."
@@ -108,7 +108,7 @@ function Right({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
+                                {inputList.length - 1 === i && <Button bg={box} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
                             </div>
                         </>
                     );

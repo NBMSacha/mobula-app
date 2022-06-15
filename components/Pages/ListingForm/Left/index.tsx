@@ -42,7 +42,7 @@ function Left({
 
     return (
 
-        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box-flex"]}>
                 <div className={styles["inputs-container"]}>
                     <label >Symbol *</label>
@@ -52,7 +52,7 @@ function Left({
                         className={styles["inputs"]}
                         required
                         _placeholder={{ color: "none", textOverflow: "ellipsis", paddingRight: "5px" }}
-                        bg={input}
+                        bg={box}
                         id="msg"
                         name="website"
                         boxShadow={`1px 2px 12px 3px ${shadow}`}
@@ -73,7 +73,7 @@ function Left({
                         _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                         id="msg"
                         name="name"
-                        bg={input}
+                        bg={box}
                         placeholder="Mobula Finance"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -83,7 +83,7 @@ function Left({
             <div className={styles["form-container-box-flex"]}>
                 <div>
                     <label>Upload Logo *</label>
-                    <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={input}>
+                    <Flex boxShadow={`1px 2px 12px 3px ${shadow}`} className={styles["upload-box"]} bg={box}>
                         {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
                         {uploadedImage || logo ? <img style={{ objectFit: "cover", height: "100%" }} src={uploadedImage ? uploadedImage : logo} /> : <></>}
                     </Flex>
@@ -117,14 +117,14 @@ function Left({
                         <Upload className={styles["upload-logo"]} />
                         Browse to upload
                     </span>
-                    <div className={styles["form-container-box"]} >
+                    <Flex display={["flex", "flex", "none", "none"]} className={styles["form-container-box"]} >
                         <Input
                             pl="10px"
                             pr="10px"
                             id="logo"
                             boxShadow={`1px 2px 12px 3px ${shadow}`}
                             variant="filled"
-                            bg={input}
+                            bg={box}
                             className={styles["inputs"]}
                             name="logo"
                             value={logo}
@@ -133,7 +133,7 @@ function Left({
                             placeholder="https://mobula.fi/logo.png"
                             required
                         ></Input>
-                    </div>
+                    </Flex>
                 </div>
             </div>
             <div className={styles["form-container-box"]} id='parents'>
@@ -148,7 +148,7 @@ function Left({
                                 boxShadow={`1px 2px 12px 3px ${shadow}`}
                                 name="excluded"
                                 className={`${styles["contract"]} ${styles["inputs"]}`}
-                                bg={input}
+                                bg={box}
                                 type="text"
                                 value={x.value}
                                 _placeholder={{ color: "none", textOverflow: "ellipsis" }}
@@ -156,7 +156,7 @@ function Left({
                                 onChange={e => { handleInputChangeContract(e, i) }}
                             />
                             <div className="btn-box">
-                                {inputListContract.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</Button>}
+                                {inputListContract.length - 1 === i && <Button bg={box} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</Button>}
                             </div>
                         </>
                     );
@@ -186,7 +186,7 @@ function Left({
                     _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                     id="msg"
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
-                    bg={input}
+                    bg={box}
                     name="description"
                     className={styles["inputs"]}
                     placeholder="Mobula Finance is the first decentralized data aggregator supporting all chains ..."

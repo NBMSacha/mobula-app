@@ -35,7 +35,7 @@
 
 .dflex {
   display: block !important;
-
+  width:85%;
   white-space: nowrap;
 }
 
@@ -245,6 +245,7 @@
 
   .dflex {
     display: flex;
+    width:98%;
     white-space: initial !important;
   }
 
@@ -698,4 +699,10 @@
   text-overflow: initial !important;
   overflow: initial !important;
   white-space: nowrap;
+}
+
+@media screen and (max-width:1390px) {
+  .dflex{
+    width:95%;
+  }
 }

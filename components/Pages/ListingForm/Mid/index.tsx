@@ -19,7 +19,7 @@ function Mid({
         console.log(`this is website : ${website}`)
 
     return (
-        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]}boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box"]}>
                 <label >Website *</label>
                 <Input
@@ -30,7 +30,7 @@ function Mid({
                     required
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     id="msg"
-                    bg={input}
+                    bg={box}
                     name="website"
                     placeholder="https:/app.mobula.finance"
                     value={website}
@@ -43,7 +43,7 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     type="text"
                     id="name"
@@ -60,7 +60,7 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     value={telegram}
                     required
@@ -77,7 +77,7 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     id="discord"
                     className={styles["inputs"]}

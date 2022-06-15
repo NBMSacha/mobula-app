@@ -327,7 +327,7 @@
 }
 .three-forms {
     width: 28%;
-    padding:20px;
+    padding:0px;
     border-radius:20px;
     max-width: 450px ;
     margin-top:50px;
@@ -335,7 +335,7 @@
 .listToken-main {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    width: 90%;
     margin-top: 20px;
 }
 .all-forms {
@@ -560,8 +560,12 @@
         
         margin: 12px 0px 0px 0px !important ;
     }
+    .all-forms{
+        width:100% !important
+    }
     .file{
         width: 66% !important;
+        margin-left:20px
     }
     .button-submit{
         margin-left: auto !important;
@@ -608,6 +612,9 @@
     .all-forms{
         width:95%
     }
+    .listToken-main {
+        width: 98%;
+    }
     
 }
 
@@ -622,6 +629,9 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+    }
+    .listToken-main {
+        width: 98%;
     }
     .form-container-box-flex > div > label {
         white-space: nowrap !important;
