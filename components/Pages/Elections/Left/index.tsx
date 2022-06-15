@@ -10,15 +10,20 @@ import {
     Input,
     Button,
     Spacer,
-    useColorModeValue
+    useColorModeValue,
+    Textarea
 } from "@chakra-ui/react";
 
-function Left() {
+function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
    
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const bgBox = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_box)")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const bgBtn = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_btn_election)")
+    const title = promote ? 'Promotion' : 'Demotion';
+    const action = promote ? 'promote' : 'demote';
+    const firstPartTitle = promote ? 'Amount of Rank I seats available' : 'Amount of Rank I members';
+    const secondPartTitle = promote ? 'Amount of Rank II seats available' : 'Amount of Rank II members';
 
     return (
             <Flex w="50%" direction="column" >
@@ -29,9 +34,9 @@ function Left() {
                     </Flex>
                     <Flex direction="column">
                         <Text fontSize={["12px","12px","15px","15px"]} mb="15px" opacity=".7">Amount of Rank I seats available</Text>
-                        <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color="green"> 5 Seats</Text>
+                        <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color={firstInput > 0 ? "green" : "red"}> {firstInput} Seats</Text>
                         <Text fontSize={["12px","12px","15px","15px"]} mb="15px" opacity=".7">Amount of Rank II seats available</Text>
-                        <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color="red"> 0 Seats</Text>
+                        <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color={secondInput > 0 ? "green" : "red"}> {secondInput} Seats</Text>
                     </Flex>
                 </Flex>
                 <Flex boxShadow={["none","none","none",`1px 2px 13px 3px ${shadow}`]} p={["10px","10px","15px","20px"]} direction="column" bg={bgBox} borderRadius="12px">
@@ -41,6 +46,8 @@ function Left() {
                         bg={bg}
                         fontSize={["12px","12px","15px","15px"]}
                         boxShadow={`1px 2px 13px 3px ${shadow}`}
+                        value={firstValue}
+                        onChange={(e) => setFirstInput(e.target.value)}
                         pl="10px"
                         pr="10px"
                         id="logo"
@@ -53,7 +60,7 @@ function Left() {
                         mb="30px"
                     />
                     <Text fontSize={["12px","12px","15px","15px"]} mb="10px" opacity="0.7">Why ?</Text>
-                    <Input 
+                    <Textarea 
                         placeholder="Explain here why promote this adress"
                         bg={bg}
                         fontSize={["12px","12px","15px","15px"]}

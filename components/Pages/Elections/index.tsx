@@ -89,19 +89,13 @@ function Elections() {
             <Flex direction={["column-reverse","column-reverse","column-reverse","row"]} mt={["0px","0px","0px","50px"]} w="85%" maxWidth="1400px">
                 <Flex w={["100%","100%","100%","75%"]}>
                     {/* LEFT COMPONENT */}
-                    <Left />
-                    <Mid />
-                  
+                    <Left promote={true} firstInput={membersToPromoteOne} secondInput={membersToPromoteTwo} setFirstInput={setPromoteAddress} firstValue={promoteAddress} />
+                    <Mid promote={false} firstInput={membersToDemoteOne} secondInput={membersToDemoteTwo} setFirstInput={setDemoteAddress} firstValue={demoteAddress} />
                 </Flex>
                 <Flex w={["100%","100%","100%","25%"]} mt={["0px","0px","0px", "0px"]} mb={["10px","10px","10px", "0px"]}>
                     <Right />
                 </Flex>
             </Flex>
-
-            {/* <Flex mb="10vh" pl="20px" pr="15px" flexWrap="wrap" mr="auto" ml="auto" justify="space-around" w="90%" maxWidth="1240px" >
-                <Vote promote={true} firstInput={membersToPromoteOne} secondInput={membersToPromoteTwo} setFirstInput={setPromoteAddress} firstValue={promoteAddress} />
-                <Vote promote={false} firstInput={membersToDemoteOne} secondInput={membersToDemoteTwo} setFirstInput={setDemoteAddress} firstValue={demoteAddress} />
-            </Flex> */}
         </Flex>
     );
 }

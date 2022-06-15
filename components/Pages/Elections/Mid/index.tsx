@@ -12,12 +12,13 @@ import {
     Input,
     Button,
     Spacer,
-    useColorModeValue
+    useColorModeValue,
+    Textarea
 } from "@chakra-ui/react";
 import styles from "./Elections.module.scss";
 
 
-function Mid() {
+function Mid({promote, firstInput, secondInput, setFirstInput, firstValue}) {
    
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const bgBox = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_box)")
@@ -33,9 +34,9 @@ function Mid() {
                             </Flex>
                             <Flex direction="column">
                                 <Text fontSize={["12px","12px","15px","15px"]} mb="15px" opacity=".7">Amount of Rank I seats members</Text>
-                                <Text fontSize={["14px","14px","17px","17px"]} mb="15px"> 38 Members</Text>
+                                <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color={firstInput > 0 ? "green" : "red"}>{firstInput} Members</Text>
                                 <Text fontSize={["12px","12px","15px","15px"]} mb="15px" opacity=".7">Amount of Rank II seats members</Text>
-                                <Text fontSize={["14px","14px","17px","17px"]} mb="15px"> 5 Members</Text>
+                                <Text fontSize={["14px","14px","17px","17px"]} mb="15px" color={secondInput > 0 ? "green" : "red"}> {secondInput} Members</Text>
                             </Flex>
                         </Flex>
                         <Flex p={["10px","10px","15px","20px"]} boxShadow={["none","none","none",`1px 2px 13px 3px ${shadow}`]} direction="column" bg={[bgBox]} borderRadius="12px">
@@ -44,6 +45,8 @@ function Mid() {
                                 h={["29px","29px","29px","32px"]}
                                 borderRadius="8px"
                                 placeholder="0x"
+                                value={firstValue}
+                                onChange={(e) => setFirstInput(e.target.value)}
                                 bg={bg}
                                 boxShadow={`1px 2px 13px 3px ${shadow}`}
                                 fontSize={["12px","12px","15px","15px"]}
@@ -57,7 +60,7 @@ function Mid() {
                                 mb="30px"
                             />
                             <Text fontSize={["12px","12px","15px","15px"]} mb="10px" opacity="0.7">Why ?</Text>
-                            <Input 
+                            <Textarea 
                                 placeholder="Explain here why demote this adress"
                                 bg={bg}
                                 h={["29px","29px","29px","32px"]}
