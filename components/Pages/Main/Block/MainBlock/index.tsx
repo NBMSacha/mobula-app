@@ -37,7 +37,7 @@ function MainBlock(props: any) {
             <Flex justify="center">
               <div >
                 <a href='/earn'>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border="1px solid rgba(122, 122, 122, 0.1)"
                     mr="10px" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]} >
                     <div className={styles['logo-box']}>
@@ -55,7 +55,7 @@ function MainBlock(props: any) {
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border="1px solid rgba(122, 122, 122, 0.1)"
                     bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
                     <div className={styles['logo-box']}>
@@ -71,7 +71,7 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
+                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border="1px solid rgba(122, 122, 122, 0.1)" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
                    borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "230px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>

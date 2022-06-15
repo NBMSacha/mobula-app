@@ -8,12 +8,12 @@ export const ButtonStyles = {
     variants: {
         primary: (props) => ({
             bg: mode("white_terciary", "var(--chakra-colors-dark_secondary)")(props),
-            color: mode("#000","#F7F7F7")(props),
-            border:mode("1px solid var(--chakra-colors-dark_border)", "1px solid var(--chakra-colors-border_dark_gainer)"),
+            color: mode("#000","#F7F7F7")(props), 
+            border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
             _hover: {
                 bg: mode("white", "rgba(255, 255, 255, 0.1)")(props),
                 color:mode("black", "white")(props),
-                border:mode(" 1px solid var(--chakra-colors-border_dark_gainer)", "1px solid var(--chakra-colors-grey_border)"),
+                border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
             },
             _active: {
                 border:"none",
@@ -28,11 +28,10 @@ export const ButtonStyles = {
         secondary: (props) => ({
             bg: mode("white", "#2B3A75")(props),
             color: mode("#000","#F7F7F7")(props),
-            border:mode("1px solid var(--chakra-colors-dark_border)", "1px solid var(--chakra-colors-border_dark_gainer)"),
+            border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
             _hover: {
                 bg: mode("white", "rgba(255, 255, 255, 0.1)")(props),
-                
-                border:mode(" 1px solid var(--chakra-colors-border_dark_gainer)", "1px solid var(--chakra-colors-grey_border)"),
+                border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
                 color:mode("black", "white")(props)
             },
             _active: {
