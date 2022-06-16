@@ -227,7 +227,7 @@ function Token(token: {
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const testRef = useRef();
   return (
-    <Tbody id="nul" ref={testRef} borderBottom={`1px solid ${border}`} _hover={{background: hover}} className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+    <Tbody id="nul" ref={testRef}_hover={{background: hover}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
       <Tr  className={styles["trs"]} >
         <Td py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`} onClick={() => router.push('/asset/' + getUrlFromName(token.name))} >
           <a href="" className={styles["white"]}>

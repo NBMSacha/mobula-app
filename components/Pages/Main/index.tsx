@@ -313,7 +313,7 @@ function News(props: any) {
           {/* <Data /> */}
           <Table  style={{ minWidth: "1220px" }} className={styles["table-style"]}>
             
-            <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
+            <Thead borderTop={`2px solid ${border}`} >
               <Tr className={styles[""]}>
                 <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
                 <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>

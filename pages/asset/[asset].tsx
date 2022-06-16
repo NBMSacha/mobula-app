@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 import { fromUrlToName } from '../../helpers/formaters'
 import { ethers } from 'ethers';
+import Token from '../../components/Pages/newChart';
 
 export async function getStaticPaths() {
     return {
@@ -60,7 +61,7 @@ function Dataprovider({ asset }) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} />
+            <Token baseAsset={asset} />
         )
     }
 
