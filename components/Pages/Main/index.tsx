@@ -361,7 +361,7 @@ function News(props: any) {
         </TableContainer>
       </div>
       {widgetVisible && (
-        <Widget />
+        <Widget widget={widgetVisible} setWidget={setWidgetVisible}  />
       )}
 
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}

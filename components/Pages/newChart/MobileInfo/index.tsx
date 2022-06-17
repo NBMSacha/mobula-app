@@ -5,7 +5,7 @@ import Contract from "../../../Utils/Contract"
 const MobileInfo = ({ baseAsset, moreStat, totalScore }) => { 
     console.log(baseAsset)
  return (
-    <Box display={moreStat ? "block" : "none"}>
+    <Box w="90%" display={moreStat ? "block" : "none"}>
         <Text p="0px 25px" fontSize="10px" lineHeight="18px">{baseAsset.description}</Text>
         <Flex justify="space-between" w='100%' p="0px 25px" mt="20px">
             <Box mb="20px">

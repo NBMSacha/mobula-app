@@ -762,7 +762,7 @@ const Token = ({ baseAsset }) => {
   const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
  return (
 
-   <Flex justify="center" w="90%" m="auto" className={styles["main"]}>
+   <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px">
 
         {/* Left */}
         <Flex direction="column" w={["100%","100%","100%","65%"]} minWidth={["350px", "350px","350px","780px"]}>
@@ -795,7 +795,7 @@ const Token = ({ baseAsset }) => {
                 <ChartBox setTitle={setTitle} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
             ) : ( 
                 <Flex justify="center" display={["flex","flex","flex","none"]}>
-                    <Swap shadowbis={shadowbis} baseAsset={baseAsset} />
+                    <Swap baseAsset={baseAsset} />
                 </Flex>
             )}
             

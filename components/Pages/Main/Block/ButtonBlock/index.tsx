@@ -9,6 +9,7 @@ import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X, Settings } from 'react-feather';
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image } from "@chakra-ui/react";
+import Widget from "../../../../Utils/Widget"
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
 
@@ -112,9 +113,10 @@ function ButtonBlock({ setDisplay, display, setResults, widget, setWidget }) {
           ></Input>
           {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
         </Flex>
+        
         <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
         onClick={() => {
-          setWidget(!widget)
+          setWidget(true)
         }}
       
           boxShadow={`1px 2px 12px 3px ${shadow}`}

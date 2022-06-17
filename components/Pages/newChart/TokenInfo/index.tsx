@@ -33,24 +33,24 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                                 <Text mr={["8px","8px","15px","15px"]} fontSize={["15px","15px","30px","30px"]}>{baseAsset.name}</Text>
                                 <Box border="1px solid grey" borderRadius="6px" px={["3px","3px","5px","5px"]} fontSize={["9px","9px","12px","12px"]}>{baseAsset.symbol}</Box>
                             </Flex>
-                            <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px","9px","12px","12px"]}>Dao Score : {totalScore > 0 ? totalScore : ' -- '} /20 ></Text>
+                            <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px","9px","12px","12px"]}>Dao Score : {totalScore > 0 ? totalScore : ' -- '} /20 {">"}</Text>
                             <Link href="/">
-                                <Text display={["flex", "flex", "flex", "none"]} opacity=".6" fontSize={["9px","9px","12px","12px"]}>Top 100 > {baseAsset.name}</Text>
+                                <Text display={["flex", "flex", "flex", "none"]} opacity=".6" fontSize={["9px","9px","12px","12px"]}>Top 100 {">"} {baseAsset.name}</Text>
                             </Link>
                         </Box>
                     </Flex>
                     {/* Website / Chat / Kyc / Audit / Infos  */}
                     <Flex align="center" display={["none", "none", "none","flex"]}>
-                        <Link target="_blank" href={baseAsset.website} borderRadius="6px" border={border}_focus={{boxShadow:"none"}} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : socialLink} fontSize="12px" _hover={{textDecoration: "none"}}>
+                        <Link target="_blank" href={baseAsset.website} borderRadius="6px" border={border}_focus={{boxShadow:"none"}} color={selectorInfo === "Website" ? "white" : "none" } onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : socialLink} fontSize="12px" _hover={{textDecoration: "none"}}>
                             <Flex  borderRadius="6px" p={["","","","4px 6px"]}>Website</Flex>
                         </Link>
-                        <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border={border} _focus={{boxShadow:"none"}} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
+                        <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border={border} _focus={{boxShadow:"none"}} color={selectorInfo === "Audit" ? "white" : "none" } onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
                             <Flex borderRadius="6px" p={["","","","4px 6px"]}>Audit</Flex>
                         </Link>
-                        <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border={border} _focus={{boxShadow:"none"}} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
+                        <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border={border} _focus={{boxShadow:"none"}} color={selectorInfo === "KYC" ? "white" : "none" } onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
                             <Flex borderRadius="6px" p={["","","","4px 6px"]}>KYC</Flex>
                         </Link>
-                        <Link borderRadius="6px" border={border} _focus={{boxShadow:"none"}} onClick={() => setSelectorInfo("Infos")} bg={selectorInfo === "Infos" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
+                        <Link borderRadius="6px" border={border} _focus={{boxShadow:"none"}} onClick={() => setSelectorInfo("Infos")} color={selectorInfo === "Infos" ? "white" : "none" } bg={selectorInfo === "Infos" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{textDecoration: "none"}}>
                             <Flex borderRadius="6px" p={["","","","4px 6px"]}>Infos</Flex>
                         </Link>
                     </Flex>
@@ -62,10 +62,7 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                             <Text color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"} ml={["10px","","",""]} fontSize={"12px"}>{getTokenPercentage(baseAsset.price_change_24h) > 0 ? `+${getTokenPercentage(baseAsset.price_change_24h)}` : getTokenPercentage(baseAsset.price_change_24h)}%</Text>
                         </Flex>
                         {/* Progress bar */}
-                       
                         <ProgressBar animated variant="success" now={60} />
-                       
-                        
                     </Box>
                 </Flex>
                 <Flex display={selectorInfo === "Infos" ? "flex" :"none"} ml="80px" maxWidth="950px" mb="40px">

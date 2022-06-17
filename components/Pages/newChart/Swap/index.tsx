@@ -15,7 +15,7 @@ import {
   } from "@chakra-ui/progress"
   import { ProgressBar } from 'react-bootstrap';
 
-const Swap = ({ baseAsset, shadowbis }) => { 
+const Swap = ({ baseAsset }) => { 
     const bg = useColorModeValue("none", "#191D2C")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     console.log(baseAsset)

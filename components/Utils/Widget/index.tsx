@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 import { useColorModeValue, Flex, Box, Text,Stack } from '@chakra-ui/react'
+import { CloseIcon } from '@chakra-ui/icons'
 import {
     RangeSlider,
     RangeSliderTrack,
     RangeSliderFilledTrack,
     RangeSliderThumb,
-    Checkbox, Tooltip,RadioGroup
+    Checkbox, Tooltip,RadioGroup, Button
   } from '@chakra-ui/react'
 
   import {
@@ -23,7 +24,7 @@ import {
     fontSize: 'sm',
   }
 
-export default function Widget() {
+export default function Widget({setWidget, widget}) {
 
 
     const [sliderVolume, setSliderVolume] = useState(0)
@@ -47,11 +48,15 @@ export default function Widget() {
     return (
     <>
         <Flex direction="column" align="center" w="350px" position="fixed" zIndex="10" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px" bg={bg}>
-            <Text mt="30px" w="80%" mb="20px" fontSize="15px">Token filtering settings</Text>
+            <Flex align="center" mt="30px" mb="20px" w="80%" justify="space-between">
+                <Text w="100%" fontSize="15px">Token filtering settings</Text>
+                <Button onClick={() => setWidget(false)} _focus={{boxShadow:"none"}}>
+                    <CloseIcon w="12px" h="12px" />
+                </Button>
+                
+            </Flex>
             <Box h="1px" w="100%" bg={borderBox}></Box>
             <Flex direction="column" justify="center" w="80%">
-
-            
                 <Text mt="20px" fontSize="12px">Max. Liquidity</Text>
             <Box pt={6} pb={2}>
             <Slider aria-label='slider-ex-6' defaultValue={0} mt="15px" onChange={(val) => setSliderValue(val)}>
