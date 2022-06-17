@@ -73,7 +73,7 @@ function Elections() {
     }, []);
 
     return (
-        <Flex direction={"column"} w="100%" align="center" mt="50px" mb="50px">
+        <Flex direction={"column"} w="100%" align="center" mt="28px" mb="50px">
             <Flex fontSize={['12px', '12px', '14px', '14px']} margin="auto" w="85%" align="end" justify="space-between" maxWidth="1400px">
                 <Flex  direction="column">
                     <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Elections</Heading>
