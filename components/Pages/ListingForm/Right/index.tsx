@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from "../ListingForm.module.scss";
-import { Input, Flex, Button } from '@chakra-ui/react';
+import { Input, Flex, Button, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/react';
 
 function Right({
@@ -115,6 +115,7 @@ function Right({
                 })}
             </div>
             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
+                <Text textAlign="end" fontSize="10px" mb="10px" opacity=".2" ml="auto">Mendatory Fields *</Text>
                 <button style={{ color: "white" }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
