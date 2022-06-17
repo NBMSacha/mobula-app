@@ -7,6 +7,7 @@ import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
 import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
 import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
+import BlockchainBtn from "../../Utils/BlockchainBtn"
 import { Sliders } from "react-feather"
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X, Settings } from 'react-feather';
@@ -53,7 +54,10 @@ export default function RecentlyAdded({ tokens }) {
   return (
     <Flex justify="center">
       <div className={styles["dflex"]} >
-        <Flex mb={'50px'} mt={'55px'} fontSize={['12px', '12px', '14px', '14px']} className={styles["stickyFix"]} w="100%" align="end" justify="space-between">
+        <Flex>
+          <Text display={["flex", "flex", "none", "none"]} mb={'20px'} mt={'25px'}>Recently added</Text>
+        </Flex>
+        <Flex display={["none", "none", "flex", "flex"]} mb={'50px'} mt={'55px'} fontSize={['12px', '12px', '14px', '14px']} className={styles["stickyFix"]} w="100%" align="end" justify="space-between">
           <Flex direction="column">
             <Heading  mb={'15px'}  fontSize="24px" fontFamily="Inter">Recently added tokens</Heading>
             <Text  whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
@@ -63,97 +67,21 @@ export default function RecentlyAdded({ tokens }) {
           </Flex>
           See here the lists token who got validated by the Mobula DAO
         </Flex>
-        <Flex className={styles['main-blockchain-container']} w="95%" bg={bg} mb="20px">
-      <Flex className={styles['blockchain-container']} w="100%" justify="space-around">
-        <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
-            <Image h={["28px", "28px", "28px", "28px"]} src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
-            <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>ONION</span>
-        </Button>
-        <Button w="110px"border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
-          <Image h={["28px", "28px", "28px", "28px"]} src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
-          <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>DiGi</span>
-        </Button>
-        <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
-          <Image h={["28px", "28px", "28px", "28px"]} src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
-          <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>ETH</span>
-        </Button>
-        <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'BNB Smart Chain (BEP20)' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
-          <Image h={["28px", "28px", "28px", "28px"]} src='bnb.png' className={styles['blockchain-logo']} />
-          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>BNB</span>
-        </Button>
-        <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
-          <Image h={["28px", "28px", "28px", "28px"]} src='avalanche.png' className={styles['blockchain-logo']} />
-          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>AVAX</span>
-        </Button>
-        <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px 10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
-          <Image h={["28px", "28px", "28px", "28px"]} src='polygon.png' className={styles['blockchain-logo']} />
-          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>MATIC</span>
-        </Button>
-        <Button border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"
-          className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
-        >
-          <span>
-            <AiOutlineArrowLeft style={{width:'19px', fontSize:"21px", margin:"0px 10px"}}/>
-          </span>
-          <span style={{margin:"0px 10px"}} className={`${styles['mienai']} ${styles['blockchain-name']}`}>See other chains</span>
-          <Image src='harmony.png'  h={["28px", "28px", "28px", "36px"]}/>
-          <Image src='optimism.png' h={["28px", "28px", "28px", "36px"]}/>
-          <Image src='arbitrum.png' h={["28px", "28px", "28px", "36px"]}/>
-          
-
-        </Button>
-{/* 
-        <button className={styles["params"]}>
-          <Settings className={styles["colors"]} />
-        </button> */}
-        <Flex bg={btn_bg} border={`1px solid ${border}`} mx={1} align="center" position="relative" h={["30px", "30px", "40px", "40px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
-          <Flex bg={btn_bg} ml="10px" mr="5px" fontSize="25px" opacity=".6"_placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
-            <FiSearch className={styles['loupe']} />
-          </Flex>
-          <Input
-            // value={token}
-            
-            type='text'
-            bg="none"
-            border="none"
-            name='search'
-            fontSize="14px"
-            _placeholder={{ color: "none" }}
-            placeholder='Search'
-            onChange={(e) => setSearch(e.target.value)}
-            id='search'
-            autoFocus
-          ></Input>
-          {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
-        </Flex>
-        <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
-        onClick={() => {
-          setWidget(!widget)
-        }}
-      
-          boxShadow={`1px 2px 12px 3px ${shadow}`}
-          border={`1px solid ${border}`}
-          colorScheme='teal'
-          aria-label='Call Segun'
-          size='md'
-          icon={<Sliders />}
-        />
-      </Flex>
-    </Flex >
+        <BlockchainBtn />
         <TableContainer mb="20px" >
           <Table variant='simple'>
-            <Thead borderBottom={`2px solid ${border}`}>
+            <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
               <Tr>
                 {isLargerThan768 && (
-                  <Th isNumeric>Rank</Th>
+                  <Th py="5px" isNumeric>Rank</Th>
                 )}
                 <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} textAlign="start">Asset</Th>
-                <Th isNumeric>Price</Th>
-                <Th isNumeric>Change (24h)</Th>
-                <Th isNumeric>Market Cap</Th>
-                <Th isNumeric>Volume (24h)</Th>
-                <Th>Socials</Th>
-                <Th>Added</Th>
+                <Th px="5px" isNumeric>Price</Th>
+                <Th px="5px" isNumeric>Change (24h)</Th>
+                <Th px="5px" isNumeric>Market Cap</Th>
+                <Th px="5px" isNumeric>Volume (24h)</Th>
+                <Th >Socials</Th>
+                <Th >Added</Th>
               </Tr>
             </Thead>
             {tokens.map((token: any) => {
@@ -183,31 +111,31 @@ export default function RecentlyAdded({ tokens }) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
-              return (<Tbody onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
+              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px"  onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
                 <Tr>
                   {isLargerThan768 && (
                     <Td isNumeric>
                       <Text>{token.rank}</Text>
                     </Td>
                   )}
-                  <Td px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} >
+                  <Td px="5px" position="sticky" py="5px" left="0px" bg={isLargerThan768 ? "none" : bg} >
                     <Flex align="center">
-                      <Image borderRadius="50%" h="30px" src={token.logo} mr="10px" />
+                      <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]} src={token.logo} mr="10px" />
                       <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
                       <Text opacity="0.6">{token.symbol}</Text>
                     </Flex>
                   </Td>
-                  <Td px="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
-                  <Td px="5px" isNumeric>
+                  <Td px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
+                  <Td px="5px" py="5px" isNumeric>
                     <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
                       {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
 
                       {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>
-                  <Td px="5px" isNumeric><Text>${token.market_cap}</Text></Td>
-                  <Td px="5px" isNumeric><Text>${token.volume}</Text></Td>
-                  <Td py={["0px", "0px", "0px", "30px"]}>
+                  <Td px={"5px"} py="5px" isNumeric><Text>${token.market_cap}</Text></Td>
+                  <Td px="5px" py="5px" isNumeric><Text>${token.volume}</Text></Td>
+                  <Td py={["5px", "5px", "20px", "20px"]}>
                     <Flex>
                       {token.website && (
                         <Link href={token.website}>
@@ -226,7 +154,7 @@ export default function RecentlyAdded({ tokens }) {
                       )}
                     </Flex>
                   </Td>
-                  <Td px="5px">
+                  <Td  px="5px">
                     {format == "seconds" && <span>{postedDate} seconds ago</span>}
                     {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
                     {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}

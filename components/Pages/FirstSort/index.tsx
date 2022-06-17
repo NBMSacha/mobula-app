@@ -242,11 +242,11 @@ function FirstSort() {
             url="https://docs.mobula.finance/app/sort"
         />
 
-        {tokenDivs.length == 0 && (
+        {tokenDivs.length !== 0 && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
-        {(displayedToken ?
+        {(!displayedToken ?
             <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
 
             <Blocks tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
