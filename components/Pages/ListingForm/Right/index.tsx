@@ -115,10 +115,10 @@ function Right({
                 })}
             </div>
             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
-                <button style={{ color: btn }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
         </Flex>
     )
