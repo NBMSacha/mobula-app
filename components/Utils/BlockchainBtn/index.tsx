@@ -27,7 +27,7 @@ import {
 import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
-export default function BlockchainBtn({ tokens }) {
+export default function BlockchainBtn({ tokens, setWidget, widget}) {
   const router = useRouter();
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()

@@ -14,6 +14,7 @@ import { X, Settings } from 'react-feather';
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link } from "@chakra-ui/react";
 import ButtonBlock from "../Main/Block/ButtonBlock"
+import Widget from "../../Utils/Widget"
 import {
   Table,
   Thead,
@@ -32,7 +33,7 @@ export default function RecentlyAdded({ tokens }) {
   const router = useRouter();
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
-
+  const [ widget, setWidget] = useState(false)
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
       if ((window.matchMedia("(max-width: 768px)").matches)) {
@@ -49,7 +50,7 @@ export default function RecentlyAdded({ tokens }) {
   const btn_bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
   const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
-  const [display, setDisplay ] = useState("ntm FDP")
+  const [display, setDisplay ] = useState("")
 
   return (
     <Flex justify="center">
@@ -67,7 +68,10 @@ export default function RecentlyAdded({ tokens }) {
           </Flex>
           <Text display={["none", "none", "none", "flex"]}>See here the lists token who got validated by the Mobula DAO</Text>
         </Flex>
-        <BlockchainBtn />
+        <Flex display={widget ? "flex" : "none" }>
+          <Widget setWidget={setWidget} />
+        </Flex>
+        <BlockchainBtn setWidget={setWidget} widget={widget} />
         <TableContainer mb="20px" >
           <Table variant='simple'>
             <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>

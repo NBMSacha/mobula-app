@@ -7,6 +7,7 @@ import Tables from "./Tables"
 import BlockchainBtn from "../../Utils/BlockchainBtn"
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { TrendingUp, TrendingDown } from "react-feather"
+import Widget from "../../Utils/Widget"
 
 function GainersLosers() {
 
@@ -21,6 +22,7 @@ function GainersLosers() {
     const text = useColorModeValue('black', 'white');
     var gainer = "gainer"
     var loser = "loser"
+    const [ widget, setWidget] = useState(false)
 
     useEffect(() => {
         const supabase = createClient(
@@ -68,9 +70,12 @@ function GainersLosers() {
                  <Heading color={text} ml="50px" display={["none", "none", "flex", "flex"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">Top gainers / Top losers </Heading>
                  <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">See here the top gainers and the top losers</Text>
                  <Flex w="100%" display={["none", "none", "flex", "flex"]}>
-                    <BlockchainBtn />
+                    <Flex display={widget ? "flex" : "none" }>
+                        <Widget setWidget={setWidget} />
+                    </Flex>
+                    <BlockchainBtn setWidget={setWidget} widget={widget} />
                  </Flex>
-                
+                 
             </div>
            
             <div className={styles["both-container"]}>
