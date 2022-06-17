@@ -23,6 +23,7 @@ import ChartBox from "./Chart"
 import Contract from "../../Utils/Contract"
 import styles from './newChart.module.scss';
 import Swap from "./Swap"
+import MobileInfo from "./MobileInfo"
 
 const Token = ({ baseAsset }) => { 
 
@@ -758,7 +759,7 @@ const Token = ({ baseAsset }) => {
   const shadow = useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')
   const shadowbis = useColorModeValue("var(--chakra-colors-shadow)", "none")
   const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
-
+  const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
  return (
 
    <Flex justify="center" w="90%" m="auto" className={styles["main"]}>
@@ -769,57 +770,7 @@ const Token = ({ baseAsset }) => {
             <TokenInfo totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} socialLink={socialLink} baseAsset={baseAsset} />
             <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
                 {/* COMPO */}
-                <Box display={moreStat ? "block" : "none"}>
-                    <Text p="0px 25px" fontSize="10px" lineHeight="18px">{baseAsset.description}</Text>
-                    <Flex justify="space-between" w='100%' p="0px 25px" mt="20px">
-                        <Box mb="20px">
-                            <Text fontSize="9px" opacity=".6">Marketcap</Text>
-                            <Text mb="10px" fontSize="12px">${baseAsset.market_cap}</Text>
-                            <Text fontSize="9px" opacity=".6">Volume (24h)</Text>
-                            <Text mb="10px" fontSize="12px">${baseAsset.volume}</Text>
-                            <Text fontSize="9px" opacity=".6">Fully diluted Marketcap</Text>
-                            <Text fontSize="12px">${baseAsset.market_cap_diluted}</Text>
-                        </Box>
-                        <Box mb="20px">
-                            <Text fontSize="9px" opacity=".6">Circulating supply</Text>
-                            <Text mb="10px" fontSize="12px">${baseAsset.circulating_supply}</Text>
-                            <Text fontSize="9px" opacity=".6">Total supply</Text>
-                            <Text mb="10px" fontSize="12px">${baseAsset.total_supply}</Text>
-                            <Text fontSize="9px" opacity=".6">Max supply</Text>
-                            <Text fontSize="12px">--</Text>
-                        </Box>
-                    </Flex>
-                    <Box px="25px" mr="auto">
-                        <Flex fontSize="10px" align="center" >
-                            <Text opacity=".6" mr="10px">DAO Score</Text>
-                            <Text color={ totalScore > 10 ? "green" : totalScore == 0 ? "none" : "red"}>{totalScore !== 0 ? totalScore : "--" }/20</Text>
-                        </Flex>
-                        <Flex opacity=".6" align="center" mt="10px" mb="15px">
-                            <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Reliability</Text>
-                                <Text mr="25px">{baseAsset.trust_score}/5</Text>
-                            </Flex>
-                            <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Market</Text>
-                                <Text mr="25px">{baseAsset.market_score}/5</Text>
-                            </Flex>
-                            <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Utility</Text>
-                                <Text mr="25px">{baseAsset.utility_score}/5</Text>
-                            </Flex>
-                        </Flex>
-                        <Flex mb="20px" wrap="wrap"justify="center" w="100%" maxHeight="80px" overflowY="scroll">
-                        {baseAsset.contracts.map((contract: string, idx: number) => {
-                        
-                        return (
-                       
-                           <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
-                       )
-                   } )}
-                        </Flex>
-                        
-                    </Box>
-                </Box>
+                <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset}/>
                 
                 {/*  */}
                 <Button
@@ -833,10 +784,10 @@ const Token = ({ baseAsset }) => {
                     {moreStat ? "Show less stats" : "Show more stats"}
                 </Button>
                 <Flex fontWeight="400px" fontSize={["10px","10px","13px","13px"]} mt="15px">
-                    <Button _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" bg={selector === "Price" ? "blue" : socialLink } onClick={() => {setSelector("Price"); setTitle("price")}}>Price</Button>
-                    <Button _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" bg={selector === "Market" ? "blue" : socialLink } onClick={() => {setSelector("Market"); setTitle("rank")}}>Market Cap</Button>
-                    <Button _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" bg={selector === "Volume" ? "blue" : socialLink } onClick={() => {setSelector("Volume"); setTitle("volume")}}>Volume</Button>
-                    <Button _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" bg={selector === "Swap" ? "blue" : socialLink } onClick={() => {setSelector("Swap")}}>Swap</Button>
+                    <Button border={border} _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" color={selector === "Price" ? "white" : "none" } bg={selector === "Price" ? "blue" : socialLink } onClick={() => {setSelector("Price"); setTitle("price")}}>Price</Button>
+                    <Button border={border} _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" color={selector === "Market" ? "white" : "none" } bg={selector === "Market" ? "blue" : socialLink } onClick={() => {setSelector("Market"); setTitle("rank")}}>Market Cap</Button>
+                    <Button border={border} _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" color={selector === "Volume" ? "white" : "none" } bg={selector === "Volume" ? "blue" : socialLink } onClick={() => {setSelector("Volume"); setTitle("volume")}}>Volume</Button>
+                    <Button border={border} _focus={{boxShadow:"none"}} mr="10px" w="75px" h="24px" color={selector === "Swap" ? "white" : "none" } bg={selector === "Swap" ? "blue" : socialLink } onClick={() => {setSelector("Swap")}}>Swap</Button>
                 </Flex>
             </Flex>
             {/* Chart Box */}

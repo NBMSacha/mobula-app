@@ -27,8 +27,7 @@ const ChartBox = ({ baseAsset, socialLink, selector, setSelector, setTimeFormat,
                     children={<Search2Icon ml="72px" color='gray.300' mt="9px" />}
                 />
                 <Input
-                    
-                ml="auto"
+                    ml="auto"
                     border={border}
                     w="200px"
                     borderRadius="8px"
@@ -101,8 +100,8 @@ const ChartBox = ({ baseAsset, socialLink, selector, setSelector, setTimeFormat,
         <Flex mt="10px" mb="10px">
             <canvas id='chart' style={{maxHeight:"450px"}}></canvas>
         </Flex>
-        <Link mb="50px" fontSize="11px" _hover={{textDecoration:"none"}}>
-            <Text align="end" color="red">A problem ? Report it to the DAO </Text>
+        <Link href='https://discord.gg/2a8hqNzkzN' mb="50px" fontSize="11px" _hover={{textDecoration:"none"}}>
+            <Text align="end" color="red" >A problem ? Report it to the DAO </Text>
         </Link>
 </Flex>
     )
