@@ -245,7 +245,7 @@ function ListAToken(props: any) {
         addNote: addNote
     }
 
-    const input = useColorModeValue("white_terciary", "dark_input_list")
+    const input = useColorModeValue("white_terciary", "rgba(50, 53, 80, 0.25)")
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
@@ -254,8 +254,8 @@ function ListAToken(props: any) {
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]}>Listing form</h2>
-                <div className={styles["listToken-main"]}>
-                    <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
+                <Flex className={styles["listToken-main"]} >
+                    <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >
                         <Left
                             input={input}
                             box={box}
@@ -309,7 +309,7 @@ function ListAToken(props: any) {
                             setInputList={setInputListExcluded}
                         />
                     </form>
-                </div>
+                </Flex>
             </div>
         </div>
     )

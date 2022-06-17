@@ -42,7 +42,7 @@ function Left({
 
     return (
 
-        <Flex className={styles["three-forms"]} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} p="20px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box-flex"]}>
                 <div className={styles["inputs-container"]}>
                     <label >Symbol *</label>
@@ -179,6 +179,7 @@ function Left({
             <div className={styles["form-container-box"]}>
                 <label >Description *</label>
                 <Textarea
+                
                     pl="10px"
                     pr="10px"
                     fontSize="13px"

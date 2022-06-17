@@ -39,7 +39,7 @@ function Right({
     };
 
     return (
-        <Flex className={styles["three-forms"]} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} p="20px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
             <div className={styles["form-container-box"]}>
                 <label >Audit Link (Optional) </label>
                 <Input
