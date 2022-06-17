@@ -235,22 +235,93 @@ function FirstSort() {
         getFirstSorts();
     }, []);
 
+    const bg = useColorModeValue("none", "#191D2C")
+    const btn = useColorModeValue("none", "dark_primary")
+
     return <>
-        <DaoHeader
+            <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
+                <Flex fontSize={['12px', '12px', '14px', '14px']}  w="100%" align="end" justify="space-between" maxWidth="1400px">
+                    <Flex  direction="column">
+                        <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >DAO First Sort</Heading>
+                        <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                        See here the tokenss who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
+                        </Text>
+                    </Flex>
+                    <Text display={["none", "none", "none", "flex"]}>
+                          See here the lists token who got validated by the Mobula DAO
+                    </Text>
+                    
+                </Flex>
+                <Flex justify="space-evenly" wrap='wrap'>
+                    {/* BOX */}
+                        <Box mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w="38px" h="38px"/>
+                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize="16px" color="blue">New</Text>
+                            </Flex>
+                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                     {/* BOX */}
+                     <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w="38px" h="38px"/>
+                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize="16px" color="blue">New</Text>
+                            </Flex>
+                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                     {/* BOX */}
+                     <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w="38px" h="38px"/>
+                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize="16px" color="blue">New</Text>
+                            </Flex>
+                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                      {/* BOX */}
+                      <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w="38px" h="38px"/>
+                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize="16px" color="blue">New</Text>
+                            </Flex>
+                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                    </Flex>
+            </Flex>   
+        {/* <DaoHeader
             title="First Sort"
             description="New listing requests are displayed here. Vote wisely."
             url="https://docs.mobula.finance/app/sort"
         />
 
-        {tokenDivs.length !== 0 && (
+        {tokenDivs.length == 0 && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
-        {(!displayedToken ?
+        {(displayedToken ?
             <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
 
             <Blocks tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
-        )}
+        )} */}
     </>
 }
 

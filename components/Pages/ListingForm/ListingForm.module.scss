@@ -202,7 +202,7 @@
     .all-forms {
         align-items: center !important;
         flex-direction: row;
-        width: 90%;
+        width: 100%;
     }
     .three-forms {
         padding: 14px !important;
@@ -326,23 +326,25 @@
     justify-content: center;
 }
 .three-forms {
-    width: 28%;
+    width: 33.33%;
     padding:0px;
     border-radius:20px;
     max-width: 450px ;
-    margin-top:50px;
+    margin-top:20px;
 }
 .listToken-main {
     display: flex;
+    border-radius:15px;
     justify-content: space-around;
-    width: 90%;
+    width: 80%;
     margin-top: 20px;
+    padding-bottom:30px
 }
 .all-forms {
 
     align-items: start ;
     flex-direction: row;
-    width: 90%;
+    width: 100%;
 }
 .form-container-box {
     width: 100%;
@@ -553,7 +555,7 @@
         text-align: start;
         width: 90%;
         margin-top:0px;
-        margin-bottom: 38px !important;
+        margin-bottom: 50px !important;
         display:block;
     }
     .three-forms{
@@ -610,7 +612,7 @@
         margin: 10px;
     }
     .all-forms{
-        width:95%
+        width:100%
     }
     .listToken-main {
         width: 98%;
@@ -631,7 +633,7 @@
         white-space: nowrap;
     }
     .listToken-main {
-        width: 98%;
+        width: 90%;
     }
     .form-container-box-flex > div > label {
         white-space: nowrap !important;

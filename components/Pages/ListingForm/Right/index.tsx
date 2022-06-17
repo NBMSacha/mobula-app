@@ -39,7 +39,7 @@ function Right({
     };
 
     return (
-        <Flex className={styles["three-forms"]} p="20px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} p="20px" >
             <div className={styles["form-container-box"]}>
                 <label >Audit Link (Optional) </label>
                 <Input
@@ -118,7 +118,7 @@ function Right({
                 <button style={{ color: btn }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
             </div>
             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                <button style={{ color: btn }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
             </div>
         </Flex>
     )

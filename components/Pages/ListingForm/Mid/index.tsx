@@ -19,7 +19,7 @@ function Mid({
         console.log(`this is website : ${website}`)
 
     return (
-        <Flex className={styles["three-forms"]} p="20px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} p="20px" >
             <div className={styles["form-container-box"]}>
                 <label >Website *</label>
                 <Input
