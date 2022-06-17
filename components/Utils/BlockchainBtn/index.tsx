@@ -52,30 +52,30 @@ export default function BlockchainBtn({ tokens }) {
 
   return (
 
-   <Flex className={styles['main-blockchain-container']} w="95%" mx="auto" bg={bg} mb="20px">
+   <Flex className={styles['main-blockchain-container']} w="95%" mx="auto" bg={bg} mb="10px">
    <Flex className={styles['blockchain-container']} w="100%" justify="space-between">
-     <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['onion-btn']} ${display == 'Onion' ? styles['white'] : ''}`} onClick={() => setDisplay('Onion')}>
-         <Image h={["28px", "28px", "28px", "28px"]} src='onion.png' className={`${styles['blockchain-logo']} ${styles["onion-btn"]}`} />
+     <Button w={["80px","80px","95px","110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['onion-btn']} ${display == 'Onion' ? styles['white'] : ''}`} onClick={() => setDisplay('Onion')}>
+         <Image h={["20px", "20px", "28px", "28px"]} src='onion.png' className={`${styles['blockchain-logo']} ${styles["onion-btn"]}`} />
          <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>ONION</span>
      </Button>
-     <Button w="110px"border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles["digi-btn"]} ${display == 'Digi' ? styles['white'] : ''}`} onClick={() => setDisplay('Digi')}>
-       <Image h={["28px", "28px", "28px", "28px"]} src='digi.png' className={`${styles['blockchain-logo']} ${styles["digi-btn"]}`} />
+     <Button w={["80px","80px","95px","110px"]}border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles["digi-btn"]} ${display == 'Digi' ? styles['white'] : ''}`} onClick={() => setDisplay('Digi')}>
+       <Image h={["20px", "20px", "28px", "28px"]} src='digi.png' className={`${styles['blockchain-logo']} ${styles["digi-btn"]}`} />
        <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>DiGi</span>
      </Button>
-     <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
-       <Image h={["28px", "28px", "28px", "28px"]} src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
+     <Button w={["80px","80px","95px","110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
+       <Image h={["20px", "20px", "28px", "28px"]} src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
        <span  className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>ETH</span>
      </Button>
-     <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'BNB Smart Chain (BEP20)' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
-       <Image h={["28px", "28px", "28px", "28px"]} src='bnb.png' className={styles['blockchain-logo']} />
+     <Button w={["80px","80px","95px","110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'BNB Smart Chain (BEP20)' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
+       <Image h={["20px", "20px", "28px", "28px"]} src='bnb.png' className={styles['blockchain-logo']} />
        <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>BNB</span>
      </Button>
-     <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
-       <Image h={["28px", "28px", "28px", "28px"]} src='avalanche.png' className={styles['blockchain-logo']} />
+     <Button w={["80px","80px","95px","110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
+       <Image h={["20px", "20px", "28px", "28px"]} src='avalanche.png' className={styles['blockchain-logo']} />
        <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>AVAX</span>
      </Button>
-     <Button w="110px" border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px 10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
-       <Image h={["28px", "28px", "28px", "28px"]} src='polygon.png' className={styles['blockchain-logo']} />
+     <Button w={["80px","80px","95px","110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px 10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
+       <Image h={["20px", "20px", "28px", "28px"]} src='polygon.png' className={styles['blockchain-logo']} />
        <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>MATIC</span>
      </Button>
      <Button border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"

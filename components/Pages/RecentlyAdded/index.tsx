@@ -65,7 +65,7 @@ export default function RecentlyAdded({ tokens }) {
         
             </Text>
           </Flex>
-          See here the lists token who got validated by the Mobula DAO
+          <Text display={["none", "none", "none", "flex"]}>See here the lists token who got validated by the Mobula DAO</Text>
         </Flex>
         <BlockchainBtn />
         <TableContainer mb="20px" >
