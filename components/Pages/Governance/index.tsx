@@ -164,7 +164,7 @@ function Governance() {
 
     const gradient = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     return (
-        <Flex direction="column" mb={'50px'} mt={'55px'} align="center" justify="center">
+        <Flex direction="column" mb={'50px'} mt={'28px'} align="center" justify="center">
             <Flex fontSize={['12px', '12px', '14px', '14px']}  className={styles["stickyFix"]} margin="auto" w="80%" align="end" justify="space-between">
                 <Flex  direction="column">
                     <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Governance Process</Heading>

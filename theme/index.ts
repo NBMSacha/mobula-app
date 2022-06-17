@@ -65,7 +65,7 @@ export const themeUltime = extendTheme({
     dark_mobile_bg: "rgba(50, 53, 80, 0.25)",
     dark_grey: "rgba(255, 255, 255, 0.62)",
     dark_input_list: '#0C1421',
-    dark_box_list: "#191D2C",
+    dark_box_list: "#161A2A",
     white_grey: "#939393",
     white_mobile_bg: "rgba(255, 255, 255, 0.25)",
     white_border_tendance: "#E5E5E5",

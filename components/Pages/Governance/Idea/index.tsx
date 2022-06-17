@@ -14,7 +14,8 @@ import {
 function Idea({proposal}) {
     console.log(proposal)
     const [value, setValue] = useState("")
-    
+    const btn = useColorModeValue("blue", "none")
+    const text = useColorModeValue("white", "blue")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "bg_white")
     const bg = useColorModeValue("white_voting", "dark_box_list")
     return (
@@ -38,8 +39,8 @@ function Idea({proposal}) {
                     placeholder='What would you like to see on Mobula ?'
                     resize="none"
                 />
-                 <Button display={["none", "none", "none", "flex"]} fontSize="12px" mt="12px" position={["initial","initial","absolute","absolute"]} borderRadius={["8x","8px","8px","12px"]} bottom="30px" right="30px" variant={"outline"} color="blue" colorScheme="blue" p="10px 15px">Submit the DAO</Button>
-                 <Button display={["flex", "flex", "flex", "none"]} fontSize="12px" mt="12px" position={["initial","initial","absolute","absolute"]} borderRadius={["8px","8px","8px","12px"]} bottom="30px" bg="blue" right="30px" color="white" colorScheme="blue" p="10px 15px">Submit the DAO</Button>
+                 <Button color={text} bg={btn} display={["none", "none", "none", "flex"]} fontSize="12px" mt="12px" position={["initial","initial","absolute","absolute"]} borderRadius={["8x","8px","8px","12px"]} bottom="30px" right="30px" variant={"outline"} colorScheme="blue" p="10px 15px">Submit the DAO</Button>
+                 <Button display={["flex", "flex", "flex", "none"]} fontSize="12px" mt="12px" position={["initial","initial","absolute","absolute"]} borderRadius={["8px","8px","8px","12px"]} bottom="30px" bg={bg} right="30px"  colorScheme="blue" p="10px 15px">Submit the DAO</Button>
             </Flex>
            
           

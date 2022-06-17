@@ -16,6 +16,8 @@ function Power({proposal}) {
     const input =  useColorModeValue("white_secondary_input", "dark_input")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const bg = useColorModeValue("white_voting", "dark_box_list")
+    const btn = useColorModeValue("blue", "none")
+    const text = useColorModeValue("white", "blue")
     return (
             <Flex direction="column" align='center' pt={["20px","20px","30px","40px"]} bg={bg} mt={["0px","0px","20px","20px"]} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="15px">
                 {/* TITLE */}
@@ -48,7 +50,7 @@ function Power({proposal}) {
                                 setDeposit(e.target.value)
                             }}
                         />
-                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius={["8px","8px","12px","12px"]} px={["5px","5px","10px","10px"]} w={["80px","100px","120px","120px"]} h={['30px','30px','30px','35px']} fontSize={["10px","10px","10px","13px"]}>Withdraw</Button>
+                        <Button variant="outline" color={text} bg={btn} _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius={["8px","8px","12px","12px"]} px={["5px","5px","10px","10px"]} w={["80px","100px","120px","120px"]} h={['30px','30px','30px','35px']} fontSize={["10px","10px","10px","13px"]}>Withdraw</Button>
                     </Flex>
                 </Flex>
                  {/* WITHDRAW */}
@@ -75,7 +77,7 @@ function Power({proposal}) {
                                 setWithdraw(e.target.value)
                             }}
                         />
-                        <Button variant="outline" color="blue" _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius={["8px","8px","12px","12px"]} px={["5px","5px","10px","10px"]} w={["80px","100px","120px","120px"]} h={['30px','30px','30px','35px']} fontSize={["10px","10px","10px","13px"]}>Deposit</Button>
+                        <Button variant="outline" color={text} bg={btn} _focus={{boxShadow:"none"}} colorScheme="blue" borderRadius={["8px","8px","12px","12px"]} px={["5px","5px","10px","10px"]} w={["80px","100px","120px","120px"]} h={['30px','30px','30px','35px']} fontSize={["10px","10px","10px","13px"]}>Deposit</Button>
                     </Flex>
                     
                 </Flex>
