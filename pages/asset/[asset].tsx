@@ -26,12 +26,28 @@ export const getStaticProps = async ({ params }) => {
         .select('*')
         .or('name.ilike.' + fromUrlToName(params.asset))
 
-    return {
-        props: {
-            asset: data[0]
-        },
-        revalidate: 120
+    if (data) {
+        return {
+            props: {
+                asset: data[0]
+            },
+            revalidate: 120
+        }
+    } else {
+        const { data } = await supabase
+            .from('assets')
+            .select('*')
+            .or('name.ilike.' + fromUrlToName(params.asset).split(' ')[0])
+
+        return {
+            props: {
+                asset: data[0]
+            },
+            revalidate: 120
+        }
     }
+
+
 }
 
 
