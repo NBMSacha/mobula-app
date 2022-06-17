@@ -23,7 +23,7 @@ function Mid({promote, firstInput, secondInput, setFirstInput, firstValue}) {
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const bgBox = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_box)")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bgBtn = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_btn_election)")
+    const bgBtn = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-dark_btn_election)")
 
     return (
                     <Flex w="50%" direction="column" ml="10px">
@@ -76,7 +76,7 @@ function Mid({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                                 required
                                 mb="25px"
                             />
-                            <Button mb="20px" boxShadow={`1px 2px 13px 3px ${shadow}`} bg={bgBtn} fontSize={["11px","11px","14px","14px"]} w="100%" py={["12px","12px","15px","15px"]} borderRadius={["8px","8px","8px","12px"]}>
+                            <Button mb="20px" color="white" boxShadow={`1px 2px 13px 3px ${shadow}`} bg={bgBtn} fontSize={["11px","11px","14px","14px"]} w="100%" py={["12px","12px","15px","15px"]} borderRadius={["8px","8px","8px","12px"]}>
                                 Submit
                             </Button>
                         </Flex>

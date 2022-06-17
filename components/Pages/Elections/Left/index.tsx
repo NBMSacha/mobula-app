@@ -19,7 +19,7 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const bgBox = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_box)")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bgBtn = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_btn_election)")
+    const bgBtn = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-dark_btn_election)")
     const title = promote ? 'Promotion' : 'Demotion';
     const action = promote ? 'promote' : 'demote';
     const firstPartTitle = promote ? 'Amount of Rank I seats available' : 'Amount of Rank I members';
@@ -76,7 +76,7 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                         required
                         mb="25px"
                     />
-                    <Button bg={bgBtn} boxShadow={`1px 2px 13px 3px ${shadow}`} fontSize={["11px","11px","14px","14px"]} w="100%" py={["12px","12px","15px","15px"]} mb="20px" borderRadius={["8px","8px","8px","12px"]}>
+                    <Button bg={bgBtn} boxShadow={`1px 2px 13px 3px ${shadow}`} fontSize={["11px","11px","14px","14px"]} color="white" w="100%" py={["12px","12px","15px","15px"]} mb="20px" borderRadius={["8px","8px","8px","12px"]}>
                         Submit
                     </Button>
                 </Flex>

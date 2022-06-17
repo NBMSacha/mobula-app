@@ -22,7 +22,7 @@ function Mid() {
     const [ open, setOpen ] = useState(false)
     const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     const bgBox = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_box)")
-    const bgBtn = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_btn_election)")
+    const bgBtn = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-dark_btn_election)")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
 
     return (
@@ -32,7 +32,7 @@ function Mid() {
                                 <Image src="/fullicon.png" h={["22px","22px","22px","30px"]} />
                                 <Text ml={["10px","10px","10px","15px"]} fontSize={["18px","18px","18px","23px"]}>Profil</Text>
                             </Flex>
-                            <Button display={["flex", "flex", "flex", "none"]} mr="20px" _focus={{boxShadow:"none"}} onClick={() => setOpen(!open)}>+</Button>
+                            <Button display={["flex", "flex", "flex", "none"]} mr="20px" _focus={{boxShadow:"none"}} onClick={() => setOpen(!open)}>{open ? "-" : "+"}</Button>
                             
                         </Flex>
                         <Box display={[open ? "block" : "none", open ? "block" : "none", open ? "block" : "none", "block"]} >
@@ -64,7 +64,7 @@ function Mid() {
                                 />
                             
                             
-                            <Button bg={bgBtn} boxShadow={`1px 2px 13px 3px ${shadow}`} fontSize={["11px","11px","14px","14px"]} w="100%" py={["12px","12px","12px","15px"]} borderRadius={["8px","8px","8px","12px"]}>
+                            <Button color="white" bg={bgBtn} boxShadow={`1px 2px 13px 3px ${shadow}`} fontSize={["11px","11px","14px","14px"]} w="100%" py={["12px","12px","12px","15px"]} borderRadius={["8px","8px","8px","12px"]}>
                                 Submit
                             </Button>
                         </Box>
