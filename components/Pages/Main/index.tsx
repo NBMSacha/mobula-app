@@ -29,6 +29,7 @@ import Data from "../../Utils/Data";
 
 function News(props: any) {
 
+  const [widgetVisibility, setWidgetVisibility] = useState(false);
   const [tokens, setTokens] = useState([]);
   const [myAssets, setMyAssets] = useState([]);
   const [search, setSearch] = useState([]);
@@ -41,7 +42,8 @@ function News(props: any) {
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
   const [widgetVisible, setWidgetVisible] = useState(false)
-
+  const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
+  console.log(settings)
   console.log(props, props[display.split(' ')[0].toLowerCase()])
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
@@ -206,7 +208,7 @@ function News(props: any) {
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const bg = useColorModeValue("none", "#121626")
-
+  
   return (
     <>
 
@@ -303,7 +305,7 @@ function News(props: any) {
               id3={0}
               change3={0} />}
         </Flex>
-        <ButtonBlock display={display} widget={widgetVisible} setWidget={setWidgetVisible} setDisplay={setDisplay} setResults={setSearch} />
+        <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
       {console.log(display)}
       {/* PAGE 2 */}
@@ -361,7 +363,7 @@ function News(props: any) {
         </TableContainer>
       </div>
       {widgetVisible && (
-        <Widget widget={widgetVisible} setWidget={setWidgetVisible}  />
+        <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
       )}
 
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}

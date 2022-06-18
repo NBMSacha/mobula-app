@@ -20,11 +20,12 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
     const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "#171B2B")
     const bg = useColorModeValue("none", "#121626")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
 
     return (
-        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
+        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]}  bg={["none", "none", "none", bgChart]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
             {/* Top lane */}
-            <Flex px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
+            <Flex  px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
@@ -33,7 +34,11 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                             <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]}>{baseAsset.name}</Text>
                             <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]}>{baseAsset.symbol}</Box>
                         </Flex>
-                        <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px", "9px", "12px", "12px"]}>Dao Score : {totalScore > 0 ? totalScore : ' -- '} /20 </Text>
+                        {totalScore !== 0 && (
+                            <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px", "9px", "12px", "12px"]}>
+                                Dao Score : {totalScore} /20 
+                            </Text>
+                        )}
                         <Link href="/">
                             <Text display={["flex", "flex", "flex", "none"]} opacity=".6" fontSize={["9px", "9px", "12px", "12px"]}>Top 100 {">"} {baseAsset.name}</Text>
                         </Link>

@@ -10,7 +10,9 @@ import { TrendingUp, TrendingDown } from "react-feather"
 import Widget from "../../Utils/Widget"
 
 function GainersLosers() {
-
+    
+    const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
+    const [widgetVisibility, setWidgetVisibility] = useState(false);
     const [gainers, setGainers] = useState([]);
     const [losers, setLosers] = useState([]);
     const [state, setState] = useState("gainers");
@@ -71,9 +73,9 @@ function GainersLosers() {
                  <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">See here the top gainers and the top losers</Text>
                  <Flex w="100%" display={["none", "none", "flex", "flex"]}>
                     <Flex display={widget ? "flex" : "none" }>
-                        <Widget setWidget={setWidget} />
+                        <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility}/>
                     </Flex>
-                    <BlockchainBtn setWidget={setWidget} widget={widget} />
+                    <BlockchainBtn settings={settings} setSettings={setSettings} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
                  </Flex>
                  
             </div>

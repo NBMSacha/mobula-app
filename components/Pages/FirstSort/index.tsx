@@ -236,7 +236,8 @@ function FirstSort() {
     }, []);
 
     const bg = useColorModeValue("none", "#191D2C")
-    const btn = useColorModeValue("none", "dark_primary")
+    const btn = useColorModeValue("#EFEFEF", "dark_primary")
+    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
 
     return <>
             <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
@@ -252,57 +253,57 @@ function FirstSort() {
                     </Text>
                     
                 </Flex>
-                <Flex justify="space-evenly" wrap='wrap'>
-                    {/* BOX */}
-                        <Box mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                <Flex justify="space-evenly" direction={["column","column", "row","row"]} wrap='wrap'>
+                      {/* BOX */}
+                      <Box mt={["10px","10px", "40px","40px"]} w={["100%",'100%', '45%','45%']} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={bg} px="30px" py="20px" borderRadius="12px">
                             <Flex align="center" justify="space-between">
                                 <Flex align="center">
-                                    <Image src="/fullicon.png" w="38px" h="38px"/>
-                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                    <Image src="/fullicon.png" w={["30px","30px","38px","38px"]} h={["30px","30px","38px","38px"]}/>
+                                    <Text fontSize={["15px","15px","25px","25px"]} ml="10px">Mobula</Text>
                                 </Flex>
-                                <Text fontSize="16px" color="blue">New</Text>
+                                <Text fontSize={["12px","12px","15px","15px"]} color="blue">New</Text>
                             </Flex>
-                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
-                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
-                        </Box>
-                    {/* END BOX */}
-                     {/* BOX */}
-                     <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
-                            <Flex align="center" justify="space-between">
-                                <Flex align="center">
-                                    <Image src="/fullicon.png" w="38px" h="38px"/>
-                                    <Text fontSize="25px" ml="10px">Mobula</Text>
-                                </Flex>
-                                <Text fontSize="16px" color="blue">New</Text>
-                            </Flex>
-                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
-                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
-                        </Box>
-                    {/* END BOX */}
-                     {/* BOX */}
-                     <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
-                            <Flex align="center" justify="space-between">
-                                <Flex align="center">
-                                    <Image src="/fullicon.png" w="38px" h="38px"/>
-                                    <Text fontSize="25px" ml="10px">Mobula</Text>
-                                </Flex>
-                                <Text fontSize="16px" color="blue">New</Text>
-                            </Flex>
-                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
-                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                            <Text py={["15px","15px","25px","25px"]} fontSize={["10px","10px","14px","14px"]}>Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize={["12px","12px","15px","15px"]} borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
                         </Box>
                     {/* END BOX */}
                       {/* BOX */}
-                      <Box  mt="40px" w='45%' bg={bg} px="30px" py="20px" borderRadius="12px">
+                      <Box mt={["20px","20px", "40px","40px"]} w={["100%",'100%', '45%','45%']} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={bg} px="30px" py="20px" borderRadius="12px">
                             <Flex align="center" justify="space-between">
                                 <Flex align="center">
-                                    <Image src="/fullicon.png" w="38px" h="38px"/>
-                                    <Text fontSize="25px" ml="10px">Mobula</Text>
+                                    <Image src="/fullicon.png" w={["30px","30px","38px","38px"]} h={["30px","30px","38px","38px"]}/>
+                                    <Text fontSize={["15px","15px","25px","25px"]} ml="10px">Mobula</Text>
                                 </Flex>
-                                <Text fontSize="16px" color="blue">New</Text>
+                                <Text fontSize={["12px","12px","15px","15px"]} color="blue">New</Text>
                             </Flex>
-                            <Text py="25px" fontSize="14px">Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
-                            <Button mb="10px" fontSize="15px" borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                            <Text py={["15px","15px","25px","25px"]} fontSize={["10px","10px","14px","14px"]}>Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize={["12px","12px","15px","15px"]} borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                      {/* BOX */}
+                      <Box mt={["20px","20px", "40px","40px"]} w={["100%",'100%', '45%','45%']} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w={["30px","30px","38px","38px"]} h={["30px","30px","38px","38px"]}/>
+                                    <Text fontSize={["15px","15px","25px","25px"]} ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize={["12px","12px","15px","15px"]} color="blue">New</Text>
+                            </Flex>
+                            <Text py={["15px","15px","25px","25px"]} fontSize={["10px","10px","14px","14px"]}>Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize={["12px","12px","15px","15px"]} borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
+                        </Box>
+                    {/* END BOX */}
+                    {/* BOX */}
+                    <Box mt={["20px","20px", "40px","40px"]} w={["100%",'100%', '45%','45%']} boxShadow={`1px 2px 12px 3px ${shadow}`} bg={bg} px="30px" py="20px" borderRadius="12px">
+                            <Flex align="center" justify="space-between">
+                                <Flex align="center">
+                                    <Image src="/fullicon.png" w={["30px","30px","38px","38px"]} h={["30px","30px","38px","38px"]}/>
+                                    <Text fontSize={["15px","15px","25px","25px"]} ml="10px">Mobula</Text>
+                                </Flex>
+                                <Text fontSize={["12px","12px","15px","15px"]} color="blue">New</Text>
+                            </Flex>
+                            <Text py={["15px","15px","25px","25px"]} fontSize={["10px","10px","14px","14px"]}>Loremdffsihoi fh s efhsiuoe hiuosehgiousehio guheioghiog hiosehgoi sh ig iohophàpdez zgufshqioj iqozj djoipqdjzod uzqodlqzjio jhfl  jfoipjioehfoihse  jçàodjqzo dzni dfqzoijdopizqfhiehfoz efjpiojo gj op</Text>
+                            <Button mb="10px" fontSize={["12px","12px","15px","15px"]} borderRadius="8px" bg={btn} py="7px" px="20px">Review and vote</Button>
                         </Box>
                     {/* END BOX */}
                     </Flex>

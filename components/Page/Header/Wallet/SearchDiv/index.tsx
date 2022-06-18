@@ -87,7 +87,7 @@ function SearchDiv(props: any) {
     const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
     return (
       <div ref={props.wrapperRef} >
-        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="300px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
+        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
           <div className={styles["search-flex"]}>
             <FiSearch className={styles['loupe']} style={{ width: "40px", marginLeft: "10px", marginRight: "10px" }} />
             <Input

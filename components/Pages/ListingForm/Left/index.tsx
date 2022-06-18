@@ -45,7 +45,7 @@ function Left({
         <Flex className={styles["three-forms"]} p="20px" >
             <div className={styles["form-container-box-flex"]}>
                 <div className={styles["inputs-container"]}>
-                    <label >Symbol *</label>
+                    <label style={{whiteSpace:"nowrap", overflow:"hidden",textOverflow:"ellipsis"}} >Symbol *</label>
                     <Input
                         pl="10px"
                         pr="10px"

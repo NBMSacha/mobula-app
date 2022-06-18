@@ -27,7 +27,7 @@ import Swap from "./Swap"
 import MobileInfo from "./MobileInfo"
 
 const Token = ({ baseAsset }) => {
-    const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.3)")
+    const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.29)")
     const [selector, setSelector] = useState("price")
     const router = useRouter()
     const [timeFormat, setTimeFormat] = useState('7D')
@@ -520,7 +520,7 @@ const Token = ({ baseAsset }) => {
                     </Flex>
                 </Flex>
                 {/* Chart Box */}
-                {selector !== "Swap" ? (
+                {selector !== "swap" ? (
                     <ChartBox historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                 ) : (
                     <Flex justify="center" display={["flex", "flex", "flex", "none"]}>
@@ -534,7 +534,7 @@ const Token = ({ baseAsset }) => {
                 {/* SWAP */}
                 <Swap baseAsset={baseAsset} />
                 {/* Contract  */}
-                <Box boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 20px" p="30px 10px" mt="10px">
+                <Box bg={bgChart} boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px">{baseAsset.name} contract(s)</Text>
                     <Flex direction="column" w="95%" p="20px" maxHeight="264px" overflowY="scroll" className={styles["scroll"]}>
                         {baseAsset.contracts.map((contract: string, idx: number) => {

@@ -30,6 +30,9 @@ import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
 export default function RecentlyAdded({ tokens }) {
+
+  const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
+  const [widgetVisibility, setWidgetVisibility] = useState(false);
   const router = useRouter();
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
@@ -69,9 +72,9 @@ export default function RecentlyAdded({ tokens }) {
           <Text display={["none", "none", "none", "flex"]}>See here the lists token who got validated by the Mobula DAO</Text>
         </Flex>
         <Flex display={widget ? "flex" : "none" }>
-          <Widget setWidget={setWidget} />
+          <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
         </Flex>
-        <BlockchainBtn setWidget={setWidget} widget={widget} />
+        <BlockchainBtn widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
         <TableContainer mb="20px" >
           <Table variant='simple'>
             <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
@@ -133,7 +136,6 @@ export default function RecentlyAdded({ tokens }) {
                   <Td px="5px" py="5px" isNumeric>
                     <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
                       {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
-
                       {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>

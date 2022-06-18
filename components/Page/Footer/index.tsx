@@ -139,17 +139,15 @@ function Footer() {
         </div>
         <Flex align="center" h="50px">
           <IconButton
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
-
+          _focus={{boxShadow:"none"}}
             onClick={toggleColorMode}
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
-            color={colorSunMoon}
-            bg={sunMoon}
+            color={title}
             icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+          <Text color={title} ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
 
         </Flex>
       </div>

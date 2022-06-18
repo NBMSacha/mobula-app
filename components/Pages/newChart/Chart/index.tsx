@@ -6,8 +6,9 @@ const ChartBox = ({ historyData, baseAsset, socialLink, selector, setSelector, s
     const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "#171B2B")
     const bg = useColorModeValue("none", "#121626")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
+    const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
     return (
-        <Flex direction="column" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "30px", "30px"]}>
+        <Flex direction="column" h="100%" bg={["none", "none", "none", bgChart]} boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "30px", "30px"]}>
             {/* TOP tools*/}
             <Flex justify="space-between">
                 <Box display={["none", "none", "none", "block"]}>
