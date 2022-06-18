@@ -71,9 +71,7 @@ export default function RecentlyAdded({ tokens }) {
           </Flex>
           <Text display={["none", "none", "none", "flex"]}>See here the lists token who got validated by the Mobula DAO</Text>
         </Flex>
-        <Flex display={widget ? "flex" : "none" }>
-          <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
-        </Flex>
+        <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
         <BlockchainBtn widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
         <TableContainer mb="20px" >
           <Table variant='simple'>

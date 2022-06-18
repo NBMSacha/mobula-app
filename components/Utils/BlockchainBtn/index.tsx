@@ -114,6 +114,7 @@ const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onCh
      <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["flex", "flex", "flex", "flex"]}
      onClick={() => {
        setWidgetVisibility(true)
+       console.log("ok")
      }}
 
    

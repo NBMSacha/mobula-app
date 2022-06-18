@@ -27,24 +27,29 @@ const MobileInfo = ({ baseAsset, moreStat, totalScore }) => {
                 </Box>
             </Flex>
             <Box px="25px" mr="auto">
-                <Flex fontSize="10px" align="center" >
-                    <Text opacity=".6" mr="10px">DAO Score</Text>
-                    <Text color={totalScore > 10 ? "green" : totalScore == 0 ? "none" : "red"}>{totalScore !== 0 ? totalScore : "--"}/20</Text>
-                </Flex>
-                <Flex opacity=".6" align="center" mt="10px" mb="15px">
-                    <Flex fontSize="9px" align="center" >
-                        <Text mr="15px">Reliability</Text>
-                        <Text mr="25px">{baseAsset.trust_score}/5</Text>
-                    </Flex>
-                    <Flex fontSize="9px" align="center" >
-                        <Text mr="15px">Market</Text>
-                        <Text mr="25px">{baseAsset.market_score}/5</Text>
-                    </Flex>
-                    <Flex fontSize="9px" align="center" >
-                        <Text mr="15px">Utility</Text>
-                        <Text mr="25px">{baseAsset.utility_score}/5</Text>
-                    </Flex>
-                </Flex>
+                {totalScore !== 0 && (
+                    <>
+                        <Flex fontSize="10px" align="center" >
+                            <Text opacity=".6" mr="10px">DAO Score</Text>
+                            <Text color={totalScore > 10 ? "green" : "red"}>{totalScore !== 0 ? totalScore : "--"}/20</Text>
+                        </Flex>
+                        <Flex opacity=".6" align="center" mt="10px" mb="15px">
+                            <Flex fontSize="9px" align="center" >
+                                <Text mr="15px">Reliability</Text>
+                                <Text mr="25px">{baseAsset.trust_score}/5</Text>
+                            </Flex>
+                            <Flex fontSize="9px" align="center" >
+                                <Text mr="15px">Market</Text>
+                                <Text mr="25px">{baseAsset.market_score}/5</Text>
+                            </Flex>
+                            <Flex fontSize="9px" align="center" >
+                                <Text mr="15px">Utility</Text>
+                                <Text mr="25px">{baseAsset.utility_score}/5</Text>
+                            </Flex>
+                        </Flex>
+                    </>
+                )}
+                
                 <Flex mb="20px" wrap="wrap" justify="center" w="100%" maxHeight="80px" overflowY="scroll">
                     {baseAsset.contracts.map((contract: string, idx: number) => {
 

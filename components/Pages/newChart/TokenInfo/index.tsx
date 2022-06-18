@@ -14,6 +14,7 @@ import {
     CircularProgressLabel,
 } from "@chakra-ui/progress"
 import { ProgressBar } from 'react-bootstrap';
+import styles from './TokenInfo.module.scss'
 
 const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, totalScore }) => {
     const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
@@ -31,7 +32,7 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
                     <Box>
                         <Flex align="center">
-                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]}>{baseAsset.name}</Text>
+                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap" className={styles["token-name"]}>{baseAsset.name}</Text>
                             <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]}>{baseAsset.symbol}</Box>
                         </Flex>
                         {totalScore !== 0 && (
