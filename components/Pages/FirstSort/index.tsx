@@ -246,7 +246,16 @@ function FirstSort() {
     const border = useColorModeValue("rgba(229, 229, 229, 0.5)", "rgba(229, 229, 229, 0.03)")
     return <>
             {/* <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
-                <Flex fontSize={['12px', '12px', '14px', '14px']}  w="100%" align="end" justify="space-between" maxWidth="1400px">
+                
+                <Main voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
+            </Flex>   
+            <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> */}
+        {/* <DaoHeader
+            title="First Sort"
+            description="New listing requests are displayed here. Vote wisely."
+            url="https://docs.mobula.finance/app/sort"
+        /> */}
+        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']}  w="100%" align="end" justify="space-between" w="85%" mt="50px">
                     <Flex  direction="column">
                         <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >DAO First Sort</Heading>
                         <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
@@ -256,30 +265,16 @@ function FirstSort() {
                     <Text display={["none", "none", "none", "flex"]}>
                           See here the lists token who got validated by the Mobula DAO
                     </Text>
-                </Flex>
-                <Main voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
-            </Flex>   
-            <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> */}
-        <DaoHeader
-            title="First Sort"
-            description="New listing requests are displayed here. Vote wisely."
-            url="https://docs.mobula.finance/app/sort"
-        />
-
+        </Flex>
         {tokenDivs.length == 0 && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
         {(displayedToken ?
         <>
-            <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> 
-        {/* <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> */}
+            <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
         </>:
-       
-            
-        
             <Main voteToken={voteToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
-            
         )}
     </>
 }
