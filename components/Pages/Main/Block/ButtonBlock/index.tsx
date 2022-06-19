@@ -68,15 +68,29 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
           <img src='bnb.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>BNB</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
+        <Button minWidth="fit-content" mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
           <img src='avalanche.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>AVAX</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
+
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
           <img src='polygon.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>MATIC</span>
         </Button>
-        <Button minWidth={["fit-content", "fit-content", "fit-content", "fit-content"]} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"
+
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Cronos' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} 
+        ${display == 'Cronos' ? styles['white'] : ''}`}
+          onClick={() => setDisplay('Cronos')}>
+          <img src='cronos.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>Cronos</span>
+        </Button>
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Arbitrum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} 
+        ${display == 'Arbitrum' ? styles['white'] : ''}`}
+          onClick={() => setDisplay('Arbitrum')}>
+          <img src='arbitrum.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>Arbitrum</span>
+        </Button>
+        {/* <Button minWidth={["fit-content", "fit-content", "fit-content", "fit-content"]} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"
           className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
         >
           <span>
@@ -88,7 +102,7 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
           <Image src='arbitrum.png' h={["28px", "28px", "28px", "36px"]} />
 
 
-        </Button>
+        </Button> */}
 
         <button className={styles["params"]}>
           <Settings className={styles["colors"]} />

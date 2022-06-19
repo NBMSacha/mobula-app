@@ -90,7 +90,7 @@ const ChartBox = ({ historyData, baseAsset, socialLink, selector, setSelector, s
                     <Box p="20px" mt={["0px", "0px", "50px"]} textAlign="center">
                         Market data untracked. Not enough liquidity or vol. to get trustfull data.
                     </Box>
-                ) : <canvas id='chart' style={{ maxHeight: "450px" }}></canvas>
+                ) : <canvas id='chart' ></canvas>
                 }
             </Flex>
             {/* <Link href='https://discord.gg/2a8hqNzkzN' mb="50px" fontSize="11px" _hover={{ textDecoration: "none" }}>

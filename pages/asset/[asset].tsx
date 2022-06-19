@@ -29,7 +29,8 @@ export const getStaticProps = async ({ params }) => {
     if (data) {
         return {
             props: {
-                asset: data[0]
+                asset: data[0],
+                key: data[0].id
             },
             revalidate: 120
         }
@@ -41,7 +42,8 @@ export const getStaticProps = async ({ params }) => {
 
         return {
             props: {
-                asset: data[0]
+                asset: data[0],
+                key: data[0].id
             },
             revalidate: 120
         }
@@ -77,7 +79,7 @@ function Dataprovider({ asset }) {
         return <></>
     } else {
         return (
-            <Token baseAsset={asset} />
+            <Token baseAssetBuffer={asset} />
         )
     }
 

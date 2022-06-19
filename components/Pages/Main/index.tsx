@@ -41,7 +41,6 @@ function News(props: any) {
   const percentageRef = useRef()
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
-  const [widgetVisible, setWidgetVisible] = useState(false)
   const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
   console.log(settings)
   console.log(props, props[display.split(' ')[0].toLowerCase()])
@@ -56,17 +55,11 @@ function News(props: any) {
   }, [])
 
   useEffect(() => {
-
     if (!page) return
-    const supabase = createClient(
-      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
-    )
     if (router.isReady) {
       console.log(page)
-      shouldLoadMore(supabase)
+      shouldLoadMore()
     }
-
   }, [page])
 
   function loadChain(chain: string) {
@@ -79,7 +72,7 @@ function News(props: any) {
       .from('assets')
       .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
       .contains('blockchains[1]', '{ ' + chain + ' }')
-      .filter('volume', 'gte', page < 5 ? 50000 : 0)
+      .filter('volume', 'gte', page < 5 ? settings.volume : 0)
       .order('market_cap', { ascending: false })
       .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
       .then(r => {
@@ -125,67 +118,41 @@ function News(props: any) {
         return []
       }
 
-    } else if (display == 'Ethereum') {
-
-      if (!chains['Ethereum']) {
-        loadChain('Ethereum')
-        return []
-      } else {
-        return chains['Ethereum']
-      }
-    } else if (display == 'BNB Smart Chain (BEP20)') {
-
-      if (!chains['BNB Smart Chain (BEP20)']) {
-        loadChain('BNB Smart Chain (BEP20)')
-        return []
-      } else {
-        return chains['BNB Smart Chain (BEP20)']
-      }
-    } else if (display == 'Avalanche C-Chain') {
-
-      if (!chains['Avalanche C-Chain']) {
-        loadChain('Avalanche C-Chain')
-        return []
-      } else {
-        return chains['Avalanche C-Chain']
-      }
-    } else if (display == 'Polygon') {
-
-      if (!chains['Polygon']) {
-        loadChain('Polygon')
-        return []
-      } else {
-        return chains['Polygon']
-      }
     } else if (display == 'search') {
       return search
-    }
-    else {
-      return []
+    } else {
+      if (!chains[display]) {
+        loadChain(display)
+        return []
+      } else {
+        return chains[display]
+      }
     }
   }
 
-  console.log(props)
-  async function shouldLoadMore(supabase: SupabaseClient) {
+  async function shouldLoadMore() {
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
 
     if (display == 'Top 100') {
       supabase
         .from('assets')
         .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
-        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .filter('volume', 'gte', page < 5 ? settings.volume : 0)
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
           if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? 1000 : 0) || token.contracts.length == 0).slice(0, 100))
+            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? settings.liquidity : 0) || (token.contracts.length == 0 && !settings.onChainOnly)).slice(0, 100))
           }
         });
     } else if (display != 'My Assets') {
       supabase
         .from('assets')
         .select('blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity')
-        .contains('blockchains[1]', '{ ' + display + ' }')
-        .filter('volume', 'gte', page < 5 ? 50000 : 0)
+        .filter('volume', 'gte', page < 5 ? settings.volume : 0)
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
@@ -195,6 +162,7 @@ function News(props: any) {
               ...chains
             }
             newChains[display] = r.data.filter(token => token.blockchains[0] == display).slice(0, 100);
+            console.log('Setting cronos chain : ', newChains[display])
             setChains(newChains);
           } else {
             alert.show('Something went wrong')
@@ -204,11 +172,17 @@ function News(props: any) {
     }
   }
 
+  useEffect(() => {
+    if (settings && !settings.default) {
+      shouldLoadMore()
+    }
+  }, [settings])
+
   const gradient = useColorModeValue("white_gradient", "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)")
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const bg = useColorModeValue("none", "#121626")
-  
+
   return (
     <>
 
@@ -245,7 +219,7 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
-              {/* @ts-ignore */}
+          {/* @ts-ignore */}
           {props.trendings && props.trendings.length > 0 ? <GainerBlock
             title={'Trendings'}
             logo1={props.trendings[0].logo}
@@ -310,11 +284,11 @@ function News(props: any) {
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-        
+
         <TableContainer bg={bg} display="flex" flexDirection="column" alignItems="center">
           {/* <Data /> */}
-          <Table  style={{ minWidth: "1220px" }} className={styles["table-style"]}>
-            
+          <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
+
             <Thead borderTop={`2px solid ${border}`} >
               <Tr className={styles[""]}>
                 <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
@@ -362,7 +336,7 @@ function News(props: any) {
           </Table>
         </TableContainer>
       </div>
-      {widgetVisible && (
+      {widgetVisibility && (
         <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
       )}
 

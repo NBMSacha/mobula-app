@@ -10,9 +10,7 @@ import { ArrowUp, ArrowDown } from 'react-feather'
 import {
     formatAmount,
     getTokenPrice,
-    getTokenPercentage,
-    getClosest,
-    getUrlFromName,
+    getShortenedAmount,
     getClosestUltimate
 } from '../../../helpers/formaters'
 import { ethers } from 'ethers';
@@ -26,12 +24,11 @@ import styles from './newChart.module.scss';
 import Swap from "./Swap"
 import MobileInfo from "./MobileInfo"
 
-const Token = ({ baseAsset }) => {
+const Token = ({ baseAssetBuffer }) => {
     const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.29)")
     const [selector, setSelector] = useState("price")
     const router = useRouter()
     const [timeFormat, setTimeFormat] = useState('7D')
-    const [visible, setVisible] = useState(false);
     const [volume, setVolume] = useState(0);
     const [liquidity, setLiquidity] = useState(0);
     const [price, setPrice] = useState(0);
@@ -40,28 +37,27 @@ const Token = ({ baseAsset }) => {
     const [historyData, setHistoryData] = useState(null);
     const [mobile] = useMediaQuery('(max-width: 768px)');
     const fillStyle = useColorModeValue("#666", "#b8b8b8");
+    const strokeStyle = useColorModeValue("black", 'white')
     const [isPriceWinner, setIsWinner]: [boolean, Function] = useState();
     const [selectorInfo, setSelectorInfo] = useState("")
     const [moreStat, setMoreStat] = useState(false);
     const types = ['price', 'volume', 'liquidity', 'rank'];
     const unformattedInitialBuffer = {}
+    const [baseAsset, setBaseAsset]: [any, Function] = useState(baseAssetBuffer)
+    console.log(baseAsset.name, baseAssetBuffer)
 
     types.forEach(type => {
+        const multiplier = type == 'rank' ? -1000000000 : 1000000000;
         unformattedInitialBuffer[type] = {
             '1D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-                .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]),
-            '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-                .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000])
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
+            '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
         }
     })
 
-
     const [unformattedBuffer, setUnformattedBuffer]: [any, Function] = useState(unformattedInitialBuffer)
     const { asset } = router.query;
-
-    if (!baseAsset) {
-        var [baseAsset, setBaseAsset]: [any, Function] = useState({})
-    }
 
     function roundRect(
         ctx,
@@ -97,6 +93,32 @@ const Token = ({ baseAsset }) => {
         }
     }
 
+    const getExtremes = (data: [{ y: number, t: number }]) => {
+        let bufferATH: { y: number | string, t: number } = { y: '0', t: 0 };
+        //Infitiy cannot be used with big ints
+        let bufferATL: { y: number | string, t: number } = { y: '1000000000000000000000000000000000000000000000', t: 0 };
+
+        const bigAbs = (x: BigInt) => {
+            return x < BigInt(0) ? -x : x
+        };
+
+        if (data) {
+
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].y && bigAbs(BigInt(data[i].y)) > bigAbs(BigInt(bufferATH.y))) {
+                    bufferATH = data[i]
+                } else if (data[i].y && bigAbs(BigInt(data[i].y)) < bigAbs(BigInt(bufferATL.y))) {
+                    bufferATL = data[i]
+                }
+            }
+        }
+
+        const ATH = { y: parseInt(bufferATH.y as string), t: bufferATH.t }
+        const ATL = { y: parseInt(bufferATL.y as string), t: bufferATL.t }
+
+        return { ATH, ATL }
+    }
+
     const generateChart = () => {
         var dayIf
 
@@ -115,7 +137,7 @@ const Token = ({ baseAsset }) => {
 
         try {
             (window as any).chartInstance.destroy()
-        } catch (e) { }
+        } catch (e) { console.log('Not destroying chart.') }
 
 
         try {
@@ -126,136 +148,126 @@ const Token = ({ baseAsset }) => {
             const isGiant = window.innerWidth > 1500
             const isWinner =
                 data && data[0]
-                    ? parseFloat(data[0].y) < parseFloat(data[data.length - 1].y)
+                    ? parseFloat(data[0].y) <= parseFloat(data[data.length - 1].y)
                     : true
 
             let gradient = ctx.createLinearGradient(
                 0,
                 0,
                 0,
-                isMobile ? 100 : isGiant ? 400 : 300
+                isMobile ? 100 : isGiant ? 300 : 200
             )
             gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
             gradient.addColorStop(1, bgChart)
 
-            console.log(isWinner, data);
+            console.log(data);
+
+            if (selector == 'rank') {
+                var { ATH, ATL } = getExtremes(data);
+                var allTimeDiff = Math.floor(ATH.y / -1000000000) - Math.floor(ATL.y / -1000000000)
+            }
+
+            const labels = selector == 'rank' ? data.map((entry: { y: number }) => entry.y) : null;
+            const formattedData = selector == 'rank' ? data?.map((entry: { y: number }) => Math.round(entry.y)) : data;
+            const maxTicksLimit = selector == 'rank' ? Math.min(allTimeDiff, 5) : isMobile ? 6 : 8;
+            const xAxes = selector == 'rank' ? [{ display: false }] : [
+                {
+                    gridLines: { display: false },
+                    type: 'time',
+                    distribution: 'linear',
+                    ticks: {
+                        fontColor: "white",
+                        fontFamily: "Poppins",
+                        maxRotation: 0,
+                        minRotation: 0,
+                        maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
+                    },
+                    time: {
+                        unit: dayIf,
+                        tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
+                        displayFormats: {
+                            hour: 'HH:mm',
+                            week: "MMM D"
+                        },
+
+                    },
+
+                },
+            ];
+
+            console.log('DATA DUMPED');
 
             (window as any).chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
+                    labels,
                     datasets: [
                         {
-                            label: 'Price                ',
-                            data: data,
-                            fill: true,
+                            data: formattedData,
+                            fill: selector != 'rank',
                             datasetFill: true,
                             borderColor: isWinner ? '#00ba7c' : '#EA3943',
-                            tension: 0.4,
+                            tension: 0.6,
                             backgroundColor: gradient,
                             borderWidth: 2,
                             pointRadius: 0,
-                            pointHitRadius: 0,
-                            highlightFill: 'rgba(220,220,220,0.5)',
-                            highlightStroke: 'rgba(220,220,220,1)',
                             maintainAspectRatio: false,
-                            pointHoverBorderColor: 'white',
-                            pointHoverBackgroundColor: isWinner ? 'green' : 'red',
-                            pointHoverBorderWidth: 2,
-                            pointHoverBorderRadius: 4,
+                            steppedLine: selector == 'rank' ? 'middle' : false
                         },
                     ],
                 },
                 options: {
-                    usePointStyle: true,
                     responsive: true,
-                    plugins: {
-                        tooltips: {
-                            enable: false,
-                            usePointStyle: true
-                        },
+                    interaction: {
+                        intersect: false,
+                        axis: 'x'
                     },
-                    tooltips: {
-                        borderWidth: 2,
-                        borderColor: 'rgba(47, 54, 88, 1)',
-                        usePointStyle: true,
-                        padding: {
-                            left: 50,
-                            right: 0,
-                            top: 0,
-                            bottom: 0,
-                        },
-                        enabled: true,
-                        backgroundColor: '#05072c',
-                        displayColors: false,
-                        callbacks: {
-                            beforeLabel: function (tooltipItem, data) {
-                                return tooltipItem.xLabel
-                            },
-                            afterLabel: function (tooltipItem, data) {
-                                return (
-                                    data.datasets[tooltipItem.datasetIndex].label +
-                                    ': ' +
-                                    tooltipItem.yLabel / 1000000000
-                                )
-                            }
-                        },
+                    animation: {
+                        duration: 0,
                     },
+                    tooltips: false,
                     legend: {
                         display: false,
                     },
+                    datalabels: {
+                        display: false,
+                    },
+                    hover: { mode: null },
                     scales: {
                         yAxes: [
                             {
-                                gridLines: { color: borderChart },
+                                gridLines: { display: false },
+                                display: selector != 'rank' || !!allTimeDiff,
                                 ticks: {
+                                    type: 'category',
                                     beginAtZero: false,
-                                    color: "red",
-                                    maxTicksLimit: isMobile ? 4 : 8,
+                                    font: { size: 20 },
+                                    fontFamily: "Poppins",
+                                    maxTicksLimit,
                                     callback: function (tick: number) {
-                                        if (tick == 0) return 0
-                                        const price = (tick / 1000000000).toFixed(
-                                            Math.max(12 - String(Math.round(tick)).length, 0)
-                                        )
-
-                                        const exp = price.match(/0\.0+[1-9]/)?.[0] || '';
-                                        if (exp.length > 5) {
-                                            return price.split('.')[0] + '...' + price.split(exp.slice(0, exp.length - 2))[1];
+                                        if (selector != 'rank') {
+                                            return getShortenedAmount(tick / 1000000000)
                                         } else {
-                                            return price
+                                            return (tick / -1000000000).toFixed(0)
                                         }
                                     },
                                 },
                             },
                         ],
-                        xAxes: [
-                            {
-                                gridLines: { color: borderChart },
-                                type: 'time',
-                                distribution: 'linear',
-                                ticks: {
-                                    color: "red", fontFamily: "Poppins",
-                                    maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
-                                },
-                                time: {
-                                    unit: dayIf,
-                                    tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
-                                    displayFormats: {
-                                        hour: 'HH:mm',
-                                        week: "MMM D"
-                                    },
-
-                                },
-                            },
-                        ],
+                        xAxes
                     },
                 },
             });
 
-            if (!data || data.length == 0) {
-                setVisible(true)
-            } else {
-                setVisible(false)
+
+            if (allTimeDiff == 0 && selector == 'rank') {
+                ctx.font = '20px Inter';
+                ctx.strokeStyle = strokeStyle
+                ctx.fillStyle = strokeStyle
+                ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
             }
+
+            console.log('Created chart instance')
 
             const crosshairLine = (chart: any, mousemove: any) => {
                 const { canvas, ctx, chartArea: { left, right, top, bottom }, data, scales } = chart;
@@ -303,7 +315,7 @@ const Token = ({ baseAsset }) => {
                     ctx.textBaseline = "middle";
                     ctx.textAlign = "left";
 
-                    let price = '$' + getTokenPrice(finalPrice / 1000000000);
+                    let price = '$' + getShortenedAmount(finalPrice / 1000000000, 1);
 
                     const rectWidth = ctx.measureText(price).width + 20
                     roundRect(ctx, mousemove.offsetX - (shouldBeRight ? 0 : rectWidth), h - 15, rectWidth, 30, 15, true);
@@ -325,11 +337,22 @@ const Token = ({ baseAsset }) => {
             }
 
             (window as any).chartInstance.canvas.addEventListener('mousemove', (e) => {
-                crosshairLine((window as any).chartInstance, e)
+                if (selector != 'rank') {
+                    crosshairLine((window as any).chartInstance, e)
+                } else {
+                    if (allTimeDiff == 0 && selector == 'rank') {
+                        ctx.font = '20px Inter';
+                        ctx.strokeStyle = 'white';
+                        ctx.fillStyle = 'white';
+                        ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
+                    }
+                }
             });
 
 
-        } catch (e) { }
+        } catch (e) {
+            console.log(e)
+        }
 
     }
 
@@ -387,42 +410,64 @@ const Token = ({ baseAsset }) => {
             const newUnformattedBuffer = { ...unformattedBuffer };
 
             types.forEach(type => {
+                const multiplier = type == 'rank' ? -1000000000 : 1000000000;
+
                 newUnformattedBuffer[type] = {
                     '1D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]),
-                    '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]),
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
+                    '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
                     '30D': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]).concat(baseAsset?.[type + '_history'][type]
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type]
                             .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                            .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000])),
+                            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
                     '3M': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                            .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000])),
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
                     '1Y': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                            .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000])),
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
                     'ALL': data[0][type + '_history'].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                            .map((entry: [number, number]) => [entry[0], entry[1] * 1000000000]))
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]))
                 }
             })
+
+            console.log(newUnformattedBuffer)
 
             setUnformattedBuffer(newUnformattedBuffer)
 
         }
     }
 
+    const fetchAssetData = async () => {
+        const supabase = createClient(
+            'https://ylcxvfbmqzwinymcjlnx.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
+        )
+
+        const { data } = await supabase
+            .from('assets')
+            .select('*')
+            .match({ id: baseAsset.id })
+
+        setBaseAsset(data[0])
+    }
+
     useEffect(() => {
-        if (baseAsset) {
-            fetchBeforeToken()
-            fetchHistory()
-        }
+        fetchBeforeToken()
+        fetchHistory()
+        fetchAssetData()
+        generateChart()
 
         try {
             (window as any).chartInstance.destroy()
         } catch (e) { }
     }, [asset])
+
+    useEffect(() => {
+
+    }, [baseAsset])
 
     useEffect(() => {
         generateChart()
@@ -447,44 +492,38 @@ const Token = ({ baseAsset }) => {
     const getRightData = () => {
         console.log('========')
         console.log(historyData)
-
+        const multiplier = selector == 'rank' ? -1000000000 : 1000000000;
 
         switch (timeFormat) {
             case '1D':
                 return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } });
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
             case '7D':
                 return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } });
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
             case '30D':
                 return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }));
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
             case '3M':
                 return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }));
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
             case '1Y':
                 return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }));
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
             case 'ALL':
                 return historyData?.[selector + '_history'].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } }));
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                        .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
             default:
                 return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * 1000000000 } });
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
         }
     }
 
-    const borderChart = useColorModeValue("#EAEAEA", "rgba(229, 229, 229, 0.1)")
     const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
-    const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
-    const active = useColorModeValue("black", "white")
-    const dateChangerBg = useColorModeValue("white_date_changer", "dark_box_list")
-    const daoMobile = useColorModeValue("#EFEFEF", "none")
-    const shadow = useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')
     const shadowbis = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
     const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")

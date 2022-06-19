@@ -2,7 +2,7 @@ import React from 'react';
 import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from "next/router";
 import { Tbody, Tr, Td, useMediaQuery } from '@chakra-ui/react';
-import { getTokenPrice, getTokenPercentage, getUrlFromName, getTokenFormattedPrice } from '../../../../../helpers/formaters';
+import { getTokenPrice, getTokenPercentage, getUrlFromName, getTokenFormattedPrice, formatAmount } from '../../../../../helpers/formaters';
 import { TriangleUpIcon } from '@chakra-ui/icons';
 
 function Gainers({ gainers }) {
@@ -31,7 +31,7 @@ function Gainers({ gainers }) {
                                 <TriangleUpIcon boxSize="12px" mb="4px" mr="3px" />
                                 {getTokenPercentage(gainer.price_change_24h)}%
                             </Td>
-                            <Td px="5px" isNumeric>${gainer.volume}</Td>
+                            <Td px="5px" isNumeric>${formatAmount(gainer.volume)}</Td>
                         </Tr>
                     </Tbody>
                 )

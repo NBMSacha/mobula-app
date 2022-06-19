@@ -33,6 +33,31 @@ export function getFormatedAmount(price: any) {
 
 }
 
+export function formatBigAmount(amount: number | string, precision?: number) {
+    amount = formatAmount(parseInt(amount as string));
+    let letter: string;
+    switch (amount.split(',').length - (precision || 0)) {
+        case 1:
+            letter = ''
+            break
+        case 2:
+            letter = 'k'
+            break
+        case 3:
+            letter = 'M'
+            break
+        case 4:
+            letter = 'B'
+            break
+    }
+
+    if (precision) {
+        return amount.split(',')[0] + ',' + amount.split(',')[1] + letter;
+    } else {
+        return amount.split(',')[0] + letter;
+    }
+}
+
 export function getTokenPrice(price: any) {
 
     if (price) {
@@ -60,11 +85,13 @@ export function getTokenFormattedPrice(price: string | number, addOn: string = '
 
     if (price) {
         //Making sure we're getting a number
-        price = parseFloat(String(price)).toFixed(String(price).includes('-') ? parseInt(String(price).split('-')[1]) + 2 : String(price).split('.')[1].length);
+        price = String(price)
 
         if (parseFloat(price) > 1000) {
             return <>{addOn + formatAmount(parseInt(price)).slice(0, 6)}</>
         } else if (parseFloat(price) < 0.0001) {
+            price = parseFloat(String(price)).toFixed(String(price).includes('-') ? parseInt(String(price).split('-')[1]) + 2 : String(price).split('.')[1].length);
+
             const exp = price.match(/0\.0+[1-9]/)?.[0] || '';
             return <Flex mt={marginTop || "-45px"} justify={justify || "center"} align="center">{addOn + price.split('.')[0] + '.0'} <Text mt='2.5%' fontSize={["xx-small", "small"]}>{exp.length - 3}</Text> {price.split(exp.slice(0, exp.length - 2))[1].slice(1, 10)}</Flex>;
         } else {
@@ -123,6 +150,20 @@ export function getClosestUltimate(dataset: [[number, number]], timestamp: numbe
     }
 
     return [[bestTimestamp, bestPrice], [nextBestTimestamp, nextBestPrice]]
+}
+
+export function getShortenedAmount(number: number, precision?: number): string {
+    if (number == 0) return '0'
+
+    if (number > 1000) {
+        return formatBigAmount(number, precision)
+    } else if (number < 0.0001) {
+        const bufferNumber = parseFloat(String(number)).toFixed(String(number).includes('-') ? parseInt(String(number).split('-')[1]) + 2 : String(number).split('.')[1]?.length || 0);
+        const exp = bufferNumber.match(/0\.0+[1-9]/)?.[0] || '';
+        return '0.0..0' + bufferNumber.split(exp.slice(0, exp.length - 2))[1].slice(1, 10);
+    } else if (number) {
+        return String(number).slice(0, 8);
+    }
 }
 
 export function fromUrlToName(name: string) {

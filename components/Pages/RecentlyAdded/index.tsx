@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
-import { useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
 import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
@@ -29,23 +29,34 @@ import {
 import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
-export default function RecentlyAdded({ tokens }) {
-
-  const [settings, setSettings] = useState({ liquidity: 1000, volume: 50_000, onChainOnly: false, default: true })
+export default function RecentlyAdded() {
+  const [tokens, setTokens] = useState([]);
+  const [blockchain, setBlockchain] = useState('');
+  const [settings, setSettings] = useState({ liquidity: 0, volume: 0, onChainOnly: false, default: true })
   const [widgetVisibility, setWidgetVisibility] = useState(false);
   const router = useRouter();
-  const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
-  const [ widget, setWidget] = useState(false)
+  const [widget, setWidget] = useState(false)
+
   useEffect(() => {
-    if (percentageRef && percentageRef.current) {
-      if ((window.matchMedia("(max-width: 768px)").matches)) {
-        setTextResponsive(true)
-      } else {
-        setTextResponsive(false)
-      }
-    }
-  }, [])
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
+
+    supabase
+      .from('assets')
+      .select('id,name,price_change_24h,volume,symbol,logo,market_cap,price,rank,contracts,blockchains,twitter,website,chat,created_at')
+      .gte('liquidity', settings.liquidity)
+      .gte('volume', settings.volume)
+      .order('created_at', { ascending: false })
+      .limit(100).then(r => {
+        setTokens(r.data
+          .filter(entry => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
+          .slice(0, 50))
+      });
+
+  }, [settings, blockchain])
 
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
@@ -53,7 +64,7 @@ export default function RecentlyAdded({ tokens }) {
   const btn_bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
   const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
-  const [display, setDisplay ] = useState("")
+  const [display, setDisplay] = useState("")
 
   return (
     <Flex justify="center">
@@ -63,16 +74,16 @@ export default function RecentlyAdded({ tokens }) {
         </Flex>
         <Flex display={["none", "none", "flex", "flex"]} mb={'50px'} mt={'55px'} fontSize={['12px', '12px', '14px', '14px']} className={styles["stickyFix"]} w="100%" align="end" justify="space-between">
           <Flex direction="column">
-            <Heading  mb={'15px'}  fontSize="24px" fontFamily="Inter">Recently added tokens</Heading>
-            <Text  whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
-            See here the tokenq who got validated by the <span style={{color:"var(--chakra-colors-blue)"}}>Mobula DAO</span>
-        
+            <Heading mb={'15px'} fontSize="24px" fontFamily="Inter">Recently added tokens</Heading>
+            <Text whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+              Latest tokens who got validated by the <span style={{ color: "var(--chakra-colors-blue)" }}>Mobula DAO</span>
+
             </Text>
           </Flex>
-          <Text display={["none", "none", "none", "flex"]}>See here the lists token who got validated by the Mobula DAO</Text>
+          <Text display={["none", "none", "none", "flex"]}>You can submit your own token (or a token you support) <Link color="blue" ml='5px'>here</Link></Text>
         </Flex>
         <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
-        <BlockchainBtn widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
+        <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
         <TableContainer mb="20px" >
           <Table variant='simple'>
             <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
@@ -116,7 +127,7 @@ export default function RecentlyAdded({ tokens }) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
-              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px"  onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
+              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
                 <Tr>
                   {isLargerThan768 && (
                     <Td isNumeric>
@@ -158,7 +169,7 @@ export default function RecentlyAdded({ tokens }) {
                       )}
                     </Flex>
                   </Td>
-                  <Td  px="5px">
+                  <Td px="5px">
                     {format == "seconds" && <span>{postedDate} seconds ago</span>}
                     {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
                     {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}

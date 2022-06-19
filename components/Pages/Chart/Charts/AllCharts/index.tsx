@@ -211,7 +211,7 @@ const AllCharts = ({ baseAsset, title }, idx: any,) => {
 
     const { ATH, ATL } = getExtremes(data as any);
     const allTimeDiff = Math.floor(parseInt(ATH.y) / -1000000000) - Math.floor(parseInt(ATL.y) / -1000000000)
-    console.log('iff', allTimeDiff)
+
     if (title == 'Rank') {
 
       window[title] = new Chart(ctx, {

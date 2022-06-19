@@ -54,7 +54,7 @@ function SearchDiv(props: any) {
   async function updateSearch(search: string, supabase: any, setResults: any) {
     const { data: names } = await supabase
       .from('assets')
-      .select()
+      .select('name,rank,symbol,logo,market_cap')
       .or('name.ilike.' + search + '%,symbol.ilike.' + search + '%,name.ilike.' + search,)
       .order('market_cap', { ascending: false })
       .limit(10)
@@ -89,7 +89,6 @@ function SearchDiv(props: any) {
       <div ref={props.wrapperRef} >
         <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
           <div className={styles["search-flex"]}>
-            <FiSearch className={styles['loupe']} style={{ width: "40px", marginLeft: "10px", marginRight: "10px" }} />
             <Input
               color="none"
               value={token}
@@ -102,7 +101,7 @@ function SearchDiv(props: any) {
               id='search'
               autoFocus
             />
-            <X className={styles['X']} onClick={() => props.setTrigger(false)} style={{ width: "40px", marginRight: "10px" }} />
+            <X className={styles['X']} onClick={() => props.setTrigger(false)} style={{ width: "40px" }} />
           </div>
 
           <Flex direction="column" className={styles['search-token']}>

@@ -35,7 +35,7 @@
 
 .dflex {
   display: block !important;
-  width:85%;
+  width: 85%;
   white-space: nowrap;
 }
 
@@ -103,8 +103,7 @@
   font-size: 15px;
 }
 
-.white:visited {
-}
+.white:visited {}
 
 .red {
   color: #ea3943 !important;
@@ -222,18 +221,21 @@
   .token-containers {
     height: 60px !important;
   }
-  .avax-btn{
-    display:flex !important
-}
-.avax-btn{
-    display:flex !important
-}
+
+  .avax-btn {
+    display: flex !important
+  }
+
+  .avax-btn {
+    display: flex !important
+  }
 
   .token-containers {
     width: 960px !important;
   }
-  .mienai{
-      display:none;
+
+  .mienai {
+    display: none;
   }
 
 
@@ -254,7 +256,7 @@
 
   .dflex {
     display: flex;
-    width:98%;
+    width: 98%;
     white-space: initial !important;
   }
 
@@ -702,9 +704,6 @@
   .dflex {
     overflow: auto
   }
-  .digi-btn{
-      display:none !important
-  }
 }
 
 .name-container {
@@ -714,20 +713,19 @@
 }
 
 @media screen and (max-width:1390px) {
-  .dflex{
-    width:95%;
+  .dflex {
+    width: 95%;
   }
 }
 
 @media screen and (max-width:1556px) {
-    .onion-btn{
-        display:none !important
-    }
+  .onion-btn {
+    display: none !important
+  }
 }
 
 @media screen and (max-width:950px) {
-    .inputDis{
-        display:none !important
-    }
-    
+  .inputDis {
+    display: none !important
+  }
 }

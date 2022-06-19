@@ -24,9 +24,9 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
     const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
 
     return (
-        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]}  bg={["none", "none", "none", bgChart]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
+        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} bg={["none", "none", "none", bgChart]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
             {/* Top lane */}
-            <Flex  px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
+            <Flex px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
@@ -37,7 +37,7 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                         </Flex>
                         {totalScore !== 0 && (
                             <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px", "9px", "12px", "12px"]}>
-                                Dao Score : {totalScore} /20 
+                                DAO Score : {totalScore} /20
                             </Text>
                         )}
                         <Link href="/">
