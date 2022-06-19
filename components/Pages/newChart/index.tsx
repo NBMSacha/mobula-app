@@ -488,6 +488,7 @@ const Token = ({ baseAssetBuffer }) => {
         }
 
     }, [price])
+    console.log(baseAsset.contracts[0])
 
     const getRightData = () => {
         console.log('========')
@@ -573,15 +574,22 @@ const Token = ({ baseAssetBuffer }) => {
                 {/* SWAP */}
                 <Swap baseAsset={baseAsset} />
                 {/* Contract  */}
-                <Box w="100%" bg={bgChart} boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
-                    <Text fontSize="20px" ml="20px">{baseAsset.name} contract(s)</Text>
-                    <Flex direction="column" w="95%" p="20px" maxHeight="264px" overflowY="scroll" className={styles["scroll"]}>
+                <Box w="100%" h="100%" bg={bgChart} boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
+                    <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
+                    {baseAsset.contracts[0] !== undefined ? (
+                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight="294px" overflowY="scroll" className={styles["scroll"]}>
                         {baseAsset.contracts.map((contract: string, idx: number) => {
                             return (
                                 <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
                             )
                         })}
-                    </Flex>
+                        </Flex>
+                    ) : (
+                        <Flex w="100%" mt="-30px" h="100%" align="center" justify="center">
+                            <Text>Not on chain</Text>
+                        </Flex>
+                    )}
+                   
 
                 </Box>
 

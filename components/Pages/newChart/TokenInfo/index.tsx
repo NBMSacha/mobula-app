@@ -56,9 +56,11 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>KYC</Flex>
                     </Link>
-                    <Link borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} onClick={() => setSelectorInfo("Infos")} color={selectorInfo === "Infos" ? "white" : "none"} bg={selectorInfo === "Infos" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                        <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Infos</Flex>
-                    </Link>
+                    {baseAsset.description !== "" && (
+                        <Link borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} onClick={() => { if(selectorInfo !== "Infos") {setSelectorInfo("Infos")} else {setSelectorInfo("")}}} color={selectorInfo === "Infos" ? "white" : "none"} bg={selectorInfo === "Infos" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Infos</Flex>
+                        </Link>
+                    )}
                 </Flex>
                 {/* Price info */}
                 <Box >
@@ -71,9 +73,12 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     <ProgressBar animated variant="success" now={60} />
                 </Box>
             </Flex>
-            <Flex display={selectorInfo === "Infos" ? "flex" : "none"} ml="80px" maxWidth="950px" mb="40px">
-                <Text fontSize="13px">{baseAsset.description}</Text>
-            </Flex>
+            {baseAsset.description !== "" && (
+                <Flex display={selectorInfo === "Infos" ? "flex" : "none"} ml="80px" maxWidth="950px" mb="40px">
+                    <Text fontSize="13px">{baseAsset.description}</Text>
+                </Flex>
+            )}
+            
             {/* Bot lane */}
             <Flex display={["none", "none", "none", "flex"]} px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
                 <Box>

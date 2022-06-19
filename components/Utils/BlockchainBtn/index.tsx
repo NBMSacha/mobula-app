@@ -54,7 +54,7 @@ export default function BlockchainBtn({ hideSearchBar = false, widgetVisibility,
   return (
 
     <Flex className={styles['main-blockchain-container']} w={["100%", "100%", "95%", "95%"]} mx="auto" bg={bg} mb="10px">
-      <Flex className={styles['blockchain-container']} w="100%" justify="space-between">
+      <Flex className={styles['blockchain-container']} w="100%" justify="space-between"  overflow="auto" whiteSpace="nowrap" >
         <Button w={["80px", "80px", "95px", "110px"]} border={`1px solid ${border}`} mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["flex", "flex", "flex", "flex"]} variant={blockchain == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`}
           onClick={() => setBlockchain('Ethereum')}>
           <Image h={["20px", "20px", "28px", "28px"]} src='/ethereum.png' className={`${styles['blockchain-logo']}`} />
@@ -114,8 +114,6 @@ export default function BlockchainBtn({ hideSearchBar = false, widgetVisibility,
             setWidgetVisibility(true)
             console.log("ok")
           }}
-
-
           boxShadow={`1px 2px 12px 3px ${shadow}`}
           border={`1px solid ${border}`}
           colorScheme='teal'
