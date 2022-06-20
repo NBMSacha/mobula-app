@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Chart from '../../components/Pages/Chart/index.jsx';
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 import { fromUrlToName } from '../../helpers/formaters'
