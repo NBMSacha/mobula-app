@@ -42,6 +42,18 @@ export const ButtonStyles = {
             },
             boxShadow: mode("1px 2px 12px 3px rgba(208, 214, 227, 0.3)", "none")(props)
         }),
+        blue: (props) => ({
+            bg: "blue",
+            color: "white",
+            
+            _active: {
+                border:"none"
+            },
+            _focus: {
+                boxShadow: "none"
+            },
+            boxShadow: mode("1px 2px 12px 3px rgba(208, 214, 227, 0.3)", "none")(props)
+        }),
     },
     // default values for `size` and `variant`
     defaultProps: {
