@@ -12,12 +12,10 @@
   overflow: auto;
 
   .loupe {
-
     font-size: 1.5rem;
-
-    opacity: 0.6 !important;
-
-
+    margin-left: 20px;
+    opacity: 0.5 !important;
+    width: 42px;
   }
 }
 
@@ -250,6 +248,10 @@
 }
 
 @media screen and (max-width:768px) {
+  .loupe {
+    display: none;
+  }
+
   .search-div {
     position: fixed;
     display: block;

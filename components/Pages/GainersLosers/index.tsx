@@ -9,12 +9,12 @@ import { ArrowBackIcon } from "@chakra-ui/icons"
 import { TrendingUp, TrendingDown } from "react-feather"
 import Widget from "../../Utils/Widget"
 
-function GainersLosers() {
+function GainersLosers({ gainersBuffer, losersBuffer }) {
     const [blockchain, setBlockchain] = useState('');
     const [settings, setSettings] = useState({ liquidity: 1000, volume: 1000, onChainOnly: false, default: true })
     const [widgetVisibility, setWidgetVisibility] = useState(false);
-    const [gainers, setGainers] = useState([]);
-    const [losers, setLosers] = useState([]);
+    const [gainers, setGainers] = useState(gainersBuffer || []);
+    const [losers, setLosers] = useState(losersBuffer || []);
     const [state, setState] = useState("gainers");
     const gainersRef = useRef();
     const losersRef = useRef();
@@ -31,8 +31,10 @@ function GainersLosers() {
         supabase
             .from('assets')
             .select('id,name,price_change_24h,volume,symbol,logo,market_cap, price, rank,contracts,blockchains')
+            .contains('blockchains[1]', '{ ' + blockchain + ' }')
             .gte('liquidity', settings.liquidity)
             .gte('volume', settings.volume)
+            .gte('price_change_24h', 0)
             .order('price_change_24h', { ascending: false })
             .limit(100).then(r => {
                 setGainers(r.data
@@ -42,8 +44,10 @@ function GainersLosers() {
 
         supabase.from('assets')
             .select('id,name,price_change_24h,volume,symbol,logo,market_cap, price, rank,contracts,blockchains')
+            .contains('blockchains[1]', '{ ' + blockchain + ' }')
             .gte('liquidity', settings.liquidity)
             .gte('volume', settings.volume)
+            .lte('price_change_24h', 0)
             .order('price_change_24h', { ascending: true })
             .limit(100).then(r => {
                 setLosers(r.data
@@ -77,7 +81,7 @@ function GainersLosers() {
                 </Flex>
 
                 <Heading color={text} ml="50px" display={["none", "none", "flex", "flex"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">Top gainers / Top losers </Heading>
-                <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">See here the top gainers and the top losers</Text>
+                <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">Top gainers & losers of Mobula database. Click on the settings to filter your research.</Text>
                 <Flex w="100%" display={["flex"]} p={['20px', '20px', '0px', '0px']} pb={0}>
                     <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
                     <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} hideSearchBar={true} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />

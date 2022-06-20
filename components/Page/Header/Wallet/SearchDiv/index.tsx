@@ -89,6 +89,10 @@ function SearchDiv(props: any) {
       <div ref={props.wrapperRef} >
         <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
           <div className={styles["search-flex"]}>
+            <FiSearch
+              className={styles['loupe']}
+              style={{ marginRight: "10px", marginLeft: "10px" }}
+            />
             <Input
               color="none"
               value={token}

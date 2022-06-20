@@ -35,7 +35,7 @@
 
 .dflex {
   display: block !important;
-  width:85%;
+  width: 85%;
   white-space: nowrap;
 }
 
@@ -103,13 +103,8 @@
   font-size: 15px;
 }
 
-.white:visited {
-}
+.white:visited {}
 
-.red {
-  color: #ea3943 !important;
-  font-weight: 700;
-}
 
 .green {
   color: #16c784 !important;
@@ -245,7 +240,7 @@
 
   .dflex {
     display: flex;
-    width:98%;
+    width: 98%;
     white-space: initial !important;
   }
 
@@ -345,16 +340,6 @@
   margin-bottom: 2px;
 }
 
-.triangle-red {
-  display: inline-block;
-  height: 0;
-  width: 0;
-  border-top: 6px solid #ea3943;
-  border-right: 6px solid transparent;
-  border-left: 6px solid transparent;
-  margin-right: 6px;
-  margin-bottom: 2px;
-}
 
 @media screen and (max-width: 768px) {
   .token-infos {
@@ -702,7 +687,7 @@
 }
 
 @media screen and (max-width:1390px) {
-  .dflex{
-    width:95%;
+  .dflex {
+    width: 95%;
   }
 }

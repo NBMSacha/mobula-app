@@ -255,17 +255,17 @@ function ListAToken(props: any) {
         <div>
             <div className={styles["listToken-container"]}>
                 <h2 className={styles["title"]} >Listing form</h2>
-                <Flex display={["none","none","none","flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb="20px" mx="auto" w="80%" align="end" justify="space-between" >
-                    <Flex  direction="column">
-                        <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Listing form</Heading>
+                <Flex display={["none", "none", "none", "flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb="20px" mx="auto" w="80%" align="end" justify="space-between" >
+                    <Flex direction="column">
+                        <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Listing form</Heading>
                         <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
-                        See here the tokenss who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
+                            Submit your token for a listing for 10 MATIC. You must have them in your wallet on Polygon.
                         </Text>
                     </Flex>
                     <Text display={["none", "none", "none", "flex"]}>
-                        See here the lists token who got validated by the Mobula DAO
+                        Learn more <a style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }} href="https://docs.mobula.finance/list">here</a>.
                     </Text>
-                
+
                 </Flex>
                 <Flex className={styles["listToken-main"]} bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`}>
                     <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >

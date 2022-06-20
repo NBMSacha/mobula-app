@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import TokenDisplay from "../../Utils/Sort/TokenDisplay";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon} from "@chakra-ui/react";
+import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
 import DaoHeader from "../../Utils/DaoHeader";
 import Blocks from '../../Utils/Sort/Blocks';
 import { useAlert } from 'react-alert';
 import Router from "next/router";
-import { Globe,  } from "react-feather"
+import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 import styles from "./FirstSort.module.scss"
 import ReviewToken from "./ReviewToken";
@@ -245,7 +245,7 @@ function FirstSort() {
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const border = useColorModeValue("rgba(229, 229, 229, 0.5)", "rgba(229, 229, 229, 0.03)")
     return <>
-            {/* <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
+        {/* <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
                 
                 <Main voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
             </Flex>   
@@ -255,26 +255,26 @@ function FirstSort() {
             description="New listing requests are displayed here. Vote wisely."
             url="https://docs.mobula.finance/app/sort"
         /> */}
-        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']}  w="100%" align="end" justify="space-between" w="85%" mt="50px">
-                    <Flex  direction="column">
-                        <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >DAO First Sort</Heading>
-                        <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
-                        See here the tokenss who got validated by the <a href="https://docs.mobula.finance/app/sort"><span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span></a>
-                        </Text>
-                    </Flex>
-                    <Text display={["none", "none", "none", "flex"]}>
-                          See here the lists token who got validated by the Mobula DAO
-                    </Text>
+        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="100%" align="end" justify="space-between" mt="50px">
+            <Flex direction="column">
+                <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
+                <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
+                </Text>
+            </Flex>
+            <Text display={["none", "none", "none", "flex"]}>
+                Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
+            </Text>
         </Flex>
         {tokenDivs.length == 0 && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
         {(displayedToken ?
-        <>
-            <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
-        </>:
-            <Main voteToken={voteToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
+            <>
+                <ReviewToken bg={bg} btn={btn} border={border} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
+            </> :
+            <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} bg={bg} btn={btn} border={border} shadow={shadow} />
         )}
     </>
 }

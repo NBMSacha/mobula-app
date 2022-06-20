@@ -50,8 +50,8 @@ function Wallet(props: any) {
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
   const router = useRouter()
-  const [ connect, setConnect] = useState(false)
-  const [ close, setClose ] = useState(false)
+  const [connect, setConnect] = useState(false)
+  const [close, setClose] = useState(false)
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
 
@@ -178,7 +178,7 @@ function Wallet(props: any) {
             Earn
           </span>
 
-          <Flex display={triggerSearch ? "none" : "flex" } onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+          <Flex display={triggerSearch ? "none" : "flex"} onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
             <Text fontSize="12px" color="white" >+1</Text>
           </Flex>
         </Flex>
@@ -208,7 +208,7 @@ function Wallet(props: any) {
         <button
           className={styles['connect-wallet-btn']}
           onClick={() => {
-              setConnect(true)
+            setConnect(true)
           }}
         >
           {active
@@ -236,8 +236,8 @@ function Wallet(props: any) {
             icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-        {connect&& (
-            <ConnectWallet close={close} setClose={setClose} />
+        {connect && (
+          <ConnectWallet close={close} setClose={setClose} />
         )}
         <button
           className={styles['hamburger-btn']}
@@ -253,7 +253,7 @@ function Wallet(props: any) {
 
       </Flex>
 
-      <MenuMobile />
+      <MenuMobile connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
     </>
   )
 }

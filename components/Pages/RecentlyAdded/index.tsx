@@ -29,8 +29,9 @@ import {
 import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
-export default function RecentlyAdded() {
-  const [tokens, setTokens] = useState([]);
+export default function RecentlyAdded({ tokensBuffer }) {
+  console.log(tokensBuffer)
+  const [tokens, setTokens] = useState(tokensBuffer || []);
   const [blockchain, setBlockchain] = useState('');
   const [settings, setSettings] = useState({ liquidity: 0, volume: 0, onChainOnly: false, default: true })
   const [widgetVisibility, setWidgetVisibility] = useState(false);
@@ -51,6 +52,7 @@ export default function RecentlyAdded() {
       .gte('volume', settings.volume)
       .order('created_at', { ascending: false })
       .limit(100).then(r => {
+        console.log(r.data)
         setTokens(r.data
           .filter(entry => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
           .slice(0, 50))
@@ -58,7 +60,7 @@ export default function RecentlyAdded() {
 
   }, [settings, blockchain])
 
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+  //const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const shadow = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const btn_bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
@@ -88,10 +90,7 @@ export default function RecentlyAdded() {
           <Table variant='simple'>
             <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
               <Tr>
-                {isLargerThan768 && (
-                  <Th py="5px" isNumeric>Rank</Th>
-                )}
-                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} textAlign="start">Asset</Th>
+                <Th px="5px" position="sticky" left="0px" bg={[bg, bg, 'none']} textAlign="start">Asset</Th>
                 <Th px="5px" isNumeric>Price</Th>
                 <Th px="5px" isNumeric>Change (24h)</Th>
                 <Th px="5px" isNumeric>Market Cap</Th>
@@ -129,12 +128,7 @@ export default function RecentlyAdded() {
               }
               return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
                 <Tr>
-                  {isLargerThan768 && (
-                    <Td isNumeric>
-                      <Text>{token.rank}</Text>
-                    </Td>
-                  )}
-                  <Td px="5px" position="sticky" py="5px" left="0px" bg={isLargerThan768 ? "none" : bg} >
+                  <Td px="5px" position="sticky" py="5px" left="0px" bg={[bg, bg, "none"]} >
                     <Flex align="center">
                       <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]} src={token.logo} mr="10px" />
                       <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
@@ -148,8 +142,8 @@ export default function RecentlyAdded() {
                       {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>
-                  <Td px={"5px"} py="5px" isNumeric><Text>${token.market_cap}</Text></Td>
-                  <Td px="5px" py="5px" isNumeric><Text>${token.volume}</Text></Td>
+                  <Td px={"5px"} py="5px" isNumeric><Text>${formatAmount(token.market_cap)}</Text></Td>
+                  <Td px="5px" py="5px" isNumeric><Text>${formatAmount(token.volume)}</Text></Td>
                   <Td py={["5px", "5px", "20px", "20px"]}>
                     <Flex>
                       {token.website && (

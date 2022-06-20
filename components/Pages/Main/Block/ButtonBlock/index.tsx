@@ -104,9 +104,7 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
 
         </Button> */}
 
-        <button className={styles["params"]}>
-          <Settings className={styles["colors"]} />
-        </button>
+
         <Flex bg={btn_bg} border={`1px solid ${border}`} mx={1} align="center" position="relative" h={["30px", "30px", "40px", "40px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
           <Flex bg={btn_bg} ml="10px" mr="5px" fontSize="25px" opacity=".6" _placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
             <FiSearch className={styles['loupe']} />
@@ -128,7 +126,7 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
           {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
         </Flex>
 
-        <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
+        <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["flex"]}
           onClick={() => {
             setWidgetVisibility(!widgetVisibility)
           }}
@@ -137,8 +135,8 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
           border={`1px solid ${border}`}
           colorScheme='teal'
           aria-label='Call Segun'
-          size='md'
-          icon={<Sliders />}
+          size={'sm'}
+          icon={<Sliders size={20} />}
         />
       </Flex>
     </Flex >

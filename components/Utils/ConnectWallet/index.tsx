@@ -1,5 +1,4 @@
 
-import { getBlockchainFromContract } from '../../../helpers/blockchain';
 import { Flex, Image, Text, useColorModeValue, Button, Link, Radio } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import { CheckCircle, Copy } from 'react-feather';
@@ -11,17 +10,7 @@ import { InjectedConnector } from "@web3-react/injected-connector"
 import { CloseIcon } from '@chakra-ui/icons'
 import { walletlink, bsc, injected, walletconnect, resetWalletConnector, trezor, ledger, portis } from "./Connector"
 
-export default function ConnectWallet({ contract, blockchain, close, setClose }) {
-
-    const [copied, setCopied] = useState(false);
-    useEffect(() => {
-        if (!blockchain) {
-            getBlockchainFromContract(contract).then(r => {
-                blockchain = r;
-            })
-        }
-    }, [])
-
+export default function ConnectWallet({ close, setClose }) {
     const web3reactContext = useWeb3React();
     const { active, account, library, connector, activate, deactivate } = useWeb3React();
     const [accountAddress, setAccountAddress] = useState("")

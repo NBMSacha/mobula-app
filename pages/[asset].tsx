@@ -45,7 +45,7 @@ function Dataprovider({ asset }) {
         return <></>
     } else {
         return (
-            <Token baseAsset={asset} />
+            <Token baseAssetBuffer={asset} />
         )
     }
 

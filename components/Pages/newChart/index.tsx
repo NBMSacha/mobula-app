@@ -44,7 +44,6 @@ const Token = ({ baseAssetBuffer }) => {
     const types = ['price', 'volume', 'liquidity', 'rank'];
     const unformattedInitialBuffer = {}
     const [baseAsset, setBaseAsset]: [any, Function] = useState(baseAssetBuffer)
-    console.log(baseAsset.name, baseAssetBuffer)
 
     types.forEach(type => {
         const multiplier = type == 'rank' ? -1000000000 : 1000000000;
@@ -577,19 +576,19 @@ const Token = ({ baseAssetBuffer }) => {
                 <Box w="100%" h="100%" bg={bgChart} boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight="294px" overflowY="scroll" className={styles["scroll"]}>
-                        {baseAsset.contracts.map((contract: string, idx: number) => {
-                            return (
-                                <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
-                            )
-                        })}
+                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                            {baseAsset.contracts.map((contract: string, idx: number) => {
+                                return (
+                                    <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
+                                )
+                            })}
                         </Flex>
                     ) : (
-                        <Flex w="100%" mt="-30px" h="100%" align="center" justify="center">
-                            <Text>Not on chain</Text>
+                        <Flex w="100%" mt="-30px" h="100%" align="center" justify="center" p="30px">
+                            <Text>This asset doesn't have any wrapped on EVM-compatible chains, meaning we can't provide trustless data.</Text>
                         </Flex>
                     )}
-                   
+
 
                 </Box>
 
