@@ -2,8 +2,19 @@ import React, { useEffect, useState, useRef } from 'react';
 import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
-import { Text, Heading, Link, Flex, useColorModeValue, Image } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
+import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
+import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
+import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
+import BlockchainBtn from "../../Utils/BlockchainBtn"
+import { Sliders } from "react-feather"
+import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
+import { X, Settings } from 'react-feather';
+import { createClient } from '@supabase/supabase-js'
+import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link } from "@chakra-ui/react";
+import ButtonBlock from "../Main/Block/ButtonBlock"
+import Widget from "../../Utils/Widget"
 import {
   Table,
   Thead,
@@ -18,55 +29,74 @@ import {
 import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
-export default function RecentlyAdded({ tokens }) {
+export default function RecentlyAdded({ tokensBuffer }) {
+  console.log(tokensBuffer)
+  const [tokens, setTokens] = useState(tokensBuffer || []);
+  const [blockchain, setBlockchain] = useState('');
+  const [settings, setSettings] = useState({ liquidity: 0, volume: 0, onChainOnly: false, default: true })
+  const [widgetVisibility, setWidgetVisibility] = useState(false);
   const router = useRouter();
-  const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
+  const [widget, setWidget] = useState(false)
 
   useEffect(() => {
-    if (percentageRef && percentageRef.current) {
-      if ((window.matchMedia("(max-width: 768px)").matches)) {
-        setTextResponsive(true)
-      } else {
-        setTextResponsive(false)
-      }
-    }
-  }, [])
+    const supabase = createClient(
+      "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    )
 
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+    supabase
+      .from('assets')
+      .select('id,name,price_change_24h,volume,symbol,logo,market_cap,price,rank,contracts,blockchains,twitter,website,chat,created_at')
+      .gte('liquidity', settings.liquidity)
+      .gte('volume', settings.volume)
+      .order('created_at', { ascending: false })
+      .limit(100).then(r => {
+        console.log(r.data)
+        setTokens(r.data
+          .filter(entry => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
+          .slice(0, 50))
+      });
+
+  }, [settings, blockchain])
+
+  //const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
+  const shadow = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
+  const btn_bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
   const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
+  const [display, setDisplay] = useState("")
 
   return (
     <Flex justify="center">
-      <div className={styles["dflex"]}>
-        <header className={styles["stickyFix"]}>
-          <Heading mb={'45px'} mt={'55px'} >Recently Added assets</Heading>
-          <Text mb={'40px'} whiteSpace="normal" fontSize={['14px', '14px', '16px', '17px']}>
-            Here are the latest listings on Mobula. Do you want to see an asset here?
-            <Link variant="primary"
-              className={styles.link}
-              href='https://app.mobula.finance/list'
-            >
-              Try to list it.
-            </Link>
-          </Text>
-        </header>
+      <div className={styles["dflex"]} >
+        <Flex>
+          <Text display={["flex", "flex", "none", "none"]} mb={'20px'} mt={'25px'}>Recently added</Text>
+        </Flex>
+        <Flex display={["none", "none", "flex", "flex"]} mb={'50px'} mt={'55px'} fontSize={['12px', '12px', '14px', '14px']} className={styles["stickyFix"]} w="100%" align="end" justify="space-between">
+          <Flex direction="column">
+            <Heading mb={'15px'} fontSize="24px" fontFamily="Inter">Recently added tokens</Heading>
+            <Text whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+              Latest tokens who got validated by the <span style={{ color: "var(--chakra-colors-blue)" }}>Mobula DAO</span>
+
+            </Text>
+          </Flex>
+          <Text display={["none", "none", "none", "flex"]}>You can submit your own token (or a token you support) <Link color="blue" ml='5px'>here</Link></Text>
+        </Flex>
+        <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
+        <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
         <TableContainer mb="20px" >
           <Table variant='simple'>
-            <Thead borderBottom={`2px solid ${border}`}>
+            <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
               <Tr>
-                {isLargerThan768 && (
-                  <Th isNumeric>Rank</Th>
-                )}
-                <Th px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} textAlign="start">Asset</Th>
-                <Th isNumeric>Price</Th>
-                <Th isNumeric>Change (24h)</Th>
-                <Th isNumeric>Market Cap</Th>
-                <Th isNumeric>Volume (24h)</Th>
-                <Th>Socials</Th>
-                <Th>Added</Th>
+                <Th px="5px" position="sticky" left="0px" bg={[bg, bg, 'none']} textAlign="start">Asset</Th>
+                <Th px="5px" isNumeric>Price</Th>
+                <Th px="5px" isNumeric>Change (24h)</Th>
+                <Th px="5px" isNumeric>Market Cap</Th>
+                <Th px="5px" isNumeric>Volume (24h)</Th>
+                <Th >Socials</Th>
+                <Th >Added</Th>
               </Tr>
             </Thead>
             {tokens.map((token: any) => {
@@ -96,31 +126,25 @@ export default function RecentlyAdded({ tokens }) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
-              return (<Tbody onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
+              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
                 <Tr>
-                  {isLargerThan768 && (
-                    <Td isNumeric>
-                      <Text>{token.rank}</Text>
-                    </Td>
-                  )}
-                  <Td px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} >
+                  <Td px="5px" position="sticky" py="5px" left="0px" bg={[bg, bg, "none"]} >
                     <Flex align="center">
-                      <Image borderRadius="50%" h="30px" src={token.logo} mr="10px" />
+                      <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]} src={token.logo} mr="10px" />
                       <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
                       <Text opacity="0.6">{token.symbol}</Text>
                     </Flex>
                   </Td>
-                  <Td px="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
-                  <Td px="5px" isNumeric>
+                  <Td px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
+                  <Td px="5px" py="5px" isNumeric>
                     <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
                       {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
-
                       {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>
-                  <Td px="5px" isNumeric><Text>${token.market_cap}</Text></Td>
-                  <Td px="5px" isNumeric><Text>${token.volume}</Text></Td>
-                  <Td py={["0px", "0px", "0px", "30px"]}>
+                  <Td px={"5px"} py="5px" isNumeric><Text>${formatAmount(token.market_cap)}</Text></Td>
+                  <Td px="5px" py="5px" isNumeric><Text>${formatAmount(token.volume)}</Text></Td>
+                  <Td py={["5px", "5px", "20px", "20px"]}>
                     <Flex>
                       {token.website && (
                         <Link href={token.website}>

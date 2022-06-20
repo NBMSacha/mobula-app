@@ -25,6 +25,7 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 import ConnectWallet from "../../Utils/ConnectWallet"
+import Data from "../../Utils/Data";
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -115,43 +116,15 @@ function News(props: any) {
         return []
       }
 
-    } else if (display == 'Ethereum') {
-
-      if (!chains['Ethereum']) {
-        loadChain('Ethereum')
-        return []
-      } else {
-        return chains['Ethereum']
-      }
-    } else if (display == 'BNB Smart Chain (BEP20)') {
-
-      if (!chains['BNB Smart Chain (BEP20)']) {
-        loadChain('BNB Smart Chain (BEP20)')
-        return []
-      } else {
-        return chains['BNB Smart Chain (BEP20)']
-      }
-    } else if (display == 'Avalanche C-Chain') {
-
-      if (!chains['Avalanche C-Chain']) {
-        loadChain('Avalanche C-Chain')
-        return []
-      } else {
-        return chains['Avalanche C-Chain']
-      }
-    } else if (display == 'Polygon') {
-
-      if (!chains['Polygon']) {
-        loadChain('Polygon')
-        return []
-      } else {
-        return chains['Polygon']
-      }
     } else if (display == 'search') {
       return search
-    }
-    else {
-      return []
+    } else {
+      if (!chains[display]) {
+        loadChain(display)
+        return []
+      } else {
+        return chains[display]
+      }
     }
   }
 
@@ -188,6 +161,7 @@ function News(props: any) {
               ...chains
             }
             newChains[display] = r.data.filter(token => token.blockchains[0] == display).slice(0, 100);
+            console.log('Setting cronos chain : ', newChains[display])
             setChains(newChains);
           } else {
             alert.show('Something went wrong')
@@ -203,9 +177,10 @@ function News(props: any) {
     }
   }, [settings])
 
-  const gradient = useColorModeValue("white_gradient", "dark_gradient")
+  const gradient = useColorModeValue("white_gradient", "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)")
   const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
   const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
+  const bg = useColorModeValue("none", "#121626")
 
   return (
     <>
@@ -308,9 +283,12 @@ function News(props: any) {
       {console.log(display)}
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-        <TableContainer>
+
+        <TableContainer bg={bg} display="flex" flexDirection="column" alignItems="center">
+          {/* <Data /> */}
           <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
-            <Thead borderBottom={`2px solid ${border}`} borderTop={`2px solid ${border}`} >
+
+            <Thead borderTop={`2px solid ${border}`} >
               <Tr className={styles[""]}>
                 <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
                 <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>

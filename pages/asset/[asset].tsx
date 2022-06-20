@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Chart from '../../components/Pages/Chart/index.jsx';
 import { createClient } from '@supabase/supabase-js'
 import { useRouter } from 'next/router';
 import { fromUrlToName } from '../../helpers/formaters'
 import { ethers } from 'ethers';
+import Token from '../../components/Pages/newChart';
 
 export async function getStaticPaths() {
     return {
@@ -25,12 +25,30 @@ export const getStaticProps = async ({ params }) => {
         .select('*')
         .or('name.ilike.' + fromUrlToName(params.asset))
 
-    return {
-        props: {
-            asset: data[0]
-        },
-        revalidate: 120
+    if (data) {
+        return {
+            props: {
+                asset: data[0],
+                key: data[0].id
+            },
+            revalidate: 120
+        }
+    } else {
+        const { data } = await supabase
+            .from('assets')
+            .select('*')
+            .or('name.ilike.' + fromUrlToName(params.asset).split(' ')[0])
+
+        return {
+            props: {
+                asset: data[0],
+                key: data[0].id
+            },
+            revalidate: 120
+        }
     }
+
+
 }
 
 
@@ -60,7 +78,7 @@ function Dataprovider({ asset }) {
         return <></>
     } else {
         return (
-            <Chart baseAsset={asset} />
+            <Token baseAssetBuffer={asset} />
         )
     }
 

@@ -208,14 +208,14 @@
 }
 
 .column-right {
-    padding-top: 50px;
+    padding-top: 0px;
     width: 45%;
     margin-left: -19px;
     margin-right: auto
 }
 
 .column-left {
-    padding-top: 50px;
+    padding-top: 0px;
     width: 45%;
     margin-right: auto;
     margin-left: auto;
@@ -322,6 +322,9 @@
     .data-title:nth-child(3) {
         margin-left: auto;
     }
+    .widths{
+        width:100%
+    }
 }
 
 @media screen and (max-width: 1280px) {
@@ -331,6 +334,7 @@
         /* text-align: end; */
         justify-content: end;
     }
+    
 
     .table {
         padding: 0px 10px 18px 10px;
@@ -360,7 +364,7 @@
     }
 }
 
-@media screen and (max-width: 1180px) {
+@media screen and (max-width: 1240px) {
     .both-container {
         flex-direction: column;
         align-items: center;
@@ -409,7 +413,7 @@
 
     .column-right {
         width: 80%;
-        margin: -50px auto 30px auto;
+        margin: 20px auto 30px auto;
     }
 
     .token-ids {
@@ -425,12 +429,14 @@
 
     .column-right {
         margin-left: 0px;
-        margin-right: 0px
+        margin-right: 0px;
+        margin-top:20px
     }
 
     .column-left {
         margin-left: 0px;
-        margin-right: 0px
+        margin-right: 0px;
+        margin-top:20px
     }
 
     .mobile-btn {
@@ -449,7 +455,7 @@
     .column-right {
         display: none;
         width: 90%;
-        margin-top: -40px;
+        margin-top:20px
     }
 
     .token-infos {
@@ -458,7 +464,7 @@
 
     .column-left {
         width: 95%;
-        margin-top: -40px;
+        margin-top:20px
     }
 
     .token-title-volume {
@@ -554,14 +560,14 @@
 
 @media screen and (min-width:1800px) {
     .column-right {
-        padding-top: 50px;
+        padding-top: 0px;
         width: 45%;
         margin-left: auto;
         margin-right: auto
     }
 
     .column-left {
-        padding-top: 50px;
+        padding-top: 0px;
         width: 45%;
         margin-right: auto;
         margin-left: auto;

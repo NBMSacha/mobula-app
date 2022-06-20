@@ -56,7 +56,6 @@ export default function Widget({ setSettings, visible, setVisible, settings }) {
                 <Box h="1px" w="100%" bg={borderBox}></Box>
                 <Flex direction="column" justify="center" w="80%">
 
-
                     <Text mt="20px" fontSize="12px">Min. Liquidity</Text>
                     <Box pt={6} pb={2}>
                         <Slider aria-label='slider-ex-6' defaultValue={reverseExpo(settings.liquidity)} max={1_000_000} mt="15px" onChange={(val) => setLiquidity(val)}>

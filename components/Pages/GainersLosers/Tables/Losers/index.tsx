@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Image, Text, useColorModeValue } from '@chakra-ui/react';
 import { Tbody, Tr, Td, useMediaQuery } from '@chakra-ui/react';
-import { getTokenPrice, getTokenPercentage, getUrlFromName, getTokenFormattedPrice } from '../../../../../helpers/formaters';
+import { getTokenPrice, getTokenPercentage, getUrlFromName, getTokenFormattedPrice, formatAmount } from '../../../../../helpers/formaters';
 import { TriangleDownIcon } from '@chakra-ui/icons';
 import { useRouter } from "next/router";
 
@@ -27,7 +27,7 @@ function Losers({ losers }) {
                             </Td>
                             <Td px="5px" isNumeric>{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: 'auto' })}</Td>
                             <Td px="5px" isNumeric color="red"><TriangleDownIcon boxSize="12px" mb="2px" mr="3px" />{getTokenPercentage(gainer.price_change_24h)}%</Td>
-                            <Td px="5px" isNumeric>${gainer.volume}</Td>
+                            <Td px="5px" isNumeric>${formatAmount(gainer.volume)}</Td>
                         </Tr>
                     </Tbody>
                 )

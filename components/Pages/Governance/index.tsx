@@ -164,104 +164,36 @@ function Governance() {
 
     const gradient = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     return (
-        // <div className='listing'>
-        //     <div className='container'>
-
-        //                 <header>
-        //                     <Heading mb={'20px'}>Governance</Heading>
-        //                     <Text fontSize={['14px', '14px', '16px', '17px']}>
-        //                     You are in charge : deposit MOBL to be able to vote.
-        //                         <a
-        //                             className={styles.link}
-        //                             href='https://docs.mobula.finance/app/dashboard'
-        //                         >
-        //                             Learn more here
-        //                         </a>
-        //                     </Text>
-        //                 </header>
-
-        //                 <div className={styles.line}></div>
-        //                 <Flex my={70} className={styles['container-box']}>
-        //                     <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" ml="auto" mr="auto" borderRadius="25px" mx={10} className={styles["current-vote"]}>
-        //                         <Heading fontSize="25px" color="white" mb="0px">Voting Power</Heading>
-        //                         <Text color="#ffffff99" fontSize="15px" mb="15px">You are currently deposited</Text>
-        //                         <Text fontSize="15px" color="white" mb="15px">0 $MOBL</Text>
-        //                         <FormControl>
-        //                             <FormLabel htmlFor='deposit' color="#ffffff99" fontSize="15px" mb="15px">Deposit New Token</FormLabel>
-        //                             <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='deposit' fontFamily="Poppins" borderRadius='10px' type='number' placeholder="3000"
-        //                                 ref={depositRef}
-        //                                 value={depositAmount}
-        //                                 onChange={(e) => setDepositAmount(e.target.value)}
-        //                             ></Input>
-        //                         </FormControl>
-        //                         <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" color="white" fontFamily='Poppins' onClick={() => { console.log(depositAmount); deposit() }}>Deposit</Button>
-        //                         <FormControl>
-        //                             <FormLabel htmlFor='withdraw' mt="25px" color="#ffffff99" fontSize="15px">Withdraw New Token</FormLabel>
-        //                             <Input h="32px" w="90%" bg="rgba(163, 212, 244, 0.2)" border="none" id='withdraw' borderRadius='10px' fontFamily="Poppins" type='number' placeholder="3000"
-        //                                 ref={withdrawRef}
-        //                                 value={withdrawAmount}
-        //                                 onChange={(e) => setWithdrawAmount(e.target.value)}
-        //                             >
-        //                             </Input>
-        //                         </FormControl>
-        //                         <Button onClick={() => { console.log(withdrawAmount); withdraw() }} bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="40%" py="10px" borderRadius="10px" mt="20px" mb='50px' color="white" fontFamily='Poppins'  >Withdraw</Button>
-        //                     </Flex>
-        //                     <Flex direction="column" bg="rgba(163, 212, 244, 0.25)" borderRadius="25px" className={`${styles["current-vote"]} ${styles["x-space"]}`}>
-        //                         <Heading mb="0px">Governance process</Heading>
-        //                         <Text fontSize="15px" mb="15px">Create a proposal</Text>
-        //                         <Textarea bg="rgba(163, 212, 244, 0.2)" borderRadius="10px" color="white" placeholder='The listing fee should be reduced to 10$' h="165px" border="none" p="20px" fontFamily="Poppins"
-        //                             ref={proposalRef}
-        //                             value={createProposal}
-        //                             onChange={(e) => setCreateProposal(e.target.value)}
-        //                         />
-        //                         <Button bg="linear-gradient(90deg, #003FE1 8.9%, #64D0FF 87.31%)" border="none" w="37%" py="10px" borderRadius="10px" mb="50" mt="30px" color="white" fontFamily='Poppins' onClick={() => { console.log(createProposal); createProposals() }}>Create</Button>
-        //                     </Flex>
-        //                     <Flex direction="column" px={0} ml="auto" mr="auto" mx={10} className={styles["current-vote"]}>
-        //                         <Heading  mt="-12px">Vote for current proposals</Heading>
-        //                         {proposals.map((proposal, idx) => ( 
-        //                             <>
-        //                             {console.log(idx)}
-        //                             {Number(proposal) == 0 ? (
-        //                                 <Flex bg="#16C784" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
-        //                                     <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
-        //                                     <Flex align="center" display="inline-flex">
-        //                                         <Image src="/thumbsUp.png" h="25px" />
-        //                                         <Image src="/thumbsDown.png" h="25px" ml="25px" opacity=".5" mr="10px"/>
-        //                                     </Flex>
-        //                                 </Flex>
-        //                             ): (
-        //                                 <Flex bg="#EA3943" align="center" px={15} justify="space-between" mt={4} borderRadius="18px" className={styles["proposals"]}>
-        //                                     <Text pr="10px" fontSize="15px" my='0px' className={styles["listing-proposals"]}>The listing fee should be reduced to 10$</Text>
-        //                                     <Flex align="center" display="inline-flex">
-        //                                         <Image src="/thumbsUp.png" h="25px"  opacity=".5" />
-        //                                         <Image src="/thumbsDown.png" h="25px" ml="25px" mr="10px"/>
-        //                                     </Flex>
-        //                                 </Flex>
-        //                             )}
-        //                             </>
-        //                         ))}
-
-        //                     </Flex>
-
-        //                 </Flex>
-
-        //     </div>
-        // </div >
-        <Flex justify="center" align={["center", "center", "auto", "auto"]} mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
-            <Spacer />
-            <Spacer />
-            <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction="column" >
-                <Idea proposal={proposals} />
-                <Historys proposal={proposals} />
+        <Flex direction="column" mb={'50px'} mt={'28px'} align="center" justify="center">
+            <Flex fontSize={['12px', '12px', '14px', '14px']}  className={styles["stickyFix"]} margin="auto" w="80%" align="end" justify="space-between">
+                <Flex  direction="column">
+                    <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Governance Process</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    See here the tokenq who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
+                    </Text>
+                </Flex>
+                <Text display={["none", "none", "none", "flex"]}>
+                      See here the lists token who got validated by the Mobula DAO
+                </Text>
+              
             </Flex>
-            <Spacer />
-            <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction={["column-reverse", "column-reverse", "column-reverse", "column"]} >
-                <Vote proposal={proposals} />
-                <Power proposal={proposals} />
+            <Flex fontSize={['12px', "12px", "15px", "15px"]} justify="center" mt={'10px'} align={["center", "center", "auto", "auto"]} w="90%" mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
+                <Spacer />
+                <Spacer />
+                <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction="column" >
+                    <Idea proposal={proposals} />
+                    <Historys proposal={proposals} />
+                </Flex>
+                <Spacer />
+                <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction={["column-reverse", "column-reverse", "column-reverse", "column"]} >
+                    <Vote proposal={proposals} />
+                    <Power proposal={proposals} />
+                </Flex>
+                <Spacer />
+                <Spacer />
+                <Box w={["100%","100%","100%","50%"]} h="200px" bg={`linear-gradient(180deg,hsla(0,0%,100%,0) 0,${gradient} 70%,${gradient} 100%,#f5f5f5)`} left="0px" position="absolute" bottom={["1050px","1050px" ,"450px" ,"400px"]}></Box>
+               
             </Flex>
-            <Spacer />
-            <Spacer />
-            <Box w={["100%","100%","100%","50%"]} h="200px" bg={`linear-gradient(180deg,hsla(0,0%,100%,0) 0,${gradient} 70%,${gradient} 100%,#f5f5f5)`} left="0px" position="absolute" bottom={["960px","960px" ,"350px" ,"350px"]}></Box>
         </Flex>
     )
 }

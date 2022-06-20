@@ -52,11 +52,6 @@
   background: none;
 }
 
-.white {
-  background-color: var(----btn-hover) !important;
-
-  
-}
 
 .rond {
   position: absolute;
@@ -101,8 +96,8 @@
 }
 
 .blockchain-logo {
-  height: 35px;
-  width: 35px;
+  height: 23px;
+  width: 23px;
   border-radius: 50%
 }
 
@@ -144,7 +139,7 @@
 }
 
 .blockchain-btn {
-  
+
   position: relative;
   border-radius: 10px;
   display: flex;
@@ -162,6 +157,7 @@
   background: var(--active-btn);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
+  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 
@@ -171,6 +167,7 @@
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   cursor: pointer;
+  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 .select-button,
@@ -198,7 +195,7 @@
 }
 
 .colors {
-  width:20px;
+  width: 20px;
   font-weight: bold;
 }
 
@@ -263,6 +260,10 @@
   .rond {
     width: 15px;
     height: 15px;
+  }
+
+  .spanMargin {
+    margin: 0px 0px !important;
   }
 
   .rectangle {
@@ -368,7 +369,7 @@
 
   .blockchain-btn-three {
     padding: 8px 6px;
- 
+
     width: 72px !important;
   }
 
@@ -392,10 +393,10 @@
 
   }
 
-.loupe{
-  opacity:0.5 !important;
+  .loupe {
+    opacity: 0.5 !important;
 
-}
+  }
 
   .marginFa {
     margin-left: 48px;
@@ -519,9 +520,7 @@
     width: 85px;
   }
 
-  .eth-btn-block {
-
-  }
+  .eth-btn-block {}
 
 
 
@@ -586,20 +585,25 @@
 //   cursor: pointer;
 // }
 
-@media screen and (max-width:1000px) {
+@media screen and (max-width:1160px) {
   .avax-btn {
-    display: none;
+    display: none !important;
   }
 }
 
 @media screen and (max-width:1360px) {
-  .matic-btn {
-    display:none !important;
-  }    
-}
 
-@media screen and (max-width:1360px) {
-  .blockchain-container{
+  .blockchain-container {
     width: 95% !important;
   }
+}
+
+@media screen and (max-width:1060px) {
+  .bsc-btn {
+    display: none
+  }
+}
+
+.spanMargin {
+  margin: 0px 10px
 }

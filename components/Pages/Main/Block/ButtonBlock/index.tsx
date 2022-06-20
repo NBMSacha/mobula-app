@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRight'
+import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
 import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
 import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
 import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
@@ -9,6 +9,7 @@ import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X, Settings } from 'react-feather';
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image } from "@chakra-ui/react";
+import Widget from "../../../../Utils/Widget"
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
 
@@ -45,71 +46,74 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
     }
   }, [search])
 
-  function lockerButton() {
-    const rectangle = document.getElementById('rectangle')
-    const cercle = window.document.getElementById('cercle')
-    if (cercle.style.transform === 'translateX(0%)') {
-      cercle.style.transform = 'translateX(135%)'
-      rectangle.style.background = '#24274A'
-      cercle.style.transition =
-        'transform 150ms ease-in, background 150ms ease-in'
-    } else {
-      cercle.style.transform = 'translateX(0%)'
-      rectangle.style.background = '#58667E'
-      cercle.style.transition =
-        'transform 150ms ease-out, background 150ms ease-out'
-    }
-  }
+
 
   const input = useColorModeValue("white_input", "dark_input")
   const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  console.log(`shadow: ${shadow}`)
+  const bg = useColorModeValue("none", "#121626")
+  const border = useColorModeValue("btn_border", "var(--chakra-colors-btn_border)")
+  const btn_bg = useColorModeValue("var(--chakra-colors-white_terciary)", "var(--chakra-colors-dark_secondary)")
+  console.log(display)
 
   return (
-    <Flex className={styles['main-blockchain-container']} w="100%">
-      <div className={styles['blockchain-container']}>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Top 100' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} display="flex" alignItems="center" justifyContent="center" maxWidth="155px" width="13%" whiteSpace="nowrap" borderRadius="10px" padding="10px 20px" onClick={() => setDisplay('Top 100')}>Top 100</Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'My Assets' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} display="flex" alignItems="center" justifyContent="center" padding="10px 20px" borderRadius="10px" className={styles[(display == 'My Assets' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('My Assets')}>My Assets</Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} alignItems="center" justifyContent="center" padding="10px 20px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
+    <Flex className={styles['main-blockchain-container']} w="100%" bg={bg}>
+      <Flex className={styles['blockchain-container']} >
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Top 100' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} display="flex" alignItems="center" justifyContent="center" maxWidth="155px" width="13%" whiteSpace="nowrap" borderRadius="10px" padding="10px" onClick={() => setDisplay('Top 100')}>Top 100</Button>
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'My Assets' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} display="flex" alignItems="center" justifyContent="center" padding="10px" borderRadius="10px" className={styles[(display == 'My Assets' ? 'select-button-white' : 'select-button')]} onClick={() => setDisplay('My Assets')}>My Assets</Button>
+        <Button minWidth="fit-content" mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "flex", "flex", "flex"]} variant={display == 'Ethereum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['eth-btn-block']} ${display == 'Ethereum' ? styles['white'] : ''}`} onClick={() => setDisplay('Ethereum')}>
           <img src='ethereum.png' className={`${styles['blockchain-logo']} ${styles["eth-btn"]}`} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>ETH</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'BNB Smart Chain (BEP20)' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} alignItems="center" justifyContent="center" padding="10px 20px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
+        <Button minWidth="fit-content" mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'BNB Smart Chain (BEP20)' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${styles['bsc-btn']} ${display == 'BNB Smart Chain (BEP20)' ? styles['white'] : ''}`} onClick={() => setDisplay('BNB Smart Chain (BEP20)')}>
           <img src='bnb.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>BNB</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} alignItems="center" justifyContent="center" padding="10px 20px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['avax-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
+        <Button minWidth="fit-content" mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Avalanche C-Chain' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${display == 'Avalanche C-Chain' ? styles['white'] : ''}`} onClick={() => setDisplay('Avalanche C-Chain')}>
           <img src='avalanche.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>AVAX</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} alignItems="center" justifyContent="center" padding="10px 20px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
+
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "flex", "flex", "flex"]} variant={display == 'Polygon' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']}  ${display == 'Polygon' ? styles['white'] : ''}`} onClick={() => setDisplay('Polygon')}>
           <img src='polygon.png' className={styles['blockchain-logo']} />
           <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>MATIC</span>
         </Button>
-        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "50px", "50px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 20px", "10px 20px"]} borderRadius="10px"
+
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Cronos' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} 
+        ${display == 'Cronos' ? styles['white'] : ''}`}
+          onClick={() => setDisplay('Cronos')}>
+          <img src='cronos.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>Cronos</span>
+        </Button>
+        <Button mx={1} fontSize={["12px", "12px", "14px", "14px"]} display={["none", "none", "none", "flex"]} variant={display == 'Arbitrum' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding="15px" borderRadius="10px" className={`${styles['blockchain-btn']} ${styles['matic-btn']} 
+        ${display == 'Arbitrum' ? styles['white'] : ''}`}
+          onClick={() => setDisplay('Arbitrum')}>
+          <img src='arbitrum.png' className={styles['blockchain-logo']} />
+          <span className={styles['blockchain-name']} style={{ marginLeft: "10px" }}>Arbitrum</span>
+        </Button>
+        {/* <Button minWidth={["fit-content", "fit-content", "fit-content", "fit-content"]} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"
           className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
         >
-          <img src='harmony.png' className={styles['three-blockchain-logo']} />
-          <img src='optimism.png' className={styles['three-blockchain-logo']} />
-          <img src='arbitrum.png' className={styles['three-blockchain-logo']} />
           <span>
-            <AiOutlineArrowRight className={styles['marginFa']} />
+            <AiOutlineArrowLeft style={{ width: '19px', fontSize: "21px" }} className={styles["spanMargin"]} />
           </span>
-          <span className={`${styles['mienai']} ${styles['blockchain-name']}`}>Other Chains</span>
+          <span style={{ margin: "0px 10px" }} className={`${styles['mienai']} ${styles['blockchain-name']}`}>Other chains</span>
+          <Image src='harmony.png' h={["28px", "28px", "28px", "36px"]} />
+          <Image src='optimism.png' h={["28px", "28px", "28px", "36px"]} />
+          <Image src='arbitrum.png' h={["28px", "28px", "28px", "36px"]} />
 
-        </Button>
 
-        <button className={styles["params"]}>
-          <Settings className={styles["colors"]} />
-        </button>
-        <Flex mx={1} align="center" position="relative" bg={input} h={["30px", "30px", "50px", "50px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
-          <Flex ml="10px" mr="5px" fontSize="25px" opacity=".6" bg={input} _placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
+        </Button> */}
+
+
+        <Flex bg={btn_bg} border={`1px solid ${border}`} mx={1} align="center" position="relative" h={["30px", "30px", "40px", "40px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
+          <Flex bg={btn_bg} ml="10px" mr="5px" fontSize="25px" opacity=".6" _placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
             <FiSearch className={styles['loupe']} />
           </Flex>
           <Input
             // value={token}
+
             type='text'
-            bg={input}
+            bg="none"
             border="none"
             name='search'
             fontSize="14px"
@@ -121,18 +125,20 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
           ></Input>
           {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
         </Flex>
-        <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["none", "none", "flex", "flex"]}
+
+        <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["flex"]}
           onClick={() => {
             setWidgetVisibility(!widgetVisibility)
           }}
+
           boxShadow={`1px 2px 12px 3px ${shadow}`}
+          border={`1px solid ${border}`}
           colorScheme='teal'
           aria-label='Call Segun'
-          size='lg'
-          bg={input}
-          icon={<Sliders />}
+          size={'sm'}
+          icon={<Sliders size={20} />}
         />
-      </div>
+      </Flex>
     </Flex >
   )
 }

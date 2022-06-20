@@ -53,7 +53,9 @@ export const themeUltime = extendTheme({
     // pagination: "rgba(255, 255, 255, 0.62)",
     // DARK
     dark_primary: "#131727",
-    dark_secondary: "rgba(18, 20, 33, 0.93)",
+    dark_box: "#161A2A",
+    dark_btn_election: "#21263A",
+    dark_secondary: "rgba(25, 29, 44, 0.5)",
     dark_tertiary: "#111521",
     dark_border: "rgba(239, 242, 245, 0.05)",
     dark_header: "rgba(41, 44, 56, 0.3)",
@@ -63,7 +65,7 @@ export const themeUltime = extendTheme({
     dark_mobile_bg: "rgba(50, 53, 80, 0.25)",
     dark_grey: "rgba(255, 255, 255, 0.62)",
     dark_input_list: '#0C1421',
-    dark_box_list: "#191D2C",
+    dark_box_list: "#161A2A",
     white_grey: "#939393",
     white_mobile_bg: "rgba(255, 255, 255, 0.25)",
     white_border_tendance: "#E5E5E5",
@@ -94,6 +96,7 @@ export const themeUltime = extendTheme({
     // WHITE
     white_gradient: "linear-gradient(180deg, #EEEEEE 20%, rgba(248, 250, 252, 0) 100.94%)",
     bg_white: "#F5F5F5",
+    bg_white_2: "#F2F2F2",
     white_terciary: "#F7F7F7",
     white_input: "rgba(255, 255, 255, 0.3)",
     blue: "#5C7DF9",
@@ -103,7 +106,10 @@ export const themeUltime = extendTheme({
     'shadow-hard': 'rgba(208, 214, 227, 0.5)',
     none: "none",
     green: '#16C784',
-    red: '#EA3943'
+    red: '#EA3943',
+
+    dark_blue: "#111525",
+    btn_border: "rgba(122, 122, 122, 0.1)"
 
   },
 

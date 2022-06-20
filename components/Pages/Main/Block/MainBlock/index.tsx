@@ -13,19 +13,19 @@ function MainBlock(props: any) {
   const [isSmalerThan1250] = useMediaQuery('(max-width: 1250px)')
   const [isSmalerThan1560] = useMediaQuery('(max-width: 1660px)')
   // COLOR MODE
-  const containerColor = useColorModeValue("bg_white", "dark_secondary")
+  const containerColor = useColorModeValue("bg_white", "dark_blue")
   const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const mobileBg = useColorModeValue("white_mobile_bg", "dark_mobile_bg")
+  const mobileBg = useColorModeValue("white_mobile_bg", "var(--chakra-colors-dark_blue)")
   const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
 
   if (!isMobile) {
 
     return (
-      <Flex w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
+      <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
         <Flex boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={[mobileBg, mobileBg, "none", "none"]} >
-          <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Today's Crypto-assets by <span>Mobula</span></Text>
+          <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Crypto assets by Mobula</Text>
           <Text fontFamily="Poppins" fontSize={["14px", "14px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt="20px" className={styles['subtitle-news']}>
-            Mobula is a decentralized alternative to CoinMarketCap, redistributing profit to <span style={{ color: "#5C7DF9", fontWeight: "700" }}>users</span>, scraping data on-chain.
+            Mobula is a decentralized and seamless <span style={{ color: "#5C7DF9", fontWeight: "700" }}>data aggregator</span> redistributing profit to users and processing data on-chain.
 
             {' '}
 
@@ -35,11 +35,11 @@ function MainBlock(props: any) {
         <Box w={["100%", "100%", "58%", `${isSmalerThan1560 ? "58%" : "58%"}`]} bg={[mobileBg, mobileBg, "none", "none"]} boxShadow={[`0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`, "none", "none"]} ml="10px" mb={["15px", "15px", "30px", "30px"]} borderRadius="15px">
           <Flex overflow="auto" >
             <Flex justify="center">
-              <div >
+              <div style={{ marginRight: "10px" }}>
                 <a href='/earn'>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{ background: hover, cursor: "pointer" }} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border={["none", "none", "1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)"]}
                     mr="10px" bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]} >
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]} >
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='fullicon.png' />
                     </div>
@@ -51,13 +51,13 @@ function MainBlock(props: any) {
                   </Flex>
                 </a>
               </div>
-              <div >
+              <div style={{ marginRight: "10px" }}>
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]}
+                  <Flex _hover={{ background: hover, cursor: "pointer" }} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border={["none", "none", "1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)"]}
                     bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='portfolio.png'></img>
                     </div>
@@ -71,8 +71,8 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex _hover={{background: hover, cursor:"pointer"}} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
-                    borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "280px"]}>
+                  <Flex _hover={{ background: hover, cursor: "pointer" }} py={2} boxShadow={["none", "none", `0px 1px 12px 3px ${shadowColor}`, `0px 1px 12px 3px ${shadowColor}`]} border={["none", "none", "1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)"]} bg={["none", "none", containerColor, containerColor]} m={["auto", "auto", "auto", "20px 10px"]}
+                    borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "230px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>
                     </div>
@@ -86,9 +86,7 @@ function MainBlock(props: any) {
               </div>
             </Flex>
           </Flex>
-          <Flex mt="20px" fontFamily="Poppins" display={["none", "none", "flex", "flex"]}>
-            <Text px="1%" textAlign="center" mr="4px" fontSize="14px"><span style={{ color: "#5C7DF9" }}>Mobula’s data is 100% scraped on-chain </span>- which means trustless data, in opposite to CEX aggregation systems easily falsified.</Text>
-          </Flex>
+
         </Box>
       </Flex>
     )
