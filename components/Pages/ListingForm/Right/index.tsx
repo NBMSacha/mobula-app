@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from "../ListingForm.module.scss";
-import { Input, Flex, Button } from '@chakra-ui/react';
+import { Input, Flex, Button, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/react';
 
 function Right({
@@ -39,7 +39,7 @@ function Right({
     };
 
     return (
-        <Flex className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+        <Flex className={styles["three-forms"]} p="20px" >
             <div className={styles["form-container-box"]}>
                 <label >Audit Link (Optional) </label>
                 <Input
@@ -47,7 +47,7 @@ function Right({
                     pr="10px"
                     _placeholder={{ color: "none" }}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
-                    bg={input}
+                    bg={box}
                     type="text"
                     id="audit"
                     name="audit"
@@ -62,7 +62,7 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     type="text"
                     id="kyc"
@@ -78,7 +78,7 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={input}
+                    bg={box}
                     boxShadow={`1px 2px 12px 3px ${shadow}`}
                     type="text"
                     id="kyc"
@@ -98,7 +98,7 @@ function Right({
                                 value={x.value}
                                 boxShadow={`1px 2px 12px 3px ${shadow}`}
                                 name="excluded"
-                                bg={input}
+                                bg={box}
                                 color="none"
                                 _placeholder={{ color: "none" }}
                                 placeholder="0x5D3e4C0FE11e0..."
@@ -108,17 +108,18 @@ function Right({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <Button bg={input} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
+                                {inputList.length - 1 === i && <Button bg={box} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
                             </div>
                         </>
                     );
                 })}
             </div>
             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
-                <button style={{ color: btn }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                <Text textAlign="end" fontSize="10px" mb="10px" opacity=".2" ml="auto">Mendatory Fields *</Text>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                <button style={{ color: btn }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
         </Flex>
     )

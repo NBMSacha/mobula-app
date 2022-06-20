@@ -1,0 +1,7 @@
+.slideEffect{
+    position:absolute;
+    top:-700px;
+    right:-300px;
+    transform: translateX(-300px);
+    transition: transform 1000ms ease-in-out
+}

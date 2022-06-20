@@ -32,8 +32,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      tokens: data.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0),
-      gainers: gainers.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0),
+      tokens: data?.filter((token: any) => token.liquidity > 1000 || token.contracts.length == 0) || [],
+      gainers: gainers?.filter((token: any) => token.liquidity > 10000 || token.contracts.length == 0) || [],
       recents,
       trendings,
       top: (Math.floor(metrics[0].total_assets / 100)),

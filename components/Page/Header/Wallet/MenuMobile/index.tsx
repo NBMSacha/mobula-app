@@ -11,9 +11,9 @@ import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
 import { Flex, useColorModeValue } from '@chakra-ui/react';
+import ConnectWallet from '../../../../Utils/ConnectWallet';
 
-function MenuMobile(props: any) {
-
+function MenuMobile({ connect, setConnect, close, setClose }) {
   const [isConnected, setIsConnected] = useState(false);
   const [wallet, setWallet] = useState({})
 
@@ -21,6 +21,10 @@ function MenuMobile(props: any) {
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
   const router = useRouter()
+
+  useEffect(() => {
+    console.log('urningng', connect)
+  }, [connect])
 
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
@@ -177,21 +181,27 @@ function MenuMobile(props: any) {
             </a>
           </div>
           <div className={styles['connect-mobile-container']}>
-            <button className={styles['connect-wallet-mobile']} onClick={handleConnect}>
+            <button className={styles['connect-wallet-mobile']} onClick={() => {
+              setConnect(true)
+            }}>
               {active
                 ? account.substring(0, 4) +
                 '..' +
                 account.substring(account.length - 4, account.length)
-                : 'Connect'}
+                : 'Connect...'}
             </button>
             <div className={styles['rank-mobile-box']}>
               {active
-                ? <><span>Rank {Number(ranked)}</span>
+                ? <><span>Rank {ranked ? Number(ranked) : '0'}</span>
                   <span>{walletBalance} MOBL</span></>
                 : ''}
 
             </div>
           </div>
+
+          {connect && (
+            <ConnectWallet close={close} setClose={setClose} />
+          )}
 
           {active ?? <div className={styles['disconnect-wallet-mobile']}>
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
@@ -239,7 +249,9 @@ function MenuMobile(props: any) {
             </a>
           </div>
           <div className={styles['connect-mobile-container']}>
-            <button className={styles['connect-wallet-mobile']} onClick={handleConnect}>
+            <button className={styles['connect-wallet-mobile']} onClick={() => {
+              setConnect(true)
+            }}>
               {active
                 ? account.substring(0, 4) +
                 '..' +

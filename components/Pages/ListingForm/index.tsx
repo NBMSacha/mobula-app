@@ -4,13 +4,13 @@ import IPFS from "ipfs-api";
 import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
 import { useAlert } from "react-alert";
 import styles from "./ListingForm.module.scss";
-import { Button, ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Heading, Link } from '@chakra-ui/react'
+import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Heading, Button, Link } from '@chakra-ui/react'
 import Left from "./Left";
 import Mid from "./Mid";
 import Right from "./Right";
 import { useRouter } from 'next/router'
 
-function ListAToken(props: any) {
+function ListAToken() {
     const router = useRouter();
     const alert = useAlert();
     const [logo, setLogo] = useState('')
@@ -192,8 +192,8 @@ function ListAToken(props: any) {
                 value: submitPrice
             });
 
-            setDisplay('success');
-
+            alert.show('Successfully submitted data.');
+            setDisplay('success')
         } catch (e) {
             if (e.data && e.data.message) {
                 alert.error(e.data.message);
@@ -237,15 +237,29 @@ function ListAToken(props: any) {
     const box = useColorModeValue('white_terciary', "dark_box_list")
     const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const btn = useColorModeValue("white", "black")
+    const bg = useColorModeValue("none", "#171B2B")
 
     return (
         <div>
             <div className={styles["listToken-container"]}>
-                <h2 className={styles["title"]}>Listing form</h2>
+
+                <h2 className={styles["title"]} >Listing form</h2>
+                <Flex display={["none", "none", "none", "flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb="20px" mx="auto" w="80%" align="end" justify="space-between" >
+                    <Flex direction="column">
+                        <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Listing form</Heading>
+                        <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                            Submit your token for a listing for 10 MATIC. You must have them in your wallet on Polygon.
+                        </Text>
+                    </Flex>
+                    <Text display={["none", "none", "none", "flex"]}>
+                        Learn more <a style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }} href="https://docs.mobula.finance/list">here</a>.
+                    </Text>
+
+                </Flex>
 
                 {display == 'form' ?
-                    <div className={styles["listToken-main"]}>
-                        <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm">
+                    <Flex className={styles["listToken-main"]} bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+                        <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >
                             <Left
                                 input={input}
                                 box={box}
@@ -299,9 +313,7 @@ function ListAToken(props: any) {
                                 setInputList={setInputListExcluded}
                             />
                         </form>
-                    </div>
-                    :
-                    <div className={styles["listToken-main"]}>
+                    </Flex> : <div className={styles["listToken-main"]}>
                         <Flex p="30px" flexDirection="column" className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
                             <Heading fontSize="xx-large" fontWeight="medium" mb='30px' ml='auto' mr='auto'>Success!</Heading>
                             <Text mb='15px'>Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>

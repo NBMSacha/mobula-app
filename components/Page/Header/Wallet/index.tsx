@@ -18,6 +18,8 @@ import {
   ColorModeProvider,
   useColorMode,
 } from '@chakra-ui/react'
+import ConnectWallet from "../../../Utils/ConnectWallet";
+
 
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
@@ -48,6 +50,8 @@ function Wallet(props: any) {
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
   const router = useRouter()
+  const [connect, setConnect] = useState(false)
+  const [close, setClose] = useState(false)
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
 
@@ -174,8 +178,8 @@ function Wallet(props: any) {
             Earn
           </span>
 
-          <Flex onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
-            <Text fontSize="12px" color="white">+1</Text>
+          <Flex display={triggerSearch ? "none" : "flex"} onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
+            <Text fontSize="12px" color="white" >+1</Text>
           </Flex>
         </Flex>
         <Flex align="center" ml={["20px", "20px", "20px", isLargerThan1080 ? "0px" : "20px"]} borderRadius="10px" bg={["none", "none", "none", input]} mr="20px" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} w={["30px", "30px", "30px", isLargerThan1180 ? "190px" : "160px"]} >
@@ -192,6 +196,7 @@ function Wallet(props: any) {
             _placeholder={{ color: "none" }}
             onClick={() => {
               setTriggerSearch(true)
+
             }}
             bg="none"
             w={["0px", "0px", "auto", "auto"]}
@@ -202,7 +207,9 @@ function Wallet(props: any) {
         </Flex>
         <button
           className={styles['connect-wallet-btn']}
-          onClick={handleConnect}
+          onClick={() => {
+            setConnect(true)
+          }}
         >
           {active
             ? account.substring(0, 4) +
@@ -229,7 +236,9 @@ function Wallet(props: any) {
             icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-
+        {connect && (
+          <ConnectWallet close={close} setClose={setClose} />
+        )}
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
@@ -244,7 +253,7 @@ function Wallet(props: any) {
 
       </Flex>
 
-      <MenuMobile />
+      <MenuMobile connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
     </>
   )
 }

@@ -51,7 +51,7 @@ function Footer() {
   const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
   const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
   const hover = useColorModeValue("blue", "blue")
-
+  const title = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-bg_white)")
   return (
     <Flex className={styles['footer-main']} borderTop={`2px solid ${border}`}>
       <div className={styles['footer-left']}>
@@ -85,8 +85,8 @@ function Footer() {
       </div>
       <div className={styles['footer-right']}>
         <div className={styles['community']}>
-          <span>Community</span>
-          <ul>
+          <span style={{color: title}}>Community</span>
+          <ul >
             <Link _hover={{ color: hover, textDecoration: "none" }} href='https://discord.gg/nrkVNNke8Q' isExternal>
               <li>Discord</li>
             </Link>
@@ -99,7 +99,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['community']}>
-          <span>Press</span>
+          <span style={{color: title}}>Press</span>
           <ul>
             <Link _hover={{ color: hover, textDecoration: "none" }} href='' >
               <li>Press kit</li>
@@ -113,7 +113,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['community']}>
-          <span>Ressources</span>
+          <span style={{color: title}}>Ressources</span>
           <ul>
             <Link _hover={{ color: hover, textDecoration: "none" }} href='https://docs.mobula.finance' isExternal>
               <li>Documentation</li>
@@ -127,7 +127,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['help']}>
-          <span>Help</span>
+          <span style={{color: title}}>Help</span>
           <ul>
             <Link _hover={{ color: hover, textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' >
               <li>FAQs</li>
@@ -139,17 +139,15 @@ function Footer() {
         </div>
         <Flex align="center" h="50px">
           <IconButton
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
-
+          _focus={{boxShadow:"none"}}
             onClick={toggleColorMode}
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
-            color={colorSunMoon}
-            bg={sunMoon}
+            color={title}
             icon={colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+          <Text color={title} ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
 
         </Flex>
       </div>
