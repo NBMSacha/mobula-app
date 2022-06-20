@@ -27,7 +27,7 @@
     "@web3-react/trezor-connector": "^6.1.9",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.14",
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "bignumber.js": "^9.0.2",
     "chakra-paginator": "^0.7.3",
     "chart.js": "2.9.4",
