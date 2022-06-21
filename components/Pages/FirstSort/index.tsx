@@ -10,8 +10,8 @@ import Router from "next/router";
 import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 import styles from "./FirstSort.module.scss"
-import ReviewToken from "./ReviewToken";
-import Main from "./Main"
+import ReviewToken from "../../Utils/newSort/ReviewToken";
+import Main from "../../Utils/newSort/Main"
 
 function FirstSort() {
     const [tokenDivs, setTokenDivs]: [{
@@ -255,7 +255,7 @@ function FirstSort() {
             description="New listing requests are displayed here. Vote wisely."
             url="https://docs.mobula.finance/app/sort"
         /> */}
-        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="100%" align="end" justify="space-between" mt="50px">
+        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px">
             <Flex direction="column">
                 <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
                 <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
@@ -272,7 +272,7 @@ function FirstSort() {
 
         {(displayedToken ?
             <>
-                <ReviewToken bg={bg} btn={btn} border={border} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
+            <ReviewToken bg={bg} btn={btn} border={border} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
             </> :
             <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} bg={bg} btn={btn} border={border} shadow={shadow} />
         )}

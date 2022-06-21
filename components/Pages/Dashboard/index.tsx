@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
 import styles from './dashboard.module.scss'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue } from '@chakra-ui/react'
+import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon } from '@chakra-ui/react'
 import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
 import {
   ChakraProvider,
@@ -14,10 +14,12 @@ import { createClient } from '@supabase/supabase-js'
 import RankStats from './RankStats'
 import History from './History'
 import Leaderboard from './Leaderboard'
+import { ThumbsUp, ThumbsDown } from "react-feather"
 
 function Dashboard() {
   const alert = useAlert()
   const [firstTokensOwed, setFirstTokensOwed] = useState(0)
+  const [validated, setValidated] = useState([])
   const [finalTokensOwed, setFinalTokensOwed] = useState(0)
   const [firstGoodChoice, setFirstGoodChoice] = useState(0)
   const [firstBadChoice, setFirstBadChoice] = useState(0)
@@ -147,7 +149,7 @@ function Dashboard() {
       .from('assets')
       .select('name,symbol,logo,created_at')
       .order('created_at', { ascending: false })
-      .limit(5)
+      .limit(10)
       .then(r => {
         setRecentlyAdded(r.data)
       })
@@ -156,28 +158,35 @@ function Dashboard() {
       .from('members')
       .select('*')
       .order('good_decisions', { ascending: false })
-      .limit(6)
+      .limit(12)
       .then(r => {
         setDaoMembers(r.data)
       })
 
-  }
+    supabase
+      .from('history_dao')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(10)
+      .then(r => {
+        setValidated(r.data)
+    })
 
+  }
+console.log(validated)
   useEffect(() => {
     initValues()
   }, [])
 
   const input = useColorModeValue("white_sun_moon", "dark_decision")
   const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const bg = useColorModeValue("bg_white", "dark_box_list")
+  const bg = useColorModeValue("light_primary_box", "dark_primary_box")
   const border = useColorModeValue("grey_border", "dark_border_tendance")
 
   return (
     <>
       <Flex align="center" justify="center">
         <Box w="100%" maxWidth="1400px" className=''>
-
-
           <Flex w="100%" p="0px 5%" mt="30px" className={styles["shinda"]}>
             <Text>DAO Dashboard</Text>
           </Flex>
@@ -198,48 +207,50 @@ function Dashboard() {
             {/* RANK DISPLAY MOBILE */}
 
             {mobile ? (
-
-              <Flex w="95%" direction="column" boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+              <>
+              <Flex w="95%" direction="column"  borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
 
                 {/* Rank I Stats */}
-                <Flex w={['95%', '90%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
+                <Flex w={['95%', '95%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
                   <Flex
+                    boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
                     direction={["row", "row", "column", "column"]}
                     justify={["start", "start", "center", "center"]}
-                    p={['0px', '14px 14px 14px 14px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
-                    bg={["none", "none", '#191D2C', '#191D2C']}
-                    borderRadius='0px'
+                    p={['4px 4px 4px 4px', '4px 4px 4px 4px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
+                    bg={[bg, bg, '#191D2C', '#191D2C']}
+                    borderRadius='8px'
 
                     borderBottom={`1px solid ${border}`}
                     w={['100%', '100%', '90%', '48%']}
                     textAlign={['center', 'center', 'center', 'left']}
-                    mb={[7, 7, 7, 0]}
+                    mb={["10px", "10px", "7px", 0]}
                     position="relative"
                     align="center"
                   >
-                    <Flex direction={["column", "column", "row", "row"]} w="50%" pl="" pt="10px" >
+                    <Flex direction={["column", "column", "row", "row"]} bg="none" justify="center" w="50%" p="10px">
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank I <span className={styles['stats']}>Stats</span>
                       </Text>
-                      <Flex direction="row" fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="14px">Correct Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}</Flex>
+                      <Flex color="green" direction="row" fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
+                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions : </Text>
+                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}   <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
-                      <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
-                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} mb={2} whiteSpace="nowrap" fontSize="14px">Wrong Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice}</Flex>
+                      <Flex color="red" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
+                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
+                        
+                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
                       <Box h="1px" w="90%" bg={border} mt={2} mb={3}></Box>
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
-                      <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" fontSize="14px">Correct Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice}</Flex>
+                      <Flex color="green" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions :</Text>
+                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice} <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
-                      <Flex direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
-                        <Text color={["#4C4C4C", "#4C4C4C", "#FF0000", "#FF0000"]} whiteSpace="nowrap" mb={2} fontSize="14px">Wrong Decisions</Text>
-                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice}</Flex>
+                      <Flex color="red" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                        <Text  whiteSpace="nowrap" mb={2} fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
+                        <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
                     </Flex>
                     <Box h="1px" w="1px" mt="10px" bg={border} mb={3}></Box>
@@ -254,10 +265,14 @@ function Dashboard() {
                     >
                       {' '}
                       <Button
+                        variant='outline'
+                        
+                        colorScheme="green"
+                        color="green"
                         className={styles["buttons-claim"]}
                         boxShadow={`0px 1px 12px 3px ${shadow}`}
                         borderRadius="10px"
-
+                        _focus={{boxShadow:"none"}}
                         style={{ width: "90%" } as any}
                         onClick={async (e) => {
                           e.preventDefault()
@@ -296,8 +311,7 @@ function Dashboard() {
                           }
                         }}
                       >       <Flex justify="center" align="center">
-                          <Text ml="15px">Claim MOBL</Text>
-                          <img src="/fullicon.png" height="25px" width="25px" className={styles["matic-logo"]} />
+                          <Text >Claim MOBL</Text>
                         </Flex>
                       </Button>
                       <Box fontSize='15px' mb={5} mt={5} w="150px">
@@ -308,6 +322,8 @@ function Dashboard() {
                 </Flex>
 
               </Flex>
+              
+              </>
             ) : (
               // DESKTOP RANK 
               <Flex w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
@@ -315,7 +331,7 @@ function Dashboard() {
                   <RankStats title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
                   <RankStats title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
                 </Flex>
-                <History recentlyAdded={recentlyAdded} />
+                <History validated={validated} recentlyAdded={recentlyAdded} />
               </Flex>
             )}
 
@@ -327,10 +343,10 @@ function Dashboard() {
                     p='5px'
                     borderRadius="10px"
                     boxShadow={`0px 1px 12px 3px ${shadow}`}
-                    bg={["none", "none", '#191D2C', '#191D2C']}
+                    bg={[bg, bg, '#191D2C', '#191D2C']}
 
 
-                    w={['96%', '86%', '90%', '95%']}
+                    w={['92%', '92%', '90%', '95%']}
 
                     mx="auto"
                   >
@@ -355,6 +371,11 @@ function Dashboard() {
                       <Button
                         borderRadius="10px"
                         mb="12px"
+                        h="50px"
+                        _focus={{boxShadow:"none"}}
+                        variant='outline'
+                        colorScheme="green"
+                        color="green"
                         boxShadow={`0px 1px 12px 3px ${shadow}`}
                         className={styles["claim-matic"]}
                         style={{ width: "135px" } as any}
@@ -385,11 +406,11 @@ function Dashboard() {
                           }
                         }}
                       >
-                        <Text ml="15px" >Claim MATIC</Text>
-                        <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
+                        <Text >Claim MATIC</Text>
                       </Button>
                     </Flex>
                   </Flex>
+                  
                 ) : (
 
                   // DAO FAUCET DESKTOP
@@ -406,15 +427,15 @@ function Dashboard() {
 
                   >
                     <Flex justify="space-between" >
-                      <h2 className={styles["dao-title"]} >DAO <span className={styles["faucet"]}>Faucet</span></h2>
+                      <h2 className={styles["dao-title"]} style={{alignItems:"start"}}>DAO <span className={styles["faucet"]}>Faucet</span></h2>
                       <Box fontSize='15px' >
                         <Text textAlign="end" fontSize="14px" opacity=".6" color="#909090">You already claimed</Text>
                         <Text fontSize="16px" color=" #909090" fontWeight="600" textAlign="end">{claimed} MATIC</Text>
                       </Box>
                     </Flex>
-                    <Box w="95%" textAlign="start">
-                      <Box fontSize='15px' mb={5}>
-                        <Text fontWeight='800' mb="15px" fontSize="17px" color='#16C784'>
+                    <Box w="95%" textAlign="start"  mt="30px">
+                      <Box fontSize='13px' >
+                        <Text fontWeight='800' mb="5px" fontSize="17px" color='#16C784'>
                           {countdownValue}
                         </Text>
                         <Text color="#D3D3D3" mb={2}>MATIC for DAO members</Text>
@@ -423,14 +444,18 @@ function Dashboard() {
                     <Spacer />
                     <Flex
                       width='100%'
+                      
                       justifyContent={['center', 'center', 'center', 'right']}
                     >
                       <Button
+                        h="45px"
+                        px="12px"
+                        _focus={{boxShadow:"none"}}
                         className={styles["claim-matic"]}
-                        bg={input}
-                        boxShadow={`0px 1px 12px 3px ${shadow}`}
+                        variant="blue"
+                        py='1px'
                         borderRadius="12px"
-                        style={{ width: "135px", marginTop: "-60px", 'font-size': '1rem' } as any}
+                        style={{ marginTop: "-60px", 'font-size': '1rem' } as any}
                         onClick={async (e) => {
                           e.preventDefault()
                           try {
@@ -458,19 +483,28 @@ function Dashboard() {
                           }
                         }}
                       >
-                        <Flex justify="center" align="center" >
-                          <Text ml="5px" mr="5px">Claim MATIC</Text>
-                          <img src="/polygon.png" height="25px" width="25px" className={styles["matic-logo"]} />
-                        </Flex>                          </Button>
+                        
+                          Claim MATIC
+                                                 </Button>
                     </Flex>
                   </Flex>
                 )}
               </Flex>
               {/* TITLE LEADERBOARD */}
-              <Leaderboard top={daoMembers} />
+              <Box display={["none","none","block","block"]}>
 
+              
+              <Leaderboard top={daoMembers} />
+              </Box>
+              
             </Box>
           </Flex>
+          <Box display={["block","block","none","none"]}>
+            <Leaderboard top={daoMembers} />
+          </Box>
+          <Box display={["block","block","none","none"]}>
+            <History validated={validated} recentlyAdded={recentlyAdded} />
+          </Box>
         </Box>
       </Flex>
     </>

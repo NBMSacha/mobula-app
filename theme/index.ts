@@ -109,7 +109,14 @@ export const themeUltime = extendTheme({
     red: '#EA3943',
 
     dark_blue: "#111525",
-    btn_border: "rgba(122, 122, 122, 0.1)"
+    btn_border: "rgba(122, 122, 122, 0.1)",
+
+
+
+    // 
+    dark_primary_box:"#171B2B",
+    light_primary_box: "#F5F5F5"
+
 
   },
 

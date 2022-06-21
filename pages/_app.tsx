@@ -38,6 +38,22 @@ export default function App({ Component, pageProps }) {
             name='viewport'
             content='width=device-width, initial-scale=1, maximum-scale=1'
           ></meta>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta name="description"
+            content="Anyone should be able to query reliable data about any crypto-token. Easily. Directly on-chain. Imagine CoinMarketCap, owned by you." />
+          <meta name="image" content="/bg2.png" />
+          <meta name="url" content="https://mobula.fi" />
+          <meta name="keywords" content="Mobula Crypto Data Aggregator" />
+          <meta name="author" content="Mobula" />
+          <meta name="copyright" content="Mobula" />
+          <meta name="robots" content="index, follow" />
+          <meta property="og:title" content="Mobula: The Decentralized Data Aggregator." />
+          <meta property="og:image" content="/bg2.png" />
+          <meta name="twitter:title" content="Mobula: The Decentralized Data Aggregator" />
+          <meta name="twitter:description"
+            content="Anyone should be able to query reliable data about any crypto-token. Easily. Directly on-chain. Imagine CoinMarketCap, owned by you." />
+          <meta name="twitter:image" content="/bg2.png" />
+          <title>Mobula: The decentralized data aggregator.</title>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-225383575-4"></script>
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-44ZEDM6VY3"></script>
 
@@ -52,6 +68,14 @@ export default function App({ Component, pageProps }) {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-44ZEDM6VY3');
+          `}}></script>
+          <script dangerouslySetInnerHTML={{
+            __html: `  window.smartlook||(function(d) {
+              var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+              var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+              c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
+              })(document);
+              smartlook('init', '609bf41d219fd09b67dda978d9dad1a0c7682abd', { region: 'eu' });          
           `}}></script>
         </Head>
 

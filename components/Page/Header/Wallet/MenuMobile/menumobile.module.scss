@@ -4,7 +4,7 @@
   position: absolute;
   padding-top: 28px;
   width: 100%;
-  top: 55px;
+  top: 74px;
   right: 0px;
   height: 100vh;
   z-index: 5;
@@ -21,7 +21,7 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 17px ;
   line-height: 18px;
   display: flex;
   align-items: center;
@@ -88,4 +88,18 @@
   color: #ea3943 !important;
   border:none;
   background:none;
+}
+
+@media screen and (max-width:768px) {
+  .mobile-toolbar-container {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    padding-top: 28px;
+    width: 100%;
+    top: 55px;
+    right: 0px;
+    height: 100vh;
+    z-index: 5;
+  }
 }

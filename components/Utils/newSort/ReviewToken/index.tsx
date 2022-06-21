@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../../Utils/Sort/TokenDisplay";
+import TokenDisplay from "../../Sort/TokenDisplay";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL, supportedRPCs } from "../../../../constants";
 import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../../Utils/DaoHeader";
-import Blocks from '../../../Utils/Sort/Blocks';
+import DaoHeader from "../../DaoHeader";
+import Blocks from '../../Sort/Blocks';
 import { useAlert } from 'react-alert';
 import Router from "next/router";
 import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
-import styles from "../FirstSort.module.scss"
+import styles from "./ReviewToken.module.scss"
 import Vote from "./Vote"
 import Contract from "./Contract"
 import MobileContract from "./MobileContract"

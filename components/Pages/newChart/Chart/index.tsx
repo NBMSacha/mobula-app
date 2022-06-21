@@ -1,7 +1,7 @@
 import React from 'react'
 import { useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
 
-const ChartBox = ({ historyData, baseAsset, socialLink, selector, setSelector, setTimeFormat, timeFormat }) => {
+const ChartBox = ({ unformattedBuffer, historyData, baseAsset, socialLink, selector, setSelector, setTimeFormat, timeFormat }) => {
     const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
     const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "#171B2B")
     const bg = useColorModeValue("none", "#121626")
@@ -41,7 +41,7 @@ const ChartBox = ({ historyData, baseAsset, socialLink, selector, setSelector, s
                                 }}>7D
                             </Button>
 
-                            {(!historyData || historyData.length > 0 || true) ? (
+                            {(!unformattedBuffer['price']['30D'] || unformattedBuffer['price']['30D']?.length > 0) ? (
                                 <>
                                     <Button mx={["8px", "8px", "12px", "12px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
