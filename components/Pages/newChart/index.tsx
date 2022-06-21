@@ -436,6 +436,20 @@ const Token = ({ baseAssetBuffer }) => {
 
             setUnformattedBuffer(newUnformattedBuffer)
 
+        } else {
+
+            const newUnformattedBuffer = { ...unformattedBuffer };
+
+            types.forEach(type => {
+                newUnformattedBuffer[type] = {
+                    '30D': [],
+                    '3M': [],
+                    '1Y': [],
+                    'ALL': []
+                }
+
+                setUnformattedBuffer(newUnformattedBuffer)
+            })
         }
     }
 
@@ -560,7 +574,7 @@ const Token = ({ baseAssetBuffer }) => {
                 </Flex>
                 {/* Chart Box */}
                 {selector !== "swap" ? (
-                    <ChartBox historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                 ) : (
                     <Flex justify="center" display={["flex", "flex", "flex", "none"]}>
                         <Swap baseAsset={baseAsset} />

@@ -10,8 +10,9 @@ import { PROTOCOL_ADDRESS } from "../../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex, useColorModeValue, Box } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
+import Header from "../../index"
 
 function MenuMobile({ connect, setConnect, close, setClose }) {
   const [isConnected, setIsConnected] = useState(false);
@@ -159,7 +160,10 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
   if (router.pathname.includes('dao')) {
     return (
       <>
+     
+        
         <Flex
+
           display="none"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'

@@ -5,6 +5,22 @@
   margin-left: 7px;
 }
 
+.scroll::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+    
+  }
+  
+  .scroll::-webkit-scrollbar-track {
+    border-radius: 0px 10px 10px 0px
+    
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    background:grey
+    
+  }
+
 .line {
   width: 100%;
   height: 2px;
@@ -88,16 +104,12 @@
 .claim-matic {
   background: rgba(252, 252, 252, 0.03);
   border-radius: 10px;
-  height: 50px !important;
-  width: 145px !important;
   font-size: 12px !important;
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
 @media screen and (max-width:768px) {
-  .noneDis {
-    display: none;
-  }
+  
 
   .title-rank {
 
@@ -151,17 +163,17 @@
 
 @media screen and (max-width:1060px) {
   .padding-resp {
-    padding: 10px;
+    padding: 20px 30px ;
     margin-top: 10px;
-    width: 97% !important;
+    width: 99% !important;
     margin-bottom: 0px !important
   }
 
   .padding-resps {
-    padding: 10px;
     margin-top: 10px;
     width: 48% !important;
-    margin-bottom: 0px !important
+    margin-bottom: 0px !important;
+
   }
 
   .blitz {
@@ -171,7 +183,8 @@
   }
 
   .size-box {
-    width: 95% !important
+    width: 96% !important;
+    margin:0px !important
   }
 }
 
@@ -194,15 +207,17 @@
     font-size: 12px !important;
   }
 
+  .padding-resp {
+    padding: 15px 15px;
+    width: 88% !important;
+  }
+
 }
 
 @media screen and (max-width:1300px) {
   .padding-resps {
-    padding: 10px 10px;
+    padding: 40px 10px;
   }
 
-  .padding-resp {
-    padding: 10px 10px;
-  }
 
 }
