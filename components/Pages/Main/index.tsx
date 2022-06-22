@@ -291,9 +291,9 @@ function News(props: any) {
             <Thead borderTop={`2px solid ${border}`} >
               <Tr className={styles[""]}>
                 <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
-                <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>
-                <Th isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
-                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
+                <Th px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>
+                <Th isNumeric p={['15px 20px','15px 20px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
+                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
                   {textResponsive ? (
                     <p>24h %</p>
                   ) : (
