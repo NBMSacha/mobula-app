@@ -6,9 +6,6 @@ import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
 function Link() {
   const router = useRouter()
 
-  const input = useColorModeValue("white_input", "dark_header")
-  const shadow = useColorModeValue("shadow", "none")
-
   if (router.pathname.includes('dao')) {
     return (
       <div className={styles['link-container']}>

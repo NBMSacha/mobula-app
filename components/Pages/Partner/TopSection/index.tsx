@@ -3,7 +3,6 @@ import { Flex, Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 const TopSection = () => {
 
-    const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
     return (
         <Flex w="100%" direction="column" align="center">
             <Box w={["80%", "80%", "80%", ""]} maxWidth="1000px" my={["14px", "14px", "30px", "50px"]} mx={["0px", "0px", "0px", "auto"]}>

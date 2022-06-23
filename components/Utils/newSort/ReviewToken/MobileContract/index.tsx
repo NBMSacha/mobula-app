@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 
-function Contract({ bg, btn, shadow, border }) {
+function Contract({ }) {
 
     return (
         <Flex direction="column" px="25px" display={["flex", "flex", "none", "none"]}>

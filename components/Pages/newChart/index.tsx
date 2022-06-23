@@ -157,7 +157,7 @@ const Token = ({ baseAssetBuffer }) => {
                 isMobile ? 100 : isGiant ? 300 : 200
             )
             gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-            gradient.addColorStop(1, bgChart)
+            gradient.addColorStop(1, "var(--bg-governance-box)")
 
             console.log(data);
 
@@ -544,7 +544,6 @@ const Token = ({ baseAssetBuffer }) => {
     return (
 
         <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px">
-
             {/* Left */}
             <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
                 {/* Token Information Top */}
@@ -552,24 +551,22 @@ const Token = ({ baseAssetBuffer }) => {
                 <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
                     {/* COMPO */}
                     <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset} />
-
                     {/*  */}
                     <Button
                         onClick={() => setMoreStat(!moreStat)}
                         w="80%" _focus={{ boxShadow: "none" }}
-                        boxShadow={`1px 2px 12px 3px ${shadowbis}`}
+                        boxShadow={`1px 2px 12px 3px var(--shadow)`}
                         py="6px"
                         fontSize="10px"
-
                     >
                         {moreStat ? "Show less stats" : "Show more stats"}
                     </Button>
                     <Flex fontWeight="400px" fontSize={["10px", "10px", "13px", "13px"]} mt="15px">
-                        <Button border={border} _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : socialLink} onClick={() => { setSelector("price"); }}>Price</Button>
-                        <Button border={border} _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : socialLink} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
-                        <Button border={border} _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : socialLink} onClick={() => { setSelector("volume"); }}>Volume</Button>
-                        <Button border={border} _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : socialLink} onClick={() => { setSelector("rank"); }}>Rank</Button>
-                        <Button border={border} _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : socialLink} onClick={() => { setSelector("swap") }}>Swap</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : socialLink} onClick={() => { setSelector("price"); }}>Price</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : socialLink} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : socialLink} onClick={() => { setSelector("volume"); }}>Volume</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : socialLink} onClick={() => { setSelector("rank"); }}>Rank</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : socialLink} onClick={() => { setSelector("swap") }}>Swap</Button>
                     </Flex>
                 </Flex>
                 {/* Chart Box */}
@@ -587,10 +584,10 @@ const Token = ({ baseAssetBuffer }) => {
                 {/* SWAP */}
                 <Swap baseAsset={baseAsset} />
                 {/* Contract  */}
-                <Box w="100%" h="100%" bg={bgChart} boxShadow={`1px 2px 12px 3px ${shadowbis}`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
+                <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                        <Flex direction="column"  w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
                             {baseAsset.contracts.map((contract: string, idx: number) => {
                                 return (
                                     <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />

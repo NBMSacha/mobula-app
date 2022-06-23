@@ -13,7 +13,7 @@ const DaoHeader = ({ title, description, url }) => {
                 <Link target="_blank" color="blue" href={url}>Learn more here.</Link>
             </Text>
         </Flex>
-        <Box display={["none", "block"]} bg={lineBackground} className={styles.line}></Box>
+        <Box display={["none", "block"]} bg="var(--box_border)" className={styles.line}></Box>
         <Spacer h={['0px', '50px']} />
     </Box>);
 }

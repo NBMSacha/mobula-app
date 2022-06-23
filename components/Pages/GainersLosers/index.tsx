@@ -18,10 +18,9 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
     const [state, setState] = useState("gainers");
     const gainersRef = useRef();
     const losersRef = useRef();
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const active = useColorModeValue("white", "rgba(122, 122, 122, 0.1)")
     const inactive = useColorModeValue("var(--chakra-colors-grey-loser)", "var(--chakra-colors-dark_inactive_gainer)")
-    const text = useColorModeValue('black', 'white');
+
 
     useEffect(() => {
         const supabase = createClient(
@@ -60,17 +59,17 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
     return (
         <div className={styles["main-container"]} style={{ marginBottom: "30px" }}>
             <div className={`${styles["both-container"]} ${styles["widths"]}`} style={{ flexDirection: "column" }}>
-                <Heading color={text} display={["flex", "flex", "none", "none"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">{state === "gainers" ? "Top Gainers" : "Top Loosers"} </Heading>
+                <Heading display={["flex", "flex", "none", "none"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">{state === "gainers" ? "Top Gainers" : "Top Loosers"} </Heading>
                 <Flex align="center" justify="space-between" display={["flex", "flex", "none", "none"]} w="90%">
                     <Box className={styles["mobile-btn"]} style={{ width: "95%" }}>
-                        <Button _focus={{ boxShadow: "none" }} bg={state == "gainers" ? active : "none"} border={state == "gainers" ? "none" : "1px solid rgba(122, 122, 122, 0.1)"} boxShadow={`1px 2px 13px 3px ${shadow}`} px="10px" borderRadius="8px" mr="10px" className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} style={{ boxShadow: `1px 2px 13px 3px ${shadow}` }} id="loosers"
+                        <Button _focus={{ boxShadow: "none" }} bg={state == "gainers" ? "var(--box_border_active)" : "none"} border={state == "gainers" ? "none" : "1px solid rgba(122, 122, 122, 0.1)"} boxShadow={`1px 2px 13px 3px var(--shadow)`} px="10px" borderRadius="8px" mr="10px" className={`${styles["btn-loosers"]} ${styles["gainerLooserActive"]}`} style={{ boxShadow: `1px 2px 13px 3px var(--shadow)` }} id="loosers"
                             onClick={() => {
                                 setState("gainers");
                                 (gainersRef as any).current.style.display = "block";
                                 (losersRef as any).current.style.display = "none"
                             }
                             }>Gainers <TrendingUp style={{ width: "15px", marginLeft: "10px" }} /></Button>
-                        <Button _focus={{ boxShadow: "none" }} bg={state == "losers" ? active : "none"} border={state == "losers" ? "none" : "1px solid rgba(122, 122, 122, 0.1)"} px="10px" borderRadius="8px" className={styles["btn-loosers"]} style={{ boxShadow: `1px 2px 13px 3px ${shadow}` }} id="gainers"
+                        <Button _focus={{ boxShadow: "none" }} bg={state == "losers" ? "var(--box_border_active)" : "none"} border={state == "losers" ? "none" : "1px solid rgba(122, 122, 122, 0.1)"} px="10px" borderRadius="8px" className={styles["btn-loosers"]} style={{ boxShadow: `1px 2px 13px 3px var(--shadow)` }} id="gainers"
                             onClick={() => {
                                 setState("losers");
                                 (gainersRef as any).current.style.display = "none";
@@ -80,7 +79,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
                     </Box>
                 </Flex>
 
-                <Heading color={text} ml="50px" display={["none", "none", "flex", "flex"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">Top gainers / Top losers </Heading>
+                <Heading ml="50px" display={["none", "none", "flex", "flex"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">Top gainers / Top losers </Heading>
                 <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">Top gainers & losers of Mobula database. Click on the settings to filter your research.</Text>
                 <Flex w="100%" display={["flex"]} p={['20px', '20px', '0px', '0px']} pb={0}>
                     <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />

@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../Utils/Sort/TokenDisplay";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
 import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../Utils/DaoHeader";
-import Blocks from '../../Utils/Sort/Blocks';
 import { useAlert } from 'react-alert';
 import Router from "next/router";
-import { Globe, } from "react-feather"
-import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
-import styles from "./FirstSort.module.scss"
 import ReviewToken from "../../Utils/newSort/ReviewToken";
 import Main from "../../Utils/newSort/Main"
 
@@ -240,21 +234,8 @@ function FirstSort() {
         getFirstSorts();
     }, []);
 
-    const bg = useColorModeValue("none", "#191D2C")
-    const btn = useColorModeValue("#EFEFEF", "dark_primary")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const border = useColorModeValue("rgba(229, 229, 229, 0.5)", "rgba(229, 229, 229, 0.03)")
     return <>
-        {/* <Flex direction="column" mb="50px" width="85%" align="center" justify="center" mx="auto" mt="28px">
-                
-                <Main voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} bg={bg} btn={btn} border={border} shadow={shadow}/>
-            </Flex>   
-            <ReviewToken bg={bg} btn={btn} border={border} shadow={shadow} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> */}
-        {/* <DaoHeader
-            title="First Sort"
-            description="New listing requests are displayed here. Vote wisely."
-            url="https://docs.mobula.finance/app/sort"
-        /> */}
+
         <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px">
             <Flex direction="column">
                 <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
@@ -272,9 +253,9 @@ function FirstSort() {
 
         {(displayedToken ?
             <>
-            <ReviewToken bg={bg} btn={btn} border={border} voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
+            <ReviewToken voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
             </> :
-            <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} bg={bg} btn={btn} border={border} shadow={shadow} />
+            <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
         )}
     </>
 }

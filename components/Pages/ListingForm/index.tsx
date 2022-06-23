@@ -258,12 +258,9 @@ function ListAToken() {
                 </Flex>
 
                 {display == 'form' ?
-                    <Flex className={styles["listToken-main"]} bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+                    <Flex className={styles["listToken-main"]} bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
                         <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >
                             <Left
-                                input={input}
-                                box={box}
-                                shadow={shadow}
                                 setSymbol={setSymbol}
                                 setName={setName}
                                 setLogo={setLogo}
@@ -283,9 +280,6 @@ function ListAToken() {
                                 setIsSum={setIsSum}
                             />
                             <Mid
-                                input={input}
-                                box={box}
-                                shadow={shadow}
                                 website={website}
                                 setWebsite={setWebsite}
                                 setDiscord={setDiscord}
@@ -297,16 +291,12 @@ function ListAToken() {
                             />
 
                             <Right
-                                input={input}
-                                box={box}
-                                shadow={shadow}
                                 setAddNote={setAddNote}
                                 setAudit={setAudit}
                                 setKYC={setKYC}
                                 addNote={addNote}
                                 kyc={kyc}
                                 audit={audit}
-                                btn={btn}
                                 loading={loading}
                                 submit={submit}
                                 inputList={inputListExcluded}
@@ -314,7 +304,7 @@ function ListAToken() {
                             />
                         </form>
                     </Flex> : <div className={styles["listToken-main"]}>
-                        <Flex p="30px" flexDirection="column" className={styles["three-forms"]} bg={box} boxShadow={`1px 2px 12px 3px ${shadow}`}>
+                        <Flex p="30px" flexDirection="column" className={styles["three-forms"]} bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
                             <Heading fontSize="xx-large" fontWeight="medium" mb='30px' ml='auto' mr='auto'>Success!</Heading>
                             <Text mb='15px'>Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>
                             <Text mb='15px'>You can now track your listing in the DAO tab, starting in the First Sort.</Text>

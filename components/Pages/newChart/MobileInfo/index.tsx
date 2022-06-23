@@ -52,9 +52,7 @@ const MobileInfo = ({ baseAsset, moreStat, totalScore }) => {
                 
                 <Flex mb="20px" wrap="wrap" justify="center" w="100%" maxHeight="80px" overflowY="scroll">
                     {baseAsset.contracts.map((contract: string, idx: number) => {
-
                         return (
-
                             <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
                         )
                     })}

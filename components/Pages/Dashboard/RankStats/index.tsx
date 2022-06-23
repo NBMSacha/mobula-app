@@ -6,16 +6,13 @@ import { useAlert } from 'react-alert'
 
 function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
     const alert = useAlert()
-    const input = useColorModeValue("white_sun_moon", "#191D2C")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("bg_white", "dark_box_list")
 
     return (<Flex
         direction={["row", "row", "column", "column"]}
         justify={["start", "start", "center", "center"]}
-        boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
+        boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
         className={styles["padding-resps"]}
-        bg={["none", "none", bg, bg]}
+        bg={["none", "none", "var(--background)", "var(--background)"]}
         borderRadius='10px'
         w={['100%', '100%', '50%', '50%']}
         textAlign={['center', 'center', 'center', 'left']}
@@ -30,11 +27,11 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
         <Flex direction={["column", "column", "row", "row"]} w={["50%", "50%", "auto", "auto"]} >
             <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
                 <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" mr="5px" >Correct Decisions</Text>
-                <Flex color="green" align="center" justify="center" fontWeight='800' h="45px" bg={["none", "none", input, input]} boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {goodChoices}</Flex>
+                <Flex color="green" align="center" justify="center" fontWeight='800' h="45px" bg={["none", "none", "var(--bg-governance-box-decision)", "var(--bg-governance-box-decision)"]} boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {goodChoices}</Flex>
             </Flex>
             <Flex  direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
                 <Text  color={["#4C4C4C", "#4C4C4C", "red", "red"]} mb={2} whiteSpace="nowrap" ml="5px">Wrong Decisions</Text>
-                <Flex color="red"  align="center"  justify="center" h="45px" fontWeight='800' bg={["none", "none", input, input]} boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
+                <Flex color="red"  align="center"  justify="center" h="45px" fontWeight='800' bg={["none", "none", "var(--bg-governance-box-decision)", "var(--bg-governance-box-decision)"]} boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
             </Flex>
         </Flex>
         <Box fontSize='15px'  mb={5}>

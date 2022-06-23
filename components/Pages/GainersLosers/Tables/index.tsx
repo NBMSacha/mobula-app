@@ -10,14 +10,14 @@ function Tables({gainers, losers, gainer, loser}) {
     const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)");
 
     return (
-        <TableContainer>
+        <TableContainer mt="10px">
             <Table variant='simple' >
-                <Thead borderBottom={`2px solid ${border}`}  fontSize="15px" >
+                <Thead borderTop={`2px solid var(--box_border)`}  fontSize="15px" >
                     <Tr px="5px">
-                        <Th fontFamily="Poppins"  px='5px' position="sticky" left="0px" bg={bg}>Name</Th>
-                        <Th fontFamily="Poppins" px='5px' isNumeric>Price</Th>
-                        <Th fontFamily="Poppins" px='5px' isNumeric>24h</Th>
-                        <Th fontFamily="Poppins" px='5px' isNumeric>Volume (24h)</Th>
+                        <Th borderBottom={`2px solid var(--box_border) !important`} fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize"  px='5px' position="sticky" left="0px" bg="var(--background)">Name</Th>
+                        <Th borderBottom={`2px solid var(--box_border) !important`} fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px='5px' isNumeric>Price</Th>
+                        <Th borderBottom={`2px solid var(--box_border) !important`} fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px='5px' isNumeric>24h</Th>
+                        <Th borderBottom={`2px solid var(--box_border) !important`} fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px='5px' isNumeric>Volume (24h)</Th>
                     </Tr>
                 </Thead>
                     {gainer === "gainer" && (

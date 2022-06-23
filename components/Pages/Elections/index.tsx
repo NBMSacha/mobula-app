@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
-import { ThumbsUp, ThumbsDown } from "react-feather"
 import Left from "./Left"
 import Mid from "./Mid"
 import Right from "./Right"
@@ -10,15 +9,7 @@ import {
     Heading,
     Text,
     Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Button,
-    Spacer
 } from "@chakra-ui/react";
-import styles from "./Elections.module.scss";
-import DaoHeader from "../../Utils/DaoHeader";
 import Vote from "./Vote";
 
 function Elections() {
@@ -78,7 +69,7 @@ function Elections() {
                 <Flex  direction="column">
                     <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Elections</Heading>
                     <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
-                    See here the tokenss who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
+                    See here the tokens who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
                     </Text>
                 </Flex>
                 <Text display={["none", "none", "none", "flex"]}>
@@ -96,6 +87,8 @@ function Elections() {
                     <Right />
                 </Flex>
             </Flex>
+            
+      
         </Flex>
     );
 }

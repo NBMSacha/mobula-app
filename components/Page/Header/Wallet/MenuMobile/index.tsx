@@ -156,7 +156,6 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
     }
   }, [account])
   console.log(Number(ranked))
-  const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   if (router.pathname.includes('dao')) {
     return (
       <>
@@ -167,7 +166,7 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
           display="none"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
-          bg={bg}
+          bg="var(--background) !important"
           style={{ display: 'none' }}
         >
           <div className={styles['mobile-linkTo']}>
@@ -215,11 +214,11 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
       </>
     )
   } else {
-    const bg = useColorModeValue("bg_white", "dark_primary")
+    
     return (
       <>
         <Flex
-          bg={bg}
+         bg="var(--background) !important"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../Sort/TokenDisplay";
+import TokenDisplay from "../../../Sort/TokenDisplay";
 import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL } from "../../../../constants";
+import { PROTOCOL_ADDRESS, RPC_URL } from "../../../../../constants";
 import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../DaoHeader";
-import Blocks from '../../Sort/Blocks';
+import DaoHeader from "../../../DaoHeader";
+import Blocks from '../../../Sort/Blocks';
 import { useAlert } from 'react-alert';
 import Router from "next/router";
 import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 import styles from "../FirstSort.module.scss"
 
-function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
+function Main({ bg, btn, shadow, border, voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
+
+
+
     return (
         <Flex justify="space-evenly" direction={["column", "column", "row", "row"]} wrap='wrap' mb="50px">
             {tokenDivs.map((token) => {

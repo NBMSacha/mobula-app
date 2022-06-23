@@ -17,14 +17,9 @@ import { ProgressBar } from 'react-bootstrap';
 import styles from './TokenInfo.module.scss'
 
 const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, totalScore }) => {
-    const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
-    const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "#171B2B")
-    const bg = useColorModeValue("none", "#121626")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
 
     return (
-        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} bg={["none", "none", "none", bgChart]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
+        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
             {/* Top lane */}
             <Flex px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
                 {/* Token Name / logo Box */}
@@ -47,17 +42,17 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                 </Flex>
                 {/* Website / Chat / Kyc / Audit / Infos  */}
                 <Flex align="center" display={["none", "none", "none", "flex"]}>
-                    <Link target="_blank" href={baseAsset.website} borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : socialLink} fontSize="12px" _hover={{ textDecoration: "none" }}>
+                    <Link target="_blank" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--btnInfo)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Website</Flex>
                     </Link>
-                    <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                    <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
                     </Link>
-                    <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                    <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>KYC</Flex>
                     </Link>
                     {baseAsset.description !== "" && (
-                        <Link borderRadius="6px" border={border} _focus={{ boxShadow: "none" }} onClick={() => { if(selectorInfo !== "Infos") {setSelectorInfo("Infos")} else {setSelectorInfo("")}}} color={selectorInfo === "Infos" ? "white" : "none"} bg={selectorInfo === "Infos" ? "blue" : socialLink} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                        <Link borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} onClick={() => { if(selectorInfo !== "Infos") {setSelectorInfo("Infos")} else {setSelectorInfo("")}}} color={selectorInfo === "Infos" ? "white" : "none"} bg={selectorInfo === "Infos" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Infos</Flex>
                         </Link>
                     )}

@@ -1,26 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styles from './History.module.scss';
-import { ethers } from 'ethers'
 import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, useColorModeValue, Link, Collapse } from '@chakra-ui/react'
-import {
-    FormControl,
-    FormLabel,
-    ColorModeProvider,
-    CSSReset
-} from '@chakra-ui/react';
 import HistoryBox from "./HistoryBox"
 
 function Historys({ proposal }) {
     console.log(proposal)
     const [show, setShow] = useState(false)
     const [value, setValue] = useState("")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("white_voting", "dark_box_list")
-   
     const overflowRef = useRef()
-
     const handleToggle = () => setShow(!show)
-
     const [bshow, setBShow] = useState(false)
     
     return (

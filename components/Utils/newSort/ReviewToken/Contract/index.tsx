@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../../../Utils/Sort/TokenDisplay";
+import TokenDisplay from "../../../Sort/TokenDisplay";
 import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../../../constants";
 import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../../../Utils/DaoHeader";
-import Blocks from '../../../../Utils/Sort/Blocks';
+import DaoHeader from "../../../DaoHeader";
+import Blocks from '../../../Sort/Blocks';
 import { useAlert } from 'react-alert';
 import Router from "next/router";
 import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 import styles from "../FirstSort.module.scss"
-import ContractDiv from "../../../../Utils/Contract"
+import ContractDiv from "../../../Contract"
 
-function Contract({ bg, btn, shadow, border, token }) {
+function Contract({ token }) {
     console.log(token)
     return (
 
-        <Flex bg={bg} direction="column" mx="auto" w="100%" borderRadius="12px" mb="50px" display={["none", "none", "flex", "flex"]}>
-            <Flex p={["20px", "20px", "20px 0px", "20px"]} justify="space-around" align="center" w="100%" borderBottom={["none", "none", `1px solid ${border}`, `1px solid ${border}`]}>
+        <Flex bg="var(--bg-governance-box)" direction="column" mx="auto" w="100%" borderRadius="12px" mb="50px" display={["none", "none", "flex", "flex"]}>
+            <Flex p={["20px", "20px", "20px 0px", "20px"]} justify="space-around" align="center" w="100%" borderBottom={["none", "none", `1px solid var(--box_border)`, `1px solid var(--box_border)`]}>
                 {token.contracts.map((index: number) => {
                     <Text w="30%" px="10px" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">Token Contract ({index})</Text>
                 })}
@@ -31,6 +31,7 @@ function Contract({ bg, btn, shadow, border, token }) {
             <Flex p={["20px", "20px", "20px 0px", "20px"]} justify="space-around" align="center" w="100%">
                 {/* TOKEN CONTRACT */}
                 <Flex w="30%" direction="column">
+                    
                     {token.contracts.map((contract: string, index: number) => {
                         return <Flex my="10px" align="center" px="10px">
                             {console.log(contract)}

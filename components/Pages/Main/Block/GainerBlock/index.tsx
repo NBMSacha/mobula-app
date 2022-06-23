@@ -20,10 +20,6 @@ function GainerBlock(tokens: {
   change3: number
 }) {
 
-  const containerColor = useColorModeValue("bg_white", "dark_secondary")
-  const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
-
   console.log(tokens.title)
   const router = useRouter()
   return (
@@ -44,7 +40,7 @@ function GainerBlock(tokens: {
         </div>
       )}
 
-      <Flex bg={containerColor} boxShadow={`1px 1px 10px ${shadowColor}`} className={styles['gainer-container']} borderRadius="25px" mt="15px">
+      <Flex bg="var(--bg-secondary-box)" border="2px solid var(--box_border)" className={styles['gainer-container']} borderRadius="25px" mt="15px">
         <div className={styles['left-gainer']}>
           <Flex mt="0px" className={styles['line-gainer']} onClick={() => router.push('/asset/' + getUrlFromName(tokens.name1))}>
             <div className={styles['token-info-pack']}>

@@ -21,7 +21,7 @@ const Api = () => {
                 <Text fontFamily='Inter' fontWeight="400" fontSize={["13px", "13px", "14px", "21px"]} color="grey">
                     Join <span style={{ color: "var(--chakra-colors-blue)", fontWeight: "600" }}>Mobula</span>. Enter the ecosystem now.
                 </Text>
-                <Button mt="30px" w="200px" h="40px" bg="blue" onClick={() => {
+                <Button mt="30px" w="200px" h="40px" bg="blue" color="white" onClick={() => {
                     window.open('https://t.me/MobulaFi')
                 }}>Let's connect</Button>
 

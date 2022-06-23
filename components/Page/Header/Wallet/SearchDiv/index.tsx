@@ -80,14 +80,9 @@ function SearchDiv(props: any) {
 
   if (props.trigger) {
 
-
-    const bg = useColorModeValue("bg_white", "dark_primary")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
-    const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
     return (
       <div ref={props.wrapperRef} >
-        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px ${shadow}`} bg={bg} borderRadius="12px">
+        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px var(--shadow)`} bg="var(--background)" borderRadius="12px">
           <div className={styles["search-flex"]} style={{alignItems:"center"}}>
             <Box ml="20px" mt="8px" display={["none","none","block","block"]}>
               <Icon boxSize="20px" as={FiSearch} />
@@ -113,7 +108,7 @@ function SearchDiv(props: any) {
                 {results.map((result) => {
                   return (
 
-                    <Flex _hover={{ background: hover }}>
+                    <Flex _hover={{ background: "var(--box_active)", cursor:"pointer"}}>
 
                       {result.name != search ? (
                         <div

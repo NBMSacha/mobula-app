@@ -17,21 +17,21 @@ function Gainers({ gainers }) {
         <>
             {gainers.map((gainer: any, idx: number) => {
                 return (
-                    <Tbody borderBottom={`2px solid ${border}`} fontSize={["12px", "12px", "13px", "15px"]} onClick={() => router.push('/asset/' + getUrlFromName(gainer.name))} _hover={{ background: hover, cursor: "pointer" }}>
+                    <Tbody borderBottom={`1px solid var(--box_border)`} fontSize={["12px", "12px", "13px", "15px"]} onClick={() => router.push('/asset/' + getUrlFromName(gainer.name))} _hover={{ background: "var(--box_active)", cursor: "pointer" }}>
                         <Tr position="relative">
-                            <Td py={["5px", "5px", "5px", "5px"]} px="5px" position="sticky" left="0px" bg={isLargerThan768 ? "none" : bg} _hover={{ background: "none" }}>
+                            <Td borderBottom="1px solid var(--box_border) !important" py={["5px", "5px", "5px", "5px"]} px="5px" position="sticky" left="0px"  bg={['var(--background)','var(--background)',"none","none"]} _hover={{ background: "none" }}>
                                 <Flex align="center" >
                                     <Image mr="15px" h="30px" borderRadius="50%" src={gainer.logo} />
                                     <Text mr="5px" textOverflow="ellipsis" overflow="hidden" maxWidth="168px">{gainer.name}</Text>
-                                    <Text opacity="0.6">{gainer.symbol}</Text>
+                                    <Text opacity="0.6" color="var(--text-secondary)">{gainer.symbol}</Text>
                                 </Flex>
                             </Td>
-                            <Td px="5px" isNumeric  >{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: 'auto' })}</Td>
-                            <Td px="5px" isNumeric color="green">
+                            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric  >{getTokenFormattedPrice(gainer.price, '$', { justify: 'right', marginTop: 'auto' })}</Td>
+                            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric color="green">
                                 <TriangleUpIcon boxSize="12px" mb="4px" mr="3px" />
                                 {getTokenPercentage(gainer.price_change_24h)}%
                             </Td>
-                            <Td px="5px" isNumeric>${formatAmount(gainer.volume)}</Td>
+                            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric>${formatAmount(gainer.volume)}</Td>
                         </Tr>
                     </Tbody>
                 )

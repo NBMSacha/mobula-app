@@ -24,9 +24,7 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
     if (names && names.length > 0) {
       setResults(names)
     }
-
   }
-
 }
 
 function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWidgetVisibility }) {
@@ -56,7 +54,7 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
   console.log(display)
 
   return (
-    <Flex className={styles['main-blockchain-container']} w="100%" bg={bg}>
+    <Flex className={styles['main-blockchain-container']} w="100%" bg="var(--table)">
       <Flex className={styles['blockchain-container']} >
         <Flex minWidth="auto" justify="center" overflowX="scroll" whiteSpace="nowrap">
           <Button minWidth="fit-content" mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Top 100' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} display="flex" alignItems="center" justifyContent="center" maxWidth="155px" width="13%" whiteSpace="nowrap" borderRadius="8px" padding="10px" onClick={() => setDisplay('Top 100')}>Top 100</Button>
@@ -127,13 +125,12 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
         <Flex align="center">
 
        
-          <Flex bg={btn_bg} border={`1px solid ${border}`} mx={1} align="center" position="relative" h={["30px", "30px", "40px", "40px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px ${shadow}`}>
-            <Flex bg={btn_bg} ml="10px" mr="5px" fontSize="25px" opacity=".6" _placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
+          <Flex bg="var(--box_primary)" border={`1px solid var(--box_border)`} mx={1} align="center" position="relative" h={["30px", "30px", "40px", "40px"]} display={["none", "none", "flex", "flex"]} padding="10px 0px" borderRadius="10px" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
+            <Flex  ml="10px" mr="5px" fontSize="25px" opacity=".6" _placeholder={{ overflow: "hidden", whiteSpace: "nowrap", marginRight: "10px", textOverflow: "ellipsis" }}>
               <FiSearch className={styles['loupe']} />
             </Flex>
             <Input
               // value={token}
-
               type='text'
               bg="none"
               border="none"
@@ -148,13 +145,11 @@ function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWid
             {/* <X className={styles['X']} onClick={() => props.setTrigger(false)} /> */}
           </Flex>
 
-          <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} display={["flex"]}
+          <IconButton mx={1} variant={display == 'Settings' ? 'secondary' : 'primary'} border="1px solid var(--box_border)" display={["flex"]}
             onClick={() => {
               setWidgetVisibility(!widgetVisibility)
             }}
-
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
-            border={`1px solid ${border}`}
+            boxShadow={`1px 2px 12px 3px var(--shadow)`}
             colorScheme='teal'
             aria-label='Call Segun'
             size={'sm'}

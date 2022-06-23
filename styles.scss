@@ -15,7 +15,7 @@ body {
   background-color: var(--bg-color);
   font-weight: normal;
   font-style: normal;
-  color: var(--text-color)
+  color:var(--text-primary)
 }
 
 .listing {
@@ -621,4 +621,12 @@ label {
 
 .tokenURL:hover {
   text-decoration: underline;
+}
+
+.stickyHeader{
+  position: fixed !important;
+  top:0;
+  left:0;
+  width: 100%;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
