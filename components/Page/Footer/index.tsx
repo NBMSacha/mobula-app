@@ -14,7 +14,6 @@ function Footer() {
   const [displaySort, setDisplaySort] = useState('none')
   const [displayData, setDisplayData] = useState('none')
   const [displayDAO, setDisplayDAO] = useState('none')
-  const { colorMode, toggleColorMode } = useColorMode();
 
   const useWindowDimensions = () => {
     const hasWindow = typeof window !== 'undefined'
@@ -44,14 +43,6 @@ function Footer() {
   }
   const { width } = useWindowDimensions()
   const breakpoint = 768
-
-  const isGood = width <= breakpoint
-  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
-  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
-  const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
-  const hover = useColorModeValue("blue", "blue")
-  const title = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-bg_white)")
   return (
     <Flex className={styles['footer-main']} borderTop={`2px solid var(--box_border)`}>
       <div className={styles['footer-left']}>
@@ -140,14 +131,15 @@ function Footer() {
         <Flex align="center" h="50px">
           <IconButton
           _focus={{boxShadow:"none"}}
-            onClick={toggleColorMode}
+          
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
             color="var(--text-footer-title)"
-            icon={colorMode == "light" ? <Moon /> : <Sun />}
+            icon={<Moon /> }
+            // : <Sun />
           />
-          <Text color="var(--text-footer-title)" ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+          <Text color="var(--text-footer-title)" ml="10px">Dark Mode</Text>
 
         </Flex>
       </div>
