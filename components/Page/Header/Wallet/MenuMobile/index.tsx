@@ -10,7 +10,7 @@ import { PROTOCOL_ADDRESS } from "../../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, useColorModeValue, Box } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
 import Header from "../../index"
 
@@ -159,8 +159,8 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
   if (router.pathname.includes('dao')) {
     return (
       <>
-     
-        
+
+
         <Flex
 
           display="none"
@@ -214,11 +214,11 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
       </>
     )
   } else {
-    
+
     return (
       <>
         <Flex
-         bg="var(--background) !important"
+          bg="var(--background) !important"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}
