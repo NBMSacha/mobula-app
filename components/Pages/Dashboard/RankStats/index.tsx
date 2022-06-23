@@ -47,6 +47,7 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
         >
             {' '}
             <Button
+                _focus={{boxShadow:"none"}}
                 variant="blue"
                 className={styles["buttons-claim"]}
                 borderRadius='12px'
