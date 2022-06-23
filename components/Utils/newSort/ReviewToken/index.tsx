@@ -49,22 +49,22 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                         <Flex align="center">
                             <Flex align="center" px="10px">
                                 {token.website && (
-                                    <Link href={token.website} target="_blank">
+                                    <Link _focus={{boxShadow:"none"}} href={token.website} target="_blank">
                                         <Icon mr={["0px", "0px", "0px", "0px"]} fontSize={["15px", "15px", "25px", "25px"]} mt="5px" as={Globe} />
                                     </Link>
                                 )}
                                 {token.twitter && (
-                                    <Link href={token.twitter} target="_blank">
+                                    <Link _focus={{boxShadow:"none"}} href={token.twitter} target="_blank">
                                         <Image ml="10px" mr="10px" h={["20px", "20px", "32px", "32px"]} src="/new-twitter.png" />
                                     </Link>
                                 )}
                                 {token.discord && (
-                                    <Link href={token.discord} target="_blank">
+                                    <Link _focus={{boxShadow:"none"}} href={token.discord} target="_blank">
                                         <Image mr="10px" h={["18px", "18px", "30px", "30px"]} w={["18px", "18px", "30px", "30px"]} src="/new-discord.png" />
                                     </Link>
                                 )}
                                 {token.chat.length > 0 ? (
-                                    <Link href={token.chat} target="_blank">
+                                    <Link _focus={{boxShadow:"none"}} href={token.chat} target="_blank">
                                         <Image h={["16px", "16px", "23px", "23px"]} w={["16px", "16px", "23px", "23px"]} src="/new-tlg.png" />
                                     </Link>
                                 ) : ( <></>)}
@@ -73,12 +73,12 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                         <Flex align="center" display={["none", "none", "flex", "flex"]}>
                             <Flex align="center" px="10px">
                                 {token.kyc && (
-                                    <Link href={token.kyc} target="_blank" _hover={{ textDecoration: "none" }}>
+                                    <Link _focus={{boxShadow:"none"}} href={token.kyc} target="_blank" _hover={{ textDecoration: "none" }}>
                                         <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="90px" bg="var(--background)">KYC</Button>
                                     </Link>
                                 )}
                                 {token.audit && (
-                                    <Link href={token.audit} target="_blank" _hover={{ textDecoration: "none" }}>
+                                    <Link _focus={{boxShadow:"none"}} href={token.audit} target="_blank" _hover={{ textDecoration: "none" }}>
                                         <Button variant="primary" borderRadius="8px" py="5px" w="90px" bg="var(--background)">Audit</Button>
                                     </Link>
                                 )}
