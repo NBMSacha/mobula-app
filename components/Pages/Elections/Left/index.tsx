@@ -34,6 +34,7 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                     <Input 
                         placeholder="0x"
                         bg="var(--inputs)"
+                        border="none"
                         fontSize={["12px","12px","15px","15px"]}
                         boxShadow={`1px 2px 13px 3px var(--shadow)`}
                         value={firstValue}
@@ -41,7 +42,6 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                         pl="10px"
                         pr="10px"
                         id="logo"
-                        variant="filled"
                         name="logo"
                         h={["29px","29px","29px","32px"]}
                         borderRadius="8px"
@@ -58,7 +58,7 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                         boxShadow={`1px 2px 13px 3px var(--shadow)`}
                         pr="10px"
                         id="logo"
-                        variant="filled"
+                        border="none"
                         name="logo"
                         h={["29px","29px","29px","32px"]}
                         borderRadius="8px"
@@ -66,7 +66,7 @@ function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
                         required
                         mb="25px"
                     />
-                    <Button bg="var(--inputs)" boxShadow={`1px 2px 13px 3px var(--shadow)`} fontSize={["11px","11px","14px","14px"]} color="white" w="100%" py={["12px","12px","15px","15px"]} mb="20px" borderRadius={["8px","8px","8px","12px"]}>
+                    <Button _focus={{boxShadow:"none"}} bg="var(--inputs)" boxShadow={`1px 2px 13px 3px var(--shadow)`} fontSize={["11px","11px","14px","14px"]} color="white" w="100%" py={["12px","12px","15px","15px"]} mb="20px" borderRadius={["8px","8px","8px","12px"]}>
                         Submit
                     </Button>
                 </Flex>

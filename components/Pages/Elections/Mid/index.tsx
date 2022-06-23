@@ -38,7 +38,7 @@ function Mid({ promote, firstInput, secondInput, setFirstInput, firstValue }) {
                     pl="10px"
                     pr="10px"
                     id="logo"
-                    variant="filled"
+                    border="none"
                     name="logo"
                     _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                     required
@@ -54,14 +54,14 @@ function Mid({ promote, firstInput, secondInput, setFirstInput, firstValue }) {
                     pl="10px"
                     pr="10px"
                     id="logo"
-                    variant="filled"
+                    border="none"
                     name="logo"
                     boxShadow={`1px 2px 13px 3px var(--shadow)`}
                     _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                     required
                     mb="25px"
                 />
-                <Button mb="20px" color="white" boxShadow={`1px 2px 13px 3px var(--shadow)`}  bg="var(--inputs)" fontSize={["11px", "11px", "14px", "14px"]} w="100%" py={["12px", "12px", "15px", "15px"]} borderRadius={["8px", "8px", "8px", "12px"]}>
+                <Button _focus={{boxShadow:"none"}} mb="20px" color="white" boxShadow={`1px 2px 13px 3px var(--shadow)`}  bg="var(--inputs)" fontSize={["11px", "11px", "14px", "14px"]} w="100%" py={["12px", "12px", "15px", "15px"]} borderRadius={["8px", "8px", "8px", "12px"]}>
                     Submit
                 </Button>
             </Flex>
