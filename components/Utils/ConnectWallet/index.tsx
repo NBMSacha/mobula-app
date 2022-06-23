@@ -93,7 +93,7 @@ export default function ConnectWallet({ close, setClose }) {
     }
 
     return (
-        <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={close ? "none" : "flex"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
+        <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={close ? "none" : "flex"} direction="column" align="center" w={["90%","90%","420px","420px"]}  position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
             <Flex  align="center" mt="20px" mb="20px" justify="space-between"  w="88%">
                 <Text>Connect Wallet</Text>
                 <Button onClick={() => setClose(true)}><CloseIcon /></Button>
