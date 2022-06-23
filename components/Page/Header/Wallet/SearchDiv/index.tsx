@@ -6,7 +6,6 @@ import styles from './searchdiv.module.scss'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link, Icon } from "@chakra-ui/react";
 import { getUrlFromName, getTokenPrice, getTokenPercentage } from '../../../../../helpers/formaters'
 import { useRouter } from 'next/router'
-import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 
 function SearchDiv(props: any) {
   const router = useRouter();
@@ -82,7 +81,7 @@ function SearchDiv(props: any) {
 
     return (
       <div ref={props.wrapperRef} >
-        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow={`1px 2px 10px var(--shadow)`} bg="var(--background)" borderRadius="12px">
+        <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow="1px 2px 13px 3px var(--widget-shadow)" bg="var(--background)" borderRadius="12px">
           <div className={styles["search-flex"]} style={{alignItems:"center"}}>
             <Box ml="20px" mt="8px" display={["none","none","block","block"]}>
               <Icon boxSize="20px" as={FiSearch} />
