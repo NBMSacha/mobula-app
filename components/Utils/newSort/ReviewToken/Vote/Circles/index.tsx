@@ -4,10 +4,10 @@ import { Circle } from '@chakra-ui/react';
 function Circles({ score, updateScore, name }) {
 
     function getColor(index: number) {
-        return score >= index ? 'var(--chakra-colors-green)' : useColorModeValue("#E9E9E9", 'white')
+        return score >= index ? 'var(--green)' : "var(--circle)"
     }
     return (
-                <Flex justify="space-between" mt="15px" h="16x">
+                <Flex justify="space-between" mt="20px" h="16x">
                     <Text fontSize={["12px", "12px", "14px", "14px"]}>{name}</Text>
                     <Flex>
                         <Circle size='18px' mx="3px" bg={getColor(1)} fill={getColor(1)} onClick={() => { updateScore(1)}} />

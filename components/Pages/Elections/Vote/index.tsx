@@ -33,22 +33,22 @@ const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) =
             h="40px"
             w={["20.25rem", "25.25rem"]}
             rounded="xl"
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
+            boxShadow={`1px 2px 12px 3px var(--shadow)`}
             variant="filled"
-            _focus={{ 'bg': input }}
             required
             _placeholder={{ color: "gray.500" }}
+            _hover={{background:"none"}}
             id="msg"
             name="name"
-            bg={input}
+            bg="var(--inputs) !important"
             placeholder="0xbb663a119193cA68512c351b0fdfDEB9c22Dc416"
             value={firstValue}
             onChange={(e) => setFirstInput(e.target.value)}
         ></Input>
 
         <Text variant="primary">Why?</Text>
-        <Textarea _placeholder={{ color: "gray.500" }} border="none" bg={input} mb="15px" placeholder={`Explain here why you want to ${action} this member.`} />
-        <Button h="40px" w="40%" bg={submitBackground} variant="secondary">Submit</Button>
+        <Textarea _placeholder={{ color: "gray.500" }} border="none" bg="var(--inputs)" mb="15px" placeholder={`Explain here why you want to ${action} this member.`} />
+        <Button h="40px" w="40%"  variant="secondary">Submit</Button>
     </Flex >
 }
 

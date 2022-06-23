@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from './brand.module.scss'
-import { Flex, Text, Image, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, Image, Button, Input } from '@chakra-ui/react'
 
 function Brand() {
-  const shadow = useColorModeValue("blue_title", "bg_white")
   return (
     <div className={styles['left']} style={{ "cursor": "pointer" }} onClick={() => document.location.href = "/"}>
       <Image
@@ -15,10 +14,7 @@ function Brand() {
         alt='logo'
         onClick={() => (document.location.href = '/')}
       />
-
-
-
-      <Text color={shadow} className={styles['mobula-title']}>Mobula</Text>
+      <Text color="var(--text-footer-title)" className={styles['mobula-title']}>Mobula</Text>
     </div>
   )
 }

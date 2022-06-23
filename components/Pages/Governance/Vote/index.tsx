@@ -1,27 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
-import styles from './Governance.module.scss';
-import { ethers } from 'ethers'
 import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, IconButton, useColorModeValue } from '@chakra-ui/react'
-import {
-    FormControl,
-    FormLabel,
-    ColorModeProvider,
-    CSSReset
-} from '@chakra-ui/react';
 import { ThumbsUp, ThumbsDown } from "react-feather"
 
 function Vote({proposal}) {
     console.log(proposal)
-    const [value, setValue] = useState("")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("white_voting", "dark_box_list")
     return (
             <Flex direction="column" >
                 <Text mb='20px' mt={["30px", "30px","30px",""]} fontSize={["13px", "13px", "15px", "18px"]}>Validate or refuse</Text>
                 {/* BOX */}
                 <Flex mb="15px" >
-                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none",bg,bg]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]}>
-                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={[bg,bg,"none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,"none"]}>
+                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none","var(--bg-governance-box)","var(--bg-governance-box)"]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
+                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={["var(--bg-governance-box)","var(--bg-governance-box)","none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,"none"]}>
                             <Text >The listing fee should be reduced to 10$</Text>
                         </Flex>
                         <Flex w={["25%","25%","20%","20%"]} mx={["10px","10px","20px","20px"]} justify="space-between">
@@ -37,8 +26,8 @@ function Vote({proposal}) {
                 
                 {/* TO REMOVE */}
                 <Flex mb="15px" >
-                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none",bg,bg]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]}>
-                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={[bg,bg,"none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,"none"]}>
+                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none","var(--bg-governance-box)","var(--bg-governance-box)"]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
+                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={["var(--bg-governance-box)","var(--bg-governance-box)","none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,"none"]}>
                             <Text >The listing fee should be reduced to 10$</Text>
                         </Flex>
                         <Flex w={["25%","25%","20%","20%"]} mx={["10px","10px","20px","20px"]} justify="space-between">
@@ -52,8 +41,8 @@ function Vote({proposal}) {
                     </Flex>
                 </Flex>
                 <Flex mb="15px" >
-                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none",bg,bg]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]}>
-                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={[bg,bg,"none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,"none"]}>
+                    <Flex h={["50px","50px","80px","80px"]} justify="space-between" align="center" w="100%" bg={["none","none","var(--bg-governance-box)","var(--bg-governance-box)"]}  borderRadius="15px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
+                    <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={["var(--bg-governance-box)","var(--bg-governance-box)","none","none"]} px={["20px"]} h="100%" boxShadow={[`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,"none"]}>
                             <Text >The listing fee should be reduced to 10$</Text>
                         </Flex>
                         <Flex w={["25%","25%","20%","20%"]} mx={["10px","10px","20px","20px"]} justify="space-between" >
@@ -67,8 +56,8 @@ function Vote({proposal}) {
                     </Flex>
                 </Flex>
                 <Flex mb="15px" >
-                    <Flex h={["50px","50px","80px","80px"]} boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]}  justify="space-between" align="center" w="100%" bg={["none","none",bg,bg]}  borderRadius="15px" >
-                        <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={[bg,bg,"none","none"]} px={["20px"]} boxShadow={[`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,`1px 2px 12px 3px ${shadow}`,"none"]} h="100%">
+                    <Flex h={["50px","50px","80px","80px"]} boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}  justify="space-between" align="center" w="100%" bg={["none","none","var(--bg-governance-box)","var(--bg-governance-box)"]}  borderRadius="15px" >
+                        <Flex borderRadius="12px" w="72%" align="center" justify="start" bg={["var(--bg-governance-box)","var(--bg-governance-box)","none","none"]} px={["20px"]} boxShadow={[`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,`1px 2px 12px 3px var(--shadow)`,"none"]} h="100%">
                             <Text >The listing fee should be reduced to 10$</Text>
                         </Flex>
                         

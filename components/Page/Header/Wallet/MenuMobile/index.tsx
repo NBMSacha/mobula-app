@@ -10,7 +10,7 @@ import { PROTOCOL_ADDRESS } from "../../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, useColorModeValue, Box } from '@chakra-ui/react';
+import { Flex, Box } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
 import Header from "../../index"
 
@@ -156,18 +156,17 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
     }
   }, [account])
   console.log(Number(ranked))
-  const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
   if (router.pathname.includes('dao')) {
     return (
       <>
-     
-        
+
+
         <Flex
 
           display="none"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
-          bg={bg}
+          bg="var(--background) !important"
           style={{ display: 'none' }}
         >
           <div className={styles['mobile-linkTo']}>
@@ -215,11 +214,11 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
       </>
     )
   } else {
-    const bg = useColorModeValue("bg_white", "dark_primary")
+
     return (
       <>
         <Flex
-          bg={bg}
+          bg="var(--background) !important"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           style={{ display: 'none' }}

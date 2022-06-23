@@ -2,13 +2,8 @@ import { Flex, Box, Text, Image, Button, useColorModeValue } from "@chakra-ui/re
 import styles from '../dashboard.module.scss'
 
 function Leaderboard({ top }) {
-    
-    const input = useColorModeValue("white_sun_moon", "dark_decision")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("light_primary_box", "dark_primary_box")
-    
 
-    return (<Box  bg={[bg, bg, bg, bg]} boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]} w="100%" borderRadius="10px" h="auto" minHeight={["400px","400px","458px","458px"]} mx="auto" mt={["0px","0px","10px","10px"]} className={`${styles["padding-resp"]}`}>
+    return (<Box  bg="var(--bg-governance-box)" boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} w="100%" borderRadius="10px" h="auto" minHeight={["400px","400px","458px","458px"]} mx="auto" mt={["0px","0px","10px","10px"]} className={`${styles["padding-resp"]}`}>
         <Text color="var(--beli)" pb={["22px","22px","30px","30px"]} fontSize={["16px","16px","22px","22px"]} fontWeight="500">Leaderboard</Text>
         <Box maxHeight="320px" pr="20px" overflowY="scroll" className={styles["scroll"]} >
             {top.map((user: any, index: number) => {

@@ -7,15 +7,11 @@ import styles from "./Api.module.scss"
 
 const TopSection = () => {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
-    const [isLargerThan1330] = useMediaQuery('(min-width: 1330px)')
-    const bg = useColorModeValue('rgba(255, 255, 255, 0.3)', '#161A2A')
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-
     return (
 
         <Flex w="90%" direction="column" mt="0px" pb="50px" align="center">
             <Flex p={["0px", "0px", "0px 20px", "0px 20px"]} justify="center" direction={["column", "row", "row", "row"]}>
-                <Flex direction="column" maxWidth="470px" m={["35px 10px 10px 10px", "35px 10px 10px 10px", "10px 10px 10px 10px", "10px 10px 10px 10px"]} bg={["none", "none", "none", bg]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]}>
+                <Flex direction="column" maxWidth="470px" m={["35px 10px 10px 10px", "35px 10px 10px 10px", "10px 10px 10px 10px", "10px 10px 10px 10px"]} bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]}>
                     <Text fontSize="17px" mb={["15px", "15px", "30px", "30px"]} color="#5C7DF9" fontWeight="600" textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap">
                         Mobula, a quality label
                     </Text>
@@ -23,7 +19,7 @@ const TopSection = () => {
                         Being listed on Mobula means being in line with most of the quality standards required by launchpads and other entities in the crypto ecosystem. That's why our partners accept to work with tokens if they are listed on Mobula.
                     </Text>
                 </Flex>
-                <Flex direction="column" maxWidth="545px" m={["35px 10px 10px 10px", "35px 10px 10px 10px", "10px 10px 10px 10px", "10px 0px 10px 0px"]} bg={["none", "none", "none", bg]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]} >
+                <Flex direction="column" maxWidth="545px" m={["35px 10px 10px 10px", "35px 10px 10px 10px", "10px 10px 10px 10px", "10px 0px 10px 0px"]} bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} >
                     <Text fontSize="17px" mb={["15px", "15px", "30px", "30px"]} color="#5C7DF9" fontWeight="600">
                         Mobula, a vibrant ecosystem
                     </Text>
@@ -33,8 +29,8 @@ const TopSection = () => {
                 </Flex>
             </Flex>
 
-            <Flex p="10px" align="center" justify="center" bg={["none", "none", "none", bg]} maxWidth="1025px" mt={['30px', '30px', '0px', '0px']} ml={["10px", "10px", "25px", "25px"]} borderRadius="12px" mr={['16px', '16px', '', '']} boxShadow={["none", "none", "none", `1px 2px 12px 3px ${shadow}`]}>
-                <Flex bg={["none", "none", "none", bg]} wrap="wrap" borderRadius="12px" align="center" justify="space-around">
+            <Flex p="10px" align="center" justify="center" bg={["none", "none", "none", "var(--bg-governance-box)"]} maxWidth="1025px" mt={['30px', '30px', '0px', '0px']} ml={["10px", "10px", "25px", "25px"]} borderRadius="12px" mr={['16px', '16px', '', '']} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]}>
+                <Flex bg={["none", "none", "none","var(--bg-governance-box)"]} wrap="wrap" borderRadius="12px" align="center" justify="space-around">
                     <Box h="80px" w="320px" display="flex" alignItems="center" justifyContent="center" borderRadius="12px" my={isLargerThan1280 ? "0px" : "10px"}>
                         <Image w='60%' src="/degem.png" />
                     </Box>

@@ -2,15 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useAlert } from 'react-alert'
 import { ethers } from 'ethers'
-import styles from './Earn.module.scss'
 import { Text, Heading, Flex, Box, Spacer, Button, Image, Link, useMediaQuery, useColorModeValue } from '@chakra-ui/react'
 import { MOBL_ADDRESS, PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
-import {
-    ChakraProvider,
-    ColorModeProvider,
-    useColorMode,
-} from '@chakra-ui/react'
-import { CSSReset } from '@chakra-ui/react'
 import { CheckCircle } from 'react-feather';
 import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
@@ -22,7 +15,6 @@ function Earn() {
     const [tasks, setTasks] = useState([])
     const [account, setAccount] = useState('');
     const alert = useAlert();
-    const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
 
     const claim = () => {
 
@@ -119,10 +111,6 @@ function Earn() {
     }, [])
 
     const [isLessThan11300px] = useMediaQuery('(max-width: 1300px)')
-    const input = useColorModeValue("white_secondary_input", "dark_input")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("white_voting", "dark_box_list")
-    const bgSecondary = useColorModeValue("white_voting", "none")
 
     return (
         <Flex mb="10rem" justify="center" fontFamily="Poppins" direction={["column", "column", "column", 'row']} w="100%" mt="50px">
@@ -138,8 +126,8 @@ function Earn() {
                 <Flex w="90%" mb="16px" display={["flex", "flex", "flex", "none"]}>
                     <Text fontWeight="bold" textAlign="start" w="85%" m="0px" display={["flex", "flex", "flex", "none"]} mb="10px">Earn</Text>
                     <Flex justify="space-between">
-                        <Button fontSize="12px" ml="20px" borderRadius="8px" bg={bg} boxShadow={`1px 2px 12px 3px ${shadow}`} color="none" h="25px" px="3">Balance : {user.balance || 0} MOBL</Button>
-                        <Button onClick={claim} fontSize="12px" ml="20px" borderRadius="8px" bg="blue" color="white" h="25px" px="5">Claim</Button>
+                        <Button fontSize="12px" ml="20px" borderRadius="8px" color="none" h="25px" px="3">Balance : {user.balance || 0} MOBL</Button>
+                     
                     </Flex>
                 </Flex>
 
@@ -198,7 +186,7 @@ function Earn() {
                         <Flex direction="column" w="50%" align="start">
                             <Text fontSize="16px" color="green">+ {25 * user.referred.length} MOBL</Text>
                             <Text fontSize="13px">You referred {user.referred.length} friends.</Text>
-                            <Button onClick={claim} w="120px" boxShadow={`1px 2px 12px 3px ${shadow}`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg={bg}>Claim MOBL</Button>
+                            <Button onClick={claim} w="120px" boxShadow={`1px 2px 12px 3px var(--shaodw)`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg="var(--blue)">Claim MOBL</Button>
                         </Flex>
                         <Flex direction="column" w="50%" align="end" mt="3px">
                             <Text fontSize="13px" mb="15px">1 Referral : <span>25 MOBL</span></Text>
@@ -218,7 +206,7 @@ function Earn() {
                                     {tasks.map((task) => {
                                         if (!user.tasks_done.includes(task.id)) {
                                             return <Flex align="center" mb="30px">
-                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
+                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle width="22px" />
                                                 </Box>
                                                 <Text fontSize={["12px", "12px", "14px", "14px"]} >{task.task.split(task.data.name)[0]} <a href={'/asset/' + getUrlFromName(task.data.name)}>{task.data.name}</a> {task.task.split(task.data.name)[1]}<span style={{ color: "var(--chakra-colors-green)", marginLeft: "15px", whiteSpace: "nowrap" }}>+ 15 MOBL</span></Text>
@@ -232,7 +220,7 @@ function Earn() {
                                     {tasks.map((task, index: number) => {
                                         if (user.tasks_done.includes(task.id)) {
                                             return <Flex align="center" mb="30px">
-                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
+                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center"  borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle color="var(--chakra-colors-green)" width="22px" />
                                                 </Box>
                                                 <Flex justify={["start", "start", "start", "space-between"]} w="100%">
@@ -242,7 +230,7 @@ function Earn() {
                                             </Flex>
                                         } else if (!index && !user.tasks_done.length) {
                                             return <Flex align="center" mb="30px">
-                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" bg={bgSecondary} boxShadow={`1px 2px 12px 3px ${shadow}`} borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
+                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center"  borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle color="var(--chakra-colors-green)" width="22px" />
                                                 </Box>
                                                 <Flex justify={["start", "start", "start", "space-between"]} w="100%">

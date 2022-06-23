@@ -5,10 +5,8 @@ import { Pocket, CheckCircle } from "react-feather";
 
 const Static = () => {
 
-    const bg = useColorModeValue('rgba(255, 255, 255, 0.3)', '#161A2A')
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
-        <Flex direction="column" bg={["none", "none", "none", bg]} borderRadius="12px" p={["10px","10px","10px","20px 40px"]} ml="8px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]}>
+        <Flex direction="column" bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["10px","10px","10px","20px 40px"]} ml="8px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
             <Text fontSize="18px" mb={["20px","20px","20px",""]} color="blue" fontWeight="600">Static API</Text>
             <Text color="#8B8B8B" mb="30px" mt="10px" fontSize="16px"  display={["none","none","none","flex"]}>An on-chain API to retrieve relational information<br /> from the address of a crypto-token.</Text>
             <Flex mb="30px" align="center" fontSize={["12px","12px","14px","14px"]}>

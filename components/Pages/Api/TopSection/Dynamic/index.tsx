@@ -4,12 +4,9 @@ import { CheckCircleIcon } from "@chakra-ui/icons"
 import { Pocket, CheckCircle } from "react-feather";
 
 const Static = () => {
-    const [isLargerThan1330] = useMediaQuery('(min-width: 1330px)')
-    const bg = useColorModeValue('rgba(255, 255, 255, 0.3)', '#161A2A')
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
 
-        <Flex direction="column" bg={["none", "none", "none", bg]} borderRadius="12px" p={["10px","10px","10px","20px 37px"]}  ml="10px" boxShadow={["none","none","none",`1px 2px 12px 3px ${shadow}`]} >
+        <Flex direction="column" bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["10px","10px","10px","20px 37px"]}  ml="10px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]} >
             <Text fontSize="17px" mb={["20px","20px","20px",""]} color="blue" fontWeight="600">Dynamic API</Text>
             <Text color="#8B8B8B" mb="30px" mt="10px" fontSize="16px" display={["none","none","none","flex"]}>An API to retrieve data such as<br /> price, liquidity and volume (only on-chain) of assets.</Text>
             <Flex>

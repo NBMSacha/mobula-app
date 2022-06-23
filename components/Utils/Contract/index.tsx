@@ -13,21 +13,18 @@ export default function Contract({ contract, blockchain }: { contract: string, b
             })
         }
     }, [])
-    const bg = useColorModeValue("rgba(208, 214, 227, 0.3)", "none")
-    const contracts = useColorModeValue("bg_white", "none")
     return (
         <Flex
             align="center"
             position="relative"
             justify="left"
             minWidth={["135px", "135px", "165px", "165px"]}
-            bg={contracts}
+            bg="var(--background)"
             mt='18px'
             mx={["auto", "auto", "auto", "0px"]}
             h={["20px", "20px", "45px", "40px"]}
-            p="0px 10px"
-
-            boxShadow={useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')}
+            p={["15px 10px","15px 10px","0px 10px","0px 10px"]}
+            boxShadow="1px 2px 13px 3px var(--shadow)"
             borderRadius={["6px", "6px", '10px', '10px']}
         >
             {blockchain ? <Image width={'17px'} borderRadius="50%" height={'17px'} src={"/" + blockchain.split(' ')[0].toLowerCase() + '.png'} ml="5px" /> : <></>

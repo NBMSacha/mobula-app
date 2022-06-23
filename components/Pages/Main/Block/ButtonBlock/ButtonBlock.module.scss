@@ -96,15 +96,15 @@
 }
 
 .blockchain-logo {
-  height: 23px;
-  width: 23px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%
 }
 
 .blockchain-container {
   display: flex;
   width: 86%;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -157,7 +157,6 @@
   background: var(--active-btn);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 
@@ -167,7 +166,6 @@
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   cursor: pointer;
-  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 .select-button,
@@ -262,6 +260,12 @@
     height: 15px;
   }
 
+  .blockchain-logo {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%
+  }
+
   .spanMargin {
     margin: 0px 0px !important;
   }
@@ -322,8 +326,8 @@
   }
 
   .bsc-btn>img {
-    height: 22px;
-    width: 22px;
+    height: 20px;
+    width: 20px;
   }
 
   .three-blockchain-logo:nth-child(1) {
@@ -408,13 +412,12 @@
   }
 
   .eth-btn {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
 
   .eth-btn-block {
-
-    height: 22px;
+    height: 20px;
   }
 
   .select-button,
@@ -477,8 +480,8 @@
   }
 
   .eth-btn {
-    height: 22px;
-    width: 22px;
+    height: 20px !important;
+    width: 20px !important;
   }
 
   .blockchain-name {
@@ -494,20 +497,20 @@
   }
 
   .three-blockchain-logo:nth-child(1) {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     top: 4px;
   }
 
   .three-blockchain-logo:nth-child(2) {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     top: 6px;
   }
 
   .three-blockchain-logo:nth-child(3) {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     top: 8px;
   }
 
