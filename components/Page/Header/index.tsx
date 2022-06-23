@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { ethers } from 'ethers'
@@ -9,6 +9,7 @@ import Tendance from './Tendance'
 import { createClient } from '@supabase/supabase-js'
 import styles from './header.module.scss'
 import { useRouter } from 'next/router';
+import { ThemeContext } from '../../../pages/_app';
 
 function Header(props: any) {
   const [metrics, setMetrics] = useState({

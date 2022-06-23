@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
 import { X } from 'react-feather';
 import styles from './searchdiv.module.scss'
-import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link, Icon } from "@chakra-ui/react";
+import { Button, useColorMode, IconButton, Flex, Box, Text, Heading, Input, Image, Link, Icon } from "@chakra-ui/react";
 import { getUrlFromName, getTokenPrice, getTokenPercentage } from '../../../../../helpers/formaters'
 import { useRouter } from 'next/router'
 
@@ -82,11 +82,11 @@ function SearchDiv(props: any) {
     return (
       <div ref={props.wrapperRef} >
         <Box className={styles['search-div']} h={["100vh", "100vh", "400px", "400px"]} w="305px" boxShadow="1px 2px 13px 3px var(--widget-shadow)" bg="var(--background)" borderRadius="12px">
-          <div className={styles["search-flex"]} style={{alignItems:"center"}}>
-            <Box ml="20px" mt="8px" display={["none","none","block","block"]}>
+          <div className={styles["search-flex"]} style={{ alignItems: "center" }}>
+            <Box ml="20px" mt="8px" display={["none", "none", "block", "block"]}>
               <Icon boxSize="20px" as={FiSearch} />
             </Box>
-            
+
             <Input
               color="none"
               value={token}
@@ -107,7 +107,7 @@ function SearchDiv(props: any) {
                 {results.map((result) => {
                   return (
 
-                    <Flex _hover={{ background: "var(--box_active)", cursor:"pointer"}}>
+                    <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }}>
 
                       {result.name != search ? (
                         <div
