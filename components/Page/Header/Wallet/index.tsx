@@ -156,14 +156,9 @@ function Wallet({}) {
 
   //   } catch (e) { }
   // }, [])
-  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
   useOutsideAlerter(wrapperRef, setTriggerSearch)
-
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
   const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
-  const { colorMode, toggleColorMode } = useColorMode();
-  const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
-
 
   return (
     <>
@@ -220,19 +215,20 @@ function Wallet({}) {
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <Flex height="100%" align="center" display={["none", "none", "none", "flex"]}>
           <IconButton
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
+            boxShadow={`1px 2px 12px 3px var(--shadow)`}
             _focus={{ boxShadow: "none" }}
-            onClick={toggleColorMode}
+            
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
-            color={colorSunMoon}
+            
             bg="none"
             ml={["0px", "0px", "0px", "20px"]}
             mr={["20px", "20px", "20px", "0px"]}
             mt={["4px", "4px", "4px", "4px"]}
 
-            icon={colorMode == "light" ? <Moon /> : <Sun />}
+            icon={<Moon /> }
+            // : <Sun />
           />
         </Flex>
         {connect && (
