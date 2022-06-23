@@ -7,9 +7,8 @@ export default class Document extends NextDocument {
     return (
       <Html>
         <Head />
-        <body>
-          <script dangerouslySetInnerHTML={{
-            __html: `
+        <script dangerouslySetInnerHTML={{
+          __html: `
         function getInitialColorMode() {
           const persistedColorPreference = window.localStorage.getItem('color-mode');
           const hasPersistedPreference = typeof persistedColorPreference === 'string';
@@ -76,6 +75,7 @@ export default class Document extends NextDocument {
         root?.style.setProperty("--blue", colorMode == 'dark' ? "#5C7DF9" : "#5C7DF9");
         root?.style.setProperty("--none", colorMode == 'dark' ? "none" : "none");
         `}}></script>
+        <body>
           <ColorModeScript initialColorMode={themeUltime.config.initialColorMode} />
           <Main />
           <NextScript />
