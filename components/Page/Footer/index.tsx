@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GitHub, Send, Twitter } from 'react-feather'
 import styles from './footer.module.scss'
 import { Moon, Sun } from "react-feather"
-import {
-  ChakraProvider,
-  ColorModeProvider,
-  useColorMode,
-} from '@chakra-ui/react'
 import { Link, Icon } from '@chakra-ui/react'
+import { Flex, Text, Image, Button, Input, IconButton } from '@chakra-ui/react'
+import { ThemeContext } from '../../../pages/_app';
 
-import { Flex, Text, Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react'
 function Footer() {
-  const [displaySort, setDisplaySort] = useState('none')
-  const [displayData, setDisplayData] = useState('none')
-  const [displayDAO, setDisplayDAO] = useState('none')
-  const { colorMode, toggleColorMode } = useColorMode();
+  const themeContext = useContext(ThemeContext);
 
   const useWindowDimensions = () => {
     const hasWindow = typeof window !== 'undefined'
@@ -46,12 +39,6 @@ function Footer() {
   const breakpoint = 768
 
   const isGood = width <= breakpoint
-  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border)")
-  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const sunMoon = useColorModeValue("white_sun_moon", "dark_sun_moon")
-  const colorSunMoon = useColorModeValue("sun_moon_color", "bg_white")
-  const hover = useColorModeValue("blue", "blue")
-  const title = useColorModeValue("var(--chakra-colors-blue)", "var(--chakra-colors-bg_white)")
   return (
     <Flex className={styles['footer-main']} borderTop={`2px solid var(--box_border)`}>
       <div className={styles['footer-left']}>
@@ -65,27 +52,27 @@ function Footer() {
 
         <div className={styles['social-container']}>
           <Link href='https://t.me/MobulaFi' _hover={{ color: "var(--box_active)", textDecoration: "none" }} className={styles['social-link']}>
-            <Icon as={Send} boxSize="20px" mt="40px"/>
+            <Icon as={Send} boxSize="20px" mt="40px" />
           </Link>
           <Link
             href='https://github.com/NBMSacha/mobula-app'
             className={styles['social-link']}
             _hover={{ color: "var(--box_active)", textDecoration: "none" }}
           >
-             <Icon as={GitHub} boxSize="20px" mt="20px"/>
+            <Icon as={GitHub} boxSize="20px" mt="20px" />
           </Link>
           <Link
             href='https://twitter.com/MobulaFi'
             className={styles['social-link']}
             _hover={{ color: "var(--box_active)", textDecoration: "none" }}
           >
-            <Icon as={Twitter} boxSize="20px" mt="20px"/>
+            <Icon as={Twitter} boxSize="20px" mt="20px" />
           </Link>
         </div>
       </div>
       <div className={styles['footer-right']}>
         <div className={styles['community']}>
-          <span style={{color: "var(--text-footer-title)"}}>Community</span>
+          <span style={{ color: "var(--text-footer-title)" }}>Community</span>
           <ul >
             <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/nrkVNNke8Q' isExternal>
               <li>Discord</li>
@@ -99,7 +86,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['community']}>
-          <span style={{color: "var(--text-footer-title)"}}>Press</span>
+          <span style={{ color: "var(--text-footer-title)" }}>Press</span>
           <ul>
             <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='' >
               <li>Press kit</li>
@@ -113,7 +100,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['community']}>
-          <span style={{color: "var(--text-footer-title)"}}>Ressources</span>
+          <span style={{ color: "var(--text-footer-title)" }}>Ressources</span>
           <ul>
             <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://docs.mobula.finance' isExternal>
               <li>Documentation</li>
@@ -127,7 +114,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['help']}>
-          <span style={{color: "var(--text-footer-title)"}}>Help</span>
+          <span style={{ color: "var(--text-footer-title)" }}>Help</span>
           <ul>
             <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' >
               <li>FAQs</li>
@@ -139,15 +126,17 @@ function Footer() {
         </div>
         <Flex align="center" h="50px">
           <IconButton
-          _focus={{boxShadow:"none"}}
-            onClick={toggleColorMode}
+            _focus={{ boxShadow: "none" }}
+            onClick={() => {
+              themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
+            }}
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
             color="var(--text-footer-title)"
-            icon={colorMode == "light" ? <Moon /> : <Sun />}
+            icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text color="var(--text-footer-title)" ml="10px">{colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+          <Text color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
 
         </Flex>
       </div>

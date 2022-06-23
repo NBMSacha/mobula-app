@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from './brand.module.scss'
-import { Flex, Text, Image, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, Image, Button, Input } from '@chakra-ui/react'
 
 function Brand() {
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
 import TokenInfo from "./TokenInfo";
 import { Search2Icon } from "@chakra-ui/icons"
@@ -23,14 +23,13 @@ import Contract from "../../Utils/Contract"
 import styles from './newChart.module.scss';
 import Swap from "./Swap"
 import MobileInfo from "./MobileInfo"
+import { ThemeContext } from '../../../pages/_app';
 
 const Token = ({ baseAssetBuffer }) => {
     const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.29)")
     const [selector, setSelector] = useState("price")
     const router = useRouter()
     const [timeFormat, setTimeFormat] = useState('7D')
-    const [volume, setVolume] = useState(0);
-    const [liquidity, setLiquidity] = useState(0);
     const [price, setPrice] = useState(0);
     const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
     const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?' })
@@ -44,6 +43,7 @@ const Token = ({ baseAssetBuffer }) => {
     const types = ['price', 'volume', 'liquidity', 'rank'];
     const unformattedInitialBuffer = {}
     const [baseAsset, setBaseAsset]: [any, Function] = useState(baseAssetBuffer)
+    const themeContext = useContext(ThemeContext);
 
     types.forEach(type => {
         const multiplier = type == 'rank' ? -1000000000 : 1000000000;
@@ -175,7 +175,7 @@ const Token = ({ baseAssetBuffer }) => {
                     type: 'time',
                     distribution: 'linear',
                     ticks: {
-                        fontColor: "white",
+                        fontColor: themeContext.colorMode == "light" ? "black" : "white",
                         fontFamily: "Poppins",
                         maxRotation: 0,
                         minRotation: 0,
@@ -587,7 +587,7 @@ const Token = ({ baseAssetBuffer }) => {
                 <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column"  w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
                             {baseAsset.contracts.map((contract: string, idx: number) => {
                                 return (
                                     <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />

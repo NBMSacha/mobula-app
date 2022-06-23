@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
-import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, Button, Input } from '@chakra-ui/react'
 
 function Link() {
   const router = useRouter()
@@ -49,7 +49,7 @@ function Link() {
         >
           Gainers & Losers
         </span>
-        
+
 
         <span
           className={styles['link-common']}
@@ -69,7 +69,7 @@ function Link() {
         >
           List an asset
         </span>
-        
+
       </div>
     )
   }
