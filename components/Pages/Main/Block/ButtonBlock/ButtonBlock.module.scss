@@ -157,7 +157,6 @@
   background: var(--active-btn);
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
-  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 
@@ -167,7 +166,6 @@
   color: black;
   transition: background 200ms ease-in-out, color 200ms ease-in-out;
   cursor: pointer;
-  border: 1px solid var(--chakra-colors-btn_border) !important
 }
 
 .select-button,
