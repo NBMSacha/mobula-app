@@ -4,3 +4,15 @@
 
   [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "http://app.mobula.finance/*"
+  to = "https://mobula.fi/:splat"
+  status = 301
+  force = false
+
+[[redirects]]
+  from = "https://app.mobula.finance/*"
+  to = "https://mobula.fi/:splat"
+  status = 301
+  force = false
