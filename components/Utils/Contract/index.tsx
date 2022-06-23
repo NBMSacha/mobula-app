@@ -23,7 +23,7 @@ export default function Contract({ contract, blockchain }: { contract: string, b
             mt='18px'
             mx={["auto", "auto", "auto", "0px"]}
             h={["20px", "20px", "45px", "40px"]}
-            p="0px 10px"
+            p={["15px 10px","15px 10px","0px 10px","0px 10px"]}
             boxShadow="1px 2px 13px 3px var(--shadow)"
             borderRadius={["6px", "6px", '10px', '10px']}
         >

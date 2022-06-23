@@ -63,11 +63,11 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                                         <Image mr="10px" h={["18px", "18px", "30px", "30px"]} w={["18px", "18px", "30px", "30px"]} src="/new-discord.png" />
                                     </Link>
                                 )}
-                                {token.chat && (
+                                {token.chat.length > 0 ? (
                                     <Link href={token.chat} target="_blank">
                                         <Image h={["16px", "16px", "23px", "23px"]} w={["16px", "16px", "23px", "23px"]} src="/new-tlg.png" />
                                     </Link>
-                                )}
+                                ) : ( <></>)}
                             </Flex>
                         </Flex>
                         <Flex align="center" display={["none", "none", "flex", "flex"]}>
@@ -87,9 +87,21 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                     </Flex>
                     <Flex align="center" display={["flex", "flex", "none", "none"]}>
                         <Flex fontSize="11px" align="center" justify="space-between" px="10px" w="90%" mx="auto" mt="5px">
-                            <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">KYC</Button>
-                            <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Audit</Button>
-                            <Button variant="primary" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Telegram</Button>
+                            {token.kyc.length > 0 ? 
+                                <Link href={token.kyc}>
+                                    <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">KYC</Button>
+                                </Link> : <></>
+                            }
+                            {token.audit.length > 0 ? 
+                                <Link href={token.audit}>
+                                     <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Audit</Button>
+                                </Link> : <></>
+                            }
+                            {token.chat.length > 0 ? 
+                                <Link href={token.chat}>
+                                     <Button variant="primary" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Telegram</Button>
+                                </Link> : <></>
+                            }
                         </Flex>
                     </Flex>
                     <Flex w="100%" p={["15px 25px", "15px 25px", "40px", "40px"]}>
