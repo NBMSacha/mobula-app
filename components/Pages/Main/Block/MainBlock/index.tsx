@@ -18,9 +18,9 @@ function MainBlock(props: any) {
 
     return (
       <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
-        <Flex boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["15px 20px 25px 20px", "15px 20px 25px 20px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={["none", "none", "none", "none"]} >
+        <Flex boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["10px 15px", "10px 15px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={["none", "none", "none", "none"]} >
           <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Crypto assets by Mobula</Text>
-          <Text fontFamily="Poppins" fontSize={["14px", "14px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt="20px" className={styles['subtitle-news']}>
+          <Text fontFamily="Poppins" fontSize={["12px", "12px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt={["10px","10px","20px","20px"]} className={styles['subtitle-news']}>
             Mobula is a decentralized and seamless <span style={{ color: "#5C7DF9", fontWeight: "700" }}>data aggregator</span> redistributing profit to users and processing data on-chain.
 
             {' '}
@@ -68,7 +68,8 @@ function MainBlock(props: any) {
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
                   <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
-                     bg={["var(--bg-main-box)"]} borderRadius="12px" position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "230px", "232px"]}>
+                    bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>
                     </div>
