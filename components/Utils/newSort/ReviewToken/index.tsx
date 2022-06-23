@@ -96,7 +96,7 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                         <Text width="fit-content" fontSize={["10px", "10px", "15px", "15px"]} >{token.description}</Text>
                     </Flex>
                     {/* MOBILE CONTRACTS */}
-                    <MobileContract />
+                    <MobileContract token={token}/>
                 </Flex>
                 {/* Vote*/}
                 <Vote voteToken={voteToken} token={token} updateScoreUtility={setUtilityScore} updateScoreMarket={setMarketScore} updateScoreTrust={setTrustScore} updateScoreSocial={setSocialScore} marketScore={marketScore} utilityScore={utilityScore} trustScore={trustScore} socialScore={socialScore} />
