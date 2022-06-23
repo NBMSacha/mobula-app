@@ -3,7 +3,7 @@ import { useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/re
 
 const ChartBox = ({ unformattedBuffer, historyData, baseAsset, socialLink, selector, setSelector, setTimeFormat, timeFormat }) => {
     return (
-        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box"]} boxShadow={["1px 2px 12px 3px red"]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "30px", "30px"]}>
+        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box)"]} boxShadow={["1px 2px 12px 3px var(--shadow)"]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "30px", "30px"]}>
             {/* TOP tools*/}
             <Flex justify="space-between">
                 <Box display={["none", "none", "none", "block"]}>

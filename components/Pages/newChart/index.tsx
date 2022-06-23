@@ -157,7 +157,7 @@ const Token = ({ baseAssetBuffer }) => {
                 isMobile ? 100 : isGiant ? 300 : 200
             )
             gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-            gradient.addColorStop(1, "var(--bg-governance-box)")
+            gradient.addColorStop(1, isWinner ? '#00ba7c00' : '#d8494a00')
 
             console.log(data);
 
