@@ -3,8 +3,8 @@ import { ethers } from "ethers";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
 import { Heading, Text, Flex, Box, Image, Link } from "@chakra-ui/react";
 import DaoHeader from "../../Utils/DaoHeader";
-import TokenDisplay from "../../Utils/Sort/TokenDisplay";
-import Blocks from "../../Utils/Sort/Blocks";
+import TokenDisplay from "../../Utils/newSort/ReviewToken";
+import Blocks from "../../Utils/newSort/Main";
 import { useAlert } from 'react-alert';
 import Router from "next/router";
 
@@ -243,19 +243,24 @@ function FinalValidation() {
     });
 
     return <>
-        <DaoHeader
-            title="Final Validation"
-            description="New listing requests are validated here. Vote wisely."
-            url="https://docs.mobula.finance/app/sort"
-        />
-
+        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
+            <Flex direction="column">
+                <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO Final Validation</Heading>
+                <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
+                </Text>
+            </Flex>
+            <Text display={["none", "none", "none", "flex"]}>
+                Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
+            </Text>
+        </Flex>
         {tokenDivs.length == 0 && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for final validation yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
         {(displayedToken ?
             <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
-
+            // @ts-ignore
             <Blocks tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
         )}
     </>;

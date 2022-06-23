@@ -12,6 +12,7 @@
   margin-left: 3.8rem;
   white-space: nowrap;
   overflow: hidden;
+  color: var(--text-primary);
   text-overflow: ellipsis;
   transition: color 200ms ease-in-out;
 }

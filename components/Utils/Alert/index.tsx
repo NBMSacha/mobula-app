@@ -14,10 +14,8 @@ const buttonStyle = {
 }
 
 export const AlertTemplate = ({ message, options, style, close, darkTheme }) => {
-    const shadowColor = useColorModeValue("var(--chakra-colors-shadow)", "var(--chakra-colors-shadow)")
-    const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     return (
-        <Flex w="300px" h="140px" direction="column" p="0px" position="absolute" top="-700px" right="0px" bg={bg} boxShadow={`1px 2px 12px 3px ${shadowColor}`}>
+        <Flex w="300px" h="140px" direction="column" p="0px" position="absolute" top="-700px" right="0px" bg="var(--background)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
             {options.type === 'info' && (
                 <Flex borderTop="10px solid #385CBB" w="100%" align="center">
                     <Flex ml="10px" mt="10px" mr="10px"><QuestionIcon /></Flex>

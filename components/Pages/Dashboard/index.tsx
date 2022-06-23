@@ -178,11 +178,6 @@ console.log(validated)
     initValues()
   }, [])
 
-  const input = useColorModeValue("white_sun_moon", "dark_decision")
-  const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-  const bg = useColorModeValue("light_primary_box", "dark_primary_box")
-  const border = useColorModeValue("grey_border", "dark_border_tendance")
-
   return (
     <>
       <Flex align="center" justify="center">
@@ -213,14 +208,14 @@ console.log(validated)
                 {/* Rank I Stats */}
                 <Flex w={['95%', '95%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
                   <Flex
-                    boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
+                    boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
                     direction={["row", "row", "column", "column"]}
                     justify={["start", "start", "center", "center"]}
                     p={['4px 4px 4px 4px', '4px 4px 4px 4px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
-                    bg={[bg, bg, '#191D2C', '#191D2C']}
+                    bg={["var(--bg-governance-box)","var(--bg-governance-box)", '#191D2C', '#191D2C']}
                     borderRadius='8px'
 
-                    borderBottom={`1px solid ${border}`}
+                    borderBottom={`1px solid var(--box_border)`}
                     w={['100%', '100%', '90%', '48%']}
                     textAlign={['center', 'center', 'center', 'left']}
                     mb={["10px", "10px", "7px", 0]}
@@ -240,7 +235,7 @@ console.log(validated)
                         
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
-                      <Box h="1px" w="90%" bg={border} mt={2} mb={3}></Box>
+                      <Box h="1px" w="90%" bg="var(--box_border)" mt={2} mb={3}></Box>
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
@@ -253,14 +248,14 @@ console.log(validated)
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
                     </Flex>
-                    <Box h="1px" w="1px" mt="10px" bg={border} mb={3}></Box>
+                    <Box h="1px" w="1px" mt="10px" bg="var(--box_border)" mb={3}></Box>
                     <Flex
                       width={["50%", "50%", '100%', '100%']}
                       justify="center"
                       align="center"
                       direction="column"
                       className={styles["buttons-claim-box"]}
-                      borderLeft={`1px solid ${border}`}
+                      borderLeft={`1px solid var(--box_border)`}
                       mt="30px"
                     >
                       {' '}
@@ -270,7 +265,7 @@ console.log(validated)
                         colorScheme="green"
                         color="green"
                         className={styles["buttons-claim"]}
-                        boxShadow={`0px 1px 12px 3px ${shadow}`}
+                        boxShadow={`0px 1px 12px 3px var(--shadow)`}
                         borderRadius="10px"
                         _focus={{boxShadow:"none"}}
                         style={{ width: "90%" } as any}
@@ -342,8 +337,8 @@ console.log(validated)
                   <Flex
                     p='5px'
                     borderRadius="10px"
-                    boxShadow={`0px 1px 12px 3px ${shadow}`}
-                    bg={[bg, bg, '#191D2C', '#191D2C']}
+                    boxShadow={`0px 1px 12px 3px var(--shadow)`}
+                    bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
 
 
                     w={['92%', '92%', '90%', '95%']}
@@ -357,7 +352,7 @@ console.log(validated)
                           {countdownValue}
                         </Text>
                       </Box>
-                      <Box h="1px" w="98%" bg={border}> </Box>
+                      <Box h="1px" w="98%" bg="var(--box_border)"> </Box>
                       <Box fontSize='15px' pl="10px" mb={5}>
                         <Text textAlign="start" fontSize={["13px", "13px", "15px", "15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
                         <Text fontSize={["14px", "14px", "16px", "18px"]} textAlign="start">{claimed} MATIC</Text>
@@ -376,7 +371,7 @@ console.log(validated)
                         variant='outline'
                         colorScheme="green"
                         color="green"
-                        boxShadow={`0px 1px 12px 3px ${shadow}`}
+                        boxShadow={`0px 1px 12px 3px var(--shadow)`}
                         className={styles["claim-matic"]}
                         style={{ width: "135px" } as any}
                         onClick={async (e) => {
@@ -417,9 +412,9 @@ console.log(validated)
                   <Flex
                     className={styles["padding-resp"]}
                     direction={["column-reverse", "column-reverse", "column", "column"]}
-                    bg={["none", "none", bg, bg]}
+                    bg={["none", "none", "var(--bg-governance-box)", "var(--bg-governance-box)"]}
                     borderRadius='10px'
-                    boxShadow={["none", "none", `0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`]}
+                    boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
                     w={['100%', '100%', '100%', '100%']}
                     textAlign={['center', 'center', 'center', 'left']}
                     mx="auto"

@@ -162,7 +162,6 @@ function Governance() {
 
     })
 
-    const gradient = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
     return (
         <Flex direction="column" mb={'50px'} mt={'28px'} align="center" justify="center">
             <Flex fontSize={['12px', '12px', '14px', '14px']}  className={styles["stickyFix"]} margin="auto" w="80%" align="end" justify="space-between">
@@ -175,7 +174,6 @@ function Governance() {
                 <Text display={["none", "none", "none", "flex"]}>
                       See here the lists token who got validated by the Mobula DAO
                 </Text>
-              
             </Flex>
             <Flex fontSize={['12px', "12px", "15px", "15px"]} justify="center" mt={'10px'} align={["center", "center", "auto", "auto"]} w="90%" mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
                 <Spacer />
@@ -191,8 +189,7 @@ function Governance() {
                 </Flex>
                 <Spacer />
                 <Spacer />
-                <Box w={["100%","100%","100%","50%"]} h="200px" bg={`linear-gradient(180deg,hsla(0,0%,100%,0) 0,${gradient} 70%,${gradient} 100%,#f5f5f5)`} left="0px" position="absolute" bottom={["1050px","1050px" ,"450px" ,"400px"]}></Box>
-               
+                <Box w={["100%","100%","100%","50%"]} h="200px" bg={`linear-gradient(180deg,hsla(0,0%,100%,0) 0, var(--background) 70%,var(--background) 100%,#f5f5f5)`} left="0px" position="absolute" bottom={["1050px","1050px" ,"450px" ,"400px"]}></Box>
             </Flex>
         </Flex>
     )

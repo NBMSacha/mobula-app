@@ -4,16 +4,12 @@ import { Input, Flex, Button, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/react';
 
 function Right({
-    input,
     audit,
     setAudit,
     kyc,
     setKYC,
     addNote,
     setAddNote,
-    btn,
-    box,
-    shadow,
     loading,
     submit,
     inputList,
@@ -46,8 +42,8 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
-                    bg={box}
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
+                    bg="var(--inputs)"
                     type="text"
                     id="audit"
                     name="audit"
@@ -62,8 +58,8 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={box}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    bg="var(--inputs)"
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     type="text"
                     id="kyc"
                     name="kyc"
@@ -78,8 +74,8 @@ function Right({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={box}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    bg="var(--inputs)"
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     type="text"
                     id="kyc"
                     name="kyc"
@@ -96,9 +92,9 @@ function Right({
                             <Input
                                 pl="10px"
                                 value={x.value}
-                                boxShadow={`1px 2px 12px 3px ${shadow}`}
+                                boxShadow={`1px 2px 12px 3px var(--shadow)`}
                                 name="excluded"
-                                bg={box}
+                                bg="var(--inputs)"
                                 color="none"
                                 _placeholder={{ color: "none" }}
                                 placeholder="0x5D3e4C0FE11e0..."
@@ -108,7 +104,7 @@ function Right({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <Button bg={box} w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
+                                {inputList.length - 1 === i && <Button bg="var(--inputs)" w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
                             </div>
                         </>
                     );

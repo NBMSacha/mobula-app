@@ -3,7 +3,6 @@ import styles from "../ListingForm.module.scss";
 import { Input, Flex } from '@chakra-ui/react';
 
 function Mid({
-        input,
         website,
         setWebsite,
         twitter,
@@ -12,8 +11,6 @@ function Mid({
         setDiscord,
         telegram,
         setTelegram,
-        box,
-        shadow
     }) {
 
         console.log(`this is website : ${website}`)
@@ -28,9 +25,9 @@ function Mid({
                     _placeholder={{ color: "none" }}
                     variant="primary"
                     required
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     id="msg"
-                    bg={box}
+                    bg="var(--inputs)"
                     name="website"
                     placeholder="https:/app.mobula.finance"
                     value={website}
@@ -43,8 +40,8 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={box}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    bg="var(--inputs)"
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     type="text"
                     id="name"
                     name="twitter"
@@ -60,8 +57,8 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={box}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    bg="var(--inputs)"
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     value={telegram}
                     required
                     onChange={(e) => setTelegram(e.target.value)}
@@ -77,8 +74,8 @@ function Mid({
                     pl="10px"
                     pr="10px"
                     _placeholder={{ color: "none" }}
-                    bg={box}
-                    boxShadow={`1px 2px 12px 3px ${shadow}`}
+                    bg="var(--inputs)"
+                    boxShadow={`1px 2px 12px 3px var(--shadow)`}
                     id="discord"
                     className={styles["inputs"]}
                     name="discord"

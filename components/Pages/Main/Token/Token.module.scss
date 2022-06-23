@@ -1,5 +1,4 @@
 .border-bot {
-  border-bottom: 1px solid rgba(46, 53, 87, 0.8);
   cursor: pointer;
 }
 
@@ -16,7 +15,6 @@
 }
 
 .tokens-links {
-  font-size: 24px;
   position: relative;
   margin-right: 26px !important;
   width: 80px !important;
@@ -70,7 +68,6 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
   line-height: 21px;
  
 }
@@ -82,7 +79,8 @@
 }
 
 .font-char {
-  font-size: 15px;
+  
+  
 }
 
 // ==========================================================================
@@ -109,6 +107,7 @@
 .wrap-name {
   display: flex;
   flex-wrap: wrap;
+  margin-right:10px;
   margin-right: -70px;
 }
 
@@ -126,7 +125,6 @@
 
 .name-title-margin {
   margin-right: 15px;
-  white-space: nowrap;
   font-weight: 800 !important;
 }
 
@@ -185,16 +183,15 @@
 
 
 
-  .price-title-center {
-    padding: 0px 0px 0px 20px !important;
-  }
+
 
   .wrap-name {
     margin-right: 0px;
   }
 
   .font-char {
-    font-size: 14px;
+    
+    height: 100%;
   }
 
  
@@ -223,9 +220,9 @@
   }
 
   .ths {
-    padding: 0px 15px;
+  
     text-align: end;
-    margin: 15px 0px;
+   
   }
 
   .green {
@@ -263,7 +260,6 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600 !important;
-  font-size: 14px;
   line-height: 16px;
   color: #ea3943;
   align-items: center;
@@ -370,7 +366,7 @@
   }
 
   .token-logos {
-    height: 30px;
+    height: 25px;
   }
   .fu {
     height:30px !important;
@@ -416,11 +412,14 @@
   }
 
   .token-price-box {
-    background: var(--bg-color);
+    background: var(--background);
     z-index: 2;
     padding-left: 10px;
   }
 
+}
+
+.tbodys span{
 }
 
 .triangle-green {
@@ -449,7 +448,7 @@
   .token-percentage-box {
     align-items: center;
     display: flex;
-    font-size: 12px;
+    
   }
 
 
@@ -458,7 +457,6 @@
     font-family: "Inter";
     font-style: normal;
     font-weight: 600 !important;
-    font-size: 14px;
     color: var(--text-green);
   }
 

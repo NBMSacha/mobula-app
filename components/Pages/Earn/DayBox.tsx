@@ -28,14 +28,12 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
         }
     }
     console.log(prizePerDay(day), mobile)
-    const inactive = useColorModeValue("linear-gradient(180deg, #5C7DF9 37.08%, #FFFFFF 37.55%)", "linear-gradient(180deg, #5C7DF9 37.08%, #252B3F 37.55%)")
-    const active = useColorModeValue("linear-gradient(180deg, #43D19B 37.08%, #FFFFFF 37.55%)", "linear-gradient(180deg, #43D19B 37.08%, #22283B 37.55%)")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
     return (
         <>
 
-            <Flex bg={(streaks == day ? active : inactive)}
-                boxShadow={`1px 2px 12px 3px ${shadow}`}
+            <Flex bg={(streaks == day ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
+                boxShadow={`1px 2px 12px 3px var(--shadow)`}
+                border="1px solid var(--box_border)"
                 borderRadius='10px'
                 justify='center'
                 className={styles['daily-box']}

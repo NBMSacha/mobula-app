@@ -8,13 +8,11 @@ import Countdown from 'react-countdown';
 
 function History({ recentlyAdded, validated }) {
 
-    const input =  useColorModeValue("white_sun_moon", "dark_decision")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const bg = useColorModeValue("bg_white", "dark_box_list")
+
     console.log(recentlyAdded.created_at)
     const CountdownAny = Countdown as any;
     return (
-    <Box h="100%" bg={[bg, bg, bg, bg]} boxShadow={[`0px 1px 12px 3px ${shadow}`, `0px 1px 12px 3px ${shadow}`,  `0px 1px 12px 3px ${shadow}`,  `0px 1px 12px 3px ${shadow}`]} mx="auto" w={["88%","88%","100%","100%"]} borderRadius="10px" mt={["16px","16px","10px","10px"]} p={["15px","15px", "40px", "40px"]} mb={["50px","50px","0px","0px"]} className={styles["noneDis"]}>
+    <Box h="100%" bg="var(--bg-governance-box)" boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`,  `0px 1px 12px 3px var(--shadow)`,  `0px 1px 12px 3px var(--shadow)`]} mx="auto" w={["88%","88%","100%","100%"]} borderRadius="10px" mt={["16px","16px","10px","10px"]} p={["15px","15px", "40px", "40px"]} mb={["50px","50px","0px","0px"]} className={styles["noneDis"]}>
         <Text color="var(--beli)" pb="15px" fontSize={["16px","16px","22px","22px"]} fontWeight="500">Latest DAO Decisions</Text>
         <Box  pr="20px" maxHeight="220px" overflowY="scroll" className={styles["scroll"]} >
 
@@ -45,7 +43,7 @@ function History({ recentlyAdded, validated }) {
                    format = "days"
                  }
 
-                return <Flex fontSize="14px" align="center" mb="20px" >
+                return <Flex  fontSize="14px" align="center" mb="20px" >
                     <Image rounded={50} src={token.logo} h={["20px","20px","25px","25px"]} w={["20px","20px","25px","25px"]} />
                     <Text color="grey" fontSize={["12px","12px","15px","15px"]} mx="10px">{token.name}</Text>
                     <Text color="#D3D3D3" fontSize={["12px","12px","15px","15px"]} mr="15px">{token.symbol}</Text>
@@ -66,7 +64,7 @@ function History({ recentlyAdded, validated }) {
                             {token.validated ? (
                                 <CheckCircleIcon ml="10px" boxSize={["12px","12px","18px","18px"]}/>
                             ) : (
-                                 <Icon bg="red" ml="10px" boxSize={["14px","14px","20px","20px"]} color={bg} borderRadius="full" as={XCircle} /> 
+                                 <Icon bg="red" ml="10px" boxSize={["14px","14px","20px","20px"]} color="var(--bg-governance-box)" borderRadius="full" as={XCircle} /> 
                             )}
                         </Flex>
                         <Flex display={["flex","flex","none","none"]}>

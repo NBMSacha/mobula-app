@@ -3,17 +3,9 @@ import styles from "./RecentlyAdded.module.scss";
 import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import { useRouter } from 'next/router';
-import { AiOutlineArrowLeft } from '@react-icons/all-files/ai/AiOutlineArrowLeft'
-import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
-import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
-import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
 import BlockchainBtn from "../../Utils/BlockchainBtn"
-import { Sliders } from "react-feather"
-import { FiSearch } from '@react-icons/all-files/fi/FiSearch'
-import { X, Settings } from 'react-feather';
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link } from "@chakra-ui/react";
-import ButtonBlock from "../Main/Block/ButtonBlock"
 import Widget from "../../Utils/Widget"
 import {
   Table,
@@ -26,7 +18,6 @@ import {
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
-import { useMediaQuery } from '@chakra-ui/react'
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
 export default function RecentlyAdded({ tokensBuffer }) {
@@ -60,14 +51,6 @@ export default function RecentlyAdded({ tokensBuffer }) {
 
   }, [settings, blockchain])
 
-  //const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
-  const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-  const shadow = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-  const btn_bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-  const hover = useColorModeValue("white", "var(--chakra-colors-dark_inactive_gainer)")
-  const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)")
-  const [display, setDisplay] = useState("")
-
   return (
     <Flex justify="center">
       <div className={styles["dflex"]} >
@@ -86,17 +69,17 @@ export default function RecentlyAdded({ tokensBuffer }) {
         </Flex>
         <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
         <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
-        <TableContainer mb="20px" >
+        <TableContainer mb="20px" mt="20px">
           <Table variant='simple'>
-            <Thead fontSize={['12px', '12px', '16px', '16px']} borderBottom={`2px solid ${border}`}>
+            <Thead borderTop={`2px solid var(--box_border)`} borderBottom="2px solid var(--box_border) !important" color="var(--text-grey)" fontSize={['12px', '12px', '16px', '16px']}>
               <Tr>
-                <Th px="5px" position="sticky" left="0px" bg={[bg, bg, 'none']} textAlign="start">Asset</Th>
-                <Th px="5px" isNumeric>Price</Th>
-                <Th px="5px" isNumeric>Change (24h)</Th>
-                <Th px="5px" isNumeric>Market Cap</Th>
-                <Th px="5px" isNumeric>Volume (24h)</Th>
-                <Th >Socials</Th>
-                <Th >Added</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" position="sticky" left="0px" bg={["var(--background)","var(--background)","var(--background)", 'none']} textAlign="start">Asset</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Price</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Change (24h)</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Market Cap</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Volume (24h)</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" >Socials</Th>
+                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" >Added</Th>
               </Tr>
             </Thead>
             {tokens.map((token: any) => {
@@ -126,25 +109,31 @@ export default function RecentlyAdded({ tokensBuffer }) {
               else if (172800 <= postedDate) {
                 format = "days"
               }
-              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))} borderBottom={`2px solid ${border}`} _hover={{ background: hover }}>
+              return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}  _hover={{ background: "var(--box_active)", cursor:"pointer" }}>
                 <Tr>
-                  <Td px="5px" position="sticky" py="5px" left="0px" bg={[bg, bg, "none"]} >
+                  <Td borderBottom="1px solid var(--box_border) !important" px="5px" position="sticky" py="5px" left="0px" bg={["var(--background)", "var(--background)", "none"]} >
                     <Flex align="center">
-                      <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]} src={token.logo} mr="10px" />
-                      <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name}</Text>
-                      <Text opacity="0.6">{token.symbol}</Text>
+                      <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]}  w={["25px", "25px", "30px", "30px"]}  src={token.logo} mr="10px" />
+                      <Flex direction={["column", "column", "row", "row"]}>
+                        <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
+                        <Flex>
+                          <Text opacity="1" mr="10px">{token.rank}</Text>
+                          <Text opacity="0.6">{token.symbol}</Text>
+                        </Flex>
+                      </Flex>
+                      
                     </Flex>
                   </Td>
-                  <Td px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
-                  <Td px="5px" py="5px" isNumeric>
+                  <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
+                  <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric>
                     <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
                       {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
                       {getTokenPercentage(token.price_change_24h)}%
                     </Text>
                   </Td>
-                  <Td px={"5px"} py="5px" isNumeric><Text>${formatAmount(token.market_cap)}</Text></Td>
-                  <Td px="5px" py="5px" isNumeric><Text>${formatAmount(token.volume)}</Text></Td>
-                  <Td py={["5px", "5px", "20px", "20px"]}>
+                  <Td borderBottom="1px solid var(--box_border) !important" px={"5px"} py="5px" isNumeric><Text>${formatAmount(token.market_cap)}</Text></Td>
+                  <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>${formatAmount(token.volume)}</Text></Td>
+                  <Td borderBottom="1px solid var(--box_border) !important" py={["5px", "5px", "20px", "20px"]}>
                     <Flex>
                       {token.website && (
                         <Link href={token.website}>
@@ -163,7 +152,7 @@ export default function RecentlyAdded({ tokensBuffer }) {
                       )}
                     </Flex>
                   </Td>
-                  <Td px="5px">
+                  <Td borderBottom="1px solid var(--box_border) !important" px="5px">
                     {format == "seconds" && <span>{postedDate} seconds ago</span>}
                     {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
                     {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}

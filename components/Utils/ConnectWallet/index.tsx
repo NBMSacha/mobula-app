@@ -92,21 +92,18 @@ export default function ConnectWallet({ close, setClose }) {
         }
     }
 
-    const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_input)")
-    const btn = useColorModeValue("var(--chakra-colors-bg_white)", "#1C1F34")
-    const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
     return (
-        <Flex display={close ? "none" : "flex"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg={bg} top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
-            <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
+        <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={close ? "none" : "flex"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
+            <Flex  align="center" mt="20px" mb="20px" justify="space-between"  w="88%">
                 <Text>Connect Wallet</Text>
                 <Button onClick={() => setClose(true)}><CloseIcon /></Button>
             </Flex>
-            <Flex align="center" h="60px" bg={btn} mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
-                <Radio></Radio>
+            <Flex align="center" h="60px" bg="var(--connect-menu)" mb="10px" boxShadow='1px 2px 13px 3px var(--shadow)' py="10px" px="20px" borderRadius="10px" w="88%" >
+                <Radio bg="var(--blue)" ></Radio>
                 <Text fontSize="12px" ml="20px">I have read, understand, and agree to the <span style={{ color: "#5C7DF9" }}>Terms of Service.</span></Text>
             </Flex>
-            <Button outline="none" _focus={{ boxShadow: "none" }} w="100%" onClick={connectMetaMask}>
-                <Flex align="center" _hover={{ background: "grey" }} h="60px" bg={btn} mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
+            <Button  outline="none" _focus={{ boxShadow: "none" }} w="100%" onClick={connectMetaMask}>
+                <Flex align="center" _hover={{ background: "var(--box_active)" }} boxShadow='1px 2px 13px 3px var(--shadow)' h="60px" bg="var(--connect-menu)" mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
                     <Image h="40px" src="/metamask.png" mr="15px" />
                     <Text>Metamask</Text>
                 </Flex>
@@ -118,25 +115,25 @@ export default function ConnectWallet({ close, setClose }) {
                 </Flex>
             </Button> */}
             <Button w="100%" _focus={{ boxShadow: "none" }} onClick={connectWC}>
-                <Flex align="center" h="60px" _hover={{ background: "grey" }} bg={btn} mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
+                <Flex align="center" h="60px" _hover={{ background: "var(--box_active)" }} boxShadow='1px 2px 13px 3px var(--shadow)' bg="var(--connect-menu)" mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
                     <Image h="40px" src="/cw.png" mr="15px" />
                     <Text>WalletConnect</Text>
                 </Flex>
             </Button>
             <Button w="100%" _focus={{ boxShadow: "none" }} onClick={connectPortis}>
-                <Flex align="center" _hover={{ background: "grey" }} h="60px" mb="10px" bg={btn} py="10px" px="20px" borderRadius="10px" w="88%">
+                <Flex align="center" _hover={{ background: "var(--box_active)" }} boxShadow='1px 2px 13px 3px var(--shadow)' h="60px" mb="10px" bg="var(--connect-menu)" py="10px" px="20px" borderRadius="10px" w="88%">
                     <Image h="40px" src="/portis.png" mr="15px" />
                     <Text>Portis</Text>
                 </Flex>
             </Button>
             <Button w="100%" _focus={{ boxShadow: "none" }} onClick={connectCoinbase} >
-                <Flex align="center" h="60px" mb="10px" _hover={{ background: "grey" }} bg={btn} py="10px" px="20px" borderRadius="10px" w="88%">
+                <Flex align="center" h="60px" mb="10px" boxShadow='1px 2px 13px 3px var(--shadow)' _hover={{ background: "var(--box_active)" }} bg="var(--connect-menu)" py="10px" px="20px" borderRadius="10px" w="88%">
                     <Image h="40px" src="/coinbase.png" mr="15px" />
                     <Text>Coinbase </Text>
                 </Flex>
             </Button>
             <Button w="100%" _focus={{ boxShadow: "none" }} onClick={connectTrezor} >
-                <Flex align="center" h="60px" mb="30px" _hover={{ background: "grey" }} bg={btn} py="10px" px="20px" borderRadius="10px" w="88%">
+                <Flex align="center" h="60px" mb="30px" boxShadow='1px 2px 13px 3px var(--shadow)' _hover={{ background: "var(--box_active)", cursor: "pointer"}} bg="var(--connect-menu)" py="10px" px="20px" borderRadius="10px" w="88%">
                     <Image h="40px" borderRadius="full" src="/trezor.png" mr="15px" />
                     <Text>Trezor</Text>
                 </Flex>

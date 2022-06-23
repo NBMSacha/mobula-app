@@ -7,52 +7,33 @@ export const ButtonStyles = {
     // styles for different visual variants ("outline", "solid")
     variants: {
         primary: (props) => ({
-            bg: mode("white_terciary", "var(--chakra-colors-dark_secondary)")(props),
-            color: mode("#000","#F7F7F7")(props), 
-            border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
-            _hover: {
-                bg: mode("white", "rgba(255, 255, 255, 0.1)")(props),
-                color:mode("black", "white")(props),
-                border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
-            },
-            _active: {
-                border:"none",
-                boxShadow: "none"
-            },
-            _focus: {
-                boxShadow: "none",
-                border:"none",
-            },
-            boxShadow: mode("1px 2px 12px 3px rgba(208, 214, 227, 0.3)", "none")(props)
+            bg: "var(--box_primary)",
+            color: "var(--text-primary)",
+            border:"1px solid var(--box_border)",
+            boxShadow: "1px 2px 12px 3px var(--shadow)",
+            _hover:{
+                bg: "var(--box_primary)",
+                color: "var(--text-primary)",
+                border:"1px solid var(--box_border)",
+                boxShadow: "1px 2px 12px 3px var(--shadow)",
+            }
         }),
         secondary: (props) => ({
-            bg: mode("white", "#2B3A75")(props),
-            color: mode("#000","#F7F7F7")(props),
-            border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
-            _hover: {
-                bg: mode("white", "rgba(255, 255, 255, 0.1)")(props),
-                border:mode("1px solid rgba(122, 122, 122, 0.1)", "1px solid rgba(122, 122, 122, 0.1)")(props),
-                color:mode("black", "white")(props)
-            },
-            _active: {
-                border:"none"
-            },
-            _focus: {
-                boxShadow: "none"
-            },
-            boxShadow: mode("1px 2px 12px 3px rgba(208, 214, 227, 0.3)", "none")(props)
+            bg: "var(--box_active)",
+            color: "var(--text-primary)",
+            border:"1px solid var(--box_border_active)",
+            boxShadow: "1px 2px 12px 3px var(--shadow)",
+            _hover:{
+                bg: "var(--box_active)",
+                color: "var(--text-primary)",
+                border:"1px solid var(--box_border_active)",
+                boxShadow: "1px 2px 12px 3px var(--shadow)",
+            }
         }),
         blue: (props) => ({
-            bg: "blue",
+            bg: "var(--blue)",
             color: "white",
-            
-            _active: {
-                border:"none"
-            },
-            _focus: {
-                boxShadow: "none"
-            },
-            boxShadow: mode("1px 2px 12px 3px rgba(208, 214, 227, 0.3)", "none")(props)
+            boxShadow: "1px 2px 12px 3px var(--shadow)"
         }),
     },
     // default values for `size` and `variant`

@@ -55,6 +55,7 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
             return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000
         }
     }
+    
 
 
     return (

@@ -177,18 +177,13 @@ function News(props: any) {
     }
   }, [settings])
 
-  const gradient = useColorModeValue("white_gradient", "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)")
-  const border = useColorModeValue("#E5E5E5", "var(--chakra-colors-dark_border_title)")
-  const sticky = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)")
-  const bg = useColorModeValue("none", "#121626")
-
   return (
     <>
 
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
         <MainBlock setDisplay={setDisplay} />
-        <Flex bg={gradient} display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px">
+        <Flex bg="var(--gradient)"display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px">
           {props.gainers && props.gainers.length >= 3 ?
             <GainerBlock
               title={'Top Gainers'}
@@ -284,26 +279,26 @@ function News(props: any) {
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
 
-        <TableContainer bg={bg} display="flex" flexDirection="column" alignItems="center">
+        <TableContainer bg="var(--table)" display="flex" flexDirection="column" alignItems="center">
           {/* <Data /> */}
           <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
 
-            <Thead borderTop={`2px solid ${border}`} >
+            <Thead textTransform="capitalize" fontFamily="Poppins" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
               <Tr className={styles[""]}>
-                <Th maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
-                <Th className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background: sticky }}>Asset</Th>
-                <Th isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
-                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} ref={percentageRef}>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Poppins" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background:"var(--table)" }}>Asset</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric p={['15px 20px','15px 20px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
                   {textResponsive ? (
                     <p>24h %</p>
                   ) : (
                     <p>Change (24h)</p>
                   )}
                 </Th>
-                <Th isNumeric className={`${styles["ths"]}`}>Market cap</Th>
-                <Th isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
-                <Th className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
-                <Th className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
+                <Th fontSize={['12px', "12px","14x","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>Market cap</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
               </Tr>
             </Thead>
 

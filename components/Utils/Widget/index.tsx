@@ -26,11 +26,9 @@ const labelStyles = {
 }
 
 export default function Widget({ setSettings, visible, setVisible, settings }) {
-    const shadow = useColorModeValue("var(--chakra-colors-shadow-hard)", "none")
     const [volume, setVolume] = useState(reverseExpo(settings.volume))
     const [liquidity, setLiquidity] = useState(reverseExpo(settings.liquidity))
-    const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_input)")
-    const borderBox = useColorModeValue("#E5E5E5", "#282C3A")
+
     const [value, setValue] = useState(visible.onChainOnly ? '1' : '0')
     const [onChainOnly, setOnChainOnly] = useState(settings.onChainOnly)
 
@@ -48,12 +46,12 @@ export default function Widget({ setSettings, visible, setVisible, settings }) {
 
     return (
         <>
-            <Flex display={visible ? 'flex' : 'none'} boxShadow={`3px 5px 25px 10px ${shadow}`} direction="column" align="center" w="350px" position="fixed" zIndex="10" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px" bg={bg}>
+            <Flex display={visible ? 'flex' : 'none'} boxShadow="3px 5px 25px 10px var(--widget-shadow)" direction="column" align="center" w="350px" position="fixed" zIndex="10" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px" bg="var(--background)">
                 <Flex w="90%" justify="space-between" align="center">
                     <Text mt="30px" w="80%" mb="20px" fontSize="15px">Token filtering settings</Text>
                     <X cursor='pointer' onClick={() => setVisible(false)} />
                 </Flex>
-                <Box h="1px" w="100%" bg={borderBox}></Box>
+                <Box h="1px" w="100%" bg="var(--background)"></Box>
                 <Flex direction="column" justify="center" w="80%">
 
                     <Text mt="20px" fontSize="12px">Min. Liquidity</Text>
