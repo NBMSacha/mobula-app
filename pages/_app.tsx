@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
   var colorMode = "light"
   useEffect(() => {
 
-    const isDark=true;
+    const isDark=false;
     const root = document.documentElement;
     // ===================
     // NEW COLOR Mode
