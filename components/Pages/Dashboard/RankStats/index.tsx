@@ -12,7 +12,7 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
         justify={["start", "start", "center", "center"]}
         boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
         className={styles["padding-resps"]}
-        bg={["none", "none", "var(--background)", "var(--background)"]}
+        bg={["none", "none", "var(--bg-governance-box)", "var(--bg-governance-box)"]}
         borderRadius='10px'
         w={['100%', '100%', '50%', '50%']}
         textAlign={['center', 'center', 'center', 'left']}
