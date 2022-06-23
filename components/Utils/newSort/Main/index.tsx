@@ -13,9 +13,9 @@ import styles from "../FirstSort.module.scss"
 
 function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
     return (
-        <Flex justify="space-evenly" direction={["column", "column", "row", "row"]} wrap='wrap' mb="50px">
+        <Flex justify="center" mx="auto" direction={["column", "column", "row", "row"]} wrap='wrap' mb="50px" maxWidth="1400px">
             {tokenDivs.map((token) => {
-                return  <Box mt={["10px", "10px", "40px", "40px"]} w={["90%", '90%', '45%', '45%']} mx={["auto","auto","10px","10px"]}  boxShadow={`1px 2px 12px 3px var(--shadow)`} bg="var(--bg-governance-box)" px="30px" py="20px" borderRadius="12px">
+                return  <Box mt={["10px", "10px", "20px", "20px"]} w={["90%", '90%', '45%', '45%']} mx={["auto","auto","10px","10px"]}  boxShadow={`1px 2px 12px 3px var(--shadow)`} bg="var(--bg-governance-box)" px="30px" py="20px" borderRadius="12px">
                             <Flex align="center" justify="space-between">
                                 <Flex align="center">
                                     <Image src={token.logo} w={["30px", "30px", "38px", "38px"]} h={["30px", "30px", "38px", "38px"]} />
