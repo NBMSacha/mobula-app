@@ -197,26 +197,14 @@
   font-weight: bold;
 }
 
-@media screen and (max-width: 1280px) {
-  .matic-btn {
-    display: none;
-  }
-}
-
 @media screen and (max-width: 1060px) {
   // .search-input {
   //   margin-right: 0.8rem;
   // }
 
-  .blockchain-btn-matic {
-    display: none;
-  }
-
   .connect-wallet-btn {
     display: none;
   }
-
-  .relative {}
 
   .gainer-box {
     margin-left: 0.3rem;
@@ -242,16 +230,6 @@
 
 .params {
   display: none;
-}
-
-@media screen and (max-width: 870px) {
-  .matic-btn {
-    display: none;
-  }
-
-  .blockchain-btn-matic {
-    display: none;
-  }
 }
 
 @media screen and (max-width: 768px) {
@@ -315,14 +293,6 @@
   .main-blockchain-container {
     margin-top: -45px;
 
-  }
-
-  .avax-btn {
-    display: none;
-  }
-
-  .matic-btn {
-    display: none;
   }
 
   .bsc-btn>img {
@@ -556,13 +526,6 @@
 
 }
 
-@media screen and (max-width: 384px) {
-  .eth-btn-block {
-    display: none;
-  }
-
-}
-
 // .blockchain-btn-three {
 //   padding: 10px 30px;
 //   margin-right: 5px;
@@ -588,12 +551,6 @@
 //   cursor: pointer;
 // }
 
-@media screen and (max-width:1160px) {
-  .avax-btn {
-    display: none !important;
-  }
-}
-
 @media screen and (max-width:1360px) {
 
   .blockchain-container {
@@ -601,11 +558,6 @@
   }
 }
 
-@media screen and (max-width:1060px) {
-  .bsc-btn {
-    display: none
-  }
-}
 
 .spanMargin {
   margin: 0px 10px
