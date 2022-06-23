@@ -49,29 +49,10 @@ export const themeUltime = extendTheme({
   },
   fontFamily: 'Poppins',
   colors: {
-
-    // pagination: "rgba(255, 255, 255, 0.62)",
-    // DARK
-   
-    dark_box_list: "var(--bg-governance-box)",
-    
-    dark_text_tendance: "var(--blue)",
-    
-    // WHITE
-   
     blue: "var(--blue)",
-   
     none: "var(--none)",
     green: 'var(--green)',
     red: 'var(--red)',
-
- 
-
-    // 
-    dark_background:"var(--background)",
-    dark_primary_box:"var(--bg-governance-box)",
-   
-
   },
 
   components: {

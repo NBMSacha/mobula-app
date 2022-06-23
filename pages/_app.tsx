@@ -78,12 +78,6 @@ export default function App({ Component, pageProps }) {
     root?.style.setProperty("--blue",isDark ? "#5C7DF9" : "#5C7DF9");
     root?.style.setProperty("--none",isDark ? "none" : "none");
 
-
-    // ===================
-    // TRASH CAN UNDER
-    // =================== 
-   
-
   }, []);
   return (
     <>
