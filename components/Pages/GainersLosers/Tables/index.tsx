@@ -10,7 +10,7 @@ function Tables({gainers, losers, gainer, loser}) {
     const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)");
 
     return (
-        <TableContainer mt="10px">
+        <TableContainer mt="20px">
             <Table variant='simple' >
                 <Thead borderTop={`2px solid var(--box_border)`}  fontSize="15px" >
                     <Tr px="5px">

@@ -81,6 +81,14 @@ export default function App({ Component, pageProps }) {
   }, []);
   return (
     <>
+    <script dangerouslySetInnerHTML={{
+            __html: `  window.smartlook||(function(d) {
+              var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+              var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+              c.charset='utf-8';c.src='https://web-sdk.smartlook.com/recorder.js';h.appendChild(c);
+              })(document);
+              smartlook('init', '609bf41d219fd09b67dda978d9dad1a0c7682abd', { region: 'eu' });          
+        `}}></script>
       <ChakraProvider resetCSS theme={themeUltime}>
 
         <script>
