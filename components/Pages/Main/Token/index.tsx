@@ -222,9 +222,9 @@ function Token(token: {
   const testRef = useRef();
   return (
 
-    <Tbody id="nul" ref={testRef} _hover={{ background: "var(--box_active)", cursor:"pointer"}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+    <Tbody id="nul" ref={testRef} _hover={{ cursor:"pointer"}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
       <Tr className={styles["trs"]} >
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`}  >
+        <Td borderBottom="1px solid rgba(122, 122, 122, 0.1) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`}  >
           <a href="" className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
               <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
@@ -240,7 +240,7 @@ function Token(token: {
             <span style={{ marginLeft: "10px", opacity: .6 , color:"var(--text-secondary)"}} >{token.rank}</span>
           </a>
         </Td>
-          <Td borderBottom="1px solid var(--box_border) !important" px={["10px","10px","20px", "20px"]} h="45px" py="10px" fontSize={["13px", "13px", "15px", "15px"]} minWidth={["150px", "150px", "150px", ""]} bg={["var(--table)", "var(--table)", "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+          <Td  px={["10px","10px","20px", "20px"]}  py="10px" fontSize={["13px", "13px", "15px", "15px"]} className={styles["hover-child"]} minWidth={["150px", "150px", "150px", ""]} bg={["var(--table)", "var(--table)", "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
             <Flex align="center" >
               <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
               <Flex fontWeight="700"  mr={["0px","0px","-70px", "-150px"]} className={styles["wrap-name"]} direction={["column", "column","row","row"]}>
