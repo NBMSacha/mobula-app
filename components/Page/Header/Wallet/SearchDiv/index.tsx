@@ -157,7 +157,7 @@ function SearchDiv(props: any) {
                 <Text fontSize="13px" mb="10px">You don't find your asset ?</Text>
                 <Link href="/list" target="_blank" _hover={{ textDecoration: "none" }}>
                   <Flex bg="blue" align="center" justify="center" borderRadius="10px" padding="5px 10px" w="120px">
-                    <Text fontSize="12px">List an asset</Text>
+                    <Text color="white" fontSize="12px">List an asset</Text>
                   </Flex>
                 </Link>
               </Flex>
