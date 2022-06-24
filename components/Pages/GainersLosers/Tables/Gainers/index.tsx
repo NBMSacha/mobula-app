@@ -27,7 +27,7 @@ function Gainers({ gainers }) {
                                         <Text minWidth="120px" whiteSpace="pre-wrap" mr="10px">{gainer.name.length > 15 ? formatName(gainer.name, 15) : gainer.name}</Text>
                                         <Flex>
                                             <Text opacity="1" mr="10px" display={["flex","flex","none","none"]}>{gainer.rank}</Text>
-                                            <Text opacity="0.6">{gainer.symbol.length > 5 ? formatName(gainer.symbol, 5) : gainer.symbol}</Text>
+                                            <Text color="var(--text-grey)">{gainer.symbol.length > 5 ? formatName(gainer.symbol, 5) : gainer.symbol}</Text>
                                         </Flex>
                                     </Flex>
                                 </Flex>

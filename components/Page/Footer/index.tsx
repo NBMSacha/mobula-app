@@ -124,7 +124,8 @@ function Footer() {
             </Link>
           </ul>
         </div>
-        <Flex align="center" h="50px">
+        <div className={styles['help']}>
+        <Flex justify="center">
           <IconButton
 
             _focus={{ boxShadow: "none" }}
@@ -132,15 +133,17 @@ function Footer() {
               themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
             }}
             aria-label='Call Segun'
-            size='md'
             borderRadius="12px"
             color="var(--text-footer-title)"
 
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+          <Text whiteSpace="nowrap" color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
 
         </Flex>
+          
+        </div>
+        
       </div>
     </Flex>
   )
