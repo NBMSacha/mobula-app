@@ -30,11 +30,8 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
     console.log(prizePerDay(day), mobile)
     return (
         <>
-
             <Flex bg={(streaks == day ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
-                 
                 boxShadow={`1px 2px 12px 3px var(--shadow)`}
-                
                 borderRadius='10px'
                 justify='center'
                 className={styles['daily-box']}
@@ -53,7 +50,6 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
                                 } else {
                                     alert.show('You already claim today\'s rewards.')
                                 }
-
                             })
                     }
                 }}

@@ -76,7 +76,7 @@ export const ThemeProvider = ({ children }) => {
     // border BTN
     root?.style.setProperty("--box_border_active", newValue == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
     root?.style.setProperty("--box_border", newValue == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
-    root?.style.setProperty("--daily-border", newValue == 'dark' ? "#191D2D" : "#000");
+    root?.style.setProperty("--daily-border", newValue == 'dark' ? "#191D2D" : "#E5E5E5");
 
 
     // EARN SEARCH ASSET

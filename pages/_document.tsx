@@ -60,7 +60,7 @@ export default class Document extends NextDocument {
         // border BTN
         root?.style.setProperty("--box_border_active", colorMode == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
         root?.style.setProperty("--box_border", colorMode == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
-    
+        root?.style.setProperty("--daily-border", colorMode == 'dark' ? "#191D2D" : "#E5E5E5");
         // EARN SEARCH ASSET
         root?.style.setProperty("--box-secondary", colorMode == 'dark' ? "rgba(41, 44, 56, 0.3)" : "#F5F5F5");
         // TEXT 
