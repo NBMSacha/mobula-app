@@ -259,40 +259,38 @@ function Token(token: {
             console.log("WHY ??????§")
             window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
         }} py={["5px", "5px", "5px", "5px", "31px"]} my="0px" isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`} color={isWinner === true ? "green" : isWinner === false ? "red" : "none"}>
-         ${separator(getTokenPrice(price))}
+        <a href={`/asset/${getUrlFromName(token.name)}`}> ${separator(getTokenPrice(price))}</a>
         </Td>
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) =>{
-            console.log("WHY ??????§")
-            window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
-        }} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
-          {token.price_change_24h < 0.01 ? (
-            <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
-              <div className={styles['triangle-red']} ></div>
-              {getTokenPercentage(token.price_change_24h)}%
-            </span>
-          ) || (
-              <div></div>
-            ) : (
-            <span className={`${styles['green']} ${styles["font-char"]}`} id="noColor">
-              <div className={styles['triangle-green']}></div>
-              {getTokenPercentage(token.price_change_24h)}%
-            </span>
-          )}
+        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
+          <a href={`/asset/${getUrlFromName(token.name)}`}>
+            {token.price_change_24h < 0.01 ? (
+              <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
+                <div className={styles['triangle-red']} ></div>
+                {getTokenPercentage(token.price_change_24h)}%
+              </span>
+            ) || (
+                <div></div>
+              ) : (
+              <span className={`${styles['green']} ${styles["font-char"]}`} id="noColor">
+                <div className={styles['triangle-green']}></div>
+                {getTokenPercentage(token.price_change_24h)}%
+              </span>
+            )}
+          </a>
         </Td>
-        {/* <a href="" > */}
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) =>{
-            console.log("WHY ??????§")
-            window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
-        }} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
-          <span className={`${styles["font-char"]} `}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
+        
+        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
+          <a href={`/asset/${getUrlFromName(token.name)}`}>
+            <span className={`${styles["font-char"]} `}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
+          </a>
         </Td>
         {/* </a> */}
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) =>{
-            console.log("WHY ??????§")
-            window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
-        }} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
-          <span className={` ${styles["font-char"]}`}>
-            {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}</span>
+        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+          <a href={`/asset/${getUrlFromName(token.name)}`}>
+            <span className={` ${styles["font-char"]}`}>
+              {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}
+            </span>
+          </a>
         </Td>
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} className={styles["ths"]}>
           <div className={styles["media-icons"]}>
