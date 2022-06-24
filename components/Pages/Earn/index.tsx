@@ -149,7 +149,7 @@ function Earn() {
                         </Flex>
                     </Flex>
                     {/* BORDER LINE */}
-                    <Box w="2px" h="100%" bg="rgba(40, 44, 58, 0.5)"></Box>
+                    <Box w="2px" h="100%" bg="var(--daily-border)"></Box>
                     {/* BALANCE DESKTOP*/}
                     <Flex display={["none", "none", "none", "flex"]} minWidth="540px" w={['100%', '100%', '90%', isLessThan11300px ? "50%" : "45%"]} direction="column" p={["0px 10px", "0px 30px", "0px 30px", "0px 30px"]}>
                         <Flex direction="column" mb={["", "", "", "60px"]}>
@@ -186,7 +186,7 @@ function Earn() {
                         <Flex direction="column" w="50%" align="start">
                             <Text fontSize="16px" color="green">+ {25 * user.referred.length} MOBL</Text>
                             <Text fontSize="13px">You referred {user.referred.length} friends.</Text>
-                            <Button onClick={claim} w="120px" boxShadow={`1px 2px 12px 3px var(--shaodw)`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg="var(--blue)">Claim MOBL</Button>
+                            <Button onClick={claim} color="white" w="120px" boxShadow={`1px 2px 12px 3px var(--shaodw)`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg="var(--blue)">Claim MOBL</Button>
                         </Flex>
                         <Flex direction="column" w="50%" align="end" mt="3px">
                             <Text fontSize="13px" mb="15px">1 Referral : <span>25 MOBL</span></Text>

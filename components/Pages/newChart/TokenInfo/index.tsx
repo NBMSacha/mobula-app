@@ -47,14 +47,14 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     </Link>
                     {baseAsset.audit ? 
                         <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Chat</Flex>
+                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
                         </Link> : <></>
                     }
-                    {/* {baseAsset.chat.length > 0 ? 
+                    {baseAsset.audit ? 
                         <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
                         </Link> : <></>
-                    } */}
+                    }
                     {baseAsset.kyc ? 
                         <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>KYC</Flex>

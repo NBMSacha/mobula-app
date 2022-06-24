@@ -68,6 +68,11 @@ export const ThemeProvider = ({ children }) => {
     // BTN BLOCKCHAIN
     root?.style.setProperty("--box_primary", newValue == 'dark' ? "#151929" : "#F2F2F2");
     root?.style.setProperty("--box_active", newValue == 'dark' ? "#273051" : "#FFFFFF");
+
+    // BTN ELECTIONS
+    root?.style.setProperty("--btn-elections", newValue == 'dark' ? "#273051" : "#5C7DF9");
+    
+
     // border BTN
     root?.style.setProperty("--box_border_active", newValue == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
     root?.style.setProperty("--box_border", newValue == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
