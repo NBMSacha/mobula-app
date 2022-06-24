@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './menumobile.module.scss';
 import { ethers } from 'ethers';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector';
 import { MOBL_ADDRESS } from "../../../../../constants";
@@ -10,14 +10,17 @@ import { PROTOCOL_ADDRESS } from "../../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box,IconButton, Text } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
 import Header from "../../index"
+import { ThemeContext } from '../../../../../pages/_app'
+import { Sun, Moon} from "react-feather"
+
 
 function MenuMobile({ connect, setConnect, close, setClose }) {
   const [isConnected, setIsConnected] = useState(false);
   const [wallet, setWallet] = useState({})
-
+  const themeContext = useContext(ThemeContext);
   const { account, active, activate, deactivate } = useWeb3React()
   const [hasMetamask, setHasMetamask] = useState(true)
   const injected = new InjectedConnector({})
@@ -206,6 +209,8 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
             <ConnectWallet close={close} setClose={setClose} />
           )}
 
+          
+
           {active ?? <div className={styles['disconnect-wallet-mobile']}>
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
           </div>}
@@ -266,13 +271,35 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
                 ? <><span>Rank {Number(ranked)}</span>
                   <span>{walletBalance} MOBL</span></>
                 : ''}
-
+                
             </div>
+            
           </div>
+          {/* <Flex w="80%" ml="35px" mt="10px" align="center">
+            <IconButton
+                _focus={{ boxShadow: "none" }}
+                color={themeContext.colorMode == "light" ? "blue" : "white"}
+                onClick={() => {
+                  themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
+                }}
+                aria-label='Call Segun'
+                size='md'
+                borderRadius="12px"
+                bg="none"
+                ml={["0px", "0px", "0px", "20px"]}
+                mr={["10px", "10px", "10px", "0px"]}
+                mt={["4px", "4px", "4px", "4px"]}
+
+              icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
+            />
+            <Text color={themeContext.colorMode == "light" ? "blue" : "white"}>{themeContext.colorMode == "light" ? "Dark Mode" : "Light Mode"}</Text>
+          </Flex> */}
+          
           {active ??
             <div className={styles['disconnect-wallet-mobile']}>
               <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
             </div>}
+            
         </Flex>
       </>
     )
