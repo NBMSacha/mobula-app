@@ -70,13 +70,13 @@ export const ThemeProvider = ({ children }) => {
     root?.style.setProperty("--box_active", newValue == 'dark' ? "#273051" : "#FFFFFF");
 
     // BTN ELECTIONS
-    root?.style.setProperty("--btn-elections", newValue == 'dark' ? "#273051" : "#5C7DF9");
+    root?.style.setProperty("--elections", newValue == 'dark' ? "#273051" : "red");
     
 
     // border BTN
     root?.style.setProperty("--box_border_active", newValue == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
     root?.style.setProperty("--box_border", newValue == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
-    root?.style.setProperty("--daily-border", newValue == 'dark' ? "#191D2D" : "#E5E5E5");
+    root?.style.setProperty("--daily-border", newValue == 'dark' ? "#191D2D" : "#000");
 
 
     // EARN SEARCH ASSET
