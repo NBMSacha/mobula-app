@@ -539,7 +539,7 @@ const Token = ({ baseAssetBuffer }) => {
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
     return (
 
-        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px">
+        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px" maxWidth="1450px">
             {/* Left */}
             <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
                 {/* Token Information Top */}
@@ -583,7 +583,7 @@ const Token = ({ baseAssetBuffer }) => {
                 <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                        <Flex direction="column" h="100%" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
                             {baseAsset.contracts.map((contract: string, idx: number) => {
                                 return (
                                     <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
