@@ -1,12 +1,12 @@
 import React from 'react'
 import { useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
 
-const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSelector, setTimeFormat, timeFormat }) => {
+const ChartBox = ({ unformattedBuffer, historyData, baseAsset,  selector, setSelector, setTimeFormat, timeFormat }) => {
     return (
-        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box)"]} boxShadow={["1px 2px 12px 3px var(--shadow)"]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "30px", "30px"]}>
+        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box)"]} boxShadow={["1px 2px 12px 3px var(--shadow)"]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "40px", "40px"]}>
             {/* TOP tools*/}
             <Flex justify="space-between">
-                <Box display={["none", "none", "none", "block"]}>
+                <Box display={["none", "none", "none", "block"]} mb="40px">
                     <Text fontSize={["", "", "", "17px"]} mb={["", "", "", "30px"]}>{baseAsset.name} to USD Chart</Text>
                     <Flex fontWeight="400px" fontSize={["", "", "", "13px"]}>
                         <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("price"); }}>Price</Button>
