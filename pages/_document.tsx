@@ -49,7 +49,7 @@ export default class Document extends NextDocument {
         root?.style.setProperty("--circle", colorMode == 'dark' ? "#E9E9E9" : "white");
         root?.style.setProperty("--data-gradient", colorMode == 'dark' ? "linear-gradient(180deg, rgba(92, 125, 249, 0.19) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%);" : "linear-gradient(180deg, rgba(92, 125, 249, 0.03) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%)")
         root?.style.setProperty("--connect-menu", colorMode == 'dark' ? "#1C1F34" : "#F5F5F5");
-        
+        root?.style.setProperty("--elections", colorMode == 'dark' ? "#273051" : "#5C7DF9");
         // SHADOW
         root?.style.setProperty("--shadow", colorMode == 'dark' ? "none" : "rgba(208, 214, 227, 0.3)");
         root?.style.setProperty("--widget-shadow", colorMode == 'dark' ? "#161b2e" : "rgba(208, 214, 227, 0.3)");

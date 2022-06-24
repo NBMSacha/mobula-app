@@ -49,7 +49,7 @@ function Right() {
                 _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                 required
                 />
-                <Button _focus={{boxShadow:"none"}} mt="35px" color="white" bg="var(--blue)" boxShadow={`1px 2px 13px 3px var(--shadow)`} fontSize={["11px", "11px", "14px", "14px"]} w="100%" py={["12px", "12px", "12px", "15px"]} borderRadius={["8px", "8px", "8px", "12px"]}>
+                <Button _focus={{boxShadow:"none"}} mt="35px" color="white" bg="var(--elections)" boxShadow={`1px 2px 13px 3px var(--shadow)`} fontSize={["11px", "11px", "14px", "14px"]} w="100%" py={["12px", "12px", "12px", "15px"]} borderRadius={["8px", "8px", "8px", "12px"]}>
                     Submit
                 </Button>
             </Box>

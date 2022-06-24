@@ -302,7 +302,7 @@ function Token(token: {
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]}>
           {token.id ?
             <img style={{ margin: "0px auto" }} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> :
-            token.isMyAsset ? <Button ml={["0%", "0%", "30px"]} borderRadius="12px" w={["100%", "100%", "80%"]} h="30px" fontSize="xs" fontWeight="md" bg="blue" onClick={() => router.push('/list')}>List this asset</Button> : <></>}
+            token.isMyAsset ? <Button ml={["0%", "0%", "30px"]} color="white" borderRadius="8px" w={["100%", "100%", "80%"]} h="30px" fontSize="xs" fontWeight="md" bg="blue" onClick={() => router.push('/list')}>List this asset</Button> : <></>}
         </Td>
       </Tr>
     </Tbody>
