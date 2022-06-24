@@ -8,8 +8,9 @@ import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
 import { stableTokens, tokensPerBlockchain, volumeOracles } from '../../../../constants';
 import axios from 'axios';
-import { Flex, Text, useColorModeValue, Button, Input } from '@chakra-ui/react';
+import { Flex, Text, useColorModeValue, Button, Input,IconButton } from '@chakra-ui/react';
 import { useMediaQuery, Link, Box } from '@chakra-ui/react';
+
 import {
   Table,
   Thead,

@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react'
 import ConnectWallet from "../../Utils/ConnectWallet"
 import Data from "../../Utils/Data";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -285,22 +286,44 @@ function News(props: any) {
           {/* <Data /> */}
           <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
 
-            <Thead textTransform="capitalize" fontFamily="Poppins" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
+            <Thead textTransform="capitalize" fontFamily="Inter" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
               <Tr className={styles[""]}>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Poppins" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background:"var(--table)" }}>Asset</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric p={['15px 20px','15px 20px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
-                  {textResponsive ? (
-                    <p>24h %</p>
-                  ) : (
-                    <p>Change (24h)</p>
-                  )}
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
+                    Rank
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
                 </Th>
-                <Th fontSize={['12px', "12px","14x","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>Market cap</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Inter" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background:"var(--table)" }}>
+                    Asset
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={['15px 5px','15px 5px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
+                    Price
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
+                  {textResponsive ?  "24h %" : "Change (24h)"}
+                      <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                      <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14x","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
+                    Market cap 
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
+                    {display == 'My Assets' ? 'Balance' : 'Volume (24h)'}
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>
+                    Socials
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+                    Chart
+                </Th>
               </Tr>
             </Thead>
 
