@@ -94,7 +94,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
     <>
 
       <Flex className={styles['relative']} >
-        <Flex bg="var(--box-secondary)" boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
+        <Flex bg="var(--box-secondary)" transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out"}} boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
           <span
             style={{ 'marginRight': '5px' }}

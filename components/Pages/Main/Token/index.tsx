@@ -222,7 +222,7 @@ function Token(token: {
   const testRef = useRef();
   return (
 
-    <Tbody id="nul" ref={testRef} _hover={{ cursor:"pointer"}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+    <Tbody id="nul" ref={testRef} transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer", color:"none"}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
       <Tr className={styles["trs"]} >
         <Td borderBottom="1px solid rgba(122, 122, 122, 0.1) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`}  >
           <a href="" className={styles["white"]}>

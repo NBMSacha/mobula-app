@@ -33,7 +33,7 @@ function MainBlock(props: any) {
             <Flex justify="center">
               <div style={{ marginRight: "10px" }}>
                 <a href='/earn'>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}}  py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
                     mr="10px" bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]} >
                     <div className={styles['logo-box']}>
@@ -51,7 +51,7 @@ function MainBlock(props: any) {
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
                     bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]}>
                     <div className={styles['logo-box']}>
@@ -67,7 +67,7 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
                     bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
                     position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]}>
                     <div className={styles['logo-box']}>
