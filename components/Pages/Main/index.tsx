@@ -181,85 +181,57 @@ function News(props: any) {
     <>
 
       {/* PAGE 1 */}
-      <div className={styles["main-news"]}>
+      <div className={styles["main-news"]} >
         <MainBlock setDisplay={setDisplay} />
-        <Flex bg="var(--gradient)"display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px">
-          {props.gainers && props.gainers.length >= 3 ?
-            <GainerBlock
-              title={'Top Gainers'}
-              logo1={props.gainers[0].logo}
-              name1={props.gainers[0].name}
-              id1={props.gainers[0].id}
-              change1={props.gainers[0].price_change_24h.toFixed(2)}
-              logo2={props.gainers[1].logo}
-              name2={props.gainers[1].name}
-              id2={props.gainers[1].id}
-              change2={props.gainers[1].price_change_24h.toFixed(2)}
-              logo3={props.gainers[2].logo}
-              name3={props.gainers[2].name}
-              id3={props.gainers[2].id}
-              change3={props.gainers[2].price_change_24h.toFixed(2)}
-            /> : <GainerBlock
-              title={'Top Gainers'}
-              logo1={''}
-              name1={'Loading...'}
-              id1={0}
-              change1={0}
-              logo2={''}
-              name2={'Loading...'}
-              id2={0}
-              change2={0}
-              logo3={''}
-              name3={'Loading...'}
-              id3={0}
-              change3={0} />}
-          {/* @ts-ignore */}
-          {props.trendings && props.trendings.length > 0 ? <GainerBlock
-            title={'Trendings'}
-            logo1={props.trendings[0].logo}
-            name1={props.trendings[0].name}
-            id1={props.trendings[0].id}
+        <Flex bg="var(--gradient)"display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px" >
+          <Flex  w="100%" justify="space-around" maxWidth="1750px"> 
+            {props.gainers && props.gainers.length >= 3 ?
+              <GainerBlock
+                title={'Top Gainers'}
+                logo1={props.gainers[0].logo}
+                name1={props.gainers[0].name}
+                id1={props.gainers[0].id}
+                change1={props.gainers[0].price_change_24h.toFixed(2)}
+                logo2={props.gainers[1].logo}
+                name2={props.gainers[1].name}
+                id2={props.gainers[1].id}
+                change2={props.gainers[1].price_change_24h.toFixed(2)}
+                logo3={props.gainers[2].logo}
+                name3={props.gainers[2].name}
+                id3={props.gainers[2].id}
+                change3={props.gainers[2].price_change_24h.toFixed(2)}
+              /> : <GainerBlock
+                title={'Top Gainers'}
+                logo1={''}
+                name1={'Loading...'}
+                id1={0}
+                change1={0}
+                logo2={''}
+                name2={'Loading...'}
+                id2={0}
+                change2={0}
+                logo3={''}
+                name3={'Loading...'}
+                id3={0}
+                change3={0} />}
+            {/* @ts-ignore */}
+            {props.trendings && props.trendings.length > 0 ? <GainerBlock
+              title={'Trendings'}
+              logo1={props.trendings[0].logo}
+              name1={props.trendings[0].name}
+              id1={props.trendings[0].id}
 
-            change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
-            logo2={props.trendings[1].logo}
-            name2={props.trendings[1].name}
-            id2={props.trendings[1].id}
-            change2={props.trendings[1]?.price_change_24h?.toFixed(2)}
-            logo3={props.trendings[2].logo}
-            name3={props.trendings[2].name}
-            id3={props.trendings[2].id}
-            change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
-          /> : <GainerBlock
-            title={'Trendings'}
-            logo1={''}
-            name1={'Loading...'}
-            id1={0}
-            change1={0}
-            logo2={''}
-            name2={'Loading...'}
-            id2={0}
-            change2={0}
-            logo3={''}
-            name3={'Loading...'}
-            id3={0}
-            change3={0} />}
-          {props.recents && props.recents.length > 0 ?
-            <GainerBlock
-              title={'Recently Added'}
-              logo1={props.recents[0].logo}
-              name1={props.recents[0].name}
-              id1={props.recents[0].id}
-              change1={props.recents[0].price_change_24h.toFixed(2)}
-              logo2={props.recents[1].logo}
-              name2={props.recents[1].name}
-              id2={props.recents[1].id}
-              change2={props.recents[1].price_change_24h.toFixed(2)}
-              logo3={props.recents[2].logo}
-              name3={props.recents[2].name}
-              id3={props.recents[2].id}
-              change3={props.recents[2].price_change_24h.toFixed(2)}
+              change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
+              logo2={props.trendings[1].logo}
+              name2={props.trendings[1].name}
+              id2={props.trendings[1].id}
+              change2={props.trendings[1]?.price_change_24h?.toFixed(2)}
+              logo3={props.trendings[2].logo}
+              name3={props.trendings[2].name}
+              id3={props.trendings[2].id}
+              change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
             /> : <GainerBlock
-              title={'Recently Added'}
+              title={'Trendings'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -272,6 +244,36 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
+            {props.recents && props.recents.length > 0 ?
+              <GainerBlock
+                title={'Recently Added'}
+                logo1={props.recents[0].logo}
+                name1={props.recents[0].name}
+                id1={props.recents[0].id}
+                change1={props.recents[0].price_change_24h.toFixed(2)}
+                logo2={props.recents[1].logo}
+                name2={props.recents[1].name}
+                id2={props.recents[1].id}
+                change2={props.recents[1].price_change_24h.toFixed(2)}
+                logo3={props.recents[2].logo}
+                name3={props.recents[2].name}
+                id3={props.recents[2].id}
+                change3={props.recents[2].price_change_24h.toFixed(2)}
+              /> : <GainerBlock
+                title={'Recently Added'}
+                logo1={''}
+                name1={'Loading...'}
+                id1={0}
+                change1={0}
+                logo2={''}
+                name2={'Loading...'}
+                id2={0}
+                change2={0}
+                logo3={''}
+                name3={'Loading...'}
+                id3={0}
+                change3={0} />}
+              </Flex>
         </Flex>
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>

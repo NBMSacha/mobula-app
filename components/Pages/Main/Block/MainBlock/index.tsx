@@ -17,7 +17,7 @@ function MainBlock(props: any) {
   if (!isMobile) {
 
     return (
-      <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
+      <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden" maxWidth="1700px">
         <Flex boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["10px 15px", "10px 15px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={["none", "none", "none", "none"]} >
           <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Crypto assets by Mobula</Text>
           <Text fontFamily="Poppins" fontSize={["12px", "12px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt={["10px","10px","20px","20px"]} className={styles['subtitle-news']}>
