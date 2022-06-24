@@ -23,7 +23,7 @@ function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreU
     }
     const complete = useRef(false);
     return (
-        <Flex w={["100%", "100%", "100%", "40%"]} mb={["50px", "50px", "0px", "0px"]} mt={["10px", "10px", "10px", "0px"]} ml={["0px", "0px", "0px", "10px"]} px="35px" py={["20px", "20px", "30px", "30px"]} direction="column" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px">
+        <Flex w={["100%", "100%", "100%", "40%"]} mb={["50px", "50px", "0px", "0px"]} mt={["10px", "10px", "10px", "0px"]} ml={["0px", "0px", "0px", "10px"]} px={["25px","25px","35px","35px"]} py={["20px", "20px", "30px", "30px"]} direction="column" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px">
             <Flex justify="space-between" mb="10px" position="relative">
                 <Text fontSize={["14px", "14px", "16px", "16px"]}>Vote</Text>
                 <Flex align="center">
