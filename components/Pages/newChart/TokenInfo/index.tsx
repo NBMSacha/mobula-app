@@ -27,8 +27,8 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
                     <Box>
                         <Flex align="center">
-                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} textOverflow="ellipsis" overflow="hidden" whiteSpace="nowrap" className={styles["token-name"]}>{baseAsset.name}</Text>
-                            <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]}>{baseAsset.symbol}</Box>
+                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} whiteSpace="pre-wrap" >{baseAsset.name}</Text>
+                            <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]} mr="10px">{baseAsset.symbol}</Box>
                         </Flex>
                         {totalScore !== 0 && (
                             <Text display={["none", "none", "none", "flex"]} opacity=".6" fontSize={["9px", "9px", "12px", "12px"]}>
@@ -47,14 +47,14 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     </Link>
                     {baseAsset.audit ? 
                         <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
+                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Chat</Flex>
                         </Link> : <></>
                     }
-                    {baseAsset.audit ? 
+                    {/* {baseAsset.chat.length > 0 ? 
                         <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
                         </Link> : <></>
-                    }
+                    } */}
                     {baseAsset.kyc ? 
                         <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>KYC</Flex>
@@ -67,7 +67,7 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     )}
                 </Flex>
                 {/* Price info */}
-                <Box >
+                <Flex align="center" ml="20px"> 
                     {/* Price / Percentage */}
                     <Flex align="center">
                         <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "30px", "30px"]}>{getTokenFormattedPrice(baseAsset.price, '$', { justify: 'right', marginTop: 'auto' })}</Text>
@@ -75,7 +75,7 @@ const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, total
                     </Flex>
                     {/* Progress bar */}
                     <ProgressBar animated variant="success" now={60} />
-                </Box>
+                </Flex>
             </Flex>
             {baseAsset.description !== "" && (
                 <Flex display={selectorInfo === "Infos" ? "flex" : "none"} ml="80px" maxWidth="950px" mb="40px">
