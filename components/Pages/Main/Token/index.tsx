@@ -241,6 +241,7 @@ function Token(token: {
           </a>
         </Td>
           <Td  px={["10px","10px","20px", "20px"]}  py="10px" fontSize={["13px", "13px", "15px", "15px"]} className={styles["hover-child"]} minWidth={["150px", "150px", "150px", ""]} bg={["var(--table)", "var(--table)", "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+            <a>
             <Flex align="center" >
               <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
               <Flex fontWeight="700"  mr={["0px","0px","-70px", "-150px"]} className={styles["wrap-name"]} direction={["column", "column","row","row"]}>
@@ -252,6 +253,7 @@ function Token(token: {
                 </Flex>
               </Flex>
             </Flex>
+            </a>
           </Td>
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) =>{
             console.log("WHY ??????§")
