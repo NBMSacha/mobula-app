@@ -99,7 +99,7 @@ function SearchDiv(props: any) {
               id='search'
               autoFocus
             />
-            <X className={styles['X']} onClick={() => props.setTrigger(false)} style={{ width: "40px" }} />
+            <X className={styles['X']} onClick={() => {props.setTrigger(false);setToken("")}} style={{ width: "40px" }} />
           </div>
           <Flex direction="column" className={styles['search-token']}>
             {token ? (
