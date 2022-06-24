@@ -16,7 +16,7 @@ import {
 import { ProgressBar } from 'react-bootstrap';
 import styles from './TokenInfo.module.scss'
 
-const TokenInfo = ({ baseAsset, socialLink, setSelectorInfo, selectorInfo, totalScore }) => {
+const TokenInfo = ({ baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
     return (
         <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>

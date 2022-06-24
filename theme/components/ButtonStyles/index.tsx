@@ -36,7 +36,7 @@ export const ButtonStyles = {
             boxShadow: "1px 2px 12px 3px var(--shadow)"
         }),
         elections: (props) => ({
-            bg: "var(--btn-elections)",
+            bg: "var(--elections)",
             color: "white",
             boxShadow: "1px 2px 12px 3px var(--shadow)"
         }),
