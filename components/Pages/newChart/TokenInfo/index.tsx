@@ -12,9 +12,12 @@ import {
     ProgressLabel,
     CircularProgress,
     CircularProgressLabel,
-} from "@chakra-ui/progress"
+} from "@chakra-ui/react"
 import { ProgressBar } from 'react-bootstrap';
 import styles from './TokenInfo.module.scss'
+
+
+
 
 const TokenInfo = ({ baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
@@ -40,6 +43,8 @@ const TokenInfo = ({ baseAsset, setSelectorInfo, selectorInfo, totalScore }) => 
                         </Link>
                     </Box>
                 </Flex>
+         
+               
                 {/* Website / Chat / Kyc / Audit / Infos  */}
                 <Flex align="center" display={["none", "none", "none", "flex"]}>
                     <Link target="_blank" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--btnInfo)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
@@ -67,14 +72,23 @@ const TokenInfo = ({ baseAsset, setSelectorInfo, selectorInfo, totalScore }) => 
                     )}
                 </Flex>
                 {/* Price info */}
-                <Flex align="center" ml="20px"> 
+                <Flex direction="column" align="center" justify="center" ml="20px"> 
                     {/* Price / Percentage */}
                     <Flex align="center">
                         <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "30px", "30px"]}>{getTokenFormattedPrice(baseAsset.price, '$', { justify: 'right', marginTop: 'auto' })}</Text>
                         <Text color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"} ml={["10px", "", "", ""]} fontSize={"12px"}>{getTokenPercentage(baseAsset.price_change_24h) > 0 ? `+${getTokenPercentage(baseAsset.price_change_24h)}` : getTokenPercentage(baseAsset.price_change_24h)}%</Text>
                     </Flex>
                     {/* Progress bar */}
-                    <ProgressBar animated variant="success" now={60} />
+                    <Flex direction="column" w="100%">
+                        <Flex  h={["3px","3px","5px","5px"]} w="100%" bg="#87878720" borderRadius="8px">
+                            <Box bg="green" h="100%" w="45%" borderRadius="8px"></Box>
+                        </Flex>
+                        <Flex mt="3px" justify="space-between" fontWeight="300">
+                            <Text fontSize={["8px","8px","9px","9px"]}>ATL $152</Text>
+                            <Text fontSize={["8px","8px","9px","9px"]}>ATH $42582</Text>
+                        </Flex>
+                    </Flex>
+                    
                 </Flex>
             </Flex>
             {baseAsset.description !== "" && (
