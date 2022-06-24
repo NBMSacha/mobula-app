@@ -114,14 +114,14 @@ export default function RecentlyAdded({ tokensBuffer }) {
                   <Td borderBottom="1px solid var(--box_border) !important" px="5px" position="sticky" py="5px" left="0px" bg={["var(--background)", "var(--background)", "none"]} >
                     <Flex align="center">
                       <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]}  w={["25px", "25px", "30px", "30px"]}  src={token.logo} mr="10px" />
-                      <Flex direction={["column", "column", "row", "row"]}>
-                        <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
+                      <Flex minWidth="120px" direction={["column", "column", "row", "row"]}>
+                        <Text display={["none", "none", "none", "flex"]} maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
+                        <Text display={["flex", "flex", "flex", "none"]}  whiteSpace="pre-wrap" textOverflow="ellipsis" mr="10px">{token.name}</Text>
                         <Flex>
                           <Text opacity="1" mr="10px">{token.rank}</Text>
                           <Text opacity="0.6">{token.symbol}</Text>
                         </Flex>
                       </Flex>
-                      
                     </Flex>
                   </Td>
                   <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>

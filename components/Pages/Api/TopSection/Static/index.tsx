@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Flex, Text, Button, useColorModeValue } from '@chakra-ui/react';
-import { CheckCircleIcon } from "@chakra-ui/icons"
 import { Pocket, CheckCircle } from "react-feather";
 
 const Static = () => {

@@ -7,13 +7,7 @@ import { Flex, Text, Image, Button, Input, IconButton } from '@chakra-ui/react'
 import { ThemeContext } from '../../../pages/_app';
 
 function Footer() {
-<<<<<<< HEAD
-  const [displaySort, setDisplaySort] = useState('none')
-  const [displayData, setDisplayData] = useState('none')
-  const [displayDAO, setDisplayDAO] = useState('none')
-=======
   const themeContext = useContext(ThemeContext);
->>>>>>> 81ad8e3c3336eeb9085468e63d04622deebe27a2
 
   const useWindowDimensions = () => {
     const hasWindow = typeof window !== 'undefined'
@@ -43,11 +37,8 @@ function Footer() {
   }
   const { width } = useWindowDimensions()
   const breakpoint = 768
-<<<<<<< HEAD
-=======
 
   const isGood = width <= breakpoint
->>>>>>> 81ad8e3c3336eeb9085468e63d04622deebe27a2
   return (
     <Flex className={styles['footer-main']} borderTop={`2px solid var(--box_border)`}>
       <div className={styles['footer-left']}>
@@ -135,29 +126,19 @@ function Footer() {
         </div>
         <Flex align="center" h="50px">
           <IconButton
-<<<<<<< HEAD
-          _focus={{boxShadow:"none"}}
-          
-=======
+
             _focus={{ boxShadow: "none" }}
             onClick={() => {
               themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
             }}
->>>>>>> 81ad8e3c3336eeb9085468e63d04622deebe27a2
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
             color="var(--text-footer-title)"
-<<<<<<< HEAD
-            icon={<Moon /> }
-            // : <Sun />
-          />
-          <Text color="var(--text-footer-title)" ml="10px">Dark Mode</Text>
-=======
+
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
           <Text color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
->>>>>>> 81ad8e3c3336eeb9085468e63d04622deebe27a2
 
         </Flex>
       </div>

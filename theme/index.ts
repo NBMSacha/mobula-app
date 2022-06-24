@@ -5,7 +5,6 @@ import { ButtonStyles as Button } from "./components/ButtonStyles";
 import { InputStyles as Input } from "./components/InputStyles"
 import { TextStyles as Text } from "./components/TextStyles"
 
-
 const overrides = {
   config: {
     initialColorMode: 'light',
@@ -54,14 +53,11 @@ export const themeUltime = extendTheme({
     green: 'var(--green)',
     red: 'var(--red)',
   },
-
   components: {
     Button,
     Input,
     Text
   }
-
-
 })
 
 

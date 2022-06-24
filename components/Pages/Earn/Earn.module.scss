@@ -78,7 +78,7 @@
 
 .daily-box {
     transition: 0.2s ease-in-out;
-
+    border:2px solid var(--daily-border);
     margin: 7.5px 5px 7.5px 5px;
     width: 140px;
     height: 115px;
