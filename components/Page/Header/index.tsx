@@ -9,6 +9,7 @@ import Tendance from './Tendance'
 import { createClient } from '@supabase/supabase-js'
 import styles from './header.module.scss'
 import { useRouter } from 'next/router';
+import { Box } from "@chakra-ui/react"
 import { ThemeContext } from '../../../pages/_app';
 
 function Header(props: any) {
@@ -23,7 +24,7 @@ function Header(props: any) {
   const injected = new InjectedConnector({})
   const router = useRouter()
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
-
+  const [isMenuMobile, setIsMenuMobile] = useState(false)
   const isNoEthereumObject = (err) => {
     return NO_ETHEREUM_OBJECT.test(err)
   }
@@ -119,12 +120,12 @@ function Header(props: any) {
   }, [])
 
   return (
-    <>
+    <Box >
       <div className={styles['header']}>
         <div className={styles['main']}>
           <Brand />
           <Link />
-          <Wallet />
+          <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile}/>
         </div>
       </div>
       <Tendance
@@ -133,7 +134,7 @@ function Header(props: any) {
         assets={metrics.total_assets}
         dex={metrics.total_dex}
       />
-    </>
+    </Box>
   )
 }
 

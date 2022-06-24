@@ -17,7 +17,7 @@ import { ThemeContext } from '../../../../../pages/_app'
 import { Sun, Moon} from "react-feather"
 
 
-function MenuMobile({ connect, setConnect, close, setClose }) {
+function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
   const [isConnected, setIsConnected] = useState(false);
   const [wallet, setWallet] = useState({})
   const themeContext = useContext(ThemeContext);
@@ -166,7 +166,7 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
 
         <Flex
 
-          display="none"
+          display={isMenuMobile ? "flex" : "none"}
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           bg="var(--background) !important"
@@ -226,7 +226,7 @@ function MenuMobile({ connect, setConnect, close, setClose }) {
           bg="var(--background) !important"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
-          style={{ display: 'none' }}
+            display={isMenuMobile ? "flex" : "none"}
         >
           <div className={styles['mobile-linkTo']}>
             <a href='/new' className={styles['linkTo']}>

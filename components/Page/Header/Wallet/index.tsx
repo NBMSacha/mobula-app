@@ -43,7 +43,7 @@ function useOutsideAlerter(ref: any, setTriggerHook: any) {
   }, [ref])
 }
 
-function Wallet({ }) {
+function Wallet({ isMenuMobile, setIsMenuMobile}) {
   const [triggerSearch, setTriggerSearch] = useState(false)
   const wrapperRef = useRef(null)
   const [isMobile, setIsMobile] = useState(true);
@@ -52,6 +52,7 @@ function Wallet({ }) {
   const [connect, setConnect] = useState(false)
   const [close, setClose] = useState(false)
   const themeContext = useContext(ThemeContext);
+  
 
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
@@ -134,7 +135,6 @@ function Wallet({ }) {
             _placeholder={{ color: "none" }}
             onClick={() => {
               setTriggerSearch(true)
-
             }}
             bg="none"
             w={["0px", "0px", "auto", "auto"]}
@@ -159,7 +159,7 @@ function Wallet({ }) {
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <Flex height="100%" align="center" display={["none", "none", "none", "flex"]}>
           <IconButton
-            boxShadow={`1px 2px 12px 3px var(--shadow)`}
+            opacity=".5"
             _focus={{ boxShadow: "none" }}
             onClick={() => {
               themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
@@ -167,7 +167,6 @@ function Wallet({ }) {
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
-            
             bg="none"
             ml={["0px", "0px", "0px", "20px"]}
             mr={["20px", "20px", "20px", "0px"]}
@@ -183,9 +182,12 @@ function Wallet({ }) {
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
-          onClick={() => mobileNav()}
+          onClick={() => {
+            setIsMenuMobile(!isMenuMobile)
+            console.log(`Is menu Mobile Appear ? => ${isMenuMobile}`)
+          }}
         >
-          {nav ? (
+          {isMenuMobile ? (
             <X className={styles['hamburger']} />
           ) : (
             <><Menu className={styles['hamburger']} /> <Circle width="10px" fill={'#32C784'} className={styles['new']}></Circle></>
@@ -194,7 +196,7 @@ function Wallet({ }) {
 
       </Flex>
 
-      <MenuMobile connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
+      <MenuMobile isMenuMobile={isMenuMobile} connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
     </>
   )
 }
