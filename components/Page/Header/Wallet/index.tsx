@@ -69,7 +69,28 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
     if (account && isAddress(account)) {
       fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
     }
+
   }, [account])
+
+  useEffect(() => {
+    console.log('setConnect', connect)
+  }, [connect])
+
+  const [nav, setNav] = useState(false)
+
+  async function mobileNav() {
+    const nav = document.getElementById('mobileNav') as any
+    if (nav.style.display == 'none') {
+      nav.style.display = 'block'
+      setNav(true)
+    } else {
+      nav.style.display = 'none'
+      setNav(false)
+    }
+    await nav
+  }
+
+  const shadow = themeContext.colorMode == "light" ? "var(--chakra-colors-shadow)" : "none";
 
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
   const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
@@ -78,7 +99,6 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
 
   return (
     <>
-
       <Flex className={styles['relative']} >
         <Flex bg="var(--box-secondary)" transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out"}} boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
@@ -133,6 +153,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
           className={styles['connect-wallet-btn']}
           onClick={() => {
             setConnect(true)
+            console.log('detected')
           }}
         >
           {active
@@ -161,9 +182,9 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-        {connect && (
-          <ConnectWallet close={close} setClose={setClose} />
-        )}
+        {connect ?
+          <ConnectWallet visible={connect} setVisible={setConnect} /> : <></>
+        }
 
         <button
           className={styles['hamburger-btn']}

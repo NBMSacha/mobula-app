@@ -19,6 +19,88 @@ export const supportedRPCs = [
     { name: 'Arbitrum', url: 'https://rpc.ankr.com/arbitrum', explorer: 'https://arbiscan.io/' }
 ]
 
+export const getIdFromBlockchain = {
+    'Ethereum': 1,
+    'BNB Smart Chain (BEP20)': 56,
+    'Polygon': 137
+}
+
+export const getBlockchainFromId = {
+    1: 'Ethereum',
+    56: 'BNB Smart Chain (BEP20)',
+    137: 'Polygon'
+}
+
+export const defaultTokens = {
+    1: [{
+        symbol: 'ETH',
+        logo: '/ethereum.png'
+    }],
+    56: [{
+        symbol: 'BNB',
+        logo: '/bnb.png',
+        decimals: 18,
+    }, {
+        symbol: 'BUSD',
+        logo: 'https://assets.coingecko.com/coins/images/9576/large/BUSD.png?1568947766',
+        address: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+        decimals: 18
+    }, {
+        symbol: 'USDT',
+        logo: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+        address: '0x55d398326f99059ff775485246999027b3197955',
+        decimals: 18
+    }, {
+        symbol: 'ETH',
+        logo: '/ethereum.png',
+        address: '0x2170ed0880ac9a755fd29b2688956bd959f933f8',
+        decimals: 18,
+
+    }, {
+        symbol: 'BTC',
+        logo: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+        address: '0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c',
+        decimals: 18,
+    },
+    {
+        symbol: 'MATIC',
+        logo: '/polygon.png',
+        address: '0xcc42724c6683b7e57334c4e856f4c9965ed682bd',
+        decimals: 18,
+    },],
+    137: [{
+        symbol: 'MATIC',
+        logo: '/polygon.png',
+        decimals: 18
+    }, {
+        symbol: 'BNB',
+        logo: '/bnb.png',
+        address: '0xecdcb5b88f8e3c15f95c720c51c71c9e2080525d',
+        decimals: 18
+    }, {
+        symbol: 'BUSD',
+        logo: 'https://assets.coingecko.com/coins/images/9576/large/BUSD.png?1568947766',
+        address: '0xa8d394fe7380b8ce6145d5f85e6ac22d4e91acde',
+        decimals: 18
+    }, {
+        symbol: 'USDT',
+        logo: 'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707',
+        address: '0xc2132d05d31c914a87c6611c10748aeb04b58e8f',
+        decimals: 6
+    }, {
+        symbol: 'ETH',
+        logo: '/ethereum.png',
+        address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
+        decimals: 18
+    }, {
+        symbol: 'BTC',
+        logo: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+        address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
+        decimals: 8
+    }],
+
+}
+
 export const priceOracles = {
     'BNB Smart Chain (BEP20)': '0x76482ea163b4C11c415f23B3E55A1B7F139d91f5',
     'Polygon': '0x87D64164C3c16fb9735D96B92Ee81FFfa5eEDE10'
@@ -32,6 +114,9 @@ export const PolygonProvider = ethers.getDefaultProvider('https://polygon-rpc.co
 export const AvalancheProvider = ethers.getDefaultProvider('https://api.avax.network/ext/bc/C/rpc')
 export const FantomProvider = ethers.getDefaultProvider('https://rpc.ftm.tools/')
 
+export const mobulaRouter = {
+    137: '0x7189384C1a46DBc5265bd0bd040E06F76761Ef24'
+}
 //Mapping the providers
 export const providers = {
     'BNB Smart Chain (BEP20)': BNBProvider,
