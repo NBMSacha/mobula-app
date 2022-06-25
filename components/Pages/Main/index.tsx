@@ -293,7 +293,7 @@ function News(props: any) {
                     <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
                     <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
                 </Th>
-                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Inter" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background:"var(--table)" }}>
+                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Inter" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} bg="var(--tables)" zIndex="33" style={{ background:"var(--table)" }}>
                     Asset
                     <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
                     <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />

@@ -29,7 +29,7 @@ function MainBlock(props: any) {
           </Text>
         </Flex>
         <Box w={["100%", "100%", "58%", "58%"]} boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} ml="10px" mb={["15px", "15px", "30px", "30px"]} borderRadius="15px">
-          <Flex overflow="auto" >
+          <Flex overflow="auto" className={styles["scroll"]} >
             <Flex justify="center">
               <div style={{ marginRight: "10px" }}>
                 <a href='/earn'>

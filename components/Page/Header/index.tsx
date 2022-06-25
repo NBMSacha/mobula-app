@@ -144,7 +144,7 @@ function Header(props: any) {
   }, [])
   return (
     <>
-    <Box bg="var(--background)" zIndex="154355453453" className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+    <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
       <div className={styles['header']} >
         <div className={styles['main']}>
           <Brand />
