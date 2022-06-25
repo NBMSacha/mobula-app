@@ -21,7 +21,7 @@ import { CSSReset, useMediaQuery } from '@chakra-ui/react'
 import ChartBox from "./Chart"
 import Contract from "../../Utils/Contract"
 import styles from './newChart.module.scss';
-import Swap from "./Swap"
+import Swap from "../../Utils/Swap"
 import MobileInfo from "./MobileInfo"
 import { ThemeContext } from '../../../pages/_app';
 
@@ -52,7 +52,13 @@ const Token = ({ baseAssetBuffer }) => {
             '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                 .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
         }
+
+        console.log(unformattedInitialBuffer['price']['1D'].map(entry => entry[1]))
+        console.log(Math.min(unformattedInitialBuffer['price']['1D'].map(entry => entry[1])))
     })
+
+    const price24hLow = Math.min(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
+    const price24hHigh = Math.max(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
 
     const [unformattedBuffer, setUnformattedBuffer]: [any, Function] = useState(unformattedInitialBuffer)
     const { asset } = router.query;
@@ -543,7 +549,7 @@ const Token = ({ baseAssetBuffer }) => {
             {/* Left */}
             <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
                 {/* Token Information Top */}
-                <TokenInfo totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
+                <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
                 <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
                     {/* COMPO */}
                     <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset} />
@@ -570,7 +576,7 @@ const Token = ({ baseAssetBuffer }) => {
                     <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                 ) : (
                     <Flex justify="center" display={["flex", "flex", "flex", "none"]}>
-                        <Swap baseAsset={baseAsset} />
+                        <Swap tokenOutBuffer={baseAsset} />
                     </Flex>
                 )}
 
@@ -578,7 +584,7 @@ const Token = ({ baseAssetBuffer }) => {
             {/* Right */}
             <Flex display={["none", "none", "none", "flex"]} direction="column" w="30%" mt="50px">
                 {/* SWAP */}
-                <Swap baseAsset={baseAsset} />
+                <Swap tokenOutBuffer={baseAsset} />
                 {/* Contract  */}
                 <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>

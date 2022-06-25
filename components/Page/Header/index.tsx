@@ -122,37 +122,32 @@ function Header(props: any) {
   }, [])
 
 
-  let prevScroll
- 
-  if (process.browser) {
-    prevScroll = window.pageYOffset
-  }
-  
+
   const [scrollingUp, setScrollingUp] = useState(false)
 
   const handleScroll = () => {
-    const currScroll = window.pageYOffset
-    const isScrolled = prevScroll > currScroll && currScroll !== 0
-    setScrollingUp(isScrolled)
-    prevScroll = currScroll
+    if (isMenuMobile) {
+      window.scrollTo(0, 0);
+    }
   }
+
   useEffect(() => {
     on(window, 'scroll', handleScroll, { passive: true })
     return () => {
       off(window, 'scroll', handleScroll, { passive: true })
     }
-  }, [])
+  }, [isMenuMobile])
   return (
     <>
-    <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
-      <div className={styles['header']} >
-        <div className={styles['main']}>
-          <Brand />
-          <Link />
-          <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile}/>
+      <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+        <div className={styles['header']} >
+          <div className={styles['main']}>
+            <Brand />
+            <Link />
+            <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile} />
+          </div>
         </div>
-      </div>
-    </Box>
+      </Box>
       <Tendance
         listings={metrics['7d_listings']}
         dao={metrics.total_dao_members}

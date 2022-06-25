@@ -70,8 +70,8 @@ export const ThemeProvider = ({ children }) => {
     root?.style.setProperty("--box_active", newValue == 'dark' ? "#273051" : "#FFFFFF");
 
     // BTN ELECTIONS
-   
-    
+
+
 
     // border BTN
     root?.style.setProperty("--box_border_active", newValue == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
@@ -110,10 +110,7 @@ export default function App({ Component, pageProps }) {
           <title>Mobula | The decentralized data aggregator [Alpha]</title>
           <link rel='icon' type='image/png' href='/fullicon.png' />
           <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=Ubuntu&display=swap' rel='stylesheet' />
-          <meta
-            name='viewport'
-            content='width=device-width, initial-scale=1, maximum-scale=1'
-          ></meta>
+          <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
           <meta name="description"
             content="Anyone should be able to query reliable data about any crypto-token. Easily. Directly on-chain. Imagine CoinMarketCap, owned by you." />

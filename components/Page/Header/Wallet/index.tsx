@@ -43,7 +43,7 @@ function useOutsideAlerter(ref: any, setTriggerHook: any) {
   }, [ref])
 }
 
-function Wallet({ isMenuMobile, setIsMenuMobile}) {
+function Wallet({ isMenuMobile, setIsMenuMobile }) {
   const [triggerSearch, setTriggerSearch] = useState(false)
   const wrapperRef = useRef(null)
   const [isMobile, setIsMobile] = useState(true);
@@ -52,7 +52,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
   const [connect, setConnect] = useState(false)
   const [close, setClose] = useState(false)
   const themeContext = useContext(ThemeContext);
-  
+
 
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
@@ -100,7 +100,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
   return (
     <>
       <Flex className={styles['relative']} >
-        <Flex bg="var(--box-secondary)" transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out"}} boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
+        <Flex bg="var(--box-secondary)" transition="background 200ms ease-in-out" _hover={{ background: 'var(--box_active)', transition: "background 200ms ease-in-out" }} boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
           <span
             style={{ 'marginRight': '5px' }}
@@ -112,7 +112,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
             <Text fontSize="12px" color="white" >+1</Text>
           </Flex>
         </Flex>
-        <Flex height="100%" align="center" display={["flex","flex","none","none"]}>
+        <Flex height="100%" align="center" display={["flex", "flex", "none", "none"]}>
           <IconButton
             _focus={{ boxShadow: "none" }}
             onClick={() => {
@@ -162,7 +162,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
             account.substring(account.length - 4, account.length)
             : 'Connect'}
         </button>
-        
+
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <Flex height="100%" align="center" display={["none", "none", "none", "flex"]}>
           <IconButton
@@ -190,8 +190,8 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
           className={styles['hamburger-btn']}
           id='btnParent'
           onClick={() => {
+            console.log(`Is menu Mobile Appear ? => ${!isMenuMobile}`)
             setIsMenuMobile(!isMenuMobile)
-            console.log(`Is menu Mobile Appear ? => ${isMenuMobile}`)
           }}
         >
           {isMenuMobile ? (

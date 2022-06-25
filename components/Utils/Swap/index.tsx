@@ -35,6 +35,18 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
         try {
             const chain = web3React.chainId;
+            console.log('hey')
+            if (tokenOut && !tokenOut.address && tokenOut.contracts) {
+                const address = tokenOut.contracts[tokenOut.blockchains.indexOf(getBlockchainFromId[web3React.chainId])];
+                setTokenOut({ symbol: tokenOut.symbol, address, logo: tokenOut.logo })
+                const RPC = supportedRPCs.filter(entry => entry.name == getBlockchainFromId[web3React.chainId])[0];
+                const provider = new ethers.providers.JsonRpcProvider(RPC);
+                const contract = new ethers.Contract(address, [
+                    'function decimals() public view returns (uint256)'], provider)
+                contract.decimals().then(r => {
+                    setTokenOut({ symbol: tokenOut.symbol, address, logo: tokenOut.logo, decimals: r.toNumber() })
+                })
+            }
 
             if (chain == 137) {
                 setTokenIn({ symbol: 'MATIC', logo: '/polygon.png', decimals: 18 })
@@ -76,7 +88,6 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 setTokenInBalance((r.mul(10000).div(ethers.BigNumber.from('1' + '0'.repeat(tokenIn.decimals))).toNumber() / 10000).toFixed(4))
             })
 
-
             contract.allowance(web3React.account, mobulaRouter[web3React.chainId]).then((r: any) => {
                 try {
                     if (!r.toNumber()) {
@@ -117,7 +128,10 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 'function decimals() public view returns (uint256)'], provider)
 
             contract.balanceOf(web3React.account).then((r: ethers.BigNumber) => {
-                setTokenOutBalance((r.mul(10000).div(ethers.BigNumber.from('1' + '0'.repeat(tokenOut.decimals))).toNumber() / 10000).toFixed(4))
+                console.log('Balance', r)
+                try {
+                    setTokenOutBalance((r.mul(10000).div(ethers.BigNumber.from('1' + '0'.repeat(tokenOut.decimals))).toNumber() / 10000).toFixed(4))
+                } catch (e) { }
             })
 
             if (tokenIn && !tokenIn.address) {
@@ -155,26 +169,32 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         .then(r => r.json())
                         .then(async (r) => {
                             setButtonLoading(false)
-                            setButtonStatus(needApprove ? 'Approve' : 'Swap')
-                            setSwapInfo(r)
-                            console.log('out : ' + r.amountOut)
-                            setSwapOut({ amount: r.amountOut, decided: false })
-                            const middleTokens = r.path.slice(1, r.path.length - 1);
-                            const symbols = [tokenIn.symbol];
-                            for (let i = 0; i < middleTokens.length; i++) {
-                                const RPC = supportedRPCs.filter(entry => {
-                                    return entry.name == getBlockchainFromId[web3React.chainId];
-                                })[0];
-                                const provider = new ethers.providers.JsonRpcProvider(RPC);
-                                const contract = new ethers.Contract(middleTokens[i],
-                                    ['function symbol() public view returns (string)'], provider)
 
-                                symbols.push(await contract.symbol());
+                            if (!r.error) {
+                                setButtonStatus(needApprove ? 'Approve' : 'Swap')
+                                setSwapInfo(r)
+                                console.log('out : ' + r.amountOut)
+                                setSwapOut({ amount: r.amountOut, decided: false })
+                                const middleTokens = r.path.slice(1, r.path.length - 1);
+                                const symbols = [tokenIn.symbol];
+                                for (let i = 0; i < middleTokens.length; i++) {
+                                    const RPC = supportedRPCs.filter(entry => {
+                                        return entry.name == getBlockchainFromId[web3React.chainId];
+                                    })[0];
+                                    const provider = new ethers.providers.JsonRpcProvider(RPC);
+                                    const contract = new ethers.Contract(middleTokens[i],
+                                        ['function symbol() public view returns (string)'], provider)
+
+                                    symbols.push(await contract.symbol());
+                                }
+
+                                symbols.push(tokenOut.symbol)
+
+                                setPathSymbols(symbols)
+                            } else {
+                                setButtonStatus('No route found.')
                             }
 
-                            symbols.push(tokenOut.symbol)
-
-                            setPathSymbols(symbols)
                         })
                 }, 300)
 
@@ -238,7 +258,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                             <Text color='var(--text-primary)' ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>{tokenIn.symbol}</Text>
                             <ChevronDown color='var(--text-primary)' />
                         </Flex> :
-                        <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p="5px 15px" w="200px"
+                        <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="200px"
                             onClick={() => setSelectVisible('tokenIn')}>
                             Select a token <ChevronDown />
                         </Flex>
@@ -275,7 +295,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                             <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>{tokenOut.symbol}</Text>
                             <ChevronDown />
                         </Flex> :
-                        <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p="5px 15px" w="200px"
+                        <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="200px"
                             onClick={() => setSelectVisible('tokenOut')}
                         >
                             Select a token <ChevronDown />
@@ -287,12 +307,14 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
             </Box>
 
-            {pathSymbols ? <Text mt='10px'>{pathSymbols.join(' > ')}</Text> : <></>}
+            {pathSymbols ? <Text mt='10px' mr='auto' ml='auto'>{pathSymbols.join(' > ')}</Text> : <></>}
 
-            {swapInfo ? <Text mt='10px' mb='-10px'>{swapInfo.routerName}</Text> : <></>}
+            {swapInfo ? <Text mt='10px' mr='auto' ml='auto'>Best DEX: {swapInfo.routerName}</Text> : <></>}
 
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
-                <Button bg={activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={activeStatus.includes(buttonStatus) ? "1" : "0.2"} color="white" mt={["15px", "15px", "30px", "30px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
+                <Button
+                    color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
+                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "30px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
                     onClick={async () => {
 
                         let provider;
@@ -315,6 +337,8 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                     setButtonLoading(false)
                                     setButtonStatus('Swap')
                                 })
+
+                                setNeedApprove(false)
                                 break;
                             case 'Swap':
                                 const router = new ethers.Contract(mobulaRouter[web3React.chainId], [

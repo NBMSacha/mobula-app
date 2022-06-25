@@ -10,14 +10,14 @@ import { PROTOCOL_ADDRESS } from "../../../../../constants"
 import { useRouter } from 'next/router';
 import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
-import { Flex, Box,IconButton, Text } from '@chakra-ui/react';
+import { Flex, Box, IconButton, Text } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
 import Header from "../../index"
 import { ThemeContext } from '../../../../../pages/_app'
-import { Sun, Moon} from "react-feather"
+import { Sun, Moon } from "react-feather"
 
 
-function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
+function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile }) {
   const [isConnected, setIsConnected] = useState(false);
   const [wallet, setWallet] = useState({})
   const themeContext = useContext(ThemeContext);
@@ -30,88 +30,8 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
     console.log('urningng', connect)
   }, [connect])
 
-
-  const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
-
-  const isNoEthereumObject = (err) => {
-    return NO_ETHEREUM_OBJECT.test(err)
-  }
-
-  const handleConnect = async () => {
-    const provider = (window as any).ethereum
-
-    if (!provider) {
-      setHasMetamask(false)
-    } else {
-      const chainId = await provider.request({ method: 'eth_chainId' })
-      if (chainId !== '0x89' && (router.pathname.includes('dao') || router.pathname.includes('list'))) {
-        try {
-          await provider.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x89' }],
-          })
-        } catch (switchError) {
-          try {
-            await provider.request({
-              method: 'wallet_addEthereumChain',
-              params: [
-                {
-                  chainId: '0x89',
-                  chainName: 'Polygon - MATIC',
-                  rpcUrls: ['https://polygon-rpc.com'],
-                  blockExplorerUrls: ['https://polygonscan.com/'],
-                  nativeCurrency: {
-                    symbol: 'MATIC',
-                    decimals: 18,
-                  },
-                },
-              ],
-            })
-          } catch (addError) {
-            console.log(addError)
-          }
-          if (switchError.code === 4902) {
-            console.log(
-              'This network is not available in your metamask, please add it'
-            )
-          }
-          console.log('Failed to switch to the network', switchError)
-        }
-      }
-    }
-
-    console.log(account)
-    if (active) {
-      deactivate()
-      return
-    }
-
-    activate(injected, (error) => {
-      if (isNoEthereumObject(error)) {
-        setHasMetamask(false)
-      }
-    })
-  }
   const [walletBalance, setWalletBalance] = useState(0)
   const [ranked, setRanked] = useState()
-
-  // useEffect(() => {
-  //   try {
-  //     const provider = new ethers.providers.Web3Provider(
-  //       (window as any).ethereum
-  //     )
-
-  //     if (provider) {
-  //       provider.listAccounts().catch().then((accounts) => {
-  //         if (accounts.length > 0) {
-  //           handleConnect();
-  //           setIsConnected(true)
-  //         }
-  //       })
-  //     }
-
-  //   } catch (e) { }
-  // }, [])
 
   useEffect(() => {
     const getBalance = async () => {
@@ -158,19 +78,19 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
       fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
     }
   }, [account])
-  console.log(Number(ranked))
+
   if (router.pathname.includes('dao')) {
     return (
       <>
 
 
         <Flex
-
           display={isMenuMobile ? "flex" : "none"}
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
           bg="var(--background) !important"
           style={{ display: 'none' }}
+          zIndex={2000}
         >
           <div className={styles['mobile-linkTo']}>
             <a href='dashboard' className={styles['linkTo']}>
@@ -206,10 +126,10 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
           </div>
 
           {connect && (
-            <ConnectWallet close={close} setClose={setClose} />
+            <ConnectWallet visible={connect} setVisible={setConnect} />
           )}
 
-          
+
 
           {active ?? <div className={styles['disconnect-wallet-mobile']}>
             <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
@@ -226,7 +146,8 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
           bg="var(--background) !important"
           className={styles['mobile-toolbar-container']}
           id='mobileNav'
-            display={isMenuMobile ? "flex" : "none"}
+          display={isMenuMobile ? "flex" : "none"}
+          zIndex={2000}
         >
           <div className={styles['mobile-linkTo']}>
             <a href='/new' className={styles['linkTo']}>
@@ -246,7 +167,7 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
               <Image width={20} height={20} src={'/reward1.png'} />
 
             </Flex>
-            <a href='/soon' className={styles['linkTo']}>
+            <a href='/dex' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>DEX</span>
             </a>
             <a href='/dao/dashboard' className={styles['linkTo']}>
@@ -271,9 +192,9 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
                 ? <><span>Rank {Number(ranked)}</span>
                   <span>{walletBalance} MOBL</span></>
                 : ''}
-                
+
             </div>
-            
+
           </div>
           {/* <Flex w="80%" ml="35px" mt="10px" align="center">
             <IconButton
@@ -294,12 +215,12 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile}) {
             />
             <Text color={themeContext.colorMode == "light" ? "blue" : "white"}>{themeContext.colorMode == "light" ? "Dark Mode" : "Light Mode"}</Text>
           </Flex> */}
-          
+
           {active ??
             <div className={styles['disconnect-wallet-mobile']}>
               <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
             </div>}
-            
+
         </Flex>
       </>
     )

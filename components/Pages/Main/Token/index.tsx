@@ -8,7 +8,7 @@ import styles from "../Token/Token.module.scss"
 import { useRouter } from 'next/router';
 import { stableTokens, tokensPerBlockchain, volumeOracles } from '../../../../constants';
 import axios from 'axios';
-import { Flex, Text, useColorModeValue, Button, Input,IconButton } from '@chakra-ui/react';
+import { Flex, Image, useColorModeValue, Button, Input, IconButton } from '@chakra-ui/react';
 import { useMediaQuery, Link, Box } from '@chakra-ui/react';
 
 import {
@@ -223,10 +223,10 @@ function Token(token: {
   const testRef = useRef();
   return (
 
-    <Tbody id="nul" ref={testRef} transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer", color:"none"}} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
+    <Tbody id="nul" ref={testRef} transition="background 200ms ease-in-out" _hover={{ background: 'var(--box_active)', transition: "background 200ms ease-in-out", cursor: "pointer", color: "none" }} borderBottom="none" className={`${styles["tbodys"]} ${(!token.contracts || token.contracts.length > 0) ? '' : styles['hide']}`} >
       <Tr className={styles["trs"]} >
-        <Td borderBottom="1px solid rgba(122, 122, 122, 0.1) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`}  >
-          <a href="" className={styles["white"]}>
+        <Td borderBottom="1px solid rgba(122, 122, 122, 0.1) !important" fontWeight="700" px={["5px", "5px", "20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} maxWidth="100px" className={` ${styles["rank-title-start"]} ${styles["ths"]}`}  >
+          <a href={`/asset/${getUrlFromName(token.name)}`} target='_blank' className={styles["white"]}>
             {token.rank_change_24h < 0 ? (
               <span className={`${styles['red']} ${styles["font-char"]} `} id="noColor">
                 <div className={styles['triangle-red']}></div>
@@ -238,32 +238,32 @@ function Token(token: {
                 {token.rank_change_24h}
               </span>
             )}
-            <span style={{ marginLeft: "10px", opacity: .6 , color:"var(--text-secondary)"}} >{token.rank}</span>
+            <span style={{ marginLeft: "10px", opacity: .6, color: "var(--text-secondary)" }} >{token.rank}</span>
           </a>
         </Td>
-          <Td  px={["10px","10px","20px", "20px"]}  py="10px" fontSize={["13px", "13px", "15px", "15px"]} className={styles["hover-child"]} minWidth={["150px", "150px", "150px", ""]} bg={["var(--table)", "var(--table)", "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
-            <a>
+        <Td px={["10px", "10px", "20px", "20px"]} py="10px" fontSize={["13px", "13px", "15px", "15px"]} className={styles["hover-child"]} minWidth={["150px", "150px", "150px", ""]} bg={["var(--table)", "var(--table)", "none", "none"]} position="sticky" left="0px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))}>
+          <a href={`/asset/${getUrlFromName(token.name)}`}>
             <Flex align="center" >
               <img src={(token.logo || '/unknown.png')} className={styles["token-logos"]} />
-              <Flex fontWeight="700"  mr={["0px","0px","-70px", "-150px"]} className={styles["wrap-name"]} direction={["column", "column","row","row"]}>
+              <Flex fontWeight="700" mr={["0px", "0px", "-70px", "-150px"]} className={styles["wrap-name"]} direction={["column", "column", "row", "row"]}>
                 <Box mr="15px" display={["none", "none", "none", "block"]} whiteSpace="pre-wrap" as="span">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Box>
                 <Box mr="10px" display={["block", "block", "block", "none"]} whiteSpace="pre-wrap" as="span" >{token.name}</Box>
                 <Flex>
-                  <Box display={["block", "block", "none", "none"]} mr="10px"  color="var(--text-secondary)">{token.rank}</Box>
+                  <Box display={["block", "block", "none", "none"]} mr="10px" color="var(--text-secondary)">{token.rank}</Box>
                   <Box as="span" fontWeight="700" color="var(--text-secondary)">{token.symbol}</Box>
                 </Flex>
               </Flex>
             </Flex>
-            </a>
-          </Td>
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) =>{
-            console.log("WHY ??????§")
-            window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
-        }} py={["5px", "5px", "5px", "5px", "31px"]} my="0px" isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`} color={isWinner === true ? "green" : isWinner === false ? "red" : "none"}>
-        <a href={`/asset/${getUrlFromName(token.name)}`}> ${separator(getTokenPrice(price))}</a>
+          </a>
         </Td>
-        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px","5px","20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
-          <a href={`/asset/${getUrlFromName(token.name)}`}>
+        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px", "5px", "20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) => {
+          console.log("WHY ??????§")
+          window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
+        }} py={["5px", "5px", "5px", "5px", "31px"]} my="0px" isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`} color={isWinner === true ? "green" : isWinner === false ? "red" : "none"}>
+          <a href={`/asset/${getUrlFromName(token.name)}`}> ${price ? separator(getTokenPrice(price)) : '??'}</a>
+        </Td>
+        <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px", "5px", "20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
+          <a href={`/asset/${getUrlFromName(token.name)}`} target='_blank'>
             {token.price_change_24h < 0.01 ? (
               <span className={`${styles['red']} ${styles["font-char"]}`} id="noColor">
                 <div className={styles['triangle-red']} ></div>
@@ -279,15 +279,15 @@ function Token(token: {
             )}
           </a>
         </Td>
-        
+
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={styles["ths"]}>
-          <a href={`/asset/${getUrlFromName(token.name)}`}>
+          <a href={`/asset/${getUrlFromName(token.name)}`} target='_blank'>
             <span className={`${styles["font-char"]} `}>${token.market_cap ? formatAmount(token.market_cap) : '???'}</span>
           </a>
         </Td>
         {/* </a> */}
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} isNumeric className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
-          <a href={`/asset/${getUrlFromName(token.name)}`}>
+          <a href={`/asset/${getUrlFromName(token.name)}`} target='_blank'>
             <span className={` ${styles["font-char"]}`}>
               {token.isMyAsset ? formatAmount(token.volume) + ' ' + token.symbol : '$' + formatAmount(token.volume)}
             </span>
@@ -295,18 +295,18 @@ function Token(token: {
         </Td>
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]} className={styles["ths"]}>
           <div className={styles["media-icons"]}>
-            {token.website ? <a href={token.website} className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
-            {token.twitter ? <a href={token.twitter} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{ minWidth: "30px" }} src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
-            {token.discord ? <a href={token.discord} className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{ minWidth: "30px" }} src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
+            {token.website ? <a href={token.website} target='_blank' className={`${styles["fis"]} ${styles["white"]} ${styles["nomargin"]}`}><Globe className={styles["fi"]} /></a> : <></>}
+            {token.twitter ? <a href={token.twitter} target='_blank' className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{ minWidth: "30px" }} src="/new-twitter.png" className={styles["fu"]} /></a> : <></>}
+            {token.discord ? <a href={token.discord} target='_blank' className={`${styles["fus"]} ${styles["white"]} ${styles["nomargin"]}`}><img style={{ minWidth: "30px" }} src="/new-discord.png" className={styles["fo"]} /></a> : <></>}
           </div>
         </Td>
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" fontSize={["13px", "13px", "15px", "15px"]} py={["5px", "5px", "5px", "5px", "15px"]}>
           {token.id ?
-            <img style={{ margin: "0px auto" }} src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> :
+            <Image style={{ margin: "0px auto" }} w={["200%", "200%", "150%", "80%"]} maxWidth="200%" src={"https://mobulaspark.com/spark?id=" + token.id + '.svg'} className={styles["chart-image"]} /> :
             token.isMyAsset ? <Button ml={["0%", "0%", "30px"]} color="white" borderRadius="8px" w={["100%", "100%", "80%"]} h="30px" fontSize="xs" fontWeight="md" bg="blue" onClick={() => router.push('/list')}>List this asset</Button> : <></>}
         </Td>
       </Tr>
-    </Tbody>
+    </Tbody >
   )
 };
 export default Token

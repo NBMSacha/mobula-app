@@ -45,7 +45,7 @@ export default function Select({ visible, setVisible, selectToken, oldToken }) {
                 .select('name,rank,symbol,logo,market_cap,contracts,blockchains')
                 .or('name.ilike.' + search + '%,symbol.ilike.' + search + '%,name.ilike.' + search,)
                 .order('market_cap', { ascending: false })
-                .limit(10)
+                .limit(5)
 
             if (names && names.length > 0) {
                 names = names.map(name => {
