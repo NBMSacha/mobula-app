@@ -5,6 +5,8 @@ import { Spinner } from '@chakra-ui/react'
 import { ChakraProvider, Input, Stack, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button } from '@chakra-ui/react'
 import axios from 'axios';
 import { RadioGroup } from '@chakra-ui/react'
+import { AddIcon } from "@chakra-ui/icons"
+
 function Left({
     ipfs,
     symbol,
@@ -24,6 +26,7 @@ function Left({
     isSum,
     setIsSum
 }) {
+    
 
     const handleInputChangeContract = (e, index) => {
         const { name, value } = e.target;
@@ -153,7 +156,7 @@ function Left({
                                 onChange={e => { handleInputChangeContract(e, i) }}
                             />
                             <div className="btn-box">
-                                {inputListContract.length - 1 === i && <Button bg="var(--inputs)" w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}>+</Button>}
+                                {inputListContract.length - 1 === i && <Button w="30px" right="0px" top="-2px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}><AddIcon boxSize="10px"/></Button>}
                             </div>
                         </>
                     );
@@ -176,7 +179,6 @@ function Left({
             <div className={styles["form-container-box"]}>
                 <label >Description *</label>
                 <Textarea
-                
                     pl="10px"
                     pr="10px"
                     fontSize="13px"

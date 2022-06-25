@@ -35,6 +35,11 @@ export const ButtonStyles = {
             color: "white",
             boxShadow: "1px 2px 12px 3px var(--shadow)"
         }),
+        elections: (props) => ({
+            bg: "var(--elections)",
+            color: "white",
+            boxShadow: "1px 2px 12px 3px var(--shadow)"
+        }),
     },
     // default values for `size` and `variant`
     defaultProps: {

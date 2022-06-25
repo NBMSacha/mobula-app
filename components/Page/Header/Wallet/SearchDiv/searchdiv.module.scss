@@ -269,7 +269,8 @@
   }
 
   .search-flex {
-    border-bottom: 1px solid #181f48;
+    border-bottom: 1px solid var(--box_border)
+    ;
   }
 
   .token-names {

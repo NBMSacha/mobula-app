@@ -1,22 +1,25 @@
 .scroll::-webkit-scrollbar {
-    width: 5px; /* width of the entire scrollbar */
-    
-  }
+  width: 5px; /* width of the entire scrollbar */
+  display:none;
   
-  .scroll::-webkit-scrollbar-track {
-    border-radius: 0px 10px 10px 0px
-    
-  }
-  
-  .scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
-    border-radius: 20px; /* roundness of the scroll thumb */
-    background:grey
-    
-  }
+}
 
-@media screen and (max-width: 1320px) {
+.scroll::-webkit-scrollbar-track {
+  display:none;
+  border-radius: 0px 10px 10px 0px
+  
+}
+
+.scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  display:none;
+  background:grey
+  
+}
+
+@media screen and (max-width: 1480px) {
     .scroll{
-        max-height:205px !important
+        max-height:235px !important
     }
 }
 

@@ -1,4 +1,3 @@
-
 export function on(obj, ...args) {
     obj.addEventListener(...args)
   }

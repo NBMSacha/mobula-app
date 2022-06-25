@@ -1,15 +1,18 @@
 .scroll::-webkit-scrollbar {
     width: 5px; /* width of the entire scrollbar */
+    display:none;
     
   }
   
   .scroll::-webkit-scrollbar-track {
+    display:none;
     border-radius: 0px 10px 10px 0px
     
   }
   
   .scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
     border-radius: 20px; /* roundness of the scroll thumb */
+    display:none;
     background:grey
     
   }

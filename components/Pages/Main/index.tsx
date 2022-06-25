@@ -26,6 +26,7 @@ import {
 } from '@chakra-ui/react'
 import ConnectWallet from "../../Utils/ConnectWallet"
 import Data from "../../Utils/Data";
+import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -181,85 +182,57 @@ function News(props: any) {
     <>
 
       {/* PAGE 1 */}
-      <div className={styles["main-news"]}>
+      <div className={styles["main-news"]} >
         <MainBlock setDisplay={setDisplay} />
-        <Flex bg="var(--gradient)"display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px">
-          {props.gainers && props.gainers.length >= 3 ?
-            <GainerBlock
-              title={'Top Gainers'}
-              logo1={props.gainers[0].logo}
-              name1={props.gainers[0].name}
-              id1={props.gainers[0].id}
-              change1={props.gainers[0].price_change_24h.toFixed(2)}
-              logo2={props.gainers[1].logo}
-              name2={props.gainers[1].name}
-              id2={props.gainers[1].id}
-              change2={props.gainers[1].price_change_24h.toFixed(2)}
-              logo3={props.gainers[2].logo}
-              name3={props.gainers[2].name}
-              id3={props.gainers[2].id}
-              change3={props.gainers[2].price_change_24h.toFixed(2)}
-            /> : <GainerBlock
-              title={'Top Gainers'}
-              logo1={''}
-              name1={'Loading...'}
-              id1={0}
-              change1={0}
-              logo2={''}
-              name2={'Loading...'}
-              id2={0}
-              change2={0}
-              logo3={''}
-              name3={'Loading...'}
-              id3={0}
-              change3={0} />}
-          {/* @ts-ignore */}
-          {props.trendings && props.trendings.length > 0 ? <GainerBlock
-            title={'Trendings'}
-            logo1={props.trendings[0].logo}
-            name1={props.trendings[0].name}
-            id1={props.trendings[0].id}
+        <Flex bg="var(--gradient)"display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px" >
+          <Flex  w="100%" justify="space-around" maxWidth="1750px"> 
+            {props.gainers && props.gainers.length >= 3 ?
+              <GainerBlock
+                title={'Top Gainers'}
+                logo1={props.gainers[0].logo}
+                name1={props.gainers[0].name}
+                id1={props.gainers[0].id}
+                change1={props.gainers[0].price_change_24h.toFixed(2)}
+                logo2={props.gainers[1].logo}
+                name2={props.gainers[1].name}
+                id2={props.gainers[1].id}
+                change2={props.gainers[1].price_change_24h.toFixed(2)}
+                logo3={props.gainers[2].logo}
+                name3={props.gainers[2].name}
+                id3={props.gainers[2].id}
+                change3={props.gainers[2].price_change_24h.toFixed(2)}
+              /> : <GainerBlock
+                title={'Top Gainers'}
+                logo1={''}
+                name1={'Loading...'}
+                id1={0}
+                change1={0}
+                logo2={''}
+                name2={'Loading...'}
+                id2={0}
+                change2={0}
+                logo3={''}
+                name3={'Loading...'}
+                id3={0}
+                change3={0} />}
+            {/* @ts-ignore */}
+            {props.trendings && props.trendings.length > 0 ? <GainerBlock
+              title={'Trendings'}
+              logo1={props.trendings[0].logo}
+              name1={props.trendings[0].name}
+              id1={props.trendings[0].id}
 
-            change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
-            logo2={props.trendings[1].logo}
-            name2={props.trendings[1].name}
-            id2={props.trendings[1].id}
-            change2={props.trendings[1]?.price_change_24h?.toFixed(2)}
-            logo3={props.trendings[2].logo}
-            name3={props.trendings[2].name}
-            id3={props.trendings[2].id}
-            change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
-          /> : <GainerBlock
-            title={'Trendings'}
-            logo1={''}
-            name1={'Loading...'}
-            id1={0}
-            change1={0}
-            logo2={''}
-            name2={'Loading...'}
-            id2={0}
-            change2={0}
-            logo3={''}
-            name3={'Loading...'}
-            id3={0}
-            change3={0} />}
-          {props.recents && props.recents.length > 0 ?
-            <GainerBlock
-              title={'Recently Added'}
-              logo1={props.recents[0].logo}
-              name1={props.recents[0].name}
-              id1={props.recents[0].id}
-              change1={props.recents[0].price_change_24h.toFixed(2)}
-              logo2={props.recents[1].logo}
-              name2={props.recents[1].name}
-              id2={props.recents[1].id}
-              change2={props.recents[1].price_change_24h.toFixed(2)}
-              logo3={props.recents[2].logo}
-              name3={props.recents[2].name}
-              id3={props.recents[2].id}
-              change3={props.recents[2].price_change_24h.toFixed(2)}
+              change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
+              logo2={props.trendings[1].logo}
+              name2={props.trendings[1].name}
+              id2={props.trendings[1].id}
+              change2={props.trendings[1]?.price_change_24h?.toFixed(2)}
+              logo3={props.trendings[2].logo}
+              name3={props.trendings[2].name}
+              id3={props.trendings[2].id}
+              change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
             /> : <GainerBlock
-              title={'Recently Added'}
+              title={'Trendings'}
               logo1={''}
               name1={'Loading...'}
               id1={0}
@@ -272,6 +245,36 @@ function News(props: any) {
               name3={'Loading...'}
               id3={0}
               change3={0} />}
+            {props.recents && props.recents.length > 0 ?
+              <GainerBlock
+                title={'Recently Added'}
+                logo1={props.recents[0].logo}
+                name1={props.recents[0].name}
+                id1={props.recents[0].id}
+                change1={props.recents[0].price_change_24h.toFixed(2)}
+                logo2={props.recents[1].logo}
+                name2={props.recents[1].name}
+                id2={props.recents[1].id}
+                change2={props.recents[1].price_change_24h.toFixed(2)}
+                logo3={props.recents[2].logo}
+                name3={props.recents[2].name}
+                id3={props.recents[2].id}
+                change3={props.recents[2].price_change_24h.toFixed(2)}
+              /> : <GainerBlock
+                title={'Recently Added'}
+                logo1={''}
+                name1={'Loading...'}
+                id1={0}
+                change1={0}
+                logo2={''}
+                name2={'Loading...'}
+                id2={0}
+                change2={0}
+                logo3={''}
+                name3={'Loading...'}
+                id3={0}
+                change3={0} />}
+              </Flex>
         </Flex>
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
@@ -283,22 +286,44 @@ function News(props: any) {
           {/* <Data /> */}
           <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
 
-            <Thead textTransform="capitalize" fontFamily="Poppins" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
+            <Thead textTransform="capitalize" fontFamily="Inter" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
               <Tr className={styles[""]}>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>Rank</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Poppins" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} style={{ background:"var(--table)" }}>Asset</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric p={['15px 20px','15px 20px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>Price</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
-                  {textResponsive ? (
-                    <p>24h %</p>
-                  ) : (
-                    <p>Change (24h)</p>
-                  )}
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
+                    Rank
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
                 </Th>
-                <Th fontSize={['12px', "12px","14x","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>Market cap</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>{display == 'My Assets' ? 'Balance' : 'Volume (24h)'}</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>Socials</Th>
-                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Poppins" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>Chart</Th>
+                <Th fontSize={['12px', "12px","14px","14px"]}  fontFamily="Inter" textTransform="capitalize" px={["15px","15px","20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} bg="var(--tables)" zIndex="33" style={{ background:"var(--table)" }}>
+                    Asset
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={['15px 5px','15px 5px', 6,6]} px={["5px","5px","20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
+                    Price
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px","5px","20px", "20px"]} ref={percentageRef}>
+                  {textResponsive ?  "24h %" : "Change (24h)"}
+                      <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                      <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14x","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
+                    Market cap 
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
+                    {display == 'My Assets' ? 'Balance' : 'Volume (24h)'}
+                    <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />} />
+                    <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} />
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>
+                    Socials
+                </Th>
+                <Th fontSize={['12px', "12px","14px","14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+                    Chart
+                </Th>
               </Tr>
             </Thead>
 

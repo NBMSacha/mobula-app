@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { ethers } from 'ethers'
@@ -9,7 +9,10 @@ import Tendance from './Tendance'
 import { createClient } from '@supabase/supabase-js'
 import styles from './header.module.scss'
 import { useRouter } from 'next/router';
+import { Box } from "@chakra-ui/react"
 import { ThemeContext } from '../../../pages/_app';
+
+import { off, on } from './Utils'
 
 function Header(props: any) {
   const [metrics, setMetrics] = useState({
@@ -23,7 +26,7 @@ function Header(props: any) {
   const injected = new InjectedConnector({})
   const router = useRouter()
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
-
+  const [isMenuMobile, setIsMenuMobile] = useState(false)
   const isNoEthereumObject = (err) => {
     return NO_ETHEREUM_OBJECT.test(err)
   }
@@ -118,15 +121,38 @@ function Header(props: any) {
       })
   }, [])
 
+
+  let prevScroll
+ 
+  if (process.browser) {
+    prevScroll = window.pageYOffset
+  }
+  
+  const [scrollingUp, setScrollingUp] = useState(false)
+
+  const handleScroll = () => {
+    const currScroll = window.pageYOffset
+    const isScrolled = prevScroll > currScroll && currScroll !== 0
+    setScrollingUp(isScrolled)
+    prevScroll = currScroll
+  }
+  useEffect(() => {
+    on(window, 'scroll', handleScroll, { passive: true })
+    return () => {
+      off(window, 'scroll', handleScroll, { passive: true })
+    }
+  }, [])
   return (
     <>
-      <div className={styles['header']}>
+    <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+      <div className={styles['header']} >
         <div className={styles['main']}>
           <Brand />
           <Link />
-          <Wallet />
+          <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile}/>
         </div>
       </div>
+    </Box>
       <Tendance
         listings={metrics['7d_listings']}
         dao={metrics.total_dao_members}

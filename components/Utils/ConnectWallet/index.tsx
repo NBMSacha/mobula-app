@@ -93,6 +93,7 @@ export default function ConnectWallet({ visible, setVisible }) {
     return (
         <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={visible ? "flex" : "none"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
             <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
+
                 <Text>Connect Wallet</Text>
                 <Button onClick={() => setVisible(false)}><CloseIcon /></Button>
             </Flex>

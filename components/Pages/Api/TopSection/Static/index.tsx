@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Flex, Text, Button, useColorModeValue } from '@chakra-ui/react';
-import { CheckCircleIcon } from "@chakra-ui/icons"
 import { Pocket, CheckCircle } from "react-feather";
 
 const Static = () => {
@@ -25,7 +24,7 @@ const Static = () => {
                 <CheckCircle height="20px"/>
                 <Text ml="5px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Audits & KYCs</Text>
             </Flex>
-            <Button variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
+            <Button  _focus={{boxShadow:"none"}} variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
                 <Text  fontSize={["12px","12px","14px","14px"]}  color="blue">Request</Text>
             </Button>
         </Flex>

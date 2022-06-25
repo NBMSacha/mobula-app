@@ -60,7 +60,7 @@ export const ThemeProvider = ({ children }) => {
     root?.style.setProperty("--circle", newValue == 'dark' ? "#E9E9E9" : "white");
     root?.style.setProperty("--data-gradient", newValue == 'dark' ? "linear-gradient(180deg, rgba(92, 125, 249, 0.19) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%);" : "linear-gradient(180deg, rgba(92, 125, 249, 0.03) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%)")
     root?.style.setProperty("--connect-menu", newValue == 'dark' ? "#1C1F34" : "#F5F5F5");
-
+    root?.style.setProperty("--elections", newValue == 'dark' ? "#273051" : "#5C7DF9");
     // SHADOW
     root?.style.setProperty("--shadow", newValue == 'dark' ? "none" : "rgba(208, 214, 227, 0.3)");
     root?.style.setProperty("--widget-shadow", newValue == 'dark' ? "#161b2e" : "rgba(208, 214, 227, 0.3)");
@@ -68,9 +68,16 @@ export const ThemeProvider = ({ children }) => {
     // BTN BLOCKCHAIN
     root?.style.setProperty("--box_primary", newValue == 'dark' ? "#151929" : "#F2F2F2");
     root?.style.setProperty("--box_active", newValue == 'dark' ? "#273051" : "#FFFFFF");
+
+    // BTN ELECTIONS
+   
+    
+
     // border BTN
     root?.style.setProperty("--box_border_active", newValue == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
     root?.style.setProperty("--box_border", newValue == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
+    root?.style.setProperty("--daily-border", newValue == 'dark' ? "#191D2D" : "#E5E5E5");
+
 
     // EARN SEARCH ASSET
     root?.style.setProperty("--box-secondary", newValue == 'dark' ? "rgba(41, 44, 56, 0.3)" : "#F5F5F5");

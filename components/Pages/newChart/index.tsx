@@ -26,7 +26,6 @@ import MobileInfo from "./MobileInfo"
 import { ThemeContext } from '../../../pages/_app';
 
 const Token = ({ baseAssetBuffer }) => {
-    const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.29)")
     const [selector, setSelector] = useState("price")
     const router = useRouter()
     const [timeFormat, setTimeFormat] = useState('7D')
@@ -537,17 +536,14 @@ const Token = ({ baseAssetBuffer }) => {
         }
     }
 
-    const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
-    const shadowbis = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
-    const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
     return (
 
-        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px">
+        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px" maxWidth="1450px">
             {/* Left */}
             <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
                 {/* Token Information Top */}
-                <TokenInfo totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} socialLink={socialLink} baseAsset={baseAsset} />
+                <TokenInfo totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
                 <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
                     {/* COMPO */}
                     <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset} />
@@ -562,16 +558,16 @@ const Token = ({ baseAssetBuffer }) => {
                         {moreStat ? "Show less stats" : "Show more stats"}
                     </Button>
                     <Flex fontWeight="400px" fontSize={["10px", "10px", "13px", "13px"]} mt="15px">
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : socialLink} onClick={() => { setSelector("price"); }}>Price</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : socialLink} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : socialLink} onClick={() => { setSelector("volume"); }}>Volume</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : socialLink} onClick={() => { setSelector("rank"); }}>Rank</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : socialLink} onClick={() => { setSelector("swap") }}>Swap</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "none"} onClick={() => { setSelector("price"); }}>Price</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "none"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "none"} onClick={() => { setSelector("volume"); }}>Volume</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "none"} onClick={() => { setSelector("rank"); }}>Rank</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "none"} onClick={() => { setSelector("swap") }}>Swap</Button>
                     </Flex>
                 </Flex>
                 {/* Chart Box */}
                 {selector !== "swap" ? (
-                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                 ) : (
                     <Flex justify="center" display={["flex", "flex", "flex", "none"]}>
                         <Swap baseAsset={baseAsset} />
@@ -587,7 +583,7 @@ const Token = ({ baseAssetBuffer }) => {
                 <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                        <Flex direction="column" h="100%" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
                             {baseAsset.contracts.map((contract: string, idx: number) => {
                                 return (
                                     <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />

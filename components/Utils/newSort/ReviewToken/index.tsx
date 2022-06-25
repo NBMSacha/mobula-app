@@ -35,7 +35,7 @@ function ReviewToken({token, changeDisplay, voteToken }) {
     }
 
     return (
-        <Flex className={styles["container"]} direction="column" m="auto" justify="center" mt="28px">
+        <Flex className={styles["container"]} direction="column" m="auto" justify="center" mt="28px" maxWidth="1400px">
             <Flex justify="center" direction={["column", "column", "column", "row"]} mb="10px">
                 {/* COIN INFO */}
                 <Flex w={["100%", "100%", "100%", "60%"]} direction="column" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px">
