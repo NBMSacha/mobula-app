@@ -21,12 +21,13 @@ function Gainers({ gainers }) {
                         <Tr position="relative">
                             <Td borderBottom="1px solid var(--box_border) !important" py={["5px", "5px", "5px", "5px"]} px="5px" position="sticky" left="0px"  bg={['var(--background)','var(--background)',"none","none"]} _hover={{ background: "none" }}>
                                 <Flex align="center"w="100%">
+                                    <Text opacity="1" mr="10px" display={["none","none","flex","flex"]}>{gainer.rank}</Text>
                                     <Image mr="15px" h="30px" borderRadius="50%" src={gainer.logo} />
                                     <Flex direction={["column", "column", "row", "row"]}>
                                         <Text minWidth="120px" whiteSpace="pre-wrap" mr="10px">{gainer.name.length > 15 ? formatName(gainer.name, 15) : gainer.name}</Text>
                                         <Flex>
-                                            <Text opacity="1" mr="10px">{gainer.rank}</Text>
-                                            <Text opacity="0.6">{gainer.symbol.length > 5 ? formatName(gainer.symbol, 5) : gainer.symbol}</Text>
+                                            <Text opacity="1" mr="10px" display={["flex","flex","none","none"]}>{gainer.rank}</Text>
+                                            <Text color="var(--text-grey)">{gainer.symbol.length > 5 ? formatName(gainer.symbol, 5) : gainer.symbol}</Text>
                                         </Flex>
                                     </Flex>
                                 </Flex>

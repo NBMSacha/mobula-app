@@ -43,7 +43,7 @@ function useOutsideAlerter(ref: any, setTriggerHook: any) {
   }, [ref])
 }
 
-function Wallet({ }) {
+function Wallet({ isMenuMobile, setIsMenuMobile }) {
   const [triggerSearch, setTriggerSearch] = useState(false)
   const wrapperRef = useRef(null)
   const [isMobile, setIsMobile] = useState(true);
@@ -52,6 +52,7 @@ function Wallet({ }) {
   const [connect, setConnect] = useState(false)
   const [close, setClose] = useState(false)
   const themeContext = useContext(ThemeContext);
+
 
 
   const NO_ETHEREUM_OBJECT = /No Ethereum provider was found on window.ethereum/
@@ -68,7 +69,12 @@ function Wallet({ }) {
     if (account && isAddress(account)) {
       fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
     }
+
   }, [account])
+
+  useEffect(() => {
+    console.log('setConnect', connect)
+  }, [connect])
 
   const [nav, setNav] = useState(false)
 
@@ -85,17 +91,16 @@ function Wallet({ }) {
   }
 
   const shadow = themeContext.colorMode == "light" ? "var(--chakra-colors-shadow)" : "none";
+
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
   const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
-  const colorSunMoon = themeContext.colorMode == "light" ? "sun_moon_color" : "bg_white"
 
   useOutsideAlerter(wrapperRef, setTriggerSearch)
 
   return (
     <>
-
       <Flex className={styles['relative']} >
-        <Flex bg="var(--box-secondary)" boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
+        <Flex bg="var(--box-secondary)" transition="background 200ms ease-in-out" _hover={{ background: 'var(--box_active)', transition: "background 200ms ease-in-out" }} boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
           <span
             style={{ 'marginRight': '5px' }}
@@ -106,6 +111,21 @@ function Wallet({ }) {
           <Flex display={triggerSearch ? "none" : "flex"} onClick={() => router.push('/earn')} justify="center" align="center" position="absolute" bg="#32C784" borderRadius='50%' top="-9px" right="-9px" className={styles["notif-earn"]}>
             <Text fontSize="12px" color="white" >+1</Text>
           </Flex>
+        </Flex>
+        <Flex height="100%" align="center" display={["flex", "flex", "none", "none"]}>
+          <IconButton
+            _focus={{ boxShadow: "none" }}
+            onClick={() => {
+              themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
+            }}
+            aria-label='Call Segun'
+            size='md'
+            borderRadius="12px"
+            opacity=".5"
+            bg="none"
+            ml={["0px", "0px", "0px", "20px"]}
+            icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
+          />
         </Flex>
         <Flex align="center" ml={["20px", "20px", "20px", isLargerThan1080 ? "0px" : "20px"]} borderRadius="10px" bg={["none", "none", "none", "var(--box-secondary)"]} mr="20px" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} w={["30px", "30px", "30px", isLargerThan1180 ? "190px" : "160px"]} >
           <FiSearch
@@ -121,7 +141,6 @@ function Wallet({ }) {
             _placeholder={{ color: "none" }}
             onClick={() => {
               setTriggerSearch(true)
-
             }}
             bg="none"
             w={["0px", "0px", "auto", "auto"]}
@@ -134,6 +153,7 @@ function Wallet({ }) {
           className={styles['connect-wallet-btn']}
           onClick={() => {
             setConnect(true)
+            console.log('detected')
           }}
         >
           {active
@@ -146,7 +166,7 @@ function Wallet({ }) {
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
         <Flex height="100%" align="center" display={["none", "none", "none", "flex"]}>
           <IconButton
-            boxShadow={`1px 2px 12px 3px ${shadow}`}
+            opacity=".5"
             _focus={{ boxShadow: "none" }}
             onClick={() => {
               themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
@@ -154,7 +174,6 @@ function Wallet({ }) {
             aria-label='Call Segun'
             size='md'
             borderRadius="12px"
-            color={colorSunMoon}
             bg="none"
             ml={["0px", "0px", "0px", "20px"]}
             mr={["20px", "20px", "20px", "0px"]}
@@ -163,16 +182,19 @@ function Wallet({ }) {
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-        {connect && (
-          <ConnectWallet close={close} setClose={setClose} />
-        )}
+        {connect ?
+          <ConnectWallet visible={connect} setVisible={setConnect} /> : <></>
+        }
 
         <button
           className={styles['hamburger-btn']}
           id='btnParent'
-          onClick={() => mobileNav()}
+          onClick={() => {
+            console.log(`Is menu Mobile Appear ? => ${!isMenuMobile}`)
+            setIsMenuMobile(!isMenuMobile)
+          }}
         >
-          {nav ? (
+          {isMenuMobile ? (
             <X className={styles['hamburger']} />
           ) : (
             <><Menu className={styles['hamburger']} /> <Circle width="10px" fill={'#32C784'} className={styles['new']}></Circle></>
@@ -181,7 +203,7 @@ function Wallet({ }) {
 
       </Flex>
 
-      <MenuMobile connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
+      <MenuMobile isMenuMobile={isMenuMobile} connect={connect} setConnect={setConnect} close={close} setClose={setClose} />
     </>
   )
 }

@@ -35,7 +35,7 @@ const Swap = ({ baseAsset }) => {
                 </Flex>
             </Box>
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
-                <Button bg="blue" color="white" mt={["15px", "15px", "30px", "30px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
+                <Button _focus={{ boxShadow: "none" }} bg="blue" color="white" mt={["15px", "15px", "30px", "30px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
                     onClick={() => {
                         alert.show('The swap aggregator will be released 06/25.')
                         axios.get('https://mobulaspark.com/swap')

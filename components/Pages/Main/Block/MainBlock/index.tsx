@@ -17,7 +17,7 @@ function MainBlock(props: any) {
   if (!isMobile) {
 
     return (
-      <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden">
+      <Flex align="center" w={["100%", "100%", "90%", "90%"]} justify="space-between" pt={[3, 3, 50, 50]} pb={[50, 50, 50, 5]} direction={["column", "column", "row", "row"]} overflow="hidden" maxWidth="1700px">
         <Flex boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} w={["95%", "95%", "auto", "auto"]} direction="column" justify="center" mr={["auto", "auto", "auto", "50px"]} ml={["auto", "auto", "10px", "10px"]} borderRadius="10px" p={["10px 15px", "10px 15px", "auto", "auto"]} mb={["15px", "15px", "auto", "auto"]} bg={["none", "none", "none", "none"]} >
           <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles['title-news']}>Crypto assets by Mobula</Text>
           <Text fontFamily="Poppins" fontSize={["12px", "12px", "16px", "16px"]} maxWidth="500px" color="subtitle" mt={["10px","10px","20px","20px"]} className={styles['subtitle-news']}>
@@ -29,13 +29,13 @@ function MainBlock(props: any) {
           </Text>
         </Flex>
         <Box w={["100%", "100%", "58%", "58%"]} boxShadow={[`0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`, "none", "none"]} ml="10px" mb={["15px", "15px", "30px", "30px"]} borderRadius="15px">
-          <Flex overflow="auto" >
+          <Flex overflow="auto" className={styles["scroll"]} >
             <Flex justify="center">
               <div style={{ marginRight: "10px" }}>
                 <a href='/earn'>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
-                    mr="10px" bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]} >
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}}  py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                    mr="10px" bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]} >
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='fullicon.png' />
                     </div>
@@ -51,9 +51,9 @@ function MainBlock(props: any) {
                 <a onClick={() => {
                   props.setDisplay('My Assets')
                 }}>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
-                    bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                    bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='portfolio.png'></img>
                     </div>
@@ -67,9 +67,9 @@ function MainBlock(props: any) {
               </div>
               <div >
                 <a href='https://discord.gg/2a8hqNzkzN'>
-                  <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
-                    bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 10px"]} borderRadius="12px"
-                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "232px"]}>
+                  <Flex transition="background 200ms ease-in-out" _hover={{background:'var(--box_active)', transition:"background 200ms ease-in-out", cursor: "pointer"}} py={2} boxShadow={[`0px 1px 12px 3px var(--shadow)`]} border={["1px solid rgba(122, 122, 122, 0.1)"]}
+                    bg={["var(--bg-main-box)"]} m={["auto", "auto", "auto", "20px 0px"]} borderRadius="12px"
+                    position="relative" align="center" p={isSmalerThan1560 ? 1 : 2} fontSize="14px" minWidth={["180px", "180px", "210px", "244px"]}>
                     <div className={styles['logo-box']}>
                       <img className={styles.inside} src='Imagedao.png'></img>
                     </div>

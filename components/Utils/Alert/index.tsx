@@ -6,14 +6,14 @@ import { InfoIcon, CloseIcon, QuestionIcon, WarningIcon } from "@chakra-ui/icons
 const buttonStyle = {
     marginLeft: 'auto',
     border: 'none',
-    marginRight:"20px",
-    marginTop:"10px",
+    marginRight: "20px",
+    marginTop: "10px",
     backgroundColor: 'transparent',
     cursor: 'pointer',
-    color: '#FFFFFF'
+    color: 'var(--text-primary)'
 }
 
-export const AlertTemplate = ({ message, options, style, close, darkTheme }) => {
+export const AlertTemplate = ({ message, options, style, close }) => {
     return (
         <Flex w="300px" h="140px" direction="column" p="0px" position="absolute" top="-700px" right="0px" bg="var(--background)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
             {options.type === 'info' && (
@@ -26,11 +26,11 @@ export const AlertTemplate = ({ message, options, style, close, darkTheme }) => 
                 </Flex>
             )}
             {options.type === 'success' && (
-                <Flex borderTop="10px solid #F5BC00" w="100%" > 
+                <Flex borderTop="10px solid #F5BC00" w="100%" >
                     <Flex ml="10px" mt="10px" mr="10px"><InfoIcon /></Flex>
                     <Text mt="10px" ml="0px">Warning</Text>
                     <button onClick={close} style={buttonStyle} >
-                        <CloseIcon  fontSize="15px" color="none" bg="none" />
+                        <CloseIcon fontSize="15px" color="none" bg="none" />
                     </button>
                 </Flex>
             )}
@@ -43,9 +43,6 @@ export const AlertTemplate = ({ message, options, style, close, darkTheme }) => 
                     </button>
                 </Flex>
             )}
-
-            <span style={{ flex: 2, fontSize:"14px", marginLeft: "20px", marginTop: "10px", opacity: .7}}>{message}</span>
-            
         </Flex>
     )
 }

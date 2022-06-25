@@ -35,16 +35,20 @@ const MobileInfo = ({ baseAsset, moreStat, totalScore }) => {
                         </Flex>
                         <Flex opacity=".6" align="center" mt="10px" mb="15px">
                             <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Reliability</Text>
-                                <Text mr="25px">{baseAsset.trust_score}/5</Text>
+                                <Text mr="8px">Reliability</Text>
+                                <Text mr="15px">{baseAsset.trust_score}/5</Text>
                             </Flex>
                             <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Market</Text>
-                                <Text mr="25px">{baseAsset.market_score}/5</Text>
+                                <Text mr="8px">Market</Text>
+                                <Text mr="15px">{baseAsset.market_score}/5</Text>
                             </Flex>
                             <Flex fontSize="9px" align="center" >
-                                <Text mr="15px">Utility</Text>
-                                <Text mr="25px">{baseAsset.utility_score}/5</Text>
+                                <Text mr="8px">Utility</Text>
+                                <Text mr="15px">{baseAsset.utility_score}/5</Text>
+                            </Flex>
+                            <Flex fontSize="9px" align="center" >
+                                <Text mr="8px">Social</Text>
+                                <Text mr="0px">{baseAsset.social_score}/5</Text>
                             </Flex>
                         </Flex>
                     </>

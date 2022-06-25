@@ -24,7 +24,7 @@ function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displaye
                                 <Text fontSize={["12px", "12px", "15px", "15px"]} color="blue">New</Text>
                             </Flex>
                             <Text py={["15px", "15px", "25px", "25px"]} fontSize={["10px", "10px", "14px", "14px"]}>{token.description}</Text>
-                            <Button mb="10px" fontSize={["12px", "12px", "15px", "15px"]} onClick={() => setDisplayedToken(token.id)} borderRadius="8px" bg="var(--background)" py="7px" px="20px">Review and vote</Button>
+                            <Button boxShadow="1px 2px 13px 3px var(--shadow)" mb="10px" fontSize={["12px", "12px", "15px", "15px"]} onClick={() => setDisplayedToken(token.id)} borderRadius="8px" bg="var(--background)" py="7px" px="20px">Review and vote</Button>
                         </Box>
             })}
         </Flex>

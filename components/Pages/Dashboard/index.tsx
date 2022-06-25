@@ -201,9 +201,9 @@ console.log(validated)
 
             {/* RANK DISPLAY MOBILE */}
 
-            {mobile ? (
+            
               <>
-              <Flex w="95%" direction="column"  borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+              <Flex display={["flex","flex","none","none"]} w="95%" direction="column"  borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
 
                 {/* Rank I Stats */}
                 <Flex w={['95%', '95%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
@@ -319,22 +319,23 @@ console.log(validated)
               </Flex>
               
               </>
-            ) : (
-              // DESKTOP RANK 
-              <Flex w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
+           
+              
+              <Flex display={["none", "none", "flex", "flex"]} w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
                 <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
                   <RankStats title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
                   <RankStats title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
                 </Flex>
                 <History validated={validated} recentlyAdded={recentlyAdded} />
               </Flex>
-            )}
+         
 
             <Box className={styles["size-box"]} ml="5px">
               {/* DAO Faucet */}
               <Flex >
-                {mobile ? (
+               
                   <Flex
+                    display={["flex","flex","none","none"]}
                     p='5px'
                     borderRadius="10px"
                     boxShadow={`0px 1px 12px 3px var(--shadow)`}
@@ -406,10 +407,10 @@ console.log(validated)
                     </Flex>
                   </Flex>
                   
-                ) : (
+           
 
-                  // DAO FAUCET DESKTOP
                   <Flex
+                  display={["none", "none", "flex","flex"]}
                     className={styles["padding-resp"]}
                     direction={["column-reverse", "column-reverse", "column", "column"]}
                     bg={["none", "none", "var(--bg-governance-box)", "var(--bg-governance-box)"]}
@@ -483,7 +484,7 @@ console.log(validated)
                                                  </Button>
                     </Flex>
                   </Flex>
-                )}
+          
               </Flex>
               {/* TITLE LEADERBOARD */}
               <Box display={["none","none","block","block"]}>

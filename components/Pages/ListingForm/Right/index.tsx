@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from "../ListingForm.module.scss";
 import { Input, Flex, Button, Text } from '@chakra-ui/react';
 import { Spinner } from '@chakra-ui/react';
+import { AddIcon } from "@chakra-ui/icons"
 
 function Right({
     audit,
@@ -104,7 +105,7 @@ function Right({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <Button bg="var(--inputs)" w="30px" right="0px" top="37px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}>+</Button>}
+                                {inputList.length - 1 === i && <Button bg="none" w="30px" right="0px" top="-3px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}><AddIcon boxSize="10px"/></Button>}
                             </div>
                         </>
                     );

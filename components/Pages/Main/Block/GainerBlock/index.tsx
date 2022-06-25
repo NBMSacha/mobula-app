@@ -40,7 +40,7 @@ function GainerBlock(tokens: {
         </div>
       )}
 
-      <Flex bg="var(--bg-secondary-box)" border="2px solid var(--box_border)" className={styles['gainer-container']} borderRadius="25px" mt="15px">
+      <Flex  bg="var(--bg-secondary-box)" border="2px solid var(--box_border)" className={styles['gainer-container']} borderRadius="25px" mt="15px">
         <div className={styles['left-gainer']}>
           <Flex mt="0px" className={styles['line-gainer']} onClick={() => router.push('/asset/' + getUrlFromName(tokens.name1))}>
             <div className={styles['token-info-pack']}>
