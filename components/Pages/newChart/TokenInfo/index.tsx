@@ -84,8 +84,8 @@ const TokenInfo = ({ baseAsset, setSelectorInfo, selectorInfo, totalScore }) => 
                             <Box bg="green" h="100%" w="45%" borderRadius="8px"></Box>
                         </Flex>
                         <Flex mt="3px" justify="space-between" fontWeight="300">
-                            <Text fontSize={["8px","8px","9px","9px"]}>ATL $152</Text>
-                            <Text fontSize={["8px","8px","9px","9px"]}>ATH $42582</Text>
+                            <Text fontSize={["8px","8px","9px","9px"]}>ATL $???</Text>
+                            <Text fontSize={["8px","8px","9px","9px"]}>ATH $???</Text>
                         </Flex>
                     </Flex>
                     
