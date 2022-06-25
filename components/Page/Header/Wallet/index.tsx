@@ -71,20 +71,6 @@ function Wallet({ isMenuMobile, setIsMenuMobile}) {
     }
   }, [account])
 
-  const [nav, setNav] = useState(false)
-
-  async function mobileNav() {
-    const nav = document.getElementById('mobileNav') as any
-    if (nav.style.display == 'none') {
-      nav.style.display = 'block'
-      setNav(true)
-    } else {
-      nav.style.display = 'none'
-      setNav(false)
-    }
-    await nav
-  }
-
   const [isLargerThan1180] = useMediaQuery('(min-width: 1180px)')
   const [isLargerThan1080] = useMediaQuery('(min-width: 1090px)')
 
