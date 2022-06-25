@@ -68,7 +68,12 @@ function Wallet({ }) {
     if (account && isAddress(account)) {
       fetch('https://mobulaspark.com/connection?account=' + account + '&ref=' + router.query.ref)
     }
+
   }, [account])
+
+  useEffect(() => {
+    console.log('setConnect', connect)
+  }, [connect])
 
   const [nav, setNav] = useState(false)
 
@@ -93,7 +98,6 @@ function Wallet({ }) {
 
   return (
     <>
-
       <Flex className={styles['relative']} >
         <Flex bg="var(--box-secondary)" boxShadow="1px 2px 13px 3px var(--shadow)" onClick={() => router.push('/earn')} justify="center" align="center" className={styles['earn']} position='relative' >
           <img src='/fullicon.png' className={styles["image-earn"]} />
@@ -134,6 +138,7 @@ function Wallet({ }) {
           className={styles['connect-wallet-btn']}
           onClick={() => {
             setConnect(true)
+            console.log('detected')
           }}
         >
           {active
@@ -163,9 +168,9 @@ function Wallet({ }) {
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-        {connect && (
-          <ConnectWallet close={close} setClose={setClose} />
-        )}
+        {connect ?
+          <ConnectWallet visible={connect} setVisible={setConnect} /> : <></>
+        }
 
         <button
           className={styles['hamburger-btn']}
