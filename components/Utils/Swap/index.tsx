@@ -202,7 +202,9 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         })
                 }, 300)
 
-                return () => clearTimeout(delayDebounceFn)
+                return () => {
+                    clearTimeout(delayDebounceFn)
+                }
             }
         }
 
@@ -234,7 +236,9 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         })
                 }, 300)
 
-                return () => clearTimeout(delayDebounceFn)
+                return () => {
+                    clearTimeout(delayDebounceFn)
+                }
             }
         }
 
