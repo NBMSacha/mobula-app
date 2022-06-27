@@ -337,8 +337,8 @@ function Dashboard() {
 
             <Flex display={["none", "none", "flex", "flex"]} w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
               <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
-                <RankStats title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
-                <RankStats title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
+                <RankStats web3React={web3React} title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
+                <RankStats web3React={web3React} title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
               </Flex>
               <History validated={validated} recentlyAdded={recentlyAdded} />
             </Flex>
@@ -409,7 +409,7 @@ function Dashboard() {
                           if (e.data && e.data.message) {
                             alert.error(e.data.message)
                           } else {
-                            alert.error('Something went wrong.')
+                            // alert.error('Something went wrong.')
                           }
                         }
                       }}
@@ -484,7 +484,7 @@ function Dashboard() {
                           if (e.data && e.data.message) {
                             alert.error(e.data.message)
                           } else {
-                            alert.error('Something went wrong.')
+                            // alert.error('Something went wrong.')
                           }
                         }
                       }}
