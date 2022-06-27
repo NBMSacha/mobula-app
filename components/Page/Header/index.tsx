@@ -121,22 +121,12 @@ function Header(props: any) {
       })
   }, [])
 
-  let prevScroll
- 
-  if (process.browser) {
-    prevScroll = window.pageYOffset
-  }
-
   const [scrollingUp, setScrollingUp] = useState(false)
 
   const handleScroll = () => {
     if (isMenuMobile) {
       window.scrollTo(0, 0);
     }
-    const currScroll = window.pageYOffset
-    const isScrolled = prevScroll > currScroll && currScroll !== 0
-    setScrollingUp(isScrolled)
-    prevScroll = currScroll
   }
 
   useEffect(() => {
@@ -145,6 +135,7 @@ function Header(props: any) {
       off(window, 'scroll', handleScroll, { passive: true })
     }
   }, [isMenuMobile])
+  
   return (
     <>
     <Box bg="var(--background)" zIndex="15" position={[isMenuMobile ? "fixed" : "static" , isMenuMobile ? "fixed" : "static" ,isMenuMobile ? "fixed" : "static" ,,scrollingUp ? "fixed" : "static"]} w={["100%", "100%", "100%", "100vw"]}  className={`${scrollingUp ? 'stickyHeader' : ''}`}>
