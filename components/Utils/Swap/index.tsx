@@ -8,6 +8,7 @@ import ConnectWallet from '../ConnectWallet';
 import Select from './Select';
 import { ethers } from 'ethers';
 import { getBlockchainFromId, mobulaRouter, supportedRPCs, tokensPerBlockchain } from '../../../constants';
+import styles from "./Swap.module.scss"
 
 const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOutBuffer?: any }) => {
     const alert = useAlert()
@@ -277,12 +278,14 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
             </Box >
             <Box ml="auto" mr="auto" mt="20px" mb="20px"
                 cursor='pointer'
-                onMouseEnter={() => setArrow(true)}
-                onMouseLeave={() => setArrow(false)}
+                
+                
                 color='var(--text-primary)'
+                className={styles["transform"]}
                 onClick={() => {
                     setTokenOut(tokenIn)
                     setTokenIn(tokenOut)
+                    setArrow(!arrow)
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box>
             {/* @ts-ignore */}
