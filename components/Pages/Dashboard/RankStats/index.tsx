@@ -4,7 +4,7 @@ import { PROTOCOL_ADDRESS } from "../../../../constants"
 import styles from '../dashboard.module.scss'
 import { useAlert } from 'react-alert'
 
-function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
+function RankStats({ title, tokensOwed, goodChoices, badChoices, web3React }) {
     const alert = useAlert()
 
     return (<Flex
@@ -29,12 +29,12 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
                 <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" mr="5px" >Correct Decisions</Text>
                 <Flex color="green" align="center" justify="center" fontWeight='800' h="45px" bg={["none", "none", "var(--bg-governance-box-decision)", "var(--bg-governance-box-decision)"]} boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {goodChoices}</Flex>
             </Flex>
-            <Flex  direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
-                <Text  color={["#4C4C4C", "#4C4C4C", "red", "red"]} mb={2} whiteSpace="nowrap" ml="5px">Wrong Decisions</Text>
-                <Flex color="red"  align="center"  justify="center" h="45px" fontWeight='800' bg={["none", "none", "var(--bg-governance-box-decision)", "var(--bg-governance-box-decision)"]} boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
+            <Flex direction={["row", "row", "column", "column"]} fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
+                <Text color={["#4C4C4C", "#4C4C4C", "red", "red"]} mb={2} whiteSpace="nowrap" ml="5px">Wrong Decisions</Text>
+                <Flex color="red" align="center" justify="center" h="45px" fontWeight='800' bg={["none", "none", "var(--bg-governance-box-decision)", "var(--bg-governance-box-decision)"]} boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {badChoices}</Flex>
             </Flex>
         </Flex>
-        <Box fontSize='15px'  mb={5}>
+        <Box fontSize='15px' mb={5}>
             <Text mb={2} textAlign="center" fontSize="13px" bottom="60px" color="var(--protocol)" position={["absolute", "absolute", "initial", "initial"]}> The Protocol currently owes you <span className={styles["color-mobl"]}>{tokensOwed + '  $MOBL'}</span></Text>
         </Box>
         <Flex
@@ -42,12 +42,12 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
             mx="auto"
             justifyContent={['center', 'center', 'center', 'center']}
             className={styles["buttons-claim-box"]}
-          
+
             borderRadius='12px'
         >
             {' '}
             <Button
-                _focus={{boxShadow:"none"}}
+                _focus={{ boxShadow: "none" }}
                 variant="blue"
                 className={styles["buttons-claim"]}
                 borderRadius='12px'
@@ -56,9 +56,7 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
                     e.preventDefault()
 
                     try {
-                        var provider = new ethers.providers.Web3Provider(
-                            (window as any).ethereum
-                        )
+                        var provider = new ethers.providers.Web3Provider(web3React.library.provider);
                         var signer = provider.getSigner()
                     } catch (e) {
                         alert.show(
@@ -87,7 +85,7 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices }) {
             >
                 <Flex justify="center" align="center">
                     <Text ml="15px" mr="15px">Claim Rewards</Text>
-                
+
                 </Flex>
             </Button>
         </Flex>

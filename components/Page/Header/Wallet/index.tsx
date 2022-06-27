@@ -133,6 +133,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
             style={{ marginRight: "10px" }}
             onClick={() => {
               setTriggerSearch(true)
+              setIsMenuMobile(false)
             }}
           />
           <Input

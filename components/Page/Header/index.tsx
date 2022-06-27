@@ -121,8 +121,6 @@ function Header(props: any) {
       })
   }, [])
 
-
-
   const [scrollingUp, setScrollingUp] = useState(false)
 
   const handleScroll = () => {
@@ -137,15 +135,16 @@ function Header(props: any) {
       off(window, 'scroll', handleScroll, { passive: true })
     }
   }, [isMenuMobile])
+  
   return (
     <>
-      <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
-        <div className={styles['header']} >
-          <div className={styles['main']}>
-            <Brand />
-            <Link />
-            <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile} />
-          </div>
+    <Box bg="var(--background)" zIndex="15" position={[isMenuMobile ? "fixed" : "static" , isMenuMobile ? "fixed" : "static" ,isMenuMobile ? "fixed" : "static" ,,scrollingUp ? "fixed" : "static"]} w={["100%", "100%", "100%", "100vw"]}  className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+      <div className={styles['header']} >
+        <div className={styles['main']}>
+          <Brand />
+          <Link />
+          <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile}/>
+        </div>
         </div>
       </Box>
       <Tendance

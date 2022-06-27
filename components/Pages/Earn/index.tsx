@@ -8,12 +8,13 @@ import { CheckCircle } from 'react-feather';
 import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
 import { getUrlFromName } from '../../../helpers/formaters'
+import { useWeb3React } from '@web3-react/core'
 
 function Earn() {
     const [copied, setCopied] = useState(false)
     const [user, setUser]: [any, Function] = useState({ tasks_done: [], referred: [] });
     const [tasks, setTasks] = useState([])
-    const [account, setAccount] = useState('');
+    const { account, active } = useWeb3React()
     const alert = useAlert();
 
     const claim = () => {
@@ -63,12 +64,8 @@ function Earn() {
         if (account) {
             setCopied(true)
             navigator.clipboard.writeText('https://mobula.fi?ref=' + account)
-        } else {
-            alert.show('You must connect your wallet.')
         }
     }
-
-    var provider: any
 
     async function initValues() {
         const supabase = createClient(
@@ -77,38 +74,36 @@ function Earn() {
         )
 
         supabase.from('earn').select('*').order('created_at', { ascending: false }).then(r => {
-            console.log('YOOOO')
-            console.log(r)
             if (r?.data) {
                 console.log(r.data)
                 setTasks(r.data)
             }
         })
 
-        try {
-            provider = new ethers.providers.Web3Provider((window as any).ethereum)
-            const accounts = await provider.listAccounts()
-
-            if (accounts[0]) {
-                setAccount(accounts[0])
-
-                supabase.from('users').select('*').match({ address: accounts[0] }).then(r => {
-                    if (r?.data?.[0]) {
-                        console.log(r.data[0])
-                        setUser(r.data[0])
-                    }
-                })
+        supabase.from('users').select('*').match({ address: account }).then(r => {
+            if (r?.data?.[0]) {
+                setUser(r.data[0])
             }
-
-        } catch (e) {
-            alert.show('You must connect your wallet to access your Dashboard.')
-            console.log(e)
-        }
+        })
     }
 
     useEffect(() => {
-        initValues()
-    }, [])
+        console.log('TA MAX DAROONNNE')
+        console.log(account, active)
+        if (account) {
+            initValues()
+        } else {
+            console.log('TA MAX HHIH')
+            const timeout = setTimeout(() => {
+                console.log('hi')
+                alert.show('You must connect your wallet to earn MOBL.')
+            }, 300)
+            return () => {
+                console.log('ok, somthing weird')
+                clearTimeout(timeout)
+            }
+        }
+    }, [account])
 
     const [isLessThan11300px] = useMediaQuery('(max-width: 1300px)')
 
@@ -127,7 +122,7 @@ function Earn() {
                     <Text fontWeight="bold" textAlign="start" w="85%" m="0px" display={["flex", "flex", "flex", "none"]} mb="10px">Earn</Text>
                     <Flex justify="space-between">
                         <Button fontSize="12px" ml="20px" borderRadius="8px" color="none" h="25px" px="3">Balance : {user.balance || 0} MOBL</Button>
-                     
+
                     </Flex>
                 </Flex>
 
@@ -220,7 +215,7 @@ function Earn() {
                                     {tasks.map((task, index: number) => {
                                         if (user.tasks_done.includes(task.id)) {
                                             return <Flex align="center" mb="30px">
-                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center"  borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
+                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle color="var(--chakra-colors-green)" width="22px" />
                                                 </Box>
                                                 <Flex justify={["start", "start", "start", "space-between"]} w="100%">
@@ -230,7 +225,7 @@ function Earn() {
                                             </Flex>
                                         } else if (!index && !user.tasks_done.length) {
                                             return <Flex align="center" mb="30px">
-                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center"  borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
+                                                <Box cursor="pointer" mr={["10px", "10px", "30px", "30px"]} alignItems="center" justifyContent="center" borderRadius="7px" ml={["10px", "10px", "10px", 5]} px="8px" py="5px" className="noneDis">
                                                     <CheckCircle color="var(--chakra-colors-green)" width="22px" />
                                                 </Box>
                                                 <Flex justify={["start", "start", "start", "space-between"]} w="100%">

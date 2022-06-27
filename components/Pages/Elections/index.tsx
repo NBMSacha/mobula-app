@@ -5,11 +5,13 @@ import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
 import Left from "./Left"
 import Mid from "./Mid"
 import Right from "./Right"
+import { getBlockchainFromId, mobulaRouter, supportedRPCs, tokensPerBlockchain } from '../../../constants';
 import {
     Heading,
     Text,
     Flex,
 } from "@chakra-ui/react";
+import { useWeb3React } from '@web3-react/core'
 import Vote from "./Vote";
 
 function Elections() {
@@ -20,15 +22,13 @@ function Elections() {
     const [membersToDemoteTwo, setMembersToDemoteTwo] = useState(0);
     const [promoteAddress, setPromoteAddress] = useState("");
     const [demoteAddress, setDemoteAddress] = useState("");
-    var provider: any;
-    var account: string;
+    const web3React = useWeb3React()
+
     async function initValues() {
 
         try {
-            const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-            const accounts = await provider.listAccounts();
-            account = accounts[0];
-
+            const RPC = supportedRPCs.filter(entry => entry.name == getBlockchainFromId[web3React.chainId])[0];
+            const provider = new ethers.providers.JsonRpcProvider(RPC);
             const protocolContract = new ethers.Contract(
                 PROTOCOL_ADDRESS,
                 [

@@ -30,7 +30,8 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
     console.log(prizePerDay(day), mobile)
     return (
         <>
-            <Flex bg={(streaks == day ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
+            <Flex bg={(streaks == day && (!user.last_claim || Date.parse(user.last_claim) + 20 * 60 * 60 * 1000 < Date.now()) ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
+                opacity={streaks >= day ? '1' : '0.1'}
                 boxShadow={`1px 2px 12px 3px var(--shadow)`}
                 borderRadius='10px'
                 justify='center'
@@ -38,20 +39,20 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
                 cursor={streaks == day ? 'pointer' : ''}
                 flexDir={'column'}
                 onClick={() => {
-                    if (streaks == day) {
-                        fetch('https://mobulaspark.com/streak?account=' + account)
-                            .then(r => r.json())
-                            .then(r => {
-                                if (r.success) {
-                                    alert.success('Successfully claimed your MOBL. ')
-                                    const bufferUser = { ...user };
-                                    bufferUser.balance += prizePerDay(day);
-                                    setUser(bufferUser)
-                                } else {
-                                    alert.show('You already claim today\'s rewards.')
-                                }
-                            })
-                    }
+                    fetch('https://mobulaspark.com/streak?account=' + account)
+                        .then(r => r.json())
+                        .then(r => {
+                            if (r.success) {
+                                alert.success('Successfully claimed your MOBL. ')
+                                const bufferUser = { ...user };
+                                bufferUser.balance += prizePerDay(day);
+                                bufferUser.streaks += 1;
+                                bufferUser.last_claim = Date.now()
+                                setUser(bufferUser)
+                            } else {
+                                alert.show(r.error)
+                            }
+                        })
                 }}
             >
                 <Text fontSize='13px' fontWeight='800' color="white" className={styles["day-text"]}>Day {day}</Text>

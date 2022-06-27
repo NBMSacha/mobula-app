@@ -3,22 +3,22 @@ import styles from "../ListingForm.module.scss";
 import { Input, Flex } from '@chakra-ui/react';
 
 function Mid({
-        website,
-        setWebsite,
-        twitter,
-        setTwitter,
-        discord,
-        setDiscord,
-        telegram,
-        setTelegram,
-    }) {
+    website,
+    setWebsite,
+    twitter,
+    setTwitter,
+    discord,
+    setDiscord,
+    telegram,
+    setTelegram,
+}) {
 
-        console.log(`this is website : ${website}`)
+    console.log(`this is website : ${website}`)
 
     return (
         <Flex className={styles["three-forms"]} p="20px" >
             <div className={styles["form-container-box"]}>
-                <label >Website *</label>
+                <label >Website</label>
                 <Input
                     pl="10px"
                     pr="10px"
@@ -35,7 +35,7 @@ function Mid({
                 />
             </div>
             <div className={styles["form-container-box"]}>
-                <label >Twitter *</label>
+                <label >Twitter</label>
                 <Input
                     pl="10px"
                     pr="10px"
@@ -52,7 +52,7 @@ function Mid({
                 />
             </div>
             <div className={styles["form-container-box"]}>
-                <label >Telegram *</label>
+                <label >Telegram</label>
                 <Input
                     pl="10px"
                     pr="10px"
@@ -69,7 +69,7 @@ function Mid({
                 />
             </div>
             <div className={styles["form-container-box"]} >
-                <label >Discord *</label>
+                <label >Discord</label>
                 <Input
                     pl="10px"
                     pr="10px"

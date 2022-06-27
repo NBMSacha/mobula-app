@@ -82,7 +82,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     {/* Progress bar */}
                     <Flex direction="column" w="100%">
                         <Flex h={["3px", "3px", "5px", "5px"]} w="100%" bg="#87878720" borderRadius="8px">
-                            <Box bg="green" h="100%" w={((baseAsset.price - price24hLow) / (price24hHigh - price24hLow)) * 100 + "%"} borderRadius="8px"></Box>
+                            <Box bg={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"} h="100%" w={((baseAsset.price - price24hLow) / (price24hHigh - price24hLow)) * 100 + "%"} borderRadius="8px"></Box>
                         </Flex>
                         <Flex mt="3px" justify="space-between" fontWeight="300">
                             <Text fontSize={["8px", "8px", "9px", "9px"]}>Low: ${getFormatedAmount(price24hLow)}</Text>
