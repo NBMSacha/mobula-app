@@ -201,7 +201,7 @@ function News(props: any) {
       <div className={styles["main-news"]} >
         <MainBlock setDisplay={setDisplay} />
         <Flex bg="var(--gradient)" display={["none", "none", "flex", "flex"]} w="100%" justify="space-around" px="50px" pb="50px" >
-          <Flex w="100%" justify="space-around" maxWidth="1750px">
+          <Flex w="100%" justify="space-around" maxWidth="1750px" mb="10px">
             {props.gainers && props.gainers.length >= 3 ?
               <GainerBlock
                 title={'Top Gainers'}
@@ -305,11 +305,11 @@ function News(props: any) {
               <Tr className={styles[""]}>
                 <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
                   Rank
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'rank', ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'rank', ascending: true })
                     }} />
@@ -319,44 +319,44 @@ function News(props: any) {
                 </Th>
                 <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={['15px 5px', '15px 5px', 6, 6]} px={["5px", "5px", "20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
                   Price
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'price', ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'price', ascending: true })
                     }} />
                 </Th>
                 <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px", "5px", "20px", "20px"]} ref={percentageRef}>
                   {textResponsive ? "24h %" : "Change (24h)"}
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'price_change_24h', ascending: false })
                     }}
                   />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'price_change_24h', ascending: true })
                     }} />
                 </Th>
                 <Th fontSize={['12px', "12px", "14x", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
                   Market cap
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'market_cap', ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} onClick={() => {
+                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} onClick={() => {
                     setOrderBy({ type: 'market_cap', ascending: true })
                   }} />
                 </Th>
                 <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
                   {display == 'My Assets' ? 'Balance' : 'Volume (24h)'}
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'volume', ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
                       setOrderBy({ type: 'volume', ascending: true })
                     }} />
