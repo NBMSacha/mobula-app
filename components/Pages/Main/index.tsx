@@ -297,7 +297,7 @@ function News(props: any) {
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
       {/* PAGE 2 */}
-      <AdvancedSetting />
+      {/* <AdvancedSetting /> */}
       <div className={styles["tables-main-container"]}>
 
         <TableContainer bg="var(--table)" display="flex" flexDirection="column" alignItems="center">
