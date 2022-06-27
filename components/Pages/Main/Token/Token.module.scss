@@ -162,6 +162,14 @@
 }
 
 
+.hover-child{
+  border-bottom:1px solid rgba(122, 122, 122, .1) !important
+  
+}
+
+.tbodys:hover{
+  background: var(--box_active) !important;
+}
 
 @media screen and (max-width: 768px) {
   .media-icons {
@@ -181,9 +189,15 @@
     padding: 15px 10px 15px 10px !important;
   }
 
+  .tbodys:hover > tr > .hover-child {
+   background: var(--box_active) !important;
+   align-items:center; 
+   border-bottom:1px solid rgba(122, 122, 122, .3) !important
+  }
 
-
-
+  .hover-child{
+    border-bottom:1px solid rgba(122, 122, 122, .1) !important
+  }
 
   .wrap-name {
     margin-right: 0px;
@@ -197,7 +211,7 @@
  
 
   .tbodys:hover {
-    background: var(--btn-hover)
+    background: var(--box_active)
   }
 
   .tbodys tr {

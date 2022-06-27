@@ -21,12 +21,11 @@ import { CSSReset, useMediaQuery } from '@chakra-ui/react'
 import ChartBox from "./Chart"
 import Contract from "../../Utils/Contract"
 import styles from './newChart.module.scss';
-import Swap from "./Swap"
+import Swap from "../../Utils/Swap"
 import MobileInfo from "./MobileInfo"
 import { ThemeContext } from '../../../pages/_app';
 
 const Token = ({ baseAssetBuffer }) => {
-    const socialLink = useColorModeValue("none", "rgba(41, 44, 56, 0.29)")
     const [selector, setSelector] = useState("price")
     const router = useRouter()
     const [timeFormat, setTimeFormat] = useState('7D')
@@ -53,7 +52,13 @@ const Token = ({ baseAssetBuffer }) => {
             '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                 .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
         }
+
+        console.log(unformattedInitialBuffer['price']['1D'].map(entry => entry[1]))
+        console.log(Math.min(unformattedInitialBuffer['price']['1D'].map(entry => entry[1])))
     })
+
+    const price24hLow = Math.min(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
+    const price24hHigh = Math.max(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
 
     const [unformattedBuffer, setUnformattedBuffer]: [any, Function] = useState(unformattedInitialBuffer)
     const { asset } = router.query;
@@ -154,12 +159,10 @@ const Token = ({ baseAssetBuffer }) => {
                 0,
                 0,
                 0,
-                isMobile ? 100 : isGiant ? 300 : 200
+                isMobile ? 200 : isGiant ? 300 : 200
             )
             gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
             gradient.addColorStop(1, isWinner ? '#00ba7c00' : '#d8494a00')
-
-            console.log(data);
 
             if (selector == 'rank') {
                 var { ATH, ATL } = getExtremes(data);
@@ -194,8 +197,6 @@ const Token = ({ baseAssetBuffer }) => {
                 },
             ];
 
-            console.log('DATA DUMPED');
-
             (window as any).chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -208,7 +209,7 @@ const Token = ({ baseAssetBuffer }) => {
                             borderColor: isWinner ? '#00ba7c' : '#EA3943',
                             tension: 0.6,
                             backgroundColor: gradient,
-                            borderWidth: 2,
+                            borderWidth: isMobile ? 3 : 2,
                             pointRadius: 0,
                             maintainAspectRatio: false,
                             steppedLine: selector == 'rank' ? 'middle' : false
@@ -217,12 +218,13 @@ const Token = ({ baseAssetBuffer }) => {
                 },
                 options: {
                     responsive: true,
+                    aspectRatio: isMobile ? 1 : 2,
                     interaction: {
                         intersect: false,
                         axis: 'x'
                     },
                     animation: {
-                        duration: 0,
+                        duration: 750,
                     },
                     tooltips: false,
                     legend: {
@@ -266,87 +268,104 @@ const Token = ({ baseAssetBuffer }) => {
                 ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
             }
 
-            console.log('Created chart instance')
+            const stableSelector = selector != 'rank'
+            const { chartArea: { left, right, top, bottom }, scales } = (window as any).chartInstance;
 
-            const crosshairLine = (chart: any, mousemove: any) => {
-                const { canvas, ctx, chartArea: { left, right, top, bottom }, data, scales } = chart;
-                chart.update(null);
-                ctx.restore();
+            var crosshairLine = (mousemove: any) => {
+                if (stableSelector) {
+                    (window as any).chartInstance.update(null);
+                    ctx.restore();
 
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = isWinner ? '#00ba7c' : '#D8494A';
-                const currentData = unformattedBuffer[selector][timeFormat];
-                const x = scales["x-axis-0"];
-                const y = scales["y-axis-0"];
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = isWinner ? '#00ba7c' : '#D8494A';
+                    const currentData = unformattedBuffer[selector][timeFormat];
+                    const x = scales["x-axis-0"];
+                    const y = scales["y-axis-0"];
+                    const tick = x.getValueForPixel(mousemove.offsetX);
 
-                const tick = x.getValueForPixel(mousemove.offsetX);
+                    try {
+                        const [[timestamp1, value1], [timestamp2, value2]] = getClosestUltimate(currentData, tick._i);
+                        const pixel1 = y.getPixelForValue(value1);
+                        const pixel2 = y.getPixelForValue(value2);
 
-                try {
-                    const [[timestamp1, value1], [timestamp2, value2]] = getClosestUltimate(currentData, tick._i);
-                    const pixel1 = y.getPixelForValue(value1);
-                    const pixel2 = y.getPixelForValue(value2);
+                        const finalPixel = pixel1 + ((pixel2 - pixel1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+                        const finalPrice = value1 + ((value2 - value1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+                        const h = Math.max(finalPixel - 100, top + 20)
 
-                    const finalPixel = pixel1 + ((pixel2 - pixel1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
-                    const finalPrice = value1 + ((value2 - value1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
-                    const h = Math.max(finalPixel - 100, top + 20)
+                        ctx.beginPath();
+                        if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
+                            ctx.moveTo(mousemove.offsetX, h);
+                            ctx.lineTo(mousemove.offsetX, finalPixel);
+                            ctx.stroke();
+                        }
+                        ctx.closePath();
 
-                    ctx.beginPath();
-                    if (mousemove.offsetX >= left && mousemove.offsetX <= right) {
-                        ctx.moveTo(mousemove.offsetX, h);
-                        ctx.lineTo(mousemove.offsetX, finalPixel);
-                        ctx.stroke();
+                        const shouldBeRight = mousemove.offsetX < (right - 100);
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'white'
+                        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+                        ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, 45 * Math.PI / 180, 0, 2 * Math.PI);
+                        ctx.fill();
+                        ctx.stroke()
+                        ctx.closePath();
+
+                        ctx.font = '15px Inter';
+                        ctx.fillStyle = "white";
+                        ctx.textBaseline = "middle";
+                        ctx.textAlign = "left";
+
+                        let price = '$' + getShortenedAmount(finalPrice / 1000000000, 5);
+
+                        const rectWidth = ctx.measureText(price).width + 20
+                        roundRect(ctx, mousemove.offsetX - (shouldBeRight ? 0 : rectWidth), h - 15, rectWidth, 30, 15, true);
+
+                        ctx.beginPath();
+                        ctx.strokeStyle = 'white'
+                        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+                        ctx.ellipse(mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth), h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
+                        ctx.closePath();
+
+                        ctx.fillStyle = 'grey'
+                        ctx.fillText(price, mousemove.offsetX + 15 - (shouldBeRight ? 0 : rectWidth), h)
+
+                    } catch (e) {
+                        console.log(e)
                     }
-                    ctx.closePath();
-
-                    const shouldBeRight = mousemove.offsetX < (right - 100);
-
-
-                    ctx.beginPath();
-                    ctx.strokeStyle = 'white'
-                    ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
-                    ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, 45 * Math.PI / 180, 0, 2 * Math.PI);
-                    ctx.fill();
-                    ctx.stroke()
-                    ctx.closePath();
-
-                    ctx.font = '15px Inter';
-                    ctx.fillStyle = "white";
-                    ctx.textBaseline = "middle";
-                    ctx.textAlign = "left";
-
-                    let price = '$' + getShortenedAmount(finalPrice / 1000000000, 1);
-
-                    const rectWidth = ctx.measureText(price).width + 20
-                    roundRect(ctx, mousemove.offsetX - (shouldBeRight ? 0 : rectWidth), h - 15, rectWidth, 30, 15, true);
-
-
-                    ctx.beginPath();
-                    ctx.strokeStyle = 'white'
-                    ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
-                    ctx.ellipse(mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth), h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
-                    ctx.closePath();
-
-                    ctx.fillStyle = 'grey'
-                    ctx.fillText(price, mousemove.offsetX + 15 - (shouldBeRight ? 0 : rectWidth), h)
-
-                } catch (e) {
-                    console.log(e)
                 }
-
             }
 
-            (window as any).chartInstance.canvas.addEventListener('mousemove', (e) => {
+            const handleMouseMove = (e) => {
                 if (selector != 'rank') {
-                    crosshairLine((window as any).chartInstance, e)
+                    crosshairLine(e)
                 } else {
-                    if (allTimeDiff == 0 && selector == 'rank') {
+                    if (allTimeDiff == 0) {
                         ctx.font = '20px Inter';
-                        ctx.strokeStyle = 'white';
-                        ctx.fillStyle = 'white';
+                        ctx.strokeStyle = themeContext.colorMode == "light" ? "black" : "white";
+                        ctx.fillStyle = themeContext.colorMode == "light" ? "black" : "white";
                         ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
                     }
                 }
-            });
+            }
+
+            (window as any).chartInstance.canvas.onmousemove = handleMouseMove;
+
+            const handleTouchMove = (e) => {
+                if (selector != 'rank') {
+                    var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+                    const touch = evt?.touches[0] || evt?.changedTouches[0];
+                    crosshairLine({ offsetX: Math.floor(touch.pageX - left), offsetY: Math.floor(touch.pageY - top) })
+                } else {
+                    if (allTimeDiff == 0 && selector == 'rank') {
+                        ctx.font = '20px Inter';
+                        ctx.strokeStyle = themeContext.colorMode == "light" ? "black" : "white";
+                        ctx.fillStyle = themeContext.colorMode == "light" ? "black" : "white";
+                        ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
+                    }
+                }
+            }
+
+            (window as any).chartInstance.canvas.ontouchmove = handleTouchMove;
 
 
         } catch (e) {
@@ -537,17 +556,14 @@ const Token = ({ baseAssetBuffer }) => {
         }
     }
 
-    const bgChart = useColorModeValue("#F5F5F5", "#171B2B")
-    const shadowbis = useColorModeValue("var(--chakra-colors-shadow)", "none")
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
-    const border = useColorModeValue("1px solid rgba(229, 229, 229, 0.6)", "none")
     return (
 
-        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px">
+        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px" maxWidth="1450px">
             {/* Left */}
             <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
                 {/* Token Information Top */}
-                <TokenInfo totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} socialLink={socialLink} baseAsset={baseAsset} />
+                <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
                 <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
                     {/* COMPO */}
                     <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset} />
@@ -562,19 +578,19 @@ const Token = ({ baseAssetBuffer }) => {
                         {moreStat ? "Show less stats" : "Show more stats"}
                     </Button>
                     <Flex fontWeight="400px" fontSize={["10px", "10px", "13px", "13px"]} mt="15px">
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : socialLink} onClick={() => { setSelector("price"); }}>Price</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : socialLink} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : socialLink} onClick={() => { setSelector("volume"); }}>Volume</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : socialLink} onClick={() => { setSelector("rank"); }}>Rank</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : socialLink} onClick={() => { setSelector("swap") }}>Swap</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "none"} onClick={() => { setSelector("price"); }}>Price</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "none"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "none"} onClick={() => { setSelector("volume"); }}>Volume</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "none"} onClick={() => { setSelector("rank"); }}>Rank</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "none"} onClick={() => { setSelector("swap") }}>Buy</Button>
                     </Flex>
                 </Flex>
                 {/* Chart Box */}
                 {selector !== "swap" ? (
-                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} socialLink={socialLink} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                 ) : (
-                    <Flex justify="center" display={["flex", "flex", "flex", "none"]}>
-                        <Swap baseAsset={baseAsset} />
+                    <Flex w="90%" mr="auto" ml="auto" justify="center" display={["flex", "flex", "flex", "none"]} mt={["20px", "20px", "20px", "0px"]} >
+                        <Swap tokenOutBuffer={baseAsset} />
                     </Flex>
                 )}
 
@@ -582,12 +598,16 @@ const Token = ({ baseAssetBuffer }) => {
             {/* Right */}
             <Flex display={["none", "none", "none", "flex"]} direction="column" w="30%" mt="50px">
                 {/* SWAP */}
-                <Swap baseAsset={baseAsset} />
+                <Box ml={["0px", "0px", "0px", "10px"]} w="100%">
+
+                    <Swap tokenOutBuffer={baseAsset} />
+
+                </Box>
                 {/* Contract  */}
                 <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
                     <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
                     {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
+                        <Flex direction="column" h="100%" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
                             {baseAsset.contracts.map((contract: string, idx: number) => {
                                 return (
                                     <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />

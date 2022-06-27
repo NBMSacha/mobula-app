@@ -57,7 +57,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
     }, [settings, blockchain])
 
     return (
-        <div className={styles["main-container"]} style={{ marginBottom: "30px" }}>
+        <div className={styles["main-container"]} style={{maxWidth:"1850px", margin:"auto",marginBottom: "30px" }}>
             <div className={`${styles["both-container"]} ${styles["widths"]}`} style={{ flexDirection: "column" }}>
                 <Heading display={["flex", "flex", "none", "none"]} w="95%" className={styles["title-both"]} id="topGainer" mt="25px" mb="20px" fontSize="24px">{state === "gainers" ? "Top Gainers" : "Top Loosers"} </Heading>
                 <Flex align="center" justify="space-between" display={["flex", "flex", "none", "none"]} w="90%">

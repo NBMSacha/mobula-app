@@ -43,8 +43,8 @@ const Static = () => {
                     </Flex>
                 </Flex>
             </Flex>
-            <Button variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
-                <Text  fontSize="14px"  color="blue">Request</Text>
+            <Button _focus={{boxShadow:"none"}} variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
+                <Text  fontSize="14px" color="blue">Request</Text>
             </Button>
         </Flex>
     )

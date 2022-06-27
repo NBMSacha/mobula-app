@@ -15,8 +15,6 @@ import Historys from "./History"
 import Vote from "./Vote"
 import Power from "./Power"
 
-
-
 function Governance() {
     const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([<Input
         className="long"

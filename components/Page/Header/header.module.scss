@@ -24,6 +24,9 @@
   cursor: pointer;
 }
 
+
+
+
 .right {
   display: flex;
   align-items: center;
@@ -59,4 +62,9 @@
   .main{
     padding:6px 0px
   }
+}
+
+.sticky{
+  position:fixed;
+  top:0px
 }

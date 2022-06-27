@@ -53,7 +53,7 @@ function Link() {
 
         <span
           className={styles['link-common']}
-          onClick={() => (document.location.href = '/soon')}
+          onClick={() => (document.location.href = '/dex')}
         >
           DEX
         </span>

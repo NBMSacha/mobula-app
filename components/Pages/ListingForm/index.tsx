@@ -244,7 +244,7 @@ function ListAToken() {
             <div className={styles["listToken-container"]}>
 
                 <h2 className={styles["title"]} >Listing form</h2>
-                <Flex display={["none", "none", "none", "flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb="20px" mx="auto" w="80%" align="end" justify="space-between" >
+                <Flex maxWidth="1400px" display={["none", "none", "flex", "flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb={["20px","20px","0px","20px"]} mx="auto" w="80%" align="end" justify="space-between" >
                     <Flex direction="column">
                         <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Listing form</Heading>
                         <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
@@ -258,7 +258,7 @@ function ListAToken() {
                 </Flex>
 
                 {display == 'form' ?
-                    <Flex className={styles["listToken-main"]} bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
+                    <Flex className={styles["listToken-main"]} bg="var(--bg-governance-box)" maxWidth="1400px" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
                         <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >
                             <Left
                                 setSymbol={setSymbol}

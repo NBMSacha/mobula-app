@@ -33,10 +33,10 @@ export function getFormatedAmount(price: any) {
 
 }
 
-export function formatBigAmount(amount: number | string, precision?: number) {
+export function formatBigAmount(amount: number | string, precision = 3) {
     amount = formatAmount(parseInt(amount as string));
     let letter: string;
-    switch (amount.split(',').length - (precision || 0)) {
+    switch (amount.split(',').length) {
         case 1:
             letter = ''
             break
@@ -52,7 +52,7 @@ export function formatBigAmount(amount: number | string, precision?: number) {
     }
 
     if (precision) {
-        return amount.split(',')[0] + ',' + amount.split(',')[1] + letter;
+        return amount.split(',')[0] + '.' + amount.split(',').slice(1).join('').slice(0, precision - amount.split(',')[0].length) + letter;
     } else {
         return amount.split(',')[0] + letter;
     }
@@ -93,7 +93,7 @@ export function getTokenFormattedPrice(price: string | number, addOn: string = '
             price = parseFloat(String(price)).toFixed(String(price).includes('-') ? parseInt(String(price).split('-')[1]) + 2 : String(price).split('.')[1].length);
 
             const exp = price.match(/0\.0+[1-9]/)?.[0] || '';
-            return <Flex mt={marginTop || "-45px"} justify={justify || "center"} align="center">{addOn + price.split('.')[0] + '.0'} <Text mt='2.5%' fontSize={["xx-small", "small"]}>{exp.length - 3}</Text> {price.split(exp.slice(0, exp.length - 2))[1].slice(1, 10)}</Flex>;
+            return <Flex mt={marginTop || "-45px"} justify={justify || "center"} align="center">{addOn + price.split('.')[0] + '.0'} <Text mt='2.5%' fontSize={["xx-small", "small"]}>{exp.length - 3}</Text> {price.split(exp.slice(0, exp.length - 2))[1].slice(1, 6)}</Flex>;
         } else {
             return <>{addOn + price.slice(0, 8)}</>;
         }

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { formatName, getUrlFromName } from '../../../../../helpers/formaters'
 import styles from './GainerBlock.module.scss'
 import { getTokenPrice } from '../../../../../helpers/formaters';
-import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link, } from "@chakra-ui/react";
 function GainerBlock(tokens: {
   title: string
   logo1: string
@@ -24,21 +24,12 @@ function GainerBlock(tokens: {
   const router = useRouter()
   return (
     <Box className={styles['gainer-box']}>
-      {tokens.title === "Top Gainers" && (
-        <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
-        </div>
-      )}
-      {tokens.title === "Trendings" && (
-        <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
-        </div>
-      )}
-      {tokens.title === "Recently Added" && (
-        <div className={styles["container-title-flex"]}>
-          <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
-        </div>
-      )}
+      <div className={styles["container-title-flex"]}>
+        <h3 className={styles['gainer-main-title']}>{tokens.title}</h3>
+        <Link _focus={{ boxShadow: "none" }} cursor="pointer" color="grey" href={
+          tokens.title == 'Top Gainers' ? '/movers' : tokens.title == 'Trendings' ? 'trends' : 'new'
+        }>More {'>'}</Link>
+      </div>
 
       <Flex bg="var(--bg-secondary-box)" border="2px solid var(--box_border)" className={styles['gainer-container']} borderRadius="25px" mt="15px">
         <div className={styles['left-gainer']}>

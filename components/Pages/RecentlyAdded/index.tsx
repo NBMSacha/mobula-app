@@ -52,7 +52,7 @@ export default function RecentlyAdded({ tokensBuffer }) {
   }, [settings, blockchain])
 
   return (
-    <Flex justify="center">
+    <Flex justify="center" maxWidth="1850px" mx="auto">
       <div className={styles["dflex"]} >
         <Flex>
           <Text display={["flex", "flex", "none", "none"]} mb={'20px'} mt={'25px'}>Recently added</Text>
@@ -69,7 +69,7 @@ export default function RecentlyAdded({ tokensBuffer }) {
         </Flex>
         <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
         <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
-        <TableContainer mb="20px" mt="20px">
+        <TableContainer mb="20px" mt="20px" >
           <Table variant='simple'>
             <Thead borderTop={`2px solid var(--box_border)`} borderBottom="2px solid var(--box_border) !important" color="var(--text-grey)" fontSize={['12px', '12px', '16px', '16px']}>
               <Tr>
@@ -113,15 +113,16 @@ export default function RecentlyAdded({ tokensBuffer }) {
                 <Tr>
                   <Td borderBottom="1px solid var(--box_border) !important" px="5px" position="sticky" py="5px" left="0px" bg={["var(--background)", "var(--background)", "none"]} >
                     <Flex align="center">
+                      <Text pl="30px" opacity="1" mr="10px" display={["none", "none", "flex", "flex"]}>{token.rank}</Text>
                       <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]}  w={["25px", "25px", "30px", "30px"]}  src={token.logo} mr="10px" />
-                      <Flex direction={["column", "column", "row", "row"]}>
-                        <Text maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
+                      <Flex minWidth="120px" direction={["column", "column", "row", "row"]}>
+                        <Text display={["none", "none", "none", "flex"]} maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
+                        <Text display={["flex", "flex", "flex", "none"]}  whiteSpace="pre-wrap" textOverflow="ellipsis" mr="10px">{token.name}</Text>
                         <Flex>
-                          <Text opacity="1" mr="10px">{token.rank}</Text>
+                          <Text opacity="1" mr="10px" display={["flex", "flex", "none", "none"]}>{token.rank}</Text>
                           <Text opacity="0.6">{token.symbol}</Text>
                         </Flex>
                       </Flex>
-                      
                     </Flex>
                   </Td>
                   <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>

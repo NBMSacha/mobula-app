@@ -46,7 +46,7 @@ export default function Widget({ setSettings, visible, setVisible, settings }) {
 
     return (
         <>
-            <Flex display={visible ? 'flex' : 'none'} boxShadow="3px 5px 25px 10px var(--widget-shadow)" direction="column" align="center" w="350px" position="fixed" zIndex="10" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px" bg="var(--background)">
+            <Flex display={visible ? 'flex' : 'none'} boxShadow="3px 5px 25px 10px var(--widget-shadow)" direction="column" align="center" w={["90%","90%","350px","350px"]} position="fixed" zIndex="10" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px" bg="var(--background)">
                 <Flex w="90%" justify="space-between" align="center">
                     <Text mt="30px" w="80%" mb="20px" fontSize="15px">Token filtering settings</Text>
                     <X cursor='pointer' onClick={() => setVisible(false)} />

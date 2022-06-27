@@ -10,22 +10,18 @@ import { InjectedConnector } from "@web3-react/injected-connector"
 import { CloseIcon } from '@chakra-ui/icons'
 import { walletlink, bsc, injected, walletconnect, resetWalletConnector, trezor, ledger, portis } from "./Connector"
 
-export default function ConnectWallet({ close, setClose }) {
+export default function ConnectWallet({ visible, setVisible }) {
     const web3reactContext = useWeb3React();
-    const { active, account, library, connector, activate, deactivate } = useWeb3React();
-    const [accountAddress, setAccountAddress] = useState("")
 
     async function connectMetaMask() {
+        console.log('hee')
         try {
             await web3reactContext.activate(injected)
-            setAccountAddress(web3reactContext.account)
-            console.log(activate)
+            setVisible(false)
         } catch (err) {
             console.log(err)
         }
     }
-
-    console.log(accountAddress)
 
     async function disconnect() {
         try {
@@ -38,9 +34,8 @@ export default function ConnectWallet({ close, setClose }) {
     const connectWC = async () => {
         try {
             resetWalletConnector(walletconnect);
-            await web3reactContext.activate(walletconnect)
-            console.log(web3reactContext)
-            setAccountAddress(web3reactContext.account)
+            console.log(await web3reactContext.activate(walletconnect))
+            setVisible(false)
         } catch (err) {
             console.log(err)
         }
@@ -49,7 +44,8 @@ export default function ConnectWallet({ close, setClose }) {
     const connectCoinbase = async () => {
         try {
             await web3reactContext.activate(walletlink)
-            setAccountAddress(web3reactContext.account)
+            setVisible(false)
+
         } catch (err) {
             console.log(err)
         }
@@ -58,7 +54,7 @@ export default function ConnectWallet({ close, setClose }) {
     const connectBinanceWallet = async () => {
         try {
             await web3reactContext.activate(bsc)
-            setAccountAddress(web3reactContext.account)
+            setVisible(false)
         } catch (err) {
             console.log(err)
         }
@@ -67,7 +63,8 @@ export default function ConnectWallet({ close, setClose }) {
     const connectPortis = async () => {
         try {
             await web3reactContext.activate(portis)
-            setAccountAddress(web3reactContext.account)
+            setVisible(false)
+
         } catch (err) {
             console.log(err)
         }
@@ -76,7 +73,8 @@ export default function ConnectWallet({ close, setClose }) {
     const connectLedger = async () => {
         try {
             await web3reactContext.activate(ledger)
-            setAccountAddress(web3reactContext.account)
+            setVisible(false)
+
         } catch (err) {
             console.log(err)
         }
@@ -85,24 +83,21 @@ export default function ConnectWallet({ close, setClose }) {
     const connectTrezor = async () => {
         try {
             await web3reactContext.activate(trezor)
-            setAccountAddress(web3reactContext.account)
-            console.log(web3reactContext)
+            setVisible(false)
+
         } catch (err) {
             console.log(err)
         }
     }
 
     return (
-        <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={close ? "none" : "flex"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
-            <Flex  align="center" mt="20px" mb="20px" justify="space-between"  w="88%">
+        <Flex boxShadow='1px 2px 13px 3px var(--widget-shadow)' display={visible ? "flex" : "none"} direction="column" align="center" w="420px" position="fixed" zIndex="10" bg="var(--background)" top="50%" left="50%" transform='translateX(-50%) translateY(-50%)' m="auto" borderRadius="20px">
+            <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
+
                 <Text>Connect Wallet</Text>
-                <Button onClick={() => setClose(true)}><CloseIcon /></Button>
+                <Button onClick={() => setVisible(false)}><CloseIcon /></Button>
             </Flex>
-            <Flex align="center" h="60px" bg="var(--connect-menu)" mb="10px" boxShadow='1px 2px 13px 3px var(--shadow)' py="10px" px="20px" borderRadius="10px" w="88%" >
-                <Radio bg="var(--blue)" ></Radio>
-                <Text fontSize="12px" ml="20px">I have read, understand, and agree to the <span style={{ color: "#5C7DF9" }}>Terms of Service.</span></Text>
-            </Flex>
-            <Button  outline="none" _focus={{ boxShadow: "none" }} w="100%" onClick={connectMetaMask}>
+            <Button outline="none" _focus={{ boxShadow: "none" }} w="100%" onClick={connectMetaMask}>
                 <Flex align="center" _hover={{ background: "var(--box_active)" }} boxShadow='1px 2px 13px 3px var(--shadow)' h="60px" bg="var(--connect-menu)" mb="10px" py="10px" px="20px" borderRadius="10px" w="88%" >
                     <Image h="40px" src="/metamask.png" mr="15px" />
                     <Text>Metamask</Text>
@@ -133,7 +128,7 @@ export default function ConnectWallet({ close, setClose }) {
                 </Flex>
             </Button>
             <Button w="100%" _focus={{ boxShadow: "none" }} onClick={connectTrezor} >
-                <Flex align="center" h="60px" mb="30px" boxShadow='1px 2px 13px 3px var(--shadow)' _hover={{ background: "var(--box_active)", cursor: "pointer"}} bg="var(--connect-menu)" py="10px" px="20px" borderRadius="10px" w="88%">
+                <Flex align="center" h="60px" mb="30px" boxShadow='1px 2px 13px 3px var(--shadow)' _hover={{ background: "var(--box_active)", cursor: "pointer" }} bg="var(--connect-menu)" py="10px" px="20px" borderRadius="10px" w="88%">
                     <Image h="40px" borderRadius="full" src="/trezor.png" mr="15px" />
                     <Text>Trezor</Text>
                 </Flex>
