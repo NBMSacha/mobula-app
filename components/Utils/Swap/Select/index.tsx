@@ -78,7 +78,7 @@ export default function Select({ visible, setVisible, selectToken, oldToken }) {
                 <Text fontSize="large">Select a token</Text>
                 <Button onClick={() => setVisible(false)}><CloseIcon /></Button>
             </Flex>
-            <Input border="2px solid var(--box_border)" w="90%" p="20px" placeholder="Search a token name or address"
+            <Input border="2px solid var(--box_border)" w="90%" p="20px" placeholder="Search a token name or address" fontSize='16px'
                 _placeholder={{ color: "var(--text-primary)" }}
                 onChange={(e) => setToken(e.target.value)}
             />

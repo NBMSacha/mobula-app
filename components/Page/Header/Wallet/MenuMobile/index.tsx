@@ -79,76 +79,29 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile }) {
     }
   }, [account])
 
-  if (router.pathname.includes('dao')) {
-    return (
-      <>
-
-
-        <Flex
-          display={isMenuMobile ? "flex" : "none"}
-          className={styles['mobile-toolbar-container']}
-          id='mobileNav'
-          bg="var(--background) !important"
-          style={{ display: 'none' }}
-          zIndex={2000}
-        >
-          <div className={styles['mobile-linkTo']}>
-            <a href='dashboard' className={styles['linkTo']}>
-              <span className={styles['linkTo-tag']}>Dashboard</span>
-            </a>
-            <a href='elections' className={styles['linkTo']}>
-              <span className={styles['linkTo-tag']}>Elections</span>
-            </a>
-            <a href='sort' className={styles['linkTo']}>
-              <span className={styles['linkTo-tag']}>First Sort</span>
-            </a>
-            <a href='validation' className={styles['linkTo']}>
-              <span className={styles['linkTo-tag']}>Final Validation</span>
-            </a>
-          </div>
-          <div className={styles['connect-mobile-container']}>
-            <button className={styles['connect-wallet-mobile']} onClick={() => {
-              setConnect(true)
-            }}>
-              {active
-                ? account.substring(0, 4) +
-                '..' +
-                account.substring(account.length - 4, account.length)
-                : 'Connect...'}
-            </button>
-            <div className={styles['rank-mobile-box']}>
-              {active
-                ? <><span>Rank {ranked ? Number(ranked) : '0'}</span>
-                  <span>{walletBalance} MOBL</span></>
-                : ''}
-
-            </div>
-          </div>
-
-          {connect && (
-            <ConnectWallet visible={connect} setVisible={setConnect} />
-          )}
-
-
-
-          {active ?? <div className={styles['disconnect-wallet-mobile']}>
-            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-          </div>}
-
-        </Flex>
-      </>
-    )
-  } else {
-
-    return (
-      <>
-        <Flex
-          bg="var(--background) !important"
-          className={styles['mobile-toolbar-container']}
-          id='mobileNav'
-          display={isMenuMobile ? "flex" : "none"}
-          zIndex={2000}
-        >
+  return (
+    <>
+      <Flex
+        bg="var(--background) !important"
+        className={styles['mobile-toolbar-container']}
+        id='mobileNav'
+        display={isMenuMobile ? "flex" : "none"}
+        zIndex={2000}
+      >
+        {router.pathname.includes('dao') ? <div className={styles['mobile-linkTo']}>
+          <a href='dashboard' className={styles['linkTo']}>
+            <span className={styles['linkTo-tag']}>Dashboard</span>
+          </a>
+          <a href='elections' className={styles['linkTo']}>
+            <span className={styles['linkTo-tag']}>Elections</span>
+          </a>
+          <a href='sort' className={styles['linkTo']}>
+            <span className={styles['linkTo-tag']}>First Sort</span>
+          </a>
+          <a href='validation' className={styles['linkTo']}>
+            <span className={styles['linkTo-tag']}>Final Validation</span>
+          </a>
+        </div> :
           <div className={styles['mobile-linkTo']}>
             <a href='/new' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>New</span>
@@ -176,27 +129,27 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile }) {
             <a href='/list' className={styles['linkTo']}>
               <span className={styles['linkTo-tag']}>List an asset</span>
             </a>
-          </div>
-          <div className={styles['connect-mobile-container']}>
-            <button className={styles['connect-wallet-mobile']} onClick={() => {
-              setConnect(true)
-            }}>
-              {active
-                ? account.substring(0, 4) +
-                '..' +
-                account.substring(account.length - 4, account.length)
-                : 'Connect'}
-            </button>
-            <div className={styles['rank-mobile-box']}>
-              {active
-                ? <><span>Rank {Number(ranked)}</span>
-                  <span>{walletBalance} MOBL</span></>
-                : ''}
-
-            </div>
+          </div>}
+        <div className={styles['connect-mobile-container']}>
+          <button className={styles['connect-wallet-mobile']} onClick={() => {
+            setConnect(true)
+          }}>
+            {active
+              ? account.substring(0, 4) +
+              '..' +
+              account.substring(account.length - 4, account.length)
+              : 'Connect'}
+          </button>
+          <div className={styles['rank-mobile-box']}>
+            {active
+              ? <><span>Rank {Number(ranked)}</span>
+                <span>{walletBalance} MOBL</span></>
+              : ''}
 
           </div>
-          {/* <Flex w="80%" ml="35px" mt="10px" align="center">
+
+        </div>
+        {/* <Flex w="80%" ml="35px" mt="10px" align="center">
             <IconButton
                 _focus={{ boxShadow: "none" }}
                 color={themeContext.colorMode == "light" ? "blue" : "white"}
@@ -216,16 +169,14 @@ function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile }) {
             <Text color={themeContext.colorMode == "light" ? "blue" : "white"}>{themeContext.colorMode == "light" ? "Dark Mode" : "Light Mode"}</Text>
           </Flex> */}
 
-          {active ??
-            <div className={styles['disconnect-wallet-mobile']}>
-              <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
-            </div>}
+        {active ??
+          <div className={styles['disconnect-wallet-mobile']}>
+            <button className={styles['nobg']} onClick={deactivate}>Disconnect Wallet</button>
+          </div>}
 
-        </Flex>
-      </>
-    )
-  }
-
+      </Flex>
+    </>
+  )
 
 }
 

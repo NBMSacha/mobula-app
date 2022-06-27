@@ -38,12 +38,12 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
             console.log('hey')
             if (tokenOut && !tokenOut.address && tokenOut.contracts) {
                 const address = tokenOut.contracts[tokenOut.blockchains.indexOf(getBlockchainFromId[web3React.chainId])];
-                setTokenOut({ symbol: tokenOut.symbol, address, logo: tokenOut.logo })
+                //setTokenOut({ symbol: tokenOut.symbol, address, logo: tokenOut.logo })
                 const RPC = supportedRPCs.filter(entry => entry.name == getBlockchainFromId[web3React.chainId])[0];
                 const provider = new ethers.providers.JsonRpcProvider(RPC);
                 const contract = new ethers.Contract(address, [
                     'function decimals() public view returns (uint256)'], provider)
-                contract.decimals().then(r => {
+                contract.decimals().then((r: ethers.BigNumber) => {
                     setTokenOut({ symbol: tokenOut.symbol, address, logo: tokenOut.logo, decimals: r.toNumber() })
                 })
             }
@@ -70,7 +70,11 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
             }
         } catch (e) {
-            setButtonStatus('Connect wallet')
+            if (web3React?.chainId) {
+                setButtonStatus('Asset not on ' + getBlockchainFromId[web3React.chainId].split(' ')[0])
+            } else {
+                setButtonStatus('Connect wallet')
+            }
         }
 
     }, [web3React.chainId])
@@ -237,7 +241,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="90%" maxWidth="450px" ml="auto" mr="auto" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="30px 30px" mt={["20px", "20px", "20px", "0px"]}>
+        <Flex w="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="30px 30px" >
             <Box mb={["20px", "20px", "30px", "30px"]}>
                 <Heading color='var(--text-primary)' mb="10px" fontSize="x-large">Swap aggregator</Heading>
                 <Text color='var(--text-primary)'>Buy {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
@@ -249,7 +253,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 <Flex align="center" justify="space-between" mt="20px">
                     <Input ref={inputInRef} onChange={(e) => {
                         setSwapIn({ amount: parseFloat(e.target.value), decided: true })
-                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["15px", "15px", "18px", "18px"]} />
+                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
                     {tokenIn ?
                         <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["5px 5px", "5px 7px", "5px 10px"]}
                             onClick={() => setSelectVisible('tokenIn')}
@@ -286,7 +290,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 inputOutRef.current.focus()
             }}>
                 <Flex color='var(--text-primary)' align="center" justify="space-between" mt="20px">
-                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["15px", "15px", "18px", "18px"]} />
+                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
                     {tokenOut ?
                         <Flex align="center" bg="var(--swap)" borderRadius="10px" p="5px 10px"
                             onClick={() => setSelectVisible('tokenOut')}
@@ -332,10 +336,14 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                     'function approve(address spender, uint256 amount) public'], provider?.getSigner?.())
 
                                 contract.approve(mobulaRouter[web3React.chainId], BigInt('1000000000000000000000000000000000000000000')).then(async (r: any) => {
+                                    alert.info('Transaction to approve ' + tokenIn.symbol + ' is pending...')
                                     setButtonLoading(true)
                                     await r.wait()
                                     setButtonLoading(false)
                                     setButtonStatus('Swap')
+                                    alert.success('Successfully approved ' + tokenIn.symbol + ' : ready to swap.')
+                                }).catch(() => {
+                                    alert.error('Something went wrong while trying to allow ' + tokenIn.symbol + '.')
                                 })
 
                                 setNeedApprove(false)
@@ -356,7 +364,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                     if (swapIn.decided) {
                                         if (tokenIn.address && tokenOut.address) {
                                             router.swapExactTokensForTokens(swapInfo.routerAddress,
-                                                (BigInt(swapIn.amount * 1000000) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
+                                                (BigInt(Math.round(swapIn.amount * 1000000)) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
                                                 (BigInt(Math.floor(swapOut.amount * (1000000 - precision))) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
                                                 swapInfo.path,
                                                 web3React.account,
@@ -377,7 +385,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                                 swapInfo.path,
                                                 web3React.account,
                                                 Math.ceil(Math.ceil(Date.now() / 1000)) + 500, {
-                                                value: (BigInt(swapIn.amount * 1000000) * BigInt('1' + '0'.repeat(18))) / BigInt(1000000)
+                                                value: (BigInt(Math.round(swapIn.amount * 1000000)) * BigInt('1' + '0'.repeat(18))) / BigInt(1000000)
                                             }
                                             ).then(async (r: any) => {
                                                 alert.info('Transaction to buy ' + swapOut.amount + ' ' + tokenOut.symbol + ' is pending...')
@@ -392,7 +400,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                             })
                                         } else {
                                             router.swapExactTokensForETH(swapInfo.routerAddress,
-                                                (BigInt(swapIn.amount * 1000000) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
+                                                (BigInt(Math.round(swapIn.amount * 1000000)) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
                                                 (BigInt(Math.floor(swapOut.amount * (1000000 - precision))) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
                                                 swapInfo.path,
                                                 web3React.account,
@@ -412,7 +420,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                     } else {
                                         if (tokenIn.address && tokenOut.address) {
                                             router.swapTokensForExactTokens(swapInfo.routerAddress,
-                                                (BigInt(swapOut.amount * 1000000) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
+                                                (BigInt(Math.round(swapOut.amount * 1000000)) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
                                                 (BigInt(Math.ceil(swapIn.amount * (1000000 + precision))) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
                                                 swapInfo.path,
                                                 web3React.account,
@@ -430,7 +438,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                             })
                                         } else if (tokenOut.address) {
                                             router.swapETHForExactTokens(swapInfo.routerAddress,
-                                                (BigInt(swapOut.amount * 1000000) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
+                                                (BigInt(Math.round(swapOut.amount * 1000000)) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
                                                 swapInfo.path,
                                                 web3React.account,
                                                 Math.ceil(Date.now() / 1000) + 500, {
@@ -449,7 +457,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                                             })
                                         } else {
                                             router.swapTokensForExactETH(swapInfo.routerAddress,
-                                                (BigInt(swapOut.amount * 1000000) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
+                                                (BigInt(Math.round(swapOut.amount * 1000000)) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenB))) / BigInt(1000000),
                                                 (BigInt(Math.ceil(swapIn.amount * (1000000 + precision))) * BigInt('1' + '0'.repeat(swapInfo.decimalTokenA))) / BigInt(1000000),
                                                 swapInfo.path,
                                                 web3React.account,

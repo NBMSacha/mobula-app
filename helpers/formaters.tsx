@@ -33,10 +33,10 @@ export function getFormatedAmount(price: any) {
 
 }
 
-export function formatBigAmount(amount: number | string, precision?: number) {
+export function formatBigAmount(amount: number | string, precision = 3) {
     amount = formatAmount(parseInt(amount as string));
     let letter: string;
-    switch (amount.split(',').length - (precision || 0)) {
+    switch (amount.split(',').length) {
         case 1:
             letter = ''
             break
@@ -52,7 +52,7 @@ export function formatBigAmount(amount: number | string, precision?: number) {
     }
 
     if (precision) {
-        return amount.split(',')[0] + ',' + amount.split(',')[1] + letter;
+        return amount.split(',')[0] + '.' + amount.split(',').slice(1).join('').slice(0, precision - amount.split(',')[0].length) + letter;
     } else {
         return amount.split(',')[0] + letter;
     }

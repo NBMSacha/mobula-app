@@ -115,7 +115,8 @@ export const AvalancheProvider = ethers.getDefaultProvider('https://api.avax.net
 export const FantomProvider = ethers.getDefaultProvider('https://rpc.ftm.tools/')
 
 export const mobulaRouter = {
-    137: '0x7189384C1a46DBc5265bd0bd040E06F76761Ef24'
+    137: '0x7189384C1a46DBc5265bd0bd040E06F76761Ef24',
+    56: '0x6756d71a377902452a94E28Fe12d1D06C05B5EaE'
 }
 //Mapping the providers
 export const providers = {
