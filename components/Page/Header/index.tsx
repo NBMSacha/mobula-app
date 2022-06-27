@@ -121,7 +121,11 @@ function Header(props: any) {
       })
   }, [])
 
-
+  let prevScroll
+ 
+  if (process.browser) {
+    prevScroll = window.pageYOffset
+  }
 
   const [scrollingUp, setScrollingUp] = useState(false)
 
@@ -129,6 +133,10 @@ function Header(props: any) {
     if (isMenuMobile) {
       window.scrollTo(0, 0);
     }
+    const currScroll = window.pageYOffset
+    const isScrolled = prevScroll > currScroll && currScroll !== 0
+    setScrollingUp(isScrolled)
+    prevScroll = currScroll
   }
 
   useEffect(() => {
@@ -139,13 +147,13 @@ function Header(props: any) {
   }, [isMenuMobile])
   return (
     <>
-      <Box bg="var(--background)" zIndex="15" position={scrollingUp ? "fixed" : "static"} className={`${scrollingUp ? 'stickyHeader' : ''}`}>
-        <div className={styles['header']} >
-          <div className={styles['main']}>
-            <Brand />
-            <Link />
-            <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile} />
-          </div>
+    <Box bg="var(--background)" zIndex="15" position={[isMenuMobile ? "fixed" : "static" , isMenuMobile ? "fixed" : "static" ,isMenuMobile ? "fixed" : "static" ,,scrollingUp ? "fixed" : "static"]} w={["100%", "100%", "100%", "100vw"]}  className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+      <div className={styles['header']} >
+        <div className={styles['main']}>
+          <Brand />
+          <Link />
+          <Wallet isMenuMobile={isMenuMobile} setIsMenuMobile={setIsMenuMobile}/>
+        </div>
         </div>
       </Box>
       <Tendance

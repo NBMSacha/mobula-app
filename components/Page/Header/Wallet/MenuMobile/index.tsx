@@ -12,7 +12,6 @@ import { isAddress } from 'ethers/lib/utils';
 import Image from 'next/image'
 import { Flex, Box, IconButton, Text } from '@chakra-ui/react';
 import ConnectWallet from '../../../../Utils/ConnectWallet';
-import Header from "../../index"
 import { ThemeContext } from '../../../../../pages/_app'
 import { Sun, Moon } from "react-feather"
 
