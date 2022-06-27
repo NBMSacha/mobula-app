@@ -226,11 +226,11 @@ console.log(validated)
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank I <span className={styles['stats']}>Stats</span>
                       </Text>
-                      <Flex color="green" direction="row" fontSize='15px' align="center" justify="start" mb={[0, 0, 5, 5]} w="100%" position="relative">
+                      <Flex color="green" direction="row" fontSize='15px' align="center" justify="space-between" mb={[0, 0, 5, 5]} w="90%" position="relative">
                         <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions : </Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}   <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
-                      <Flex color="red" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative" >
+                      <Flex color="red" direction="row" fontSize='15px' align="center" w="90%" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} position="relative" >
                         <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
                         
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
@@ -239,11 +239,11 @@ console.log(validated)
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
-                      <Flex color="green" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                      <Flex color="green" direction="row" fontSize='15px' align="center" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} w="90%" position="relative">
                         <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions :</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice} <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
-                      <Flex color="red" direction="row" fontSize='15px' align="center" justify={["start", "start", "start", "start"]} mb={[0, 0, 5, 5]} w="100%" position="relative">
+                      <Flex color="red" direction="row" fontSize='15px' align="center" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} w="90%" position="relative">
                         <Text  whiteSpace="nowrap" mb={2} fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
