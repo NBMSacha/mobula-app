@@ -12,6 +12,7 @@ import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 import Widget from "../../Utils/Widget"
+import AdvancedSetting from "../../Utils/AdvancedSetting"
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 import {
   Table,
@@ -34,7 +35,7 @@ function News(props: any) {
   const [search, setSearch] = useState([]);
   const [display, setDisplay] = useState('Top 100');
   const [chains, setChains] = useState({});
-  const { account, active, activate, deactivate } = useWeb3React();
+  const { account } = useWeb3React();
   const alert = useAlert()
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef()
@@ -72,6 +73,7 @@ function News(props: any) {
     }
   }, [page])
 
+  console.log(account)
   function loadChain(chain: string) {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
@@ -295,6 +297,7 @@ function News(props: any) {
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
       {/* PAGE 2 */}
+      <AdvancedSetting />
       <div className={styles["tables-main-container"]}>
 
         <TableContainer bg="var(--table)" display="flex" flexDirection="column" alignItems="center">

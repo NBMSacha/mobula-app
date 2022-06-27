@@ -7,6 +7,7 @@ import TokenDisplay from "../../Utils/newSort/ReviewToken";
 import Blocks from "../../Utils/newSort/Main";
 import { useAlert } from 'react-alert';
 import Router from "next/router";
+import { useWeb3React } from '@web3-react/core';
 
 function FinalValidation() {
     const [tokenDivs, setTokenDivs]: [{
@@ -30,10 +31,12 @@ function FinalValidation() {
     const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
     const alert = useAlert();
+    const web3React = useWeb3React()
+    const { active, account } = useWeb3React()
 
     function getFinalValidation() {
         console.log("Starting the final sort");
-        const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        const provider = new ethers.providers.Web3Provider(web3React.library.provider);
 
         const protocolContract = new ethers.Contract(
             PROTOCOL_ADDRESS,
@@ -113,16 +116,6 @@ function FinalValidation() {
             })
             .then(async (tokens: any) => {
                 const newTokenDivs = [];
-
-                var account: any;
-
-                try {
-                    const providerWallet = new ethers.providers.Web3Provider(
-                        (window as any).ethereum
-                    );
-                    const accounts = await providerWallet.listAccounts();
-                    account = accounts[0];
-                } catch (e) { }
 
                 let fails = 0;
 
@@ -235,8 +228,21 @@ function FinalValidation() {
     }
 
     useEffect(() => {
-        getFinalValidation();
-    }, []);
+        console.log(web3React)
+        console.log(account)
+        if (web3React.account) {
+          getFinalValidation()
+        } else {
+          console.log('HERE WE GO')
+          const timeout = setTimeout(() => {
+            console.log('ALERT TIRGGERED')
+            alert.show('You must connect your wallet to earn MOBL.')
+          }, 300)
+          return () => {
+            clearTimeout(timeout)
+          }
+        }
+      }, [web3React])
 
     useEffect(() => {
         console.log("Effect : " + tokenDivs.length);

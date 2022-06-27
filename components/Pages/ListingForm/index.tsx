@@ -9,6 +9,7 @@ import Left from "./Left";
 import Mid from "./Mid";
 import Right from "./Right";
 import { useRouter } from 'next/router'
+import { useWeb3React } from '@web3-react/core'
 
 function ListAToken() {
     const router = useRouter();
@@ -32,6 +33,8 @@ function ListAToken() {
     const [inputListExcluded, setInputListExcluded] = useState([{ value: "" }]);
     const [isSum, setIsSum] = useState('true');
     const [display, setDisplay] = useState('form');
+    const web3React = useWeb3React()
+    const { active, account } = useWeb3React()
 
     useEffect(() => {
         console.log(inputListContract)
@@ -110,7 +113,7 @@ function ListAToken() {
 
             while (!name && i < supportedRPCs.length - 1) {
                 i++;
-                const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
+                const provider = new ethers.providers.Web3Provider(web3React.library.provider);
                 const tokenContract = new ethers.Contract(contract, [
                     'function name() external view returns(string)',
                 ], provider)
@@ -165,7 +168,7 @@ function ListAToken() {
         })
 
         try {
-            var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+             var provider = new ethers.providers.Web3Provider(web3React.library.provider);
             var signer = provider.getSigner();
         } catch (e) {
             alert.show('You must connect your wallet to submit the form.')
@@ -216,7 +219,7 @@ function ListAToken() {
     useEffect(() => {
         mountIPFS()
         try {
-            var provider = new ethers.providers.Web3Provider((window as any).ethereum)
+            var provider = new ethers.providers.Web3Provider(web3React.library.provider);
             var signer = provider.getSigner();
         } catch (e) {
             alert.show('You must connect your wallet to submit the form.')
@@ -232,12 +235,6 @@ function ListAToken() {
         }
         return url.protocol === "http:" || url.protocol === "https:";
     }
-
-    const input = useColorModeValue("white_terciary", "dark_input_list")
-    const box = useColorModeValue('white_terciary', "dark_box_list")
-    const shadow = useColorModeValue("var(--chakra-colors-shadow)", "none")
-    const btn = useColorModeValue("white", "black")
-    const bg = useColorModeValue("none", "#171B2B")
 
     return (
         <div>

@@ -27,8 +27,7 @@ function Elections() {
     async function initValues() {
 
         try {
-            const RPC = supportedRPCs.filter(entry => entry.name == getBlockchainFromId[web3React.chainId])[0];
-            const provider = new ethers.providers.JsonRpcProvider(RPC);
+            const provider = new ethers.providers.Web3Provider(web3React.library.provider);
             const protocolContract = new ethers.Contract(
                 PROTOCOL_ADDRESS,
                 [
@@ -56,12 +55,25 @@ function Elections() {
             setMembersToDemoteOne(membersToDemoteFromRankI);
             setMembersToDemoteTwo(membersToDemoteFromRankII);
         } catch (e) {
-            //alert.show('You must connect your wallet to access your Dashboard.')
+            // alert.show('You must connect your wallet to access your Dashboard.')
         }
     }
+
     useEffect(() => {
-        initValues();
-    }, []);
+        console.log(web3React)
+        if (web3React.account) {
+          initValues()
+        } else {
+          console.log('YESSSS THATS IT MY BOY')
+          const timeout = setTimeout(() => {
+            console.log('ALERT TIRGGERED')
+            alert.show('You must connect your wallet to earn MOBL.')
+          }, 300)
+          return () => {
+            clearTimeout(timeout)
+          }
+        }
+      }, [web3React])
 
     return (
         <Flex direction={"column"} w="100%" align="center" mt="28px" mb="50px">
