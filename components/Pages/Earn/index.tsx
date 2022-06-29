@@ -16,7 +16,6 @@ function Earn() {
     const [tasks, setTasks] = useState([])
     const { account, active } = useWeb3React()
     const alert = useAlert();
-    const web3React = useWeb3React()
 
     const claim = () => {
 
@@ -68,8 +67,6 @@ function Earn() {
         }
     }
 
-    var provider: any
-
     async function initValues() {
         const supabase = createClient(
             "https://ylcxvfbmqzwinymcjlnx.supabase.co",
@@ -91,13 +88,20 @@ function Earn() {
     }
 
     useEffect(() => {
+        console.log('TA MAX DAROONNNE')
+        console.log(account, active)
         if (account) {
             initValues()
-        } else if (active === false) {
+        } else {
+            console.log('TA MAX HHIH')
             const timeout = setTimeout(() => {
+                console.log('hi')
                 alert.show('You must connect your wallet to earn MOBL.')
             }, 300)
-            return clearTimeout(timeout)
+            return () => {
+                console.log('ok, somthing weird')
+                clearTimeout(timeout)
+            }
         }
     }, [account])
 

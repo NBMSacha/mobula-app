@@ -163,7 +163,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
                 const delayDebounceFn = setTimeout(() => {
                     console.log(tokenIn, tokenOut)
-                    fetch('http://64.225.102.30:3000/quote?' +
+                    fetch('https://mobulapath.com/quote?' +
                         'tokenADecimals=' + tokenIn.decimals +
                         '&tokenBDecimals=' + tokenOut.decimals +
                         '&tokenIn=' +
@@ -203,7 +203,9 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         })
                 }, 300)
 
-                return () => clearTimeout(delayDebounceFn)
+                return () => {
+                    clearTimeout(delayDebounceFn)
+                }
             }
         }
 
@@ -218,7 +220,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
                 const delayDebounceFn = setTimeout(() => {
                     console.log(tokenIn, tokenOut)
-                    fetch('http://64.225.102.30:3000/quote?' +
+                    fetch('https://mobulapath.com/quote?' +
                         'tokenADecimals=' + tokenIn.decimals +
                         '&tokenBDecimals=' + tokenOut.decimals +
                         '&tokenIn=' +
@@ -235,7 +237,9 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         })
                 }, 300)
 
-                return () => clearTimeout(delayDebounceFn)
+                return () => {
+                    clearTimeout(delayDebounceFn)
+                }
             }
         }
 
@@ -278,8 +282,8 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
             </Box >
             <Box ml="auto" mr="auto" mt="20px" mb="20px"
                 cursor='pointer'
-                
-                
+
+
                 color='var(--text-primary)'
                 className={styles["transform"]}
                 onClick={() => {

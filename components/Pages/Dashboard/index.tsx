@@ -15,8 +15,10 @@ import RankStats from './RankStats'
 import History from './History'
 import Leaderboard from './Leaderboard'
 import { ThumbsUp, ThumbsDown } from "react-feather"
+import { useWeb3React } from '@web3-react/core'
 
 function Dashboard() {
+  const web3React = useWeb3React()
   const alert = useAlert()
   const [firstTokensOwed, setFirstTokensOwed] = useState(0)
   const [validated, setValidated] = useState([])
@@ -38,7 +40,6 @@ function Dashboard() {
 
 
   var provider: any
-  var account: string
 
   function countdown(created: number) {
     let date = new Date(created)
@@ -66,9 +67,7 @@ function Dashboard() {
 
   async function initValues() {
     try {
-      provider = new ethers.providers.Web3Provider((window as any).ethereum)
-      const accounts = await provider.listAccounts()
-      account = accounts[0]
+      provider = new ethers.providers.Web3Provider(web3React.library.provider);
 
       const protocolContract = new ethers.Contract(
         PROTOCOL_ADDRESS,
@@ -87,22 +86,22 @@ function Dashboard() {
         ethers.utils.formatEther(await protocolContract.tokensPerVote())
       )
       const firstPaidVotes = (
-        await protocolContract.paidFirstVotes(account)
+        await protocolContract.paidFirstVotes(web3React.account)
       ).toNumber()
       const firstGoodVotes = (
-        await protocolContract.goodFirstVotes(account)
+        await protocolContract.goodFirstVotes(web3React.account)
       ).toNumber()
       const firstBadVotes = (
-        await protocolContract.badFirstVotes(account)
+        await protocolContract.badFirstVotes(web3React.account)
       ).toNumber()
       const finalPaidVotes = (
-        await protocolContract.paidFinalVotes(account)
+        await protocolContract.paidFinalVotes(web3React.account)
       ).toNumber()
       const finalGoodVotes = (
-        await protocolContract.goodFinalVotes(account)
+        await protocolContract.goodFinalVotes(web3React.account)
       ).toNumber()
       const finalBadVotes = (
-        await protocolContract.badFinalVotes(account)
+        await protocolContract.badFinalVotes(web3React.account)
       ).toNumber()
       setFirstTokensOwed((firstGoodVotes - firstPaidVotes) * tokensPerVote)
       setFinalTokensOwed((finalGoodVotes - finalPaidVotes) * tokensPerVote)
@@ -120,8 +119,8 @@ function Dashboard() {
         provider
       )
 
-      const lastClaim = (await vaultContract.lastClaim(account)).toNumber()
-      const totalClaim = (await vaultContract.totalClaim(account)).toNumber()
+      const lastClaim = (await vaultContract.lastClaim(web3React.account)).toNumber()
+      const totalClaim = (await vaultContract.totalClaim(web3React.account)).toNumber()
 
       setClaimed(totalClaim)
       //console.log(lastClaim);
@@ -139,7 +138,9 @@ function Dashboard() {
       alert.show('You must connect your wallet to access your Dashboard.')
       console.log(e)
     }
+  }
 
+  async function initNonCryptoValues() {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
@@ -170,13 +171,28 @@ function Dashboard() {
       .limit(10)
       .then(r => {
         setValidated(r.data)
-    })
-
+      })
   }
-console.log(validated)
+
   useEffect(() => {
-    initValues()
+    initNonCryptoValues()
   }, [])
+
+  useEffect(() => {
+    console.log(web3React)
+    if (web3React.account) {
+      initValues()
+    } else {
+      console.log('YESSSS THATS IT MY BOY')
+      const timeout = setTimeout(() => {
+        console.log('ALERT TIRGGERED')
+        alert.show('You must connect your wallet to earn MOBL.')
+      }, 300)
+      return () => {
+        clearTimeout(timeout)
+      }
+    }
+  }, [web3React])
 
   return (
     <>
@@ -201,9 +217,9 @@ console.log(validated)
 
             {/* RANK DISPLAY MOBILE */}
 
-            
-              <>
-              <Flex display={["flex","flex","none","none"]} w="95%" direction="column"  borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+
+            <>
+              <Flex display={["flex", "flex", "none", "none"]} w="95%" direction="column" borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
 
                 {/* Rank I Stats */}
                 <Flex w={['95%', '95%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
@@ -212,7 +228,7 @@ console.log(validated)
                     direction={["row", "row", "column", "column"]}
                     justify={["start", "start", "center", "center"]}
                     p={['4px 4px 4px 4px', '4px 4px 4px 4px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
-                    bg={["var(--bg-governance-box)","var(--bg-governance-box)", '#191D2C', '#191D2C']}
+                    bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
                     borderRadius='8px'
 
                     borderBottom={`1px solid var(--box_border)`}
@@ -227,12 +243,12 @@ console.log(validated)
                         Rank I <span className={styles['stats']}>Stats</span>
                       </Text>
                       <Flex color="green" direction="row" fontSize='15px' align="center" justify="space-between" mb={[0, 0, 5, 5]} w="90%" position="relative">
-                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions : </Text>
+                        <Text mb={2} whiteSpace="nowrap" fontSize={["11px", "11px", "14px", "14px"]} mr="10px">Correct Decisions : </Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstGoodChoice}   <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
                       <Flex color="red" direction="row" fontSize='15px' align="center" w="90%" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} position="relative" >
-                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
-                        
+                        <Text mb={2} whiteSpace="nowrap" fontSize={["11px", "11px", "14px", "14px"]} mr="10px">Wrong Decisions :</Text>
+
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {firstBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
                       <Box h="1px" w="90%" bg="var(--box_border)" mt={2} mb={3}></Box>
@@ -240,11 +256,11 @@ console.log(validated)
                         Rank II <span className={styles['stats']}>Stats</span>
                       </Text>
                       <Flex color="green" direction="row" fontSize='15px' align="center" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} w="90%" position="relative">
-                        <Text  mb={2} whiteSpace="nowrap" fontSize={["11px","11px","14px","14px"]} mr="10px">Correct Decisions :</Text>
+                        <Text mb={2} whiteSpace="nowrap" fontSize={["11px", "11px", "14px", "14px"]} mr="10px">Correct Decisions :</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalGoodChoice} <Icon mb="4px" ml="5px" as={ThumbsUp} /></Flex>
                       </Flex>
                       <Flex color="red" direction="row" fontSize='15px' align="center" justify={["space-between", "space-between", "start", "start"]} mb={[0, 0, 5, 5]} w="90%" position="relative">
-                        <Text  whiteSpace="nowrap" mb={2} fontSize={["11px","11px","14px","14px"]} mr="10px">Wrong Decisions :</Text>
+                        <Text whiteSpace="nowrap" mb={2} fontSize={["11px", "11px", "14px", "14px"]} mr="10px">Wrong Decisions :</Text>
                         <Flex align="center" justify="center" fontWeight='800' mb={2} bg={["none", "none", "#202433", "#202433"]} mt={["0px", "0px", "15px", "15px"]} borderRadius="15px" w={["30px", "30px", "90px", "90px"]}> {finalBadChoice} <Icon mb="0px" ml="5px" as={ThumbsDown} /></Flex>
                       </Flex>
                     </Flex>
@@ -261,23 +277,21 @@ console.log(validated)
                       {' '}
                       <Button
                         variant='outline'
-                        
+
                         colorScheme="green"
                         color="green"
                         className={styles["buttons-claim"]}
                         boxShadow={`0px 1px 12px 3px var(--shadow)`}
                         borderRadius="10px"
-                        _focus={{boxShadow:"none"}}
+                        _focus={{ boxShadow: "none" }}
                         style={{ width: "90%" } as any}
                         onClick={async (e) => {
                           e.preventDefault()
                           try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
+                            provider = new ethers.providers.Web3Provider(web3React.library.provider);
                             var signer = provider.getSigner()
                           } catch (e) {
-                            alert.show(
+                            alert.error(
                               'You must connect your wallet to access the Dashboard.'
                             )
                           }
@@ -317,188 +331,184 @@ console.log(validated)
                 </Flex>
 
               </Flex>
-              
-              </>
-           
-              
-              <Flex display={["none", "none", "flex", "flex"]} w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
-                <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
-                  <RankStats title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
-                  <RankStats title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
-                </Flex>
-                <History validated={validated} recentlyAdded={recentlyAdded} />
+
+            </>
+
+
+            <Flex display={["none", "none", "flex", "flex"]} w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
+              <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
+                <RankStats web3React={web3React} title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
+                <RankStats web3React={web3React} title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
               </Flex>
-         
+              <History validated={validated} recentlyAdded={recentlyAdded} />
+            </Flex>
+
 
             <Box className={styles["size-box"]} ml="5px">
               {/* DAO Faucet */}
               <Flex >
-               
-                  <Flex
-                    display={["flex","flex","none","none"]}
-                    p='5px'
-                    borderRadius="10px"
-                    boxShadow={`0px 1px 12px 3px var(--shadow)`}
-                    bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
+
+                <Flex
+                  display={["flex", "flex", "none", "none"]}
+                  p='5px'
+                  borderRadius="10px"
+                  boxShadow={`0px 1px 12px 3px var(--shadow)`}
+                  bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
 
 
-                    w={['92%', '92%', '90%', '95%']}
+                  w={['92%', '92%', '90%', '95%']}
 
-                    mx="auto"
-                  >
-                    <Flex direction="column" w="50%">
-                      <Box fontSize='15px' pt="10px" pl="10px" >
-                        <Text color="none" fontSize="12px" mb={1}>MATIC for DAO members</Text>
-                        <Text fontWeight='800' mb="10px" fontSize={["13px", "13px", "15px", "17px"]} color='#16C784'>
-                          {countdownValue}
-                        </Text>
-                      </Box>
-                      <Box h="1px" w="98%" bg="var(--box_border)"> </Box>
-                      <Box fontSize='15px' pl="10px" mb={5}>
-                        <Text textAlign="start" fontSize={["13px", "13px", "15px", "15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
-                        <Text fontSize={["14px", "14px", "16px", "18px"]} textAlign="start">{claimed} MATIC</Text>
-                      </Box>
-                    </Flex>
-                    <Spacer />
-                    <Flex
-                      width='50%'
-                      align="center" justify="center"
-                    >
-                      <Button
-                        borderRadius="10px"
-                        mb="12px"
-                        h="50px"
-                        _focus={{boxShadow:"none"}}
-                        variant='outline'
-                        colorScheme="green"
-                        color="green"
-                        boxShadow={`0px 1px 12px 3px var(--shadow)`}
-                        className={styles["claim-matic"]}
-                        style={{ width: "135px" } as any}
-                        onClick={async (e) => {
-                          e.preventDefault()
-                          try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
-                            var signer = provider.getSigner()
-                          } catch (e) {
-                            alert.show(
-                              'You must connect your wallet to access the Dashboard.'
-                            )
-                          }
-                          try {
-                            const value = await new ethers.Contract(
-                              VAULT_ADDRESS,
-                              ['function claim() external'],
-                              signer
-                            ).claim()
-                          } catch (e) {
-                            if (e.data && e.data.message) {
-                              alert.error(e.data.message)
-                            } else {
-                              alert.error('Something went wrong.')
-                            }
-                          }
-                        }}
-                      >
-                        <Text >Claim MATIC</Text>
-                      </Button>
-                    </Flex>
-                  </Flex>
-                  
-           
-
-                  <Flex
-                  display={["none", "none", "flex","flex"]}
-                    className={styles["padding-resp"]}
-                    direction={["column-reverse", "column-reverse", "column", "column"]}
-                    bg={["none", "none", "var(--bg-governance-box)", "var(--bg-governance-box)"]}
-                    borderRadius='10px'
-                    boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
-                    w={['100%', '100%', '100%', '100%']}
-                    textAlign={['center', 'center', 'center', 'left']}
-                    mx="auto"
-
-
-                  >
-                    <Flex justify="space-between" >
-                      <h2 className={styles["dao-title"]} style={{alignItems:"start"}}>DAO <span className={styles["faucet"]}>Faucet</span></h2>
-                      <Box fontSize='15px' >
-                        <Text textAlign="end" fontSize="14px" opacity=".6" color="#909090">You already claimed</Text>
-                        <Text fontSize="16px" color=" #909090" fontWeight="600" textAlign="end">{claimed} MATIC</Text>
-                      </Box>
-                    </Flex>
-                    <Box w="95%" textAlign="start"  mt="30px">
-                      <Box fontSize='13px' >
-                        <Text fontWeight='800' mb="5px" fontSize="17px" color='#16C784'>
-                          {countdownValue}
-                        </Text>
-                        <Text color="#D3D3D3" mb={2}>MATIC for DAO members</Text>
-                      </Box>
+                  mx="auto"
+                >
+                  <Flex direction="column" w="50%">
+                    <Box fontSize='15px' pt="10px" pl="10px" >
+                      <Text color="none" fontSize="12px" mb={1}>MATIC for DAO members</Text>
+                      <Text fontWeight='800' mb="10px" fontSize={["13px", "13px", "15px", "17px"]} color='#16C784'>
+                        {countdownValue}
+                      </Text>
                     </Box>
-                    <Spacer />
-                    <Flex
-                      width='100%'
-                      
-                      justifyContent={['center', 'center', 'center', 'right']}
-                    >
-                      <Button
-                        h="45px"
-                        px="12px"
-                        _focus={{boxShadow:"none"}}
-                        className={styles["claim-matic"]}
-                        variant="blue"
-                        py='1px'
-                        borderRadius="12px"
-                        style={{ marginTop: "-60px", 'font-size': '1rem' } as any}
-                        onClick={async (e) => {
-                          e.preventDefault()
-                          try {
-                            var provider = new ethers.providers.Web3Provider(
-                              (window as any).ethereum
-                            )
-                            var signer = provider.getSigner()
-                          } catch (e) {
-                            alert.show(
-                              'You must connect your wallet to access the Dashboard.'
-                            )
-                          }
-                          try {
-                            const value = await new ethers.Contract(
-                              VAULT_ADDRESS,
-                              ['function claim() external'],
-                              signer
-                            ).claim()
-                          } catch (e) {
-                            if (e.data && e.data.message) {
-                              alert.error(e.data.message)
-                            } else {
-                              alert.error('Something went wrong.')
-                            }
-                          }
-                        }}
-                      >
-                        
-                          Claim MATIC
-                                                 </Button>
-                    </Flex>
+                    <Box h="1px" w="98%" bg="var(--box_border)"> </Box>
+                    <Box fontSize='15px' pl="10px" mb={5}>
+                      <Text textAlign="start" fontSize={["13px", "13px", "15px", "15px"]} color="#909090" mt={2} mb={1}>You already claimed</Text>
+                      <Text fontSize={["14px", "14px", "16px", "18px"]} textAlign="start">{claimed} MATIC</Text>
+                    </Box>
                   </Flex>
-          
+                  <Spacer />
+                  <Flex
+                    width='50%'
+                    align="center" justify="center"
+                  >
+                    <Button
+                      borderRadius="10px"
+                      mb="12px"
+                      h="50px"
+                      _focus={{ boxShadow: "none" }}
+                      variant='outline'
+                      colorScheme="green"
+                      color="green"
+                      boxShadow={`0px 1px 12px 3px var(--shadow)`}
+                      className={styles["claim-matic"]}
+                      style={{ width: "135px" } as any}
+                      onClick={async (e) => {
+                        e.preventDefault()
+                        try {
+                          provider = new ethers.providers.Web3Provider(web3React.library.provider);
+                          var signer = provider.getSigner()
+                        } catch (e) {
+                          alert.error(
+                            'You must connect your wallet to access the Dashboard.'
+                          )
+                        }
+                        try {
+                          const value = await new ethers.Contract(
+                            VAULT_ADDRESS,
+                            ['function claim() external'],
+                            signer
+                          ).claim()
+                        } catch (e) {
+                          if (e.data && e.data.message) {
+                            alert.error(e.data.message)
+                          } else {
+                            // alert.error('Something went wrong.')
+                          }
+                        }
+                      }}
+                    >
+                      <Text >Claim MATIC</Text>
+                    </Button>
+                  </Flex>
+                </Flex>
+
+
+
+                <Flex
+                  display={["none", "none", "flex", "flex"]}
+                  className={styles["padding-resp"]}
+                  direction={["column-reverse", "column-reverse", "column", "column"]}
+                  bg={["none", "none", "var(--bg-governance-box)", "var(--bg-governance-box)"]}
+                  borderRadius='10px'
+                  boxShadow={["none", "none", `0px 1px 12px 3px var(--shadow)`, `0px 1px 12px 3px var(--shadow)`]}
+                  w={['100%', '100%', '100%', '100%']}
+                  textAlign={['center', 'center', 'center', 'left']}
+                  mx="auto"
+
+
+                >
+                  <Flex justify="space-between" >
+                    <h2 className={styles["dao-title"]} style={{ alignItems: "start" }}>DAO <span className={styles["faucet"]}>Faucet</span></h2>
+                    <Box fontSize='15px' >
+                      <Text textAlign="end" fontSize="14px" opacity=".6" color="#909090">You already claimed</Text>
+                      <Text fontSize="16px" color=" #909090" fontWeight="600" textAlign="end">{claimed} MATIC</Text>
+                    </Box>
+                  </Flex>
+                  <Box w="95%" textAlign="start" mt="30px">
+                    <Box fontSize='13px' >
+                      <Text fontWeight='800' mb="5px" fontSize="17px" color='#16C784'>
+                        {countdownValue}
+                      </Text>
+                      <Text color="#D3D3D3" mb={2}>MATIC for DAO members</Text>
+                    </Box>
+                  </Box>
+                  <Spacer />
+                  <Flex
+                    width='100%'
+
+                    justifyContent={['center', 'center', 'center', 'right']}
+                  >
+                    <Button
+                      h="45px"
+                      px="12px"
+                      _focus={{ boxShadow: "none" }}
+                      className={styles["claim-matic"]}
+                      variant="blue"
+                      py='1px'
+                      borderRadius="12px"
+                      style={{ marginTop: "-60px", 'font-size': '1rem' } as any}
+                      onClick={async (e) => {
+                        e.preventDefault()
+                        try {
+                          provider = new ethers.providers.Web3Provider(web3React.library.provider);
+                          var signer = provider.getSigner()
+                        } catch (e) {
+                          alert.show(
+                            'You must connect your wallet to access the Dashboard.'
+                          )
+                        }
+                        try {
+                          const value = await new ethers.Contract(
+                            VAULT_ADDRESS,
+                            ['function claim() external'],
+                            signer
+                          ).claim()
+                        } catch (e) {
+                          if (e.data && e.data.message) {
+                            alert.error(e.data.message)
+                          } else {
+                            // alert.error('Something went wrong.')
+                          }
+                        }
+                      }}
+                    >
+
+                      Claim MATIC
+                    </Button>
+                  </Flex>
+                </Flex>
+
               </Flex>
               {/* TITLE LEADERBOARD */}
-              <Box display={["none","none","block","block"]}>
+              <Box display={["none", "none", "block", "block"]}>
 
-              
-              <Leaderboard top={daoMembers} />
+
+                <Leaderboard top={daoMembers} />
               </Box>
-              
+
             </Box>
           </Flex>
-          <Box display={["block","block","none","none"]}>
+          <Box display={["block", "block", "none", "none"]}>
             <Leaderboard top={daoMembers} />
           </Box>
-          <Box display={["block","block","none","none"]}>
+          <Box display={["block", "block", "none", "none"]}>
             <History validated={validated} recentlyAdded={recentlyAdded} />
           </Box>
         </Box>
