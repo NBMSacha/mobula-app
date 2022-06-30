@@ -18,6 +18,7 @@ import {
     TableCaption,
     TableContainer,
 } from '@chakra-ui/react'
+import Top from "../../Utils/HeaderTable"
 import { formatName, getTokenPrice, getTokenPercentage, formatAmount, getUrlFromName, getTokenFormattedPrice } from '../../../helpers/formaters';
 
 export default function Trendings({ tokensBuffer }) {
@@ -42,7 +43,7 @@ export default function Trendings({ tokensBuffer }) {
             .gte('volume', settings.volume)
             .order('views_change_24h', { ascending: false })
             .limit(100).then(r => {
-                console.log(r.data)
+                // console.log(r.data)
                 setTokens(r.data
                     .filter(entry => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
                     .slice(0, 50))
@@ -68,6 +69,7 @@ export default function Trendings({ tokensBuffer }) {
                 </Flex>
                 <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
                 <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
+                {/* <Top title={"Trendings"} setOrderBy={tokens} /> */}
                 <TableContainer mb="20px" mt="20px" >
                     <Table variant='simple'>
                         <Thead borderTop={`2px solid var(--box_border)`} borderBottom="2px solid var(--box_border) !important" color="var(--text-grey)" fontSize={['12px', '12px', '16px', '16px']}>

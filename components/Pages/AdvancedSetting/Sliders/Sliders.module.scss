@@ -1,0 +1,66 @@
+.checkboxs{
+    width:280px;
+}
+
+.button-box{
+    max-width:280px; 
+}
+
+.progress-box{
+    width:60%;
+}
+
+.calendar{
+    font-family:"Poppins" !important;
+    color:var(--text-grey) !important
+}
+
+
+.days{
+    background-color: green !important;
+}
+.test{
+    background-color:green !important
+}
+@media screen and (max-width: 1280px) {
+    .column-wrap{
+        flex-direction:column
+    }
+    .row-wrap{
+        width:100%;
+        margin-top:10px;
+    }
+    .checkboxs{
+        width:50%;
+    }
+    .button-box{
+        max-width:100%; 
+    }
+
+    .progress-box{
+        width:100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .column-wrap{
+        flex-direction:column
+    }
+    .row-wrap{
+        width:100%;
+        margin-top:10px;
+        flex-direction:column
+    }
+    .checkboxs{
+        width:100%;
+    }
+    .button-box{
+        max-width:100%; 
+    }
+
+    .progress-box{
+        width:100%;
+    }
+}
+
+

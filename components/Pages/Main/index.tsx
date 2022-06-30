@@ -12,7 +12,7 @@ import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 import Widget from "../../Utils/Widget"
-import AdvancedSetting from "../../Utils/AdvancedSetting"
+import HeaderTable from "../../Utils/HeaderTable"
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 import {
   Table,
@@ -297,109 +297,8 @@ function News(props: any) {
         <ButtonBlock display={display} setDisplay={setDisplay} setResults={setSearch} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
       </div>
       {/* PAGE 2 */}
-      {/* <AdvancedSetting /> */}
       <div className={styles["tables-main-container"]}>
-
-        <TableContainer bg="var(--table)" display="flex" flexDirection="column" alignItems="center">
-          {/* <Data /> */}
-          <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
-
-            <Thead textTransform="capitalize" fontFamily="Inter" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
-              <Tr className={styles[""]}>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
-                  Rank
-                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'rank', ascending: false })
-                    }} />
-                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'rank', ascending: true })
-                    }} />
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" px={["15px", "15px", "20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} bg="var(--tables)" zIndex="33" style={{ background: "var(--table)" }}>
-                  Asset
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={['15px 5px', '15px 5px', 6, 6]} px={["5px", "5px", "20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
-                  Price
-                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'price', ascending: false })
-                    }} />
-                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'price', ascending: true })
-                    }} />
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px", "5px", "20px", "20px"]} ref={percentageRef}>
-                  {textResponsive ? "24h %" : "Change (24h)"}
-                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'price_change_24h', ascending: false })
-                    }}
-                  />
-                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'price_change_24h', ascending: true })
-                    }} />
-                </Th>
-                <Th fontSize={['12px', "12px", "14x", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
-                  Market cap
-                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'market_cap', ascending: false })
-                    }} />
-                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} onClick={() => {
-                    setOrderBy({ type: 'market_cap', ascending: true })
-                  }} />
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
-                  {display == 'My Assets' ? 'Balance' : 'Volume (24h)'}
-                  <IconButton p="5px" pl='2px' pr='0px' fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'volume', ascending: false })
-                    }} />
-                  <IconButton p="5px" pl='0px' fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
-                    onClick={() => {
-                      setOrderBy({ type: 'volume', ascending: true })
-                    }} />
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>
-                  Socials
-                </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
-                  Chart
-                </Th>
-              </Tr>
-            </Thead>
-
-            {
-              (orderBy ? getTokensToDisplay(orderBy) : getTokensToDisplay()).map((token: any, index: number) => token ? <Token
-
-                key={token.id || token.balance + token.name}
-                id={token.id}
-                name={token.name}
-                symbol={token.symbol}
-                contracts={token.contracts}
-                blockchains={token.blockchains}
-                pairs={token.pairs}
-                logo={token.logo}
-                twitter={token.twitter}
-                chat={token.chat}
-                discord={token.discord}
-                website={token.website}
-                market_cap={token.market_cap}
-                volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
-                price_change_24h={token.price_change_24h}
-                price_change_7d={token.price_change_7d}
-                price={token.price}
-                rank_change_24h={token.rank_change_24h}
-                rank={token.rank}
-                isMyAsset={display == 'My Assets'}
-              /> : <></>)
-            }
-          </Table>
-        </TableContainer>
+        <HeaderTable title={"Top100"} setOrderBy={setOrderBy} textResponsive={textResponsive} display={display} orderBy={orderBy} getTokensToDisplay={getTokensToDisplay}/>
       </div>
       <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
       {display != 'My Assets' ? <Pagination maxPage={props[display.split(' ')[0].toLowerCase()]} /> : <></>}

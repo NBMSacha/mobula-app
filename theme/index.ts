@@ -19,6 +19,7 @@ const overrides = {
       button: {
         fontFamily: 'Poppins',
       },
+      
     }),
   },
 }
@@ -43,6 +44,9 @@ export const themeUltime = extendTheme({
         borderColor: mode('#000', 'whiteAlpha.300')(props),
         wordWrap: 'break-word',
       },
+      input: {
+        border:"none"
+      }
     }),
 
   },

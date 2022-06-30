@@ -1,0 +1,15 @@
+.rangeSliders{
+    width:8vw
+}
+
+@media screen and (max-width: 1280px) {
+    .rangeSliders{
+        width:12vw
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .rangeSliders{
+        width:10px !important
+    }
+}

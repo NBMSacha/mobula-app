@@ -135,10 +135,10 @@ function Header(props: any) {
       off(window, 'scroll', handleScroll, { passive: true })
     }
   }, [isMenuMobile])
-  
+
   return (
     <>
-    <Box bg="var(--background)" zIndex="15" position={[isMenuMobile ? "fixed" : "static" , isMenuMobile ? "fixed" : "static" ,isMenuMobile ? "fixed" : "static" ,,scrollingUp ? "fixed" : "static"]} w={["100%", "100%", "100%", "100vw"]}  className={`${scrollingUp ? 'stickyHeader' : ''}`}>
+    <Box bg="var(--background)" zIndex="15" position={[isMenuMobile ? "fixed" : "static" , isMenuMobile ? "fixed" : "static" ,isMenuMobile ? "fixed" : "static" ,,scrollingUp ? "fixed" : "static"]} w={["100%", "100%", "100%", "100%"]}  className={`${scrollingUp ? 'stickyHeader' : ''}`}>
       <div className={styles['header']} >
         <div className={styles['main']}>
           <Brand />

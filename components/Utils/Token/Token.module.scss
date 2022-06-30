@@ -1,0 +1,504 @@
+.border-bot {
+    cursor: pointer;
+  }
+  
+  .tbodys span {
+    font-weight: 500;
+  }
+  
+  .hide {
+    opacity: 0.3;
+  }
+  
+  .border-bot:hover {
+    background-color: #808a9d27;
+  }
+  
+  .tokens-links {
+    position: relative;
+    margin-right: 26px !important;
+    width: 80px !important;
+    margin-left: 25px !important;
+  }
+  
+  .trs:hover {
+    background-color: var(--btn-hover)
+  }
+  
+  .trs:hover .asset-title-start {
+  }
+  
+  /* align-items / display table-cell / font-size / justify-content flex start
+  */
+  
+  .token-containers {
+    width: 100%;
+    display: flex;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+    height: 120px;
+  }
+  
+  .token-containers>td {
+    width: 154px;
+    display: flex;
+    margin-left: 50px;
+    align-items: center;
+    justify-content: end;
+  }
+  
+  .token-chart {
+    width: 135px !important;
+    margin-left: 44px !important;
+    margin-right: 20px;
+  }
+  
+  .token-ids {
+    display: flex;
+    align-items: center;
+    width: 97px !important;
+    margin-right: 20px;
+    margin-left: 8px !important;
+  }
+  
+  .token-ids>span {
+    margin-left: 10px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px;
+   
+  }
+  
+  
+  .nomargin {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+  }
+  
+  .font-char {
+    
+    
+  }
+  
+  // ==========================================================================
+  
+  //===========================================================================
+  
+  .media-icons {
+    display: flex;
+  
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .asset-title-start {
+    display: table-cell !important;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 0px !important;
+    white-space: nowrap;
+    margin-right: 31px;
+  }
+  
+  
+  .wrap-name {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right:10px;
+    margin-right: -70px;
+  }
+  
+  .center-social {
+    text-align: center
+  }
+  
+  
+  
+  
+  
+  .tbodys tr {
+    align-items: center;
+  }
+  
+  .name-title-margin {
+    margin-right: 15px;
+    font-weight: 800 !important;
+  }
+  
+  .white {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .rank-title-start {
+    vertical-align: middle;
+    max-width:100px !important
+  }
+  
+  .ths {
+    padding: 15px 20px;
+    text-align: end;
+    margin: 15px 0px;
+  }
+  
+  .green {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  .red {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-weight: 600 !important
+  }
+  
+  .symbol-weight {
+    opacity: 0.6
+  }
+  
+  
+  .hover-child{
+    border-bottom:1px solid rgba(122, 122, 122, .1) !important
+    
+  }
+  
+  .tbodys:hover{
+    background: var(--box_active) !important;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .media-icons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .asset-title-start {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: sticky;
+      left: 0px;
+    
+      margin: 0px !important;
+      padding: 15px 10px 15px 10px !important;
+    }
+  
+    .tbodys:hover > tr > .hover-child {
+     background: var(--box_active) !important;
+     align-items:center; 
+     border-bottom:1px solid rgba(122, 122, 122, .3) !important
+    }
+  
+    .hover-child{
+      border-bottom:1px solid rgba(122, 122, 122, .1) !important
+    }
+  
+    .wrap-name {
+      margin-right: 0px;
+    }
+  
+    .font-char {
+      
+      height: 100%;
+    }
+  
+   
+  
+    .tbodys:hover {
+      background: var(--box_active)
+    }
+  
+    .tbodys tr {
+      align-items: center;
+    }
+  
+    .name-title-margin {
+      margin-right: 10px;
+    }
+  
+    .white {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+  
+    .rank-title-start {
+      vertical-align: middle;
+      display: none;
+    }
+  
+    .ths {
+    
+      text-align: end;
+     
+    }
+  
+    .green {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
+  
+    .red {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+    }
+  }
+  
+  // ==============================
+  
+  // ==============================
+  
+  
+  .white:visited {
+  
+  }
+  
+  
+  .red {
+    color: #ea3943 !important;
+  }
+  
+  .green {
+    color: #16c784 !important;
+  }
+  
+  .token-percentage-box {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600 !important;
+    line-height: 16px;
+    color: #ea3943;
+    align-items: center;
+    display: flex;
+  }
+  
+  .token-infos {
+    display: flex;
+    align-items: center;
+    justify-content: start !important;
+    width: 240px !important;
+    margin-left: 10px !important;
+  }
+  
+  .token-infos>div>span {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  
+  .token-infos>div {
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .token-logos {
+    height: 40px;
+    margin-right: 1rem;
+    border-radius: 50%;
+  }
+  
+  .token-names {
+    margin-right: 5px;
+  }
+  
+  .tokens-price {
+    width: 75px !important;
+    margin-right: 10px;
+  }
+  
+  .token-percentage {
+    width: 125px !important;
+  }
+  
+  .token-marketFully {
+    position: relative;
+  }
+  
+  .media-icons {
+    margin-bottom: auto;
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .fi {
+    color: #556b90;
+    margin-right: 10px;
+  }
+  
+  .fu {
+    color: #556b90;
+    margin-right:10px;
+    height:34px;
+    width:34px;
+  }
+  
+  .fo {
+    color: #556b90;
+    margin-right:10px;
+    height:30px;
+    width:30px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .token-containers {
+      height: 60px !important;
+    }
+  
+    .chart-image {
+      margin-right: 10px;
+      width: 110%
+    }
+  
+    .token-ids {
+      display: none !important
+    }
+  
+    .media-icons {
+      margin-left: 10px;
+    }
+  
+  
+    .token-marketCap {
+      margin-left: 0px !important;
+      width: 144px !important;
+    }
+  
+  
+    .token-infos {
+      margin: 0px;
+      margin-right: 15px;
+    }
+  
+    .token-logos {
+      height: 25px;
+    }
+    .fu {
+      height:30px !important;
+      width:30px !important;
+      min-width:30px !important
+    }
+    .fi {
+      height:23px;
+      width:23px;
+    }
+  
+    .token-marketFully {
+      margin-left: 0px !important;
+  
+    }
+  
+    .tokens-links {
+      margin-left: 0px !important;
+    }
+  
+    .token-chart {
+      margin-left: 10px !important;
+      justify-content: start !important;
+    }
+  
+    .token-symbols {
+  
+    }
+  
+    .tokens-price {
+      width: 32px !important;
+      margin-left: 0px !important;
+    }
+  
+    .token-percentage {
+      width: 34px !important;
+      margin-right: 10px;
+      margin-left: 40px !important;
+    }
+  
+    .token-logos {
+      margin-right: 10px;
+    }
+  
+    .token-price-box {
+      background: var(--background);
+      z-index: 2;
+      padding-left: 10px;
+    }
+  
+  }
+  
+  .tbodys span{
+  }
+  
+  .triangle-green {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #16c784;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
+  
+  .triangle-red {
+    display: inline-block;
+    height: 0;
+    width: 0;
+    border-top: 6px solid #ea3943;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-right: 6px;
+    margin-bottom: 2px;
+  }
+  
+  @media screen and (max-width: 580px) {
+    .token-percentage-box {
+      align-items: center;
+      display: flex;
+      
+    }
+  
+  
+  
+    .green {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 600 !important;
+      color: var(--text-green);
+    }
+  
+    .token-infos {
+      margin-right: 00px;
+    }
+  
+    .token-percentage {
+      width: 40px !important;
+      display: flex;
+      margin-left: 20px;
+    }
+  
+    .tokens-price {
+      width: 50px !important;
+    }
+  }
+  
+  @media screen and (max-width: 730px) {
+    .token-infos {
+      margin-right: 00px;
+    }
+  }
+  
+  @media screen and (max-width:1595px) {
+    .wrap-name {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -20px;
+    }
+  }

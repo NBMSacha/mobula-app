@@ -41,7 +41,7 @@ export default function Widget({ setSettings, visible, setVisible, settings }) {
     }
 
     useEffect(() => {
-        console.log(liquidity, volume)
+        console.log(liquidity, volume, settings)
     }, [liquidity, volume])
 
     return (
