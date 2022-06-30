@@ -10,7 +10,7 @@ import {
   import { getShortenedAmount } from "../../../../../../helpers/formaters"
   import styles from "./Boxs.module.scss"
 
-export default function Boxs({title, settings, setGeneralSettings, generalSettings, setSets}) {
+export default function Boxs({title, settings, setGeneralSettings, generalSettings, setSettings}) {
     
     function easeInExpo(x: number): number {
         return x === 0 ? 0 : Math.ceil(Math.pow(Math.E, x / 50000));

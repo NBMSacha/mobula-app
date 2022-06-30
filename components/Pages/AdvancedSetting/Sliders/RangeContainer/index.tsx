@@ -33,13 +33,13 @@ export default function RangeContainer({showMore, setShowMore}) {
             <Flex direction="column" mr="10px" className={styles["progress-box"]}>
                 <Flex p="5px"  border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" w="100%" direction={["column", "column","row", "row"]}> 
                     <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Liquidity"}  setSettings={setLiquidity} settings={liquidity}/>
-                    <Boxs setSets={setSetting} sets={setting} title={"Market-cap"} setSettings={setMarketCap} settings={marketCap}/>
-                    <Boxs setSets={setSetting} sets={setting} title={"Volume"} setSettings={setVolume} settings={volume}/>
+                    <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Market-cap"} setSettings={setMarketCap} settings={marketCap}/>
+                    <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Volume"} setSettings={setVolume} settings={volume}/>
                     {showMore ? (
                         <>
-                            <Boxs title={"Holders"} setSets={setSetting} sets={setting} setSettings={setHolders} settings={holders}/>
-                            <Boxs title={"Online Telegram users"} setSets={setSetting} sets={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
-                            <Boxs title={"Price change"} setSets={setSetting} sets={setting} setSettings={setPrice} settings={price}/>
+                            <Boxs title={"Holders"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setHolders} settings={holders}/>
+                            <Boxs title={"Online Telegram users"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
+                            <Boxs title={"Price change"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setPrice} settings={price}/>
                             <Button my="20px" onClick={() => setShowMore(!showMore)} mx="auto">
                                 <UpDownIcon mr="20px"/>
                                 <Text>Less settings</Text>
@@ -53,9 +53,9 @@ export default function RangeContainer({showMore, setShowMore}) {
                      )}
                 </Flex>
                 <Flex mt='10px' display={["none", "none", "flex","flex"]}  p="5px" w="100%" border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" direction={["column", "column","row", "row"]}> 
-                    <Boxs title={"Holders"} setSets={setSetting} sets={setting} setSettings={setHolders} settings={holders}/>
-                    <Boxs title={"Online Telegram users"} setSets={setSetting} sets={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
-                    <Boxs title={"Price change"} setSets={setSetting} sets={setting} setSettings={setPrice} settings={price}/>
+                    <Boxs title={"Holders"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setHolders} settings={holders}/>
+                    <Boxs title={"Online Telegram users"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
+                    <Boxs title={"Price change"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setPrice} settings={price}/>
                 </Flex>
             </Flex>
     )
