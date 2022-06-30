@@ -20,9 +20,9 @@ export default function Boxs({title, settings, setGeneralSettings, generalSettin
 
     return (
         <>
-            <Flex direction={["row", "row","column", "column"]}  align="center" justify="space-between" pt={[0,0,6,6]} pb={2}  w={["auto","auto","100%","100%"]}  mx="40px" >
+            <Flex direction={["row", "row","column", "column"]}  align="center" justify="space-between" pt={[0,0,6,6]} pb={2}  w={["auto","auto","100%","100%"]}  mx={["20px","20px","40px","40px"]} >
                 <Flex w={["auto","auto","100%","100%"]} >
-                    <Text  mb={["0px","0px","-20px","-20px"]} fontSize={["13px", "13px", "13px", "14px"]} mx="auto" color="var(text-secondary)" overflow={["overflow","overflow","hidden","hidden"]} whiteSpace={["pre-wrap","pre-wrap","nowrap","nowrap"]} textOverflow="ellipsis">{title}</Text>
+                    <Text  mb={["0px","0px","-20px","-20px"]} fontSize={["13px", "13px", "13px", "14px"]} mx="auto" color="var(text-secondary)" overflow={["overflow","overflow","hidden","hidden"]} whiteSpace={["pre-wrap","pre-wrap","nowrap","nowrap"]} textOverflow="ellipsis" maxWidth={["100px","100px","auto","auto"]}>{title}</Text>
                 </Flex>
                 <RangeSlider onChange={(val) => {
                     switch(title) {
@@ -41,7 +41,7 @@ export default function Boxs({title, settings, setGeneralSettings, generalSettin
                             console.log(val)
                         }
                     }
-                    }} aria-label={['min', 'max']} h="100px" defaultValue={settings} min={0} max={1_000_000}  position="relative" className={styles["rangeSliders"]}>
+                    }} aria-label={['min', 'max']} h="100px" defaultValue={settings} min={0} max={1_000_000}  position="relative" className={styles["rangeSliders"]} w={["45vw","50vw","20vw", "8vw"]}>
                     <RangeSliderTrack bg="var(--box_border)">
                         <RangeSliderFilledTrack bg="blue"/>
                     </RangeSliderTrack>
