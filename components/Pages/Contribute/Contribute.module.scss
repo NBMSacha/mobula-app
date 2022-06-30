@@ -1,0 +1,35 @@
+.title{
+    font-size:35px;
+}
+
+.description{
+    font-size:18px;
+}
+
+.button{
+    font-size:20px
+}
+
+@media (max-width: 1280px) {
+    .title{
+        font-size:23px;
+    }
+    .description{
+        font-size:14px;
+    }
+    .button{
+        font-size:15px
+    }
+}
+
+@media (max-width: 768px) {
+    .title{
+        font-size:14px !important;
+    }
+    .description{
+        font-size:9px !important;
+    }
+    .button{
+        font-size:12px !important
+    }
+}

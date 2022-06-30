@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
-import Widget from "../../Utils/Widget"
+import Widget from "../Widget"
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
 import {
   Table,
@@ -20,8 +20,8 @@ import {
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
-import ConnectWallet from "../../Utils/ConnectWallet"
-import Data from "../../Utils/Data";
+import ConnectWallet from "../ConnectWallet"
+import Data from "../Data";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 
   export default function Top({title, setOrderBy, textResponsive, display, orderBy, getTokensToDisplay}) {
