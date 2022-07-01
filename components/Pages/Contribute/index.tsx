@@ -22,7 +22,7 @@ export default function Contribute() {
             <Flex w={["90%","90%","80%","80%"]} mx="auto" direction={["column","column", "row", "row"]} align="center" justify="space-between" h="auto">
                 <Box w={["95%","92%","40%","40%"]} h="100%" pr={["20px","20px","0px","0px"]}>
                     <Text fontWeight="600" className={styles["title"]}><Box as="span" color="blue" >Mobula’s Discord</Box><Text mt="-5px">Get involved</Text></Text>
-                    <Text className={styles["descriptions"]}  mt={['10px','10px','20px','20px']} color="var(--text-grey)">Interact with Mobula community: thousands of crypto lovers and builders making decentralization and seamless data access their top priority.</Text>
+                    <Box className={styles["descriptions"]}  mt={["10px","10px","20px","20px"]} color="var(--text-grey)">Interact with Mobula community: thousands of crypto lovers and builders making decentralization and seamless data access their top priority.</Box>
                     <Button display={["none","none","flex","flex"]} fontWeight="400" color="white" bg="blue" py={["5px","5px","10px","10px"]} px={["20px","20px","30px","30px"]} mt={["10px","20px","30px","30px"]} className={styles["button"]}>
                     <Image src="./discord-logo.png" h="24px" mr="10px"/> 
                     Join the Mobula Discord</Button>
@@ -51,7 +51,7 @@ export default function Contribute() {
                 </Flex>
                 <Box w={["95%","92%","45%","40%"]} h="100%" px="5px" pl={["20px","20px","auto","auto"]}>
                     <Text  fontWeight="600" className={styles["title"]}><Box as="span" color="blue">The Governance DAO</Box><Text mt="-5px">Decide what’s next.</Text></Text>
-                    <Text className={styles["descriptions"]} mt={['10px','10px','20px','20px']} color="var(--text-grey)" >Contribute to the future of Mobula. Submit proposals, or vote for existing ones, about Treasury management, next features, Protocol DAO tweaks.</Text>
+                    <Box className={styles["descriptions"]} mt={['10px','10px','20px','20px']} color="var(--text-grey)" >Contribute to the future of Mobula. Submit proposals, or vote for existing ones, about Treasury management, next features, Protocol DAO tweaks.</Box>
                     <Button className={styles["button"]} display={["none","none","flex","flex"]} fontWeight="400" color="white" bg="blue" py={["5px","5px","10px","10px"]} px={["20px","20px","30px","30px"]} mt={["10px","20px","30px","30px"]} >Discover the Governance DAO</Button>
                 </Box>
             </Flex>
@@ -65,9 +65,8 @@ export default function Contribute() {
             <Flex direction={["column","column", "row", "row"]} w={["90%","90%","80%","80%"]} align="center" mx="auto" justify="space-between" h="auto" mb="100px">
                 <Box w={["95%","92%","40%","40%"]} h="100%" pr={["20px","20px","0px","0px"]}>
                     <Text fontWeight="600" className={styles["title"]}><Box as="span" color="blue">The Protocol DAO</Box><Text mt="-5px">Decide what’s listed.</Text></Text>
-                    <Text className={styles["descriptions"]}  mt={['10px','10px','20px','20px']} color="var(--text-grey)" >Aanalyze the projects requesting for a listing, vote for or against the validation of their listing, attribute them a score from 0 to 5. </Text>
+                    <Box className={styles["descriptions"]}  mt={['10px','10px','20px','20px']} color="var(--text-grey)" >Aanalyze the projects requesting for a listing, vote for or against the validation of their listing, attribute them a score from 0 to 5. </Box>
                     <Button display={["none","none","flex","flex"]} fontWeight="400" color="white" bg="blue" py={["5px","5px","10px","10px"]} px={["20px","20px","30px","30px"]} mt={["10px","20px","30px","30px"]} className={styles["button"]}>Discover the Protocol DAO</Button>
-                  
                 </Box>
                 <Flex position="relative" h="100%" w={["90%","90%","50%","50%"]}  direction="column" align="center" mt={["20px","20px","0px","0px"]}>
                     <Flex  maxWidth={["auto","auto","100%","100%"]} display="column" boxSize={["auto","auto","auto","auto"]} align="center" justify="center" h="100%">
