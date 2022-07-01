@@ -7,6 +7,45 @@ html {
   --shadow: #d0d6e3;
 }
 
+.title{
+  font-size:35px;
+}
+
+.description{
+  font-size:18px;
+}
+
+.button{
+  font-size:20px
+}
+
+@media (max-width: 1280px) {
+  .title{
+      font-size:23px;
+  }
+  .description{
+      font-size:14px;
+  }
+  .button{
+      font-size:15px
+  }
+}
+
+@media (max-width: 768px) {
+  .title{
+      font-size:18px !important;
+      text-align: center;
+  }
+  .description{
+      font-size:12px !important;
+      text-align: center;
+  }
+  .button{
+      font-size:12px !important
+  }
+}
+
+
 body {
   margin: 0;
   font-family: 'Poppins';
