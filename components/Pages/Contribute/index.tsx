@@ -49,7 +49,7 @@ export default function Contribute() {
                         <Button display={["flex","flex","none","none"]} fontWeight="400" color="white" bg="blue" borderRadius="10px" h="35px" mb="20px" px={["20px","20px","30px","30px"]} mr="auto" ml="auto" mt="15px" w="100%" fontSize={["10px","10px","25px","25px"]}>Discover Governance </Button>
                     </Flex>
                 </Flex>
-                <Box w={["95%","92%","40%","40%"]} h="100%" px="5px" pl={["20px","20px","auto","auto"]}>
+                <Box w={["95%","92%","45%","40%"]} h="100%" px="5px" pl={["20px","20px","auto","auto"]}>
                     <Text  fontWeight="600" className={styles["title"]}><Box as="span" color="blue">The Governance DAO</Box><Text mt="-5px">Decide what’s next.</Text></Text>
                     <Text className={styles["description"]} fontSize={["12px", "12px", "18px", "18px"]} mt={['10px','10px','20px','20px']} color="var(--text-grey)" >Contribute to the future of Mobula. Submit proposals, or vote for existing ones, about Treasury management, next features, Protocol DAO tweaks.</Text>
                     <Button className={styles["button"]} display={["none","none","flex","flex"]} fontWeight="400" color="white" bg="blue" py={["5px","5px","10px","10px"]} px={["20px","20px","30px","30px"]} mt={["10px","20px","30px","30px"]} >Discover the Governance DAO</Button>
