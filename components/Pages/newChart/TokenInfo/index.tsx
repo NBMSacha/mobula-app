@@ -56,7 +56,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
                         </Link> : <></>
                     }
-                    {baseAsset.chat.length > 0 ?
+                    {baseAsset.chat ?
                         <Link target="_blank" href={baseAsset.chat} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Chat</Flex>
                         </Link> : <></>
