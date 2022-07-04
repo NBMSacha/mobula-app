@@ -4,6 +4,7 @@ import { Twitter, Globe, ArrowUp, ArrowDown } from "react-feather";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 import { useRouter } from 'next/router';
 import BlockchainBtn from "../../Utils/BlockchainBtn"
+import HeaderTable from "../../Utils/HeaderTable"
 import { createClient } from '@supabase/supabase-js'
 import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link } from "@chakra-ui/react";
 import Widget from "../../Utils/Widget"
@@ -51,6 +52,10 @@ export default function Trendings({ tokensBuffer }) {
 
     }, [settings, blockchain])
 
+    function getTokensToDisplay() {
+        return tokens
+    }
+
     return (
         <Flex justify="center" maxWidth="1850px" mx="auto">
             <div className={styles["dflex"]} >
@@ -70,105 +75,7 @@ export default function Trendings({ tokensBuffer }) {
                 <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
                 <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
                 {/* <Top title={"Trendings"} setOrderBy={tokens} /> */}
-                <TableContainer mb="20px" mt="20px" >
-                    <Table variant='simple'>
-                        <Thead borderTop={`2px solid var(--box_border)`} borderBottom="2px solid var(--box_border) !important" color="var(--text-grey)" fontSize={['12px', '12px', '16px', '16px']}>
-                            <Tr>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" position="sticky" left="0px" bg={["var(--background)", "var(--background)", "var(--background)", 'none']} textAlign="start">Asset</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Price</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Change (24h)</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Market Cap</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" px="5px" isNumeric>Volume (24h)</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" >Socials</Th>
-                                <Th borderBottom="2px solid var(--box_border) !important" fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Poppins" textTransform="capitalize" >Added</Th>
-                            </Tr>
-                        </Thead>
-                        {tokens.map((token: any) => {
-
-                            let date = new Date(token.created_at);
-                            let seconds = date.getTime();
-                            let postedDate = Math.round((Date.now() - seconds) / 1000);
-                            let format = "";
-                            if (postedDate < 60) {
-                                format = "seconds";
-                            }
-                            else if (60 <= postedDate && postedDate < 120) {
-                                format = "minute"
-                            }
-                            else if (120 <= postedDate && postedDate < 3600) {
-                                format = "minutes"
-                            }
-                            else if (3600 <= postedDate && postedDate < 7200) {
-                                format = "hour"
-                            }
-                            else if (7200 <= postedDate && postedDate < 86400) {
-                                format = "hours"
-                            }
-                            else if (86400 <= postedDate && postedDate < 172800) {
-                                format = "day"
-                            }
-                            else if (172800 <= postedDate) {
-                                format = "days"
-                            }
-                            return (<Tbody fontSize={['12px', '12px', '16px', '16px']} py="5px" onClick={() => router.push('/asset/' + getUrlFromName(token.name))} _hover={{ background: "var(--box_active)", cursor: "pointer" }}>
-                                <Tr>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px="5px" position="sticky" py="5px" left="0px" bg={["var(--background)", "var(--background)", "none"]} >
-                                        <Flex align="center">
-                                            <Text pl="30px" opacity="1" mr="10px" display={["none", "none", "flex", "flex"]}>{token.rank}</Text>
-                                            <Image borderRadius="50%" h={["25px", "25px", "30px", "30px"]} w={["25px", "25px", "30px", "30px"]} src={token.logo} mr="10px" />
-                                            <Flex minWidth="120px" direction={["column", "column", "row", "row"]}>
-                                                <Text display={["none", "none", "none", "flex"]} maxWidth="200px" overflow="hidden" textOverflow="ellipsis" mr="10px">{token.name.length > 15 ? formatName(token.name, 15) : token.name}</Text>
-                                                <Text display={["flex", "flex", "flex", "none"]} whiteSpace="pre-wrap" textOverflow="ellipsis" mr="10px">{token.name}</Text>
-                                                <Flex>
-                                                    <Text opacity="1" mr="10px" display={["flex", "flex", "none", "none"]}>{token.rank}</Text>
-                                                    <Text opacity="0.6">{token.symbol}</Text>
-                                                </Flex>
-                                            </Flex>
-                                        </Flex>
-                                    </Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>{getTokenFormattedPrice(token.price, '$', { justify: 'right', marginTop: 'auto' })}</Text></Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric>
-                                        <Text color={getTokenPercentage(token.price_change_24h) > 0.01 ? "green" : "red"}>
-                                            {getTokenPercentage(token.price_change_24h) > 0.01 ? <TriangleUpIcon mr="5px" /> : <TriangleDownIcon mr="5px" />}
-                                            {getTokenPercentage(token.price_change_24h)}%
-                                        </Text>
-                                    </Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px={"5px"} py="5px" isNumeric><Text>${formatAmount(token.market_cap)}</Text></Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px="5px" py="5px" isNumeric><Text>${formatAmount(token.volume)}</Text></Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" py={["5px", "5px", "20px", "20px"]}>
-                                        <Flex>
-                                            {token.website && (
-                                                <Link href={token.website}>
-                                                    <Globe height="30px" style={{ color: "#58667E" }} />
-                                                </Link>
-                                            )}
-                                            {token.twitter && (
-                                                <Link href={token.twitter}>
-                                                    <Image h="30px" minWidth="30px" w="30px" ml="3px" src="/new-twitter.png" />
-                                                </Link>
-                                            )}
-                                            {token.discord && (
-                                                <Link href={token.discord}>
-                                                    <Image h="30px" minWidth="30px" ml="3px" src="/new-discord.png" />
-                                                </Link>
-                                            )}
-                                        </Flex>
-                                    </Td>
-                                    <Td borderBottom="1px solid var(--box_border) !important" px="5px">
-                                        {format == "seconds" && <span>{postedDate} seconds ago</span>}
-                                        {format == "minute" && <span>{Math.floor(postedDate / 60)} minute ago</span>}
-                                        {format == "minutes" && <span>{Math.floor(postedDate / 60)} minutes ago</span>}
-                                        {format == "hour" && <span>{Math.floor(postedDate / 3600)} hour ago</span>}
-                                        {format == "hours" && <span>{Math.floor(postedDate / 3600)} hours ago</span>}
-                                        {format == "day" && <span>{Math.floor(postedDate / 86400)} day ago</span>}
-                                        {format == "days" && <span>{Math.floor(postedDate / 86400)} days ago</span>}
-                                    </Td>
-                                </Tr>
-                            </Tbody>
-                            )
-                        })}
-                    </Table>
-                </TableContainer>
+                <HeaderTable title={"Advanced Settings"} getTokensToDisplay={getTokensToDisplay}/>
             </div>
         </Flex>
     )

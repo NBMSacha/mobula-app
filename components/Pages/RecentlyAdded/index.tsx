@@ -29,7 +29,7 @@ export default function RecentlyAdded({ tokensBuffer }) {
   const router = useRouter();
   const percentageRef = useRef()
   const [widget, setWidget] = useState(false)
-
+  
   useEffect(() => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
@@ -50,6 +50,8 @@ export default function RecentlyAdded({ tokensBuffer }) {
       });
 
   }, [settings, blockchain])
+
+
 
   return (
     <Flex justify="center" maxWidth="1850px" mx="auto">

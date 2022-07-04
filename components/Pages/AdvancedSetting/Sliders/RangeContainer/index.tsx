@@ -1,62 +1,44 @@
-import React, { useState, useEffect } from 'react'
-import { useColorModeValue, Flex, Box, Text, Stack,Image, Button } from '@chakra-ui/react'
+import React, { useState, useEffect, useContext } from 'react'
+import { useColorModeValue, Flex, Box, Text, Stack,Image, Button, theme } from '@chakra-ui/react'
 import Boxs from "./Boxs"
 import { CalendarIcon, UpDownIcon } from "@chakra-ui/icons"
 import styles from "../Sliders.module.scss"
+import { ContextObject } from "../index"
 
-export default function RangeContainer({showMore, setShowMore}) {
-
-    
-    const [volume, setVolume] = useState([50_000, 345_000])
-    const [liquidity, setLiquidity] = useState([1000, 345_393])
-    const [marketCap, setMarketCap] = useState([15_263,1_000_000])
-    const [holders, setHolders] = useState([54_221,545_221])
-    const [tlgUsers, setTlgUsers] = useState([4522,152_856])
-    const [price, setPrice] = useState([4551, 54_666])
-    const [setting, setSetting] = useState({ 
-        liquidity,
-        volume,
-        market_cap: marketCap,
-        holders,
-        tlg_users: tlgUsers,
-        price_change:price,
-        onChainOnly: false,
-        default: true
-    })
-
-    function reverseExpo(x: number): number {
-        return x === 0 ? 0 : 50000 * Math.log(x);
-    }
-
-    console.log(setting.liquidity)
+export default function RangeContainer({setShowMore, showMore}) {
+    const themeContext = useContext(ContextObject);
     return (
-            <Flex direction="column" mr="10px" className={styles["progress-box"]}>
-                <Flex p="5px"  border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" w="100%" direction={["column", "column","row", "row"]}> 
-                    <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Liquidity"}  setSettings={setLiquidity} settings={liquidity}/>
-                    <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Market-cap"} setSettings={setMarketCap} settings={marketCap}/>
-                    <Boxs setGeneralSettings={setSetting} generalSettings={setting} title={"Volume"} setSettings={setVolume} settings={volume}/>
-                    {showMore ? (
-                        <>
-                            <Boxs title={"Holders"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setHolders} settings={holders}/>
-                            <Boxs title={"Online Telegram users"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
-                            <Boxs title={"Price change"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setPrice} settings={price}/>
-                            <Button my="20px" onClick={() => setShowMore(!showMore)} mx="auto">
+
+                <>
+                <Flex direction="column" mr="10px" className={styles["progress-box"]}>
+                    <Flex p="5px"  border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" w="100%" direction={["column", "column","row", "row"]}> 
+                        <Boxs title={"Liquidity"} isActive={themeContext.isActiveLiquidity} setIsActive={themeContext.setIsActiveLiquidity} setSetting={themeContext.setLiquidity} setting={themeContext.liquidity}/>
+                        <Boxs title={"Market cap"} isActive={themeContext.isActiveMarketCap} setIsActive={themeContext.setIsActiveMarketCap} setSetting={themeContext.setMarketCap} setting={themeContext.marketCap}/>
+                        <Boxs title={"Volume"} isActive={themeContext.isActiveVolume} setIsActive={themeContext.setIsActiveVolume} setSetting={themeContext.setVolume} setting={themeContext.volume}/>
+                        {showMore ? (
+                            <>
+                                <Boxs title={"Holders"}/>
+                                <Boxs title={"Online Telegram users"}/>
+                                <Boxs title={"Price change 24h"} />
+                                <Button my="20px" onClick={() => setShowMore(!showMore)} mx="auto">
+                                    <UpDownIcon mr="20px"/>
+                                    <Text>Less settings</Text>
+                                </Button>
+                            </>
+                        ) : ( 
+                            <Button display={["flex", "flex","none","none"]} my="20px" onClick={() => setShowMore(!showMore)} mx="auto">
                                 <UpDownIcon mr="20px"/>
-                                <Text>Less settings</Text>
+                                <Text>More settings</Text>
                             </Button>
-                        </>
-                    ) : ( 
-                        <Button display={["flex", "flex","none","none"]} my="20px" onClick={() => setShowMore(!showMore)} mx="auto">
-                            <UpDownIcon mr="20px"/>
-                            <Text>More settings</Text>
-                        </Button>
-                     )}
+                        )}
+                    </Flex>
+                    <Flex mt='10px' display={["none", "none", "flex","flex"]}  p="5px" w="100%" border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" direction={["column", "column","row", "row"]}> 
+                        <Boxs title={"Holders"}/>
+                        <Boxs title={"Online Telegram users"}/>
+                        <Boxs title={"Price change"}/>
+                    </Flex>
                 </Flex>
-                <Flex mt='10px' display={["none", "none", "flex","flex"]}  p="5px" w="100%" border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" direction={["column", "column","row", "row"]}> 
-                    <Boxs title={"Holders"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setHolders} settings={holders}/>
-                    <Boxs title={"Online Telegram users"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setTlgUsers} settings={tlgUsers}/>
-                    <Boxs title={"Price change"} setGeneralSettings={setSetting} generalSettings={setting} setSettings={setPrice} settings={price}/>
-                </Flex>
-            </Flex>
+            </>
+ 
     )
 }

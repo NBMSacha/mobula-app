@@ -79,7 +79,7 @@ function News(props: any) {
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
-
+      console.log(defaultSettings[chain])
     const bufferSettings = settings.default ? defaultSettings[chain] : settings;
 
     supabase
