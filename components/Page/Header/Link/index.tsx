@@ -1,37 +1,38 @@
-import React from 'react'
+import React, { useState} from 'react'
 import styles from './link.module.scss'
 import { useRouter } from 'next/router'
-import { Flex, Text, Button, Input } from '@chakra-ui/react'
+import { Flex, Text, Button, Input, Box } from '@chakra-ui/react'
 
 function Link() {
   const router = useRouter()
+  const [selected, setSelected] = useState('')
 
   if (router.pathname.includes('dao')) {
     return (
       <div className={styles['link-container']}>
-        <span
+        <Box as="span"
           onClick={() => (document.location.href = 'dashboard')}
         >
           Dashboard
-        </span>
-        <span
+        </Box>
+        <Box as="span" color={selected == "Dashboard" ? "blue" : "none"}
           className={styles['link-common']}
           onClick={() => (document.location.href = 'elections')}
         >
           Elections
-        </span>
-        <span
+        </Box>
+        <Box as="span" color={selected == "First Sort" ? "blue" : "none"}
           className={styles['link-common']}
-          onClick={() => (document.location.href = 'sort')}
+          onClick={() => {setSelected('First Sort');(document.location.href = 'sort');console.log}}
         >
           First Sort
-        </span>
-        <span
+        </Box>
+        <Box as="span" color={selected === "Final Validation" ? "var(--blue)" : "none"}
           className={styles['link-common']}
           onClick={() => (document.location.href = 'validation')}
         >
           Final Validation
-        </span>
+        </Box>
       </div>
     )
   } else {

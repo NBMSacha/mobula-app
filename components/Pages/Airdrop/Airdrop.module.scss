@@ -1,0 +1,101 @@
+.main{
+    width:100%
+}
+
+.padBox{
+    padding:20px;
+    width:30%;
+    margin-left:10px;
+    margin-top:0px;
+}
+
+.timeRemaining{
+    width:100%
+}
+
+.padBox-info{
+    padding:40px;
+    width:70%;
+}
+
+.fontSize{
+    font-size:15px
+}
+
+.scroll::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+    display:none;
+    
+  }
+  
+  .scroll::-webkit-scrollbar-track {
+    display:none;
+    border-radius: 0px 10px 10px 0px
+    
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+    display:none;
+    background:grey
+    
+  }
+
+@media screen and (max-width: 1460px) {
+    .main{
+        width:90%
+    }
+    .padBox{
+        padding:10px;
+        
+    }
+    .padBox-info{
+        padding:20px;
+        
+        
+    }
+    .fontSize{
+        font-size:14px
+    }
+}
+
+@media screen and (max-width: 1260px) {
+
+    .fontSize{
+        font-size:13px
+    }
+}
+
+
+@media screen and (max-width: 1160px) {
+
+    .main{
+        flex-direction:column;
+    }
+    .padBox-info{
+        width:100%;
+        margin-left:0px;
+        
+    }
+    .padBox{
+        width:100%;
+        margin-left:0px;
+        margin-top:10px;
+    }
+}
+
+@media screen and (min-width: 502px) and (max-width:1160px) {
+    .timeRemaining{
+        width:55%
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main{
+        flex-direction:column;
+    }
+    
+    .fontSize{
+        font-size:12px
+    }
+}

@@ -31,8 +31,6 @@ export default function Blockchain({blockchains, setBlockchains, setTokens, toke
           console.log(blockchains)
       }, [blockchains])
       console.log(tokens)
-
-  
     
     return (
             <Flex w="90%" direction={["column", "column","row","row"]} className={styles["scroll"]} maxWidth={["540px", "540px","1400px","1400px"]} mx="auto" h={["85px","85px","55px","55px"]}
