@@ -232,13 +232,13 @@ function Dashboard() {
                     borderRadius='8px'
 
                     borderBottom={`1px solid var(--box_border)`}
-                    w={['100%', '100%', '90%', '48%']}
+                    w={['100%', '100%', '90%', '50%']}
                     textAlign={['center', 'center', 'center', 'left']}
                     mb={["10px", "10px", "7px", 0]}
                     position="relative"
                     align="center"
                   >
-                    <Flex direction={["column", "column", "row", "row"]} bg="none" justify="center" w="50%" p="10px">
+                    <Flex direction={["column", "column", "row", "row"]} bg="none" justify="center" w="50%" p="10px" >
                       <Text textAlign="start" fontSize="12px" mb={2}>
                         Rank I <span className={styles['stats']}>Stats</span>
                       </Text>
@@ -336,7 +336,7 @@ function Dashboard() {
 
 
             <Flex display={["none", "none", "flex", "flex"]} w={["95%", "95%", "95%", "95%"]} mr="5px" direction="column" align={['center', 'center', 'center', 'space-between']} justify="" mt={["50px", "50px", "0px", "0px",]}>
-              <Flex w='100%' justify="space-around" direction={[, "column", "row", "row"]}>
+              <Flex w='100%' justify="center" direction={["column", "column", "row", "row"]}>
                 <RankStats web3React={web3React} title={"Rank I"} goodChoices={firstGoodChoice} badChoices={firstBadChoice} tokensOwed={firstTokensOwed} />
                 <RankStats web3React={web3React} title={"Rank II"} goodChoices={finalGoodChoice} badChoices={finalBadChoice} tokensOwed={finalTokensOwed} />
               </Flex>

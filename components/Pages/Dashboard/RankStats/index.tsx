@@ -17,8 +17,9 @@ function RankStats({ title, tokensOwed, goodChoices, badChoices, web3React }) {
         w={['100%', '100%', '50%', '50%']}
         textAlign={['center', 'center', 'center', 'left']}
         mb={[7, 7, 7, 0]}
-        mr={title == "Rank I" ? 3.5 : 0}
+        mr={title == "Rank I" ? "10px" : 0}
         position="relative"
+        
     >
         <Box position="absolute" display={["block", "block", "none", "none"]} bottom='-20px' h="1px" w="38%" bg="var(--border-top-body)"></Box>
         <h2 className={styles["title-rank"]}>
