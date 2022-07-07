@@ -4,7 +4,7 @@ export default function Boxs() {
     
     return(
         
-                <Box mr={["0px","0px","20px","20px"]}  my="10px" w={["100%","100%","310px","31%"]} borderRadius="12px" border="1px solid var(--box_border)">
+                <Box mr={["0px","0px","20px","20px"]}  my="10px" w={["100%","100%","310px","31%"]} borderRadius="12px" border="1px solid var(--box_border)" boxShadow="1px 2px 13px 3px var(--shadow)">
                     <Flex h="110px" align="center" justify="center" bg="var(--bg-partner)">
                         <Image src="/fullicon.png" boxSize="50px"/>
                     </Flex>
