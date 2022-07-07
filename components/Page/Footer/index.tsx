@@ -3,7 +3,7 @@ import { GitHub, Send, Twitter } from 'react-feather'
 import styles from './footer.module.scss'
 import { Moon, Sun } from "react-feather"
 import { Link, Icon } from '@chakra-ui/react'
-import { Flex, Text, Image, Button, Input, IconButton } from '@chakra-ui/react'
+import { Flex, Text, Image, Button, Input, IconButton, Box } from '@chakra-ui/react'
 import { ThemeContext } from '../../../pages/_app';
 
 function Footer() {
@@ -48,27 +48,10 @@ function Footer() {
           mr={["0px", "0px", "5px", "5px"]}
           alt='logo'
           onClick={() => (document.location.href = '/')}
+          display={["none", "none", "flex", "flex"]}
         />
 
-        <div className={styles['social-container']}>
-          <Link href='https://t.me/MobulaFi' _hover={{ color: "var(--box_active)", textDecoration: "none" }} className={styles['social-link']}>
-            <Icon as={Send} boxSize="20px" mt="40px" />
-          </Link>
-          <Link
-            href='https://github.com/NBMSacha/mobula-app'
-            className={styles['social-link']}
-            _hover={{ color: "var(--box_active)", textDecoration: "none" }}
-          >
-            <Icon as={GitHub} boxSize="20px" mt="20px" />
-          </Link>
-          <Link
-            href='https://twitter.com/MobulaFi'
-            className={styles['social-link']}
-            _hover={{ color: "var(--box_active)", textDecoration: "none" }}
-          >
-            <Icon as={Twitter} boxSize="20px" mt="20px" />
-          </Link>
-        </div>
+        
       </div>
       <div className={styles['footer-right']}>
         <div className={styles['community']}>
@@ -125,7 +108,7 @@ function Footer() {
           </ul>
         </div>
         <div className={styles['help']}>
-        <Flex justify="center">
+        <Flex justify="center" display={["none", "none", "flex", "flex"]}>
           <IconButton
 
             _focus={{ boxShadow: "none" }}
@@ -138,10 +121,60 @@ function Footer() {
 
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
-          <Text whiteSpace="nowrap" color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+     
+            <Text display={["none", "none", "flex", "flex"]} whiteSpace="nowrap" color="var(--text-footer-title)" ml="10px">{themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}</Text>
+         
+          
 
         </Flex>
-          
+        <Box>
+           <Flex w="100%" justify="space-between" align="center">
+              <IconButton
+
+                _focus={{ boxShadow: "none" }}
+                onClick={() => {
+                  themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light")
+                }}
+                aria-label='Call Segun'
+                borderRadius="12px"
+                color="var(--text-footer-title)"
+
+                icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
+              />
+              <Image
+                src="https://app.mobula.finance/icon.png"
+                h="45px"
+                mr={["0px", "0px", "5px", "5px"]}
+                alt='logo'
+                onClick={() => (document.location.href = '/')}
+              />
+               <Link
+                  href='https://github.com/NBMSacha/mobula-app'
+                  className={styles['social-link']}
+                  _hover={{ color: "var(--box_active)", textDecoration: "none" }}
+                >
+                  <Icon as={GitHub} boxSize="24px" mt="10px" />
+                </Link>
+          </Flex>
+          <Flex w="100%" justify="space-between" align="center">
+            <Link href='https://t.me/MobulaFi' _hover={{ color: "var(--box_active)", textDecoration: "none" }} className={styles['social-link']}>
+              <Icon as={Send} boxSize="24px" mt="20px" />
+            </Link>
+            
+            <Link
+              href='https://twitter.com/MobulaFi'
+              className={styles['social-link']}
+              _hover={{ color: "var(--box_active)", textDecoration: "none" }}
+            >
+              <Icon as={Twitter} boxSize="24px" mt="20px" />
+            </Link>
+          </Flex>
+        </Box>
+         
+
+
+         
+
         </div>
         
       </div>
