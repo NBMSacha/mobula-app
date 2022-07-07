@@ -5,7 +5,7 @@ import { Flex, Text, Button, Input, Box } from '@chakra-ui/react'
 
 function Link() {
   const router = useRouter()
-  const [selected, setSelected] = useState('')
+  const [selected, setSelected] = useState("")
 
   if (router.pathname.includes('dao')) {
     return (
@@ -21,7 +21,7 @@ function Link() {
         >
           Elections
         </Box>
-        <Box as="span" color={selected == "First Sort" ? "blue" : "none"}
+        <Box as="span" color={selected === "First Sort" ? "red" : "red"}
           className={styles['link-common']}
           onClick={() => {setSelected('First Sort');(document.location.href = 'sort');console.log}}
         >
