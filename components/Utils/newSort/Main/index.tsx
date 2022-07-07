@@ -11,20 +11,16 @@ import { Globe, } from "react-feather"
 import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
 import styles from "../FirstSort.module.scss"
 
-function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken, votes, title}) {
+function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken, votes}) {
     return (
         <Flex justify="center" mx="auto" direction={["column", "column", "row", "row"]} wrap='wrap' mb="50px" maxWidth="1400px">
             
             {tokenDivs.map((token) => {
                 console.log(`this is votes : ${votes}`)
                 console.log(votes)
-                
-                    
-                
-                    
                         return  <>
                         {votes.includes(Number(token.id)) ? (
-<></>
+                    <></>
                         ) : (
                             <Box mt={["10px", "10px", "20px", "20px"]} w={["90%", '90%', '45%', '45%']} mx={["auto","auto","10px","10px"]}  boxShadow={`1px 2px 12px 3px var(--shadow)`} bg="var(--bg-governance-box)" px="30px" py="20px" borderRadius="12px">
                                     <Flex align="center" justify="space-between">

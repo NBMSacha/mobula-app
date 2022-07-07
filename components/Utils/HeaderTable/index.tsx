@@ -104,6 +104,7 @@ import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
             <>
               {
                 (orderBy ? getTokensToDisplay(orderBy) : getTokensToDisplay()).map((token: any, index: number) => token ? 
+                // @ts-ignore
                 <Token
                   key={token.id || token.balance + token.name}
                   title={title}

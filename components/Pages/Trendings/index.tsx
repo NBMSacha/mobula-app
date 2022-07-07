@@ -75,6 +75,7 @@ export default function Trendings({ tokensBuffer }) {
                 <Widget settings={settings} setSettings={setSettings} visible={widgetVisibility} setVisible={setWidgetVisibility} />
                 <BlockchainBtn blockchain={blockchain} setBlockchain={setBlockchain} widgetVisibility={widgetVisibility} setWidgetVisibility={setWidgetVisibility} />
                 {/* <Top title={"Trendings"} setOrderBy={tokens} /> */}
+                {/* @ts-ignore */}
                 <HeaderTable title={"Advanced Settings"} getTokensToDisplay={getTokensToDisplay}/>
             </div>
         </Flex>
