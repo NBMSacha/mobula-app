@@ -249,7 +249,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
         <Flex w="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="30px 30px" >
             <Box mb={["20px", "20px", "30px", "30px"]}>
                 <Heading color='var(--text-primary)' mb="10px" fontSize="x-large">Swap aggregator</Heading>
-                <Text color='var(--text-primary)'>Buy {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
+                <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
             </Box>
             {/* @ts-ignore */}
             <Box display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
