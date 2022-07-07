@@ -37,6 +37,7 @@ export default class Document extends NextDocument {
         root?.style.setProperty("--bg-secondary-box", colorMode == 'dark' ? "rgba(25, 29, 44, 0.5)" : "#F2F2F2");
         root?.style.setProperty("--bg-listing-box", colorMode== 'dark' ? "rgba(208, 214, 227, 0.3)" : "#F5F5F5");
         root?.style.setProperty("--bg-governance-box", colorMode== 'dark' ? "#171B2B" : "#F5F5F5");
+        root?.style.setProperty("--bg-partner", colorMode == 'dark' ? "#171B2B" : "#E5E5E5");
         root?.style.setProperty("--bg-governance-box-decision", colorMode== 'dark' ? "#191D2C" : "#FFFFF");
         root?.style.setProperty("--gradient", colorMode == 'dark' ? "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)" : "linear-gradient(180deg, rgba(9, 12, 26, 0.01) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)");
         root?.style.setProperty("--table", colorMode == 'dark' ? "#121525" : "#F5F5F5");

@@ -1,7 +1,7 @@
-import Partner from '../components/Pages/Partner'
+import NewPartners from '../components/Pages/NewPartners'
 
 export default function () {
     return (
-        <Partner />
+        <NewPartners />
     )
 }
