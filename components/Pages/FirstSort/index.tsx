@@ -32,6 +32,7 @@ function FirstSort() {
     const alert = useAlert();
     const web3React = useWeb3React()
     const { active, account } = useWeb3React()
+    const [ votes, setVotes] = useState([])
 
     function getFirstSorts() {
         console.log("Starting the first sort");
@@ -133,6 +134,7 @@ function FirstSort() {
                             token.id
                         );
                         console.log("Is already voted : " + isAlreadyVoted);
+                        
                     }
                     console.log("Sumbitted data : " + token.ipfsHash);
 
@@ -188,12 +190,15 @@ function FirstSort() {
             });
     }
 
+  
+
     async function voteToken(validate: boolean,
         complete: any, token: any,
         utilityScore: number, socialScore: number,
         trustScore: number, marketScore: number) {
 
         console.log(validate)
+        console.log(Number(token.id))
         if (!complete.current) {
             alert.error('You must wait the end of the countdown to vote.')
         } else {
@@ -212,7 +217,8 @@ function FirstSort() {
                         'function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
                 ).firstSortVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
-
+                localStorage.setItem("votes", JSON.stringify([...votes, token.id]))
+                setVotes([...votes, token.id])
                 alert.success('Your vote has been successfully registered.')
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000))
                 Router.reload()
@@ -226,6 +232,8 @@ function FirstSort() {
             }
         }
     }
+
+    console.log(votes)
 
     useEffect(() => {
         console.log(web3React)
@@ -243,7 +251,13 @@ function FirstSort() {
           }
         }
       }, [web3React])
-    console.log(tokenDivs)
+
+
+      useEffect(() => {
+        setVotes(JSON.parse(localStorage.getItem("votes")) || [])
+        console.log(votes)
+    }, [])
+
     return <>
         
                 <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
@@ -267,7 +281,7 @@ function FirstSort() {
                         <>
                         <ReviewToken voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
                         </> :
-                        <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
+                        <Main votes={votes} voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
                     )}
                 </>
          

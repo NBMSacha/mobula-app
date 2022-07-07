@@ -33,6 +33,7 @@ function FinalValidation() {
     const alert = useAlert();
     const web3React = useWeb3React()
     const { active, account } = useWeb3React()
+    const [ votes, setVotes] = useState([])
 
     function getFinalValidation() {
         console.log("Starting the final sort");
@@ -212,7 +213,8 @@ function FinalValidation() {
                         'function finalDecisionVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
                     ], signer
                 ).finalDecisionVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
-
+                localStorage.setItem("votesFinal", JSON.stringify([...votes,  Number(token.id)]))
+                setVotes([...votes,  Number(token.id)])
                 alert.success('Your vote has been successfully registered.')
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000))
                 Router.reload()
@@ -226,7 +228,7 @@ function FinalValidation() {
             }
         }
     }
-
+    console.log(votes)
     useEffect(() => {
         console.log(web3React)
         console.log(account)
@@ -244,9 +246,13 @@ function FinalValidation() {
         }
       }, [web3React])
 
+
     useEffect(() => {
-        console.log("Effect : " + tokenDivs.length);
-    });
+        setVotes(JSON.parse(localStorage.getItem("votesFinal")) || [])
+        console.log(votes)
+    }, [])
+
+    
 
     return <>
         <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="28px" maxWidth="1400px">
@@ -260,14 +266,14 @@ function FinalValidation() {
                 Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
             </Text>
         </Flex>
-        {tokenDivs.length == 0 && (
+        {tokenDivs.length == 0  && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for final validation yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 
         {(displayedToken ?
             <TokenDisplay voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} /> :
             // @ts-ignore
-            <Blocks tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
+            <Blocks votes={votes} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken}/>
         )}
     </>;
 }

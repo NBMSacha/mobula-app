@@ -4,7 +4,7 @@ import { TimeIcon, CopyIcon, CheckIcon } from "@chakra-ui/icons";
 import Countdown from 'react-countdown';
 import Circles from "./Circles";
 
-function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreUtility, updateScoreMarket, updateScoreTrust, updateScoreSocial, token, voteToken }) {
+function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreUtility, updateScoreMarket, updateScoreTrust, updateScoreSocial, token, voteToken}) {
 
     const CountdownAny = Countdown as any;
 
@@ -14,6 +14,7 @@ function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreU
                 return parseInt(localStorage.getItem('date' + token.id))
             } else {
                 complete.current = true;
+                
                 return Date.now()
             }
         } else {
@@ -21,6 +22,8 @@ function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreU
             return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000
         }
     }
+  
+   
     const complete = useRef(false);
     return (
         <Flex w={["100%", "100%", "100%", "40%"]} mb={["50px", "50px", "0px", "0px"]} mt={["10px", "10px", "10px", "0px"]} ml={["0px", "0px", "0px", "10px"]} px={["25px","25px","35px","35px"]} py={["20px", "20px", "30px", "30px"]} direction="column" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px">
@@ -49,7 +52,7 @@ function Vote({ marketScore, trustScore, utilityScore, socialScore, updateScoreU
                 <Circles name={'Market'} score={marketScore} updateScore={updateScoreMarket}/>
                 <Flex fontSize={["12px", "12px", "14px", "14px"]} align="center" justify="space-between" mt="30px">
                     <Button _focus={{ boxShadow: "none" }} color="white" w="45%" borderRadius="10px" py={["5px", "5px", "10px", "10px"]} bg="green" onClick={() => voteToken(true, complete, token, utilityScore, socialScore, trustScore, marketScore)}>Validate</Button>
-                    <Button boxShadow="1px 2px 13px 3px var(--shadow)" _focus={{ boxShadow: "none" }} w="45%" borderRadius="10px" py={["5px", "5px", "10px", "10px"]} bg="var(--background)" onClick={() => voteToken(false, complete, token, utilityScore, socialScore, trustScore, marketScore)}>Reject</Button>
+                    <Button boxShadow="1px 2px 13px 3px var(--shadow)" _focus={{ boxShadow: "none" }} w="45%" borderRadius="10px" py={["5px", "5px", "10px", "10px"]} bg="var(--background)" onClick={() => {voteToken(false, complete, token, utilityScore, socialScore, trustScore, marketScore)}}>Reject</Button>
                 </Flex>
             </Flex>
 
