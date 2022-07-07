@@ -25,7 +25,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
                     <Text align="center" mt="10px" color="var(--text-grey)" fontSize="10px">Sec</Text>
                 </Box>
             </Flex>
-            <Flex w="90%" color="var(--text-grey)" align="center" mt="10px" mx="auto" p="10px">
+            <Flex color="var(--text-grey)" align="center" mt="10px" mx="auto" p="10px" className={styles["timeRemaining"]}>
                 <Text mr="20px" fontSize={["13px","13px","15px","15px"]}>Burn</Text>
                 <Flex  ml="auto" maxWidth={["260px","500px","500px","260px"]} w='100%' align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
                     <Input fontSize={["13px","13px","15px","15px"]} value={amountBurn} placeholder="330" type="number" textAlign="end" mr={["5px","5px","10px","10px"]} onChange={(e) => {setAmountBurn(e.target.value)}}/>
@@ -34,7 +34,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
                 </Flex>
             </Flex>
             <Box mx="auto"><ArrowDownIcon color="var(--text-grey)"/></Box>
-            <Flex color="var(--text-grey)" w="90%" align="center" mt="0px" mx="auto" p="10px" >
+            <Flex color="var(--text-grey)" align="center" mt="0px" mx="auto" p="10px" className={styles["timeRemaining"]}>
                 <Text mr="20px" w="35px" fontSize={["13px","13px","15px","15px"]}>Get</Text>
                 <Flex ml="auto" maxWidth={["260px","500px","500px","260px"]} w='100%' align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
                     <Input fontSize={["13px","13px","15px","15px"]} value={amountBurn * token.taux} type="number" placeholder="330" textAlign="end" mr={["5px","5px","10px","10px"]}/>
@@ -42,7 +42,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
                     <Image src={token.logo} boxSize="18px" borderRadius="full"/>
                 </Flex>
             </Flex>
-            <Flex w="90%" align="center" mt="10px" mx="auto" p="5px">
+            <Flex align="center" mt="10px" mb={["5px","20px","20px","0px"]} mx="auto" p="5px" className={styles["timeRemaining"]}>
                 <Button py="12px" w="100%" fontSize={["13px","13px","15px","15px"]} border="1px solid var(--box_border_active)" bg="var(--elections)" color="white" borderRadius="8px">Approve Mobula</Button>
             </Flex>
         </Flex>

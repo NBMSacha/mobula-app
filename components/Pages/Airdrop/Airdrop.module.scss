@@ -10,7 +10,7 @@
 }
 
 .timeRemaining{
-    width:100%
+    width:90%
 }
 
 .padBox-info{
@@ -84,7 +84,7 @@
     }
 }
 
-@media screen and (min-width: 502px) and (max-width:1160px) {
+@media screen and (min-width: 768px) and (max-width:1160px) {
     .timeRemaining{
         width:55%
     }
@@ -94,8 +94,19 @@
     .main{
         flex-direction:column;
     }
+
+    .timeRemaining{
+        width:80%
+    }
     
     .fontSize{
         font-size:12px
     }
+}
+
+@media screen and (max-width: 480px) {
+    .timeRemaining{
+        width:95%
+    }
+
 }
