@@ -71,13 +71,13 @@ function Footer() {
         <div className={styles['community']}>
           <span style={{ color: "var(--text-footer-title)" }}>Press</span>
           <ul>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='' >
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://drive.google.com/drive/folders/1640M2CobvBH822RDE9Hx7YypXlaykPIV'  target='_blank'>
               <li>Press kit</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href=''>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' target='_blank'>
               <li>Contact</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href=''>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://medium.com/@mobula' target='_blank'>
               <li>News</li>
             </Link>
           </ul>
@@ -99,10 +99,10 @@ function Footer() {
         <div className={styles['help']}>
           <span style={{ color: "var(--text-footer-title)" }}>Help</span>
           <ul>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' >
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' target='_blank'>
               <li>FAQs</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN'>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' target='_blank'>
               <li>Support</li>
             </Link>
           </ul>
@@ -127,7 +127,7 @@ function Footer() {
           
 
         </Flex>
-        <Box>
+        <Box display={["block", "block", "none", "none",]}>
            <Flex w="100%" justify="space-between" align="center">
               <IconButton
 
@@ -151,30 +151,27 @@ function Footer() {
                <Link
                   href='https://github.com/NBMSacha/mobula-app'
                   className={styles['social-link']}
+                  target='_blank'
                   _hover={{ color: "var(--box_active)", textDecoration: "none" }}
                 >
                   <Icon as={GitHub} boxSize="24px" mt="10px" />
                 </Link>
           </Flex>
           <Flex w="100%" justify="space-between" align="center">
-            <Link href='https://t.me/MobulaFi' _hover={{ color: "var(--box_active)", textDecoration: "none" }} className={styles['social-link']}>
+            <Link href='https://t.me/MobulaFi' _hover={{ color: "var(--box_active)", textDecoration: "none" }} target='_blank' className={styles['social-link']}>
               <Icon as={Send} boxSize="24px" mt="20px" />
             </Link>
             
             <Link
               href='https://twitter.com/MobulaFi'
               className={styles['social-link']}
+              target='_blank'
               _hover={{ color: "var(--box_active)", textDecoration: "none" }}
             >
               <Icon as={Twitter} boxSize="24px" mt="20px" />
             </Link>
           </Flex>
         </Box>
-         
-
-
-         
-
         </div>
         
       </div>
