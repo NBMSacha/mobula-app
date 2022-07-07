@@ -243,30 +243,35 @@ function FirstSort() {
           }
         }
       }, [web3React])
-
+    console.log(tokenDivs)
     return <>
-
-        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
-            <Flex direction="column">
-                <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
-                <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
-                    The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
+        
+                <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
+                <Flex direction="column">
+                    <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                        The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
+                    </Text>
+                </Flex>
+                <Text display={["none", "none", "none", "flex"]}>
+                    Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
                 </Text>
             </Flex>
-            <Text display={["none", "none", "none", "flex"]}>
-                Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
-            </Text>
-        </Flex>
-        {tokenDivs.length == 0 && (
-            <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
-        )}
+           
+                <>
+                    {tokenDivs.length == 0 &&  (
+                        <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
+                    )}
 
-        {(displayedToken ?
-            <>
-            <ReviewToken voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
-            </> :
-            <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
-        )}
+                    {(displayedToken  ?
+                        <>
+                        <ReviewToken voteToken={voteToken} changeDisplay={setDisplayedToken} token={tokenDivs[tokenDivs.map(token => token.id).indexOf(displayedToken)]} />
+                        </> :
+                        <Main voteToken={voteToken} displayedToken={displayedToken} changeDisplay={setDisplayedToken} tokenDivs={tokenDivs} setDisplayedToken={setDisplayedToken} />
+                    )}
+                </>
+         
+        
     </>
 }
 

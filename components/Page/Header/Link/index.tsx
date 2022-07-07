@@ -21,7 +21,7 @@ function Link() {
         >
           Elections
         </Box>
-        <Box as="span" color={selected === "First Sort" ? "red" : "red"}
+        <Box as="span" color={selected === "First Sort" ? "blue" : "none"}
           className={styles['link-common']}
           onClick={() => {setSelected('First Sort');(document.location.href = 'sort');console.log}}
         >

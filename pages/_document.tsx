@@ -57,7 +57,7 @@ export default class Document extends NextDocument {
     
         // BTN BLOCKCHAIN
         root?.style.setProperty("--box_primary", colorMode == 'dark' ? "#151929" : "#F2F2F2");
-        root?.style.setProperty("--box_active", colorMode == 'dark' ? "#273051" : "#FFFFFF");
+        root?.style.setProperty("--box_active", colorMode == 'dark' ? "#273051" : "#ededed");
         // border BTN
         root?.style.setProperty("--box_border_active", colorMode == 'dark' ? "#2B3A75" : "rgba(122, 122, 122, 0.1)");
         root?.style.setProperty("--box_border", colorMode == 'dark' ? "rgba(122, 122, 122, 0.1)" : "rgba(122, 122, 122, 0.1)");
