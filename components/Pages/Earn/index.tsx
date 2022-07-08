@@ -123,16 +123,6 @@ function Earn() {
                 w={["100%", "100%", "100%", "100%"]}
                 
             >
-                {/* MOBILE TITLE */}
-                {/* <Flex w="90%" mb="16px" display={["flex", "flex", "flex", "none"]}>
-                    <Text fontWeight="bold" textAlign="start" w="85%" m="0px" display={["flex", "flex", "flex", "none"]} mb="10px">Earn</Text>
-                    <Flex justify="space-between">
-                        <Button fontSize="12px" ml="20px" borderRadius="8px" color="none" h="25px" px="3">Balance : {user.balance || 0} MOBL</Button>
-
-                    </Flex>
-                </Flex> */}
-
-                {/* TOP DAILY EARNING */}
                 <Flex className={styles["topContainer"]} justify="center" align={["center", "center", "center", ""]} mt={["0px", "0px", "0px", "60px"]} mb={["30px", "30px", "30px", ""]} direction={["column", "column", "column", "row"]} fontFamily="Inter">
                     {/* DAILY BOX */}
 
@@ -154,41 +144,6 @@ function Earn() {
                         </Flex>
                         
                     </Flex>
-                    {/* BORDER LINE */}
-                    {/* <Box w="2px" h="100%" bg="var(--daily-border)"></Box> */}
-                    {/* BALANCE DESKTOP*/}
-                    {/* <Flex display={["none", "none", "none", "flex"]} minWidth="540px" w={['100%', '100%', '90%', isLessThan11300px ? "50%" : "45%"]} direction="column" p={["0px 10px", "0px 30px", "0px 30px", "0px 30px"]}>
-                        <Flex direction="column" mb={["", "", "", "60px"]}>
-                            <Text mb={["", "", "", "5px"]} fontSize={["18", "18", "21", "21px"]} fontWeight="bold">Balance</Text>
-                            <Flex justify="space-between" align="center">
-                                <Flex fontSize={["15px", "15px", "17", "20px"]} align="center" >
-                                    <Text mr={["5px", "5px", "18px", "18px"]}>Mobula owes you : </Text>
-                                    <Flex align="center">
-                                        <Image src="icon.png" h="30px" />
-                                        <Text w="100px" fontSize="15px" ml={["2px", "2px", "10px", "10px"]}>{user.balance || '0'}  MOBL</Text>
-                                    </Flex>
-                                </Flex>
-                                <Button _focus={{ boxShadow: "none" }} onClick={claim} bg="blue" color="white" w={["80px", "80px", "140px", "140px"]} h={["25px", "25px", "38px", "38px"]} mb={["", "", "", ""]} borderRadius="12px">Claim</Button>
-                            </Flex>
-                        </Flex>
-                        <Flex w="100%" justify="space-between">
-                            <Flex direction="column" w='50%'>
-                                <Text fontSize={["18", "18", "21", "21px"]} fontWeight="bold" mb={["", "", "", "0px"]} >Referral system</Text>
-                                <Text fontSize={["14", "14", "16", "16px"]}>1 Referral : <span style={{ fontWeight: "600" }}>25 MOBL</span></Text>
-                                <Text fontSize={["10", "10", "11", "12px"]} mt={["10px", "10px", "10px", "10px"]}>You have currently referred <span style={{ fontWeight: "600" }}>{user.referred ? user.referred.length : 0} people</span></Text>
-                            </Flex>
-                            <Flex direction="column">
-                                <Text fontSize={["13", "13", "13", "14px"]} fontWeight="600" mb={["10px", "10px", "10px", "10px"]}>Affiliation link</Text>
-                                <Link onClick={copy} fontSize={["10", "10", "14", "15"]} whiteSpace="nowrap">https://mobula.fi/?ref=0x...</Link>
-                                <Button _focus={{ boxShadow: "none" }} onClick={copy} w="fit-content" mt={["10px", "10px", "10px", "10px"]}>
-                                    {copied ? <CheckCircle width='17px' color='#32C784' style={{ marginRight: "5px" }} /> : <LinkIcon mr="5px" />}
-                                    <Text fontSize={["10px", "10px", "13px", "15px"]} > Click to Copy</Text>
-                                </Button>
-                            </Flex>
-                        </Flex>
-                    </Flex> */}
-
-
                     <Flex w={['95%', '95%', '90%', '50%']} flexDir={'column'} textAlign='center' p={["0px 0px", "0px 0px", "0px 15px", "0px 15px"]} mt={["30px","30px","40px","0px"]} >
                             <Text fontWeight="bold" fontSize={["15px", "15px", "20px", "20px"]} ml={["15px", "15px", "", ""]} mb={["20px","20px","30px","30px"]} textAlign="start">Earn MOBL by referral</Text>
                             <Flex w="100%" flexDir={'column'} bg="var(--bg-governance-box)"  borderRadius="12px" boxShadow="1px 2px 13px 3px var(--shadow)" className={styles["referal"]}>
@@ -237,24 +192,6 @@ function Earn() {
                                 </Flex>
                             </Flex>
                     </Flex>
-
-
-
-
-
-                    {/* BALANCE MOBILE */}
-                    {/* <Flex display={["flex", "flex", "flex", "none"]} w="90%" align="start" py="16px" borderTop={`1px solid #E5E5E5`} borderBottom={`1px solid #E5E5E5`} mt={["20px", "20px", "20px", ""]}>
-                        <Flex direction="column" w="50%" align="start">
-                            <Text fontSize="16px" color="green">+ {25 * user.referred.length} MOBL</Text>
-                            <Text fontSize="13px">You referred {user.referred.length} friends.</Text>
-                            <Button _focus={{ boxShadow: "none" }} onClick={claim} color="white" w="120px" boxShadow={`1px 2px 12px 3px var(--shaodw)`} py="6px" borderRadius="8px" mt="10px" fontSize="11px" bg="var(--blue)">Claim MOBL</Button>
-                        </Flex>
-                        <Flex direction="column" w="50%" align="end" mt="3px">
-                            <Text fontSize="13px" mb="15px">1 Referral : <span>25 MOBL</span></Text>
-                            <Button  _focus={{ boxShadow: "none" }} onClick={copy} fontSize="11px" mb="10px">Click to copy {copied ? <CheckCircle style={{ marginLeft: "3px" }} width='12px' color='#32C784' /> : <LinkIcon width='12px' />}</Button>
-                            <Button _focus={{ boxShadow: "none" }} fontSize="11px">http://mobula.fi/?ref=0x....</Button>
-                        </Flex>
-                    </Flex> */}
                 </Flex>
                 <Flex direction={["column", "column", "column", "row"]} align="center" justify="center" fontFamily="Inter" mx="auto" className={styles["mainContainer"]}>
                     <Flex w={["95%", "95%", "95%", "50%"]} direction="column" fontFamily="Inter" p={["0px 0px", "0px 0px", "0px 15px", "0px 15px"]} >
@@ -286,7 +223,6 @@ function Earn() {
                                                 </Flex>
                                                 } 
                                             })}
-                                            {/* QUE JE VOUDRAIS FAIRE PASSER LA */}
                                             {tasks.length == user.tasks_done.length ? (
                                                 <>
                                                 <Flex align="center"  borderBottom="1px solid var(--box_border)" w={["90%","90%","80%","80%"]} pb="10px" mt="15px" ml={["0px","0px","20px","20px"]} >
@@ -342,7 +278,7 @@ function Earn() {
                         <Flex direction={["column", "column", "column", "column"]} bg="var(--bg-governance-box)" px="20px" pb={["10px","10px","30px","30px"]} borderRadius="12px" boxShadow="1px 2px 13px 3px var(--shadow)">
                             <Flex align="end" justify="space-between" className={styles["adventure-pad"]}  mt="5px" mb="5px">
                                 <Flex className={styles["font-adventure"]}>
-                                    <Text color="blue" mr="10px">Introducing Mobula >></Text>
+                                    <Text color="blue" mr="10px">Introducing Mobula {">>"}</Text>
                                     <Text mr="10px">Beginner</Text>
                                     <Text>Expert</Text>
                                 </Flex>
