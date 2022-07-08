@@ -276,16 +276,16 @@ function Earn() {
                     <Flex w={["95%", "95%", "95%", "50%"]} direction="column" fontFamily="Inter" p={["0px 0px", "0px 0px", "0px 15px", "0px 15px"]} mt={["30px","30px","40px","0px"]}>
                         <Text fontWeight="bold" fontSize={["15px", "15px", "20px", "20px"]} ml={["15px", "15px", "", ""]} mb={["20px","20px","30px","30px"]}>Mobula adventure</Text>
                         <Flex direction={["column", "column", "column", "column"]} bg="var(--bg-governance-box)" px="20px" pb={["10px","10px","30px","30px"]} borderRadius="12px" boxShadow="1px 2px 13px 3px var(--shadow)">
-                            <Flex align="end" justify="space-between" className={styles["adventure-pad"]}  mt="5px" mb="5px">
+                            <Flex align="end" justify="space-between" className={styles["adventure-pad"]} mt="5px" mb="5px">
                                 <Flex className={styles["font-adventure"]}>
                                     <Text color="blue" mr="10px">Introducing Mobula {">>"}</Text>
                                     <Text mr="10px">Beginner</Text>
                                     <Text>Expert</Text>
                                 </Flex>
-                                <Flex className={styles["font-adventure-sm"]}  display={["none", "flex","flex","flex"]}>
+                                <Flex className={styles["font-adventure-sm"]} display={["none", "flex","flex","flex"]}>
                                     <Text fontWeight="400">How it works ?</Text>
                                     <Link>
-                                        <Text ml="10px" fontWeight="600">Read here.</Text>
+                                        <Text ml="5px" fontWeight="600">Read here.</Text>
                                     </Link>
                                 </Flex>
                             </Flex>
@@ -295,10 +295,10 @@ function Earn() {
                                 </Flex>
                                 <Flex direction="column" mx="auto" w={["100%","100%","100%","45%"]} p={["0px","0px","0px"," 0px 0px 0px 20px"]} mt={["10px", "10px", "10px", "0px"]} borderRadius="12px" >
                                     <Box p="15px" border={["none", "none","none","1px solid var(--box_border)"]} borderRadius="12px">
-                                        <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" fontSize="15px" mb="5px" mt="5px" mx={["auto","auto","auto","auto"]}  w={["80%","80%","80%","100%"]} textAlign={["center","center","center","start"]} mb={["15px", "15px", "15px", "0px"]}>{page}/7. <Box as="span" color={isValidated ? "green" : "blue"} > CONNECT A WALLET</Box></Text>
+                                        <Text whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" fontSize="15px" mb="5px" mt="5px" mx={["auto","auto","auto","auto"]}  w={["80%","80%","80%","100%"]} textAlign={["center","center","center","start"]} mb={["15px", "15px", "15px", "0px"]}>{page}/7. <Box as="span" color={isValidated ? "green" : "blue"} fontWeight="600"> CONNECT A WALLET</Box></Text>
                                         <Text px="5px" mx={["auto","auto","auto","auto"]} fontSize="12px" color="var(--text-grey)" w={["85%","85%","80%","100%"]} textAlign={["center","center","center","start"]} maxHeight={["180px","180px","180px","130px"]} overflowY="scroll" className={`${styles["scroll"]} ${styles["description-adventure"]}`} wordBreak="break-all">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </Text>
                                         <Flex w='100%' justify="center" mt="8px">
-                                            <Button fontSize="13px"  _focus={{ boxShadow: "none" }} py="5px" mt="10px" px="20px" w="100px" color={isValidated ? "green" : "white"} bg={"var(--elections)"} border={isValidated ? "1px solid var(--green)" : "1px solid var(--box_border_active)"} onClick={()=>setIsValidated(!isValidated)}>Submit</Button>
+                                            <Button fontSize="13px"  _focus={{ boxShadow: "none" }} py="5px" mt="10px" px="20px" w="100px" color={"white"} bg={isValidated ? "green" : "var(--elections)"} border={isValidated ? "1px solid var(--green)" : "1px solid var(--box_border_active)"} onClick={()=>setIsValidated(!isValidated)}>{isValidated ? "Validated" : "Submit"}</Button>
                                         </Flex>
                                         <Flex align="center" justify="center" mt="15px" mx="auto">
                                             <Circle onClick={()=>setPage(1)} bg={page === 1 ? "blue" : "#2F354D"} size="8px" mx="2px"></Circle>
@@ -310,11 +310,9 @@ function Earn() {
                                             <Circle onClick={()=>setPage(7)} bg={page === 7 ? "blue" : "#2F354D"} size="8px" mx="2px"></Circle>
                                         </Flex>
                                     </Box>  
-                                    <Button display={["none","none", "flex", "flex"]} fontSize="14px" mt="10px" borderRadius="8px" _focus={{ boxShadow: "none" }} py="10px" px="20px" w="100%" color={"white"} bg={"var(--elections)"} border={"1px solid var(--box_border_active)"}>Submit</Button>
+                                    <Button display={["none","none", "flex", "flex"]} fontSize="14px" mt="10px" borderRadius="8px" _focus={{ boxShadow: "none" }} py="10px" px="20px" w="100%" color={"white"} bg={"var(--elections)"} border={"1px solid var(--box_border_active)"}>Generate your NFT</Button>
                                 </Flex>
                             </Flex>
-                            
-                            
                         </Flex>
                         <Button display={["flex", "flex", "none", "none"]} fontSize="14px" mt="20px" borderRadius="8px" _focus={{ boxShadow: "none" }} py="10px" px="20px" w="100%" color={"white"} bg={"var(--elections)"} border={"1px solid var(--box_border_active)"}>Generate your NFT</Button>
                     </Flex>
