@@ -31,7 +31,7 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
     return (
         <>
             <Flex bg={(streaks == day && (!user.last_claim || Date.parse(user.last_claim) + 20 * 60 * 60 * 1000 < Date.now()) ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
-                opacity={streaks >= day ? '1' : '0.1'}
+                opacity={streaks >= day ? '1' : '.4'}
                 boxShadow={`1px 2px 12px 3px var(--shadow)`}
                 borderRadius='10px'
                 justify='center'
@@ -56,10 +56,38 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
                 }}
             >
                 <Text fontSize='13px' fontWeight='800' color="white" className={styles["day-text"]}>Day {day}</Text>
-                <Flex justify="center" align='center' mb="10px">
-                    <Image src='fullicon.png' h='30px' />
+                <Flex className={styles["displayN"]} justify="center" align='center' mb="10px">
+                    {day === 1 && (
+                        <Image src='/reward1.png' h={['19px','19px','28px','28px']} />
+                    )}
+                    {day === 2 && (
+                        <Image src='/reward2.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 3 && (
+                        <Image src='/reward3.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 4 && (
+                        <Image src='/reward4.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 5  && (
+                        <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 6  && (
+                        <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 7  && (
+                        <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    {day == 8  && (
+                        <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
+                    )}
+                    
                     <Text mb="0px !important" fontSize='15px' ml="5px">+{prizePerDay(day)}</Text>
                 </Flex>
+                <Box justifyContent="center" alignItems='center' mb="10px" className={styles["displayF"]}>
+                    <Image src='/reward1.png' h={['19px','19px','28px','28px']}  />
+                    <Text mb="0px !important" fontSize='15px' ml="5px">+{prizePerDay(day)}</Text>
+                </Box>
             </Flex>
         </>
     )

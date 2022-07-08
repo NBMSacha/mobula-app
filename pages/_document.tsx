@@ -42,8 +42,8 @@ export default class Document extends NextDocument {
         root?.style.setProperty("--gradient", colorMode == 'dark' ? "linear-gradient(180deg, rgba(9, 12, 26, 0.27) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)" : "linear-gradient(180deg, rgba(9, 12, 26, 0.01) 0%, rgba(18, 21, 34, 0) 170.92%, rgba(63, 74, 123, 0) 170.94%)");
         root?.style.setProperty("--table", colorMode == 'dark' ? "#121525" : "#F5F5F5");
         root?.style.setProperty("--inputs", colorMode == 'dark' ? "rgba(50, 53, 80, 0.25)" : "#F8F8F8");
-        root?.style.setProperty("--dailybox_inactive", colorMode == 'dark' ? "linear-gradient(180deg, #5C7DF9 37.08%, rgba(92, 125, 249, 0) 37.55%)" : "linear-gradient(180deg, #5C7DF9 37.08%, rgba(92, 125, 249, 0) 37.55%)");
-        root?.style.setProperty("--dailybox_active", colorMode == 'dark' ? "linear-gradient(180deg, #43D19B 37.08%, #131727 37.55%)" : "linear-gradient(180deg, #43D19B 37.08%, #F5F5F5 37.55%)");
+        root?.style.setProperty("--dailybox_inactive", colorMode == 'dark' ? "linear-gradient(180deg, #5C7DF9 37.08%, #131727 37.55%)" : "linear-gradient(180deg, #5C7DF9 37.08%, rgba(92, 125, 249, 0) 37.55%)");
+        root?.style.setProperty("--dailybox_active", colorMode == 'dark' ? "linear-gradient(180deg, #43D19B 37.08%, #141828 37.55%)" : "linear-gradient(180deg, #43D19B 37.08%, #F5F5F5 37.55%)");
         root?.style.setProperty("--btn-outline", colorMode == 'dark' ? "#5C7DF9" : "#5C7DF9");
         root?.style.setProperty("--swap", colorMode == 'dark' ? "rgba(41, 44, 56, 0.29)" : "rgba(255, 255, 255, 0.3)");
         root?.style.setProperty("--btnInfo", colorMode == 'dark' ? "#191D2C" : "#F9F9F9");
