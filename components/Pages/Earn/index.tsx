@@ -163,8 +163,8 @@ function Earn() {
                                                 </Flex>
                                             </Flex>
                                             <Flex align="center" fontSize={["10px","10px","13px","13px"]}>
-                                                <Button border={"1px solid var(--box_border_active)"} py={["5px","5px","8px","8px"]} mr={["5px","10px","15px","15px"]} px="20px" w={["65px","65px","85px","85px"]} bg="var(--elections)" color="white" onClick={claim}>Claim</Button>
-                                                <Button border={"1px solid var(--box_border)"} py={["5px","5px","8px","8px"]} px="20px" w={["65px","65px","85px","85px"]} bg="var(--box_primary)" >Stake</Button>
+                                                <Button _focus={{ boxShadow: "none" }} border={"1px solid var(--box_border_active)"} py={["5px","5px","8px","8px"]} mr={["5px","10px","15px","15px"]} px="20px" w={["65px","65px","85px","85px"]} bg="var(--elections)" color="white" onClick={claim}>Claim</Button>
+                                                <Button _focus={{ boxShadow: "none" }} border={"1px solid var(--box_border)"} py={["5px","5px","8px","8px"]} px="20px" w={["65px","65px","85px","85px"]} bg="var(--box_primary)" >Stake</Button>
                                             </Flex>
                                         </Box>
                                     </Flex>
@@ -211,16 +211,17 @@ function Earn() {
                                             {tasks.map((task, index:number) => {
                                                 console.log(user.tasks_done.includes(task.id))
                                                 if (!user.tasks_done.includes(task.id)) {
-                                                   
                                                     return <Flex align="center"  borderBottom="1px solid var(--box_border)" w={["90%","90%","80%","80%"]} pb="10px" mt="15px" ml={["0px","0px","20px","20px"]} >
-                                                    <Box cursor="pointer" mr={["10px", "10px", "10px", "10px"]} alignItems="center" justifyContent="center" borderRadius="7px"  px="8px" py="5px" className="noneDis">
-                                                        <Image  w="24px" src="/eye.png"/>
-                                                    </Box>
-                                                    <Flex justify={["start", "start", "start", "start"]} w="100%" align="center">
-                                                        <Text fontSize={["12px", "12px", "13px", "13px"]} mr="15px">{task.task.split(task.data.name)[0]} <a href={'/asset/' + getUrlFromName(task.data.name)}>{task.data.name}</a> {task.task.split(task.data.name)[1]}<span style={{ color: "var(--chakra-colors-green)", marginLeft: "15px", whiteSpace: "nowrap" }}>+ 15 MOBL</span></Text>
-                                                        
+                                                        <Box cursor="pointer" mr={["10px", "10px", "10px", "10px"]} alignItems="center" justifyContent="center" borderRadius="7px"  px="8px" py="5px" className="noneDis">
+                                                            <Image  w="24px" src="/eye.png"/>
+                                                        </Box>
+                                                        <Flex justify={["start", "start", "start", "start"]} w="100%" align="center">
+                                                            <Text fontSize={["12px", "12px", "13px", "13px"]} mr="15px">{task.task.split(task.data.name)[0]} 
+                                                                <a href={'/asset/' + getUrlFromName(task.data.name)}>{task.data.name}</a> {task.task.split(task.data.name)[1]}
+                                                                <span style={{ color: "var(--chakra-colors-green)", marginLeft: "15px", whiteSpace: "nowrap" }}>+ 15 MOBL</span>
+                                                            </Text>
+                                                        </Flex>
                                                     </Flex>
-                                                </Flex>
                                                 } 
                                             })}
                                             {tasks.length == user.tasks_done.length ? (

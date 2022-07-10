@@ -2,7 +2,7 @@ import { Text, Heading,Input,Link, Flex, Box, Spacer, Button, useColorModeValue,
 import styles from "../Airdrop.module.scss"
 import {ArrowDownIcon} from "@chakra-ui/icons"
 
-export default function Timer({token, amountBurn, setAmountBurn, days, hours, minutes, seconds}) {
+export default function Timer({token, amountBurn, setAmountBurn, days, hours, minutes, seconds, approval}) {
 
     return (
         <Flex  boxShadow="1px 2px 13px 3px var(--shadow)" direction="column" bg="var(--bg-governance-box)" className={styles["padBox"]} borderRadius="12px">
@@ -43,7 +43,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
                 </Flex>
             </Flex>
             <Flex align="center" mt="10px" mb={["5px","20px","20px","0px"]} mx="auto" p="5px" className={styles["timeRemaining"]}>
-                <Button py="12px" w="100%" fontSize={["13px","13px","15px","15px"]} border="1px solid var(--box_border_active)" bg="var(--elections)" color="white" borderRadius="8px">Approve Mobula</Button>
+                <Button _focus={{ boxShadow: "none" }} py="12px" w="100%" fontSize={["13px","13px","15px","15px"]} border="1px solid var(--box_border_active)" bg="var(--elections)" color="white" borderRadius="8px" onClick={()=>approval()}>Approve Mobula</Button>
             </Flex>
         </Flex>
     )
