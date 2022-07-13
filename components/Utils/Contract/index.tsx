@@ -18,8 +18,8 @@ export default function Contract({ contract, blockchain }: { contract: string, b
             align="center"
             position="relative"
             justify="left"
-            minWidth={["135px", "135px", "165px", "165px"]}
-            bg="var(--background)"
+            minWidth={["135px", "135px", "181px", "181px"]}
+            bg="var(--contract)"
             mt='18px'
             mx={["auto", "auto", "auto", "0px"]}
             h={["20px", "20px", "30px", "40px"]}

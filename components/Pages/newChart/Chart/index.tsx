@@ -9,10 +9,10 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                 <Box display={["none", "none", "none", "block"]} mb="40px" className={styles["chart-btns"]}>
                     <Text fontSize={["", "", "", "17px"]} mb={["", "", "", "20px"]}>{baseAsset.name} to USD Chart</Text>
                     <Flex fontWeight="400px" fontSize={["", "", "", "13px"]}>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("price"); }}>Price</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("volume"); }}>Volume</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("rank"); }}>Rank</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="28px" _hover={{background:"blue"}} color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--contract)"} onClick={() => { setSelector("price"); }}>Price</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="28px" _hover={{background:"blue"}} color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "var(--contract)"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="28px" _hover={{background:"blue"}} color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "var(--contract)"} onClick={() => { setSelector("volume"); }}>Volume</Button>
+                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="28px" _hover={{background:"blue"}} color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "var(--contract)"} onClick={() => { setSelector("rank"); }}>Rank</Button>
                     </Flex>
                 </Box>
                 <Flex direction="column" align={"end"} ml={["0px", "0px", "0px", "auto"]}>
@@ -21,6 +21,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                             <Button mx={["8px", "8px", "12px", "12px"]}
                                 fontSize={["13px", "13px", "15px", "15px"]}
                                 _focus={{ boxShadow: "none" }}
+                                _hover={{color:"blue"}}
                                 opacity={timeFormat === "1D" ? "1" : ".5"}
                                 onClick={() => {
                                     setTimeFormat('1D')
@@ -29,6 +30,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                             <Button mx={["8px", "8px", "12px", "12px"]}
                                 fontSize={["13px", "13px", "15px", "15px"]}
                                 _focus={{ boxShadow: "none" }}
+                                _hover={{color:"blue"}}
                                 opacity={timeFormat === "7D" ? "1" : ".5"}
                                 onClick={() => {
                                     setTimeFormat('7D')
@@ -39,6 +41,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                     <Button mx={["8px", "8px", "12px", "12px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
+                                        _hover={{color:"blue"}}
                                         opacity={timeFormat === "30D" ? "1" : ".5"}
                                         onClick={() => {
                                             setTimeFormat('30D')
@@ -47,6 +50,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                     <Button mx={["8px", "8px", "12px", "12px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
+                                        _hover={{color:"blue"}}
                                         opacity={timeFormat === "3M" ? "1" : ".5"}
                                         onClick={() => {
                                             setTimeFormat('3M')
@@ -55,6 +59,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                     <Button mx={["8px", "8px", "12px", "12px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
+                                        _hover={{color:"blue"}}
                                         opacity={timeFormat === "1Y" ? "1" : ".5"}
                                         onClick={() => {
                                             setTimeFormat('1Y')
@@ -63,6 +68,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                     <Button mx={["8px", "8px", "12px", "12px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
+                                        _hover={{color:"blue"}}
                                         opacity={timeFormat === "ALL" ? "1" : ".5"}
                                         onClick={() => {
                                             setTimeFormat('ALL')

@@ -18,6 +18,7 @@ export default function Line() {
 
                         <Tbody>
                             <Tr>
+                                    {/*@ts-ignore */}
                                 <Td textAlign="center !important" fontSize={["8px", "8px", "11px", "15px"]} p={["10px 5px","10px 5px","10px 20px","20px 30px"]} borderBottom="1px solid var(--box_border) !important" isNumeric>1.</Td>
                                 <Td fontSize={["8px", "8px", "11px", "15px"]} p={["10px 5px","10px 5px","10px 20px","20px 30px"]} borderBottom="1px solid var(--box_border) !important" isNumeric color="var(--text-grey)">0xEF8fD...960C1</Td>
                                 <Td fontSize={["8px", "8px", "11px", "15px"]} p={["10px 5px","10px 5px","10px 20px","20px 30px"]} borderBottom="1px solid var(--box_border) !important" isNumeric color="var(--text-grey)">27777 ETH</Td>

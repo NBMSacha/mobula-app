@@ -22,7 +22,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
     return (
         <Flex pt="0px" justify="center" align="center" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%" px={["0px", "0px", "20px", "20px"]}>
             {/* Top lane */}
-            <Flex px="20px" fontFamily="Inter" w="100%" mb="30px" justify="space-between" mt={["10px","10px","-12px","-12px"]}>
+            <Flex px="20px" fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
@@ -45,29 +45,19 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
 
                 {/* Website / Chat / Kyc / Audit / Infos  */}
                 <Flex align="center" display={["none", "none", "none", "flex"]}>
-                    <Link target="_blank" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--btnInfo)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
-                        <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Website</Flex>
+                    <Link target="_blank" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
+                        <Flex borderRadius="6px" p={["", "", "", "6px 15px"]} _hover={{background:"blue"}}>Website</Flex>
                     </Link>
                     {baseAsset.audit ?
-                        <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Audit</Flex>
-                        </Link> : <></>
-                    }
-                    {baseAsset.chat.length > 0 ?
-                        <Link target="_blank" href={baseAsset.chat} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Chat</Flex>
+                        <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex borderRadius="6px" p={["", "", "", "10px 20px"]} _hover={{background:"blue"}}>Audit</Flex>
                         </Link> : <></>
                     }
                     {baseAsset.kyc ?
-                        <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>KYC</Flex>
+                        <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex borderRadius="6px" p={["", "", "", "10px 20px"]} _hover={{background:"blue"}}>KYC</Flex>
                         </Link> : <></>
                     }
-                    {baseAsset.description !== "" && (
-                        <Link borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} onClick={() => { if (selectorInfo !== "Infos") { setSelectorInfo("Infos") } else { setSelectorInfo("") } }} color={selectorInfo === "Infos" ? "white" : "none"} bg={selectorInfo === "Infos" ? "blue" : "var(--btnInfo)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "4px 6px"]}>Infos</Flex>
-                        </Link>
-                    )}
                 </Flex>
                 {/* Price info */}
                 <Flex direction="column" align="center" justify="center" ml="20px">
@@ -96,8 +86,8 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     </Flex>
                 )
             }
-            <Flex display={["flex","flex","flex","none"]} justify="space-between" w="100%" p="20px" mt="-10px" bg="var(--bg-governance-box)" borderRadius="8px">
-                <Box>
+            <Flex display={["flex","flex","flex","none"]} justify="space-between" w="100%" p="20px" mt="10px" bg="var(--bg-governance-box)" borderRadius="8px">
+                <Box >
                     <Text fontSize="9px" color="var(--text-grey)">Marketcap</Text>
                     <Text fontSize="11px">${baseAsset.market_cap}<Box as="span" color="green" ml="10px">+2%</Box></Text>
                     <Text fontSize="9px" mt="10px" color="var(--text-grey)">Volume (24H)</Text>
@@ -112,33 +102,33 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
             </Flex>
             
             {/* Bot lane */}
-            <Flex display={["none", "none", "none", "flex"]} px="20px" fontFamily="Inter" w="100%" justify="space-between" >
-                <Box>
-                    <Flex align="center" mb={["", "", "", "15px"]}>
+            <Flex display={["none", "none", "none", "flex"]} mt="10px" px="20px" fontFamily="Inter" w="100%" justify="space-between" >
+                <Box p="10px" w="22%" borderRadius="8px" bg="var(--gradient_airdrop)">
+                    <Flex align="center" mb={["", "", "", "10px"]} >
                         <Text fontSize="10px" mr="10px">Market cap</Text>
                         {/* <Text fontSize="12px" color="green">????%</Text> */}
                     </Flex>
-                    <Text>${formatAmount(baseAsset.market_cap)}</Text>
+                    <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.market_cap)}</Text>
                 </Box>
-                <Box>
-                    <Flex align="center" mb={["", "", "", "15px"]}>
+                <Box p="10px" w="22%" borderRadius="8px" bg="var(--gradient_airdrop)">
+                    <Flex align="center" mb={["", "", "", "10px"]}>
                         <Text fontSize="10px" mr="10px">Fully Dilluted</Text>
                         {/* <Text fontSize="12px" color="red">?????%</Text> */}
                     </Flex>
-                    <Text>${formatAmount(baseAsset.market_cap_diluted)}</Text>
+                    <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.market_cap_diluted)}</Text>
                 </Box>
-                <Box>
-                    <Flex align="center" mb={["", "", "", "15px"]}>
+                <Box p="10px" w="22%" borderRadius="8px" bg="var(--gradient_airdrop)"> 
+                    <Flex align="center" mb={["", "", "", "10px"]}>
                         <Text fontSize="10px" mr="10px">24h Volume</Text>
                         {/* <Text fontSize="12px" color="green">????%</Text> */}
                     </Flex>
-                    <Text>${formatAmount(baseAsset.volume)}</Text>
+                    <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.volume)}</Text>
                 </Box>
-                <Box>
-                    <Flex align="center" mb={["", "", "", "15px"]}>
+                <Box p="10px" w="22%" borderRadius="8px" bg="var(--gradient_airdrop)">
+                    <Flex align="center" mb={["", "", "", "10px"]}>
                         <Text fontSize="10px" mr="10px">Circulating supply</Text>
                     </Flex>
-                    <Text>{formatAmount(baseAsset.circulating_supply)}</Text>
+                    <Text whiteSpace="nowrap" fontSize="14px">{formatAmount(baseAsset.circulating_supply)}</Text>
                 </Box>
             </Flex>
         </Flex >

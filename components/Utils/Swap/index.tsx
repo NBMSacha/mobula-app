@@ -247,8 +247,8 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%" h="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="20px 20px 10px 20px" >
-            <Box mb={["20px", "20px", "30px", "20px"]}>
+        <Flex w="100%" h="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
+            <Box mb={["20px", "20px", "20px", "10px"]}>
                 <Heading color='var(--text-primary)' mb="0px" fontSize="18px">Swap aggregator</Heading>
                 {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
             </Box>
@@ -276,7 +276,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
                 </Flex>
 
-                {tokenInBalance !== null ? <Flex color='var(--text-primary)' align="center" ml="auto"><Text mt="5px" fontSize="xs">Balance: {tokenInBalance}</Text> {tokenInBalance > 0 ? <Button m="5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
+                {tokenInBalance !== null ? <Flex color='var(--text-primary)' align="end" ml="auto"><Text mt="5px" fontSize="9px">Balance: {tokenInBalance}</Text> {tokenInBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
                     setSwapIn({ amount: tokenInBalance, decided: true });
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
 
@@ -314,19 +314,19 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         </Flex>}
                 </Flex>
 
-                {tokenOutBalance !== null ? <Flex color='var(--text-primary)' align="center" ml="auto"><Text mt="5px" fontSize="xs">Balance: {tokenOutBalance}</Text> {tokenOutBalance > 0 ? <Button m="5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
+                {tokenOutBalance !== null ? <Flex color='var(--text-primary)' align="end" fontSize="9px" ml="auto"><Text mt="5px" fontSize="xs">Balance: {tokenOutBalance}</Text> {tokenOutBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
                     setSwapOut({ amount: tokenOutBalance, decided: true });
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
             </Box>
+            
+            {pathSymbols ? <Text mt='5px' mb='-10px' mr='auto' ml='auto' fontSize="10px">{pathSymbols.join(' > ')}</Text> : <></>}
 
-            {pathSymbols ? <Text mt='10px' mr='auto' ml='auto'>{pathSymbols.join(' > ')}</Text> : <></>}
-
-            {swapInfo ? <Text mt='10px' mr='auto' ml='auto'>Best DEX: {swapInfo.routerName}</Text> : <></>}
+            {swapInfo ? <Text mt='10px' fontSize="10px" mr='auto' ml='auto'>Best DEX: {swapInfo.routerName}</Text> : <></>}
 
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
                 <Button
                     color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
-                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "20px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
+                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
                     onClick={async () => {
 
                         let provider;

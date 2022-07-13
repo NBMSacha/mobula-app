@@ -17,7 +17,7 @@ export default function TopHolders() {
     return(
         <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 0px" p={["20px 0px 20px 0px","10px 0px 20px 0px","30px 10px","30px 10px"]} mt="0px">
             <Text fontWeight="600" fontSize={["12px","12px","20px","20px"]} ml="20px" mb={["5px","5px","20px","20px"]}>Top holders</Text>
-                <TableContainer w="90%" mx="auto" h={["290px","290px","250px","auto"]} overflowY="scroll" whiteSpace="nowrap" className="scroll">
+                <TableContainer w="90%" mx="auto" h={["290px","290px","250px","620px"]} overflowY="scroll" whiteSpace="nowrap" className="scroll">
                     <Table variant='simple'>
                         <Thead >
                             <Tr>
@@ -27,6 +27,8 @@ export default function TopHolders() {
                                 <Th fontSize={["8px", "8px", "11px", "15px"]} p={["10px 5px","10px 5px","10px 20px","20px 30px"]} borderBottom="1px solid var(--box_border) !important" textTransform="capitalize" isNumeric>% of Total Supply</Th>
                             </Tr>
                         </Thead>
+                        <Line />
+                        <Line />
                         <Line />
                         <Line />
                         <Line />

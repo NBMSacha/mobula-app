@@ -29,13 +29,14 @@ export default function Comments() {
                                 value={comment}
                                 fontSize={["9px","9px","14px","14px"]}
                                 borderRadius="12px"
-                                border="1px solid var(--box_border) !important"
+                                border="2px solid var(--box_border) !important"
                                 p="15px"
                                 onChange={(e) => {
                                     setComment(e.target.value)
                                 }}
                                 placeholder='Here is a sample placeholder'
                                 size='sm'
+                                bg="var(--contract)"
                                 minHeight={["130px","130px","110px","110px"]}
                             />
                             <Button fontSize={["11px","11px","12px","14px"]} bg="var(--box_active)" w="100%" py={["7px","7px","9px","13px"]} borderRadius="8px"

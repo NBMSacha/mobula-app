@@ -4,7 +4,7 @@ export default function Boxs() {
 
     return(
 
-            <Box w={["160px","160px","270px","270px"]} minWidth="270px" p={["10px 10px","10px 10px","10px 20px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)"  mr="40px">
+            <Box w={["160px","160px","270px","270px"]} minWidth="270px" p={["10px 10px","10px 10px","10px 20px","10px 20px"]} mx="auto" border="2px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)"  mr="40px">
                 <Flex justify="space-between" align="start">
                     <Flex align="center">
                         <Image boxSize={["16px","16px","28px","28px"]} src="/nervos.png" mr="10px"/>
