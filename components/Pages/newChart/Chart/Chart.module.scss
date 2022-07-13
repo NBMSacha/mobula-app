@@ -1,0 +1,22 @@
+@media screen and (max-width: 1100px) {
+    .chart-btns{
+        max-width: 340px !important;
+    }
+    .chart-box{
+        padding-right:20px !important;
+        padding-left:20px !important
+        
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .chart-box{
+        padding-right:10px;
+        padding-left:10px
+    }
+}
+
+.chart-box{
+    padding-right:40px;
+    padding-left:40px
+}

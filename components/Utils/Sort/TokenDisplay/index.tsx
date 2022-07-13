@@ -25,6 +25,7 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
     const [trustScore, setTrustScore] = useState(0);
     const [marketScore, setMarketScore] = useState(0);
     const complete = useRef(false);
+    const [ votes, setVotes] = useState([])
 
     const shadow = useColorModeValue('0px 1px 6px 1px #d0d6e3', '0px 1px 12px 3px rgba(0,0,0,0.2)')
 
@@ -55,9 +56,11 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
             return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000
         }
     }
+
+    useEffect(() => {
+        setVotes(JSON.parse(localStorage.getItem("votes")))
+    }, [])
     
-
-
     return (
         <Flex flexWrap={["wrap", "wrap", "wrap", "nowrap"]} ml={["2rem", "2rem", "5rem"]} mr={["2rem", "2rem", "5rem"]}>
             <Flex direction="column" w={["100%", "100%", "80%"]}>
@@ -166,7 +169,10 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
 
                 <Flex mt="30px" justifyContent={["space-between"]} >
                     <Button bg="green" h="40px" width="49% !important" rounded="xl" onClick={() => voteToken(true, complete, token, utilityScore, socialScore, trustScore, marketScore)}>Validate</Button>
-                    <Button bg={useColorModeValue("#E9E9E9", "white")} color="black" h="40px" width="49% !important" rounded="xl" onClick={() => voteToken(false, complete, token, utilityScore, socialScore, trustScore, marketScore)}>Reject</Button>
+                    <Button bg={useColorModeValue("#E9E9E9", "white")} color="black" h="40px" width="49% !important" rounded="xl" 
+                    onClick={() => {
+                        voteToken(false, complete, token, utilityScore, socialScore, trustScore, marketScore);
+                    }}>Reject</Button>
                 </Flex>
 
             </Flex>

@@ -46,9 +46,7 @@ export default function Sliders({setEvmCheckbox, evmCheckbox, setShowMore, showM
     const [isSearch, setIsSearch ] = useState(false)
 
     const [display, setDisplay] = useState('default');
-    const { account } = useWeb3React();
     const [textResponsive, setTextResponsive] = useState(false);
-    const router = useRouter();
     const [orderBy, setOrderBy]: [any, Function] = useState();
 
     const [volume, setVolume] = useState([0, 1_000_000])
@@ -71,8 +69,6 @@ export default function Sliders({setEvmCheckbox, evmCheckbox, setShowMore, showM
     const [ isActiveVolume, setIsActiveVolume] = useState(false)
     const [isActiveLiquidity, setIsActiveLiquidity] = useState(false)
     const [ isActiveMarketCap, setIsActiveMarketCap ] = useState(false)
-    
-   
   
     function getTokensToDisplay() {
         return tokens;

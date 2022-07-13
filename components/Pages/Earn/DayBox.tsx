@@ -28,6 +28,7 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
         }
     }
     console.log(prizePerDay(day), mobile)
+    console.log(day)
     return (
         <>
             <Flex bg={(streaks == day && (!user.last_claim || Date.parse(user.last_claim) + 20 * 60 * 60 * 1000 < Date.now()) ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
@@ -78,7 +79,7 @@ export default function DayBox({ day, streaks, account, user, setUser }) {
                     {day == 7  && (
                         <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
                     )}
-                    {day == 8  && (
+                    {day == 8   && (
                         <Image src='/reward5.png' h={['19px','19px','28px','28px']}  />
                     )}
                     

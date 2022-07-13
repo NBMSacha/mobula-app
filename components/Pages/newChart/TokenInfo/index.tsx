@@ -17,15 +17,12 @@ import {
 import { ProgressBar } from 'react-bootstrap';
 import styles from './TokenInfo.module.scss'
 
-
-
-
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
     return (
-        <Flex pt="20px" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" mt={["20px", "20px", "50px", "50px"]} px={["0px", "0px", "20px", "20px"]}>
+        <Flex pt="0px" justify="center" align="center" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%" px={["0px", "0px", "20px", "20px"]}>
             {/* Top lane */}
-            <Flex px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
+            <Flex px="20px" fontFamily="Inter" w="100%" mb="30px" justify="space-between" mt={["10px","10px","-12px","-12px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
@@ -99,9 +96,23 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     </Flex>
                 )
             }
-
+            <Flex display={["flex","flex","flex","none"]} justify="space-between" w="100%" p="20px" mt="-10px" bg="var(--bg-governance-box)" borderRadius="8px">
+                <Box>
+                    <Text fontSize="9px" color="var(--text-grey)">Marketcap</Text>
+                    <Text fontSize="11px">${baseAsset.market_cap}<Box as="span" color="green" ml="10px">+2%</Box></Text>
+                    <Text fontSize="9px" mt="10px" color="var(--text-grey)">Volume (24H)</Text>
+                    <Text fontSize="11px">${baseAsset.volume} <Box as="span" color="green" ml="10px">+2%</Box></Text>
+                </Box>
+                <Box>
+                    <Text fontSize="9px" color="var(--text-grey)">Circulating supply</Text>
+                    <Text fontSize="11px">${baseAsset.circulating_supply}</Text>
+                    <Text fontSize="9px" mt="10px" color="var(--text-grey)">Fully dilluted Marketcap</Text>
+                    <Text fontSize="11px">${baseAsset.market_cap_diluted}</Text>
+                </Box>
+            </Flex>
+            
             {/* Bot lane */}
-            <Flex display={["none", "none", "none", "flex"]} px="20px" fontFamily="Inter" w="100%" justify="space-between" mb={["", "", "", "30px"]}>
+            <Flex display={["none", "none", "none", "flex"]} px="20px" fontFamily="Inter" w="100%" justify="space-between" >
                 <Box>
                     <Flex align="center" mb={["", "", "", "15px"]}>
                         <Text fontSize="10px" mr="10px">Market cap</Text>

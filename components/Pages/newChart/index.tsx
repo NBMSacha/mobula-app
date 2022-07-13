@@ -24,6 +24,14 @@ import styles from './newChart.module.scss';
 import Swap from "../../Utils/Swap"
 import MobileInfo from "./MobileInfo"
 import { ThemeContext } from '../../../pages/_app';
+import TradeBox from "./TradeBox"
+import SocialInfo from "./SocialInfo"
+import CircularBox from "./CircularBox"
+import { Grid, GridItem } from '@chakra-ui/react'
+import TopHolders from "./TopHolders"
+import Comments from "./Comments"
+import AlsoWatch from "./AlsoWatch"
+import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 
 const Token = ({ baseAssetBuffer }) => {
     const [selector, setSelector] = useState("price")
@@ -556,76 +564,285 @@ const Token = ({ baseAssetBuffer }) => {
         }
     }
 
+    console.log(baseAsset)
+
+    const [ Uvalue, setUvalue] = useState(0)
+    const [ Tvalue, setTvalue] = useState(0)
+    const [ Svalue, setSvalue] = useState(0)
+    const [ Mvalue, setMvalue] = useState(0)
+    useEffect(() => {
+        switch(baseAsset.utility_score) {
+            case 0: 
+                setUvalue(0)
+                return
+            case 1: 
+                setUvalue(20)
+                return
+            case 2: 
+                setUvalue(40)
+                return
+            case 3: 
+                setUvalue(60)
+                return
+            case 4:
+                setUvalue(80)
+                return
+            case 5: 
+                setUvalue(100)
+                return
+        }
+    }, [])
+    useEffect(() => {
+        switch(baseAsset.trust_score) {
+            case 0: 
+                setTvalue(0)
+                return
+            case 1: 
+                setTvalue(20)
+                return
+            case 2: 
+                setTvalue(40)
+                return
+            case 3: 
+                setTvalue(60)
+                return
+            case 4:
+                setTvalue(80)
+                return
+            case 5: 
+                setTvalue(100)
+                return
+        }
+     
+    }, [])
+    
+    useEffect(()=> {
+        switch(baseAsset.market_score) {
+            case 0: 
+                setMvalue(0)
+                return
+            case 1: 
+                setMvalue(20)
+                return
+            case 2: 
+                setMvalue(40)
+                return
+            case 3: 
+                setMvalue(60)
+                return
+            case 4:
+                setMvalue(80)
+                return
+            case 5: 
+                setMvalue(100)
+                return
+        }
+       
+    },[])
+
+    useEffect(()=> {
+        switch(baseAsset.social_score) {
+            case 0: 
+                setSvalue(0)
+                return
+            case 1: 
+                setSvalue(20)
+                return
+            case 2: 
+                setSvalue(40)
+                return
+            case 3: 
+                setSvalue(60)
+                return
+            case 4:
+                setSvalue(80)
+                return
+            case 5: 
+                setSvalue(100)
+                return
+        }
+    },[])
+
+    console.log(Mvalue, baseAsset.market_score)
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
     return (
+        <>
+            <Flex direction="column" >
+                <Flex justify="center" w="100%" mx="auto" mb="50px" maxWidth="1480px" mt="10px">
+                    <Grid h='2800' display={["none","none","none","grid"]} w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)']} gap={2}>
+                        <GridItem rowStart={1}  colStart={4} rowSpan={2}>
+                            <Swap tokenOutBuffer={baseAsset} />
+                        </GridItem>
+                        <GridItem rowStart={1} colSpan={3} rowSpan={1}>
+                            <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
+                        </GridItem>
+                        <GridItem rowStart={2} colSpan={3} rowSpan={3}>
+                            <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                        </GridItem>
+                        <GridItem rowStart={3} colStart={4} rowSpan={4}>
+                            <TradeBox />
+                        </GridItem>
+                        <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
+                            <SocialInfo baseAsset={baseAsset}/>
+                        </GridItem>
+                        <GridItem rowStart={7} colSpan={4} rowSpan={1}>
+                            <CircularBox />
+                        </GridItem>
+                        <GridItem rowStart={8}  colSpan={3} rowSpan={4}>
+                            <TopHolders />
+                        </GridItem>
+                        <GridItem colSpan={1} colStart={4} rowSpan={4}>
+                            <Comments />
+                        </GridItem>
+                        <GridItem colSpan={4}  rowSpan={2}>
+                            <AlsoWatch />
+                        </GridItem>
+                    </Grid>
 
-        <Flex justify="center" w="90%" m="auto" className={styles["main"]} mb="50px" maxWidth="1450px">
-            {/* Left */}
-            <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
-                {/* Token Information Top */}
-                <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
-                <Flex display={["flex", "flex", "flex", "none"]} w="100%" direction="column" align="center" justify="center" mt="20px">
-                    {/* COMPO */}
-                    <MobileInfo moreStat={moreStat} totalScore={totalScore} baseAsset={baseAsset} />
-                    {/*  */}
-                    <Button
-                        onClick={() => setMoreStat(!moreStat)}
-                        w="80%" _focus={{ boxShadow: "none" }}
-                        boxShadow={`1px 2px 12px 3px var(--shadow)`}
-                        py="6px"
-                        fontSize="10px"
-                    >
-                        {moreStat ? "Show less stats" : "Show more stats"}
-                    </Button>
-                    <Flex fontWeight="400px" fontSize={["10px", "10px", "13px", "13px"]} mt="15px">
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "none"} onClick={() => { setSelector("price"); }}>Price</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "none"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "none"} onClick={() => { setSelector("volume"); }}>Volume</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "none"} onClick={() => { setSelector("rank"); }}>Rank</Button>
-                        <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="5px" w="60px" h="24px" color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "none"} onClick={() => { setSelector("swap") }}>Buy</Button>
-                    </Flex>
+
+                    
+                    <Grid h='2500' w="90%" display={["grid","grid","grid","none"]} templateRows='repeat(20, 1fr)' templateColumns={['repeat(3, 1fr)']} gap={2}>
+                        <GridItem display="none" rowStart={1}  colStart={4} rowSpan={2} >
+                            <Swap tokenOutBuffer={baseAsset} />
+                        </GridItem>
+                        <GridItem rowStart={1} colSpan={3}  rowSpan={1} >
+                            <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
+                        </GridItem>
+                        <GridItem rowStart={2} colSpan={3} rowSpan={3} >
+                            <Flex display={["flex","flex","flex","none"]} fontSize="10px" justify="space-between" w={["100%","100%","80%","100%"]} mx={["0px","0px","auto","0px"]} pb="15px" pt="5px" my="5px" borderRadius="8px" overflowX="scroll" whiteSpace="nowrap" className="scroll">
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "price" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} w="75px !important" minWidth="75px" borderRadius={["5px","5px","8px","8px"]} py={["5px","5px","6px","10px"]} onClick={() => { setSelector("price"); }} mr="14px">
+                                    Price
+                                </Button>
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "liquidity" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} onClick={() => { setSelector("liquidity"); }} mr="14px">
+                                    Liquidity
+                                </Button>
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "volume" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "var(--btnInfo)"} minWidth="75px"  w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} onClick={() => { setSelector("volume"); }} mr="14px">
+                                   Volume
+                                </Button>
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "swap" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} mr="14px" onClick={() => { setSelector("swap"); }}>
+                                    Swap
+                                </Button >
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "rank" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} onClick={() => { setSelector("rank"); }} >
+                                   Rank
+                                </Button>
+                            </Flex>
+                            <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                        </GridItem>
+                        <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
+                            <SocialInfo baseAsset={baseAsset}/>
+                        </GridItem>
+                        <GridItem rowStart={7} colStart={1} colSpan={2} rowSpan={2}>
+                            <TradeBox />
+                        </GridItem>
+                        <GridItem rowStart={7} colStart={3} colSpan={1} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
+                        <Text fontWeight="600" fontSize="11px" m={["5px 10px","10px 20px 10px 20px","15px 20px 5px 20px","8px"]}>DAO Score</Text>
+                            <Text fontSize="11px" m={["0px 10px","0px 25px","5px 25px","5px 10px"]}>Total <Box as="span" color={totalScore > 10 ? "green" : totalScore > 0 ? "red" : "none"}>{totalScore > 0 ? totalScore : "--"}</Box>/20</Text>
+                            <Flex direction="column" justify="center" align="center" p="10px ">
+                                
+                                <Flex align="center" mt="0px" w={["100%","90%","55%","50%"]} mx="auto">
+                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.utility_score < 3 ? "red" : "green"} value={Uvalue} />
+                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.utility_score > 0 ? baseAsset.utility_score : "--"}/5</Box> Utility</Text>
+                                </Flex>
+                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
+                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.social_score < 3 ? "red" : "green"} value={Svalue} />
+                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.social_score > 0 ? baseAsset.social_score : "--"}/5</Box> Social</Text>
+                                </Flex>
+                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
+                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.trust_score < 3 ? "red" : "green"}  value={Tvalue} />
+                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.trust_score > 0 ? baseAsset.trust_score : "--"}/5</Box> Security</Text>
+                                </Flex>
+                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
+                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.market_score < 3 ? "red" : "green"} value={Mvalue} />
+                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.market_score > 0 ? baseAsset.market_score : "--"}/5</Box> Market</Text>
+                                </Flex>
+                            </Flex>
+                        </GridItem>
+                        <GridItem rowStart={9} colSpan={3} rowSpan={1}>
+                            <CircularBox />
+                        </GridItem>
+                        <GridItem rowStart={10} colSpan={3} rowSpan={3}>
+                            <TopHolders />
+                        </GridItem>
+                        <GridItem colSpan={3} colStart={1} rowSpan={2}>
+                            <Comments />
+                        </GridItem>
+                        <GridItem colSpan={4} rowSpan={2} mt="10px">
+                            <Text mb={["10px","10px","20px","10px"]} ml="20px" fontWeight="600" fontSize={["12px","12px","20px","20px"]}>People also watch</Text>
+                            <Flex overflowX="scroll" className="scroll" pb="10px">  
+                                
+                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
+                                    <Flex justify="space-between" align="start">
+                                        <Flex align="center">
+                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
+                                            <Box>
+                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
+                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
+                                    </Flex>    
+                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
+                                </Box>
+                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
+                                    <Flex justify="space-between" align="start">
+                                        <Flex align="center">
+                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
+                                            <Box>
+                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
+                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
+                                    </Flex>    
+                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
+                                </Box>
+                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
+                                    <Flex justify="space-between" align="start">
+                                        <Flex align="center">
+                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
+                                            <Box>
+                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
+                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
+                                    </Flex>    
+                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
+                                </Box>
+                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
+                                    <Flex justify="space-between" align="start">
+                                        <Flex align="center">
+                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
+                                            <Box>
+                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
+                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
+                                    </Flex>    
+                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
+                                </Box>
+                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
+                                    <Flex justify="space-between" align="start">
+                                        <Flex align="center">
+                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
+                                            <Box>
+                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
+                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
+                                            </Box>
+                                        </Flex>
+                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
+                                    </Flex>    
+                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
+                                </Box>
+                            </Flex>
+                           
+                        
+                        </GridItem>
+                    </Grid>
                 </Flex>
-                {/* Chart Box */}
-                {selector !== "swap" ? (
-                    <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
-                ) : (
-                    <Flex w="90%" mr="auto" ml="auto" justify="center" display={["flex", "flex", "flex", "none"]} mt={["20px", "20px", "20px", "0px"]} >
-                        <Swap tokenOutBuffer={baseAsset} />
-                    </Flex>
-                )}
-
             </Flex>
-            {/* Right */}
-            <Flex display={["none", "none", "none", "flex"]} direction="column" w="30%" mt="50px">
-                {/* SWAP */}
-                <Box ml={["0px", "0px", "0px", "10px"]} w="100%">
-
-                    <Swap tokenOutBuffer={baseAsset} />
-
-                </Box>
-                {/* Contract  */}
-                <Box w="100%" h="100%" bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 10px" p="30px 10px" mt="10px">
-                    <Text fontSize="20px" ml="20px" mb="20px">{baseAsset.name} contract(s)</Text>
-                    {baseAsset.contracts[0] !== undefined ? (
-                        <Flex direction="column" h="100%" w="95%" pt="0px" px="20px" maxHeight={["294px"]} overflowY="scroll" className={styles["scroll"]}>
-                            {baseAsset.contracts.map((contract: string, idx: number) => {
-                                return (
-                                    <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
-                                )
-                            })}
-                        </Flex>
-                    ) : (
-                        <Flex w="100%" mt="-30px" h="100%" align="center" justify="center" p="30px">
-                            <Text>This asset doesn't have any wrapped on EVM-compatible chains, meaning we can't provide trustless data.</Text>
-                        </Flex>
-                    )}
-
-
-                </Box>
-
-            </Flex>
-
-        </Flex>
+        </>
     )
 }
 

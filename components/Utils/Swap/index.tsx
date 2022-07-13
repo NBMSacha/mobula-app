@@ -31,6 +31,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     const [pathSymbols, setPathSymbols]: [any, Function] = useState()
     const activeStatus = ['Connect wallet', 'Approve', 'Swap']
     const precision = 3000
+    console.log(tokenInBuffer)
 
     useEffect(() => {
 
@@ -246,10 +247,10 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="30px 30px" >
-            <Box mb={["20px", "20px", "30px", "30px"]}>
-                <Heading color='var(--text-primary)' mb="10px" fontSize="x-large">Swap aggregator</Heading>
-                <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
+        <Flex w="100%" h="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="20px 20px 10px 20px" >
+            <Box mb={["20px", "20px", "30px", "20px"]}>
+                <Heading color='var(--text-primary)' mb="0px" fontSize="18px">Swap aggregator</Heading>
+                {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
             </Box>
             {/* @ts-ignore */}
             <Box display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
@@ -280,7 +281,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
 
             </Box >
-            <Box ml="auto" mr="auto" mt="20px" mb="20px"
+            {/* <Box ml="auto" mr="auto" mt="20px" mb="20px"
                 cursor='pointer'
 
 
@@ -291,9 +292,9 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                     setTokenIn(tokenOut)
                     setArrow(!arrow)
                 }}
-            >{arrow ? <ArrowUp /> : <ArrowDown />}</Box>
+            >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Box display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box mt="15px" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
                 <Flex color='var(--text-primary)' align="center" justify="space-between" mt="20px">
@@ -325,7 +326,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
                 <Button
                     color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
-                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "30px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
+                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "20px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
                     onClick={async () => {
 
                         let provider;

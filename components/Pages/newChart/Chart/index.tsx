@@ -1,13 +1,13 @@
 import React from 'react'
 import { useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
-
+import styles from "./Chart.module.scss"
 const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSelector, setTimeFormat, timeFormat }) => {
     return (
-        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box)"]} boxShadow={["1px 2px 12px 3px var(--shadow)"]} borderRadius="15px" w="100%" px={["10px", "10px", "40px", "40px"]} mt="10px" pt={["5px", "5px", "40px", "40px"]}>
+        <Flex direction="column" h="100%" bg={["none", "none", "none", "var(--bg-governance-box)"]} boxShadow={["1px 2px 12px 3px var(--shadow)"]} borderRadius="15px" w="100%"  className={styles["chart-box"]} mt="0px" pt={["5px", "5px", "0px", "20px"]}>
             {/* TOP tools*/}
-            <Flex justify="space-between">
-                <Box display={["none", "none", "none", "block"]} mb="40px">
-                    <Text fontSize={["", "", "", "17px"]} mb={["", "", "", "30px"]}>{baseAsset.name} to USD Chart</Text>
+            <Flex justify="space-between" >
+                <Box display={["none", "none", "none", "block"]} mb="40px" className={styles["chart-btns"]}>
+                    <Text fontSize={["", "", "", "17px"]} mb={["", "", "", "20px"]}>{baseAsset.name} to USD Chart</Text>
                     <Flex fontWeight="400px" fontSize={["", "", "", "13px"]}>
                         <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("price"); }}>Price</Button>
                         <Button border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} mr="15px" w="85px" h="24px" color={selector === "liquidity" ? "white" : "none"} bg={selector === "liquidity" ? "blue" : "var(--btnInfo)"} onClick={() => { setSelector("liquidity"); }}>Liquidity</Button>
@@ -78,12 +78,12 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
 
                 </Flex>
             </Flex>
-            <Flex mt="10px" mb="10px" position="relative">
+            <Flex mt="0px" mb="10px" position="relative">
                 {(!baseAsset.tracked) ? (
                     <Box p="20px" mt={["0px", "0px", "50px"]} textAlign="center">
                         Market data untracked. Not enough liquidity or vol. to get trustfull data.
                     </Box>
-                ) : <canvas id='chart' style={{ maxWidth: "1280px" }}></canvas>
+                ) : <canvas id='chart' style={{ maxWidth: "1280px", maxHeight:"400px" }}></canvas>
                 }
             </Flex>
             {/* <Link href='https://discord.gg/2a8hqNzkzN' mb="50px" fontSize="11px" _hover={{ textDecoration: "none" }}>
