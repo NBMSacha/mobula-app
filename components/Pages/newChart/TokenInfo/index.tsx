@@ -4,17 +4,8 @@ import {
     formatAmount,
     getTokenFormattedPrice,
     getTokenPercentage,
-    getClosest,
-    getUrlFromName,
     getFormatedAmount
 } from '../../../../helpers/formaters'
-import {
-    Progress,
-    ProgressLabel,
-    CircularProgress,
-    CircularProgressLabel,
-} from "@chakra-ui/react"
-import { ProgressBar } from 'react-bootstrap';
 import styles from './TokenInfo.module.scss'
 
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
@@ -22,7 +13,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
     return (
         <Flex pt="0px" justify="center" align="center" borderRadius="12px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%"  className={styles["chart-box"]}>
             {/* Top lane */}
-            <Flex px="15px" fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
+            <Flex px={["0px","0px","0px","15px"]} fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />

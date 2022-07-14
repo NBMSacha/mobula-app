@@ -247,19 +247,19 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%"  maxWidth={["100%","100%","70%","500px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} mx="auto"bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
-            <Box mb={["10px", "10px", "20px", "15px"]} display={["block","block","none","block"]}>
-                <Heading color='var(--text-primary)' mb="0px" fontSize={["12px","12px","14px","18px"]} >Swap aggregator</Heading>
-                {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
+        <Flex w="100%" h="100%" maxWidth={["100%","100%","70%","500px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} mx="auto"bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="15px 20px 10px 20px" >
+            <Box mb={["10px", "10px", "20px", "5px"]} display={["block","block","none","block"]}>
+                <Heading color='var(--text-primary)' mb="5px" fontSize={["12px","12px","14px","18px"]} >Swap {tokenOutBuffer.name}</Heading>
+                <Text fontSize="10px" color='var(--text-grey)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
             </Box>
             {/* @ts-ignore */}
-            <Box border="2px solid var(--box_border)" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
+            <Flex border="2px solid var(--box_border)" h="95px" minHeight="95px"  direction="column" justify="space-between"  align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputInRef.current.focus()
             }}>
-                <Flex align="center" justify="space-between" mb={["10px","10px","10px","20px"]}>
+                <Flex align="center" justify="space-between" mb={["10px","10px","10px","0px"]}>
                     <Input ref={inputInRef} onChange={(e) => {
                         setSwapIn({ amount: parseFloat(e.target.value), decided: true })
-                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["12px", "12px", "16px", "18px"]} />
+                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["12px", "12px", "15px", "15px"]} />
                     {tokenIn ?
                         <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["0px 5px", "0px 5px","0px 5px", "5px 10px"]}
                             onClick={() => setSelectVisible('tokenIn')}
@@ -280,7 +280,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                     setSwapIn({ amount: tokenInBalance, decided: true });
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
 
-            </Box >
+            </Flex >
             {/* <Box ml="auto" mr="auto" mt="20px" mb="20px"
                 cursor='pointer'
 
@@ -294,11 +294,11 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Box border="2px solid var(--box_border)" mt={["10px","10px","15px","8px"]} display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
+            <Flex border="2px solid var(--box_border)" h="95px" minHeight="95px" mt={["10px","10px","15px","8px"]} direction="column" justify="space-between" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
-                <Flex color='var(--text-primary)' align="center" justify="space-between" mb={["10px","10px","20px","20px"]}>
-                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["12px", "12px", "16px", "18px"]}  />
+                <Flex color='var(--text-primary)' align="center" justify="space-between" mb={["10px","10px","20px","0px"]}>
+                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["12px", "12px", "15px", "15px"]}  />
                     {tokenOut ?
                         <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["0px 5px", "0px 5px","0px 5px", "5px 10px"]}
                             onClick={() => setSelectVisible('tokenOut')}
@@ -314,10 +314,10 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                         </Flex>}
                 </Flex>
 
-                {tokenOutBalance !== null ? <Flex color='var(--text-primary)' align="end" fontSize="9px" ml="auto"><Text mt="5px" fontSize="xs">Balance: {tokenOutBalance}</Text> {tokenOutBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
+                {tokenOutBalance !== null ? <Flex color='var(--text-primary)' align="end" fontSize="9px" ml="auto"><Text mt="5px" fontSize="9px">Balance: {tokenOutBalance}</Text> {tokenOutBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
                     setSwapOut({ amount: tokenOutBalance, decided: true });
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
-            </Box>
+            </Flex>
             
             {pathSymbols ? <Text mt='5px' mb='-10px' mr='auto' ml='auto' fontSize="10px">{pathSymbols.join(' > ')}</Text> : <Text mt='5px' mb='-10px' visibility="hidden" mr='auto' ml='auto' fontSize="10px">sfe</Text>}
 
