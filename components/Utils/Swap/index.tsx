@@ -268,7 +268,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                             <Text color='var(--text-primary)' ml={["5px","5px","8px","10px"]} fontSize={["10px", "10px", "12px", "16px"]}>{tokenIn.symbol}</Text>
                             <ChevronDown color='var(--text-primary)' />
                         </Flex> :
-                        <Flex mb={["20px","20px","35px","30px"]} color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="230px" whiteSpace="nowrap"
+                        <Flex mb={["20px","20px","35px","30px"]} color="white" justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="230px" whiteSpace="nowrap"
                             onClick={() => setSelectVisible('tokenIn')}>
                             Select a token <ChevronDown />
                         </Flex>
@@ -294,7 +294,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Box border="2px solid var(--box_border)" mt={["10px","10px","15px","15px"]} display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box border="2px solid var(--box_border)" mt={["10px","10px","15px","8px"]} display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
                 <Flex color='var(--text-primary)' align="center" justify="space-between" mb={["10px","10px","20px","20px"]}>

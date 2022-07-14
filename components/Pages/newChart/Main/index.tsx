@@ -668,8 +668,6 @@ const Main = ({ baseAssetBuffer }) => {
     console.log(Mvalue, baseAsset.market_score)
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
     return (
-  
-   
                     <Grid h='2800' display={["none","none","none","grid"]} w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)']} gap={2}>
                         <GridItem rowStart={1}  colStart={4} rowSpan={2}>
                             <Swap tokenOutBuffer={baseAsset} />
@@ -681,10 +679,9 @@ const Main = ({ baseAssetBuffer }) => {
                             <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                         </GridItem>
                         <GridItem rowStart={3} colStart={4} rowSpan={totalScore > 1 ? 2 : 4}>
-                            <TradeBox />
+                            <TradeBox totalScore={totalScore}/>
                         </GridItem>
                         <GridItem boxShadow="1px 2px 12px 3px var(--shadow)" rowStart={5} colStart={4} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px" p="15px 30px" display={totalScore > 1 ? "grid" : "none"}>
-                            
                             <DaoScore baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>
                         </GridItem>
                         <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
@@ -703,9 +700,6 @@ const Main = ({ baseAssetBuffer }) => {
                             <AlsoWatch />
                         </GridItem>
                     </Grid>
-
-
-
     )
 }
 

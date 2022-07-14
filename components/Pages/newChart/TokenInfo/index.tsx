@@ -20,7 +20,7 @@ import styles from './TokenInfo.module.scss'
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
     return (
-        <Flex pt="0px" justify="center" align="center" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%"  className={styles["chart-box"]}>
+        <Flex pt="0px" justify="center" align="center" borderRadius="12px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%"  className={styles["chart-box"]}>
             {/* Top lane */}
             <Flex px="15px" fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
                 {/* Token Name / logo Box */}
@@ -28,7 +28,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
                     <Box>
                         <Flex align="center">
-                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} whiteSpace="pre-wrap" >{baseAsset.name}</Text>
+                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} whiteSpace="nowrap" >{baseAsset.name}</Text>
                             <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]} mr="10px">{baseAsset.symbol}</Box>
                         </Flex>
                         {totalScore !== 0 && (
@@ -44,7 +44,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
 
 
                 {/* Website / Chat / Kyc / Audit / Infos  */}
-                <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px">
+                <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px" minWidth="200px" overflowX="scroll">
                     <Link target="_blank" mt="8px" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Website</Flex>
                     </Link>
