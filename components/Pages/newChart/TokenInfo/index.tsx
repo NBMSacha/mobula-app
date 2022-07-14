@@ -35,7 +35,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
 
 
                 {/* Website / Chat / Kyc / Audit / Infos  */}
-                <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px" minWidth="200px" overflowX="scroll">
+                <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px">
                     <Link target="_blank" mt="8px" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
                         <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Website</Flex>
                     </Link>
