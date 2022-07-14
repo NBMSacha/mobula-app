@@ -247,7 +247,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%"  maxWidth={["100%","100%","70%","500px"]} mx="auto" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
+        <Flex w="100%"  maxWidth={["100%","100%","70%","500px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} mx="auto"bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
             <Box mb={["10px", "10px", "20px", "15px"]} display={["block","block","none","block"]}>
                 <Heading color='var(--text-primary)' mb="0px" fontSize={["12px","12px","14px","18px"]} >Swap aggregator</Heading>
                 {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
