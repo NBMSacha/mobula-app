@@ -17,6 +17,7 @@ export default function Boxs() {
                 </Flex>    
                 <Image mt={["10px","10px","20px","20px"]} src={"https://mobulaspark.com/spark?id=100001656.svg"} w={["90%","90%","100%","100%"]}/>      
             </Box>
+            
 
     )
 }

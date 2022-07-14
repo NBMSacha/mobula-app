@@ -82,7 +82,7 @@ export default function Select({ visible, setVisible, selectToken, oldToken }) {
                 _placeholder={{ color: "var(--text-primary)" }}
                 onChange={(e) => setToken(e.target.value)}
             />
-            <Flex flexWrap="wrap" p="20px" ml="auto" mr="auto">
+            <Flex  flexWrap="wrap" p="20px" ml="auto" mr="auto">
                 {defaultTokens[chainId]?.map((token: any) => {
                     return <Flex onClick={() => {
                         if (oldToken?.address != token.address) {
@@ -92,8 +92,8 @@ export default function Select({ visible, setVisible, selectToken, oldToken }) {
                     }} cursor={oldToken?.address == token.address ? "not-allowed" : "pointer"} _hover={{ opacity: "0.8" }} p="5px 10px" mr="10px" mb="10px" borderRadius="15px" border="2px solid var(--box_border)" align="center" justify="space-between">{token.symbol} <Image ml="5px" src={token.logo} h="20px"></Image></Flex>
                 })}
             </Flex>
-            <Box w='100%' h="1px" bg="var(--box_border)" mb="10px" />
-            <Flex p="20px" direction="column" w="100%" overflowY="scroll" h="60%" maxHeight='500px'>
+            <Box  w='100%' h="1px" bg="var(--box_border)" mb="10px" />
+            <Flex p="20px" direction="column" w="100%" overflowY="scroll" className="scroll" h="60%" maxHeight='500px'>
                 {results?.map((token: any) => {
 
                     if (token) {

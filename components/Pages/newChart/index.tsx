@@ -767,75 +767,7 @@ const Token = ({ baseAssetBuffer }) => {
                             <Comments />
                         </GridItem>
                         <GridItem colSpan={4} rowSpan={2} mt="10px">
-                            <Text mb={["10px","10px","20px","10px"]} ml="20px" fontWeight="600" fontSize={["12px","12px","20px","20px"]}>People also watch</Text>
-                            <Flex overflowX="scroll" className="scroll" pb="10px">  
-                                
-                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
-                                    <Flex justify="space-between" align="start">
-                                        <Flex align="center">
-                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
-                                            <Box>
-                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
-                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
-                                            </Box>
-                                        </Flex>
-                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
-                                    </Flex>    
-                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
-                                </Box>
-                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
-                                    <Flex justify="space-between" align="start">
-                                        <Flex align="center">
-                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
-                                            <Box>
-                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
-                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
-                                            </Box>
-                                        </Flex>
-                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
-                                    </Flex>    
-                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
-                                </Box>
-                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
-                                    <Flex justify="space-between" align="start">
-                                        <Flex align="center">
-                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
-                                            <Box>
-                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
-                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
-                                            </Box>
-                                        </Flex>
-                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
-                                    </Flex>    
-                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
-                                </Box>
-                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
-                                    <Flex justify="space-between" align="start">
-                                        <Flex align="center">
-                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
-                                            <Box>
-                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
-                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
-                                            </Box>
-                                        </Flex>
-                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
-                                    </Flex>    
-                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
-                                </Box>
-                                <Box w={["160px","160px","160px","270px"]} minWidth="160px" mr={["10px !important","10px !important","20px !important","10px !important"]} p={["10px 10px","10px 10px","10px 10px","10px 20px"]} mx="auto" border="1px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)">
-                                    <Flex justify="space-between" align="start">
-                                        <Flex align="center">
-                                            <Image boxSize={["16px","16px","18px","28px"]} src="/nervos.png" mr="10px"/>
-                                            <Box>
-                                                <Text fontSize={["9px","9px","10px","14px"]}>Nervos</Text>
-                                                <Text fontSize={["8px","8px","9px","12px"]}  color="var(--text-grey)">$ 0.00348</Text>
-                                            </Box>
-                                        </Flex>
-                                        <Text fontSize={["8px","8px","10px","12px"]} color="green">+2.41%</Text>
-                                    </Flex>    
-                                    <Image mt={["10px","10px","10px","20px"]} src="/sparkline.png" w={["90%","90%","90%","100%"]}/>      
-                                </Box>
-                            </Flex>
+                            <AlsoWatch />
                            
                         
                         </GridItem>

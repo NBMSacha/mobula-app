@@ -18,6 +18,7 @@ export default function Contract({ contract, blockchain }: { contract: string, b
             align="center"
             position="relative"
             justify="left"
+            border="1px solid var(--box_border)"
             minWidth={["135px", "135px", "181px", "181px"]}
             bg="var(--contract)"
             mt='18px'

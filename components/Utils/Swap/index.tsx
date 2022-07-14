@@ -248,15 +248,15 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
     return (
         <Flex w="100%" h="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
-            <Box mb={["20px", "20px", "20px", "10px"]}>
+            <Box mb={["20px", "20px", "20px", "15px"]}>
                 <Heading color='var(--text-primary)' mb="0px" fontSize="18px">Swap aggregator</Heading>
                 {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
             </Box>
             {/* @ts-ignore */}
-            <Box display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box border="2px solid var(--box_border)" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
                 inputInRef.current.focus()
             }}>
-                <Flex align="center" justify="space-between" mt="20px">
+                <Flex align="center" justify="space-between" mb="20px">
                     <Input ref={inputInRef} onChange={(e) => {
                         setSwapIn({ amount: parseFloat(e.target.value), decided: true })
                     }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
@@ -294,10 +294,10 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Box mt="15px" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box border="2px solid var(--box_border)" mt="15px" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
-                <Flex color='var(--text-primary)' align="center" justify="space-between" mt="20px">
+                <Flex color='var(--text-primary)' align="center" justify="space-between" mb="20px">
                     <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
                     {tokenOut ?
                         <Flex align="center" bg="var(--swap)" borderRadius="10px" p="5px 10px"
@@ -319,14 +319,14 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
             </Box>
             
-            {pathSymbols ? <Text mt='5px' mb='-10px' mr='auto' ml='auto' fontSize="10px">{pathSymbols.join(' > ')}</Text> : <></>}
+            {pathSymbols ? <Text mt='5px' mb='-10px' mr='auto' ml='auto' fontSize="10px">{pathSymbols.join(' > ')}</Text> : <Text mt='5px' mb='-10px' visibility="hidden" mr='auto' ml='auto' fontSize="10px">sfe</Text>}
 
-            {swapInfo ? <Text mt='10px' fontSize="10px" mr='auto' ml='auto'>Best DEX: {swapInfo.routerName}</Text> : <></>}
+            {swapInfo ? <Text mt='10px' fontSize="10px" mr='auto' ml='auto'>Best DEX: {swapInfo.routerName}</Text> : <Text mt='10px'  visibility="hidden"  fontSize="10px" mr='auto' ml='auto'>fse</Text>}
 
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
                 <Button
                     color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
-                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "12px", "12px"]} borderRadius="10px"
+                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "8px", "8px"]} borderRadius="8px"
                     onClick={async () => {
 
                         let provider;

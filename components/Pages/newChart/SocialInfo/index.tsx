@@ -5,7 +5,7 @@ export default function SocialInfo({baseAsset}) {
   
     return(
         <Flex direction={["column-reverse","column-reverse","column-reverse","column"]} justify={["center","center","auto","auto"]} p={["10px 20px","10px 20px","10px 30px","30px 40px"]} bg="var(--bg-governance-box)" mt="0px" h="100%" borderRadius="12px" whiteSpace="nowrap">
-            <Flex mb={["0px","0px","0px","20px"]} wrap="wrap" justify={["center","center","space-around","space-around"]} w="100%" maxHeight={["50px","50px","50px","100px" ]}overflowY="scroll" className="scroll">
+            <Flex mb={["0px","0px","0px","40px"]} wrap="wrap" justify={["center","center","space-around","space-around"]} w="100%" maxHeight={["50px","50px","50px","100px" ]}overflowY="scroll" className="scroll">
                         {baseAsset.contracts.map((contract: string, idx: number) => {
                             return (
                                 <Contract contract={contract} blockchain={baseAsset.blockchains[idx]} />
@@ -62,7 +62,7 @@ export default function SocialInfo({baseAsset}) {
                 ) : (
                     <></>
                 )}
-                <Link href='' target="_blank" _hover={{ textDecoration: "none" }}>
+                <Link href='https://discord.gg/2a8hqNzkzN' target="_blank" _hover={{ textDecoration: "none" }}>
                     <Text fontSize={["9px","9px","11px","14px"]} color="red" whiteSpace="nowrap">A problem ? Report to the DAO</Text>
                 </Link>
                
