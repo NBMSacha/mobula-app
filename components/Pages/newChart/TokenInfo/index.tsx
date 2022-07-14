@@ -86,7 +86,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     </Flex>
                 )
             }
-            <Flex display={["flex","flex","flex","none"]} justify="space-between" w="100%" p="20px" mt="10px" bg="var(--bg-governance-box)" borderRadius="8px">
+            <Flex display={["flex","flex","flex","none"]} boxShadow="1px 2px 12px 3px var(--shadow)" justify="space-between" w="100%" p="20px" mt="10px" bg="var(--bg-governance-box)" borderRadius="8px">
                 <Box >
                     <Text fontSize="9px" color="var(--text-grey)">Marketcap</Text>
                     <Text fontSize="11px">${baseAsset.market_cap}<Box as="span" color="green" ml="10px">+2%</Box></Text>

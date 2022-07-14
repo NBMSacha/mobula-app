@@ -4,7 +4,7 @@ import { formatAmount } from '../../../../helpers/formaters'
 export default function SocialInfo({baseAsset}) {
   
     return(
-        <Flex direction={["column-reverse","column-reverse","column-reverse","column"]} justify={["center","center","auto","auto"]} p={["10px 20px","10px 20px","10px 30px","30px 40px"]} bg="var(--bg-governance-box)" mt="0px" h="100%" borderRadius="12px" whiteSpace="nowrap">
+        <Flex direction={["column-reverse","column-reverse","column-reverse","column"]} justify={["center","center","auto","auto"]} p={["10px 20px","10px 20px","10px 30px","30px 40px"]} bg="var(--bg-governance-box)" boxShadow="1px 2px 13px 3px var(--shadow)" mt="0px" h="100%" borderRadius="12px" whiteSpace="nowrap">
             <Flex mb={["0px","0px","0px","40px"]} wrap="wrap" justify={["center","center","space-around","space-around"]} w="100%" maxHeight={["50px","50px","50px","100px" ]}overflowY="scroll" className="scroll">
                         {baseAsset.contracts.map((contract: string, idx: number) => {
                             return (
