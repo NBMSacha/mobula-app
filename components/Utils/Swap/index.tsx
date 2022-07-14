@@ -247,28 +247,28 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%" h="100%" maxWidth="500px" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
-            <Box mb={["20px", "20px", "20px", "15px"]}>
-                <Heading color='var(--text-primary)' mb="0px" fontSize="18px">Swap aggregator</Heading>
+        <Flex w="100%"  maxWidth={["100%","100%","70%","500px"]} mx="auto" boxShadow={`1px 2px 12px 3px var(--shadow)`} bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="10px 20px 10px 20px" >
+            <Box mb={["10px", "10px", "20px", "15px"]} display={["block","block","none","block"]}>
+                <Heading color='var(--text-primary)' mb="0px" fontSize={["12px","12px","14px","18px"]} >Swap aggregator</Heading>
                 {/* <Text color='var(--text-primary)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text> */}
             </Box>
             {/* @ts-ignore */}
-            <Box border="2px solid var(--box_border)" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box border="2px solid var(--box_border)" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputInRef.current.focus()
             }}>
-                <Flex align="center" justify="space-between" mb="20px">
+                <Flex align="center" justify="space-between" mb={["10px","10px","10px","20px"]}>
                     <Input ref={inputInRef} onChange={(e) => {
                         setSwapIn({ amount: parseFloat(e.target.value), decided: true })
-                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
+                    }} value={swapIn.amount} type="number" color='var(--text-primary)' _placeholder={{ color: "none" }} w="60%" border="none" placeholder='0.0' fontSize={["12px", "12px", "16px", "18px"]} />
                     {tokenIn ?
-                        <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["5px 5px", "5px 7px", "5px 10px"]}
+                        <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["0px 5px", "0px 5px","0px 5px", "5px 10px"]}
                             onClick={() => setSelectVisible('tokenIn')}
                         >
-                            <Image src={tokenIn.logo} h="20px" />
-                            <Text color='var(--text-primary)' ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>{tokenIn.symbol}</Text>
+                            <Image src={tokenIn.logo} h={["14px","14px","18px","20px"]} />
+                            <Text color='var(--text-primary)' ml={["5px","5px","8px","10px"]} fontSize={["10px", "10px", "12px", "16px"]}>{tokenIn.symbol}</Text>
                             <ChevronDown color='var(--text-primary)' />
                         </Flex> :
-                        <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="200px"
+                        <Flex mb={["20px","20px","35px","30px"]} color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="230px" whiteSpace="nowrap"
                             onClick={() => setSelectVisible('tokenIn')}>
                             Select a token <ChevronDown />
                         </Flex>
@@ -276,7 +276,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
                 </Flex>
 
-                {tokenInBalance !== null ? <Flex color='var(--text-primary)' align="end" ml="auto"><Text mt="5px" fontSize="9px">Balance: {tokenInBalance}</Text> {tokenInBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize="small" onClick={() => {
+                {tokenInBalance !== null ? <Flex color='var(--text-primary)' align="end" ml="auto"><Text mt="5px" fontSize="9px">Balance: {tokenInBalance}</Text> {tokenInBalance > 0 ? <Button m="10px 5px 0px 5px" p="5px 10px" bg="rgba(36, 44, 98, 0.7)" fontSize={["10px","10px","13px","13px"]} onClick={() => {
                     setSwapIn({ amount: tokenInBalance, decided: true });
                 }} color="white">Max</Button> : <></>}</Flex> : <></>}
 
@@ -294,17 +294,17 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Box border="2px solid var(--box_border)" mt="15px" display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["10px 15px"]} borderRadius="12px" onClick={() => {
+            <Box border="2px solid var(--box_border)" mt={["10px","10px","15px","15px"]} display="flex" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
-                <Flex color='var(--text-primary)' align="center" justify="space-between" mb="20px">
-                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["16px", "16px", "18px", "18px"]} />
+                <Flex color='var(--text-primary)' align="center" justify="space-between" mb={["10px","10px","20px","20px"]}>
+                    <Input ref={inputOutRef} onChange={(e) => setSwapOut({ amount: parseFloat(e.target.value), decided: true })} value={swapOut.amount} type="number" w="60%" color="none" _placeholder={{ color: "none" }} border="none" placeholder='0.0' fontSize={["12px", "12px", "16px", "18px"]}  />
                     {tokenOut ?
-                        <Flex align="center" bg="var(--swap)" borderRadius="10px" p="5px 10px"
+                        <Flex align="center" bg="var(--swap)" borderRadius="10px" p={["0px 5px", "0px 5px","0px 5px", "5px 10px"]}
                             onClick={() => setSelectVisible('tokenOut')}
                         >
                             <Image src={tokenOut.logo} h="20px" />
-                            <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>{tokenOut.symbol}</Text>
+                            <Text ml={["5px","5px","8px","10px"]} fontSize={["10px", "10px", "12px", "16px"]}>{tokenOut.symbol}</Text>
                             <ChevronDown />
                         </Flex> :
                         <Flex color='var(--text-primary)' justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="200px"
@@ -326,7 +326,8 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
                 <Button
                     color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
-                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["15px", "15px", "30px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "8px", "8px"]} borderRadius="8px"
+                    fontSize={["11px", "11px","13px", "15px"]}
+                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["10px", "10px", "10px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "8px", "8px"]} borderRadius="8px"
                     onClick={async () => {
 
                         let provider;

@@ -32,6 +32,8 @@ import TopHolders from "./TopHolders"
 import Comments from "./Comments"
 import AlsoWatch from "./AlsoWatch"
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import DaoScore from "./DaoScore"
+import DaoScoreMobile from './DaoScoreMobile';
 
 const Token = ({ baseAssetBuffer }) => {
     const [selector, setSelector] = useState("price")
@@ -669,6 +671,7 @@ const Token = ({ baseAssetBuffer }) => {
         <>
             <Flex direction="column" >
                 <Flex justify="center" w="100%" mx="auto" mb="50px" maxWidth="1480px" mt="10px">
+                    {/* DESKTOP */}
                     <Grid h='2800' display={["none","none","none","grid"]} w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)']} gap={2}>
                         <GridItem rowStart={1}  colStart={4} rowSpan={2}>
                             <Swap tokenOutBuffer={baseAsset} />
@@ -679,8 +682,12 @@ const Token = ({ baseAssetBuffer }) => {
                         <GridItem rowStart={2} colSpan={3} rowSpan={3}>
                             <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                         </GridItem>
-                        <GridItem rowStart={3} colStart={4} rowSpan={4}>
+                        <GridItem rowStart={3} colStart={4} rowSpan={totalScore > 1 ? 2 : 4}>
                             <TradeBox />
+                        </GridItem>
+                        <GridItem rowStart={5} colStart={4} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px" p="15px 30px" display={totalScore > 1 ? "grid" : "none"}>
+                            
+                            <DaoScore baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>
                         </GridItem>
                         <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
                             <SocialInfo baseAsset={baseAsset}/>
@@ -700,16 +707,16 @@ const Token = ({ baseAssetBuffer }) => {
                     </Grid>
 
 
-                    
+                    {/* MOBILE  */}
                     <Grid h='2500' w="90%" display={["grid","grid","grid","none"]} templateRows='repeat(20, 1fr)' templateColumns={['repeat(3, 1fr)']} gap={2}>
                         <GridItem display="none" rowStart={1}  colStart={4} rowSpan={2} >
-                            <Swap tokenOutBuffer={baseAsset} />
+                          
                         </GridItem>
                         <GridItem rowStart={1} colSpan={3}  rowSpan={1} >
                             <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
                         </GridItem>
                         <GridItem rowStart={2} colSpan={3} rowSpan={3} >
-                            <Flex display={["flex","flex","flex","none"]} fontSize="10px" justify="space-between" w={["100%","100%","80%","100%"]} mx={["0px","0px","auto","0px"]} pb="15px" pt="5px" my="5px" borderRadius="8px" overflowX="scroll" whiteSpace="nowrap" className="scroll">
+                            <Flex display={["flex","flex","flex","none"]} fontSize="10px" justify="space-between" w={["100%","100%","80%","100%"]} mx={["0px","0px","auto","0px"]} pb={selector === "swap" ? "0px" : "15px"} pt="5px" my="5px" borderRadius="8px" overflowX="scroll" whiteSpace="nowrap" className="scroll">
                                 <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "price" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} w="75px !important" minWidth="75px" borderRadius={["5px","5px","8px","8px"]} py={["5px","5px","6px","10px"]} onClick={() => { setSelector("price"); }} mr="14px">
                                     Price
                                 </Button>
@@ -726,36 +733,22 @@ const Token = ({ baseAssetBuffer }) => {
                                    Rank
                                 </Button>
                             </Flex>
-                            <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                            { selector === "swap" ? (
+                                    <Swap tokenOutBuffer={baseAsset} />
+                            ) : (
+                                <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
+                            )
+                               
+                            }
                         </GridItem>
                         <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
                             <SocialInfo baseAsset={baseAsset}/>
                         </GridItem>
-                        <GridItem rowStart={7} colStart={1} colSpan={2} rowSpan={2}>
+                        <GridItem rowStart={7} colStart={1} colSpan={totalScore > 1 ? 2 : 3} rowSpan={2}>
                             <TradeBox />
                         </GridItem>
-                        <GridItem rowStart={7} colStart={3} colSpan={1} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
-                        <Text fontWeight="600" fontSize="11px" m={["5px 10px","10px 20px 10px 20px","15px 20px 5px 20px","8px"]}>DAO Score</Text>
-                            <Text fontSize="11px" m={["0px 10px","0px 25px","5px 25px","5px 10px"]}>Total <Box as="span" color={totalScore > 10 ? "green" : totalScore > 0 ? "red" : "none"}>{totalScore > 0 ? totalScore : "--"}</Box>/20</Text>
-                            <Flex direction="column" justify="center" align="center" p="10px ">
-                                
-                                <Flex align="center" mt="0px" w={["100%","90%","55%","50%"]} mx="auto">
-                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.utility_score < 3 ? "red" : "green"} value={Uvalue} />
-                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.utility_score > 0 ? baseAsset.utility_score : "--"}/5</Box> Utility</Text>
-                                </Flex>
-                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
-                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.social_score < 3 ? "red" : "green"} value={Svalue} />
-                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.social_score > 0 ? baseAsset.social_score : "--"}/5</Box> Social</Text>
-                                </Flex>
-                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
-                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.trust_score < 3 ? "red" : "green"}  value={Tvalue} />
-                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.trust_score > 0 ? baseAsset.trust_score : "--"}/5</Box> Security</Text>
-                                </Flex>
-                                <Flex align="center" mt="15px" w={["100%","90%","55%","50%"]}>
-                                    <CircularProgress mr={["5px","15px","15px","15px"]} size="25px" color={baseAsset.market_score < 3 ? "red" : "green"} value={Mvalue} />
-                                    <Text fontSize="10px"><Box as="span" color="var(--text-grey)">{baseAsset.market_score > 0 ? baseAsset.market_score : "--"}/5</Box> Market</Text>
-                                </Flex>
-                            </Flex>
+                        <GridItem display={totalScore > 1 ? "grid" : "none"} rowStart={7} colStart={3} colSpan={1} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
+                             <DaoScoreMobile baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>
                         </GridItem>
                         <GridItem rowStart={9} colSpan={3} rowSpan={1}>
                             <CircularBox />
@@ -768,8 +761,6 @@ const Token = ({ baseAssetBuffer }) => {
                         </GridItem>
                         <GridItem colSpan={4} rowSpan={2} mt="10px">
                             <AlsoWatch />
-                           
-                        
                         </GridItem>
                     </Grid>
                 </Flex>

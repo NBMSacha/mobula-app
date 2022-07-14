@@ -20,9 +20,9 @@ import styles from './TokenInfo.module.scss'
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
     return (
-        <Flex pt="0px" justify="center" align="center" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%" px={["0px", "0px", "20px", "20px"]}>
+        <Flex pt="0px" justify="center" align="center" borderRadius="15px" w="100%" boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} bg={["none", "none", "none", "var(--bg-governance-box)"]} direction="column" h="100%"  className={styles["chart-box"]}>
             {/* Top lane */}
-            <Flex px="20px" fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
+            <Flex px="15px" fontFamily="Inter" w="100%" mb="10px" justify="space-between" mt={["10px","10px","-12px","-0px"]}>
                 {/* Token Name / logo Box */}
                 <Flex align="center">
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
@@ -44,18 +44,18 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
 
 
                 {/* Website / Chat / Kyc / Audit / Infos  */}
-                <Flex align="center" display={["none", "none", "none", "flex"]}>
-                    <Link target="_blank" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
-                        <Flex borderRadius="6px" p={["", "", "", "6px 15px"]} _hover={{background:"blue"}}>Website</Flex>
+                <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px">
+                    <Link target="_blank" mt="8px" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
+                        <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Website</Flex>
                     </Link>
                     {baseAsset.audit ?
-                        <Link target="_blank" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "10px 20px"]} _hover={{background:"blue"}}>Audit</Flex>
+                        <Link target="_blank" mt="8px" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Audit</Flex>
                         </Link> : <></>
                     }
                     {baseAsset.kyc ?
-                        <Link target="_blank" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" p={["", "", "", "10px 20px"]} _hover={{background:"blue"}}>KYC</Flex>
+                        <Link target="_blank" mt="8px" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>KYC</Flex>
                         </Link> : <></>
                     }
                 </Flex>
