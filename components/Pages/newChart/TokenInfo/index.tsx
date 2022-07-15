@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { ChakraProvider, Link, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import { ChakraProvider, Link, ColorModeProvider, useColorModeValue,Icon, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
 import {
     formatAmount,
     getTokenFormattedPrice,
@@ -7,6 +7,8 @@ import {
     getFormatedAmount
 } from '../../../../helpers/formaters'
 import styles from './TokenInfo.module.scss'
+import {Shield, Globe, Eye } from "react-feather"
+import {CheckIcon} from "@chakra-ui/icons"
 
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
     console.log(baseAsset)
@@ -19,7 +21,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     <Image mr={["8px", "8px", "15px", "15px"]} src={baseAsset.logo} h={["32px", "32px", "38px", "48px"]} />
                     <Box>
                         <Flex align="center">
-                            <Text mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "30px", "30px"]} whiteSpace="nowrap" >{baseAsset.name}</Text>
+                            <Box mr={["8px", "8px", "15px", "15px"]} fontSize={["15px", "15px", "24px", "24px"]} whiteSpace="pre-wrap" >{baseAsset.name}</Box>
                             <Box border="1px solid grey" borderRadius="6px" px={["3px", "3px", "5px", "5px"]} fontSize={["9px", "9px", "12px", "12px"]} mr="10px">{baseAsset.symbol}</Box>
                         </Flex>
                         {totalScore !== 0 && (
@@ -36,17 +38,27 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
 
                 {/* Website / Chat / Kyc / Audit / Infos  */}
                 <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px">
-                    <Link target="_blank" mt="8px" href={baseAsset.website} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px" bg={selectorInfo === "Website" ? "blue" : "var(--contract)"} fontSize="12px" _hover={{ textDecoration: "none" }}>
-                        <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Website</Flex>
+                    <Link target="_blank" mt="8px" href={baseAsset.website} _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px"  fontSize="12px" _hover={{ textDecoration: "none" }}>
+                        
+                        <Flex direction="column" borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center" _hover={{background:"blue"}}>
+                            <Flex align="center" ><Text mb="3px" mr="6px">Website </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
+                            <Icon color="var(--text-grey)" boxSize="20px" mr="14px" as={Globe}></Icon>
+                        </Flex>
                     </Link>
                     {baseAsset.audit ?
-                        <Link target="_blank" mt="8px" href={baseAsset.audit} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} bg={selectorInfo === "Audit" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>Audit</Flex>
+                        <Link target="_blank" mt="8px" href={baseAsset.audit} borderRadius="6px" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex direction="column"  borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center" _hover={{background:"blue"}}>
+                            <Flex align="center" ><Text mb="3px" mr="6px">Audit </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
+                                <Icon color="var(--text-grey)" boxSize="20px" mr="14px" as={Shield}></Icon>
+                            </Flex>
                         </Link> : <></>
                     }
                     {baseAsset.kyc ?
-                        <Link target="_blank" mt="8px" href={baseAsset.kyc} borderRadius="6px" border="1px solid var(--box_border)" _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} bg={selectorInfo === "KYC" ? "blue" : "var(--contract)"} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex borderRadius="6px" py={["5px"]} w="80px" align="center" justify="center" _hover={{background:"blue"}}>KYC</Flex>
+                        <Link  target="_blank" mt="8px" href={baseAsset.kyc} borderRadius="6px"  _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
+                            <Flex direction="column" borderRadius="6px" w="60px" py={["5px"]} align="center" justify="center" _hover={{background:"blue"}}>
+                                <Flex align="center" ><Text mb="3px" mr="6px">KYC </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
+                                <Icon color="var(--text-grey)" boxSize="20px" mr="14px" as={Eye}></Icon>
+                            </Flex>
                         </Link> : <></>
                     }
                 </Flex>
@@ -54,7 +66,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                 <Flex direction="column" align="center" justify="center" ml="20px">
                     {/* Price / Percentage */}
                     <Flex align="center">
-                        <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "30px", "30px"]}>{getTokenFormattedPrice(baseAsset.price, '$', { justify: 'right', marginTop: 'auto' })}</Text>
+                        <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "24px", "24px"]}>{getTokenFormattedPrice(baseAsset.price, '$', { justify: 'right', marginTop: 'auto' })}</Text>
                         <Text color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"} ml={["10px", "", "", ""]} fontSize={"12px"}>{getTokenPercentage(baseAsset.price_change_24h) > 0 ? `+${getTokenPercentage(baseAsset.price_change_24h)}` : getTokenPercentage(baseAsset.price_change_24h)}%</Text>
                     </Flex>
                     {/* Progress bar */}

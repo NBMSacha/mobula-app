@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { ChakraProvider, Link, ColorModeProvider, useColorModeValue, Input, Image, Button, Flex, Box, Text, Heading, Spinner } from '@chakra-ui/react'
+import { ChakraProvider, Link, ColorModeProvider, useColorModeValue,IconButton, Input, Image, Button, Flex, Box, Text, Heading, Spinner } from '@chakra-ui/react'
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { ArrowDown, ArrowUp, ChevronDown, RotateCcw } from 'react-feather';
@@ -9,6 +9,7 @@ import Select from './Select';
 import { ethers } from 'ethers';
 import { getBlockchainFromId, mobulaRouter, supportedRPCs, tokensPerBlockchain } from '../../../constants';
 import styles from "./Swap.module.scss"
+import {Settings} from "react-feather"
 
 const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOutBuffer?: any }) => {
     const alert = useAlert()
@@ -247,13 +248,17 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
     }, [swapOut, tokenIn, tokenOut])
 
     return (
-        <Flex w="100%" h="100%" maxWidth={["100%","100%","70%","500px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} mx="auto"bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="15px 20px 10px 20px" >
-            <Box mb={["10px", "10px", "20px", "5px"]} display={["block","block","none","block"]}>
-                <Heading color='var(--text-primary)' mb="5px" fontSize={["12px","12px","14px","18px"]} >Swap {tokenOutBuffer.name}</Heading>
-                <Text fontSize="10px" color='var(--text-grey)'>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
+        <Flex w="100%" h="100%" maxWidth={["100%","100%","70%","500px"]} boxShadow={["none", "none", "none", `1px 2px 12px 3px var(--shadow)`]} mx="auto" bg={["none","none","none","var(--bg-governance-box)"]} direction="column" borderRadius="12px" p="15px 20px 10px 20px" >
+            <Box mb={["10px", "10px", "20px", "10px"]} display={["block","block","none","block"]}>
+                <Flex align="start" justify="space-between">
+                    <Heading color='var(--text-primary)' mb="10px" display={["none","none","none","flex"]} fontSize={["12px","12px","14px","18px"]}>Swap {tokenOutBuffer.name}</Heading>
+                    <IconButton boxSize="20px" color="var(--text-grey)" display={["none","none","none","flex"]} as={Settings}></IconButton>
+                </Flex>
+              
+                <Text fontSize="10px" color='var(--text-grey)' display={["none","none","none","flex"]}>Swap {tokenOut ? tokenOut.symbol : 'any asset'} at best price from +50 DEX (Supported : BNB Chain & Polygon)</Text>
             </Box>
             {/* @ts-ignore */}
-            <Flex border="2px solid var(--box_border)" h="95px" minHeight="95px"  direction="column" justify="space-between"  align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
+            <Flex border="2px solid var(--box_border)" mx="auto" w={["100%","60%","60%","100%"]} h="90px" minHeight="90px"  direction="column" justify="space-between"  align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","10px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputInRef.current.focus()
             }}>
                 <Flex align="center" justify="space-between" mb={["10px","10px","10px","0px"]}>
@@ -268,7 +273,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                             <Text color='var(--text-primary)' ml={["5px","5px","8px","10px"]} fontSize={["10px", "10px", "12px", "16px"]}>{tokenIn.symbol}</Text>
                             <ChevronDown color='var(--text-primary)' />
                         </Flex> :
-                        <Flex mb={["20px","20px","35px","30px"]} color="white" justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="10px" p={["5px 5px", "5px 5px", "5px 15px"]} fontSize="sm" w="230px" whiteSpace="nowrap"
+                        <Flex align="center" mb={["0px","0px","0px","0px"]}  color="white" justify="space-between" bg={!activeStatus.includes(buttonStatus) ? "blue" : "grey"} opacity={!activeStatus.includes(buttonStatus) ? "1" : "0.2"} borderRadius="6px" p={["0px 5px", "0px 5px", "0px 5px"]} fontSize={["10px", "10px", "12px", "16px"]} w={["180px","110px","130px","230px"]} whiteSpace="nowrap"
                             onClick={() => setSelectVisible('tokenIn')}>
                             Select a token <ChevronDown />
                         </Flex>
@@ -294,7 +299,7 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
                 }}
             >{arrow ? <ArrowUp /> : <ArrowDown />}</Box> */}
             {/* @ts-ignore */}
-            <Flex border="2px solid var(--box_border)" h="95px" minHeight="95px" mt={["10px","10px","15px","8px"]} direction="column" justify="space-between" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
+            <Flex border="2px solid var(--box_border)" mx="auto" w={["100%","60%","60%","100%"]} h="90px" minHeight="90px" mt={["10px","10px","15px","8px"]} direction="column" justify="space-between" flexDirection="column" align="right" cursor="pointer" bg="var(--swap)" boxShadow={`1px 2px 12px 3px var(--shadow)`} p={["5px 10px","5px 10px","5px 10px","10px 15px"]} borderRadius="12px" onClick={() => {
                 inputOutRef.current.focus()
             }}>
                 <Flex color='var(--text-primary)' align="center" justify="space-between" mb={["10px","10px","20px","0px"]}>
@@ -325,11 +330,10 @@ const Swap = ({ tokenInBuffer, tokenOutBuffer }: { tokenInBuffer?: any, tokenOut
 
             <Flex justify="center" mb={["50px", "50px", "50px", "auto"]}>
                 <Button
-                    color={activeStatus.includes(buttonStatus) ? "white" : "var(--text-primary)"}
+                    color={activeStatus.includes(buttonStatus) ? "none" : "none"}
                     fontSize={["11px", "11px","13px", "15px"]}
-                    bg={activeStatus.includes(buttonStatus) ? "blue" : "rgb(169,169,169, 0.3)"} mt={["10px", "10px", "10px", "10px"]} w={["90%", "90%", "90%", "100%"]} py={["8px", "8px", "8px", "8px"]} borderRadius="8px"
+                    bg={activeStatus.includes(buttonStatus) ? "var(--box_active)" : "var(--box_active)"} border="1px solid var(--box_border_active)"  mt={["10px", "10px", "10px", "10px"]} w={["90%", "60%", "60%", "100%"]} py={["8px", "8px", "8px", "8px"]} borderRadius="6px"
                     onClick={async () => {
-
                         let provider;
 
                         if (buttonStatus != 'Connect wallet') {

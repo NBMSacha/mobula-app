@@ -63,7 +63,9 @@ export const ThemeProvider = ({ children }) => {
     root?.style.setProperty("--data-gradient", newValue == 'dark' ? "linear-gradient(180deg, rgba(92, 125, 249, 0.19) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%);" : "linear-gradient(180deg, rgba(92, 125, 249, 0.03) 0%, rgba(17, 21, 36, 0.09) 77.55%, rgba(18, 22, 38, 0) 100%)")
     root?.style.setProperty("--connect-menu", newValue == 'dark' ? "#1C1F34" : "#F5F5F5");
     root?.style.setProperty("--elections", newValue == 'dark' ? "#273051" : "#5C7DF9");
-    root?.style.setProperty("--gradient_airdrop", newValue == 'dark' ? "linear-gradient(180deg, rgba(28, 32, 47, 0.5) 0%, rgba(28, 32, 47, 0) 100%)" : "#FAFAFA");
+    root?.style.setProperty("--gradient_airdrop", newValue == 'dark' ? "linear-gradient(180deg, rgba(28, 32, 47, 0.5) 0%, rgba(28, 32, 47, 0) 100%)" : "linear-gradient(180deg, rgba(2, 2, 2, 0.015) 0%, rgba(28, 32, 47, 0) 100%)");
+    root?.style.setProperty("--contract", newValue == 'dark' ? "#1C202F" : "#FAFAFA");
+    
     
     // SHADOW
     root?.style.setProperty("--shadow", newValue == 'dark' ? "none" : "rgba(208, 214, 227, 0.3)");
