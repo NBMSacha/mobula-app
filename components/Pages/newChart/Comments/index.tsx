@@ -43,7 +43,7 @@ export default function Comments() {
                                 bg="var(--contract)"
                                 minHeight={["130px","130px","110px","110px"]}
                             />
-                            <Button fontSize={["11px","11px","12px","14px"]} bg="var(--box_active)" w="100%" py={["7px","7px","9px","13px"]} borderRadius="8px"
+                            <Button fontSize={["11px","11px","12px","14px"]} bg="var(--btn_token)" w="100%" py={["7px","7px","9px","13px"]} borderRadius="8px"
                             border="1px solid var(--box_border_active)" mt="10px" _focus={{ boxShadow: "none" }}
                             onClick={() => {
                                 console.log(comment)

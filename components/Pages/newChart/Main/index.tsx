@@ -679,7 +679,7 @@ const Main = ({ baseAssetBuffer }) => {
                             <ChartBox unformattedBuffer={unformattedBuffer} historyData={historyData} setTimeFormat={setTimeFormat} timeFormat={timeFormat} selector={selector} baseAsset={baseAsset} setSelector={setSelector} />
                         </GridItem>
                         <GridItem rowStart={3} colStart={4} rowSpan={totalScore > 1 ? 2 : 4}>
-                            <TradeBox totalScore={totalScore}/>
+                            <TradeBox baseAsset={baseAsset} totalScore={totalScore}/>
                         </GridItem>
                         <GridItem boxShadow="1px 2px 12px 3px var(--shadow)" rowStart={5} colStart={4} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px" p="15px 30px" display={totalScore > 1 ? "grid" : "none"}>
                             <DaoScore baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>

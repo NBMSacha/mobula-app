@@ -19,7 +19,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                 <Flex direction="column" align={"end"} ml={["0px", "0px", "0px", "auto"]}>
                     {(baseAsset.tracked) ? (
                         <Flex p="4px 0px" borderRadius="6px" >
-                            <Button mx={["8px", "8px", "12px", "12px"]}
+                            <Button mx={["8px", "8px", "6px", "6px"]}
                                 fontSize={["13px", "13px", "15px", "15px"]}
                                 _focus={{ boxShadow: "none" }}
                                 _hover={{color:"blue"}}
@@ -28,7 +28,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                     setTimeFormat('1D')
                                 }}>1D
                             </Button>
-                            <Button mx={["8px", "8px", "12px", "12px"]}
+                            <Button mx={["8px", "8px", "6px", "6px"]}
                                 fontSize={["13px", "13px", "15px", "15px"]}
                                 _focus={{ boxShadow: "none" }}
                                 _hover={{color:"blue"}}
@@ -39,7 +39,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                             </Button>
                             {(!unformattedBuffer['price']['30D'] || unformattedBuffer['price']['30D']?.length > 0) ? (
                                 <>
-                                    <Button mx={["8px", "8px", "12px", "12px"]}
+                                    <Button mx={["8px", "8px", "6px", "6px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
                                         _hover={{color:"blue"}}
@@ -48,7 +48,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                             setTimeFormat('30D')
                                         }}>1M
                                     </Button>
-                                    <Button mx={["8px", "8px", "12px", "12px"]}
+                                    <Button mx={["8px", "8px", "6px", "6px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
                                         _hover={{color:"blue"}}
@@ -57,7 +57,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                             setTimeFormat('3M')
                                         }}>3M
                                     </Button>
-                                    <Button mx={["8px", "8px", "12px", "12px"]}
+                                    <Button mx={["8px", "8px", "6px", "6px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
                                         _hover={{color:"blue"}}
@@ -66,7 +66,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                             setTimeFormat('1Y')
                                         }}>1Y
                                     </Button>
-                                    <Button mx={["8px", "8px", "12px", "12px"]}
+                                    <Button mx={["8px", "8px", "6px", "6px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
                                         _focus={{ boxShadow: "none" }}
                                         _hover={{color:"blue"}}

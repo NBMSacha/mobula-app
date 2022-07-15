@@ -3,8 +3,8 @@ import Boxs from "./Boxs"
 export default function AlsoWatch() {
 
     return(
-        <Box w="100%" h="100%" bg={["none","none","none","var(--bg-governance-box)"]} boxShadow={`1px 2px 12px 3px var(--shadow)`} borderRadius="12px" m="0px 0px" p={["0px 0px","0px 0px","10px 00px","30px 30px"]} mt="0px" >
-                    <Text fontSize={["12px","12px","20px","20px"]} fontWeight="600" ml={["20px","20px","20px","0px"]} mb={["20px","20px","20px","40px"]}>People also watch</Text>
+        <Box w="100%" h="100%" bg={["none","none","none","var(--bg-governance-box)"]} boxShadow={`1px 2px 12px 3px var(--shadow)`}  borderRadius="12px" m="0px 0px" p={["0px 0px","0px 0px","10px 00px","30px 30px"]} mt="0px" >
+                    <Text fontSize={["12px","12px","20px","20px"]} fontWeight="600" ml={["20px","20px","20px","0px"]} pt="10px" mb={["20px","20px","20px","40px"]}>People also watch</Text>
                     <Flex w="100%" display={["none","none","none","flex"]} mx="auto" overflow="hidden" overflowX="scroll" className="scroll">
                         <Boxs />
                         <Boxs />

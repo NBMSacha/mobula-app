@@ -678,7 +678,7 @@ const MainMobile = ({ baseAssetBuffer }) => {
                             <TokenInfo price24hLow={price24hLow} price24hHigh={price24hHigh} totalScore={totalScore} setSelectorInfo={setSelectorInfo} selectorInfo={selectorInfo} baseAsset={baseAsset} />
                         </GridItem>
                         <GridItem rowStart={2} colSpan={3} rowSpan={3} >
-                            <Flex display={["flex","flex","flex","none"]} fontSize="10px" justify="space-between" w={["100%","100%","80%","100%"]} mx={["0px","0px","auto","0px"]} pb={selector === "swap" ? "0px" : "15px"} pt="5px" my="5px" borderRadius="8px" overflowX="scroll" whiteSpace="nowrap" className="scroll">
+                            <Flex  display={["flex","flex","flex","none"]} fontSize="10px" justify="space-between" w={["100%","440px","460px","100%"]} mx={["0px","0px","auto","0px"]} pb={selector === "swap" ? "0px" : "15px"} pt="5px" my="5px" borderRadius="8px" overflowX="scroll" whiteSpace="nowrap" className="scroll">
                                 <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "price" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "price" ? "white" : "none"} bg={selector === "price" ? "blue" : "var(--btnInfo)"} w="75px !important" minWidth="75px" borderRadius={["5px","5px","8px","8px"]} py={["5px","5px","6px","10px"]} onClick={() => { setSelector("price"); }} mr="14px">
                                     Price
                                 </Button>
@@ -688,12 +688,13 @@ const MainMobile = ({ baseAssetBuffer }) => {
                                 <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "volume" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "volume" ? "white" : "none"} bg={selector === "volume" ? "blue" : "var(--btnInfo)"} minWidth="75px"  w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} onClick={() => { setSelector("volume"); }} mr="14px">
                                    Volume
                                 </Button>
-                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "swap" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} mr="14px" onClick={() => { setSelector("swap"); }}>
-                                    Swap
-                                </Button >
-                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "rank" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} onClick={() => { setSelector("rank"); }} >
+                                
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "rank" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "rank" ? "white" : "none"} bg={selector === "rank" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]} mr="14px" onClick={() => { setSelector("rank"); }} >
                                    Rank
                                 </Button>
+                                <Button _hover={{ bg: 'blue' }} _focus={{ boxShadow: "none" }} border={selector === "swap" ? "1px solid var(--box_border_active)" : "1px solid var(--box_border)"} color={selector === "swap" ? "white" : "none"} bg={selector === "swap" ? "blue" : "var(--btnInfo)"} minWidth="75px" w="75px !important" borderRadius="8px" py={["5px","5px","6px","10px"]}  onClick={() => { setSelector("swap"); }}>
+                                    Buy
+                                </Button >
                             </Flex>
                             { selector === "swap" ? (
                                     <Swap tokenOutBuffer={baseAsset} />
@@ -707,7 +708,8 @@ const MainMobile = ({ baseAssetBuffer }) => {
                             <SocialInfo baseAsset={baseAsset}/>
                         </GridItem>
                         <GridItem rowStart={7} colStart={1} colSpan={totalScore > 1 ? 2 : 3} rowSpan={2}>
-                            <TradeBox />
+                            {/* @ts-ignore */}
+                            <TradeBox baseAsset={baseAsset} />
                         </GridItem>
                         <GridItem display={totalScore > 1 ? "grid" : "none"} rowStart={7} colStart={3} colSpan={1} rowSpan={2} bg="var(--bg-governance-box)" boxShadow="1px 2px 12px 3px var(--shadow)" borderRadius="12px">
                              <DaoScoreMobile baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>
