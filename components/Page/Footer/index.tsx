@@ -57,13 +57,13 @@ function Footer() {
         <div className={styles['community']}>
           <span style={{ color: "var(--text-footer-title)" }}>Community</span>
           <ul >
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/nrkVNNke8Q' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://discord.gg/nrkVNNke8Q' isExternal>
               <li>Discord</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://t.me/MobulaFi' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://t.me/MobulaFi' isExternal>
               <li>Telegram</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://twitter.com/MobulaFi' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://twitter.com/MobulaFi' isExternal>
               <li>Twitter</li>
             </Link>
           </ul>
@@ -71,13 +71,13 @@ function Footer() {
         <div className={styles['community']}>
           <span style={{ color: "var(--text-footer-title)" }}>Press</span>
           <ul>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://drive.google.com/drive/folders/1640M2CobvBH822RDE9Hx7YypXlaykPIV'  target='_blank'>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://drive.google.com/drive/folders/1640M2CobvBH822RDE9Hx7YypXlaykPIV'  target='_blank'>
               <li>Press kit</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://discord.gg/2a8hqNzkzN' target='_blank'>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://discord.gg/2a8hqNzkzN' target='_blank'>
               <li>Contact</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://medium.com/@mobula' target='_blank'>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://medium.com/@mobula' target='_blank'>
               <li>News</li>
             </Link>
           </ul>
@@ -85,13 +85,13 @@ function Footer() {
         <div className={styles['community']}>
           <span style={{ color: "var(--text-footer-title)" }}>Ressources</span>
           <ul>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://docs.mobula.finance' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://docs.mobula.finance' isExternal>
               <li>Documentation</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://docs.mobula.finance/whitepaper' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://docs.mobula.finance/whitepaper' isExternal>
               <li>Whitepaper</li>
             </Link>
-            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href='https://medium.com/@mobula' isExternal>
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none",boxShadow:"none" }} href='https://medium.com/@mobula' isExternal>
               <li>Medium</li>
             </Link>
           </ul>

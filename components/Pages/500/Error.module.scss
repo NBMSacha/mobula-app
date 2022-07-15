@@ -1,0 +1,26 @@
+.fontSize{
+    font-size:30px
+}
+
+@media screen and (max-width:1230px) {
+    .fontSize{
+        font-size:20px
+    }
+}
+@media screen and (max-width:768px) {
+    .fontSize{
+        font-size:16px
+    }
+}
+
+@media screen and (max-width:580px) {
+    .fontSize{
+        font-size:13px
+    }
+}
+
+@media screen and (max-width:460px) {
+    .fontSize{
+        font-size:10px
+    }
+}
