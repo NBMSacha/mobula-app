@@ -196,6 +196,9 @@ function News(props: any) {
     }
   }, [settings])
 
+  const [ infoGainer, setInfoGainer] = useState(false)
+  const [ infoTrend, setInfoTrend] = useState(false)
+  const [ infoRecent, setInfoRecent] = useState(false)
   return (
     <>
 
@@ -207,6 +210,8 @@ function News(props: any) {
             {props.gainers && props.gainers.length >= 3 ?
               <GainerBlock
                 title={'Top Gainers'}
+                info={infoGainer}
+                setInfo={setInfoGainer}
                 logo1={props.gainers[0].logo}
                 name1={props.gainers[0].name}
                 id1={props.gainers[0].id}
@@ -220,6 +225,8 @@ function News(props: any) {
                 id3={props.gainers[2].id}
                 change3={props.gainers[2].price_change_24h.toFixed(2)}
               /> : <GainerBlock
+                info={infoGainer}
+                setInfo={setInfoGainer}
                 title={'Top Gainers'}
                 logo1={''}
                 name1={'Loading...'}
@@ -235,6 +242,8 @@ function News(props: any) {
                 change3={0} />}
             {/* @ts-ignore */}
             {props.trendings && props.trendings.length > 0 ? <GainerBlock
+              setInfo={setInfoTrend}
+              info={infoTrend}
               title={'Trendings'}
               logo1={props.trendings[0].logo}
               name1={props.trendings[0].name}
@@ -250,6 +259,8 @@ function News(props: any) {
               id3={props.trendings[2].id}
               change3={props.trendings[2]?.price_change_24h?.toFixed(2)}
             /> : <GainerBlock
+              info={infoTrend}
+              setInfo={setInfoTrend}
               title={'Trendings'}
               logo1={''}
               name1={'Loading...'}
@@ -265,6 +276,8 @@ function News(props: any) {
               change3={0} />}
             {props.recents && props.recents.length > 0 ?
               <GainerBlock
+                setInfo={setInfoRecent}
+                info={infoRecent}
                 title={'Recently Added'}
                 logo1={props.recents[0].logo}
                 name1={props.recents[0].name}
@@ -279,6 +292,8 @@ function News(props: any) {
                 id3={props.recents[2].id}
                 change3={props.recents[2].price_change_24h.toFixed(2)}
               /> : <GainerBlock
+                info={infoRecent}
+                setInfo={setInfoRecent}
                 title={'Recently Added'}
                 logo1={''}
                 name1={'Loading...'}

@@ -24,6 +24,13 @@ function getLibrary(provider: any): Web3Provider {
   library.pollingInterval = 12000;
   return library;
 }
+// export async function getStaticPaths() {
+//   const pagesWithSlugs = await getAllPagesWithSlugs();
+//   return {
+//     paths: pagesWithSlugs.edges.map(({node}) => `/${node.slug}`) || [],
+//     fallback: false,
+//   };
+// }
 
 export const ThemeContext = React.createContext({ colorMode: '', setColorMode: (newValue: string) => { } });
 
@@ -153,7 +160,7 @@ export default function App({ Component, pageProps }) {
               smartlook('init', '609bf41d219fd09b67dda978d9dad1a0c7682abd', { region: 'eu' });          
         `}}></script>
         </Head>
-
+      
         <Provider template={AlertTemplate} {...alertOptions}>
           <Web3ReactProvider getLibrary={getLibrary}>
             <ThemeProvider>
@@ -165,6 +172,7 @@ export default function App({ Component, pageProps }) {
           </Web3ReactProvider >
         </Provider >
       </ChakraProvider >
+  
     </>
   )
 }
