@@ -354,10 +354,7 @@ function Dashboard() {
                   borderRadius="10px"
                   boxShadow={`0px 1px 12px 3px var(--shadow)`}
                   bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
-
-
                   w={['92%', '92%', '90%', '95%']}
-
                   mx="auto"
                 >
                   <Flex direction="column" w="50%">
@@ -455,6 +452,7 @@ function Dashboard() {
 
                     justifyContent={['center', 'center', 'center', 'right']}
                   >
+                    fjioeshuifsheiufui
                     <Button
                       h="45px"
                       px="12px"
