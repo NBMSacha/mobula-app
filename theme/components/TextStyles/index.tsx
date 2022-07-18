@@ -1,5 +1,3 @@
-import { mode } from "@chakra-ui/theme-tools"
-
 export const TextStyles = {
     // style object for base or default style
     baseStyle: {},

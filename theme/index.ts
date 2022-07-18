@@ -67,7 +67,7 @@ export const themeUltime = extendTheme({
                     color: "#556b90",
                     transition: "color 200ms ease-in-out",
                     cursor: "pointer",
-                    textDecoration : "none"
+                    textDecoration: "none"
                 }
             },
         }

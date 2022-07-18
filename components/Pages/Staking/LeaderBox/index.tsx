@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-
+import React from "react";
 
 function leaderBox() {
-    return (
-       <></>
-    )
+  return (
+    <></>
+  );
 }
 
 export default leaderBox;

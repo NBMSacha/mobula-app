@@ -9,9 +9,9 @@ export const roundRect = (
     stroke = true
 ) => {
     if (typeof radius === 'number') {
-        radius = { tl: radius, tr: radius, br: radius, bl: radius };
+        radius = {tl: radius, tr: radius, br: radius, bl: radius};
     } else {
-        radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
+        radius = {...{tl: 0, tr: 0, br: 0, bl: 0}, ...radius};
     }
     ctx.beginPath();
     ctx.moveTo(x + radius.tl, y);

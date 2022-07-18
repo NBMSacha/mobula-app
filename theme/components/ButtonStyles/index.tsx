@@ -1,4 +1,3 @@
-import { mode } from "@chakra-ui/theme-tools"
 export const ButtonStyles = {
     // style object for base or default style
     baseStyle: {},
@@ -9,24 +8,24 @@ export const ButtonStyles = {
         primary: (props) => ({
             bg: "var(--box_primary)",
             color: "var(--text-primary)",
-            border:"1px solid var(--box_border)",
+            border: "1px solid var(--box_border)",
             boxShadow: "1px 2px 12px 3px var(--shadow)",
-            _hover:{
+            _hover: {
                 bg: "var(--box_primary)",
                 color: "var(--text-primary)",
-                border:"1px solid var(--box_border)",
+                border: "1px solid var(--box_border)",
                 boxShadow: "1px 2px 12px 3px var(--shadow)",
             }
         }),
         secondary: (props) => ({
             bg: "var(--box_active)",
             color: "var(--text-primary)",
-            border:"1px solid var(--box_border_active)",
+            border: "1px solid var(--box_border_active)",
             boxShadow: "1px 2px 12px 3px var(--shadow)",
-            _hover:{
+            _hover: {
                 bg: "var(--box_active)",
                 color: "var(--text-primary)",
-                border:"1px solid var(--box_border_active)",
+                border: "1px solid var(--box_border_active)",
                 boxShadow: "1px 2px 12px 3px var(--shadow)",
             }
         }),
@@ -43,7 +42,7 @@ export const ButtonStyles = {
     },
     // default values for `size` and `variant`
     defaultProps: {
-      size: '',
-      variant: '',
+        size: '',
+        variant: '',
     },
-  }
+}
