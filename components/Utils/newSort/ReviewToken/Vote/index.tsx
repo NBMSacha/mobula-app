@@ -26,7 +26,10 @@ function Vote({
       complete.current = true;
       return Date.now();
     }
-    localStorage.setItem(`date${token.id}`, String(Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000));
+    localStorage.setItem(
+      `date${token.id}`,
+      String(Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000)
+    );
     return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000;
   }
 
@@ -50,16 +53,10 @@ function Vote({
           <TimeIcon />
           <CountdownAny
             date={getEndDate()}
-            onComplete={() => complete.current = true}
+            onComplete={() => (complete.current = true)}
             renderer={(props) => (
-              <Text
-                fontWeight="600"
-                ml="10px"
-                fontSize={["14px", "14px", "16px", "16px"]}
-              >
-                {props.minutes}
-                :
-                {String(props.seconds).length > 1 ? props.seconds : `0${props.seconds}`}
+              <Text fontWeight="600" ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>
+                {props.minutes}:{String(props.seconds).length > 1 ? props.seconds : `0${props.seconds}`}
               </Text>
             )}
           />
@@ -78,22 +75,19 @@ function Vote({
           opacity="1"
         >
           {/* <Flex align="center" direction="column" mb="10px"><Text>Click to vote</Text> <br /><MousePointer /></Flex> */}
-          {voteToken.validate !== undefined
-            ? (
-              <Flex align="center" direction="column" mb="10px">
-                <Text>Thanks for your vote !</Text>
-                <br />
-                <CheckIcon boxSize="45px" color="green" />
-              </Flex>
-            ) : <></>}
+          {voteToken.validate !== undefined ? (
+            <Flex align="center" direction="column" mb="10px">
+              <Text>Thanks for your vote !</Text>
+              <br />
+              <CheckIcon boxSize="45px" color="green" />
+            </Flex>
+          ) : (
+            <></>
+          )}
         </Flex>
       </Flex>
       {/* BLUR TO CONDITION UNDER  filter='blur(10px)' */}
-      <Flex
-        direction="column"
-        position="relative"
-        filter={voteToken.validate !== undefined ? "blur(10px)" : "none"}
-      >
+      <Flex direction="column" position="relative" filter={voteToken.validate !== undefined ? "blur(10px)" : "none"}>
         <Circles name="Utility" score={utilityScore} updateScore={updateScoreUtility} />
         <Circles name="Social" score={socialScore} updateScore={updateScoreSocial} />
         <Circles name="Trust" score={trustScore} updateScore={updateScoreTrust} />
@@ -123,7 +117,6 @@ function Vote({
           </Button>
         </Flex>
       </Flex>
-
     </Flex>
   );
 }

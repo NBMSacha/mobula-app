@@ -10,15 +10,11 @@ import { MOBL_ADDRESS, PROTOCOL_ADDRESS } from "../../../../../constants";
 import styles from "./menumobile.module.scss";
 import { ThemeContext } from "../../../../../pages/_app";
 
-function MenuMobile({
-  connect, setConnect, close, setClose, isMenuMobile,
-}) {
+function MenuMobile({ connect, setConnect, close, setClose, isMenuMobile }) {
   const [isConnected, setIsConnected] = useState(false);
   const [wallet, setWallet] = useState({});
   const themeContext = useContext(ThemeContext);
-  const {
-    account, active, activate, deactivate,
-  } = useWeb3React();
+  const { account, active, activate, deactivate } = useWeb3React();
   const [hasMetamask, setHasMetamask] = useState(true);
   const injected = new InjectedConnector({});
   const router = useRouter();
@@ -38,14 +34,17 @@ function MenuMobile({
           if (provider) {
             const accounts = await provider.listAccounts();
             const account = accounts[0];
-            const contract = new ethers.Contract(MOBL_ADDRESS, ["function balanceOf(address account) public view returns (uint256)"], provider);
+            const contract = new ethers.Contract(
+              MOBL_ADDRESS,
+              ["function balanceOf(address account) public view returns (uint256)"],
+              provider
+            );
             const balance = await contract.balanceOf(account);
             const newBalance = balance / 10 ** 18;
             setWalletBalance(newBalance);
             console.log(`You own ${walletBalance} MOBL`);
           }
-        } catch (err) {
-        }
+        } catch (err) {}
       }
     };
     getBalance();
@@ -59,13 +58,16 @@ function MenuMobile({
           if (provider) {
             const accounts = await provider.listAccounts();
             const account = accounts[0];
-            const protocolContract = new ethers.Contract(PROTOCOL_ADDRESS, ["function rank(address account) public view returns (uint256)"], provider);
+            const protocolContract = new ethers.Contract(
+              PROTOCOL_ADDRESS,
+              ["function rank(address account) public view returns (uint256)"],
+              provider
+            );
             const rank = await protocolContract.rank(account);
             setRanked(rank);
             console.log(Number(rank));
           }
-        } catch (e) {
-        }
+        } catch (e) {}
       }
     };
     getRanked();
@@ -117,7 +119,6 @@ function MenuMobile({
               Earn
             </span>
             <Image width={20} height={20} src="/reward1.png" />
-
           </Flex>
           <a href="/dex" className={styles.linkTo}>
             <span className={styles["linkTo-tag"]}>DEX</span>
@@ -137,31 +138,21 @@ function MenuMobile({
             setConnect(true);
           }}
         >
-          {active
-            ? `${account.substring(0, 4)
-            }..${
-              account.substring(account.length - 4, account.length)}`
-            : "Connect"}
+          {active ? `${account.substring(0, 4)}..${account.substring(account.length - 4, account.length)}` : "Connect"}
         </button>
         <div className={styles["rank-mobile-box"]}>
-          {active
-            ? (
-              <>
-                <span>
-                  Rank
-                  {Number(ranked)}
-                </span>
-                <span>
-                  {walletBalance}
-                  {" "}
-                  MOBL
-                </span>
-              </>
-            )
-            : ""}
-
+          {active ? (
+            <>
+              <span>
+                Rank
+                {Number(ranked)}
+              </span>
+              <span>{walletBalance} MOBL</span>
+            </>
+          ) : (
+            ""
+          )}
         </div>
-
       </div>
       {/* <Flex w="80%" ml="35px" mt="10px" align="center">
             <IconButton
@@ -183,13 +174,13 @@ function MenuMobile({
             <Text color={themeContext.colorMode == "light" ? "blue" : "white"}>{themeContext.colorMode == "light" ? "Dark Mode" : "Light Mode"}</Text>
           </Flex> */}
 
-      {active
-                    ?? (
-                    <div className={styles["disconnect-wallet-mobile"]}>
-                      <button className={styles.nobg} onClick={deactivate}>Disconnect Wallet</button>
-                    </div>
-                    )}
-
+      {active ?? (
+        <div className={styles["disconnect-wallet-mobile"]}>
+          <button className={styles.nobg} onClick={deactivate}>
+            Disconnect Wallet
+          </button>
+        </div>
+      )}
     </Flex>
   );
 }

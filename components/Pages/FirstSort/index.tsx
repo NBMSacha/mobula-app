@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import {
-  Flex, Heading, Link, Text,
-} from "@chakra-ui/react";
+import { Flex, Heading, Link, Text } from "@chakra-ui/react";
 import { useAlert } from "react-alert";
 import Router from "next/router";
 import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
@@ -10,24 +8,27 @@ import ReviewToken from "../../Utils/newSort/ReviewToken";
 import Main from "../../Utils/newSort/Main";
 
 function FirstSort() {
-  const [tokenDivs, setTokenDivs]: [{
-        name: string;
-        symbol: string;
-        contracts: string[];
-        chains: string[];
-        logo: string;
-        description: string;
-        audit: string;
-        kyc: string;
-        twitter: string;
-        chat: string;
-        website: string;
-        id: number
-        contractAddresses: string[]
-        excludedFromCirculation: string[]
-        totalSupply: string[]
-        alreadyVoted: boolean
-    }[], any] = useState([]);
+  const [tokenDivs, setTokenDivs]: [
+    {
+      name: string;
+      symbol: string;
+      contracts: string[];
+      chains: string[];
+      logo: string;
+      description: string;
+      audit: string;
+      kyc: string;
+      twitter: string;
+      chat: string;
+      website: string;
+      id: number;
+      contractAddresses: string[];
+      excludedFromCirculation: string[];
+      totalSupply: string[];
+      alreadyVoted: boolean;
+    }[],
+    any
+  ] = useState([]);
   const [tokenArray, setTokenArray] = useState([]);
   const [displayedToken, setDisplayedToken] = useState(0);
   const alert = useAlert();
@@ -94,16 +95,19 @@ function FirstSort() {
                   internalType: "uint256",
                   name: "marketScore",
                   type: "uint256",
-                }],
+                },
+              ],
               internalType: "struct API.Token[]",
               name: "",
               type: "tuple[]",
-            }],
+            },
+          ],
           stateMutability: "view",
           type: "function",
         },
-        "function firstSortVotes(address voter, uint256 tokenId) external view returns (bool)"],
-      provider,
+        "function firstSortVotes(address voter, uint256 tokenId) external view returns (bool)",
+      ],
+      provider
     );
 
     protocolContract
@@ -118,13 +122,10 @@ function FirstSort() {
         let account: any;
 
         try {
-          const providerWallet = new ethers.providers.Web3Provider(
-            (window as any).ethereum,
-          );
+          const providerWallet = new ethers.providers.Web3Provider((window as any).ethereum);
           const accounts = await providerWallet.listAccounts();
           account = accounts[0];
-        } catch (e) {
-        }
+        } catch (e) {}
 
         let fails = 0;
 
@@ -134,10 +135,7 @@ function FirstSort() {
           let isAlreadyVoted = false;
 
           if (account) {
-            isAlreadyVoted = await protocolContract.firstSortVotes(
-              account,
-              token.id,
-            );
+            isAlreadyVoted = await protocolContract.firstSortVotes(account, token.id);
             console.log(`Is already voted : ${isAlreadyVoted}`);
           }
           console.log(`Sumbitted data : ${token.ipfsHash}`);
@@ -145,29 +143,27 @@ function FirstSort() {
           console.log(token);
 
           try {
-            const response = await fetch(
-              `https://gateway.ipfs.io/ipfs/${token.ipfsHash}`,
-            );
+            const response = await fetch(`https://gateway.ipfs.io/ipfs/${token.ipfsHash}`);
 
             const JSONrep: {
-                            name: string;
-                            symbol: string;
-                            contracts: string[];
-                            chains: string[];
-                            logo: string;
-                            description: string;
-                            audit: string;
-                            kyc: string;
-                            twitter: string;
-                            chat: string;
-                            website: string;
-                            id: number
-                            contractAddresses: string[]
-                            excludedFromCirculation: string[]
-                            totalSupply: string[]
-                            lastUpdate: number
-                            alreadyVoted: boolean
-                        } = await response.json();
+              name: string;
+              symbol: string;
+              contracts: string[];
+              chains: string[];
+              logo: string;
+              description: string;
+              audit: string;
+              kyc: string;
+              twitter: string;
+              chat: string;
+              website: string;
+              id: number;
+              contractAddresses: string[];
+              excludedFromCirculation: string[];
+              totalSupply: string[];
+              lastUpdate: number;
+              alreadyVoted: boolean;
+            } = await response.json();
 
             // const index = await protocolContract.indexOfFirstSortTokens(token.id);
             // const fullToken = await protocolContract.firstSortTokens(index);
@@ -200,7 +196,7 @@ function FirstSort() {
     utilityScore: number,
     socialScore: number,
     trustScore: number,
-    marketScore: number,
+    marketScore: number
   ) {
     console.log(validate);
     if (!complete.current) {
@@ -220,7 +216,7 @@ function FirstSort() {
           [
             "function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external",
           ],
-          signer,
+          signer
         ).firstSortVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
 
         alert.success("Your vote has been successfully registered.");
@@ -242,7 +238,6 @@ function FirstSort() {
 
   return (
     <>
-
       <Flex
         mx="auto"
         fontSize={["12px", "12px", "14px", "14px"]}
@@ -254,8 +249,7 @@ function FirstSort() {
       >
         <Flex direction="column">
           <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">
-            DAO First
-            Sort
+            DAO First Sort
           </Heading>
           <Text
             display={["none", "none", "none", "flex"]}
@@ -266,11 +260,14 @@ function FirstSort() {
           </Text>
         </Flex>
         <Text display={["none", "none", "none", "flex"]}>
-          Learn more
-          {" "}
+          Learn more{" "}
           <a href="https://docs.mobula.finance/app/sort">
             <span
-              style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}
+              style={{
+                color: "var(--chakra-colors-blue)",
+                marginLeft: "5px",
+                whiteSpace: "nowrap",
+              }}
             >
               here
             </span>
@@ -279,36 +276,30 @@ function FirstSort() {
         </Text>
       </Flex>
       {tokenDivs.length == 0 && (
-      <Text h="60vh" align="center" mt="80px">
-        Oops... No token waiting for first sort yet. Submit one
-        <Link
-          color="blue"
-          href="/list"
-        >
-          here
-        </Link>
-        .
-      </Text>
+        <Text h="60vh" align="center" mt="80px">
+          Oops... No token waiting for first sort yet. Submit one
+          <Link color="blue" href="/list">
+            here
+          </Link>
+          .
+        </Text>
       )}
 
-      {(displayedToken
-        ? (
-          <ReviewToken
-            voteToken={voteToken}
-            changeDisplay={setDisplayedToken}
-            token={tokenDivs[tokenDivs.map((token) => token.id).indexOf(displayedToken)]}
-          />
-        )
-        : (
-          <Main
-            voteToken={voteToken}
-            displayedToken={displayedToken}
-            changeDisplay={setDisplayedToken}
-            tokenDivs={tokenDivs}
-            setDisplayedToken={setDisplayedToken}
-          />
-        )
-        )}
+      {displayedToken ? (
+        <ReviewToken
+          voteToken={voteToken}
+          changeDisplay={setDisplayedToken}
+          token={tokenDivs[tokenDivs.map((token) => token.id).indexOf(displayedToken)]}
+        />
+      ) : (
+        <Main
+          voteToken={voteToken}
+          displayedToken={displayedToken}
+          changeDisplay={setDisplayedToken}
+          tokenDivs={tokenDivs}
+          setDisplayedToken={setDisplayedToken}
+        />
+      )}
     </>
   );
 }

@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  Box, Button, Flex, Image, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 
-function Main({
-  voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken,
-}) {
+function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
   return (
     <Flex
       justify="center"
@@ -28,19 +24,16 @@ function Main({
         >
           <Flex align="center" justify="space-between">
             <Flex align="center">
-              <Image
-                src={token.logo}
-                w={["30px", "30px", "38px", "38px"]}
-                h={["30px", "30px", "38px", "38px"]}
-              />
-              <Text fontSize={["15px", "15px", "25px", "25px"]} ml="10px">{token.name}</Text>
+              <Image src={token.logo} w={["30px", "30px", "38px", "38px"]} h={["30px", "30px", "38px", "38px"]} />
+              <Text fontSize={["15px", "15px", "25px", "25px"]} ml="10px">
+                {token.name}
+              </Text>
             </Flex>
-            <Text fontSize={["12px", "12px", "15px", "15px"]} color="blue">New</Text>
+            <Text fontSize={["12px", "12px", "15px", "15px"]} color="blue">
+              New
+            </Text>
           </Flex>
-          <Text
-            py={["15px", "15px", "25px", "25px"]}
-            fontSize={["10px", "10px", "14px", "14px"]}
-          >
+          <Text py={["15px", "15px", "25px", "25px"]} fontSize={["10px", "10px", "14px", "14px"]}>
             {token.description}
           </Text>
           <Button

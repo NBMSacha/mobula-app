@@ -36,26 +36,25 @@ $primary: 'blue';
 
 @media screen and (max-width: 768px) {
   .info-tendance {
-    
+
     padding: 5px 0px;
     white-space: nowrap;
     overflow: auto;
-    text-overflow: ellipsis;
-    ;
+    text-overflow: ellipsis;;
   }
   .info-tendance::-webkit-scrollbar {
     width: 1px;
-    display:none /* width of the entire scrollbar */
+    display: none /* width of the entire scrollbar */
   }
-  
+
   .info-tendance::-webkit-scrollbar-track {
-    display:none
+    display: none
   }
-  
+
   .info-tendance::-webkit-scrollbar-thumb {
     background-color: blue; /* color of the scroll thumb */
-    border-radius: 20px; 
-    display:none;/* roundness of the scroll thumb */
+    border-radius: 20px;
+    display: none; /* roundness of the scroll thumb */
     border: 3px solid none; /* creates padding around scroll thumb */
   }
 

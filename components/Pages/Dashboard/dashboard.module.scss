@@ -7,21 +7,21 @@
 
 .scroll::-webkit-scrollbar {
   width: 5px; /* width of the entire scrollbar */
-  display:none;
-  
+  display: none;
+
 }
 
 .scroll::-webkit-scrollbar-track {
-  display:none;
+  display: none;
   border-radius: 0px 10px 10px 0px
-  
+
 }
 
-.scroll::-webkit-scrollbar-thumb {/* color of the scroll thumb */
+.scroll::-webkit-scrollbar-thumb { /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
-  display:none;
-  background:grey
-  
+  display: none;
+  background: grey
+
 }
 
 .line {
@@ -111,8 +111,8 @@
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
 }
 
-@media screen and (max-width:768px) {
-  
+@media screen and (max-width: 768px) {
+
 
   .title-rank {
 
@@ -164,9 +164,9 @@
   width: 90%
 }
 
-@media screen and (max-width:1060px) {
+@media screen and (max-width: 1060px) {
   .padding-resp {
-    padding: 20px 30px ;
+    padding: 20px 30px;
     margin-top: 10px;
     width: 99% !important;
     margin-bottom: 0px !important
@@ -187,7 +187,7 @@
 
   .size-box {
     width: 96% !important;
-    margin:0px !important
+    margin: 0px !important
   }
 }
 
@@ -195,7 +195,7 @@
   width: 48%
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .blitz {
     width: 100% !important;
     flex-direction: column-reverse !important;
@@ -217,7 +217,7 @@
 
 }
 
-@media screen and (max-width:1300px) {
+@media screen and (max-width: 1300px) {
   .padding-resps {
     padding: 40px 10px;
   }

@@ -1,18 +1,18 @@
 [build]
-  command = "npm run build"
-  publish = ".next"
+command = "npm run build"
+publish = ".next"
 
-  [[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-[[redirects]]
-  from = "http://app.mobula.finance/*"
-  to = "https://mobula.fi/:splat"
-  status = 301
-  force = false
+[[plugins]]
+package = "@netlify/plugin-nextjs"
 
 [[redirects]]
-  from = "https://app.mobula.finance/*"
-  to = "https://mobula.fi/:splat"
-  status = 301
-  force = false
+from = "http://app.mobula.finance/*"
+to = "https://mobula.fi/:splat"
+status = 301
+force = false
+
+[[redirects]]
+from = "https://app.mobula.finance/*"
+to = "https://mobula.fi/:splat"
+status = 301
+force = false

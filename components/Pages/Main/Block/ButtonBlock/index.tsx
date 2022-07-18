@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Sliders } from "react-feather";
 import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import { createClient } from "@supabase/supabase-js";
-import {
-  Button, Flex, IconButton, Image, Input,
-} from "@chakra-ui/react";
+import { Button, Flex, IconButton, Image, Input } from "@chakra-ui/react";
 import styles from "./ButtonBlock.module.scss";
 
 async function updateSearch(search: string, supabase: any, setResults: any) {
@@ -22,13 +20,11 @@ async function updateSearch(search: string, supabase: any, setResults: any) {
   }
 }
 
-function ButtonBlock({
-  setDisplay, display, setResults, widgetVisibility, setWidgetVisibility,
-}) {
+function ButtonBlock({ setDisplay, display, setResults, widgetVisibility, setWidgetVisibility }) {
   const [search, setSearch]: [string | null, Function] = useState();
   const supabase = createClient(
     "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
   );
 
   useEffect(() => {
@@ -90,7 +86,7 @@ function ButtonBlock({
             justifyContent="center"
             padding={["5px", "5px", "8px", "8px"]}
             borderRadius="10px"
-            className={styles[(display == "My Assets" ? "select-button-white" : "select-button")]}
+            className={styles[display == "My Assets" ? "select-button-white" : "select-button"]}
             onClick={() => setDisplay("My Assets")}
           >
             My Assets
@@ -124,11 +120,15 @@ function ButtonBlock({
             justifyContent="center"
             padding={["5px", "5px", "8px", "8px"]}
             borderRadius="8px"
-            className={`${styles["blockchain-btn"]} ${styles["eth-btn-block"]} ${display == "Ethereum" ? styles.white : ""}`}
+            className={`${styles["blockchain-btn"]} ${styles["eth-btn-block"]} ${
+              display == "Ethereum" ? styles.white : ""
+            }`}
             onClick={() => setDisplay("Ethereum")}
           >
             <img src="ethereum.png" className={`${styles["blockchain-logo"]} ${styles["eth-btn"]}`} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>ETH</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              ETH
+            </span>
           </Button>
           <Button
             transition="background 200ms ease-in-out"
@@ -148,11 +148,15 @@ function ButtonBlock({
             justifyContent="center"
             padding={["5px", "5px", "8px", "8px"]}
             borderRadius="8px"
-            className={`${styles["blockchain-btn"]}  ${styles["bsc-btn"]} ${display == "BNB Smart Chain (BEP20)" ? styles.white : ""}`}
+            className={`${styles["blockchain-btn"]}  ${styles["bsc-btn"]} ${
+              display == "BNB Smart Chain (BEP20)" ? styles.white : ""
+            }`}
             onClick={() => setDisplay("BNB Smart Chain (BEP20)")}
           >
             <img src="bnb.png" className={styles["blockchain-logo"]} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>BNB</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              BNB
+            </span>
           </Button>
           <Button
             transition="background 200ms ease-in-out"
@@ -176,7 +180,9 @@ function ButtonBlock({
             onClick={() => setDisplay("Avalanche C-Chain")}
           >
             <img src="avalanche.png" className={styles["blockchain-logo"]} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>AVAX</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              AVAX
+            </span>
           </Button>
           <Button
             transition="background 200ms ease-in-out"
@@ -201,7 +207,9 @@ function ButtonBlock({
             onClick={() => setDisplay("Polygon")}
           >
             <img src="polygon.png" className={styles["blockchain-logo"]} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>MATIC</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              MATIC
+            </span>
           </Button>
 
           <Button
@@ -228,7 +236,9 @@ function ButtonBlock({
             onClick={() => setDisplay("Cronos")}
           >
             <img src="cronos.png" className={styles["blockchain-logo"]} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Cronos</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              Cronos
+            </span>
           </Button>
           <Button
             transition="background 200ms ease-in-out"
@@ -254,7 +264,9 @@ function ButtonBlock({
             onClick={() => setDisplay("Arbitrum")}
           >
             <img src="arbitrum.png" className={styles["blockchain-logo"]} />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Arbitrum</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              Arbitrum
+            </span>
           </Button>
 
           <Button
@@ -287,9 +299,10 @@ function ButtonBlock({
               src="/harmony.png"
               className={`${styles["blockchain-logo"]} ${styles["digi-btn"]}`}
             />
-            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Harmony</span>
+            <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+              Harmony
+            </span>
           </Button>
-
         </Flex>
         {/* <Button minWidth={["fit-content", "fit-content", "fit-content", "fit-content"]} mx={1} fontSize={["12px", "12px", "14px", "14px"]} variant={display == 'Other Chains' ? 'secondary' : 'primary'} h={["30px", "30px", "40px", "40px"]} alignItems="center" justifyContent="center" padding={["10px 10px", "10px 10px", "10px 10px", "10px 10px"]} borderRadius="10px"
           className={`${styles['blockchain-btn']} ${styles['blockchain-btn-three']}`}
@@ -305,7 +318,6 @@ function ButtonBlock({
         </Button> */}
 
         <Flex align="center">
-
           <Flex
             bg="var(--box_primary)"
             border="1px solid var(--box_border)"
@@ -333,7 +345,7 @@ function ButtonBlock({
               <FiSearch className={styles.loupe} />
             </Flex>
             <Input
-                            // value={token}
+              // value={token}
               type="text"
               bg="none"
               border="none"

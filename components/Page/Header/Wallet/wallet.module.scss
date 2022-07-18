@@ -4,25 +4,26 @@
   position: relative;
   display: flex;
 }
-.notif-earn{
-  height:22px;
-  width:22px;
-  top:-9px !important;
-  right:-9px !important
- 
+
+.notif-earn {
+  height: 22px;
+  width: 22px;
+  top: -9px !important;
+  right: -9px !important
+
 }
 
 .loupe {
   font-size: 1.5rem;
-  margin-left:20px;
-  opacity:0.5 !important;
-  width: 42px ;
+  margin-left: 20px;
+  opacity: 0.5 !important;
+  width: 42px;
 }
 
-.image-earn{
-  width:25px;
-  height:25px;
-  margin-right:10px
+.image-earn {
+  width: 25px;
+  height: 25px;
+  margin-right: 10px
 }
 
 .connect-wallet-btn {
@@ -36,20 +37,21 @@
   border-radius: 8px;
   line-height: 18px;
   font-family: 'Inter', sans-serif;
-  color:white;
+  color: white;
 }
 
-.earn{
+.earn {
   height: 50px;
   box-shadow: 0px 1px 12px 3px var(--shadow-color);
   border-radius: 10px;
-  padding:0px 10px;
-  background:var(--bg-earn);
+  padding: 0px 10px;
+  background: var(--bg-earn);
   margin-right: 20px;
-  cursor:pointer
+  cursor: pointer
 }
-.earn:hover{
-  background:var(--bg-news)
+
+.earn:hover {
+  background: var(--bg-news)
 }
 
 .hamburger-btn {
@@ -67,11 +69,11 @@
   .connect-wallet-btn {
     width: 10rem;
   }
-  
+
 }
 
 @media screen and (max-width: 1089px) {
-  .earn{
+  .earn {
     margin-right: 0px;
   }
 }
@@ -80,11 +82,11 @@
   .connect-wallet-btn {
     display: none;
   }
-  .earn{
+  .earn {
     margin-left: auto;
-    
+
   }
-  
+
 
   .hamburger-btn {
     display: inline-block;
@@ -98,27 +100,27 @@
 }
 
 @media screen and (max-width: 768px) {
-  .earn{
- display:none !important
+  .earn {
+    display: none !important
   }
 
-  .notif-earn{
-    height:17px;
-    width:17px;
-    top:-6px !important;
-    right:-6px !important
-   
+  .notif-earn {
+    height: 17px;
+    width: 17px;
+    top: -6px !important;
+    right: -6px !important
+
   }
   .notif-earn > p {
-    font-size:10px;
+    font-size: 10px;
     display: flex;
-    justify-content:center;
-    align-items:center
+    justify-content: center;
+    align-items: center
   }
 }
- 
-@media screen and (max-width:991px) {
-  .loupe{
+
+@media screen and (max-width: 991px) {
+  .loupe {
     margin: auto;
   }
 }

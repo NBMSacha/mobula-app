@@ -24,7 +24,6 @@
 }
 
 
-
 .tokens-links {
   font-size: 24px;
   position: relative;
@@ -59,7 +58,7 @@
   border-bottom: 1px solid var(--border-top-body);
 }
 
-.token-containers>td {
+.token-containers > td {
   width: 177px;
   display: flex;
   margin-left: 50px;
@@ -67,7 +66,7 @@
   justify-content: end;
 }
 
-.token-containers:hover>td>span {
+.token-containers:hover > td > span {
   background-color: transparent;
 }
 
@@ -80,7 +79,7 @@
   margin-left: 0px !important;
 }
 
-.token-ids>span {
+.token-ids > span {
   margin-left: 10px;
   font-family: 'Inter';
   font-style: normal;
@@ -103,7 +102,8 @@
   font-size: 15px;
 }
 
-.white:visited {}
+.white:visited {
+}
 
 
 .green {
@@ -135,12 +135,12 @@
   margin-left: 10px !important;
 }
 
-.token-infos>div>span {
+.token-infos > div > span {
   display: flex;
   flex-wrap: nowrap;
 }
 
-.token-infos>div {
+.token-infos > div {
   display: flex;
   white-space: nowrap;
   overflow: hidden;
@@ -221,7 +221,6 @@
   .token-containers {
     width: 960px !important;
   }
-
 
 
   .token-ids {
@@ -470,7 +469,7 @@
   justify-content: center;
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
 
   .token-title-assets {
     justify-content: start !important;
@@ -517,7 +516,7 @@
     font-size: 20px !important;
   }
 
-  .dflex>header {
+  .dflex > header {
     padding-left: 15px
   }
 
@@ -686,7 +685,7 @@
   white-space: nowrap;
 }
 
-@media screen and (max-width:1390px) {
+@media screen and (max-width: 1390px) {
   .dflex {
     width: 95%;
   }

@@ -1,46 +1,47 @@
 @import "../../../../styles/variables.scss";
 
 .link {
-    color: $secondTextColor;
-    margin-left: 7px;
+  color: $secondTextColor;
+  margin-left: 7px;
 }
 
 .line {
-    width: 100%;
-    height: 2px;
-    background-color: $lineColor;
-    margin-top: 1rem;
+  width: 100%;
+  height: 2px;
+  background-color: $lineColor;
+  margin-top: 1rem;
 }
 
 .token-box {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .token-box:hover {
-    opacity: 0.9;
+  opacity: 0.9;
 }
 
 .button {
-    background-image: linear-gradient(to right,
-            #3701f4 0%,
-            #26a0da 41%,
-            #2af0d5 100%);
-    text-align: center;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
-    border-radius: 10px;
-    display: block;
-    border: none;
-    margin-top: auto;
+  background-image: linear-gradient(to right,
+          #3701f4 0%,
+          #26a0da 41%,
+          #2af0d5 100%);
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: none;
+  margin-top: auto;
 }
 
 .button:hover {
-    background-position: right center;
-    /* change the direction of the change here */
-    color: #fff;
-    text-decoration: none;
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }
 
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 768px) {
+}

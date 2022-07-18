@@ -1,6 +1,4 @@
-import {
-  Box, Button, Flex, Heading, Image, Text, useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import styles from "./Blocks.module.scss";
 
 const Blocks = ({ tokenDivs, setDisplayedToken }) => (
@@ -25,28 +23,19 @@ const Blocks = ({ tokenDivs, setDisplayedToken }) => (
       >
         <Flex alignItems="center" mb={10}>
           <Image src={token.logo} h={50} w={50} mr={5} />
-          <Heading fontSize={["x-large", "xx-large"]}>
-            {token.name}
-          </Heading>
-          <Text fontSize={["md", "xl"]} fontWeight="600" color="blue" ml="auto">New</Text>
+          <Heading fontSize={["x-large", "xx-large"]}>{token.name}</Heading>
+          <Text fontSize={["md", "xl"]} fontWeight="600" color="blue" ml="auto">
+            New
+          </Text>
         </Flex>
-        <Text
-          fontSize={["md", "lg"]}
-        >
+        <Text fontSize={["md", "lg"]}>
           {token.description.slice(0, 175) + (token.description.length > 175 ? "..." : "")}
         </Text>
 
-        <Button
-          mt="20px"
-          h="40px"
-          w="40%"
-          bg="dark_text_tendance"
-          onClick={() => setDisplayedToken(token.id)}
-        >
+        <Button mt="20px" h="40px" w="40%" bg="dark_text_tendance" onClick={() => setDisplayedToken(token.id)}>
           Analyze
         </Button>
       </Box>
-
     ))}
   </Flex>
 );

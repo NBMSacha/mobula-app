@@ -5,7 +5,12 @@ function Leaderboard({ top }) {
   return (
     <Box
       bg="var(--bg-governance-box)"
-      boxShadow={["0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)"]}
+      boxShadow={[
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+      ]}
       w="100%"
       borderRadius="10px"
       h="auto"
@@ -26,16 +31,18 @@ function Leaderboard({ top }) {
         {top.map((user: any, index: number) => (
           <Flex fontSize="14px" align="center" justify="space-between" mb="20px">
             <Flex align="center">
-              <Text w="20px" color="grey" mr="5px">{(index + 1) == 1 ? "🥇" : `${index + 1}.`}</Text>
+              <Text w="20px" color="grey" mr="5px">
+                {index + 1 == 1 ? "🥇" : `${index + 1}.`}
+              </Text>
               <Flex direction="column">
-                <Text fontSize="13px" color="var(--beli)">{user.username.split("#")[0].slice(0, 9)}</Text>
-                <Text
-                  fontSize="9px"
-                  opacity=".6"
-                  color="var(--score)"
-                  mr="10px"
-                >
-                  {`${user.address.slice(0, 4)}...${user.address.slice(user.address.length - 5, user.address.length - 1)}`}
+                <Text fontSize="13px" color="var(--beli)">
+                  {user.username.split("#")[0].slice(0, 9)}
+                </Text>
+                <Text fontSize="9px" opacity=".6" color="var(--score)" mr="10px">
+                  {`${user.address.slice(0, 4)}...${user.address.slice(
+                    user.address.length - 5,
+                    user.address.length - 1
+                  )}`}
                 </Text>
               </Flex>
             </Flex>
@@ -48,9 +55,7 @@ function Leaderboard({ top }) {
                 overflow="hidden"
                 whiteSpace="nowrap"
               >
-                {user.good_decisions}
-                {" "}
-                Correct Decisions
+                {user.good_decisions} Correct Decisions
               </Text>
             </Flex>
           </Flex>

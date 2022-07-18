@@ -1,13 +1,9 @@
 import React from "react";
-import {
-  Table, TableContainer, Th, Thead, Tr, useColorModeValue,
-} from "@chakra-ui/react";
+import { Table, TableContainer, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 import Gainers from "./Gainers";
 import Losers from "./Losers";
 
-function Tables({
-  gainers, losers, gainer, loser,
-}) {
+function Tables({ gainers, losers, gainer, loser }) {
   const bg = useColorModeValue("var(--chakra-colors-bg_white)", "var(--chakra-colors-dark_primary)");
   const border = useColorModeValue("var(--chakra-colors-grey_border)", "var(--chakra-colors-border_dark_gainer)");
 
@@ -60,12 +56,8 @@ function Tables({
             </Th>
           </Tr>
         </Thead>
-        {gainer === "gainer" && (
-        <Gainers gainers={gainers} />
-        )}
-        {loser === "loser" && (
-        <Losers losers={losers} />
-        )}
+        {gainer === "gainer" && <Gainers gainers={gainers} />}
+        {loser === "loser" && <Losers losers={losers} />}
       </Table>
     </TableContainer>
   );

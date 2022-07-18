@@ -27,9 +27,7 @@ const buttonStyle = {
   color: "var(--text-primary)",
 };
 
-export const AlertTemplate = ({
-  message, options, style, close,
-}) => {
+export const AlertTemplate = ({ message, options, style, close }) => {
   const [pixels, setPixels] = useState(0);
   const [total, setTotal] = useState(100);
 
@@ -49,20 +47,19 @@ export const AlertTemplate = ({
     }
   }, [total]);
   return (
-    <div style={{
-      ...alertStyle,
-      ...style,
-      backgroundColor: "var(--bg-governance-box)",
-      color: "var(--text-primary)",
-      right: `${pixels}px`,
-    }}
+    <div
+      style={{
+        ...alertStyle,
+        ...style,
+        backgroundColor: "var(--bg-governance-box)",
+        color: "var(--text-primary)",
+        right: `${pixels}px`,
+      }}
     >
       <Box
         mr="auto"
         borderRadius={`10px ${"0px"} 0px 0px`}
-        bg={
-                options.type === "info" ? "blue" : options.type === "success" ? "green" : "red"
-            }
+        bg={options.type === "info" ? "blue" : options.type === "success" ? "green" : "red"}
         top="0px"
         w={`${total}%`}
         h="10px"
@@ -84,9 +81,13 @@ export const AlertTemplate = ({
         </Flex>
       </Flex>
 
-      <span style={{
-        flex: 2, padding: "0px 10px 5px", color: "grey", fontSize: "1rem",
-      }}
+      <span
+        style={{
+          flex: 2,
+          padding: "0px 10px 5px",
+          color: "grey",
+          fontSize: "1rem",
+        }}
       >
         {message}
       </span>

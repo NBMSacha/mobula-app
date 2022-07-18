@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Box, Flex, Image, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 
 const TopSection = () => {
   const volume = "Volume";
@@ -12,13 +10,8 @@ const TopSection = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
 
   return (
-
     <Flex w="90%" direction="column" mt="0px" pb="50px" align="center">
-      <Flex
-        p={["0px", "0px", "0px 20px", "0px 20px"]}
-        justify="center"
-        direction={["column", "row", "row", "row"]}
-      >
+      <Flex p={["0px", "0px", "0px 20px", "0px 20px"]} justify="center" direction={["column", "row", "row", "row"]}>
         <Flex
           direction="column"
           maxWidth="470px"
@@ -40,9 +33,9 @@ const TopSection = () => {
             Backtest your strategies
           </Text>
           <Text fontSize="13px" color="grey">
-            Use the best possible crypto data to run simulations and test
-            your trading or investment strategies. With aggregated data from hundreds of trades and
-            thousands of coins, you can be sure to get the right picture every time.
+            Use the best possible crypto data to run simulations and test your trading or investment strategies. With
+            aggregated data from hundreds of trades and thousands of coins, you can be sure to get the right picture
+            every time.
           </Text>
         </Flex>
         <Flex
@@ -55,14 +48,12 @@ const TopSection = () => {
           boxShadow={["none", "none", "none", "1px 2px 12px 3px var(--shadow)"]}
         >
           <Text fontSize="17px" mb={["15px", "15px", "30px", "30px"]} color="#5C7DF9" fontWeight="600">
-            Chart
-            the right data
+            Chart the right data
           </Text>
           <Text fontSize="13px" color="grey" maxHeight={["auto", "154px", "auto", "auto"]} overflow="auto">
-            Show
-            your users the most accurate data in the market with our API. Whether you're building a
-            portfolio, a portfolio management tool, a new media offering, or more, we have the most advanced
-            and up-to-date data on the market for your product.
+            Show your users the most accurate data in the market with our API. Whether you're building a portfolio, a
+            portfolio management tool, a new media offering, or more, we have the most advanced and up-to-date data on
+            the market for your product.
           </Text>
         </Flex>
       </Flex>

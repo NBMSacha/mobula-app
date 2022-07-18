@@ -1,12 +1,8 @@
-import {
-  Button, Flex, Image, Text,
-} from "@chakra-ui/react";
+import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { useWeb3React } from "@web3-react/core";
 import { CloseIcon } from "@chakra-ui/icons";
-import {
-  bsc, injected, ledger, portis, resetWalletConnector, trezor, walletconnect, walletlink,
-} from "./Connector";
+import { bsc, injected, ledger, portis, resetWalletConnector, trezor, walletconnect, walletlink } from "./Connector";
 
 export default function ConnectWallet({ visible, setVisible }) {
   const web3reactContext = useWeb3React();
@@ -101,9 +97,10 @@ export default function ConnectWallet({ visible, setVisible }) {
       borderRadius="20px"
     >
       <Flex align="center" mt="20px" mb="20px" justify="space-between" w="88%">
-
         <Text>Connect Wallet</Text>
-        <Button onClick={() => setVisible(false)}><CloseIcon /></Button>
+        <Button onClick={() => setVisible(false)}>
+          <CloseIcon />
+        </Button>
       </Flex>
       <Button outline="none" _focus={{ boxShadow: "none" }} w="100%" onClick={connectMetaMask}>
         <Flex

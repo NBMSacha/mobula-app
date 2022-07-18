@@ -1,16 +1,10 @@
-import React, {
-  useContext, useEffect, useRef, useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
-import {
-  Circle, Menu, Moon, Sun, X,
-} from "react-feather";
+import { Circle, Menu, Moon, Sun, X } from "react-feather";
 import { useRouter } from "next/router";
 import { isAddress } from "ethers/lib/utils";
-import {
-  Flex, IconButton, Input, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Input, Text, useMediaQuery } from "@chakra-ui/react";
 import MenuMobile from "./MenuMobile";
 import styles from "./wallet.module.scss";
 import SearchDiv from "./SearchDiv/index";
@@ -20,8 +14,8 @@ import { ThemeContext } from "../../../../pages/_app";
 function useOutsideAlerter(ref: any, setTriggerHook: any) {
   useEffect(() => {
     /**
-         * Alert if clicked on outside of element
-         */
+     * Alert if clicked on outside of element
+     */
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         setTriggerHook(false);
@@ -43,9 +37,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
   const [triggerSearch, setTriggerSearch] = useState(false);
   const wrapperRef = useRef(null);
   const [isMobile, setIsMobile] = useState(true);
-  const {
-    account, active, activate, deactivate,
-  } = useWeb3React();
+  const { account, active, activate, deactivate } = useWeb3React();
   const router = useRouter();
   const [connect, setConnect] = useState(false);
   const [close, setClose] = useState(false);
@@ -105,11 +97,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
           position="relative"
         >
           <img src="/fullicon.png" className={styles["image-earn"]} />
-          <span
-            style={{ marginRight: "5px" }}
-          >
-            Earn
-          </span>
+          <span style={{ marginRight: "5px" }}>Earn</span>
 
           <Flex
             display={triggerSearch ? "none" : "flex"}
@@ -123,7 +111,9 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
             right="-9px"
             className={styles["notif-earn"]}
           >
-            <Text fontSize="12px" color="white">+1</Text>
+            <Text fontSize="12px" color="white">
+              +1
+            </Text>
           </Flex>
         </Flex>
         <Flex height="100%" align="center" display={["flex", "flex", "none", "none"]}>
@@ -179,11 +169,7 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
             console.log("detected");
           }}
         >
-          {active
-            ? `${account.substring(0, 4)
-            }..${
-              account.substring(account.length - 4, account.length)}`
-            : "Connect"}
+          {active ? `${account.substring(0, 4)}..${account.substring(account.length - 4, account.length)}` : "Connect"}
         </button>
 
         <SearchDiv wrapperRef={wrapperRef} trigger={triggerSearch} setTrigger={setTriggerSearch} />
@@ -201,12 +187,10 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
             ml={["0px", "0px", "0px", "20px"]}
             mr={["20px", "20px", "20px", "0px"]}
             mt={["4px", "4px", "4px", "4px"]}
-
             icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
           />
         </Flex>
-        {connect
-          ? <ConnectWallet visible={connect} setVisible={setConnect} /> : <></>}
+        {connect ? <ConnectWallet visible={connect} setVisible={setConnect} /> : <></>}
 
         <button
           className={styles["hamburger-btn"]}
@@ -220,17 +204,10 @@ function Wallet({ isMenuMobile, setIsMenuMobile }) {
             <X className={styles.hamburger} />
           ) : (
             <>
-              <Menu className={styles.hamburger} />
-              {" "}
-              <Circle
-                width="10px"
-                fill="#32C784"
-                className={styles.new}
-              />
+              <Menu className={styles.hamburger} /> <Circle width="10px" fill="#32C784" className={styles.new} />
             </>
           )}
         </button>
-
       </Flex>
 
       <MenuMobile

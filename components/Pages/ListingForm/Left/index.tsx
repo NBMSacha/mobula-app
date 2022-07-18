@@ -1,8 +1,6 @@
 import React from "react";
 import { Upload } from "react-feather";
-import {
-  Button, Flex, Input, Radio, RadioGroup, Spinner, Text, Textarea,
-} from "@chakra-ui/react";
+import { Button, Flex, Input, Radio, RadioGroup, Spinner, Text, Textarea } from "@chakra-ui/react";
 import axios from "axios";
 import { AddIcon } from "@chakra-ui/icons";
 import styles from "../ListingForm.module.scss";
@@ -39,7 +37,6 @@ function Left({
   };
 
   return (
-
     <Flex className={styles["three-forms"]} p="20px">
       <div className={styles["form-container-box-flex"]}>
         <div className={styles["inputs-container"]}>
@@ -81,18 +78,13 @@ function Left({
       <div className={styles["form-container-box-flex"]}>
         <div>
           <label>Upload Logo *</label>
-          <Flex
-            boxShadow="1px 2px 12px 3px var(--shadow)"
-            className={styles["upload-box"]}
-            bg="var(--inputs)"
-          >
+          <Flex boxShadow="1px 2px 12px 3px var(--shadow)" className={styles["upload-box"]} bg="var(--inputs)">
             {uploadLoading ? <Spinner m="auto" width="15px" height="15px" /> : <></>}
             {uploadedImage || logo ? (
-              <img
-                style={{ objectFit: "cover", height: "100%" }}
-                src={uploadedImage || logo}
-              />
-            ) : <></>}
+              <img style={{ objectFit: "cover", height: "100%" }} src={uploadedImage || logo} />
+            ) : (
+              <></>
+            )}
           </Flex>
         </div>
         <div className={styles.file}>
@@ -170,53 +162,54 @@ function Left({
               }}
             />
             <div className="btn-box">
-              {inputListContract.length - 1 === i
-                                    && (
-                                    <Button
-                                      w="30px"
-                                      right="0px"
-                                      top="-2px"
-                                      h="30px"
-                                      borderRadius="10px"
-                                      position="absolute"
-                                      className={styles["absolute-btn-address"]}
-                                      onClick={handleAddClickContract}
-                                    >
-                                      <AddIcon boxSize="10px" />
-                                    </Button>
-                                    )}
+              {inputListContract.length - 1 === i && (
+                <Button
+                  w="30px"
+                  right="0px"
+                  top="-2px"
+                  h="30px"
+                  borderRadius="10px"
+                  position="absolute"
+                  className={styles["absolute-btn-address"]}
+                  onClick={handleAddClickContract}
+                >
+                  <AddIcon boxSize="10px" />
+                </Button>
+              )}
             </div>
           </>
         ))}
       </div>
-      {inputListContract.length > 1
-        ? (
-          <RadioGroup onChange={setIsSum} value={isSum}>
-            <Flex direction="column" fontSize="10px">
-              <Flex align="center" direction="row">
-                <Text fontSize="10px" w="90%">
-                  The total supply is the first contract total supply (native
-                  token)
-                </Text>
-                <Radio
-                  checked
-                  value="true"
-                  bg={isSum === "true" ? "blue" : "var(--inputs)"}
-                  boxShadow="1px 2px 12px 3px var(--shadow) !important"
-                />
-              </Flex>
-              <Flex align="center" direction="row">
-                <Text fontSize="10px" w="90%">The total supply is the sum of all the contracts</Text>
-                <Radio
-                  value="false"
-                  mt="10px"
-                  bg={isSum === "false" ? "blue" : "var(--inputs)"}
-                  boxShadow="1px 2px 12px 3px var(--shadow) !important"
-                />
-              </Flex>
+      {inputListContract.length > 1 ? (
+        <RadioGroup onChange={setIsSum} value={isSum}>
+          <Flex direction="column" fontSize="10px">
+            <Flex align="center" direction="row">
+              <Text fontSize="10px" w="90%">
+                The total supply is the first contract total supply (native token)
+              </Text>
+              <Radio
+                checked
+                value="true"
+                bg={isSum === "true" ? "blue" : "var(--inputs)"}
+                boxShadow="1px 2px 12px 3px var(--shadow) !important"
+              />
             </Flex>
-          </RadioGroup>
-        ) : <></>}
+            <Flex align="center" direction="row">
+              <Text fontSize="10px" w="90%">
+                The total supply is the sum of all the contracts
+              </Text>
+              <Radio
+                value="false"
+                mt="10px"
+                bg={isSum === "false" ? "blue" : "var(--inputs)"}
+                boxShadow="1px 2px 12px 3px var(--shadow) !important"
+              />
+            </Flex>
+          </Flex>
+        </RadioGroup>
+      ) : (
+        <></>
+      )}
 
       <div className={styles["form-container-box"]}>
         <label>Description *</label>

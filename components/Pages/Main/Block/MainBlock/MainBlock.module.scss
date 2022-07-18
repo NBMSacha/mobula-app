@@ -19,17 +19,17 @@
 
 .scroll::-webkit-scrollbar {
   width: 1px;
-  display:none /* width of the entire scrollbar */
+  display: none /* width of the entire scrollbar */
 }
 
 .scroll::-webkit-scrollbar-track {
-  display:none
+  display: none
 }
 
 .scroll::-webkit-scrollbar-thumb {
   background-color: blue; /* color of the scroll thumb */
-  border-radius: 20px; 
-  display:none;/* roundness of the scroll thumb */
+  border-radius: 20px;
+  display: none; /* roundness of the scroll thumb */
   border: 3px solid none; /* creates padding around scroll thumb */
 }
 
@@ -59,7 +59,7 @@
 
 }
 
-.title-news>span {
+.title-news > span {
   border-bottom: 3px solid #5C7DF9;
 
 }
@@ -134,7 +134,6 @@
   letter-spacing: -0.03em;
 
 
-  
 }
 
 .marginR {
@@ -222,7 +221,7 @@
   }
 }
 
-@media screen and (max-width:1450px) {
+@media screen and (max-width: 1450px) {
   .texts-box {
     min-width: 150px;
     border-radius: 8px;
@@ -254,19 +253,19 @@
     margin-left: 0px;
     margin-bottom: 0px;
   }
-  
-.logo-box {
-  margin-left: 6px;
-  margin-right: 12px;
-  width: 60px;
 
-  background-size: 49px 49px, cover;
-  border-radius: 12px;
+  .logo-box {
+    margin-left: 6px;
+    margin-right: 12px;
+    width: 60px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    background-size: 49px 49px, cover;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .quadBox-container {
     position: absolute;
@@ -339,12 +338,12 @@
 
   }
 
-  .texts-box>p {
+  .texts-box > p {
     margin: 0px;
     font-size: 12px !important;
   }
 
-  .quadBox-container>* {
+  .quadBox-container > * {
     width: 30%;
   }
 

@@ -15,13 +15,13 @@ body {
   background-color: var(--bg-color);
   font-weight: normal;
   font-style: normal;
-  color:var(--text-primary)
+  color: var(--text-primary)
 }
 
 .listing {
   background-color: linear-gradient(90deg,
-      rgba(47, 54, 88, 0.1) 0%,
-      rgba(47, 54, 88, 0.1) 100%);
+          rgba(47, 54, 88, 0.1) 0%,
+          rgba(47, 54, 88, 0.1) 100%);
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
   color: $primaryTextColor;
@@ -60,7 +60,6 @@ body {
   width: 100%;
   max-width: 1350px;
 }
-
 
 
 input {
@@ -151,9 +150,9 @@ label {
 .button {
   font-family: "Poppins";
   background-image: linear-gradient(to right,
-      #3701f4 0%,
-      #26a0da 41%,
-      #2af0d5 100%);
+          #3701f4 0%,
+          #26a0da 41%,
+          #2af0d5 100%);
 }
 
 .button {
@@ -404,7 +403,7 @@ label {
   opacity: 80%;
 }
 
-.buttons>* {
+.buttons > * {
   width: 45%;
   height: 25px;
 }
@@ -426,7 +425,7 @@ label {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv>* {
+.buttonsDiv > * {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -440,7 +439,7 @@ label {
   cursor: pointer;
 }
 
-.list>* :hover {
+.list > * :hover {
   cursor: pointer;
   text-decoration: underline;
 }
@@ -452,7 +451,7 @@ label {
   margin-bottom: 1.5rem;
 }
 
-.buttonsDiv>* {
+.buttonsDiv > * {
   width: 30% !important;
   margin-right: 0.5rem;
 }
@@ -466,13 +465,13 @@ label {
   cursor: pointer;
 }
 
-.list>* :hover {
+.list > * :hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
 @media screen and (max-width: 1000px) {
-  .footer-mobile>*>* {
+  .footer-mobile > * > * {
     margin-top: 1rem;
     margin-bottom: 1rem;
     color: black;
@@ -537,7 +536,7 @@ label {
     height: auto;
   }
 
-  .tokens-div>* {
+  .tokens-div > * {
     margin-bottom: 1rem;
     height: 350px;
   }
@@ -623,9 +622,9 @@ label {
   text-decoration: underline;
 }
 
-.stickyHeader{
-  top:0;
-  left:0;
+.stickyHeader {
+  top: 0;
+  left: 0;
   width: 100%;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

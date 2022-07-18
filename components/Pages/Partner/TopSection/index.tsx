@@ -13,14 +13,8 @@ const TopSection = () => (
         A vibrant data aggregator surrounded by a vibrant ecosystem.
       </Text>
       <Text fontFamily="Inter" fontWeight="400" fontSize={["13px", "13px", "14px", "21px"]} color="grey">
-        Being listed on Mobula is not only about
-        {" "}
-        <span
-          style={{ color: "var(--chakra-colors-blue)", fontWeight: "600" }}
-        >
-          exposure
-        </span>
-        .
+        Being listed on Mobula is not only about{" "}
+        <span style={{ color: "var(--chakra-colors-blue)", fontWeight: "600" }}>exposure</span>.
       </Text>
     </Box>
   </Flex>

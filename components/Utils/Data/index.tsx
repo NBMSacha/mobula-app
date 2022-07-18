@@ -16,18 +16,13 @@ export default function Data() {
       {/* @ts-ignore */}
       <Text>
         Mobula’s data is
-        <span style={{ color: "#16C784" }}>100%</span>
-        {" "}
-        scraped on-chain -
-        {">"}
+        <span style={{ color: "#16C784" }}>100%</span> scraped on-chain -{">"}
       </Text>
       <Flex align="center">
         <Text mr="10px">
           Which means
-          <span style={{ color: "#16C784" }}>trustless</span>
-          {" "}
-          data, in opposite to CEX
-          aggregation systems who can easily be falsified
+          <span style={{ color: "#16C784" }}>trustless</span> data, in opposite to CEX aggregation systems who can
+          easily be falsified
         </Text>
         <Flex bg="#58667E" borderRadius="full" align="center" justify="center">
           <CloseButton

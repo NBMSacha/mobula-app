@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  Box, Flex, Image, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 
 const TopSection = () => {
   const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)");
   return (
-
     <Flex w="90%" direction="column" mt="0px" pb="50px" align="center">
-      <Flex
-        p={["0px", "0px", "0px 20px", "0px 20px"]}
-        justify="center"
-        direction={["column", "row", "row", "row"]}
-      >
+      <Flex p={["0px", "0px", "0px 20px", "0px 20px"]} justify="center" direction={["column", "row", "row", "row"]}>
         <Flex
           direction="column"
           maxWidth="470px"
@@ -34,9 +27,9 @@ const TopSection = () => {
             Mobula, a quality label
           </Text>
           <Text fontSize="13px" color="grey">
-            Being listed on Mobula means being in line with most of the quality standards required by
-            launchpads and other entities in the crypto ecosystem. That's why our partners accept to work
-            with tokens if they are listed on Mobula.
+            Being listed on Mobula means being in line with most of the quality standards required by launchpads and
+            other entities in the crypto ecosystem. That's why our partners accept to work with tokens if they are
+            listed on Mobula.
           </Text>
         </Flex>
         <Flex
@@ -53,8 +46,8 @@ const TopSection = () => {
           </Text>
           <Text fontSize="13px" color="grey" maxHeight={["auto", "154px", "auto", "auto"]} overflow="auto">
             Mobula's DAO has built strategic partnerships with many launchpads, decentralized VCs and crypto
-            communities. A token listed on Mobula will benefit from facilities and discounts at the DAO's
-            partners. Just click on 'Let's connect' to be put in touch with the DAO.
+            communities. A token listed on Mobula will benefit from facilities and discounts at the DAO's partners. Just
+            click on 'Let's connect' to be put in touch with the DAO.
           </Text>
         </Flex>
       </Flex>
@@ -145,10 +138,8 @@ const TopSection = () => {
             <Image mb="20px" src="/sig.png" />
           </Box>
         </Flex>
-
       </Flex>
     </Flex>
-
   );
 };
 

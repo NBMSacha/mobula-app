@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ethers } from "ethers";
-import {
-  Box, Flex, Heading, Input, Spacer, Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Spacer, Text } from "@chakra-ui/react";
 import styles from "./Governance.module.scss";
 import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../../constants";
 import abi from "./governor_abi.json";
@@ -12,13 +10,9 @@ import Vote from "./Vote";
 import Power from "./Power";
 
 function Governance() {
-  const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([<Input
-    className="long"
-    value="No proposals currently voted."
-    onChange={(e) => e}
-    placeholder="0x..."
-    required
-  />]);
+  const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([
+    <Input className="long" value="No proposals currently voted." onChange={(e) => e} placeholder="0x..." required />,
+  ]);
   const withdrawRef = useRef();
   const depositRef = useRef();
   const proposalRef = useRef();
@@ -53,7 +47,7 @@ function Governance() {
           "function balanceOf(address account) public view returns(uint256)",
           "function allowance(address _owner, address spender) external view returns (uint256)",
         ],
-        signer,
+        signer
       );
       const balance = await mobulaContract.balanceOf(address);
       const formatedBalance = Number(balance) / 10 ** 18;
@@ -92,7 +86,7 @@ function Governance() {
           "function approve(address account, uint256 amount) public",
           "function balanceOf(address account) public view returns(uint256)",
         ],
-        signer,
+        signer
       );
       try {
         const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount);
@@ -140,9 +134,7 @@ function Governance() {
   useEffect(() => {
     getProposals();
     if (!proposals) {
-      [
-        console.log(proposals),
-      ];
+      [console.log(proposals)];
     }
   }, [!proposals]);
 
@@ -162,21 +154,20 @@ function Governance() {
       >
         <Flex direction="column">
           <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">
-            Governance
-            Process
+            Governance Process
           </Heading>
           <Text
             display={["none", "none", "none", "flex"]}
             whiteSpace="normal"
             fontSize={["12px", "12px", "14px", "14px"]}
           >
-            See here the tokenq who got validated by the
-            {" "}
-            <span style={{
-              color: "var(--chakra-colors-blue)",
-              marginLeft: "5px",
-              whiteSpace: "nowrap",
-            }}
+            See here the tokenq who got validated by the{" "}
+            <span
+              style={{
+                color: "var(--chakra-colors-blue)",
+                marginLeft: "5px",
+                whiteSpace: "nowrap",
+              }}
             >
               Mobula DAO
             </span>

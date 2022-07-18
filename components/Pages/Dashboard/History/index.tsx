@@ -1,6 +1,4 @@
-import {
-  Box, Flex, Icon, Image, Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import { ThumbsDown, ThumbsUp, XCircle } from "react-feather";
 import Countdown from "react-countdown";
@@ -13,7 +11,12 @@ function History({ recentlyAdded, validated }) {
     <Box
       h="100%"
       bg="var(--bg-governance-box)"
-      boxShadow={["0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)", "0px 1px 12px 3px var(--shadow)"]}
+      boxShadow={[
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+        "0px 1px 12px 3px var(--shadow)",
+      ]}
       mx="auto"
       w={["88%", "88%", "100%", "100%"]}
       borderRadius="10px"
@@ -23,11 +26,9 @@ function History({ recentlyAdded, validated }) {
       className={styles.noneDis}
     >
       <Text color="var(--beli)" pb="15px" fontSize={["16px", "16px", "22px", "22px"]} fontWeight="500">
-        Latest DAO
-        Decisions
+        Latest DAO Decisions
       </Text>
       <Box pr="20px" maxHeight="220px" overflowY="scroll" className={styles.scroll}>
-
         {validated.map((token: any, idx: number) => {
           const date = new Date(token.timestamp * 1000);
           const seconds = date.getTime();
@@ -57,124 +58,56 @@ function History({ recentlyAdded, validated }) {
                 h={["20px", "20px", "25px", "25px"]}
                 w={["20px", "20px", "25px", "25px"]}
               />
-              <Text color="grey" fontSize={["12px", "12px", "15px", "15px"]} mx="10px">{token.name}</Text>
-              <Text
-                color="#D3D3D3"
-                fontSize={["12px", "12px", "15px", "15px"]}
-                mr="15px"
-              >
+              <Text color="grey" fontSize={["12px", "12px", "15px", "15px"]} mx="10px">
+                {token.name}
+              </Text>
+              <Text color="#D3D3D3" fontSize={["12px", "12px", "15px", "15px"]} mr="15px">
                 {token.symbol}
               </Text>
               <Box display={["none", "none", "block", "block"]}>
-                {format == "seconds"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  bg="red"
-                                  as="span"
-                                >
-                                  {postedDate}
-                                  {" "}
-                                  seconds ago
-                                </Box>
-                                )}
-                {format == "minute"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 60)}
-                                  {" "}
-                                  minute ago
-                                </Box>
-                                )}
-                {format == "minutes"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 60)}
-                                  {" "}
-                                  minutes ago
-                                </Box>
-                                )}
-                {format == "hour"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 3600)}
-                                  {" "}
-                                  hour ago
-                                </Box>
-                                )}
-                {format == "hours"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 3600)}
-                                  {" "}
-                                  hours ago
-                                </Box>
-                                )}
-                {format == "day"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 86400)}
-                                  {" "}
-                                  day ago
-                                </Box>
-                                )}
-                {format == "days"
-                                && (
-                                <Box
-                                  whiteSpace="nowrap"
-                                  mr="10px"
-                                  fontSize={["11px", "11px", "15px", "15px"]}
-                                  as="span"
-                                >
-                                  {Math.floor(postedDate / 86400)}
-                                  {" "}
-                                  days ago
-                                </Box>
-                                )}
+                {format == "seconds" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} bg="red" as="span">
+                    {postedDate} seconds ago
+                  </Box>
+                )}
+                {format == "minute" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 60)} minute ago
+                  </Box>
+                )}
+                {format == "minutes" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 60)} minutes ago
+                  </Box>
+                )}
+                {format == "hour" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 3600)} hour ago
+                  </Box>
+                )}
+                {format == "hours" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 3600)} hours ago
+                  </Box>
+                )}
+                {format == "day" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 86400)} day ago
+                  </Box>
+                )}
+                {format == "days" && (
+                  <Box whiteSpace="nowrap" mr="10px" fontSize={["11px", "11px", "15px", "15px"]} as="span">
+                    {Math.floor(postedDate / 86400)} days ago
+                  </Box>
+                )}
               </Box>
               {/* <Text color="grey" mr="20px">{Date(token.created_at).getTime()}</Text> */}
               <Flex color={token.validated ? "green" : "red"} ml="auto" justify="center" align="center">
-                <Text
-                  display={["none", "none", "flex", "flex"]}
-                  fontSize="12px"
-                  mr="10px"
-                >
-                  {token.votes.filter((vote) => vote.validated).length}
-                  /
-                  {token.votes.length}
+                <Text display={["none", "none", "flex", "flex"]} fontSize="12px" mr="10px">
+                  {token.votes.filter((vote) => vote.validated).length}/{token.votes.length}
                 </Text>
                 <Text fontSize="12px" whiteSpace="nowrap">
-                  {token.validated ? "Validated" : "Rejected"}
-                  {" "}
-                  by
-                  DAO
+                  {token.validated ? "Validated" : "Rejected"} by DAO
                 </Text>
                 <Flex display={["none", "none", "flex", "flex"]}>
                   {token.validated ? (
@@ -191,11 +124,7 @@ function History({ recentlyAdded, validated }) {
                   )}
                 </Flex>
                 <Flex display={["flex", "flex", "none", "none"]}>
-                  {token.validated ? (
-                    <Icon mb="4px" ml="5px" as={ThumbsUp} />
-                  ) : (
-                    <Icon ml="5px" as={ThumbsDown} />
-                  )}
+                  {token.validated ? <Icon mb="4px" ml="5px" as={ThumbsUp} /> : <Icon ml="5px" as={ThumbsDown} />}
                 </Flex>
               </Flex>
             </Flex>

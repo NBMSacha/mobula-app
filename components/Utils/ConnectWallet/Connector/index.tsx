@@ -21,10 +21,7 @@ export const walletconnect = new WalletConnectConnector({
 });
 
 export const resetWalletConnector = (connector: any) => {
-  if (
-    connector
-        && connector instanceof WalletConnectConnector
-  ) {
+  if (connector && connector instanceof WalletConnectConnector) {
     console.log("Setting to undefined");
     connector.walletConnectProvider = undefined;
   }

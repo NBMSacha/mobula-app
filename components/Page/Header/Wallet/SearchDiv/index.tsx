@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { FiSearch } from "@react-icons/all-files/fi/FiSearch";
 import { X } from "react-feather";
-import {
-  Box, Flex, Icon, Image, Input, Link, Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Icon, Image, Input, Link, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import styles from "./searchdiv.module.scss";
 import { getTokenPercentage, getUrlFromName } from "../../../../../helpers/formaters";
@@ -67,7 +65,7 @@ function SearchDiv(props: any) {
 
   const supabase = createClient(
     "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
   );
 
   useEffect(() => {
@@ -120,9 +118,7 @@ function SearchDiv(props: any) {
             {token ? (
               <>
                 {results.map((result) => (
-
                   <Flex _hover={{ background: "var(--box_active)", cursor: "pointer" }}>
-
                     {result.name != search ? (
                       <div
                         className={styles["token-infos-search"]}
@@ -132,11 +128,7 @@ function SearchDiv(props: any) {
                           router.push(`/asset/${getUrlFromName(result.name)}`);
                         }}
                       >
-                        <Image
-                          h="30px"
-                          src={result.logo}
-                          className={styles["token-logos"]}
-                        />
+                        <Image h="30px" src={result.logo} className={styles["token-logos"]} />
                         <span
                           className={`${styles["token-names"]} ${styles["font-char"]}`}
                           style={{ fontSize: "13px" }}
@@ -158,44 +150,35 @@ function SearchDiv(props: any) {
                     ) : (
                       <div>Text</div>
                     )}
-
                   </Flex>
                 ))}
                 <Flex direction="column" ml="20px" mt="20px" mb="30px">
-                  <Text fontSize="13px" mb="10px">You don't find your asset ?</Text>
+                  <Text fontSize="13px" mb="10px">
+                    You don't find your asset ?
+                  </Text>
                   <Link href="/list" target="_blank" _hover={{ textDecoration: "none" }}>
-                    <Flex
-                      bg="blue"
-                      align="center"
-                      justify="center"
-                      borderRadius="10px"
-                      padding="5px 10px"
-                      w="120px"
-                    >
-                      <Text color="white" fontSize="12px">List an asset</Text>
+                    <Flex bg="blue" align="center" justify="center" borderRadius="10px" padding="5px 10px" w="120px">
+                      <Text color="white" fontSize="12px">
+                        List an asset
+                      </Text>
                     </Flex>
                   </Link>
                 </Flex>
               </>
-
             ) : (
               <Flex direction="column" ml="20px" mt="20px">
-                <Text fontSize="13px" mb="10px">You don't find your asset ?</Text>
+                <Text fontSize="13px" mb="10px">
+                  You don't find your asset ?
+                </Text>
                 <Link href="/list" target="_blank" _hover={{ textDecoration: "none" }}>
-                  <Flex
-                    bg="blue"
-                    align="center"
-                    justify="center"
-                    borderRadius="10px"
-                    padding="5px 10px"
-                    w="120px"
-                  >
-                    <Text color="white" fontSize="12px">List an asset</Text>
+                  <Flex bg="blue" align="center" justify="center" borderRadius="10px" padding="5px 10px" w="120px">
+                    <Text color="white" fontSize="12px">
+                      List an asset
+                    </Text>
                   </Flex>
                 </Link>
               </Flex>
             )}
-
           </Flex>
         </Box>
       </div>

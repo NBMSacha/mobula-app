@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Box, Button, Flex, Text, useColorModeValue, useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useColorModeValue, useMediaQuery } from "@chakra-ui/react";
 import { Chart } from "chart.js";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
@@ -36,9 +34,11 @@ const Token = ({ baseAssetBuffer }) => {
   types.forEach((type) => {
     const multiplier = type == "rank" ? -1000000000 : 1000000000;
     unformattedInitialBuffer[type] = {
-      "1D": baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+      "1D": baseAsset?.[`${type}_history`][type]
+        .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
         .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-      "7D": baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+      "7D": baseAsset?.[`${type}_history`][type]
+        .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
         .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
     };
 
@@ -52,24 +52,21 @@ const Token = ({ baseAssetBuffer }) => {
   const [unformattedBuffer, setUnformattedBuffer]: [any, Function] = useState(unformattedInitialBuffer);
   const { asset } = router.query;
 
-  function roundRect(
-    ctx,
-    x,
-    y,
-    width,
-    height,
-    radius: any = 5,
-    fill = false,
-    stroke = false,
-  ) {
+  function roundRect(ctx, x, y, width, height, radius: any = 5, fill = false, stroke = false) {
     if (typeof radius === "number") {
       radius = {
-        tl: radius, tr: radius, br: radius, bl: radius,
+        tl: radius,
+        tr: radius,
+        br: radius,
+        bl: radius,
       };
     } else {
       radius = {
         ...{
-          tl: 0, tr: 0, br: 0, bl: 0,
+          tl: 0,
+          tr: 0,
+          br: 0,
+          bl: 0,
         },
         ...radius,
       };
@@ -93,10 +90,10 @@ const Token = ({ baseAssetBuffer }) => {
     }
   }
 
-  const getExtremes = (data: [{ y: number, t: number }]) => {
-    let bufferATH: { y: number | string, t: number } = { y: "0", t: 0 };
+  const getExtremes = (data: [{ y: number; t: number }]) => {
+    let bufferATH: { y: number | string; t: number } = { y: "0", t: 0 };
     // Infitiy cannot be used with big ints
-    let bufferATL: { y: number | string, t: number } = { y: "1000000000000000000000000000000000000000000000", t: 0 };
+    let bufferATL: { y: number | string; t: number } = { y: "1000000000000000000000000000000000000000000000", t: 0 };
 
     const bigAbs = (x: BigInt) => (x < BigInt(0) ? -x : x);
 
@@ -144,16 +141,9 @@ const Token = ({ baseAssetBuffer }) => {
       const data = getRightData();
       const isMobile = window.innerWidth < 768;
       const isGiant = window.innerWidth > 1500;
-      const isWinner = data && data[0]
-        ? parseFloat(data[0].y) <= parseFloat(data[data.length - 1].y)
-        : true;
+      const isWinner = data && data[0] ? parseFloat(data[0].y) <= parseFloat(data[data.length - 1].y) : true;
 
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        0,
-        isMobile ? 200 : isGiant ? 300 : 200,
-      );
+      const gradient = ctx.createLinearGradient(0, 0, 0, isMobile ? 200 : isGiant ? 300 : 200);
       gradient.addColorStop(0, isWinner ? "#00ba7c" : "#D8494A");
       gradient.addColorStop(1, isWinner ? "#00ba7c00" : "#d8494a00");
 
@@ -165,30 +155,31 @@ const Token = ({ baseAssetBuffer }) => {
       const labels = selector == "rank" ? data.map((entry: { y: number }) => entry.y) : null;
       const formattedData = selector == "rank" ? data?.map((entry: { y: number }) => Math.round(entry.y)) : data;
       const maxTicksLimit = selector == "rank" ? Math.min(allTimeDiff, 5) : isMobile ? 6 : 8;
-      const xAxes = selector == "rank" ? [{ display: false }] : [
-        {
-          gridLines: { display: false },
-          type: "time",
-          distribution: "linear",
-          ticks: {
-            fontColor: themeContext.colorMode == "light" ? "black" : "white",
-            fontFamily: "Poppins",
-            maxRotation: 0,
-            minRotation: 0,
-            maxTicksLimit: isMobile ? (dayIf == "week" ? 2 : 4) : 8,
-          },
-          time: {
-            unit: dayIf,
-            tooltipFormat: "MM/DD/YYYY        HH:MM:SS",
-            displayFormats: {
-              hour: "HH:mm",
-              week: "MMM D",
-            },
-
-          },
-
-        },
-      ];
+      const xAxes =
+        selector == "rank"
+          ? [{ display: false }]
+          : [
+              {
+                gridLines: { display: false },
+                type: "time",
+                distribution: "linear",
+                ticks: {
+                  fontColor: themeContext.colorMode == "light" ? "black" : "white",
+                  fontFamily: "Poppins",
+                  maxRotation: 0,
+                  minRotation: 0,
+                  maxTicksLimit: isMobile ? (dayIf == "week" ? 2 : 4) : 8,
+                },
+                time: {
+                  unit: dayIf,
+                  tooltipFormat: "MM/DD/YYYY        HH:MM:SS",
+                  displayFormats: {
+                    hour: "HH:mm",
+                    week: "MMM D",
+                  },
+                },
+              },
+            ];
 
       (window as any).chartInstance = new Chart(ctx, {
         type: "line",
@@ -261,9 +252,8 @@ const Token = ({ baseAssetBuffer }) => {
 
       const stableSelector = selector != "rank";
       const {
-        chartArea: {
-          left, right, top, bottom,
-        }, scales,
+        chartArea: { left, right, top, bottom },
+        scales,
       } = (window as any).chartInstance;
 
       const crosshairLine = (mousemove: any) => {
@@ -283,8 +273,10 @@ const Token = ({ baseAssetBuffer }) => {
             const pixel1 = y.getPixelForValue(value1);
             const pixel2 = y.getPixelForValue(value2);
 
-            const finalPixel = pixel1 + ((pixel2 - pixel1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
-            const finalPrice = value1 + ((value2 - value1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+            const finalPixel =
+              pixel1 + ((pixel2 - pixel1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
+            const finalPrice =
+              value1 + ((value2 - value1) / Math.abs(timestamp2 - timestamp1)) * (tick._i - timestamp1);
             const h = Math.max(finalPixel - 100, top + 20);
 
             ctx.beginPath();
@@ -295,12 +287,12 @@ const Token = ({ baseAssetBuffer }) => {
             }
             ctx.closePath();
 
-            const shouldBeRight = mousemove.offsetX < (right - 100);
+            const shouldBeRight = mousemove.offsetX < right - 100;
 
             ctx.beginPath();
             ctx.strokeStyle = "white";
             ctx.fillStyle = isWinner ? "#00ba7c" : "#D8494A";
-            ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, 45 * Math.PI / 180, 0, 2 * Math.PI);
+            ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, (45 * Math.PI) / 180, 0, 2 * Math.PI);
             ctx.fill();
             ctx.stroke();
             ctx.closePath();
@@ -318,7 +310,15 @@ const Token = ({ baseAssetBuffer }) => {
             ctx.beginPath();
             ctx.strokeStyle = "white";
             ctx.fillStyle = isWinner ? "#00ba7c" : "#D8494A";
-            ctx.ellipse(mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth), h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI);
+            ctx.ellipse(
+              mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth),
+              h,
+              4,
+              4,
+              (45 * Math.PI) / 180,
+              0,
+              2 * Math.PI
+            );
             ctx.fill();
             ctx.closePath();
 
@@ -345,7 +345,7 @@ const Token = ({ baseAssetBuffer }) => {
 
       const handleTouchMove = (e) => {
         if (selector != "rank") {
-          const evt = (typeof e.originalEvent === "undefined") ? e : e.originalEvent;
+          const evt = typeof e.originalEvent === "undefined" ? e : e.originalEvent;
           const touch = evt?.touches[0] || evt?.changedTouches[0];
           crosshairLine({ offsetX: Math.floor(touch.pageX - left), offsetY: Math.floor(touch.pageY - top) });
         } else if (allTimeDiff == 0 && selector == "rank") {
@@ -365,27 +365,39 @@ const Token = ({ baseAssetBuffer }) => {
   const fetchBeforeToken = async () => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
     if (baseAsset) {
       if (baseAsset.rank && baseAsset.rank != 1) {
-        supabase.from("assets").select("name,id,rank,volume,liquidity,contracts").or(`rank.eq.${baseAsset.rank - 1},rank.eq.${baseAsset.rank + 1}`).then((r) => {
-          if (r.data) {
-            console.log("YOOOOO", r.data);
-            r.data = r.data.filter((asset) => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0)).sort((a, b) => a.rank - b.rank);
-            setBeforeToken(r.data[0]);
-            setAfterToken(r.data[r.data.length - 1]);
-          }
-        });
+        supabase
+          .from("assets")
+          .select("name,id,rank,volume,liquidity,contracts")
+          .or(`rank.eq.${baseAsset.rank - 1},rank.eq.${baseAsset.rank + 1}`)
+          .then((r) => {
+            if (r.data) {
+              console.log("YOOOOO", r.data);
+              r.data = r.data
+                .filter((asset) => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0))
+                .sort((a, b) => a.rank - b.rank);
+              setBeforeToken(r.data[0]);
+              setAfterToken(r.data[r.data.length - 1]);
+            }
+          });
       } else if (baseAsset.rank) {
         setBeforeToken({ name: "Back to Top 100", id: "/", rank: "0" });
-        supabase.from("assets").select("name,id,rank,volume,liquidity,contracts").match({ rank: baseAsset.rank + 1 }).then((r) => {
-          if (r.data) {
-            r.data = r.data.filter((asset) => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0));
-            setAfterToken(r.data[0]);
-          }
-        });
+        supabase
+          .from("assets")
+          .select("name,id,rank,volume,liquidity,contracts")
+          .match({ rank: baseAsset.rank + 1 })
+          .then((r) => {
+            if (r.data) {
+              r.data = r.data.filter(
+                (asset) => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0)
+              );
+              setAfterToken(r.data[0]);
+            }
+          });
       }
     } else {
       router.push("/");
@@ -395,7 +407,7 @@ const Token = ({ baseAssetBuffer }) => {
   const fetchHistory = async () => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
     const { data } = await supabase
@@ -415,23 +427,53 @@ const Token = ({ baseAssetBuffer }) => {
         const multiplier = type == "rank" ? -1000000000 : 1000000000;
 
         newUnformattedBuffer[type] = {
-          "1D": baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+          "1D": baseAsset?.[`${type}_history`][type]
+            .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-          "7D": baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+          "7D": baseAsset?.[`${type}_history`][type]
+            .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-          "30D": data[0][`${type}_history`].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[`${type}_history`][type]
-              .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-              .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-          "3M": data[0][`${type}_history`].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-              .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-          "1Y": data[0][`${type}_history`].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-              .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-          ALL: data[0][`${type}_history`].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[`${type}_history`][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-              .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
+          "30D": data[0][`${type}_history`]
+            .filter(
+              (entry: [number, number]) =>
+                entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+            )
+            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            .concat(
+              baseAsset?.[`${type}_history`][type]
+                .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            ),
+          "3M": data[0][`${type}_history`]
+            .filter(
+              (entry: [number, number]) =>
+                entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+            )
+            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            .concat(
+              baseAsset?.[`${type}_history`][type]
+                .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            ),
+          "1Y": data[0][`${type}_history`]
+            .filter(
+              (entry: [number, number]) =>
+                entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+            )
+            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            .concat(
+              baseAsset?.[`${type}_history`][type]
+                .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            ),
+          ALL: data[0][`${type}_history`]
+            .filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+            .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            .concat(
+              baseAsset?.[`${type}_history`][type]
+                .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
+            ),
         };
       });
 
@@ -457,13 +499,10 @@ const Token = ({ baseAssetBuffer }) => {
   const fetchAssetData = async () => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
-    const { data } = await supabase
-      .from("assets")
-      .select("*")
-      .match({ id: baseAsset.id });
+    const { data } = await supabase.from("assets").select("*").match({ id: baseAsset.id });
 
     setBaseAsset(data[0]);
   };
@@ -476,13 +515,10 @@ const Token = ({ baseAssetBuffer }) => {
 
     try {
       (window as any).chartInstance.destroy();
-    } catch (e) {
-    }
+    } catch (e) {}
   }, [asset]);
 
-  useEffect(() => {
-
-  }, [baseAsset]);
+  useEffect(() => {}, [baseAsset]);
 
   useEffect(() => {
     generateChart();
@@ -510,43 +546,82 @@ const Token = ({ baseAssetBuffer }) => {
 
     switch (timeFormat) {
       case "1D":
-        return baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+        return baseAsset?.[`${selector}_history`][selector]
+          .filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
           .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }));
       case "7D":
-        return baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+        return baseAsset?.[`${selector}_history`][selector]
+          .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }));
       case "30D":
-        return historyData?.[`${selector}_history`].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-          .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })).concat(baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-            .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })));
+        return historyData?.[`${selector}_history`]
+          .filter(
+            (entry: [number, number]) =>
+              entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+          )
+          .map((entry: [number, number]) => ({
+            t: entry[0],
+            y: entry[1] * multiplier,
+          }))
+          .concat(
+            baseAsset?.[`${selector}_history`][selector]
+              .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+              .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }))
+          );
       case "3M":
-        return historyData?.[`${selector}_history`].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-          .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })).concat(baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-            .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })));
+        return historyData?.[`${selector}_history`]
+          .filter(
+            (entry: [number, number]) =>
+              entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+          )
+          .map((entry: [number, number]) => ({
+            t: entry[0],
+            y: entry[1] * multiplier,
+          }))
+          .concat(
+            baseAsset?.[`${selector}_history`][selector]
+              .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+              .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }))
+          );
       case "1Y":
-        return historyData?.[`${selector}_history`].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-          .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })).concat(baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-            .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })));
+        return historyData?.[`${selector}_history`]
+          .filter(
+            (entry: [number, number]) =>
+              entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000
+          )
+          .map((entry: [number, number]) => ({
+            t: entry[0],
+            y: entry[1] * multiplier,
+          }))
+          .concat(
+            baseAsset?.[`${selector}_history`][selector]
+              .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+              .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }))
+          );
       case "ALL":
-        return historyData?.[`${selector}_history`].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-          .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })).concat(baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
-            .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier })));
+        return historyData?.[`${selector}_history`]
+          .filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+          .map((entry: [number, number]) => ({
+            t: entry[0],
+            y: entry[1] * multiplier,
+          }))
+          .concat(
+            baseAsset?.[`${selector}_history`][selector]
+              .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+              .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }))
+          );
       default:
-        return baseAsset?.[`${selector}_history`][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+        return baseAsset?.[`${selector}_history`][selector]
+          .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
           .map((entry: [number, number]) => ({ t: entry[0], y: entry[1] * multiplier }));
     }
   };
 
   const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
   return (
-
     <Flex justify="center" w="90%" m="auto" className={styles.main} mb="50px" maxWidth="1450px">
       {/* Left */}
-      <Flex
-        direction="column"
-        w={["100%", "100%", "100%", "65%"]}
-        minWidth={["350px", "350px", "350px", "780px"]}
-      >
+      <Flex direction="column" w={["100%", "100%", "100%", "65%"]} minWidth={["350px", "350px", "350px", "780px"]}>
         {/* Token Information Top */}
         <TokenInfo
           price24hLow={price24hLow}
@@ -673,15 +748,12 @@ const Token = ({ baseAssetBuffer }) => {
             <Swap tokenOutBuffer={baseAsset} />
           </Flex>
         )}
-
       </Flex>
       {/* Right */}
       <Flex display={["none", "none", "none", "flex"]} direction="column" w="30%" mt="50px">
         {/* SWAP */}
         <Box ml={["0px", "0px", "0px", "10px"]} w="100%">
-
           <Swap tokenOutBuffer={baseAsset} />
-
         </Box>
         {/* Contract  */}
         <Box
@@ -695,9 +767,7 @@ const Token = ({ baseAssetBuffer }) => {
           mt="10px"
         >
           <Text fontSize="20px" ml="20px" mb="20px">
-            {baseAsset.name}
-            {" "}
-            contract(s)
+            {baseAsset.name} contract(s)
           </Text>
           {baseAsset.contracts[0] !== undefined ? (
             <Flex
@@ -717,16 +787,12 @@ const Token = ({ baseAssetBuffer }) => {
           ) : (
             <Flex w="100%" mt="-30px" h="100%" align="center" justify="center" p="30px">
               <Text>
-                This asset doesn't have any wrapped on EVM-compatible chains, meaning we can't provide
-                trustless data.
+                This asset doesn't have any wrapped on EVM-compatible chains, meaning we can't provide trustless data.
               </Text>
             </Flex>
           )}
-
         </Box>
-
       </Flex>
-
     </Flex>
   );
 };

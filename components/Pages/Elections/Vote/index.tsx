@@ -1,10 +1,6 @@
-import {
-  Box, Button, Flex, Heading, Image, Input, Text, Textarea, useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Input, Text, Textarea, useColorModeValue } from "@chakra-ui/react";
 
-const Vote = ({
-  promote, firstInput, secondInput, firstValue, setFirstInput,
-}) => {
+const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) => {
   const input = useColorModeValue("white", "dark_input_secondary");
   const shadow = useColorModeValue("shadow", "none");
   const submitBackground = useColorModeValue("#F5F5F5", "#313550");
@@ -18,9 +14,7 @@ const Vote = ({
     <Box mb="15px">
       <Text variant="primary">{partTitle}</Text>
       <Text fontWeight="500" color={input > 0 ? "green" : "red"}>
-        {input}
-        {" "}
-        seats
+        {input} seats
       </Text>
     </Box>
   );
@@ -29,7 +23,9 @@ const Vote = ({
     <Flex direction="column" mb="50px">
       <Flex align="center" mb="30px">
         <Box mr="10px" h="30px" w="8px" rounded="xl" bg={promote ? "green" : "red"} />
-        <Heading mr="10px" color={promote ? "green" : "red"} fontWeight="600">{title}</Heading>
+        <Heading mr="10px" color={promote ? "green" : "red"} fontWeight="600">
+          {title}
+        </Heading>
         <Image src={`/thumbs${promote ? "Up" : "Down"}.png`} h="25px" />
       </Flex>
 
@@ -66,7 +62,9 @@ const Vote = ({
         mb="15px"
         placeholder={`Explain here why you want to ${action} this member.`}
       />
-      <Button h="40px" w="40%" variant="secondary">Submit</Button>
+      <Button h="40px" w="40%" variant="secondary">
+        Submit
+      </Button>
     </Flex>
   );
 };

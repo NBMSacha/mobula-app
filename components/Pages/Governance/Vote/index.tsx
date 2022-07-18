@@ -7,8 +7,7 @@ function Vote({ proposal }) {
   return (
     <Flex direction="column">
       <Text mb="20px" mt={["30px", "30px", "30px", ""]} fontSize={["13px", "13px", "15px", "18px"]}>
-        Validate or
-        refuse
+        Validate or refuse
       </Text>
       {/* BOX */}
       <Flex mb="15px">
@@ -29,15 +28,16 @@ function Vote({ proposal }) {
             bg={["var(--bg-governance-box)", "var(--bg-governance-box)", "none", "none"]}
             px={["20px"]}
             h="100%"
-            boxShadow={["1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "none"]}
+            boxShadow={[
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "none",
+            ]}
           >
             <Text>The listing fee should be reduced to 10$</Text>
           </Flex>
-          <Flex
-            w={["25%", "25%", "20%", "20%"]}
-            mx={["10px", "10px", "20px", "20px"]}
-            justify="space-between"
-          >
+          <Flex w={["25%", "25%", "20%", "20%"]} mx={["10px", "10px", "20px", "20px"]} justify="space-between">
             <Button
               variant="outline"
               color="green"
@@ -85,15 +85,16 @@ function Vote({ proposal }) {
             bg={["var(--bg-governance-box)", "var(--bg-governance-box)", "none", "none"]}
             px={["20px"]}
             h="100%"
-            boxShadow={["1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "none"]}
+            boxShadow={[
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "none",
+            ]}
           >
             <Text>The listing fee should be reduced to 10$</Text>
           </Flex>
-          <Flex
-            w={["25%", "25%", "20%", "20%"]}
-            mx={["10px", "10px", "20px", "20px"]}
-            justify="space-between"
-          >
+          <Flex w={["25%", "25%", "20%", "20%"]} mx={["10px", "10px", "20px", "20px"]} justify="space-between">
             <Button
               color="green"
               colorScheme="green"
@@ -139,15 +140,16 @@ function Vote({ proposal }) {
             bg={["var(--bg-governance-box)", "var(--bg-governance-box)", "none", "none"]}
             px={["20px"]}
             h="100%"
-            boxShadow={["1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "none"]}
+            boxShadow={[
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "none",
+            ]}
           >
             <Text>The listing fee should be reduced to 10$</Text>
           </Flex>
-          <Flex
-            w={["25%", "25%", "20%", "20%"]}
-            mx={["10px", "10px", "20px", "20px"]}
-            justify="space-between"
-          >
+          <Flex w={["25%", "25%", "20%", "20%"]} mx={["10px", "10px", "20px", "20px"]} justify="space-between">
             <Button
               minWidth="40px"
               color="green"
@@ -191,17 +193,18 @@ function Vote({ proposal }) {
             justify="start"
             bg={["var(--bg-governance-box)", "var(--bg-governance-box)", "none", "none"]}
             px={["20px"]}
-            boxShadow={["1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "1px 2px 12px 3px var(--shadow)", "none"]}
+            boxShadow={[
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "1px 2px 12px 3px var(--shadow)",
+              "none",
+            ]}
             h="100%"
           >
             <Text>The listing fee should be reduced to 10$</Text>
           </Flex>
 
-          <Flex
-            w={["25%", "25%", "20%", "20%"]}
-            mx={["10px", "10px", "20px", "20px"]}
-            justify="space-between"
-          >
+          <Flex w={["25%", "25%", "20%", "20%"]} mx={["10px", "10px", "20px", "20px"]} justify="space-between">
             <Button
               minWidth="40px"
               color="green"
@@ -228,7 +231,6 @@ function Vote({ proposal }) {
           </Flex>
         </Flex>
       </Flex>
-
     </Flex>
   );
 }

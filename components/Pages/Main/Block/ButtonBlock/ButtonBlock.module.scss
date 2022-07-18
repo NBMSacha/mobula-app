@@ -10,7 +10,7 @@
 
 }
 
-.blockchain-btn-three>span {
+.blockchain-btn-three > span {
 
   display: flex;
   align-items: center;
@@ -160,7 +160,6 @@
 }
 
 
-
 .select-button:hover {
   background: var(--active-btn);
   color: black;
@@ -258,7 +257,6 @@
   }
 
 
-
   .container-news {
     padding: 0px 10px;
     width: 90% !important;
@@ -295,7 +293,7 @@
 
   }
 
-  .bsc-btn>img {
+  .bsc-btn > img {
     height: 20px;
     width: 20px;
   }
@@ -493,9 +491,8 @@
     width: 85px;
   }
 
-  .eth-btn-block {}
-
-
+  .eth-btn-block {
+  }
 
 
   .fullOnChain {
@@ -551,7 +548,7 @@
 //   cursor: pointer;
 // }
 
-@media screen and (max-width:1360px) {
+@media screen and (max-width: 1360px) {
 
   .blockchain-container {
     width: 95% !important;

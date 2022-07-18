@@ -1,14 +1,15 @@
-import {ColorModeScript} from '@chakra-ui/react'
-import NextDocument, {Head, Html, Main, NextScript} from 'next/document'
-import {themeUltime} from '../theme'
+import { ColorModeScript } from "@chakra-ui/react";
+import NextDocument, { Head, Html, Main, NextScript } from "next/document";
+import { themeUltime } from "../theme";
 
 export default class Document extends NextDocument {
-    render() {
-        return (
-            <Html>
-                <Head/>
-                <script dangerouslySetInnerHTML={{
-                    __html: `
+  render() {
+    return (
+      <Html>
+        <Head />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
         function getInitialColorMode() {
           const persistedColorPreference = window.localStorage.getItem('color-mode');
           const hasPersistedPreference = typeof persistedColorPreference === 'string';
@@ -74,14 +75,15 @@ export default class Document extends NextDocument {
         root?.style.setProperty("--green", colorMode == 'dark' ? "#16C784" : "#16C784");
         root?.style.setProperty("--blue", colorMode == 'dark' ? "#5C7DF9" : "#5C7DF9");
         root?.style.setProperty("--none", colorMode == 'dark' ? "none" : "none");
-        `
-                }}></script>
-                <body>
-                <ColorModeScript initialColorMode={themeUltime.config.initialColorMode}/>
-                <Main/>
-                <NextScript/>
-                </body>
-            </Html>
-        )
-    }
+        `,
+          }}
+        />
+        <body>
+          <ColorModeScript initialColorMode={themeUltime.config.initialColorMode} />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }

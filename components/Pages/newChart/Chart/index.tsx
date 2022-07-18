@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  Box, Button, Flex, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
-const ChartBox = ({
-  unformattedBuffer, historyData, baseAsset, selector, setSelector, setTimeFormat, timeFormat,
-}) => (
+const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSelector, setTimeFormat, timeFormat }) => (
   <Flex
     direction="column"
     h="100%"
@@ -21,9 +17,7 @@ const ChartBox = ({
     <Flex justify="space-between">
       <Box display={["none", "none", "none", "block"]} mb="40px">
         <Text fontSize={["", "", "", "17px"]} mb={["", "", "", "30px"]}>
-          {baseAsset.name}
-          {" "}
-          to USD Chart
+          {baseAsset.name} to USD Chart
         </Text>
         <Flex fontWeight="400px" fontSize={["", "", "", "13px"]}>
           <Button
@@ -85,7 +79,7 @@ const ChartBox = ({
         </Flex>
       </Box>
       <Flex direction="column" align="end" ml={["0px", "0px", "0px", "auto"]}>
-        {(baseAsset.tracked) ? (
+        {baseAsset.tracked ? (
           <Flex p="4px 0px" borderRadius="6px">
             <Button
               mx={["8px", "8px", "12px", "12px"]}
@@ -109,7 +103,7 @@ const ChartBox = ({
             >
               7D
             </Button>
-            {(!unformattedBuffer.price["30D"] || unformattedBuffer.price["30D"]?.length > 0) ? (
+            {!unformattedBuffer.price["30D"] || unformattedBuffer.price["30D"]?.length > 0 ? (
               <>
                 <Button
                   mx={["8px", "8px", "12px", "12px"]}
@@ -156,19 +150,23 @@ const ChartBox = ({
                   ALL
                 </Button>
               </>
-            ) : <></>}
-
+            ) : (
+              <></>
+            )}
           </Flex>
-        ) : <></>}
-
+        ) : (
+          <></>
+        )}
       </Flex>
     </Flex>
     <Flex mt="10px" mb="10px" position="relative">
-      {(!baseAsset.tracked) ? (
+      {!baseAsset.tracked ? (
         <Box p="20px" mt={["0px", "0px", "50px"]} textAlign="center">
           Market data untracked. Not enough liquidity or vol. to get trustfull data.
         </Box>
-      ) : <canvas id="chart" style={{ maxWidth: "1280px" }} />}
+      ) : (
+        <canvas id="chart" style={{ maxWidth: "1280px" }} />
+      )}
     </Flex>
     {/* <Link href='https://discord.gg/2a8hqNzkzN' mb="50px" fontSize="11px" _hover={{ textDecoration: "none" }}>
                 <Text align="end" color="red" >A problem ? Report it to the DAO </Text>

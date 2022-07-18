@@ -30,20 +30,12 @@ function Elections() {
           "function membersToDemoteFromRankI() external view returns(uint256)",
           "function membersToDemoteFromRankII() external view returns(uint256)",
         ],
-        provider,
+        provider
       );
-      const membersToPromoteToRankI = (
-        await protocolContract.membersToPromoteToRankI()
-      ).toNumber();
-      const membersToPromoteToRankII = (
-        await protocolContract.membersToPromoteToRankII()
-      ).toNumber();
-      const membersToDemoteFromRankI = (
-        await protocolContract.membersToDemoteFromRankI()
-      ).toNumber();
-      const membersToDemoteFromRankII = (
-        await protocolContract.membersToDemoteFromRankII()
-      ).toNumber();
+      const membersToPromoteToRankI = (await protocolContract.membersToPromoteToRankI()).toNumber();
+      const membersToPromoteToRankII = (await protocolContract.membersToPromoteToRankII()).toNumber();
+      const membersToDemoteFromRankI = (await protocolContract.membersToDemoteFromRankI()).toNumber();
+      const membersToDemoteFromRankII = (await protocolContract.membersToDemoteFromRankII()).toNumber();
       setMembersToPromoteOne(membersToPromoteToRankI);
       setMembersToPromoteTwo(membersToPromoteToRankII);
       setMembersToDemoteOne(membersToDemoteFromRankI);
@@ -68,11 +60,7 @@ function Elections() {
         maxWidth="1400px"
       >
         <Flex direction="column">
-          <Heading
-            mb="15px"
-            fontSize={["18px", "18px", "18px", "24px"]}
-            fontFamily="Inter"
-          >
+          <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">
             Elections
           </Heading>
           <Text
@@ -80,13 +68,13 @@ function Elections() {
             whiteSpace="normal"
             fontSize={["12px", "12px", "14px", "14px"]}
           >
-            See here the tokens who got validated by the
-            {" "}
-            <span style={{
-              color: "var(--chakra-colors-blue)",
-              marginLeft: "5px",
-              whiteSpace: "nowrap",
-            }}
+            See here the tokens who got validated by the{" "}
+            <span
+              style={{
+                color: "var(--chakra-colors-blue)",
+                marginLeft: "5px",
+                whiteSpace: "nowrap",
+              }}
             >
               Mobula DAO
             </span>
@@ -95,7 +83,6 @@ function Elections() {
         <Text display={["none", "none", "none", "flex"]}>
           See here the lists token who got validated by the Mobula DAO
         </Text>
-
       </Flex>
       <Flex
         direction={["column-reverse", "column-reverse", "column-reverse", "row"]}
@@ -128,7 +115,6 @@ function Elections() {
           <Right />
         </Flex>
       </Flex>
-
     </Flex>
   );
 }

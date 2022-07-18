@@ -1,25 +1,23 @@
 import React from "react";
 import { useRouter } from "next/router";
-import {
-  Box, Flex, Image, Link,
-} from "@chakra-ui/react";
+import { Box, Flex, Image, Link } from "@chakra-ui/react";
 import { getUrlFromName } from "../../../../../helpers/formaters";
 import styles from "./GainerBlock.module.scss";
 
 function GainerBlock(tokens: {
-    title: string
-    logo1: string
-    name1: string
-    id1: number
-    change1: number
-    logo2: string
-    name2: string
-    id2: number
-    change2: number
-    logo3: string
-    name3: string
-    id3: number
-    change3: number
+  title: string;
+  logo1: string;
+  name1: string;
+  id1: number;
+  change1: number;
+  logo2: string;
+  name2: string;
+  id2: number;
+  change2: number;
+  logo3: string;
+  name3: string;
+  id3: number;
+  change3: number;
 }) {
   console.log(tokens.title);
   const router = useRouter();
@@ -31,13 +29,9 @@ function GainerBlock(tokens: {
           _focus={{ boxShadow: "none" }}
           cursor="pointer"
           color="grey"
-          href={
-                    tokens.title == "Top Gainers" ? "/movers" : tokens.title == "Trendings" ? "trends" : "new"
-                }
+          href={tokens.title == "Top Gainers" ? "/movers" : tokens.title == "Trendings" ? "trends" : "new"}
         >
-          More
-          {" "}
-          {">"}
+          More {">"}
         </Link>
       </div>
 
@@ -55,70 +49,55 @@ function GainerBlock(tokens: {
             onClick={() => router.push(`/asset/${getUrlFromName(tokens.name1)}`)}
           >
             <div className={styles["token-info-pack"]}>
-
               <Image h="20px" w="20px" src={tokens.logo1} className={styles["logo-inBox"]} />
               <span className={styles["crypto-assests"]}>{tokens.name1}</span>
             </div>
-            {(tokens.change1 >= 0 ? (
+            {tokens.change1 >= 0 ? (
               <span className={styles.green}>
                 <div className={styles["triangle-green"]} />
-                {tokens.change1}
-                %
+                {tokens.change1}%
               </span>
             ) : (
               <span className={styles.red}>
                 <div className={styles["triangle-red"]} />
-                {tokens.change1}
-                %
+                {tokens.change1}%
               </span>
-            ))}
+            )}
           </Flex>
-          <div
-            className={styles["line-gainer"]}
-            onClick={() => router.push(`/asset/${getUrlFromName(tokens.name2)}`)}
-          >
+          <div className={styles["line-gainer"]} onClick={() => router.push(`/asset/${getUrlFromName(tokens.name2)}`)}>
             <div className={styles["token-info-pack"]}>
-
               <Image h="30px" src={tokens.logo2} className={styles["logo-inBox"]} />
               <span className={styles["crypto-assests"]}>{tokens.name2}</span>
             </div>
-            {(tokens.change2 >= 0 ? (
+            {tokens.change2 >= 0 ? (
               <span className={styles.green}>
                 <div className={styles["triangle-green"]} />
-                {tokens.change2}
-                %
+                {tokens.change2}%
               </span>
             ) : (
               <span className={styles.red}>
                 <div className={styles["triangle-red"]} />
-                {tokens.change2}
-                %
+                {tokens.change2}%
               </span>
-            ))}
+            )}
           </div>
-          <div
-            className={styles["line-gainer"]}
-            onClick={() => router.push(`/asset/${getUrlFromName(tokens.name3)}`)}
-          >
+          <div className={styles["line-gainer"]} onClick={() => router.push(`/asset/${getUrlFromName(tokens.name3)}`)}>
             <div className={styles["token-info-pack"]}>
-
               <Image h="30px" src={tokens.logo3} className={styles["logo-inBox"]} />
               <span className={styles["crypto-assests"]}>{tokens.name3}</span>
             </div>
 
-            {(tokens.change3 >= 0 ? (
+            {tokens.change3 >= 0 ? (
               <span className={styles.green}>
                 <div className={styles["triangle-green"]} />
-                {tokens.change3}
-                %
+                {tokens.change3}%
               </span>
             ) : (
               <span className={styles.red}>
                 <div className={styles["triangle-red"]} />
-                {tokens.change3}
-                %
+                {tokens.change3}%
               </span>
-            ))}
+            )}
           </div>
         </div>
       </Flex>

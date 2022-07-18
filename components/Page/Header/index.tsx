@@ -20,9 +20,7 @@ function Header(props: any) {
     total_dex: 0,
     "7d_listings": 0,
   });
-  const {
-    account, active, activate, deactivate,
-  } = useWeb3React();
+  const { account, active, activate, deactivate } = useWeb3React();
   const [hasMetamask, setHasMetamask] = useState(true);
   const injected = new InjectedConnector({});
   const router = useRouter();
@@ -68,9 +66,7 @@ function Header(props: any) {
             console.log(addError);
           }
           if (switchError.code === 4902) {
-            console.log(
-              "This network is not available in your metamask, please add it",
-            );
+            console.log("This network is not available in your metamask, please add it");
           }
           console.log("Failed to switch to the network", switchError);
         }
@@ -93,23 +89,23 @@ function Header(props: any) {
   useEffect(() => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
     try {
-      const provider = new ethers.providers.Web3Provider(
-        (window as any).ethereum,
-      );
+      const provider = new ethers.providers.Web3Provider((window as any).ethereum);
 
       if (provider) {
-        provider.listAccounts().catch().then((accounts) => {
-          if (accounts.length > 0) {
-            handleConnect();
-          }
-        });
+        provider
+          .listAccounts()
+          .catch()
+          .then((accounts) => {
+            if (accounts.length > 0) {
+              handleConnect();
+            }
+          });
       }
-    } catch (e) {
-    }
+    } catch (e) {}
 
     supabase
       .from("metrics")
@@ -140,7 +136,13 @@ function Header(props: any) {
       <Box
         bg="var(--background)"
         zIndex="15"
-        position={[isMenuMobile ? "fixed" : "static", isMenuMobile ? "fixed" : "static", isMenuMobile ? "fixed" : "static", , scrollingUp ? "fixed" : "static"]}
+        position={[
+          isMenuMobile ? "fixed" : "static",
+          isMenuMobile ? "fixed" : "static",
+          isMenuMobile ? "fixed" : "static",
+          ,
+          scrollingUp ? "fixed" : "static",
+        ]}
         w={["100%", "100%", "100%", "100vw"]}
         className={`${scrollingUp ? "stickyHeader" : ""}`}
       >

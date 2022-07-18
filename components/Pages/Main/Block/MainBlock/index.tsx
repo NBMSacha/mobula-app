@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
-import {
-  Box, Flex, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import styles from "./MainBlock.module.scss";
 
 function MainBlock(props: any) {
@@ -38,11 +36,7 @@ function MainBlock(props: any) {
           mb={["15px", "15px", "auto", "auto"]}
           bg={["none", "none", "none", "none"]}
         >
-          <Text
-            fontFamily="Poppins"
-            fontSize={["18px", "18px", "30px", "30px"]}
-            className={styles["title-news"]}
-          >
+          <Text fontFamily="Poppins" fontSize={["18px", "18px", "30px", "30px"]} className={styles["title-news"]}>
             Crypto-assets by Mobula
           </Text>
           <Text
@@ -53,15 +47,9 @@ function MainBlock(props: any) {
             mt={["10px", "10px", "20px", "20px"]}
             className={styles["subtitle-news"]}
           >
-            Mobula is a decentralized and seamless
-            {" "}
-            <span style={{ color: "#5C7DF9", fontWeight: "700" }}>data aggregator</span>
-            {" "}
-            redistributing
-            profit to users and processing data on-chain.
-
-            {" "}
-
+            Mobula is a decentralized and seamless{" "}
+            <span style={{ color: "#5C7DF9", fontWeight: "700" }}>data aggregator</span> redistributing profit to users
+            and processing data on-chain.{" "}
           </Text>
         </Flex>
         <Box
@@ -107,9 +95,10 @@ function MainBlock(props: any) {
                 </a>
               </div>
               <div style={{ marginRight: "10px" }}>
-                <a onClick={() => {
-                  props.setDisplay("My Assets");
-                }}
+                <a
+                  onClick={() => {
+                    props.setDisplay("My Assets");
+                  }}
                 >
                   <Flex
                     transition="background 200ms ease-in-out"
@@ -175,7 +164,6 @@ function MainBlock(props: any) {
               </div>
             </Flex>
           </Flex>
-
         </Box>
       </Flex>
     );
@@ -188,26 +176,14 @@ function MainBlock(props: any) {
           <span>Mobula</span>
         </h2>
         <p className={styles["subtitle-news"]}>
-          The global crypto total value locked is
-          {" "}
-          <b>$105M</b>
-          {" "}
-          a
-          <a
-            className={styles["subtitle-news-link"]}
-            href="https://discord.gg/2a8hqNzkzN"
-          >
+          The global crypto total value locked is <b>$105M</b> a
+          <a className={styles["subtitle-news-link"]} href="https://discord.gg/2a8hqNzkzN">
             1.05%
-          </a>
-          {" "}
-          decrease over the last day.
-
-          {" "}
-
+          </a>{" "}
+          decrease over the last day.{" "}
         </p>
       </div>
       <div className={styles["quadBox-container"]}>
-
         <a href="https://docs.mobula.finance" className={styles.disabled}>
           <Box borderRadius="10px" w="27%" bg="">
             <div className={styles["logo-box"]}>

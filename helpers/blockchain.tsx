@@ -1,3 +1,1 @@
-export async function getBlockchainFromContract(contract: string) {
-
-}
+export async function getBlockchainFromContract(contract: string) {}

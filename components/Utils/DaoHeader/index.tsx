@@ -1,6 +1,4 @@
-import {
-  Box, Flex, Heading, Link, Spacer, Text, useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Link, Spacer, Text, useColorModeValue } from "@chakra-ui/react";
 import styles from "./DaoHeader.module.scss";
 
 const DaoHeader = ({ title, description, url }) => {
@@ -12,10 +10,10 @@ const DaoHeader = ({ title, description, url }) => {
           {title}
         </Heading>
         <Text fontSize={["0", "14px", "16px", "17px"]} mr="5rem">
-          {description}
-          {" "}
-          {" "}
-          <Link target="_blank" color="blue" href={url}>Learn more here.</Link>
+          {description}{" "}
+          <Link target="_blank" color="blue" href={url}>
+            Learn more here.
+          </Link>
         </Text>
       </Flex>
       <Box display={["none", "block"]} bg="var(--box_border)" className={styles.line} />

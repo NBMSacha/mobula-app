@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useAlert } from "react-alert";
-import {
-  Box, Button, Flex, Image, Link, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text, useMediaQuery } from "@chakra-ui/react";
 import { CheckCircle } from "react-feather";
 import { LinkIcon } from "@chakra-ui/icons";
 import { useWeb3React } from "@web3-react/core";
@@ -67,21 +65,29 @@ function Earn() {
   async function initValues() {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
-    supabase.from("earn").select("*").order("created_at", { ascending: false }).then((r) => {
-      if (r?.data) {
-        console.log(r.data);
-        setTasks(r.data);
-      }
-    });
+    supabase
+      .from("earn")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then((r) => {
+        if (r?.data) {
+          console.log(r.data);
+          setTasks(r.data);
+        }
+      });
 
-    supabase.from("users").select("*").match({ address: account }).then((r) => {
-      if (r?.data?.[0]) {
-        setUser(r.data[0]);
-      }
-    });
+    supabase
+      .from("users")
+      .select("*")
+      .match({ address: account })
+      .then((r) => {
+        if (r?.data?.[0]) {
+          setUser(r.data[0]);
+        }
+      });
   }
 
   useEffect(() => {
@@ -135,13 +141,8 @@ function Earn() {
           </Text>
           <Flex justify="space-between">
             <Button fontSize="12px" ml="20px" borderRadius="8px" color="none" h="25px" px="3">
-              Balance
-              :
-              {user.balance || 0}
-              {" "}
-              MOBL
+              Balance :{user.balance || 0} MOBL
             </Button>
-
           </Flex>
         </Flex>
 
@@ -168,12 +169,7 @@ function Earn() {
               <DayBox day={3} streaks={user.streaks} account={account} user={user} setUser={setUser} />
               <DayBox day={4} streaks={user.streaks} account={account} user={user} setUser={setUser} />
             </Flex>
-            <Flex
-              w="100%"
-              pb="5px"
-              justify="space-around"
-              borderBottom="1px solid var(--border-chart)"
-            >
+            <Flex w="100%" pb="5px" justify="space-around" borderBottom="1px solid var(--border-chart)">
               <DayBox day={5} streaks={user.streaks} account={account} user={user} setUser={setUser} />
               <DayBox day={6} streaks={user.streaks} account={account} user={user} setUser={setUser} />
               <DayBox day={7} streaks={user.streaks} account={account} user={user} setUser={setUser} />
@@ -191,11 +187,7 @@ function Earn() {
             p={["0px 10px", "0px 30px", "0px 30px", "0px 30px"]}
           >
             <Flex direction="column" mb={["", "", "", "60px"]}>
-              <Text
-                mb={["", "", "", "5px"]}
-                fontSize={["18", "18", "21", "21px"]}
-                fontWeight="bold"
-              >
+              <Text mb={["", "", "", "5px"]} fontSize={["18", "18", "21", "21px"]} fontWeight="bold">
                 Balance
               </Text>
               <Flex justify="space-between" align="center">
@@ -203,14 +195,8 @@ function Earn() {
                   <Text mr={["5px", "5px", "18px", "18px"]}>Mobula owes you : </Text>
                   <Flex align="center">
                     <Image src="icon.png" h="30px" />
-                    <Text
-                      w="100px"
-                      fontSize="15px"
-                      ml={["2px", "2px", "10px", "10px"]}
-                    >
-                      {user.balance || "0"}
-                      {" "}
-                      MOBL
+                    <Text w="100px" fontSize="15px" ml={["2px", "2px", "10px", "10px"]}>
+                      {user.balance || "0"} MOBL
                     </Text>
                   </Flex>
                 </Flex>
@@ -231,42 +217,21 @@ function Earn() {
             <Flex w="100%" justify="space-between">
               <Flex direction="column" w="50%">
                 <Text fontSize={["18", "18", "21", "21px"]} fontWeight="bold" mb={["", "", "", "0px"]}>
-                  Referral
-                  system
+                  Referral system
                 </Text>
                 <Text fontSize={["14", "14", "16", "16px"]}>
-                  1 Referral :
-                  <span
-                    style={{ fontWeight: "600" }}
-                  >
-                    25 MOBL
-                  </span>
+                  1 Referral :<span style={{ fontWeight: "600" }}>25 MOBL</span>
                 </Text>
                 <Text fontSize={["10", "10", "11", "12px"]} mt={["10px", "10px", "10px", "10px"]}>
-                  You
-                  have currently referred
-                  <span
-                    style={{ fontWeight: "600" }}
-                  >
-                    {user.referred ? user.referred.length : 0}
-                    {" "}
-                    people
-                  </span>
+                  You have currently referred
+                  <span style={{ fontWeight: "600" }}>{user.referred ? user.referred.length : 0} people</span>
                 </Text>
               </Flex>
               <Flex direction="column">
-                <Text
-                  fontSize={["13", "13", "13", "14px"]}
-                  fontWeight="600"
-                  mb={["10px", "10px", "10px", "10px"]}
-                >
+                <Text fontSize={["13", "13", "13", "14px"]} fontWeight="600" mb={["10px", "10px", "10px", "10px"]}>
                   Affiliation link
                 </Text>
-                <Link
-                  onClick={copy}
-                  fontSize={["10", "10", "14", "15"]}
-                  whiteSpace="nowrap"
-                >
+                <Link onClick={copy} fontSize={["10", "10", "14", "15"]} whiteSpace="nowrap">
                   https://mobula.fi/?ref=0x...
                 </Link>
                 <Button
@@ -275,8 +240,11 @@ function Earn() {
                   w="fit-content"
                   mt={["10px", "10px", "10px", "10px"]}
                 >
-                  {copied ? <CheckCircle width="17px" color="#32C784" style={{ marginRight: "5px" }} />
-                    : <LinkIcon mr="5px" />}
+                  {copied ? (
+                    <CheckCircle width="17px" color="#32C784" style={{ marginRight: "5px" }} />
+                  ) : (
+                    <LinkIcon mr="5px" />
+                  )}
                   <Text fontSize={["10px", "10px", "13px", "15px"]}> Click to Copy</Text>
                 </Button>
               </Flex>
@@ -294,16 +262,11 @@ function Earn() {
           >
             <Flex direction="column" w="50%" align="start">
               <Text fontSize="16px" color="green">
-                +
-                {25 * user.referred.length}
-                {" "}
-                MOBL
+                +{25 * user.referred.length} MOBL
               </Text>
               <Text fontSize="13px">
                 You referred
-                {user.referred.length}
-                {" "}
-                friends.
+                {user.referred.length} friends.
               </Text>
               <Button
                 _focus={{ boxShadow: "none" }}
@@ -322,31 +285,25 @@ function Earn() {
             </Flex>
             <Flex direction="column" w="50%" align="end" mt="3px">
               <Text fontSize="13px" mb="15px">
-                1 Referral :
-                <span>25 MOBL</span>
+                1 Referral :<span>25 MOBL</span>
               </Text>
               <Button _focus={{ boxShadow: "none" }} onClick={copy} fontSize="11px" mb="10px">
-                Click to
-                copy
-                {copied ? <CheckCircle style={{ marginLeft: "3px" }} width="12px" color="#32C784" />
-                  : <LinkIcon width="17px" />}
+                Click to copy
+                {copied ? (
+                  <CheckCircle style={{ marginLeft: "3px" }} width="12px" color="#32C784" />
+                ) : (
+                  <LinkIcon width="17px" />
+                )}
               </Button>
-              <Button _focus={{ boxShadow: "none" }} fontSize="11px">http://mobula.fi/?ref=0x....</Button>
+              <Button _focus={{ boxShadow: "none" }} fontSize="11px">
+                http://mobula.fi/?ref=0x....
+              </Button>
             </Flex>
           </Flex>
         </Flex>
         <Flex w="100%" justify="center" fontFamily="Inter">
-          <Flex
-            w={["95%", "95%", "95%", isLessThan11300px ? "95%" : "85%"]}
-            direction="column"
-            fontFamily="Inter"
-          >
-            <Text
-              fontWeight="bold"
-              fontSize={["15px", "15px", "20px", "20px"]}
-              ml={["15px", "15px", "", ""]}
-              mb="30px"
-            >
+          <Flex w={["95%", "95%", "95%", isLessThan11300px ? "95%" : "85%"]} direction="column" fontFamily="Inter">
+            <Text fontWeight="bold" fontSize={["15px", "15px", "20px", "20px"]} ml={["15px", "15px", "", ""]} mb="30px">
               Daily Missions
             </Text>
             <Flex direction={["column", "column", "column", "row"]}>
@@ -371,12 +328,9 @@ function Earn() {
                           >
                             <CheckCircle width="22px" />
                           </Box>
-                          <Text
-                            fontSize={["12px", "12px", "14px", "14px"]}
-                          >
+                          <Text fontSize={["12px", "12px", "14px", "14px"]}>
                             {task.task.split(task.data.name)[0]}
-                            <a href={`/asset/${getUrlFromName(task.data.name)}`}>{task.data.name}</a>
-                            {" "}
+                            <a href={`/asset/${getUrlFromName(task.data.name)}`}>{task.data.name}</a>{" "}
                             {task.task.split(task.data.name)[1]}
                             <span
                               style={{
@@ -427,7 +381,8 @@ function Earn() {
                           </Flex>
                         </Flex>
                       );
-                    } if (!index && !user.tasks_done.length) {
+                    }
+                    if (!index && !user.tasks_done.length) {
                       return (
                         <Flex align="center" mb="30px">
                           <Box
@@ -445,9 +400,7 @@ function Earn() {
                           </Box>
                           <Flex justify={["start", "start", "start", "space-between"]} w="100%">
                             <Text fontSize={["12px", "12px", "14px", "14px"]}>
-                              No task completed
-                              yet... visit one of those tokens pages to get a task
-                              done.
+                              No task completed yet... visit one of those tokens pages to get a task done.
                             </Text>
                             <Text
                               ml="10px"

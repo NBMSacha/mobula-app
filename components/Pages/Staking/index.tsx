@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Box, Flex, Heading, Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import Cards from "./Cards";
 import Boxs from "./Boxs";
 
@@ -18,7 +16,9 @@ function Staking() {
         maxWidth="1400px"
       >
         <Flex direction="column">
-          <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">Staking</Heading>
+          <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">
+            Staking
+          </Heading>
           <Text
             display={["none", "none", "none", "flex"]}
             whiteSpace="normal"
@@ -28,11 +28,14 @@ function Staking() {
           </Text>
         </Flex>
         <Text display={["none", "none", "none", "flex"]}>
-          Learn more
-          {" "}
+          Learn more{" "}
           <a href="https://docs.mobula.finance/app/sort">
             <span
-              style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}
+              style={{
+                color: "var(--chakra-colors-blue)",
+                marginLeft: "5px",
+                whiteSpace: "nowrap",
+              }}
             >
               here
             </span>
@@ -47,7 +50,10 @@ function Staking() {
       </Flex>
       <Flex direction="column" maxWidth="1400px" w="85%" mx="auto" mt="40px" mb="100px">
         <Box w="100%">
-          <Text ml="0px" mb="30px" fontSize="20px" fontWeight="600"> Leaderboard</Text>
+          <Text ml="0px" mb="30px" fontSize="20px" fontWeight="600">
+            {" "}
+            Leaderboard
+          </Text>
           <Flex
             justify="space-between"
             bg="var(--bg-governance-box)"

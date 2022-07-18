@@ -41,7 +41,7 @@
   height: 120px;
 }
 
-.token-containers>td {
+.token-containers > td {
   width: 154px;
   display: flex;
   margin-left: 50px;
@@ -63,13 +63,13 @@
   margin-left: 8px !important;
 }
 
-.token-ids>span {
+.token-ids > span {
   margin-left: 10px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 500;
   line-height: 21px;
- 
+
 }
 
 
@@ -79,8 +79,8 @@
 }
 
 .font-char {
-  
-  
+
+
 }
 
 // ==========================================================================
@@ -107,16 +107,13 @@
 .wrap-name {
   display: flex;
   flex-wrap: wrap;
-  margin-right:10px;
+  margin-right: 10px;
   margin-right: -70px;
 }
 
 .center-social {
   text-align: center
 }
-
-
-
 
 
 .tbodys tr {
@@ -136,7 +133,7 @@
 
 .rank-title-start {
   vertical-align: middle;
-  max-width:100px !important
+  max-width: 100px !important
 }
 
 .ths {
@@ -150,6 +147,7 @@
   justify-content: end;
   align-items: center;
 }
+
 .red {
   display: flex;
   justify-content: end;
@@ -162,12 +160,12 @@
 }
 
 
-.hover-child{
-  border-bottom:1px solid rgba(122, 122, 122, .1) !important
-  
+.hover-child {
+  border-bottom: 1px solid rgba(122, 122, 122, .1) !important
+
 }
 
-.tbodys:hover{
+.tbodys:hover {
   background: var(--box_active) !important;
 }
 
@@ -184,19 +182,19 @@
     align-items: center;
     position: sticky;
     left: 0px;
-  
+
     margin: 0px !important;
     padding: 15px 10px 15px 10px !important;
   }
 
   .tbodys:hover > tr > .hover-child {
-   background: var(--box_active) !important;
-   align-items:center; 
-   border-bottom:1px solid rgba(122, 122, 122, .3) !important
+    background: var(--box_active) !important;
+    align-items: center;
+    border-bottom: 1px solid rgba(122, 122, 122, .3) !important
   }
 
-  .hover-child{
-    border-bottom:1px solid rgba(122, 122, 122, .1) !important
+  .hover-child {
+    border-bottom: 1px solid rgba(122, 122, 122, .1) !important
   }
 
   .wrap-name {
@@ -204,11 +202,10 @@
   }
 
   .font-char {
-    
+
     height: 100%;
   }
 
- 
 
   .tbodys:hover {
     background: var(--box_active)
@@ -234,9 +231,9 @@
   }
 
   .ths {
-  
+
     text-align: end;
-   
+
   }
 
   .green {
@@ -288,12 +285,12 @@
   margin-left: 10px !important;
 }
 
-.token-infos>div>span {
+.token-infos > div > span {
   display: flex;
   flex-wrap: nowrap;
 }
 
-.token-infos>div {
+.token-infos > div {
   display: flex;
   white-space: nowrap;
   overflow: hidden;
@@ -337,16 +334,16 @@
 
 .fu {
   color: #556b90;
-  margin-right:10px;
-  height:34px;
-  width:34px;
+  margin-right: 10px;
+  height: 34px;
+  width: 34px;
 }
 
 .fo {
   color: #556b90;
-  margin-right:10px;
-  height:30px;
-  width:30px;
+  margin-right: 10px;
+  height: 30px;
+  width: 30px;
 }
 
 @media screen and (max-width: 768px) {
@@ -383,13 +380,13 @@
     height: 25px;
   }
   .fu {
-    height:30px !important;
-    width:30px !important;
-    min-width:30px !important
+    height: 30px !important;
+    width: 30px !important;
+    min-width: 30px !important
   }
   .fi {
-    height:23px;
-    width:23px;
+    height: 23px;
+    width: 23px;
   }
 
   .token-marketFully {
@@ -433,7 +430,7 @@
 
 }
 
-.tbodys span{
+.tbodys span {
 }
 
 .triangle-green {
@@ -462,9 +459,8 @@
   .token-percentage-box {
     align-items: center;
     display: flex;
-    
-  }
 
+  }
 
 
   .green {
@@ -495,7 +491,7 @@
   }
 }
 
-@media screen and (max-width:1595px) {
+@media screen and (max-width: 1595px) {
   .wrap-name {
     display: flex;
     flex-wrap: wrap;

@@ -1,9 +1,7 @@
 import React from "react";
 
 function leaderBox() {
-  return (
-    <></>
-  );
+  return <></>;
 }
 
 export default leaderBox;

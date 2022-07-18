@@ -1,22 +1,9 @@
 import React from "react";
-import {
-  Button, Flex, Input, Spinner, Text,
-} from "@chakra-ui/react";
+import { Button, Flex, Input, Spinner, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import styles from "../ListingForm.module.scss";
 
-function Right({
-  audit,
-  setAudit,
-  kyc,
-  setKYC,
-  addNote,
-  setAddNote,
-  loading,
-  submit,
-  inputList,
-  setInputList,
-}) {
+function Right({ audit, setAudit, kyc, setKYC, addNote, setAddNote, loading, submit, inputList, setInputList }) {
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
     const list = [...inputList];
@@ -104,28 +91,29 @@ function Right({
             />
             <div className="btn-box">
               {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-              {inputList.length - 1 === i
-                                    && (
-                                    <Button
-                                      bg="none"
-                                      w="30px"
-                                      right="0px"
-                                      top="-3px"
-                                      h="30px"
-                                      borderRadius="10px"
-                                      position="absolute"
-                                      className={styles["absolute-btn"]}
-                                      onClick={handleAddClick}
-                                    >
-                                      <AddIcon boxSize="10px" />
-                                    </Button>
-                                    )}
+              {inputList.length - 1 === i && (
+                <Button
+                  bg="none"
+                  w="30px"
+                  right="0px"
+                  top="-3px"
+                  h="30px"
+                  borderRadius="10px"
+                  position="absolute"
+                  className={styles["absolute-btn"]}
+                  onClick={handleAddClick}
+                >
+                  <AddIcon boxSize="10px" />
+                </Button>
+              )}
             </div>
           </>
         ))}
       </div>
       <div className={`${styles.void} ${styles["button-submit"]}`} id="void">
-        <Text textAlign="end" fontSize="10px" mb="10px" opacity=".2" ml="auto">Mendatory Fields *</Text>
+        <Text textAlign="end" fontSize="10px" mb="10px" opacity=".2" ml="auto">
+          Mendatory Fields *
+        </Text>
         <button
           style={{ color: "white" }}
           className={styles["button-submit-form"]}
@@ -133,23 +121,13 @@ function Right({
           onClick={(e) => submit(e)}
         >
           {" "}
-          {loading
-            ? <Spinner width="15px" height="15px" mr={15} /> : <></>}
-          {" "}
-          Submit to the DAO
+          {loading ? <Spinner width="15px" height="15px" mr={15} /> : <></>} Submit to the DAO
         </button>
       </div>
       <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-        <button
-          style={{ color: "white" }}
-          className={styles["button-submit-form"]}
-          onClick={(e) => submit(e)}
-        >
+        <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}>
           {" "}
-          {loading
-            ? <Spinner width="15px" height="15px" mr={15} /> : <></>}
-          {" "}
-          Submit to the DAO
+          {loading ? <Spinner width="15px" height="15px" mr={15} /> : <></>} Submit to the DAO
         </button>
       </div>
     </Flex>

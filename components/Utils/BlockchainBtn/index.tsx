@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { Sliders } from "react-feather";
-import {
-  Button, Flex, IconButton, Image,
-} from "@chakra-ui/react";
+import { Button, Flex, IconButton, Image } from "@chakra-ui/react";
 import styles from "./BlockchainBtn.module.scss";
 
 export default function BlockchainBtn({
@@ -17,11 +15,14 @@ export default function BlockchainBtn({
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef();
   const [settings, setSettings] = useState({
-    liquidity: 1000, volume: 50_000, onChainOnly: false, default: true,
+    liquidity: 1000,
+    volume: 50_000,
+    onChainOnly: false,
+    default: true,
   });
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
-      if ((window.matchMedia("(max-width: 768px)").matches)) {
+      if (window.matchMedia("(max-width: 768px)").matches) {
         setTextResponsive(true);
       } else {
         setTextResponsive(false);
@@ -32,7 +33,6 @@ export default function BlockchainBtn({
   const [display, setDisplay] = useState("ntm FDP");
 
   return (
-
     <Flex className={styles["main-blockchain-container"]} w={["100%", "100%", "95%", "95%"]} mx="auto" mb="10px">
       <Flex
         className={styles["blockchain-container"]}
@@ -61,15 +61,15 @@ export default function BlockchainBtn({
           pl="20px"
           pr="20px"
           borderRadius="10px"
-          className={`${styles["blockchain-btn"]} ${styles["eth-btn-block"]} ${display == "Ethereum" ? styles.white : ""}`}
+          className={`${styles["blockchain-btn"]} ${styles["eth-btn-block"]} ${
+            display == "Ethereum" ? styles.white : ""
+          }`}
           onClick={() => setBlockchain(blockchain == "Ethereum" ? "" : "Ethereum")}
         >
-          <Image
-            h={["20px", "20px", "28px", "28px"]}
-            src="/ethereum.png"
-            className={`${styles["blockchain-logo"]}`}
-          />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>ETH</span>
+          <Image h={["20px", "20px", "28px", "28px"]} src="/ethereum.png" className={`${styles["blockchain-logo"]}`} />
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            ETH
+          </span>
         </Button>
         <Button
           _focus={{ boxShadow: "none" }}
@@ -84,11 +84,15 @@ export default function BlockchainBtn({
           pl="20px"
           pr="20px"
           borderRadius="10px"
-          className={`${styles["blockchain-btn"]}  ${styles["bsc-btn"]} ${blockchain == "BNB Smart Chain (BEP20)" ? styles.white : ""}`}
+          className={`${styles["blockchain-btn"]}  ${styles["bsc-btn"]} ${
+            blockchain == "BNB Smart Chain (BEP20)" ? styles.white : ""
+          }`}
           onClick={() => setBlockchain(blockchain == "BNB Smart Chain (BEP20)" ? "" : "BNB Smart Chain (BEP20)")}
         >
           <Image h={["20px", "20px", "28px", "28px"]} src="/bnb.png" className={styles["blockchain-logo"]} />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>BNB</span>
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            BNB
+          </span>
         </Button>
         <Button
           _focus={{ boxShadow: "none" }}
@@ -104,15 +108,15 @@ export default function BlockchainBtn({
           pl="20px"
           pr="20px"
           borderRadius="10px"
-          className={`${styles["blockchain-btn"]} ${styles["avax-btn"]} ${blockchain == "Avalanche C-Chain" ? styles.white : ""}`}
+          className={`${styles["blockchain-btn"]} ${styles["avax-btn"]} ${
+            blockchain == "Avalanche C-Chain" ? styles.white : ""
+          }`}
           onClick={() => setBlockchain(blockchain == "Avalanche C-Chain" ? "" : "Avalanche C-Chain")}
         >
-          <Image
-            h={["20px", "20px", "28px", "28px"]}
-            src="/avalanche.png"
-            className={styles["blockchain-logo"]}
-          />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>AVAX</span>
+          <Image h={["20px", "20px", "28px", "28px"]} src="/avalanche.png" className={styles["blockchain-logo"]} />
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            AVAX
+          </span>
         </Button>
         <Button
           _focus={{ boxShadow: "none" }}
@@ -128,15 +132,15 @@ export default function BlockchainBtn({
           pl="20px"
           pr="20px"
           borderRadius="10px"
-          className={`${styles["blockchain-btn"]} ${styles["matic-btn"]} ${blockchain == "Polygon" ? styles.white : ""}`}
+          className={`${styles["blockchain-btn"]} ${styles["matic-btn"]} ${
+            blockchain == "Polygon" ? styles.white : ""
+          }`}
           onClick={() => setBlockchain(blockchain == "Polygon" ? "" : "Polygon")}
         >
-          <Image
-            h={["20px", "20px", "28px", "28px"]}
-            src="/polygon.png"
-            className={styles["blockchain-logo"]}
-          />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>MATIC</span>
+          <Image h={["20px", "20px", "28px", "28px"]} src="/polygon.png" className={styles["blockchain-logo"]} />
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            MATIC
+          </span>
         </Button>
 
         <Button
@@ -161,7 +165,9 @@ export default function BlockchainBtn({
             src="/cronos.png"
             className={`${styles["blockchain-logo"]} ${styles["onion-btn"]}`}
           />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Cronos</span>
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            Cronos
+          </span>
         </Button>
 
         <Button
@@ -186,7 +192,9 @@ export default function BlockchainBtn({
             src="/arbitrum.png"
             className={`${styles["blockchain-logo"]} ${styles["digi-btn"]}`}
           />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Arbitrum</span>
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            Arbitrum
+          </span>
         </Button>
 
         <Button
@@ -212,7 +220,9 @@ export default function BlockchainBtn({
             src="/harmony.png"
             className={`${styles["blockchain-logo"]} ${styles["digi-btn"]}`}
           />
-          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>Harmony</span>
+          <span className={styles["blockchain-name"]} style={{ marginLeft: "10px" }}>
+            Harmony
+          </span>
         </Button>
 
         {/* <Button px="10px" borderRadius="8px" className={styles["btn-loosers"]} style={{ boxShadow: `1px 2px 13px 3px ${shadow}` }} _focus={{ boxShadow: "none" }} border="1px solid rgba(122, 122, 122, 0.1)">
@@ -225,7 +235,6 @@ export default function BlockchainBtn({
      <button className={styles["params"]}>
        <Settings className={styles["colors"]} />
      </button> */}
-
       </Flex>
 
       <IconButton

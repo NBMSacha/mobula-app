@@ -1,7 +1,5 @@
-import Api from '../components/Pages/Api'
+import Api from "../components/Pages/Api";
 
 export default function () {
-    return (
-        <Api/>
-    )
+  return <Api />;
 }

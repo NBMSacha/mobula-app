@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box, Button, Flex, Image, Input, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
 import axios from "axios";
 import { useAlert } from "react-alert";
 
@@ -20,17 +18,19 @@ const Swap = ({ baseAsset }) => {
       mt={["20px", "20px", "20px", "0px"]}
     >
       <Box mb={["20px", "20px", "30px", "30px"]}>
-        <Text mb="10px" fontSize={["17px", "17px", "20px", "20px"]}>Swap aggregator</Text>
+        <Text mb="10px" fontSize={["17px", "17px", "20px", "20px"]}>
+          Swap aggregator
+        </Text>
         <Text fontSize={["11px", "11px", "14px", "14px"]}>
           Buy
-          {baseAsset.name}
-          {" "}
-          at best price from +50 DEX
+          {baseAsset.name} at best price from +50 DEX
         </Text>
       </Box>
       {/* From Box */}
       <Box bg="var(--swap)" boxShadow="1px 2px 12px 3px var(--shadow)" p={["10px 15px"]} borderRadius="12px">
-        <Text fontSize={["11px", "11px", "13px", "13px"]} opacity=".7">From</Text>
+        <Text fontSize={["11px", "11px", "13px", "13px"]} opacity=".7">
+          From
+        </Text>
         <Flex align="center" justify="space-between" mt="20px">
           <Input
             onChange={(e) => setSwapQuantity(parseFloat(e.target.value))}
@@ -45,7 +45,9 @@ const Swap = ({ baseAsset }) => {
           />
           <Flex align="center">
             <Image src="/fullicon.png" h="20px" />
-            <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>MOBL</Text>
+            <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>
+              MOBL
+            </Text>
           </Flex>
         </Flex>
       </Box>
@@ -57,7 +59,9 @@ const Swap = ({ baseAsset }) => {
         p={["10px 15px"]}
         borderRadius="12px"
       >
-        <Text fontSize={["11px", "11px", "13px", "13px"]} opacity=".7">To</Text>
+        <Text fontSize={["11px", "11px", "13px", "13px"]} opacity=".7">
+          To
+        </Text>
         <Flex align="center" justify="space-between" mt="20px">
           <Input
             onChange={(e) => setSwapQuantity(parseFloat(e.target.value))}
@@ -72,7 +76,9 @@ const Swap = ({ baseAsset }) => {
           />
           <Flex align="center">
             <Image src={baseAsset.logo} h="20px" />
-            <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>{baseAsset.symbol}</Text>
+            <Text ml="10px" fontSize={["14px", "14px", "16px", "16px"]}>
+              {baseAsset.symbol}
+            </Text>
           </Flex>
         </Flex>
       </Box>
@@ -93,7 +99,6 @@ const Swap = ({ baseAsset }) => {
           Connect a wallet
         </Button>
       </Flex>
-
     </Flex>
   );
 };

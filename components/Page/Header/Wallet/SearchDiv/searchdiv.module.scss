@@ -130,7 +130,7 @@
   margin-right: 3px;
 }
 
-.search-div>input {
+.search-div > input {
   width: 100vw !important;
 
 }
@@ -147,7 +147,7 @@
   }
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width: 1200px) {
   .search-input {
     width: 8.8rem;
     margin-right: .8rem
@@ -176,7 +176,7 @@
 
 }
 
-@media screen and (max-width:1090px) {
+@media screen and (max-width: 1090px) {
   .earn {
     margin-right: 0px !important
   }
@@ -247,7 +247,7 @@
   }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width: 768px) {
   .search-div {
     position: fixed;
     display: block;
@@ -269,8 +269,7 @@
   }
 
   .search-flex {
-    border-bottom: 1px solid var(--box_border)
-    ;
+    border-bottom: 1px solid var(--box_border);
   }
 
   .token-names {

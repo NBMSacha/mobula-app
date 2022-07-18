@@ -2,16 +2,7 @@ import React from "react";
 import { Flex, Input } from "@chakra-ui/react";
 import styles from "../ListingForm.module.scss";
 
-function Mid({
-  website,
-  setWebsite,
-  twitter,
-  setTwitter,
-  discord,
-  setDiscord,
-  telegram,
-  setTelegram,
-}) {
+function Mid({ website, setWebsite, twitter, setTwitter, discord, setDiscord, telegram, setTelegram }) {
   console.log(`this is website : ${website}`);
 
   return (

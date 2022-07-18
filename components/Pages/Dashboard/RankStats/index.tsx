@@ -1,14 +1,10 @@
-import {
-  Box, Button, Flex, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import { useAlert } from "react-alert";
 import { PROTOCOL_ADDRESS } from "../../../../constants";
 import styles from "../dashboard.module.scss";
 
-function RankStats({
-  title, tokensOwed, goodChoices, badChoices, web3React,
-}) {
+function RankStats({ title, tokensOwed, goodChoices, badChoices, web3React }) {
   const alert = useAlert();
 
   return (
@@ -34,9 +30,7 @@ function RankStats({
         bg="var(--border-top-body)"
       />
       <h2 className={styles["title-rank"]}>
-        {title}
-        {" "}
-        <span className={styles["subtitle-rank"]}>Stats</span>
+        {title} <span className={styles["subtitle-rank"]}>Stats</span>
       </h2>
       <Flex direction={["column", "column", "row", "row"]} w={["50%", "50%", "auto", "auto"]}>
         <Flex
@@ -49,8 +43,7 @@ function RankStats({
           position="relative"
         >
           <Text color={["#16C784", "#16C784", "#16C784", "#16C784"]} mb={2} whiteSpace="nowrap" mr="5px">
-            Correct
-            Decisions
+            Correct Decisions
           </Text>
           <Flex
             color="green"
@@ -78,8 +71,7 @@ function RankStats({
           position="relative"
         >
           <Text color={["#4C4C4C", "#4C4C4C", "red", "red"]} mb={2} whiteSpace="nowrap" ml="5px">
-            Wrong
-            Decisions
+            Wrong Decisions
           </Text>
           <Flex
             color="red"
@@ -108,13 +100,7 @@ function RankStats({
           position={["absolute", "absolute", "initial", "initial"]}
         >
           {" "}
-          The Protocol currently owes you
-          {" "}
-          <span
-            className={styles["color-mobl"]}
-          >
-            {`${tokensOwed}  $MOBL`}
-          </span>
+          The Protocol currently owes you <span className={styles["color-mobl"]}>{`${tokensOwed}  $MOBL`}</span>
         </Text>
       </Box>
       <Flex
@@ -122,7 +108,6 @@ function RankStats({
         mx="auto"
         justifyContent={["center", "center", "center", "center"]}
         className={styles["buttons-claim-box"]}
-
         borderRadius="12px"
       >
         {" "}
@@ -139,19 +124,14 @@ function RankStats({
               const provider = new ethers.providers.Web3Provider(web3React.library.provider);
               var signer = provider.getSigner();
             } catch (e) {
-              alert.show(
-                "You must connect your wallet to access the Dashboard.",
-              );
+              alert.show("You must connect your wallet to access the Dashboard.");
             }
 
             try {
               const contract = new ethers.Contract(
                 PROTOCOL_ADDRESS,
-                [
-                  "function claimRewards() external",
-                  "function claimFinalRewards() external",
-                ],
-                signer,
+                ["function claimRewards() external", "function claimFinalRewards() external"],
+                signer
               );
 
               if (title == "Rank I") await contract.claimRewards();
@@ -163,8 +143,9 @@ function RankStats({
           }}
         >
           <Flex justify="center" align="center">
-            <Text ml="15px" mr="15px">Claim Rewards</Text>
-
+            <Text ml="15px" mr="15px">
+              Claim Rewards
+            </Text>
           </Flex>
         </Button>
       </Flex>

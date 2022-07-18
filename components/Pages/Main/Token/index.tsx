@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Globe } from "react-feather";
 import { useRouter } from "next/router";
 import axios from "axios";
-import {
-  Box, Button, Flex, Image, Tbody, Td, Tr,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Tbody, Td, Tr } from "@chakra-ui/react";
 import {
   formatAmount,
   formatName,
@@ -35,7 +33,10 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                                       id,
                                       ${subgraph.query}
                                   }
-                                 pair0:  pairs(where: {id: "${(pairs[i][currentSubgraph][0] ? pairs[i][currentSubgraph][0] : dead).toLowerCase()}"}) {
+                                 pair0:  pairs(where: {id: "${(pairs[i][currentSubgraph][0]
+                                   ? pairs[i][currentSubgraph][0]
+                                   : dead
+                                 ).toLowerCase()}"}) {
                                     reserveUSD
                                     reserve0
                                     reserve1
@@ -48,7 +49,10 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                                       }
                                     volumeUSD
                                   }
-                                  pair1:  pairs(where: {id: "${(pairs[i][currentSubgraph][1] ? pairs[i][currentSubgraph][1] : dead).toLowerCase()}"}) {
+                                  pair1:  pairs(where: {id: "${(pairs[i][currentSubgraph][1]
+                                    ? pairs[i][currentSubgraph][1]
+                                    : dead
+                                  ).toLowerCase()}"}) {
                                       reserveUSD
                                       reserve0
                                       reserve1
@@ -61,7 +65,10 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                                       }
                                       volumeUSD
                                   }
-                                  pair2:  pairs(where: {id: "${(pairs[i][currentSubgraph][2] ? pairs[i][currentSubgraph][2] : dead).toLowerCase()}"}) {
+                                  pair2:  pairs(where: {id: "${(pairs[i][currentSubgraph][2]
+                                    ? pairs[i][currentSubgraph][2]
+                                    : dead
+                                  ).toLowerCase()}"}) {
                                       reserveUSD
                                       reserve0
                                       reserve1
@@ -79,8 +86,16 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                                       orderBy:reserveUSD,
                                       orderDirection:desc,
                                       where: {
-                                          token0_in: ["${tokensPerBlockchain[blockchains[i]][1].toLowerCase()}", "${tokensPerBlockchain[blockchains[i]][0].toLowerCase()}"],
-                                          token1_in: ["${tokensPerBlockchain[blockchains[i]][1].toLowerCase()}", "${tokensPerBlockchain[blockchains[i]][0].toLowerCase()}"],
+                                          token0_in: ["${tokensPerBlockchain[
+                                            blockchains[i]
+                                          ][1].toLowerCase()}", "${tokensPerBlockchain[
+                blockchains[i]
+              ][0].toLowerCase()}"],
+                                          token1_in: ["${tokensPerBlockchain[
+                                            blockchains[i]
+                                          ][1].toLowerCase()}", "${tokensPerBlockchain[
+                blockchains[i]
+              ][0].toLowerCase()}"],
                                       }
                                   ){
                                   reserveUSD
@@ -96,9 +111,10 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                               `,
             });
 
-            const prixETH = tokensPerBlockchain[blockchains[i]][0].toLowerCase() == result.data.eth[0].token0.id
-              ? (result.data.eth[0].reserve1 / result.data.eth[0].reserve0)
-              : (result.data.eth[0].reserve0 / result.data.eth[0].reserve1);
+            const prixETH =
+              tokensPerBlockchain[blockchains[i]][0].toLowerCase() == result.data.eth[0].token0.id
+                ? result.data.eth[0].reserve1 / result.data.eth[0].reserve0
+                : result.data.eth[0].reserve0 / result.data.eth[0].reserve1;
             for (let k = 0; k < 3; k++) {
               let coef = prixETH;
               const pair = result.data[`pair${k}`][0];
@@ -113,15 +129,22 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                     coef = 1;
                   }
                 }
-                prixToken = contracts[i].toLowerCase() == pair.token0.id
-                  ? (pair.reserve1 / pair.reserve0) * coef
-                  : (pair.reserve0 / pair.reserve1) * coef;
+                prixToken =
+                  contracts[i].toLowerCase() == pair.token0.id
+                    ? (pair.reserve1 / pair.reserve0) * coef
+                    : (pair.reserve0 / pair.reserve1) * coef;
                 if (isBackedOnStable && (pair.token0.id == ETH || pair.token1.id == ETH)) {
                   prixToken = contracts[i].toLowerCase() == ETH ? prixETH : 1;
                 }
-                let bufferLiquidity = (pair.reserveUSD / 2) > 500
-                  ? (pair.reserveUSD / 2) : 0;
-                if (!(pair.reserve1.includes(".") && pair.reserve1.includes(".") && pair.reserve0.includes(".") && pair.reserve0.includes("."))) {
+                let bufferLiquidity = pair.reserveUSD / 2 > 500 ? pair.reserveUSD / 2 : 0;
+                if (
+                  !(
+                    pair.reserve1.includes(".") &&
+                    pair.reserve1.includes(".") &&
+                    pair.reserve0.includes(".") &&
+                    pair.reserve0.includes(".")
+                  )
+                ) {
                   bufferLiquidity = 0;
                   // console.log(`Price ignored as one reserve does not contain a decimal point`);
                 }
@@ -135,17 +158,12 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                 // console.log(`Success subgraph: ${subgraphSuccess}/${expectedPairs}`);
               }
             }
-          } catch (e) {
-
-          }
+          } catch (e) {}
           currentSubgraph++;
         }
       } else {
-
       }
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
   if (totalLiquidity > 0) {
     const price = Number(averagePrice / totalLiquidity);
@@ -156,25 +174,25 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
 }
 
 function Token(token: {
-    name: string
-    symbol: string
-    contracts: string[]
-    blockchains: string[]
-    pairs: string[]
-    logo: string
-    twitter: string
-    chat: string
-    discord: string
-    website: string
-    market_cap: number
-    volume: number
-    price_change_24h: number
-    price_change_7d: number
-    rank_change_24h: number
-    price: number
-    rank: number
-    id: number
-    isMyAsset: boolean
+  name: string;
+  symbol: string;
+  contracts: string[];
+  blockchains: string[];
+  pairs: string[];
+  logo: string;
+  twitter: string;
+  chat: string;
+  discord: string;
+  website: string;
+  market_cap: number;
+  volume: number;
+  price_change_24h: number;
+  price_change_7d: number;
+  rank_change_24h: number;
+  price: number;
+  rank: number;
+  id: number;
+  isMyAsset: boolean;
 }) {
   const router = useRouter();
   const [price, setPrice] = useState(token.price);
@@ -214,7 +232,6 @@ function Token(token: {
 
   const testRef = useRef();
   return (
-
     <Tbody
       id="nul"
       ref={testRef}
@@ -226,7 +243,7 @@ function Token(token: {
         color: "none",
       }}
       borderBottom="none"
-      className={`${styles.tbodys} ${(!token.contracts || token.contracts.length > 0) ? "" : styles.hide}`}
+      className={`${styles.tbodys} ${!token.contracts || token.contracts.length > 0 ? "" : styles.hide}`}
     >
       <Tr className={styles.trs}>
         <Td
@@ -244,17 +261,20 @@ function Token(token: {
                 <div className={styles["triangle-red"]} />
                 {Math.abs(token.rank_change_24h)}
               </span>
-            ) : token.rank_change_24h == 0 ? <div>--</div> : (
+            ) : token.rank_change_24h == 0 ? (
+              <div>--</div>
+            ) : (
               <span className={`${styles.green} ${styles["font-char"]} `} id="noColor">
                 <div className={styles["triangle-green"]} />
                 {token.rank_change_24h}
               </span>
             )}
-            <span style={{
-              marginLeft: "10px",
-              opacity: 0.6,
-              color: "var(--text-secondary)",
-            }}
+            <span
+              style={{
+                marginLeft: "10px",
+                opacity: 0.6,
+                color: "var(--text-secondary)",
+              }}
             >
               {token.rank}
             </span>
@@ -273,38 +293,26 @@ function Token(token: {
         >
           <a href={`/asset/${getUrlFromName(token.name)}`}>
             <Flex align="center">
-              <img src={(token.logo || "/unknown.png")} className={styles["token-logos"]} />
+              <img src={token.logo || "/unknown.png"} className={styles["token-logos"]} />
               <Flex
                 fontWeight="700"
                 mr={["0px", "0px", "-70px", "-150px"]}
                 className={styles["wrap-name"]}
                 direction={["column", "column", "row", "row"]}
               >
-                <Box
-                  mr="15px"
-                  display={["none", "none", "none", "block"]}
-                  whiteSpace="pre-wrap"
-                  as="span"
-                >
+                <Box mr="15px" display={["none", "none", "none", "block"]} whiteSpace="pre-wrap" as="span">
                   {token.name.length > 15 ? formatName(token.name, 15) : token.name}
                 </Box>
-                <Box
-                  mr="10px"
-                  display={["block", "block", "block", "none"]}
-                  whiteSpace="pre-wrap"
-                  as="span"
-                >
+                <Box mr="10px" display={["block", "block", "block", "none"]} whiteSpace="pre-wrap" as="span">
                   {token.name}
                 </Box>
                 <Flex>
-                  <Box
-                    display={["block", "block", "none", "none"]}
-                    mr="10px"
-                    color="var(--text-secondary)"
-                  >
+                  <Box display={["block", "block", "none", "none"]} mr="10px" color="var(--text-secondary)">
                     {token.rank}
                   </Box>
-                  <Box as="span" fontWeight="700" color="var(--text-secondary)">{token.symbol}</Box>
+                  <Box as="span" fontWeight="700" color="var(--text-secondary)">
+                    {token.symbol}
+                  </Box>
                 </Flex>
               </Flex>
             </Flex>
@@ -317,7 +325,7 @@ function Token(token: {
           fontSize={["13px", "13px", "15px", "15px"]}
           onClick={(e) => {
             console.log("WHY ??????§");
-            window.open(`/asset/${getUrlFromName(token.name)}`, "_blank");//  router.push('/asset/' + getUrlFromName(token.name))
+            window.open(`/asset/${getUrlFromName(token.name)}`, "_blank"); //  router.push('/asset/' + getUrlFromName(token.name))
           }}
           py={["5px", "5px", "5px", "5px", "31px"]}
           my="0px"
@@ -325,11 +333,7 @@ function Token(token: {
           className={`${styles.ths} ${styles["price-title-center"]}`}
           color={isWinner === true ? "green" : isWinner === false ? "red" : "none"}
         >
-          <a href={`/asset/${getUrlFromName(token.name)}`}>
-            {" "}
-            $
-            {price ? separator(getTokenPrice(price)) : "??"}
-          </a>
+          <a href={`/asset/${getUrlFromName(token.name)}`}> ${price ? separator(getTokenPrice(price)) : "??"}</a>
         </Td>
         <Td
           borderBottom="1px solid var(--box_border) !important"
@@ -342,18 +346,16 @@ function Token(token: {
         >
           <a href={`/asset/${getUrlFromName(token.name)}`} target="_blank" rel="noreferrer">
             {token.price_change_24h < 0.01 ? (
-              <span className={`${styles.red} ${styles["font-char"]}`} id="noColor">
-                <div className={styles["triangle-red"]} />
-                {getTokenPercentage(token.price_change_24h)}
-                %
-              </span>
-            ) || (
-            <div />
+              (
+                <span className={`${styles.red} ${styles["font-char"]}`} id="noColor">
+                  <div className={styles["triangle-red"]} />
+                  {getTokenPercentage(token.price_change_24h)}%
+                </span>
+              ) || <div />
             ) : (
               <span className={`${styles.green} ${styles["font-char"]}`} id="noColor">
                 <div className={styles["triangle-green"]} />
-                {getTokenPercentage(token.price_change_24h)}
-                %
+                {getTokenPercentage(token.price_change_24h)}%
               </span>
             )}
           </a>
@@ -368,11 +370,8 @@ function Token(token: {
           className={styles.ths}
         >
           <a href={`/asset/${getUrlFromName(token.name)}`} target="_blank" rel="noreferrer">
-            <span
-              className={`${styles["font-char"]} `}
-            >
-              $
-              {token.market_cap ? formatAmount(token.market_cap) : "???"}
+            <span className={`${styles["font-char"]} `}>
+              ${token.market_cap ? formatAmount(token.market_cap) : "???"}
             </span>
           </a>
         </Td>
@@ -406,11 +405,11 @@ function Token(token: {
                 className={`${styles.fis} ${styles.white} ${styles.nomargin}`}
                 rel="noreferrer"
               >
-                <Globe
-                  className={styles.fi}
-                />
+                <Globe className={styles.fi} />
               </a>
-            ) : <></>}
+            ) : (
+              <></>
+            )}
             {token.twitter ? (
               <a
                 href={token.twitter}
@@ -418,13 +417,11 @@ function Token(token: {
                 className={`${styles.fus} ${styles.white} ${styles.nomargin}`}
                 rel="noreferrer"
               >
-                <img
-                  style={{ minWidth: "30px" }}
-                  src="/new-twitter.png"
-                  className={styles.fu}
-                />
+                <img style={{ minWidth: "30px" }} src="/new-twitter.png" className={styles.fu} />
               </a>
-            ) : <></>}
+            ) : (
+              <></>
+            )}
             {token.discord ? (
               <a
                 href={token.discord}
@@ -432,13 +429,11 @@ function Token(token: {
                 className={`${styles.fus} ${styles.white} ${styles.nomargin}`}
                 rel="noreferrer"
               >
-                <img
-                  style={{ minWidth: "30px" }}
-                  src="/new-discord.png"
-                  className={styles.fo}
-                />
+                <img style={{ minWidth: "30px" }} src="/new-discord.png" className={styles.fo} />
               </a>
-            ) : <></>}
+            ) : (
+              <></>
+            )}
           </div>
         </Td>
         <Td
@@ -447,35 +442,35 @@ function Token(token: {
           fontSize={["13px", "13px", "15px", "15px"]}
           py={["5px", "5px", "5px", "5px", "15px"]}
         >
-          {token.id
-            ? (
-              <Image
-                style={{ margin: "0px auto" }}
-                w={["200%", "200%", "150%", "80%"]}
-                maxWidth="200%"
-                src={`https://mobulaspark.com/spark?id=${token.id}.svg`}
-                className={styles["chart-image"]}
-              />
-            )
-            : token.isMyAsset ? (
-              <Button
-                ml={["0%", "0%", "30px"]}
-                color="white"
-                borderRadius="8px"
-                w={["100%", "100%", "80%"]}
-                h="30px"
-                fontSize="xs"
-                fontWeight="md"
-                bg="blue"
-                onClick={() => router.push("/list")}
-              >
-                List this
-                asset
-              </Button>
-            ) : <></>}
+          {token.id ? (
+            <Image
+              style={{ margin: "0px auto" }}
+              w={["200%", "200%", "150%", "80%"]}
+              maxWidth="200%"
+              src={`https://mobulaspark.com/spark?id=${token.id}.svg`}
+              className={styles["chart-image"]}
+            />
+          ) : token.isMyAsset ? (
+            <Button
+              ml={["0%", "0%", "30px"]}
+              color="white"
+              borderRadius="8px"
+              w={["100%", "100%", "80%"]}
+              h="30px"
+              fontSize="xs"
+              fontWeight="md"
+              bg="blue"
+              onClick={() => router.push("/list")}
+            >
+              List this asset
+            </Button>
+          ) : (
+            <></>
+          )}
         </Td>
       </Tr>
     </Tbody>
   );
 }
+
 export default Token;

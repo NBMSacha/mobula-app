@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
-import {
-  Box, Button, Flex, Heading, Text, useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import { TrendingDown, TrendingUp } from "react-feather";
 import styles from "./GainersLosers.module.scss";
 import Tables from "./Tables";
@@ -12,7 +10,10 @@ import Widget from "../../Utils/Widget";
 function GainersLosers({ gainersBuffer, losersBuffer }) {
   const [blockchain, setBlockchain] = useState("");
   const [settings, setSettings] = useState({
-    liquidity: 1000, volume: 1000, onChainOnly: false, default: true,
+    liquidity: 1000,
+    volume: 1000,
+    onChainOnly: false,
+    default: true,
   });
   const [widgetVisibility, setWidgetVisibility] = useState(false);
   const [gainers, setGainers] = useState(gainersBuffer || []);
@@ -26,7 +27,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
   useEffect(() => {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
     supabase
       .from("assets")
@@ -38,12 +39,19 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
       .order("price_change_24h", { ascending: false })
       .limit(100)
       .then((r) => {
-        setGainers(r.data
-          .filter((entry) => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
-          .slice(0, 25));
+        setGainers(
+          r.data
+            .filter(
+              (entry) =>
+                (entry.contracts.length > 0 || !settings.onChainOnly) &&
+                (entry.blockchains?.[0] == blockchain || !blockchain)
+            )
+            .slice(0, 25)
+        );
       });
 
-    supabase.from("assets")
+    supabase
+      .from("assets")
       .select("id,name,price_change_24h,volume,symbol,logo,market_cap, price, rank,contracts,blockchains")
       .contains("blockchains[1]", `{ ${blockchain} }`)
       .gte("liquidity", settings.liquidity)
@@ -52,9 +60,15 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
       .order("price_change_24h", { ascending: true })
       .limit(100)
       .then((r) => {
-        setLosers(r.data
-          .filter((entry) => (entry.contracts.length > 0 || !settings.onChainOnly) && (entry.blockchains?.[0] == blockchain || !blockchain))
-          .slice(0, 25));
+        setLosers(
+          r.data
+            .filter(
+              (entry) =>
+                (entry.contracts.length > 0 || !settings.onChainOnly) &&
+                (entry.blockchains?.[0] == blockchain || !blockchain)
+            )
+            .slice(0, 25)
+        );
       });
   }, [settings, blockchain]);
 
@@ -91,9 +105,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
                 (losersRef as any).current.style.display = "none";
               }}
             >
-              Gainers
-              {" "}
-              <TrendingUp style={{ width: "15px", marginLeft: "10px" }} />
+              Gainers <TrendingUp style={{ width: "15px", marginLeft: "10px" }} />
             </Button>
             <Button
               _focus={{ boxShadow: "none" }}
@@ -110,9 +122,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
                 (losersRef as any).current.style.display = "block";
               }}
             >
-              Loosers
-              {" "}
-              <TrendingDown style={{ width: "15px", marginLeft: "10px" }} />
+              Loosers <TrendingDown style={{ width: "15px", marginLeft: "10px" }} />
             </Button>
           </Box>
         </Flex>
@@ -130,8 +140,7 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
           Top gainers / Top losers
         </Heading>
         <Text mb="30px" mx="auto" display={["none", "none", "flex", "flex"]} ml="50px">
-          Top gainers & losers of
-          Mobula database. Click on the settings to filter your research.
+          Top gainers & losers of Mobula database. Click on the settings to filter your research.
         </Text>
         <Flex w="100%" display={["flex"]} p={["20px", "20px", "0px", "0px"]} pb={0}>
           <Widget
@@ -148,7 +157,6 @@ function GainersLosers({ gainersBuffer, losersBuffer }) {
             setWidgetVisibility={setWidgetVisibility}
           />
         </Flex>
-
       </div>
 
       <div className={styles["both-container"]}>

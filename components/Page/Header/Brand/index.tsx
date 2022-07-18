@@ -4,7 +4,7 @@ import styles from "./brand.module.scss";
 
 function Brand() {
   return (
-    <div className={styles.left} style={{ cursor: "pointer" }} onClick={() => document.location.href = "/"}>
+    <div className={styles.left} style={{ cursor: "pointer" }} onClick={() => (document.location.href = "/")}>
       <Image
         src="/icon.png"
         h={["35px", "35px", "45px", "45px"]}
@@ -14,7 +14,9 @@ function Brand() {
         alt="logo"
         onClick={() => (document.location.href = "/")}
       />
-      <Text color="var(--text-footer-title)" className={styles["mobula-title"]}>Mobula</Text>
+      <Text color="var(--text-footer-title)" className={styles["mobula-title"]}>
+        Mobula
+      </Text>
     </div>
   );
 }

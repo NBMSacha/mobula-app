@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import IPFS from "ipfs-api";
 import { useAlert } from "react-alert";
-import {
-  Button, Flex, Heading, Link, Text, useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Link, Text, useColorModeValue } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { PROTOCOL_ADDRESS, supportedRPCs } from "../../../constants";
 import styles from "./ListingForm.module.scss";
@@ -112,9 +110,11 @@ function ListAToken() {
       while (!name && i < supportedRPCs.length - 1) {
         i++;
         const provider = new ethers.providers.JsonRpcProvider(supportedRPCs[i].url);
-        const tokenContract = new ethers.Contract(contract, [
-          "function name() external view returns(string)",
-        ], provider);
+        const tokenContract = new ethers.Contract(
+          contract,
+          ["function name() external view returns(string)"],
+          provider
+        );
         console.log(tokenContract);
 
         try {
@@ -171,13 +171,11 @@ function ListAToken() {
       alert.show("You must connect your wallet to submit the form.");
     }
 
-    const submitPrice = (await new ethers.Contract(
+    const submitPrice = await new ethers.Contract(
       PROTOCOL_ADDRESS,
-      [
-        "function submitPrice() external view returns(uint256)",
-      ],
-      provider,
-    ).submitPrice());
+      ["function submitPrice() external view returns(uint256)"],
+      provider
+    ).submitPrice();
 
     const totalSupply = isSum === "true" ? contracts : [contracts[0]];
     const realExcluded = inputListExcluded.map((entry) => entry.value).filter((excluded: any) => excluded.length == 42);
@@ -188,7 +186,7 @@ function ListAToken() {
         [
           "function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable",
         ],
-        signer,
+        signer
       ).submitIPFS(contracts, totalSupply, realExcluded, hash, {
         value: submitPrice,
       });
@@ -211,8 +209,7 @@ function ListAToken() {
     try {
       setIPFS(IPFS("ipfs.infura.io", "5001", { protocol: "https" }));
       console.log(ipfs);
-    } catch (e) {
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -244,7 +241,6 @@ function ListAToken() {
   return (
     <div>
       <div className={styles["listToken-container"]}>
-
         <h2 className={styles.title}>Listing form</h2>
         <Flex
           maxWidth="1400px"
@@ -259,8 +255,7 @@ function ListAToken() {
         >
           <Flex direction="column">
             <Heading mb="15px" fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter">
-              Listing
-              form
+              Listing form
             </Heading>
             <Text
               display={["none", "none", "none", "flex"]}
@@ -271,8 +266,7 @@ function ListAToken() {
             </Text>
           </Flex>
           <Text display={["none", "none", "none", "flex"]}>
-            Learn more
-            {" "}
+            Learn more{" "}
             <a
               style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}
               href="https://docs.mobula.finance/list"
@@ -281,7 +275,6 @@ function ListAToken() {
             </a>
             .
           </Text>
-
         </Flex>
 
         {display == "form" ? (
@@ -345,32 +338,20 @@ function ListAToken() {
               bg="var(--bg-governance-box)"
               boxShadow="1px 2px 12px 3px var(--shadow)"
             >
-              <Heading
-                fontSize="xx-large"
-                fontWeight="medium"
-                mb="30px"
-                ml="auto"
-                mr="auto"
-              >
+              <Heading fontSize="xx-large" fontWeight="medium" mb="30px" ml="auto" mr="auto">
                 Success!
               </Heading>
+              <Text mb="15px">Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>
+              <Text mb="15px">You can now track your listing in the DAO tab, starting in the First Sort.</Text>
               <Text mb="15px">
-                Your application has been successfully transmitted (on-chain) to the Mobula
-                DAO.
-              </Text>
-              <Text mb="15px">
-                You can now track your listing in the DAO tab, starting in the First
-                Sort.
-              </Text>
-              <Text mb="15px">
-                If your crypto-asset is validated by the Mobula DAO, you will be able to
-                access our
-                <Link color="blue" href="/partners">Partner Ecosystem</Link>
+                If your crypto-asset is validated by the Mobula DAO, you will be able to access our
+                <Link color="blue" href="/partners">
+                  Partner Ecosystem
+                </Link>
                 .
               </Text>
               <Text mb="35px">
-                Feel free to join our Discord to ask for any kind of support regarding your
-                listing.
+                Feel free to join our Discord to ask for any kind of support regarding your listing.
               </Text>
               <Button
                 bg="blue"
@@ -386,7 +367,6 @@ function ListAToken() {
             </Flex>
           </div>
         )}
-
       </div>
     </div>
   );

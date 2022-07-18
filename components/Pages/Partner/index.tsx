@@ -14,11 +14,8 @@ const Api = () => {
       <TopSection />
       <BottomSection />
       <Text fontFamily="Inter" fontWeight="400" fontSize={["13px", "13px", "14px", "21px"]} color="grey">
-        Join
-        {" "}
-        <span style={{ color: "var(--chakra-colors-blue)", fontWeight: "600" }}>Mobula</span>
-        . Enter the
-        ecosystem now.
+        Join <span style={{ color: "var(--chakra-colors-blue)", fontWeight: "600" }}>Mobula</span>. Enter the ecosystem
+        now.
       </Text>
       <Button
         mt="30px"
@@ -32,7 +29,6 @@ const Api = () => {
       >
         Let's connect
       </Button>
-
     </Flex>
   );
 };

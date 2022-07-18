@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Flex, Image, Tbody, Td, Text, Tr, useColorModeValue, useMediaQuery,
-} from "@chakra-ui/react";
+import { Flex, Image, Tbody, Td, Text, Tr, useColorModeValue, useMediaQuery } from "@chakra-ui/react";
 import { TriangleDownIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import {
@@ -38,28 +36,16 @@ function Losers({ losers }) {
               _hover={{ background: "none" }}
             >
               <Flex align="center" left="0px">
-                <Text
-                  opacity="1"
-                  mr="10px"
-                  display={["none", "none", "flex", "flex"]}
-                >
+                <Text opacity="1" mr="10px" display={["none", "none", "flex", "flex"]}>
                   {gainer.rank}
                 </Text>
                 <Image mr="15px" h="30px" borderRadius="50%" src={gainer.logo} />
                 <Flex direction={["column", "column", "row", "row"]}>
-                  <Text
-                    minWidth="120px"
-                    whiteSpace="pre-wrap"
-                    mr="10px"
-                  >
+                  <Text minWidth="120px" whiteSpace="pre-wrap" mr="10px">
                     {gainer.name.length > 15 ? formatName(gainer.name, 15) : gainer.name}
                   </Text>
                   <Flex>
-                    <Text
-                      opacity="1"
-                      mr="10px"
-                      display={["flex", "flex", "none", "none"]}
-                    >
+                    <Text opacity="1" mr="10px" display={["flex", "flex", "none", "none"]}>
                       {gainer.rank}
                     </Text>
                     <Text color="var(--text-grey)">{gainer.symbol}</Text>
@@ -67,37 +53,18 @@ function Losers({ losers }) {
                 </Flex>
               </Flex>
             </Td>
-            <Td
-              borderBottom="1px solid var(--box_border) !important"
-              px="5px"
-              isNumeric
-            >
+            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric>
               {getTokenFormattedPrice(gainer.price, "$", {
                 justify: "right",
                 marginTop: "auto",
               })}
             </Td>
-            <Td
-              borderBottom="1px solid var(--box_border) !important"
-              px="5px"
-              isNumeric
-              color="red"
-            >
-              <TriangleDownIcon
-                boxSize="12px"
-                mb="2px"
-                mr="3px"
-              />
-              {getTokenPercentage(gainer.price_change_24h)}
-              %
+            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric color="red">
+              <TriangleDownIcon boxSize="12px" mb="2px" mr="3px" />
+              {getTokenPercentage(gainer.price_change_24h)}%
             </Td>
-            <Td
-              borderBottom="1px solid var(--box_border) !important"
-              px="5px"
-              isNumeric
-            >
-              $
-              {formatAmount(gainer.volume)}
+            <Td borderBottom="1px solid var(--box_border) !important" px="5px" isNumeric>
+              ${formatAmount(gainer.volume)}
             </Td>
           </Tr>
         </Tbody>

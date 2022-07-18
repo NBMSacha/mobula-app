@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Box, Button, Flex, Image, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import Line from "./Line";
 
 function Cards({}) {
@@ -22,7 +20,9 @@ function Cards({}) {
         <Text fontSize={["18px", "18px", "18px", "24px"]}>USDT-MOBL</Text>
       </Flex>
       <Flex mt="20px" align="center" direction="column">
-        <Box fontSize={["18px", "18px", "18px", "24px"]} color="green">25.70 % / 35.07%</Box>
+        <Box fontSize={["18px", "18px", "18px", "24px"]} color="green">
+          25.70 % / 35.07%
+        </Box>
         <Flex justify="space-between" w="100%">
           <Text fontSize="12px">USDT APR</Text>
           <Text fontSize="12px">MOBL APR</Text>
@@ -30,7 +30,9 @@ function Cards({}) {
       </Flex>
       <Flex direction="column" w="100%" fontSize={["11px", "11px", "11px", "17px"]} mb="0px">
         <Flex mt="30px" align="center" justify="space-between">
-          <Text fontSize="16px" mr="15px" opacity=".9">Reward Token</Text>
+          <Text fontSize="16px" mr="15px" opacity=".9">
+            Reward Token
+          </Text>
           <Image src="/fullicon.png" h="23px" />
         </Flex>
         <Line title="Value locked" number="$635.577.11" />
@@ -47,10 +49,11 @@ function Cards({}) {
             py="10px"
             px="20px"
           >
-            Stake
-            USDT
+            Stake USDT
           </Button>
-          <Button color="none" fontSize="14px" py="10px" px="20px">Stake USDT</Button>
+          <Button color="none" fontSize="14px" py="10px" px="20px">
+            Stake USDT
+          </Button>
         </Flex>
       </Flex>
     </Flex>

@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box, Button, Flex, Image, Input, Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
 
 function Right() {
   const [open, setOpen] = useState(false);
@@ -19,10 +17,7 @@ function Right() {
       <Flex align="center" mb={["0px", "0px", "0px", "30px"]} justify="space-between">
         <Flex align="center">
           <Image src="/fullicon.png" h={["22px", "22px", "22px", "30px"]} />
-          <Text
-            ml={["10px", "10px", "10px", "15px"]}
-            fontSize={["18px", "18px", "18px", "23px"]}
-          >
+          <Text ml={["10px", "10px", "10px", "15px"]} fontSize={["18px", "18px", "18px", "23px"]}>
             Profile
           </Text>
         </Flex>
@@ -34,13 +29,10 @@ function Right() {
         >
           {open ? "-" : "+"}
         </Button>
-
       </Flex>
       <Box display={[open ? "block" : "none", open ? "block" : "none", open ? "block" : "none", "block"]}>
-
         <Text fontSize={["12px", "12px", "15px", "15px"]} mt={["20px", "20px", "20px", "0px"]} mb="10px">
-          Your
-          address
+          Your address
         </Text>
         <Text
           fontSize={["12px", "12px", "14px", "14px"]}
@@ -52,13 +44,27 @@ function Right() {
         >
           ??
         </Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">Your username</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">??</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">MOBL Balance</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">?? MOBL</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">DAO Rank</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">#??</Text>
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">Change username</Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">
+          Your username
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">
+          ??
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">
+          MOBL Balance
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">
+          ?? MOBL
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">
+          DAO Rank
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} color="grey" mb="25px">
+          #??
+        </Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px">
+          Change username
+        </Text>
         <Input
           h={["29px", "29px", "29px", "32px"]}
           borderRadius="8px"
@@ -91,7 +97,6 @@ function Right() {
         </Button>
       </Box>
     </Flex>
-
   );
 }
 

@@ -3,9 +3,8 @@ import NextLink from "next/link";
 import { Link, LinkProps } from "@chakra-ui/react";
 
 interface CustomLinkProps extends LinkProps {
-    children: React.ReactNode;
-    href: string;
-
+  children: React.ReactNode;
+  href: string;
 }
 
 const CustomLink: React.FC<CustomLinkProps> = ({ children, href, ...props }) => (

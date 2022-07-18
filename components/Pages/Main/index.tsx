@@ -5,9 +5,7 @@ import axios from "axios";
 import { useAlert } from "react-alert";
 import { useWeb3React } from "@web3-react/core";
 import { useRouter } from "next/router";
-import {
-  Flex, IconButton, Table, TableContainer, Th, Thead, Tr,
-} from "@chakra-ui/react";
+import { Flex, IconButton, Table, TableContainer, Th, Thead, Tr } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import styles from "./Main.module.scss";
 import Token from "./Token";
@@ -23,47 +21,69 @@ function News(props: any) {
   const [search, setSearch] = useState([]);
   const [display, setDisplay] = useState("Top 100");
   const [chains, setChains] = useState({});
-  const {
-    account, active, activate, deactivate,
-  } = useWeb3React();
+  const { account, active, activate, deactivate } = useWeb3React();
   const alert = useAlert();
   const [textResponsive, setTextResponsive] = useState(false);
   const percentageRef = useRef();
   const router = useRouter();
   const page = router.query.page ? parseInt(router.query.page as string) : 1;
   const [settings, setSettings] = useState({
-    liquidity: 1000, volume: 50_000, onChainOnly: false, default: true,
+    liquidity: 1000,
+    volume: 50_000,
+    onChainOnly: false,
+    default: true,
   });
   const [widgetVisibility, setWidgetVisibility] = useState(false);
   const [orderBy, setOrderBy]: [any, Function] = useState();
 
   const defaultSettings = {
     "BNB Smart Chain (BEP20)": {
-      liquidity: 0, volume: 10_000, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 10_000,
+      onChainOnly: false,
+      default: false,
     },
     Ethereum: {
-      liquidity: 1000, volume: 50_000, onChainOnly: false, default: false,
+      liquidity: 1000,
+      volume: 50_000,
+      onChainOnly: false,
+      default: false,
     },
     "Avalanche C-Chain": {
-      liquidity: 0, volume: 0, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 0,
+      onChainOnly: false,
+      default: false,
     },
     Polygon: {
-      liquidity: 0, volume: 0, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 0,
+      onChainOnly: false,
+      default: false,
     },
     Cronos: {
-      liquidity: 0, volume: 0, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 0,
+      onChainOnly: false,
+      default: false,
     },
     Arbitrum: {
-      liquidity: 0, volume: 0, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 0,
+      onChainOnly: false,
+      default: false,
     },
     Harmony: {
-      liquidity: 0, volume: 0, onChainOnly: false, default: false,
+      liquidity: 0,
+      volume: 0,
+      onChainOnly: false,
+      default: false,
     },
   };
 
   useEffect(() => {
     if (percentageRef && percentageRef.current) {
-      if ((window.matchMedia("(max-width: 768px)").matches)) {
+      if (window.matchMedia("(max-width: 768px)").matches) {
         setTextResponsive(true);
       } else {
         setTextResponsive(false);
@@ -82,14 +102,16 @@ function News(props: any) {
   function loadChain(chain: string) {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
     const bufferSettings = settings.default ? defaultSettings[chain] : settings;
 
     supabase
       .from("assets")
-      .select("blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank")
+      .select(
+        "blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank"
+      )
       .contains("blockchains[1]", `{ ${chain} }`)
       .filter("volume", "gte", page < 5 ? bufferSettings.volume : 0)
       .filter("liquidity", "gte", page < 5 ? bufferSettings.liquidity : 0)
@@ -111,59 +133,111 @@ function News(props: any) {
 
   function getTokensToDisplay(filterCondition = { type: "market_cap", ascending: false }): any[] {
     if (display == "Top 100") {
-      return (tokens.length > 0) ? tokens?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]))
-        : page == 1 ? (props.tokens?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type])) || []) : [];
-    } if (display == "My Assets") {
+      return tokens.length > 0
+        ? tokens?.sort((a, b) =>
+            filterCondition.ascending
+              ? a[filterCondition.type] - b[filterCondition.type]
+              : b[filterCondition.type] - a[filterCondition.type]
+          )
+        : page == 1
+        ? props.tokens?.sort((a, b) =>
+            filterCondition.ascending
+              ? a[filterCondition.type] - b[filterCondition.type]
+              : b[filterCondition.type] - a[filterCondition.type]
+          ) || []
+        : [];
+    }
+    if (display == "My Assets") {
       if (account) {
         if (myAssets.length == 0) {
           axios.get(`https://mobulaspark.com/holdings?account=${account}`).then((r) => {
             if (r.data) {
               const assets = r.data.holdings
-                .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
-                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split(".")[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index));
+                .filter(
+                  (a: any, index: number) =>
+                    a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index
+                )
+                .concat(
+                  r.data.holdings.filter(
+                    (a: any, index: number) =>
+                      !a.logo &&
+                      !a.name.split(".")[1] &&
+                      r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index
+                  )
+                );
               setMyAssets(assets);
-              return assets?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]));
+              return assets?.sort((a, b) =>
+                filterCondition.ascending
+                  ? a[filterCondition.type] - b[filterCondition.type]
+                  : b[filterCondition.type] - a[filterCondition.type]
+              );
             }
             alert.error("Something went wrong.");
             return [];
           });
           return [];
         }
-        return myAssets?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]));
+        return myAssets?.sort((a, b) =>
+          filterCondition.ascending
+            ? a[filterCondition.type] - b[filterCondition.type]
+            : b[filterCondition.type] - a[filterCondition.type]
+        );
       }
       alert.show("You must connect your wallet to see your assets.");
       return [];
-    } if (display == "search") {
-      return search?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]));
-    } if (!chains[display]) {
+    }
+    if (display == "search") {
+      return search?.sort((a, b) =>
+        filterCondition.ascending
+          ? a[filterCondition.type] - b[filterCondition.type]
+          : b[filterCondition.type] - a[filterCondition.type]
+      );
+    }
+    if (!chains[display]) {
       loadChain(display);
       return [];
     }
-    return chains[display]?.sort((a, b) => (filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]));
+    return chains[display]?.sort((a, b) =>
+      filterCondition.ascending
+        ? a[filterCondition.type] - b[filterCondition.type]
+        : b[filterCondition.type] - a[filterCondition.type]
+    );
   }
 
   async function shouldLoadMore() {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
     );
 
     if (display == "Top 100") {
       supabase
         .from("assets")
-        .select("market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank")
+        .select(
+          "market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank"
+        )
         .filter("volume", "gte", page < 5 ? settings.volume : 0)
         .order("market_cap", { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then((r) => {
           if (r.data) {
-            setTokens(r.data.filter((token) => token.liquidity >= (page < 5 ? settings.liquidity : 0) || (token.contracts.length == 0 && !settings.onChainOnly)).slice(0, 100));
+            setTokens(
+              r.data
+                .filter(
+                  (token) =>
+                    token.liquidity >= (page < 5 ? settings.liquidity : 0) ||
+                    (token.contracts.length == 0 && !settings.onChainOnly)
+                )
+                .slice(0, 100)
+            );
           }
         });
     } else if (display != "My Assets") {
       supabase
         .from("assets")
-        .select("blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank")
+        .select(
+          "blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank"
+        )
         .contains("blockchains[1]", `{ ${display} }`)
         .filter("volume", "gte", page < 5 ? settings.volume : 0)
         .order("market_cap", { ascending: false })
@@ -192,7 +266,6 @@ function News(props: any) {
 
   return (
     <>
-
       {/* PAGE 1 */}
       <div className={styles["main-news"]}>
         <MainBlock setDisplay={setDisplay} />
@@ -205,40 +278,39 @@ function News(props: any) {
           pb="50px"
         >
           <Flex w="100%" justify="space-around" maxWidth="1750px" mb="10px">
-            {props.gainers && props.gainers.length >= 3
-              ? (
-                <GainerBlock
-                  title="Top Gainers"
-                  logo1={props.gainers[0].logo}
-                  name1={props.gainers[0].name}
-                  id1={props.gainers[0].id}
-                  change1={props.gainers[0].price_change_24h.toFixed(2)}
-                  logo2={props.gainers[1].logo}
-                  name2={props.gainers[1].name}
-                  id2={props.gainers[1].id}
-                  change2={props.gainers[1].price_change_24h.toFixed(2)}
-                  logo3={props.gainers[2].logo}
-                  name3={props.gainers[2].name}
-                  id3={props.gainers[2].id}
-                  change3={props.gainers[2].price_change_24h.toFixed(2)}
-                />
-              ) : (
-                <GainerBlock
-                  title="Top Gainers"
-                  logo1=""
-                  name1="Loading..."
-                  id1={0}
-                  change1={0}
-                  logo2=""
-                  name2="Loading..."
-                  id2={0}
-                  change2={0}
-                  logo3=""
-                  name3="Loading..."
-                  id3={0}
-                  change3={0}
-                />
-              )}
+            {props.gainers && props.gainers.length >= 3 ? (
+              <GainerBlock
+                title="Top Gainers"
+                logo1={props.gainers[0].logo}
+                name1={props.gainers[0].name}
+                id1={props.gainers[0].id}
+                change1={props.gainers[0].price_change_24h.toFixed(2)}
+                logo2={props.gainers[1].logo}
+                name2={props.gainers[1].name}
+                id2={props.gainers[1].id}
+                change2={props.gainers[1].price_change_24h.toFixed(2)}
+                logo3={props.gainers[2].logo}
+                name3={props.gainers[2].name}
+                id3={props.gainers[2].id}
+                change3={props.gainers[2].price_change_24h.toFixed(2)}
+              />
+            ) : (
+              <GainerBlock
+                title="Top Gainers"
+                logo1=""
+                name1="Loading..."
+                id1={0}
+                change1={0}
+                logo2=""
+                name2="Loading..."
+                id2={0}
+                change2={0}
+                logo3=""
+                name3="Loading..."
+                id3={0}
+                change3={0}
+              />
+            )}
             {/* @ts-ignore */}
             {props.trendings && props.trendings.length > 0 ? (
               <GainerBlock
@@ -246,7 +318,6 @@ function News(props: any) {
                 logo1={props.trendings[0].logo}
                 name1={props.trendings[0].name}
                 id1={props.trendings[0].id}
-
                 change1={props.trendings[0]?.price_change_24h?.toFixed(2)}
                 logo2={props.trendings[1].logo}
                 name2={props.trendings[1].name}
@@ -274,40 +345,39 @@ function News(props: any) {
                 change3={0}
               />
             )}
-            {props.recents && props.recents.length > 0
-              ? (
-                <GainerBlock
-                  title="Recently Added"
-                  logo1={props.recents[0].logo}
-                  name1={props.recents[0].name}
-                  id1={props.recents[0].id}
-                  change1={props.recents[0].price_change_24h.toFixed(2)}
-                  logo2={props.recents[1].logo}
-                  name2={props.recents[1].name}
-                  id2={props.recents[1].id}
-                  change2={props.recents[1].price_change_24h.toFixed(2)}
-                  logo3={props.recents[2].logo}
-                  name3={props.recents[2].name}
-                  id3={props.recents[2].id}
-                  change3={props.recents[2].price_change_24h.toFixed(2)}
-                />
-              ) : (
-                <GainerBlock
-                  title="Recently Added"
-                  logo1=""
-                  name1="Loading..."
-                  id1={0}
-                  change1={0}
-                  logo2=""
-                  name2="Loading..."
-                  id2={0}
-                  change2={0}
-                  logo3=""
-                  name3="Loading..."
-                  id3={0}
-                  change3={0}
-                />
-              )}
+            {props.recents && props.recents.length > 0 ? (
+              <GainerBlock
+                title="Recently Added"
+                logo1={props.recents[0].logo}
+                name1={props.recents[0].name}
+                id1={props.recents[0].id}
+                change1={props.recents[0].price_change_24h.toFixed(2)}
+                logo2={props.recents[1].logo}
+                name2={props.recents[1].name}
+                id2={props.recents[1].id}
+                change2={props.recents[1].price_change_24h.toFixed(2)}
+                logo3={props.recents[2].logo}
+                name3={props.recents[2].name}
+                id3={props.recents[2].id}
+                change3={props.recents[2].price_change_24h.toFixed(2)}
+              />
+            ) : (
+              <GainerBlock
+                title="Recently Added"
+                logo1=""
+                name1="Loading..."
+                id1={0}
+                change1={0}
+                logo2=""
+                name2="Loading..."
+                id2={0}
+                change2={0}
+                logo3=""
+                name3="Loading..."
+                id3={0}
+                change3={0}
+              />
+            )}
           </Flex>
         </Flex>
         <ButtonBlock
@@ -320,11 +390,9 @@ function News(props: any) {
       </div>
       {/* PAGE 2 */}
       <div className={styles["tables-main-container"]}>
-
         <TableContainer bg="var(--table)" display="flex" flexDirection="column" alignItems="center">
           {/* <Data /> */}
           <Table style={{ minWidth: "1220px" }} className={styles["table-style"]}>
-
             <Thead
               textTransform="capitalize"
               fontFamily="Inter"
@@ -540,34 +608,36 @@ function News(props: any) {
               </Tr>
             </Thead>
 
-            {
-                            (orderBy ? getTokensToDisplay(orderBy) : getTokensToDisplay()).map((token: any, index: number) => (token
-                              ? (
-                                <Token
-
-                                  key={token.id || token.balance + token.name}
-                                  id={token.id}
-                                  name={token.name}
-                                  symbol={token.symbol}
-                                  contracts={token.contracts}
-                                  blockchains={token.blockchains}
-                                  pairs={token.pairs}
-                                  logo={token.logo}
-                                  twitter={token.twitter}
-                                  chat={token.chat}
-                                  discord={token.discord}
-                                  website={token.website}
-                                  market_cap={token.market_cap}
-                                  volume={token.volume || ((new BigNumber(token.balance)).div(new BigNumber(10).pow(token.decimals))).toFixed(2)}
-                                  price_change_24h={token.price_change_24h}
-                                  price_change_7d={token.price_change_7d}
-                                  price={token.price}
-                                  rank_change_24h={token.rank_change_24h}
-                                  rank={token.rank}
-                                  isMyAsset={display == "My Assets"}
-                                />
-                              ) : <></>))
-                        }
+            {(orderBy ? getTokensToDisplay(orderBy) : getTokensToDisplay()).map((token: any, index: number) =>
+              token ? (
+                <Token
+                  key={token.id || token.balance + token.name}
+                  id={token.id}
+                  name={token.name}
+                  symbol={token.symbol}
+                  contracts={token.contracts}
+                  blockchains={token.blockchains}
+                  pairs={token.pairs}
+                  logo={token.logo}
+                  twitter={token.twitter}
+                  chat={token.chat}
+                  discord={token.discord}
+                  website={token.website}
+                  market_cap={token.market_cap}
+                  volume={
+                    token.volume || new BigNumber(token.balance).div(new BigNumber(10).pow(token.decimals)).toFixed(2)
+                  }
+                  price_change_24h={token.price_change_24h}
+                  price_change_7d={token.price_change_7d}
+                  price={token.price}
+                  rank_change_24h={token.rank_change_24h}
+                  rank={token.rank}
+                  isMyAsset={display == "My Assets"}
+                />
+              ) : (
+                <></>
+              )
+            )}
           </Table>
         </TableContainer>
       </div>

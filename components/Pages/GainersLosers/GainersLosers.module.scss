@@ -1,284 +1,282 @@
 .main-container {
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .both-container {
-    width: 90%;
-    display: flex;
-    justify-content: center;
+  width: 90%;
+  display: flex;
+  justify-content: center;
 }
 
 .ellipsis {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    /* margin-right: 10px; */
-    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* margin-right: 10px; */
+  overflow: hidden;
 }
 
 .left {
-    width: 100%;
+  width: 100%;
 
 }
 
 .token-symbols {
-    opacity: 0.6;
+  opacity: 0.6;
 }
 
 .arrowsUp {
-    margin-top: 2px !important;
+  margin-top: 2px !important;
 }
 
 .colspans {
-    box-sizing: border-box;
-    display: table-cell;
-    font-size: 14px;
-    font-family: URWDIN, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei";
-    border-bottom: 1px solid rgba(0, 20, 42, 0.12);
+  box-sizing: border-box;
+  display: table-cell;
+  font-size: 14px;
+  font-family: URWDIN, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei";
+  border-bottom: 1px solid rgba(0, 20, 42, 0.12);
 
-    line-height: 24px;
-    padding: 16px 12px;
+  line-height: 24px;
+  padding: 16px 12px;
 }
 
 .right {
-    width: 100%;
+  width: 100%;
 
 }
 
 .border-bot {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid var(--border-top);
-    cursor: pointer;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-top);
+  cursor: pointer;
 }
 
 .token-containers {
-    width: 100%;
-    display: flex;
-    font-family: 'Inter', "Poppins", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px;
-    font-weight: 500;
-    align-items: center;
-    height: 70px;
+  width: 100%;
+  display: flex;
+  font-family: 'Inter', "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  font-weight: 500;
+  align-items: center;
+  height: 70px;
 }
 
 .tokens-ids {
-    display: flex;
-    align-items: center;
-    width: 50px !important;
-    margin-right: 20px;
-    margin-left: 40px;
+  display: flex;
+  align-items: center;
+  width: 50px !important;
+  margin-right: 20px;
+  margin-left: 40px;
 }
 
 .font-char {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .token-infos {
-    display: flex;
-    align-items: center;
-    justify-content: start !important;
-    width: 194px;
-    margin-left: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: start !important;
+  width: 194px;
+  margin-left: 10px !important;
 }
 
 .tokens-price {
-    margin-left: auto;
-    width: 78px;
-    display: flex;
-    /* text-align: end; */
-    justify-content: end;
+  margin-left: auto;
+  width: 78px;
+  display: flex;
+  /* text-align: end; */
+  justify-content: end;
 }
 
 .token-percentage {
-    margin-left: 14px;
-    display: flex;
-    /* text-align: end; */
-    justify-content: end;
-    width: 99px;
+  margin-left: 14px;
+  display: flex;
+  /* text-align: end; */
+  justify-content: end;
+  width: 99px;
 }
 
 .token-marketCap-box {
-    display: flex;
-    width: 100px;
-    justify-content: end;
+  display: flex;
+  width: 100px;
+  justify-content: end;
 }
 
 .token-logos {
-    height: 40px;
-    margin-right: 1rem;
-    border-radius: 50%;
+  height: 40px;
+  margin-right: 1rem;
+  border-radius: 50%;
 }
 
 .token-percentage-box {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 15px;
-    color: #EA3943;
-    align-items: center;
-    display: flex;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 15px;
+  color: #EA3943;
+  align-items: center;
+  display: flex;
 }
 
 .token-names {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
-.token-ids>span {
-    margin-left: 10px;
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 21px;
-    color: #808A9D;
+.token-ids > span {
+  margin-left: 10px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #808A9D;
 }
 
 .table-head {
-    width: 100%;
-    padding: 15px 0px 5px 0px;
-    justify-content: space-around;
-    display: flex;
+  width: 100%;
+  padding: 15px 0px 5px 0px;
+  justify-content: space-around;
+  display: flex;
 
 }
-
 
 
 .table {
-    width: 100%;
+  width: 100%;
 
-    backdrop-filter: blur(13.94px);
-    /* Note: backdrop-filter has minimal browser support */
-    padding-bottom: 50vh;
-    border-radius: 10px;
-    padding: 0px 20px 20px 18px;
-    margin-bottom: 60px;
+  backdrop-filter: blur(13.94px);
+  /* Note: backdrop-filter has minimal browser support */
+  padding-bottom: 50vh;
+  border-radius: 10px;
+  padding: 0px 20px 20px 18px;
+  margin-bottom: 60px;
 }
 
 .data-title {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    /* identical to box height, or 120% */
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  /* identical to box height, or 120% */
 
-    display: flex;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
 
 .data-title:nth-child(1) {
-    margin-left: 2.3%;
+  margin-left: 2.3%;
 }
 
 .data-title:nth-child(2) {
-    margin-left: 7.5%;
+  margin-left: 7.5%;
 }
 
 .data-title:nth-child(3) {
-    width: 79px;
-    display: flex;
-    justify-content: end;
-    margin-left: auto;
+  width: 79px;
+  display: flex;
+  justify-content: end;
+  margin-left: auto;
 }
 
 .data-title:nth-child(4) {
-    display: flex;
-    justify-content: end;
-    width: 95px;
+  display: flex;
+  justify-content: end;
+  width: 95px;
 }
 
 .data-title:nth-child(5) {
-    margin-left: 31px;
-    text-overflow: ellipsis;
-    white-space: nowrap !important;
+  margin-left: 31px;
+  text-overflow: ellipsis;
+  white-space: nowrap !important;
 }
 
 .token-title-data {
 
-    visibility: hidden;
+  visibility: hidden;
 
 }
 
 .column-right {
-    padding-top: 0px;
-    width: 45%;
-    margin-left: -19px;
-    margin-right: auto
+  padding-top: 0px;
+  width: 45%;
+  margin-left: -19px;
+  margin-right: auto
 }
 
 .column-left {
-    padding-top: 0px;
-    width: 45%;
-    margin-right: auto;
-    margin-left: auto;
+  padding-top: 0px;
+  width: 45%;
+  margin-right: auto;
+  margin-left: auto;
 
 }
 
 .title-both {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 18px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 30px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 
 .green {
-    color: #16c784 !important;
+  color: #16c784 !important;
 }
 
 .mobile-btn {
-    display: none;
-    ;
-    width: 205px;
-    justify-content: space-between;
+  display: none;;
+  width: 205px;
+  justify-content: space-between;
 }
 
 .btn-loosers {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    background: var(--bg-gainers);
-    border-radius: 8px;
-    height: 28px;
-    width: 94px;
-    border: none;
-    cursor: pointer;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background: var(--bg-gainers);
+  border-radius: 8px;
+  height: 28px;
+  width: 94px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-winners {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    background: #24274A;
-    border-radius: 8px;
-    height: 28px;
-    width: 94px;
-    border: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background: #24274A;
+  border-radius: 8px;
+  height: 28px;
+  width: 94px;
+  border: none;
 }
 
 
@@ -286,290 +284,290 @@
 /* ===================================== MEDIA QUERY ===================================== */
 /* ===================================== MEDIA QUERY ===================================== */
 @media screen and (max-width: 1610px) {
-    .both-container {
-        width: 95%;
-        justify-content: center;
-    }
+  .both-container {
+    width: 95%;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 1525px) {
-    .both-container {
-        width: 100%;
-    }
+  .both-container {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1420px) {
 
-    .column-left {
-        width: 48%;
-    }
+  .column-left {
+    width: 48%;
+  }
 
-    .column-right {
-        width: 48%;
-        margin-left: 0px;
-    }
+  .column-right {
+    width: 48%;
+    margin-left: 0px;
+  }
 
-    .token-ids {
-        display: none;
-    }
+  .token-ids {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1390px) {
-    .both-container {
-        width: 100%
-    }
+  .both-container {
+    width: 100%
+  }
 
-    .data-title:nth-child(3) {
-        margin-left: auto;
-    }
-    .widths{
-        width:100%
-    }
+  .data-title:nth-child(3) {
+    margin-left: auto;
+  }
+  .widths {
+    width: 100%
+  }
 }
 
 @media screen and (max-width: 1280px) {
-    .tokens-price {
-        width: 79px;
-        display: flex;
-        /* text-align: end; */
-        justify-content: end;
-    }
-    
+  .tokens-price {
+    width: 79px;
+    display: flex;
+    /* text-align: end; */
+    justify-content: end;
+  }
 
-    .table {
-        padding: 0px 10px 18px 10px;
-        margin-bottom: 60px;
-    }
 
-    .token-marketCap-box {
-        width: 100px;
-        margin-right: 5px !important;
+  .table {
+    padding: 0px 10px 18px 10px;
+    margin-bottom: 60px;
+  }
 
-    }
+  .token-marketCap-box {
+    width: 100px;
+    margin-right: 5px !important;
+
+  }
 
 }
 
 @media screen and (max-width: 1150px) {
-    .ellipsis {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        /* margin-right: 10px; */
-        overflow: hidden;
-    }
+  .ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /* margin-right: 10px; */
+    overflow: hidden;
+  }
 }
 
-@media screen and (max-width:900px) {
-    .token-ids>span {
-        display: none;
-    }
+@media screen and (max-width: 900px) {
+  .token-ids > span {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1240px) {
-    .both-container {
-        flex-direction: column;
-        align-items: center;
-        display: flex;
-    }
+  .both-container {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+  }
 
-    .token-marketCap {
+  .token-marketCap {
 
-        margin-left: 30px;
-    }
+    margin-left: 30px;
+  }
 
-    .column-left {
-        width: 95%;
-        margin-top: -10px;
-    }
+  .column-left {
+    width: 95%;
+    margin-top: -10px;
+  }
 
-    .data-title:nth-child(5) {
-        margin-left: 42px;
-    }
+  .data-title:nth-child(5) {
+    margin-left: 42px;
+  }
 
-    .data-title:nth-child(2) {
-        margin-left: 0px;
-    }
+  .data-title:nth-child(2) {
+    margin-left: 0px;
+  }
 
-    .data-title:nth-child(4) {
-        margin-left: 14px;
-        display: flex;
-        justify-content: end;
-        width: 105px;
-    }
+  .data-title:nth-child(4) {
+    margin-left: 14px;
+    display: flex;
+    justify-content: end;
+    width: 105px;
+  }
 
-    .data-title:nth-child(3) {
-        width: 79px;
-        display: flex;
-        justify-content: end;
-        margin-left: auto;
-    }
+  .data-title:nth-child(3) {
+    width: 79px;
+    display: flex;
+    justify-content: end;
+    margin-left: auto;
+  }
 
-    .token-percentage {
-        display: flex;
-        /* text-align: end; */
-        justify-content: end;
-        width: 97px;
+  .token-percentage {
+    display: flex;
+    /* text-align: end; */
+    justify-content: end;
+    width: 97px;
 
-    }
+  }
 
-    .column-right {
-        width: 95%;
-        margin: 20px auto 30px auto;
-    }
+  .column-right {
+    width: 95%;
+    margin: 20px auto 30px auto;
+  }
 
-    .token-ids {
-        display: block;
-    }
+  .token-ids {
+    display: block;
+  }
 }
 
 
 @media screen and (max-width: 768px) {
-    .data-title:nth-child(4) {
-        margin-left: 3px;
-    }
+  .data-title:nth-child(4) {
+    margin-left: 3px;
+  }
 
-    .column-right {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top:-20px !important
-    }
+  .column-right {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: -20px !important
+  }
 
-    .column-left {
-        margin-left: 0px;
-        margin-right: 0px;
-        margin-top:-20px !important
-    }
+  .column-left {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: -20px !important
+  }
 
-    .mobile-btn {
-        display: flex;
-        justify-content: start;
-    }
+  .mobile-btn {
+    display: flex;
+    justify-content: start;
+  }
 
-    .both-container {
-        justify-content: center;
-    }
+  .both-container {
+    justify-content: center;
+  }
 
-    .column-left {
-        display: block;
-    }
+  .column-left {
+    display: block;
+  }
 
-    .column-right {
-        display: none;
-        width: 90%;
-        margin-top:20px
-    }
+  .column-right {
+    display: none;
+    width: 90%;
+    margin-top: 20px
+  }
 
-    .token-infos {
-        width: 159px;
-    }
+  .token-infos {
+    width: 159px;
+  }
 
-    .column-left {
-        width: 95%;
-        margin-top:20px
-    }
+  .column-left {
+    width: 95%;
+    margin-top: 20px
+  }
 
-    .token-title-volume {
-        display: none;
-    }
+  .token-title-volume {
+    display: none;
+  }
 
-    .token-marketCap {
-        display: none
-    }
+  .token-marketCap {
+    display: none
+  }
 
-    .token-symbols {
-        display: none;
-    }
+  .token-symbols {
+    display: none;
+  }
 
-    .token-ids {
-        display: none
-    }
+  .token-ids {
+    display: none
+  }
 
-    .table {
-        padding: 0px 5px 15px 5px;
-    }
+  .table {
+    padding: 0px 5px 15px 5px;
+  }
 
-    .token-percentage {
-        width: 92px;
+  .token-percentage {
+    width: 92px;
 
-    }
+  }
 
-    .token-title-data {
-        visibility: hidden;
-    }
+  .token-title-data {
+    visibility: hidden;
+  }
 
-    .table {
-        background: none;
-    }
+  .table {
+    background: none;
+  }
 
-    .table-head {
-        width: 100%;
-        padding: 10px 0px 10px 0px;
-        justify-content: space-around;
-    }
+  .table-head {
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    justify-content: space-around;
+  }
 
-    .token-logos {
-        height: 32px;
-    }
+  .token-logos {
+    height: 32px;
+  }
 
-    .token-containers {
-        height: 50px;
-    }
+  .token-containers {
+    height: 50px;
+  }
 
-    .column-right {
-        width: 95%;
-    }
+  .column-right {
+    width: 95%;
+  }
 
-    .left {
-        margin-top: 20px;
-    }
+  .left {
+    margin-top: 20px;
+  }
 
-    .right {
-        margin-top: 20px;
-    }
+  .right {
+    margin-top: 20px;
+  }
 
 }
 
 @media screen and (max-width: 460px) {
-    .column-left {
-        width: 95%;
-    }
+  .column-left {
+    width: 95%;
+  }
 
-    .token-infos {
-        width: 118px;
-    }
+  .token-infos {
+    width: 118px;
+  }
 
-    .font-char {
-        font-size: 13px;
-    }
+  .font-char {
+    font-size: 13px;
+  }
 
-    .token-logos {
-        margin-right: 8px;
+  .token-logos {
+    margin-right: 8px;
 
-    }
+  }
 
-    .token-percentage {
-        width: 82px
-    }
+  .token-percentage {
+    width: 82px
+  }
 
-    .data-title:nth-child(4) {
-        margin-left: 14px;
-        display: flex;
-        justify-content: end;
-        width: 82px !important;
-    }
+  .data-title:nth-child(4) {
+    margin-left: 14px;
+    display: flex;
+    justify-content: end;
+    width: 82px !important;
+  }
 }
 
-@media screen and (min-width:1800px) {
-    .column-right {
-        padding-top: 0px;
-        width: 45%;
-        margin-left: auto;
-        margin-right: auto
-    }
+@media screen and (min-width: 1800px) {
+  .column-right {
+    padding-top: 0px;
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto
+  }
 
-    .column-left {
-        padding-top: 0px;
-        width: 45%;
-        margin-right: auto;
-        margin-left: auto;
-    }
+  .column-left {
+    padding-top: 0px;
+    width: 45%;
+    margin-right: auto;
+    margin-left: auto;
+  }
 }

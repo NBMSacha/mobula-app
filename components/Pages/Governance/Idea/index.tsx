@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import {
-  Button, Flex, Text, Textarea,
-} from "@chakra-ui/react";
+import { Button, Flex, Text, Textarea } from "@chakra-ui/react";
 
 function Idea({ proposal }) {
   console.log(proposal);
   const [value, setValue] = useState("");
   return (
     <Flex direction="column" mt={["20px", "20px", "20px", ""]} position="relative">
-      <Text fontSize={["13px", "13px", "15px", "18px"]} mb="20px">Type your idea</Text>
+      <Text fontSize={["13px", "13px", "15px", "18px"]} mb="20px">
+        Type your idea
+      </Text>
       <Textarea
         border="none"
         boxShadow="1px 2px 12px 3px var(--shadow)"
@@ -57,7 +57,6 @@ function Idea({ proposal }) {
         Submit the DAO
       </Button>
     </Flex>
-
   );
 }
 

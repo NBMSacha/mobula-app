@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Button, Flex, Heading, Input, Text,
-} from "@chakra-ui/react";
+import { Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
 
 function Power({ proposal }) {
   console.log(proposal);
@@ -22,8 +20,7 @@ function Power({ proposal }) {
       <Flex w={["90%", "90%", "85%", "85%"]} mb={["10px", "10px", "30px", "30px"]}>
         <Flex align="end" justify="space-between" w="100%">
           <Heading fontFamily="Poppins" mb="8px" fontSize={["13px", "13px", "15px", "18px"]}>
-            Voting
-            Power
+            Voting Power
           </Heading>
         </Flex>
       </Flex>
@@ -44,7 +41,7 @@ function Power({ proposal }) {
             bg="var(--inputs)"
             borderRadius={["8px", "8px", "8px", "10px"]}
             _placeholder={{ color: "grey" }}
-                        // boxShadow={`1px 2px 12px 3px ${shadow}`}
+            // boxShadow={`1px 2px 12px 3px ${shadow}`}
             placeholder="2000"
             onChange={(e) => {
               setDeposit(e.target.value);
@@ -82,7 +79,7 @@ function Power({ proposal }) {
             bg="var(--inputs)"
             borderRadius={["8px", "8px", "8px", "10px"]}
             _placeholder={{ color: "grey" }}
-                        // boxShadow={`1px 2px 12px 3px ${shadow}`}
+            // boxShadow={`1px 2px 12px 3px ${shadow}`}
             placeholder="2000"
             onChange={(e) => {
               setWithdraw(e.target.value);

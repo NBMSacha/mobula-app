@@ -1,13 +1,9 @@
 import React from "react";
 import { useAlert } from "react-alert";
-import {
-  Flex, Image, Text, useMediaQuery,
-} from "@chakra-ui/react";
+import { Flex, Image, Text, useMediaQuery } from "@chakra-ui/react";
 import styles from "./Earn.module.scss";
 
-export default function DayBox({
-  day, streaks, account, user, setUser,
-}) {
+export default function DayBox({ day, streaks, account, user, setUser }) {
   const alert = useAlert();
   const [mobile] = useMediaQuery("(max-width: 768px)");
 
@@ -32,7 +28,11 @@ export default function DayBox({
   console.log(prizePerDay(day), mobile);
   return (
     <Flex
-      bg={(streaks == day && (!user.last_claim || Date.parse(user.last_claim) + 20 * 60 * 60 * 1000 < Date.now()) ? "var(--dailybox_active)" : "var(--dailybox_inactive)")}
+      bg={
+        streaks == day && (!user.last_claim || Date.parse(user.last_claim) + 20 * 60 * 60 * 1000 < Date.now())
+          ? "var(--dailybox_active)"
+          : "var(--dailybox_inactive)"
+      }
       opacity={streaks >= day ? "1" : "0.1"}
       boxShadow="1px 2px 12px 3px var(--shadow)"
       borderRadius="10px"
@@ -64,8 +64,7 @@ export default function DayBox({
       <Flex justify="center" align="center" mb="10px">
         <Image src="fullicon.png" h="30px" />
         <Text mb="0px !important" fontSize="15px" ml="5px">
-          +
-          {prizePerDay(day)}
+          +{prizePerDay(day)}
         </Text>
       </Flex>
     </Flex>

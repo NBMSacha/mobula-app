@@ -1,641 +1,668 @@
-.flex{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center;
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .flex > label {
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px !important;
-    line-height: 18px;
-    padding-bottom: 0px;
-    margin-bottom:0px;
-    text-align: start;
-    align-items:center;
-    justify-content:center;
-    margin:0px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px !important;
+  line-height: 18px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  text-align: start;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
 }
+
 .flex > label:nth-child(2) {
-    margin-top:0px;
+  margin-top: 0px;
 }
 
 .flex > label:nth-child(1) {
-    margin-top:10px;
-    margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
 .flex > input {
-    width:auto;
+  width: auto;
 
 }
 
-.noappears{
-    display:none;
-    margin-bottom: 12px;
+.noappears {
+  display: none;
+  margin-bottom: 12px;
 }
 
-.absolute-btn-address{
-    top: 37px;
-    right: 0px;
-    width: 32px;
-    height: 32px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9px;
-    border:none;
+.absolute-btn-address {
+  top: 37px;
+  right: 0px;
+  width: 32px;
+  height: 32px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  border: none;
 }
+
 .absolute-btn {
-    top: 37px;
-    border: none;
-    right: -1px;
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
+  top: 37px;
+  border: none;
+  right: -1px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
 }
+
 .form-container-box > input {
-    width: auto;
-    margin-bottom: 20px;
-    height: 32px;
-    border: none;
-    border-radius: 10px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-    text-overflow: ellipsis;
+  width: auto;
+  margin-bottom: 20px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  text-overflow: ellipsis;
 }
 
 .form-container-box > label {
-    width: 100%;
-    margin-bottom: 15px;
-    opacity: 1;
-    font-size: 14px;
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 1;
+  font-size: 14px;
 }
 
 .form-container-box {
-    position: relative;
-    
+  position: relative;
+
 }
 
 .form-container-box-flex > div > label {
-    width: 100%;
-    margin-bottom: 15px;
-    opacity: 1;
-    font-size: 14px;
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 1;
+  font-size: 14px;
 }
+
 .form-container-box-flex > div > input {
-    width: auto;
-    text-overflow: ellipsis;
-    margin-bottom: 20px;
+  width: auto;
+  text-overflow: ellipsis;
+  margin-bottom: 20px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.form-container-box-flex {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.inputs-container:nth-child(1) {
+  width: 25%
+}
+
+.inputs-container:nth-child(2) {
+  width: 70%
+}
+
+.upload-box {
+  width: 98px;
+  height: 98px;
+  border-radius: 10px;
+  padding: 2px;
+  margin-bottom: 20px;
+}
+
+.select-file {
+  opacity: 0;
+  width: 150px !important;
+  height: 25px !important;
+  background: red !important;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 8px !important
+}
+
+.file {
+  margin-right: 0px;
+  margin-top: 35px;
+  position: relative;
+  width: 70%
+}
+
+.waapu {
+  position: absolute;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  margin-left: 10px;
+}
+
+.upload-logo {
+  width: 20px;
+  margin-right: 8px
+}
+
+
+@media screen and (max-width: 768px) {
+  .absolute-btn-address {
+    top: 29px !important;
+    right: 0px !important;
+    width: 32px;
     height: 32px;
-    border: none;
-    border-radius: 10px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
+    border-radius: 9px;
+
+  }
+  .form-container-box {
+    position: relative;
+    width: 85%;
+  }
+  .absolute-btn {
+    top: 29px !important;
+    right: 6px !important;
+  }
 }
 
-.form-container-box-flex{
-    display:flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+@media screen and (max-width: 768px) {
+  .myForm {
+    flex-direction: column !important;
+  }
+
+  .all-forms {
+    align-items: center !important;
     flex-direction: row;
-}
+    width: 100%;
+  }
+  .three-forms {
+    padding: 14px !important;
+    max-width: 100% !important;
+    width: 90% !important;
+  }
+  .three-forms:nth-child(1) {
+    background: none !important;
+  }
+  .three-forms:nth-child(2) {
+    box-shadow: none !important;
+    background: none !important;
+  }
+  .three-forms:nth-child(3) {
+    box-shadow: none !important;
+    background: none !important;
+  }
 
-.inputs-container:nth-child(1){
-    width:25%
-}
-
-.inputs-container:nth-child(2){
-    width:70%
-}
-
-.upload-box{
-    width:98px;
-    height:98px;
-    border-radius:10px;
-    padding:2px;
+  .form-container-box {
+    width: 100%;
+    max-width: 750px !important;
+  }
+  .three-forms > h2 {
+    font-size: 15px;
     margin-bottom: 20px;
-}
+  }
+  .form-container-box > label {
+    font-size: 12px;
+    margin-bottom: 7px !important
+  }
+  .form-container-box > input::placeholder {
+    font-size: 11px;
+  }
+  .mobile-void {
+    display: block !important;
+  }
+  .contract {
+    width: 90% !important
+  }
+  .void {
+    display: none !important;
+  }
+  .inputPlus {
+    width: 90% !important;
+  }
+  .absolute-btn {
+    top: 25px !important;
+    right: 6px !important;
 
-.select-file{
-    opacity:0;
-    width:150px !important;
-    height:25px !important;
-    background:red !important;
-    position:relative;
-    z-index:2;
-    margin-bottom:8px !important
-}
+  }
+  .listToken-container {
+    padding-bottom: 80px !important
+  }
+  .button-submit-form {
+    width: 141px !important;
+    height: 40px !important;
 
-.file{
-    margin-right: 0px;
-    margin-top: 35px;
-    position:relative;
-    width:70%
-}
+  }
+  .listingForm-title {
+    font-size: 20px !important;
+    line-height: 18px;
+    margin-bottom: 5px;
+  }
+  .listingForm-text {
+    font-size: 12px !important;
+    line-height: 18px;
+    padding-bottom: 0px !important;
+  }
+  .listToken-container {
+    padding-top: 25px !important;
+  }
+  .listToken-main {
+    margin-top: -35px !important;
+  }
 
-.waapu{
-    position:absolute;
-    font-size:14px;
-    display:flex;
-    align-items:center;
-    white-space: nowrap;
-    margin-left: 10px;
-}
-.upload-logo{
-    width:20px;
-    margin-right:8px
-}
-
-
-@media screen and (max-width: 768px) {
-    .absolute-btn-address{
-        top: 29px !important;
-        right: 0px !important;
-        width: 32px;
-        height: 32px;
-        border-radius: 9px;
-        
-    }
-    .form-container-box {
-        position: relative;
-        width: 85%;
-    }
-    .absolute-btn{
-        top: 29px !important;
-        right: 6px !important;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .myForm {
-        flex-direction: column !important;
-    }
-   
-    .all-forms {
-        align-items: center !important;
-        flex-direction: row;
-        width: 100%;
-    }
-    .three-forms {
-        padding: 14px !important;
-        max-width: 100% !important;
-        width: 90% !important;
-    }
-    .three-forms:nth-child(1){
-        background:none !important;
-    }
-    .three-forms:nth-child(2){
-       box-shadow:none !important;
-       background:none !important;
-    }
-    .three-forms:nth-child(3){
-        box-shadow:none !important;
-        background:none !important;
-    }
-    
-    .form-container-box {
-        width: 100%;
-        max-width: 750px !important;
-    }
-    .three-forms>h2 {
-        font-size: 15px;
-        margin-bottom: 20px;
-    }
-    .form-container-box>label {
-        font-size: 12px;
-        margin-bottom: 7px !important
-    }
-    .form-container-box>input::placeholder {
-        font-size: 11px;
-    }
-    .mobile-void {
-        display: block !important;
-    }
-    .contract{
-        width:90% !important
-    }
-    .void {
-        display: none !important;
-    }
-    .inputPlus {
-        width: 90% !important;
-    }
-    .absolute-btn {
-        top: 25px !important;
-        right: 6px !important;
-
-    }
-    .listToken-container {
-        padding-bottom:80px !important
-    }
-    .button-submit-form {
-        width: 141px !important;
-        height: 40px !important;
-        
-    }
-    .listingForm-title {
-        font-size: 20px !important;
-        line-height: 18px;
-        margin-bottom: 5px;
-    }
-    .listingForm-text {
-        font-size: 12px !important;
-        line-height: 18px;
-        padding-bottom: 0px !important;
-    }
-    .listToken-container {
-        padding-top: 25px !important;
-    }
-    .listToken-main {
-        margin-top: -35px !important;
-    }
-    
 }
 
 @media screen and (max-width: 600px) {
-    .inputPlus {
-        width: 85% !important;
-    }
-    .absolute-btn {
-        top: 26px !important;
-        right: 6px !important;
-        
-    }
-    .contract{
-        width: 85% !important;
-    }
-    
+  .inputPlus {
+    width: 85% !important;
+  }
+  .absolute-btn {
+    top: 26px !important;
+    right: 6px !important;
+
+  }
+  .contract {
+    width: 85% !important;
+  }
+
 }
 
 @media screen and (max-width: 400px) {
-    .inputPlus {
-        width: 80% !important;
-    }
-    .contract{
-        width: 80% !important;
-    }
+  .inputPlus {
+    width: 80% !important;
+  }
+  .contract {
+    width: 80% !important;
+  }
 }
 
 .mobile-void {
-    display: none;
+  display: none;
 }
-.void {
-    display: block;
-}
-.listToken-container {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 150px;
-}
-.title-listToken {
-    width: 90%;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.void {
+  display: block;
 }
+
+.listToken-container {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 150px;
+}
+
+.title-listToken {
+  width: 90%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .three-forms {
-    width: 33.33%;
-    padding:0px;
-    border-radius:20px;
-    max-width: 450px ;
-    margin-top:20px;
+  width: 33.33%;
+  padding: 0px;
+  border-radius: 20px;
+  max-width: 450px;
+  margin-top: 20px;
 }
+
 .listToken-main {
-    display: flex;
-    border-radius:15px;
-    justify-content: space-around;
-    width: 80%;
-    margin-top: 20px;
-    padding-bottom:30px
+  display: flex;
+  border-radius: 15px;
+  justify-content: space-around;
+  width: 80%;
+  margin-top: 20px;
+  padding-bottom: 30px
 }
+
 .all-forms {
 
-    align-items: start ;
-    flex-direction: row;
-    width: 100%;
+  align-items: start;
+  flex-direction: row;
+  width: 100%;
 }
+
 .form-container-box {
-    width: 100%;
-    max-width: 450px;
-}
-.form-container-box>label {
-    width: 100%;
-    margin-bottom: 15px;
-
-    opacity: 1;
-}
-.relative-form {
-    position: relative;
-}
-.inputCreated {
-    width: auto;
-    margin-bottom: 20px;
-    height: 32px;
-
-    border: none;
-    border-radius: 10px;
-}
-.absolute-btn {
-    top: 38px;
-    right: -48px;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center
-}
-.form-container-box>input {
-    width: auto;
-    margin-bottom: 20px;
-    height: 32px;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-}
-.form-container-box>input::placeholder {
-    text-overflow:ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-.form-container-box>textarea {
-    width: auto;
-    margin-bottom: 15px;
-    height: 80px;
-
-    font-family: 'Poppins';
-    border: none;
-    border-radius: 15px;
-    padding: 15px;
-    border: none;
-    overflow: auto;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-.listToken-container textarea::placeholder {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
-}
-.listToken-container form>h2 {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 18px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-}
-.button-submit-form {
-    justify-content: center;
-    background: #5C7DF9;
-    border-radius: 10px;
-   width:100%;
-    display: flex;
-
-    height: 36px;
-    align-items: center !important;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    border: none;
-    
-    
-}
-.button-submit {
-    margin-top: 0px;
-    margin-left:auto;
-    width:100%
-    
-}
-.listingForm-title {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 18px;
-}
-.listingForm-text {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 18px;
-    padding-bottom: 30px;
-}
-
-.absolute-btn-address{
-    top: 37px;
-    right: 0px;
-    width: 32px;
-    height: 32px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9px;
-    border:none;
-}
-.absolute-btn {
-    top: 37px;
-    border: none;
-    right: -1px;
-    width: 32px;
-    height: 32px;
-    border-radius: 10px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    display: flex;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-}
-.form-container-box > input {
-    width: auto;
-    margin-bottom: 20px;
-    height: 32px;
-    border: none;
-    border-radius: 10px;
-    font-family: "Poppins";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 18px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .form-container-box > label {
-    width: 100%;
-    margin-bottom: 15px;
-    opacity: 1;
-    font-size: 14px;
+  width: 100%;
+  margin-bottom: 15px;
+
+  opacity: 1;
+}
+
+.relative-form {
+  position: relative;
+}
+
+.inputCreated {
+  width: auto;
+  margin-bottom: 20px;
+  height: 32px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+.absolute-btn {
+  top: 38px;
+  right: -48px;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center
+}
+
+.form-container-box > input {
+  width: auto;
+  margin-bottom: 20px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.form-container-box > input::placeholder {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.form-container-box > textarea {
+  width: auto;
+  margin-bottom: 15px;
+  height: 80px;
+
+  font-family: 'Poppins';
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.listToken-container textarea::placeholder {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.listToken-container form > h2 {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.button-submit-form {
+  justify-content: center;
+  background: #5C7DF9;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+
+  height: 36px;
+  align-items: center !important;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  border: none;
+
+
+}
+
+.button-submit {
+  margin-top: 0px;
+  margin-left: auto;
+  width: 100%
+
+}
+
+.listingForm-title {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 18px;
+}
+
+.listingForm-text {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  padding-bottom: 30px;
+}
+
+.absolute-btn-address {
+  top: 37px;
+  right: 0px;
+  width: 32px;
+  height: 32px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  border: none;
+}
+
+.absolute-btn {
+  top: 37px;
+  border: none;
+  right: -1px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container-box > input {
+  width: auto;
+  margin-bottom: 20px;
+  height: 32px;
+  border: none;
+  border-radius: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.form-container-box > label {
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 1;
+  font-size: 14px;
 }
 
 .form-container-box {
-    position: relative;
-    
+  position: relative;
+
 }
 
-.title{
-    display:none;
+.title {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
-   
-    .form-container-box {
-        position: relative;
-        width: 100%;
-    }
-    .absolute-btn{
-        top: 29px !important;
-        right: 0px !important;
-    }
-    .title{
-        text-align: start;
-        width: 90%;
-        margin-top:0px;
-        margin-bottom: 50px !important;
-        display:block;
-    }
-    .three-forms{
-        
-        margin: 12px 0px 0px 0px !important ;
-    }
-    .all-forms{
-        width:100% !important
-    }
-    .file{
-        width: 66% !important;
-        margin-left:20px
-    }
-    .button-submit{
-        margin-left: auto !important;
-        margin-right: auto;
-        margin-top:10px;
-        width: 100%;
-    }
-    .button-submit-form{
-        width: 100% !important;
-        margin: auto;
-    }
+
+  .form-container-box {
+    position: relative;
+    width: 100%;
+  }
+  .absolute-btn {
+    top: 29px !important;
+    right: 0px !important;
+  }
+  .title {
+    text-align: start;
+    width: 90%;
+    margin-top: 0px;
+    margin-bottom: 50px !important;
+    display: block;
+  }
+  .three-forms {
+
+    margin: 12px 0px 0px 0px !important;
+  }
+  .all-forms {
+    width: 100% !important
+  }
+  .file {
+    width: 66% !important;
+    margin-left: 20px
+  }
+  .button-submit {
+    margin-left: auto !important;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 100%;
+  }
+  .button-submit-form {
+    width: 100% !important;
+    margin: auto;
+  }
 }
 
 @media screen and (max-width: 1660px) {
-    .file{
-        margin-right: 0px;
-        margin-top: 35px;
-        position:relative;
-        width:65%
-    }
+  .file {
+    margin-right: 0px;
+    margin-top: 35px;
+    position: relative;
+    width: 65%
+  }
 }
 
 @media screen and (max-width: 1390px) {
-    .file{
-        margin-right: 0px;
-        margin-top: 35px;
-        position:relative;
-        width:62%
-    }
+  .file {
+    margin-right: 0px;
+    margin-top: 35px;
+    position: relative;
+    width: 62%
+  }
 }
 
 
 @media screen and (max-width: 1160px) {
-    .file{
-        margin-right: 0px;
-        margin-top: 35px;
-        position:relative;
-        width:58%
-    }
-    .three-forms{
-        width:30%;
-        margin: 10px;
-    }
-    .all-forms{
-        width:100%
-    }
-  
+  .file {
+    margin-right: 0px;
+    margin-top: 35px;
+    position: relative;
+    width: 58%
+  }
+  .three-forms {
+    width: 30%;
+    margin: 10px;
+  }
+  .all-forms {
+    width: 100%
+  }
+
 }
 
 @media screen and (max-width: 940px) {
-    .file{
-        width: 50%;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    .waapu{
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-    .listToken-main {
-        width: 90%;
-    }
-    .form-container-box-flex > div > label {
-        white-space: nowrap !important;
-    }
+  .file {
+    width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .waapu {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .listToken-main {
+    width: 90%;
+  }
+  .form-container-box-flex > div > label {
+    white-space: nowrap !important;
+  }
 }

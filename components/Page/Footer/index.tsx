@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  GitHub, Moon, Send, Sun, Twitter,
-} from "react-feather";
-import {
-  Flex, Icon, IconButton, Image, Link, Text,
-} from "@chakra-ui/react";
+import { GitHub, Moon, Send, Sun, Twitter } from "react-feather";
+import { Flex, Icon, IconButton, Image, Link, Text } from "@chakra-ui/react";
 import styles from "./footer.module.scss";
 import { ThemeContext } from "../../../pages/_app";
 
@@ -23,9 +19,7 @@ function Footer() {
       };
     }
 
-    const [windowDimensions, setWindowDimensions] = useState(
-      getWindowDimensions(),
-    );
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
       if (hasWindow) {
@@ -146,16 +140,10 @@ function Footer() {
         <div className={styles.help}>
           <span style={{ color: "var(--text-footer-title)" }}>Help</span>
           <ul>
-            <Link
-              _hover={{ color: "var(--box_active)", textDecoration: "none" }}
-              href="https://discord.gg/2a8hqNzkzN"
-            >
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href="https://discord.gg/2a8hqNzkzN">
               <li>FAQs</li>
             </Link>
-            <Link
-              _hover={{ color: "var(--box_active)", textDecoration: "none" }}
-              href="https://discord.gg/2a8hqNzkzN"
-            >
+            <Link _hover={{ color: "var(--box_active)", textDecoration: "none" }} href="https://discord.gg/2a8hqNzkzN">
               <li>Support</li>
             </Link>
           </ul>
@@ -163,7 +151,6 @@ function Footer() {
         <div className={styles.help}>
           <Flex justify="center">
             <IconButton
-
               _focus={{ boxShadow: "none" }}
               onClick={() => {
                 themeContext.setColorMode(themeContext.colorMode == "light" ? "dark" : "light");
@@ -171,21 +158,13 @@ function Footer() {
               aria-label="Call Segun"
               borderRadius="12px"
               color="var(--text-footer-title)"
-
               icon={themeContext.colorMode == "light" ? <Moon /> : <Sun />}
             />
-            <Text
-              whiteSpace="nowrap"
-              color="var(--text-footer-title)"
-              ml="10px"
-            >
+            <Text whiteSpace="nowrap" color="var(--text-footer-title)" ml="10px">
               {themeContext.colorMode == "light" ? "Dark Mode" : "White Mode"}
             </Text>
-
           </Flex>
-
         </div>
-
       </div>
     </Flex>
   );

@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  Box, Button, Flex, Heading, Image, Spacer, Text, useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Spacer, Text, useColorModeValue } from "@chakra-ui/react";
 import Countdown from "react-countdown";
 import { Globe, Send, Twitter } from "react-feather";
 import { useAlert } from "react-alert";
@@ -47,7 +45,10 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
       complete.current = true;
       return Date.now();
     }
-    localStorage.setItem(`date${token.id}`, String(Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000));
+    localStorage.setItem(
+      `date${token.id}`,
+      String(Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000)
+    );
     return Math.max(30 * 60 * 1000 - (Date.now() - token.lastUpdate * 1000), 0) + Date.now() + 3 * 60 * 1000;
   }
 
@@ -61,17 +62,26 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
               <Heading fontSize={["xl", "xl", "xx-large"]}>{token.name}</Heading>
             </Flex>
             <Flex width={["30%", "30%", "20%"]} justify="space-around">
-              {token.website
-                                && <a target="_blank" href={token.website} rel="noreferrer"><Globe className={styles.icons} /></a>}
-              {token.twitter
-                                && <a target="_blank" href={token.twitter} rel="noreferrer"><Twitter className={styles.icons} /></a>}
-              {token.chat && <a target="_blank" href={token.chat} rel="noreferrer"><Send className={styles.icons} /></a>}
+              {token.website && (
+                <a target="_blank" href={token.website} rel="noreferrer">
+                  <Globe className={styles.icons} />
+                </a>
+              )}
+              {token.twitter && (
+                <a target="_blank" href={token.twitter} rel="noreferrer">
+                  <Twitter className={styles.icons} />
+                </a>
+              )}
+              {token.chat && (
+                <a target="_blank" href={token.chat} rel="noreferrer">
+                  <Send className={styles.icons} />
+                </a>
+              )}
             </Flex>
           </Flex>
 
           <Flex
-            mt={[token.kyc || token.audit ? "30px" : "0px",
-              token.kyc || token.audit ? "30px" : "0px", "0px"]}
+            mt={[token.kyc || token.audit ? "30px" : "0px", token.kyc || token.audit ? "30px" : "0px", "0px"]}
             ml={["0px", "0px", token.kyc || token.audit ? "40px" : "0px"]}
           >
             {token.kyc ? (
@@ -79,39 +89,44 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                 w="110px"
                 h="40px"
                 bg={useColorModeValue("#E9E9E9", "dark_box_list")}
-                onClick={() => document.location.href = token.kyc}
+                onClick={() => (document.location.href = token.kyc)}
               >
                 KYC
               </Button>
-            ) : <></>}
+            ) : (
+              <></>
+            )}
             {token.audit ? (
               <Button
                 w="110px"
                 h="40px"
                 bg={useColorModeValue("#E9E9E9", "dark_box_list")}
-                onClick={() => document.location.href = token.audit}
+                onClick={() => (document.location.href = token.audit)}
               >
                 Audit
               </Button>
-            ) : <></>}
+            ) : (
+              <></>
+            )}
           </Flex>
         </Flex>
         <Box p={["0px", "0px", "20px"]}>
-          <Text
-            color={useColorModeValue("gray.600", "gray.400")}
-            ref={refDescription}
-          >
-            {active ? token.description.split("\n").map((str: string) => (
-              <>
-                <br />
-                <p>{str}</p>
-              </>
-            )) : formatName(token.description, 700).split("\n").map((str: string) => (
-              <>
-                <br />
-                <p>{str}</p>
-              </>
-            ))}
+          <Text color={useColorModeValue("gray.600", "gray.400")} ref={refDescription}>
+            {active
+              ? token.description.split("\n").map((str: string) => (
+                  <>
+                    <br />
+                    <p>{str}</p>
+                  </>
+                ))
+              : formatName(token.description, 700)
+                  .split("\n")
+                  .map((str: string) => (
+                    <>
+                      <br />
+                      <p>{str}</p>
+                    </>
+                  ))}
             {token.description && token.description.length > 700 ? (
               <Button
                 width="20px"
@@ -123,12 +138,12 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
                   console.log(token.description);
                 }}
               >
-                {active ? (<span>-</span>) : (<span>+</span>)}
+                {active ? <span>-</span> : <span>+</span>}
               </Button>
-            )
-              : <></>}
+            ) : (
+              <></>
+            )}
           </Text>
-
         </Box>
 
         <Spacer />
@@ -140,56 +155,52 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
           boxShadow={useColorModeValue("0px 1px 6px 1px #d0d6e3", "0px 1px 12px 3px rgba(0,0,0,0.2)")}
         >
           <div className={styles.left} ref={refContract} id="contract">
-            <Heading fontSize="xl" fontWeight="600">Contract(s)</Heading>
+            <Heading fontSize="xl" fontWeight="600">
+              Contract(s)
+            </Heading>
             <Flex>
               {token.contracts.map((contract: string, index: number) => (
                 <Box mb="20px" mr="10px">
-                  <Contract
-                    contract={contract}
-                    blockchain={token.chains[index]}
-                  />
+                  <Contract contract={contract} blockchain={token.chains[index]} />
                 </Box>
               ))}
             </Flex>
-
           </div>
 
-          {token.totalSupply && token.totalSupply.length > 0
-            ? (
-              <div className={styles.left} ref={refContract} id="contract">
-                <Heading fontSize="xl" fontWeight="600">Total Supply</Heading>
-                <Flex>
-                  {token.totalSupply.map((contract: string, index: number) => (
-                    <Box mb="20px" mr="10px">
-                      <Contract
-                        contract={contract}
-                        blockchain={token.chains[0]}
-                      />
-                    </Box>
-                  ))}
-                </Flex>
-              </div>
-            ) : <></>}
+          {token.totalSupply && token.totalSupply.length > 0 ? (
+            <div className={styles.left} ref={refContract} id="contract">
+              <Heading fontSize="xl" fontWeight="600">
+                Total Supply
+              </Heading>
+              <Flex>
+                {token.totalSupply.map((contract: string, index: number) => (
+                  <Box mb="20px" mr="10px">
+                    <Contract contract={contract} blockchain={token.chains[0]} />
+                  </Box>
+                ))}
+              </Flex>
+            </div>
+          ) : (
+            <></>
+          )}
 
-          {token.excludedFromCirculation && token.excludedFromCirculation.length > 0
-            ? (
-              <div className={styles.left} ref={refContract} id="contract">
-                <Heading fontSize="xl" fontWeight="600">Excluded from circulation</Heading>
-                <Flex>
-                  {token.excludedFromCirculation.map((contract: string, index: number) => (
-                    <Box mb="20px" mr="10px">
-                      <Contract
-                        contract={contract}
-                        blockchain={token.chains[0]}
-                      />
-                    </Box>
-                  ))}
-                </Flex>
-
-              </div>
-            ) : <></>}
+          {token.excludedFromCirculation && token.excludedFromCirculation.length > 0 ? (
+            <div className={styles.left} ref={refContract} id="contract">
+              <Heading fontSize="xl" fontWeight="600">
+                Excluded from circulation
+              </Heading>
+              <Flex>
+                {token.excludedFromCirculation.map((contract: string, index: number) => (
+                  <Box mb="20px" mr="10px">
+                    <Contract contract={contract} blockchain={token.chains[0]} />
+                  </Box>
+                ))}
+              </Flex>
+            </div>
+          ) : (
+            <></>
+          )}
         </Flex>
-
       </Flex>
 
       <Flex
@@ -212,18 +223,15 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
           ml={["30px", "30px", "30px", "0px"]}
           mb="20px"
         >
-          <Text fontWeight="600" fontSize="xl">Vote</Text>
+          <Text fontWeight="600" fontSize="xl">
+            Vote
+          </Text>
           <CountdownAny
             date={getEndDate()}
-            onComplete={() => complete.current = true}
+            onComplete={() => (complete.current = true)}
             renderer={(props) => (
-              <Text
-                fontWeight="600"
-                fontSize="1.5rem"
-              >
-                {props.minutes}
-                :
-                {String(props.seconds).length > 1 ? props.seconds : `0${props.seconds}`}
+              <Text fontWeight="600" fontSize="1.5rem">
+                {props.minutes}:{String(props.seconds).length > 1 ? props.seconds : `0${props.seconds}`}
               </Text>
             )}
           />
@@ -255,7 +263,6 @@ const DisplayedToken = ({ token, changeDisplay, voteToken }) => {
             Reject
           </Button>
         </Flex>
-
       </Flex>
     </Flex>
   );

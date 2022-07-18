@@ -1,12 +1,8 @@
 import React from "react";
 import { ThumbsDown } from "react-feather";
-import {
-  Button, Flex, Input, Text, Textarea,
-} from "@chakra-ui/react";
+import { Button, Flex, Input, Text, Textarea } from "@chakra-ui/react";
 
-function Mid({
-  promote, firstInput, secondInput, setFirstInput, firstValue,
-}) {
+function Mid({ promote, firstInput, secondInput, setFirstInput, firstValue }) {
   return (
     <Flex w="50%" direction="column" ml="10px">
       <Flex
@@ -18,36 +14,24 @@ function Mid({
         borderRadius="12px"
       >
         <Flex color="red" align="center" mb="10px">
-          <Text mr="20px" fontSize={["18px", "18px", "18px", "23px"]}>Promotion</Text>
+          <Text mr="20px" fontSize={["18px", "18px", "18px", "23px"]}>
+            Promotion
+          </Text>
           <ThumbsDown />
         </Flex>
         <Flex direction="column">
           <Text fontSize={["12px", "12px", "15px", "15px"]} mb="15px" opacity=".7">
-            Amount of Rank I seats
-            members
+            Amount of Rank I seats members
           </Text>
-          <Text
-            fontSize={["14px", "14px", "17px", "17px"]}
-            mb="15px"
-            color={firstInput > 0 ? "green" : "red"}
-          >
-            {firstInput}
-            {" "}
-            Members
+          <Text fontSize={["14px", "14px", "17px", "17px"]} mb="15px" color={firstInput > 0 ? "green" : "red"}>
+            {firstInput} Members
           </Text>
           <Text fontSize={["12px", "12px", "15px", "15px"]} mb="15px" opacity=".7">
-            Amount of Rank II seats
-            members
+            Amount of Rank II seats members
           </Text>
-          <Text
-            fontSize={["14px", "14px", "17px", "17px"]}
-            mb="15px"
-            color={secondInput > 0 ? "green" : "red"}
-          >
+          <Text fontSize={["14px", "14px", "17px", "17px"]} mb="15px" color={secondInput > 0 ? "green" : "red"}>
             {" "}
-            {secondInput}
-            {" "}
-            Members
+            {secondInput} Members
           </Text>
         </Flex>
       </Flex>
@@ -58,7 +42,9 @@ function Mid({
         bg="var(--bg-governance-box)"
         borderRadius="12px"
       >
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px" opacity="0.7">Adress to demote</Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px" opacity="0.7">
+          Adress to demote
+        </Text>
         <Input
           h={["29px", "29px", "29px", "32px"]}
           borderRadius="8px"
@@ -77,7 +63,9 @@ function Mid({
           required
           mb="30px"
         />
-        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px" opacity="0.7">Why ?</Text>
+        <Text fontSize={["12px", "12px", "15px", "15px"]} mb="10px" opacity="0.7">
+          Why ?
+        </Text>
         <Textarea
           placeholder="Explain here why demote this adress"
           bg="var(--inputs)"
@@ -109,7 +97,6 @@ function Mid({
         </Button>
       </Flex>
     </Flex>
-
   );
 }
 

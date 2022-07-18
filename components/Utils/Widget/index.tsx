@@ -21,9 +21,7 @@ const labelStyles = {
   fontSize: "sm",
 };
 
-export default function Widget({
-  setSettings, visible, setVisible, settings,
-}) {
+export default function Widget({ setSettings, visible, setVisible, settings }) {
   const [volume, setVolume] = useState(reverseExpo(settings.volume));
   const [liquidity, setLiquidity] = useState(reverseExpo(settings.liquidity));
 
@@ -59,13 +57,16 @@ export default function Widget({
       bg="var(--background)"
     >
       <Flex w="90%" justify="space-between" align="center">
-        <Text mt="30px" w="80%" mb="20px" fontSize="15px">Token filtering settings</Text>
+        <Text mt="30px" w="80%" mb="20px" fontSize="15px">
+          Token filtering settings
+        </Text>
         <X cursor="pointer" onClick={() => setVisible(false)} />
       </Flex>
       <Box h="1px" w="100%" bg="var(--background)" />
       <Flex direction="column" justify="center" w="80%">
-
-        <Text mt="20px" fontSize="12px">Min. Liquidity</Text>
+        <Text mt="20px" fontSize="12px">
+          Min. Liquidity
+        </Text>
         <Box pt={6} pb={2}>
           <Slider
             aria-label="slider-ex-6"
@@ -74,16 +75,10 @@ export default function Widget({
             mt="15px"
             onChange={(val) => setLiquidity(val)}
           >
-            <SliderMark
-              value={liquidity}
-              textAlign="center"
-              bg="blue.500"
-              color="none"
-              mt="-10"
-              ml="-10"
-              w="20"
-            >
-              {(easeInExpo(liquidity) > 1_000_000 ? `$${formatBigAmount(easeInExpo(liquidity))}` : `$${formatAmount(easeInExpo(liquidity))}`)}
+            <SliderMark value={liquidity} textAlign="center" bg="blue.500" color="none" mt="-10" ml="-10" w="20">
+              {easeInExpo(liquidity) > 1_000_000
+                ? `$${formatBigAmount(easeInExpo(liquidity))}`
+                : `$${formatAmount(easeInExpo(liquidity))}`}
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack bg="blue" />
@@ -91,7 +86,9 @@ export default function Widget({
             <SliderThumb bg="blue" />
           </Slider>
         </Box>
-        <Text mt="20px" fontSize="12px">Min. Volume (24h)</Text>
+        <Text mt="20px" fontSize="12px">
+          Min. Volume (24h)
+        </Text>
         <Box pt={6} pb={2}>
           <Slider
             aria-label="slider-ex-6"
@@ -100,16 +97,10 @@ export default function Widget({
             mt="15px"
             onChange={(val) => setVolume(val)}
           >
-            <SliderMark
-              value={volume}
-              textAlign="center"
-              bg="blue.500"
-              color="none"
-              mt="-10"
-              ml="-10"
-              w="20"
-            >
-              {(easeInExpo(volume) > 1_000_000 ? `$${formatBigAmount(easeInExpo(volume))}` : `$${formatAmount(easeInExpo(volume))}`)}
+            <SliderMark value={volume} textAlign="center" bg="blue.500" color="none" mt="-10" ml="-10" w="20">
+              {easeInExpo(volume) > 1_000_000
+                ? `$${formatBigAmount(easeInExpo(volume))}`
+                : `$${formatAmount(easeInExpo(volume))}`}
             </SliderMark>
             <SliderTrack>
               <SliderFilledTrack bg="blue" />
@@ -122,7 +113,9 @@ export default function Widget({
         <RadioGroup onChange={setValue} value={value}>
           <Flex direction="column" fontSize="10px">
             <Flex align="center" direction="row">
-              <Text fontSize="12px" mb="10px" w="90%">Hide tokens without on-chains data</Text>
+              <Text fontSize="12px" mb="10px" w="90%">
+                Hide tokens without on-chains data
+              </Text>
               <Checkbox
                 checked={onChainOnly}
                 bg={onChainOnly ? "blue" : "none"}

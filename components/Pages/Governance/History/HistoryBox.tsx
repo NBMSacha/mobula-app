@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import {
-  Button, Collapse, Flex, Link, Text,
-} from "@chakra-ui/react";
+import { Button, Collapse, Flex, Link, Text } from "@chakra-ui/react";
 import { ThumbsUp } from "react-feather";
 
 function HistoryBox({ text }) {
@@ -29,11 +27,7 @@ function HistoryBox({ text }) {
           borderRadius="12px"
           mb="20px"
         >
-          <Collapse
-            startingHeight={20}
-            in={show}
-            style={{ maxWidth: "450px", marginRight: "20px" }}
-          >
+          <Collapse startingHeight={20} in={show} style={{ maxWidth: "450px", marginRight: "20px" }}>
             {text}
           </Collapse>
         </Flex>
@@ -59,12 +53,10 @@ function HistoryBox({ text }) {
           <Flex align="center">
             <ThumbsUp height="30px" />
             <Text ml="10px">Accepted</Text>
-
           </Flex>
         </Button>
       </Flex>
     </Flex>
-
   );
 }
 

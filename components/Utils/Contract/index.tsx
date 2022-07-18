@@ -4,7 +4,7 @@ import { CheckCircle, Copy } from "react-feather";
 import { getBlockchainFromContract } from "../../../helpers/blockchain";
 import { supportedRPCs } from "../../../constants";
 
-export default function Contract({ contract, blockchain }: { contract: string, blockchain: string }) {
+export default function Contract({ contract, blockchain }: { contract: string; blockchain: string }) {
   const [copied, setCopied] = useState(false);
   useEffect(() => {
     if (!blockchain) {
@@ -35,10 +35,14 @@ export default function Contract({ contract, blockchain }: { contract: string, b
           src={`/${blockchain.split(" ")[0].toLowerCase()}.png`}
           ml="5px"
         />
-      ) : <></>}
+      ) : (
+        <></>
+      )}
       <Text
         onClick={() => {
-          window.open(`${supportedRPCs[supportedRPCs.map((r) => r.name).indexOf(blockchain)].explorer}/token/${contract}`);
+          window.open(
+            `${supportedRPCs[supportedRPCs.map((r) => r.name).indexOf(blockchain)].explorer}/token/${contract}`
+          );
         }}
         ml="10px"
         py={5}
@@ -47,20 +51,19 @@ export default function Contract({ contract, blockchain }: { contract: string, b
       >
         {`${contract.slice(0, 6)}...${contract.slice(contract.length - 5, contract.length - 1)}`}
       </Text>
-      {
-                copied ? <CheckCircle width="17px" color="#32C784" style={{ position: "absolute", right: "10px" }} />
-                  : (
-                    <Copy
-                      width="15px"
-                      cursor="pointer"
-                      style={{ position: "absolute", right: "10px" }}
-                      onClick={() => {
-                        setCopied(true);
-                        navigator.clipboard.writeText(contract);
-                      }}
-                    />
-                  )
-            }
+      {copied ? (
+        <CheckCircle width="17px" color="#32C784" style={{ position: "absolute", right: "10px" }} />
+      ) : (
+        <Copy
+          width="15px"
+          cursor="pointer"
+          style={{ position: "absolute", right: "10px" }}
+          onClick={() => {
+            setCopied(true);
+            navigator.clipboard.writeText(contract);
+          }}
+        />
+      )}
     </Flex>
   );
 }
