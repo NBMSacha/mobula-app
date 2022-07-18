@@ -1,0 +1,16 @@
+.decisionBox{
+    width:85px;
+}
+
+.decisionFont{
+    font-size:12px
+}
+
+@media screen and (max-width:1150px) {
+    .decisionBox{
+        width:55px;
+    }
+    .decisionFont{
+        font-size:10px
+    }
+}

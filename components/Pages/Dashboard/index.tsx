@@ -206,7 +206,6 @@ function Dashboard() {
             justifyContent={['space-evenly']}
             flexDir={['column-reverse', 'column-reverse', 'row', 'row']}
             alignItems={['center', 'center', 'center', 'stretch']}
-
             paddingTop='60px'
             className={styles["blitz"]}
             m="auto"
@@ -214,12 +213,8 @@ function Dashboard() {
             mt="-40px"
             mb={["0px", "0px", "0px", "10vh"]}
           >
-
-            {/* RANK DISPLAY MOBILE */}
-
-
             <>
-              <Flex display={["flex", "flex", "none", "none"]} w="95%" direction="column" borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px",]}>
+              <Flex display={["flex", "flex", "none", "none"]} w="95%" direction="column" borderRadius="10px" p="5px" align={['center', 'center', 'center', 'space-between']} mt={["10px", "10px", "0px", "0px"]}>
 
                 {/* Rank I Stats */}
                 <Flex w={['95%', '95%', '90%', '90%']} justify="space-evenly" direction={[, "column", "row", "row"]} >
@@ -230,7 +225,6 @@ function Dashboard() {
                     p={['4px 4px 4px 4px', '4px 4px 4px 4px', '34px 34px 34px 34px', '34px 34px 34px 34px']}
                     bg={["var(--bg-governance-box)", "var(--bg-governance-box)", '#191D2C', '#191D2C']}
                     borderRadius='8px'
-
                     borderBottom={`1px solid var(--box_border)`}
                     w={['100%', '100%', '90%', '50%']}
                     textAlign={['center', 'center', 'center', 'left']}
@@ -452,7 +446,7 @@ function Dashboard() {
 
                     justifyContent={['center', 'center', 'center', 'right']}
                   >
-                    fjioeshuifsheiufui
+                    
                     <Button
                       h="45px"
                       px="12px"

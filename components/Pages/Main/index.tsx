@@ -147,6 +147,8 @@ function News(props: any) {
     }
   }
 
+
+
   async function shouldLoadMore() {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
@@ -199,6 +201,7 @@ function News(props: any) {
   const [ infoGainer, setInfoGainer] = useState(false)
   const [ infoTrend, setInfoTrend] = useState(false)
   const [ infoRecent, setInfoRecent] = useState(false)
+  console.log(props.recents)
   return (
     <>
 

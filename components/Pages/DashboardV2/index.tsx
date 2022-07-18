@@ -24,8 +24,12 @@ import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Imag
 function Dashboard() {
   const web3React = useWeb3React()
   const alert = useAlert()
+  const accountUser = web3React.account
   const [firstTokensOwed, setFirstTokensOwed] = useState(0)
   const [validated, setValidated] = useState([])
+  const [rejected, setRejected] = useState([])
+  const [userRank, setUserRank] = useState(0)
+  
   const [finalTokensOwed, setFinalTokensOwed] = useState(0)
   const [firstGoodChoice, setFirstGoodChoice] = useState(0)
   const [firstBadChoice, setFirstBadChoice] = useState(0)
@@ -151,14 +155,24 @@ function Dashboard() {
     )
 
     supabase
-      .from('assets')
-      .select('name,symbol,logo,created_at')
+      .from('history_dao')
+      .select('*')
       .order('created_at', { ascending: false })
-      .limit(10)
+      .limit(30)
       .then(r => {
         setRecentlyAdded(r.data)
       })
-
+    
+    supabase
+        .from('members')
+        .select('address')
+        .order('good_decisions', {ascending: false})
+        .then(r => {
+            if(r.data) {
+                setUserRank(r.data.map(entry => entry.address).indexOf(accountUser) + 1)
+            }      
+          })
+    
     supabase
       .from('members')
       .select('*')
@@ -172,9 +186,20 @@ function Dashboard() {
       .from('history_dao')
       .select('*')
       .order('created_at', { ascending: false })
+      .filter("validated", 'eq', "true")
       .limit(10)
       .then(r => {
         setValidated(r.data)
+      })
+
+    supabase
+      .from('history_dao')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .filter("validated", 'eq', "false")
+      .limit(10)
+      .then(r => {
+        setRejected(r.data)
       })
   }
 
@@ -197,14 +222,36 @@ function Dashboard() {
       }
     }
   }, [web3React])
-
+  
   return (
     <Flex maxWidth="1500px" mx="auto" mt="28px">
-        <Grid h='2200' display={["none","none","none","grid"]} mx="auto" w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(5, 1fr)']} gap={2}>
-            <RankStats />
-            <Faucet />
-            <History />
-            <Leaderboard />
+        <Grid h='2200'  mx="auto" w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(5, 1fr)']} gap={2}>
+            <RankStats 
+                finalBadChoice={finalBadChoice}
+                finalGoodChoice={finalGoodChoice}
+                firstGoodChoice={firstGoodChoice}
+                firstBadChoice={firstBadChoice}
+                firstTokensOwed={firstTokensOwed}
+                finalTokensOwed={finalTokensOwed}
+            />
+            <Faucet 
+                provider={provider} 
+                claim={claimed} 
+                countdown={countdownValue} 
+            />
+            <History 
+                rejected={rejected} 
+                validated={validated} 
+                recentlyAdded={recentlyAdded}
+            />
+            <Leaderboard 
+                goodChoices={firstGoodChoice} 
+                badChoices={firstBadChoice} 
+                finalBadChoice={finalBadChoice}
+                finalGoodChoice={finalGoodChoice}
+                top={daoMembers} 
+                userRank={userRank}
+            />
         </Grid>
     </Flex>
   )
