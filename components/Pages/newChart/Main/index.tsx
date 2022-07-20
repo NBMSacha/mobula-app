@@ -643,7 +643,7 @@ const Main = ({ baseAssetBuffer }) => {
                         <GridItem rowStart={3} colStart={4} rowSpan={totalScore > 1 ? 2 : 4}>
                             <TradeBox baseAsset={baseAsset} totalScore={totalScore}/>
                         </GridItem>
-                        <GridItem boxShadow="1px 2px 12px 3px var(--shadow)" rowStart={5} colStart={4} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px" p="15px 30px" display={totalScore > 1 ? "grid" : "none"}>
+                        <GridItem rowStart={5} colStart={4} rowSpan={2}>
                             <DaoScore baseAsset={baseAsset}  Uvalue={Uvalue} Tvalue={Tvalue} Svalue={Svalue} Mvalue={Mvalue} totalScore={totalScore}/>
                         </GridItem>
                         <GridItem rowStart={5}  colSpan={3} rowSpan={2}>
