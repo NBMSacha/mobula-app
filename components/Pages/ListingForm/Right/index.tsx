@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from "react";
 import styles from "../ListingForm.module.scss";
-import { Input, Flex, Button, Text } from '@chakra-ui/react';
-import { Spinner } from '@chakra-ui/react';
+import { Input, Flex, Button, Text } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons"
 
 function Right({
@@ -22,7 +22,6 @@ function Right({
         const list = [...inputList];
         list[index].value = value;
         setInputList(list);
-        console.log(list)
     };
 
     const handleRemoveClick = index => {
@@ -85,7 +84,7 @@ function Right({
                     onChange={(e) => setAddNote(e.target.value)}
                 ></Input>
             </div>
-            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id='parent'>
+            <div className={`${styles["form-container-box"]} ${styles["relative-form"]}`} id="parent">
                 <label>Excluded from Circulation </label>
                 {inputList.map((x, i) => {
                     return (
@@ -105,7 +104,7 @@ function Right({
                             />
                             <div className="btn-box">
                                 {/* {inputList.length !== 1 && <Button onClick={() => handleRemoveClick(i)}>-</Button>} */}
-                                {inputList.length - 1 === i && <Button bg="none" w="30px" right="0px" top="-3px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}><AddIcon boxSize="10px"/></Button>}
+                                {inputList.length - 1 === i && <Button bg="none" w="30px" right="0px" top="-3px" h="30px" borderRadius="10px" position="absolute" className={styles["absolute-btn"]} onClick={handleAddClick}><AddIcon boxSize="10px"/></Button>}
                             </div>
                         </>
                     );
@@ -113,10 +112,10 @@ function Right({
             </div>
             <div className={`${styles["void"]} ${styles["button-submit"]}`} id="void">
                 <Text textAlign="end" fontSize="10px" mb="10px" opacity=".2" ml="auto">Mendatory Fields *</Text>
-                <button style={{ color: "white" }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} id="submitForm" onClick={(e) => submit(e)}> {loading ? <Spinner width="15px" height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
             <div className={`${styles["mobile-void"]} ${styles["button-submit"]}`} id="mobile-void">
-                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width='15px' height="15px" mr={15} /> : <></>} Submit to the DAO</button>
+                <button style={{ color: "white" }} className={styles["button-submit-form"]} onClick={(e) => submit(e)}> {loading ? <Spinner width="15px" height="15px" mr={15} /> : <></>} Submit to the DAO</button>
             </div>
         </Flex>
     )

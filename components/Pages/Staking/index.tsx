@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
+import React from "react";
+import { Heading, Text, Flex, Box } from "@chakra-ui/react";
 import Cards from "./Cards"
-import LeaderBox from "./LeaderBox"
 import Boxs from "./Boxs"
 
 function Staking() {
   
     return <>
-        <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
+        <Flex mx="auto" fontSize={["12px", "12px", "14px", "14px"]} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
             <Flex direction="column">
-                <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Staking</Heading>
-                <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                <Heading mb={"15px"} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Staking</Heading>
+                <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={["12px", "12px", "14px", "14px"]}>
                     The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
                 </Text>
             </Flex>

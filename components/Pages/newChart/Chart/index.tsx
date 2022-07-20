@@ -1,5 +1,5 @@
-import React from 'react'
-import { useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import React from "react"
+import { Button, Flex, Box, Text } from "@chakra-ui/react"
 import styles from "./Chart.module.scss"
 
 const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSelector, setTimeFormat, timeFormat }) => {
@@ -25,7 +25,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                 _hover={{color:"blue"}}
                                 opacity={timeFormat === "1D" ? "1" : ".5"}
                                 onClick={() => {
-                                    setTimeFormat('1D')
+                                    setTimeFormat("1D")
                                 }}>1D
                             </Button>
                             <Button mx={["8px", "8px", "6px", "6px"]}
@@ -34,10 +34,10 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                 _hover={{color:"blue"}}
                                 opacity={timeFormat === "7D" ? "1" : ".5"}
                                 onClick={() => {
-                                    setTimeFormat('7D')
+                                    setTimeFormat("7D")
                                 }}>7D
                             </Button>
-                            {(!unformattedBuffer['price']['30D'] || unformattedBuffer['price']['30D']?.length > 0) ? (
+                            {(!unformattedBuffer["price"]["30D"] || unformattedBuffer["price"]["30D"]?.length > 0) ? (
                                 <>
                                     <Button mx={["8px", "8px", "6px", "6px"]}
                                         fontSize={["13px", "13px", "15px", "15px"]}
@@ -45,7 +45,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                         _hover={{color:"blue"}}
                                         opacity={timeFormat === "30D" ? "1" : ".5"}
                                         onClick={() => {
-                                            setTimeFormat('30D')
+                                            setTimeFormat("30D")
                                         }}>1M
                                     </Button>
                                     <Button mx={["8px", "8px", "6px", "6px"]}
@@ -54,7 +54,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                         _hover={{color:"blue"}}
                                         opacity={timeFormat === "3M" ? "1" : ".5"}
                                         onClick={() => {
-                                            setTimeFormat('3M')
+                                            setTimeFormat("3M")
                                         }}>3M
                                     </Button>
                                     <Button mx={["8px", "8px", "6px", "6px"]}
@@ -63,7 +63,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                         _hover={{color:"blue"}}
                                         opacity={timeFormat === "1Y" ? "1" : ".5"}
                                         onClick={() => {
-                                            setTimeFormat('1Y')
+                                            setTimeFormat("1Y")
                                         }}>1Y
                                     </Button>
                                     <Button mx={["8px", "8px", "6px", "6px"]}
@@ -72,7 +72,7 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                                         _hover={{color:"blue"}}
                                         opacity={timeFormat === "ALL" ? "1" : ".5"}
                                         onClick={() => {
-                                            setTimeFormat('ALL')
+                                            setTimeFormat("ALL")
                                         }}>ALL
                                     </Button>
                                 </>
@@ -90,10 +90,10 @@ const ChartBox = ({ unformattedBuffer, historyData, baseAsset, selector, setSele
                     <Box p="20px" mt={["0px", "0px", "50px"]} textAlign="center">
                         Market data untracked. Not enough liquidity or vol. to get trustfull data.
                     </Box>
-                ) : <canvas id='chart' style={{ maxWidth: "1280px", maxHeight:"400px" }}></canvas>
+                ) : <canvas id="chart" style={{ maxWidth: "1280px", maxHeight:"400px" }}></canvas>
                 }
             </Flex>
-            {/* <Link href='https://discord.gg/2a8hqNzkzN' mb="50px" fontSize="11px" _hover={{ textDecoration: "none" }}>
+            {/* <Link href="https://discord.gg/2a8hqNzkzN" mb="50px" fontSize="11px" _hover={{ textDecoration: "none" }}>
                 <Text align="end" color="red" >A problem ? Report it to the DAO </Text>
             </Link> */}
         </Flex>

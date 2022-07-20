@@ -1,7 +1,5 @@
-import { Text, Heading,Input,Link, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, useMediaQuery } from '@chakra-ui/react'
-
+import { Text, Flex, Box } from "@chakra-ui/react"
 export default function AirdropInfo({token}) {
-
     return (
         <Flex w="100%"  mx="auto" display={["none","none","flex","flex"]} >
             <Box ml="10px" borderRadius="7px" w="160px" fontSize={["14px","14px","12px","14px"]} mr="15px" border="1px solid var(--box_border)" bg="var(--gradient_airdrop)" p="10px 10px" mt="30px" mb="10px">
@@ -22,5 +20,4 @@ export default function AirdropInfo({token}) {
             </Box>
         </Flex>
     )
-
 }

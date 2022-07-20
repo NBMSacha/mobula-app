@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
+import React from "react";
+import { Text, Flex, Box, Image, Button } from "@chakra-ui/react";
 import Line from "./Line"
 
 function Cards({ }) {
@@ -27,8 +27,8 @@ function Cards({ }) {
                 <Line title={"Available Balance"} number={"$6151"} />
                 <Line title={"My Reward"} number={"$605.11"} />
                 <Flex justify="space-between" align="center" mt="30px" mb="30px">
-                    <Button color="white" transition="background color 200ms ease-in-out" bg="var(--elections)" border="2px solid var(--box_border_active)" fontSize="14px" py='10px' px="20px">Stake USDT</Button>
-                    <Button color="none" fontSize="14px" py='10px' px="20px">Stake USDT</Button>
+                    <Button color="white" transition="background color 200ms ease-in-out" bg="var(--elections)" border="2px solid var(--box_border_active)" fontSize="14px" py="10px" px="20px">Stake USDT</Button>
+                    <Button color="none" fontSize="14px" py="10px" px="20px">Stake USDT</Button>
                 </Flex>
             </Flex>
         </Flex>

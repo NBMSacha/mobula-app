@@ -1,23 +1,13 @@
 
-import { AiOutlineArrowRight } from '@react-icons/all-files/ai/AiOutlineArrowRight'
-import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
-import { HiOutlineGlobeAlt } from '@react-icons/all-files/hi/HiOutlineGlobeAlt'
-import { SiDiscord } from '@react-icons/all-files/si/SiDiscord'
-import styles from './ButtonBlock.module.scss';
-import React, { useState, useEffect } from 'react';
-import { Box, Flex, Spacer, Heading, extendTheme, Text, Button } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Flex, Spacer, Text, Button } from '@chakra-ui/react';
 import {
     Previous,
-    Paginator,
-    PageGroup,
-    Page,
     Next,
-    generatePages
 } from 'chakra-paginator';
 import { ChevronRight, ChevronLeft } from "react-feather";
 import { VStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router';
-import {  useColorMode, IconButton,useColorModeValue,useMediaQuery, Input, Image, } from "@chakra-ui/react";
 
 function Pagination({ maxPage}) {
     
@@ -33,7 +23,7 @@ function Pagination({ maxPage}) {
                         <ChevronLeft />
                     </Previous>
 
-                    <Button mx={2} color={page == 1 ? "var(--text-primary)"  : "var(--text-grey)"} d="flex" border="none" justifyContent="center" alignItems="center"  borderRadius={8} cursor="pointer" onClick={() => {
+                    <Button mx={2} color={page === 1 ? "var(--text-primary)"  : "var(--text-grey)"} d="flex" border="none" justifyContent="center" alignItems="center"  borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=1')
                     }}>
                         <Text >1</Text>
@@ -41,32 +31,32 @@ function Pagination({ maxPage}) {
 
                     {page >= 5 && <Button mx={2} bg="none" border="none" type="button" disabled>...</Button>}
 
-                    {Math.max(Math.min(page - 2, maxPage - 5), 2) < maxPage && <Button mx={2} color={Math.max(Math.min(page - 2, maxPage - 5), 2) == page ? "var(--text-primary)"  : "var(--text-grey)"} d="flex" border="none" justifyContent="center" alignItems="center"p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {Math.max(Math.min(page - 2, maxPage - 5), 2) < maxPage && <Button mx={2} color={Math.max(Math.min(page - 2, maxPage - 5), 2) === page ? "var(--text-primary)"  : "var(--text-grey)"} d="flex" border="none" justifyContent="center" alignItems="center"p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page - 2, maxPage - 5), 2))
                     }}>
                         <Text >{Math.max(Math.min(page - 2, maxPage - 5), 2)}</Text>
 
                     </Button>}
 
-                    {Math.max(Math.min(page - 1, maxPage - 4), 3) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page - 1, maxPage - 4), 3) == page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center"p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {Math.max(Math.min(page - 1, maxPage - 4), 3) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page - 1, maxPage - 4), 3) === page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center"p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page - 1, maxPage - 4), 3))
                     }}>
                         <Text >{Math.max(Math.min(page - 1, maxPage - 4), 3)}</Text>
                     </Button>}
 
-                    {Math.max(Math.min(page + 2, maxPage - 3), 4) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page, maxPage - 3), 4) == page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {Math.max(Math.min(page + 2, maxPage - 3), 4) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page, maxPage - 3), 4) === page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page, maxPage - 3), 4))
                     }}>
                         <Text>{Math.max(Math.min(page, maxPage - 3), 4)}</Text>
                     </Button>}
 
-                    {Math.max(Math.min(page + 1, maxPage - 2), 5) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page + 1, maxPage - 2), 5) == page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {Math.max(Math.min(page + 1, maxPage - 2), 5) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page + 1, maxPage - 2), 5) === page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page + 1, maxPage - 2), 5))
                     }}>
                         <Text >{Math.max(Math.min(page + 1, maxPage - 2), 5)}</Text>
                     </Button>}
 
-                    {Math.max(Math.min(page + 2, maxPage - 1), 6) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page + 2, maxPage - 1), 6) == page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {Math.max(Math.min(page + 2, maxPage - 1), 6) < maxPage && <Button mx={2} d="flex" color={Math.max(Math.min(page + 2, maxPage - 1), 6) === page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + Math.max(Math.min(page + 2, maxPage - 1), 6))
                     }}>
                         <Text >{Math.max(Math.min(page + 2, maxPage - 1), 6)}</Text>
@@ -74,7 +64,7 @@ function Pagination({ maxPage}) {
 
                     {page < maxPage - 5 && <Button mx={2} bg="none" color="" border="none" type="button" disabled>...</Button>}
 
-                    {maxPage > 1 && <Button mx={2} d="flex" color={maxPage == page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
+                    {maxPage > 1 && <Button mx={2} d="flex" color={maxPage === page ? "var(--text-primary)"  : "var(--text-grey)"} border="none" justifyContent="center" alignItems="center" p={0} w="5px" borderRadius={8} cursor="pointer" onClick={() => {
                         router.push('/?page=' + maxPage)
                     }}>
                         <Text >{maxPage}</Text>

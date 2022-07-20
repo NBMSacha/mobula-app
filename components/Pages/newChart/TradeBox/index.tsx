@@ -1,4 +1,4 @@
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import { Box, Text } from "@chakra-ui/react"
 import Line from "./Line"
 export default function TradeBox({totalScore,baseAsset}) {
 

@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../../Sort/TokenDisplay";
-import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL } from "../../../../../constants";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../../DaoHeader";
-import Blocks from '../../../Sort/Blocks';
-import { useAlert } from 'react-alert';
-import Router from "next/router";
-import { Globe, } from "react-feather"
-import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
-import styles from "../FirstSort.module.scss"
+import React from "react";
+import { Text, Flex, Box, Image, Button} from "@chakra-ui/react";
 
-function Main({ bg, btn, shadow, border, voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
-
-
+function Main({ voteToken, tokenDivs, changeDisplay, setDisplayedToken, displayedToken }) {
 
     return (
-        <Flex justify="space-evenly" direction={["column", "column", "row", "row"]} wrap='wrap' mb="50px">
+        <Flex justify="space-evenly" direction={["column", "column", "row", "row"]} wrap="wrap" mb="50px">
             {tokenDivs.map((token) => {
-                return <Box mt={["10px", "10px", "40px", "40px"]} w={["100%", '100%', '45%', '45%']} boxShadow={`1px 2px 12px 3px var(--shadow)`} bg="var(--bg-governance-box)" px="30px" py="20px" borderRadius="12px">
+                return <Box mt={["10px", "10px", "40px", "40px"]} w={["100%", "100%", "45%", "45%"]} boxShadow={`1px 2px 12px 3px var(--shadow)`} bg="var(--bg-governance-box)" px="30px" py="20px" borderRadius="12px">
                     <Flex align="center" justify="space-between">
                         <Flex align="center">
                             <Image src={token.logo} w={["30px", "30px", "38px", "38px"]} h={["30px", "30px", "38px", "38px"]} />

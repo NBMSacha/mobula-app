@@ -1,19 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { ChakraProvider, Link, ColorModeProvider, useColorModeValue,Icon, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import React, { useState } from "react"
+import { Link, Icon, Image, Flex, Box, Text } from "@chakra-ui/react"
 import {
     formatAmount,
     getTokenFormattedPrice,
     getTokenPercentage,
-    getFormatedAmount,
-    formatName
-} from '../../../../helpers/formaters'
-import styles from './TokenInfo.module.scss'
-import {Shield, Globe, Eye } from "react-feather"
+    getFormatedAmount
+} from "../../../../helpers/formaters"
+import styles from "./TokenInfo.module.scss"
 import {CheckIcon} from "@chakra-ui/icons"
 import { InfoOutlineIcon} from "@chakra-ui/icons"
 
 const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, selectorInfo, totalScore }) => {
-    console.log(baseAsset)
+
     const [ infoMarket, setInfoMarket] = useState(false)
     const [ infoVolume, setInfoVolume] = useState(false)
     const [ infoFully, setInfoFully] = useState(false)
@@ -49,28 +47,28 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                           
                         </Flex>
                     </Link>
-                    {baseAsset.audit ?
+                    {baseAsset.audit ??
                         <Link target="_blank" mt="8px" href={baseAsset.audit} borderRadius="6px" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex direction="column"  borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center" _hover={{background:"blue"}}>
                             <Flex align="center" ><Text mb="3px" mr="6px">Audit </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
                                
                             </Flex>
-                        </Link> : <></>
+                        </Link> 
                     }
-                    {baseAsset.kyc ?
+                    {baseAsset.kyc ??
                         <Link  target="_blank" mt="8px" href={baseAsset.kyc} borderRadius="6px"  _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
                             <Flex direction="column" borderRadius="6px" w="60px" py={["5px"]} align="center" justify="center" _hover={{background:"blue"}}>
                                 <Flex align="center" ><Text mb="3px" mr="6px">KYC </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
                               
                             </Flex>
-                        </Link> : <></>
+                        </Link> 
                     }
                 </Flex>
                 {/* Price info */}
                 <Flex direction="column" align="center" justify="center" ml="20px">
                     {/* Price / Percentage */}
                     <Flex align="center" mb={["2px","2px","2px","0px"]}>
-                        <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "24px", "24px"]}>{getTokenFormattedPrice(baseAsset.price, '$', { justify: 'right', marginTop: 'auto' })}</Text>
+                        <Text mr={["", "", "", "10px"]} fontSize={["16px", "16px", "24px", "24px"]}>{getTokenFormattedPrice(baseAsset.price, "$", { justify: "right", marginTop: "auto" })}</Text>
                         <Text color={getTokenPercentage(baseAsset.price_change_24h) > 0 ? "green" : "red"} ml={["10px", "", "", ""]} fontSize={"12px"}>{getTokenPercentage(baseAsset.price_change_24h) > 0 ? `+${getTokenPercentage(baseAsset.price_change_24h)}` : getTokenPercentage(baseAsset.price_change_24h)}%</Text>
                     </Flex>
                     {/* Progress bar */}
@@ -122,7 +120,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                             <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.market_cap)}</Text>
                         </>
                     ) : ( 
-                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c'est David Lafarge Pokemon</Text>
+                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c"est David Lafarge Pokemon</Text>
                     )} 
                    
                 </Box>
@@ -139,8 +137,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                             <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.market_cap_diluted)}</Text>
                         </>
                     ) : (
-                        
-                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c'est David Lafarge Pokemon</Text>
+                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c"est David Lafarge Pokemon</Text>
                     )}
                     
                 </Box>
@@ -157,7 +154,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                             <Text whiteSpace="nowrap" fontSize="14px">${formatAmount(baseAsset.volume)}</Text>
                         </>
                     ) : (
-                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c'est David Lafarge Pokemon</Text>
+                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c"est David Lafarge Pokemon</Text>
                     )}
                 </Box>
                 <Box p="10px" w="22%" borderRadius="8px" bg="var(--gradient_airdrop)" position="relative">
@@ -172,7 +169,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                           <Text whiteSpace="nowrap" fontSize="14px">{formatAmount(baseAsset.circulating_supply)}</Text>
                         </>
                     ) : (
-                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c'est David Lafarge Pokemon</Text>
+                        <Text fontSize="10px" mr="20px">Hey salut à tous les amis c"est David Lafarge Pokemon</Text>
                     )}
                   
                 </Box>

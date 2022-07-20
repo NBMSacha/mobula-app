@@ -1,11 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Flex, Text, Button, useMediaQuery, useColorModeValue } from '@chakra-ui/react';
-import { CheckCircleIcon } from "@chakra-ui/icons"
-import { Pocket, CheckCircle } from "react-feather";
-
+import React from "react"
+import { Flex, Text, Button} from "@chakra-ui/react";
+import { CheckCircle } from "react-feather";
 const Static = () => {
     return (
-
         <Flex direction="column" bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["10px","10px","10px","20px 37px"]}  ml="10px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]} >
             <Text fontSize="17px" mb={["20px","20px","20px",""]} color="blue" fontWeight="600">Dynamic API</Text>
             <Text color="#8B8B8B" mb="30px" mt="10px" fontSize="16px" display={["none","none","none","flex"]}>An API to retrieve data such as<br /> price, liquidity and volume (only on-chain) of assets.</Text>
@@ -43,9 +40,6 @@ const Static = () => {
                     </Flex>
                 </Flex>
             </Flex>
-            <Button _focus={{boxShadow:"none"}} variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
-                <Text  fontSize="14px" color="blue">Request</Text>
-            </Button>
         </Flex>
     )
 }

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
-import { Heading, Text, Flex, Box, Image, Link } from "@chakra-ui/react";
-import DaoHeader from "../../Utils/DaoHeader";
+import { PROTOCOL_ADDRESS } from "../../../constants";
+import { Heading, Text, Flex, Link } from "@chakra-ui/react";
 import TokenDisplay from "../../Utils/newSort/ReviewToken";
 import Blocks from "../../Utils/newSort/Main";
 import { useAlert } from 'react-alert';
@@ -28,15 +27,13 @@ function FinalValidation() {
         totalSupply: string[]
         alreadyVoted: boolean
     }[], any] = useState([]);
-    const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
     const alert = useAlert();
     const web3React = useWeb3React()
-    const { active, account } = useWeb3React()
+    const { account } = useWeb3React()
     const [ votes, setVotes] = useState([])
 
     function getFinalValidation() {
-        console.log("Starting the final sort");
         const provider = new ethers.providers.Web3Provider(web3React.library.provider);
 
         const protocolContract = new ethers.Contract(
@@ -112,16 +109,11 @@ function FinalValidation() {
         protocolContract
             .getFinalValidationTokens()
             .catch((err: any) => {
-                console.log(err);
                 return [];
             })
             .then(async (tokens: any) => {
                 const newTokenDivs = [];
-
                 let fails = 0;
-
-                console.log("Tokens loaded : " + tokens.length);
-
                 tokens.forEach(async (token: any) => {
                     var isAlreadyVoted = false;
 
@@ -130,12 +122,7 @@ function FinalValidation() {
                             account,
                             token.id
                         );
-                        console.log("Is already voted : " + isAlreadyVoted);
                     }
-                    console.log("Sumbitted data : " + token.ipfsHash);
-
-                    console.log(token)
-
                     try {
                         const response = await fetch(
                             "https://gateway.ipfs.io/ipfs/" + token.ipfsHash
@@ -171,17 +158,15 @@ function FinalValidation() {
                         if (JSONrep.contracts) {
                             setTokenDivs((tokenDivs: any) => [...tokenDivs, JSONrep]);
                         } else {
-                            console.log("Fail");
                             fails++;
                         }
 
-                        if (newTokenDivs.length + fails == tokens.length) {
+                        if (newTokenDivs.length + fails === tokens.length) {
                             //setTokenDivs(newTokenDivs)
                         } else {
-                            console.log("Not done yet.");
+
                         }
                     } catch (e) {
-                        console.log("Error with " + token + " : " + e);
                         fails++;
                     }
                 });
@@ -192,8 +177,6 @@ function FinalValidation() {
         complete: any, token: any,
         utilityScore: number, socialScore: number,
         trustScore: number, marketScore: number) {
-
-        console.log(validate)
         if (!complete.current) {
             alert.error('You must wait the end of the countdown to vote.')
         } else {
@@ -201,7 +184,6 @@ function FinalValidation() {
                 var provider = new ethers.providers.Web3Provider((window as any).ethereum)
                 var signer = provider.getSigner();
             } catch (e) {
-                console.log(e)
                 alert.error('You must connect your wallet to submit the form.')
             }
 
@@ -228,16 +210,11 @@ function FinalValidation() {
             }
         }
     }
-    console.log(votes)
     useEffect(() => {
-        console.log(web3React)
-        console.log(account)
         if (web3React.account) {
           getFinalValidation()
         } else {
-          console.log('HERE WE GO')
           const timeout = setTimeout(() => {
-            console.log('ALERT TIRGGERED')
             alert.show('You must connect your wallet to earn MOBL.')
           }, 300)
           return () => {
@@ -249,7 +226,6 @@ function FinalValidation() {
 
     useEffect(() => {
         setVotes(JSON.parse(localStorage.getItem("votesFinal")) || [])
-        console.log(votes)
     }, [])
 
     
@@ -266,7 +242,7 @@ function FinalValidation() {
                 Learn more <a href="https://docs.mobula.finance/app/sort"><span style={{ color: "var(--chakra-colors-blue)", marginLeft: "5px", whiteSpace: "nowrap" }}>here</span></a>.
             </Text>
         </Flex>
-        {tokenDivs.length == 0  && (
+        {tokenDivs.length === 0  && (
             <Text h="60vh" align="center" mt="80px">Oops... No token waiting for final validation yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
         )}
 

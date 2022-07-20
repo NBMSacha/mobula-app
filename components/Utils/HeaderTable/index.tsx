@@ -1,31 +1,19 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import styles from './Top.module.scss';
+import React from "react"
+import styles from "./Top.module.scss";
 import Token from "../Token";
-import BigNumber from 'bignumber.js';
-import axios from 'axios';
-import { useAlert } from 'react-alert';
-import { useWeb3React } from '@web3-react/core'
-import { useRouter } from 'next/router';
-import Widget from "../Widget"
-import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
+import BigNumber from "bignumber.js";
+import { IconButton } from "@chakra-ui/react";
 import {
   Table,
   Thead,
-  Tbody,
-  Tfoot,
   Tr,
   Th,
-  Td,
-  TableCaption,
   TableContainer,
-} from '@chakra-ui/react'
-import ConnectWallet from "../ConnectWallet"
-import Data from "../Data";
+} from "@chakra-ui/react"
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 
   export default function Top({title, setOrderBy, textResponsive, display, orderBy, getTokensToDisplay}) {
-
+    console.log(orderBy)
     return (
         <>
           <TableContainer bg={title === "Trendings" || title === "Advanced Settings" ? "var(--background)" : "var(--table)"} display="flex" flexDirection="column" alignItems="center">
@@ -34,68 +22,68 @@ import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
 
             <Thead textTransform="capitalize" fontFamily="Inter" borderTop={`2px solid var(--box_border)`} borderBottom={`2px solid var(--box_border)`} color="var(--text-grey)">
               <Tr className={styles[""]}>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" maxWidth="100px" isNumeric className={`${styles["ths"]} ${styles["removes"]}`} minWidth={["220px", "220px", "220px", ""]}>
                   Rank
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton ml="3px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "rank" && orderBy.ascending === false ? "green" : "var(--text-grey"}  _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'rank', ascending: false })
+                      setOrderBy({ type: "rank", ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton ml="1px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "rank" && orderBy.ascending === true ? "red" : "var(--text-grey"}  _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'rank', ascending: true })
+                      setOrderBy({ type: "rank", ascending: true })
                     }} />
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" px={["15px", "15px", "20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} bg={title === "Trendings" || title === "Advanced Settings" ? "var(--background)" : "var(--table)"} zIndex="33" >
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" px={["15px", "15px", "20px", "20px"]} className={`${styles["ths"]} ${styles["asset-title-start"]}`} bg={title === "Trendings" || title === "Advanced Settings" ? "var(--background)" : "var(--table)"} zIndex="33" >
                   Asset
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={['15px 5px', '15px 5px', 6, 6]} px={["5px", "5px", "20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric p={["15px 5px", "15px 5px", 6, 6]} px={["5px", "5px", "20px", "20px"]} className={`${styles["ths"]} ${styles["price-title-center"]}`}>
                   Price
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton ml="3px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "price" && orderBy.ascending === false ? "green" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'price', ascending: false })
+                      setOrderBy({ type: "price", ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton ml="1px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "price" && orderBy.ascending === true ? "red" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'price', ascending: true })
+                      setOrderBy({ type: "price", ascending: true })
                     }} />
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px", "5px", "20px", "20px"]} >
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`} px={["5px", "5px", "20px", "20px"]} >
                   {textResponsive ? "24h %" : "Change (24h)"}
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton ml="3px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "price_change_24h" && orderBy.ascending === false ? "green" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'price_change_24h', ascending: false })
+                      setOrderBy({ type: "price_change_24h", ascending: false })
                     }}
                   />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton ml="1px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "price_change_24h" && orderBy.ascending === true ? "red" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'price_change_24h', ascending: true })
+                      setOrderBy({ type: "price_change_24h", ascending: true })
                     }} />
                 </Th>
-                <Th fontSize={['12px', "12px", "14x", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
+                <Th fontSize={["12px", "12px", "14x", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]}`}>
                   Market cap
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                  <IconButton ml="3px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "market_cap" && orderBy.ascending === false ? "green" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'market_cap', ascending: false })
+                      setOrderBy({ type: "market_cap", ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} onClick={() => {
-                    setOrderBy({ type: 'market_cap', ascending: true })
+                  <IconButton ml="1px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "market_cap" && orderBy.ascending === true ? "red" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />} onClick={() => {
+                    setOrderBy({ type: "market_cap", ascending: true })
                   }} />
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
-                  {display == 'My Assets' ? 'Balance' : 'Volume (24h)'}
-                  <IconButton ml="3px" fontSize="10px" aria-label='Search database' color="green" _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" isNumeric className={`${styles["ths"]} ${styles["nowrap"]}`}>
+                  {display === "My Assets" ? "Balance" : "Volume (24h)"}
+                  <IconButton ml="3px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "volume" && orderBy.ascending === false ? "green" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleUpIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'volume', ascending: false })
+                      setOrderBy({ type: "volume", ascending: false })
                     }} />
-                  <IconButton ml="1px" fontSize="10px" aria-label='Search database' color="red" _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
+                  <IconButton ml="1px" fontSize="10px" aria-label="Search database" color={orderBy === undefined ? "var(--text-grey)" : orderBy.type === "volume" && orderBy.ascending === true ? "red" : "var(--text-grey"} _focus={{ boxShadow: "none" }} icon={<TriangleDownIcon />}
                     onClick={() => {
-                      setOrderBy({ type: 'volume', ascending: true })
+                      setOrderBy({ type: "volume", ascending: true })
                     }} />
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["center-social"]}`}>
                   Socials
                 </Th>
-                <Th fontSize={['12px', "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
+                <Th fontSize={["12px", "12px", "14px", "14px"]} fontFamily="Inter" textTransform="capitalize" className={`${styles["ths"]} ${styles["chart-title-center"]}`}>
                   {title !== "Trendings" ? "Chart" : "Added"}
                 </Th>
               </Tr>
@@ -127,7 +115,7 @@ import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
                   price={token.price}
                   rank_change_24h={token.rank_change_24h}
                   rank={token.rank}
-                  isMyAsset={display == 'My Assets'}
+                  isMyAsset={display === "My Assets"}
                 /> : <></>)
               }
             </>

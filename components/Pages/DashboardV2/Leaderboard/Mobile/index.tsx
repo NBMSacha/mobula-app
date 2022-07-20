@@ -1,5 +1,5 @@
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, Input} from '@chakra-ui/react'
+import { GridItem } from "@chakra-ui/react"
+import { Text, Flex, Box, Button} from "@chakra-ui/react"
 import Title from "../../Title"
 import Line from "./../Line"
 
@@ -9,7 +9,7 @@ export default function Leaderboard({top, badChoices, userRank, account, setIsUs
     
             <GridItem display={["initial", "initial", "initial","none"]} rowStart={5} colStart={1} colSpan={5} rowSpan={4}>
                 <Title title={"Leaderboard"} />
-                <Flex h="542px" w='100%' direction="column" p="30px 20px" bg="var(--bg-governance-box)" borderRadius="0px 0px 12px 12px">
+                <Flex h="542px" w="100%" direction="column" p="30px 20px" bg="var(--bg-governance-box)" borderRadius="0px 0px 12px 12px">
                     <Flex align="center" mb="20px">
                         <Button fontSize="10px" py="6px" mr="15px" _focus={{ boxShadow: "none" }}
                                 borderRadius="8px" w="105px" bg={"var(--elections)"} fontWeight="300"

@@ -1,9 +1,8 @@
-import { Text, Heading,Input,Link, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, useMediaQuery } from '@chakra-ui/react'
+import { Text, Input, Flex, Box, Button, Image} from "@chakra-ui/react"
 import styles from "../Airdrop.module.scss"
 import {ArrowDownIcon} from "@chakra-ui/icons"
 
 export default function Timer({token, amountBurn, setAmountBurn, days, hours, minutes, seconds, approval}) {
-
     return (
         <Flex  boxShadow="1px 2px 13px 3px var(--shadow)" direction="column" bg="var(--bg-governance-box)" className={styles["padBox"]} borderRadius="12px">
             <Text mb="20px" color="var(--text-grey)" mx="auto" fontSize={["13px","13px","15px","15px"]} mt="10px">Time remaining</Text>
@@ -27,7 +26,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
             </Flex>
             <Flex color="var(--text-grey)" align="center" mt="10px" mx="auto" p="10px" className={styles["timeRemaining"]}>
                 <Text mr="20px" fontSize={["13px","13px","15px","15px"]}>Burn</Text>
-                <Flex  ml="auto" maxWidth={["260px","500px","500px","260px"]} w='100%' align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
+                <Flex  ml="auto" maxWidth={["260px","500px","500px","260px"]} w="100%" align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
                     <Input fontSize={["13px","13px","15px","15px"]} value={amountBurn} placeholder="330" type="number" textAlign="end" mr={["5px","5px","10px","10px"]} onChange={(e) => {setAmountBurn(e.target.value)}}/>
                     <Text mr={["5px","5px","10px","10px"]} fontSize={["13px","13px","15px","15px"]}>MOBL</Text>
                     <Image src="/fullicon.png" boxSize="18px" borderRadius="full"/>
@@ -36,7 +35,7 @@ export default function Timer({token, amountBurn, setAmountBurn, days, hours, mi
             <Box mx="auto"><ArrowDownIcon color="var(--text-grey)"/></Box>
             <Flex color="var(--text-grey)" align="center" mt="0px" mx="auto" p="10px" className={styles["timeRemaining"]}>
                 <Text mr="20px" w="35px" fontSize={["13px","13px","15px","15px"]}>Get</Text>
-                <Flex ml="auto" maxWidth={["260px","500px","500px","260px"]} w='100%' align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
+                <Flex ml="auto" maxWidth={["260px","500px","500px","260px"]} w="100%" align="center" p={["5px","5px","8px","8px"]} borderRadius="10px" bg="var(--box-secondary)" border="1px solid var(--box_border)">
                     <Input fontSize={["13px","13px","15px","15px"]} value={amountBurn * token.taux} type="number" placeholder="330" textAlign="end" mr={["5px","5px","10px","10px"]}/>
                     <Text mr={["5px","5px","10px","10px"]} fontSize={["13px","13px","15px","15px"]}>{token.symbol}</Text>
                     <Image src={token.logo} boxSize="18px" borderRadius="full"/>

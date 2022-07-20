@@ -2,7 +2,7 @@ import { RPC_URL } from "../../../../constants"
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { WalletLinkConnector } from "@web3-react/walletlink-connector";
-import { BscConnector } from '@binance-chain/bsc-connector'
+import { BscConnector } from "@binance-chain/bsc-connector"
 import { PortisConnector } from "@web3-react/portis-connector";
 import { LedgerConnector } from "@web3-react/ledger-connector";
 import { TrezorConnector } from "@web3-react/trezor-connector";
@@ -25,7 +25,6 @@ export const resetWalletConnector = (connector: any) => {
         connector &&
         connector instanceof WalletConnectConnector
     ) {
-        console.log('Setting to undefined')
         connector.walletConnectProvider = undefined
     }
 }

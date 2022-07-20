@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { useColorModeValue, Flex, Box, Text } from '@chakra-ui/react'
+import React from "react"
+import { Flex, Box, Text } from "@chakra-ui/react"
 import Contract from "../../../Utils/Contract"
-import { formatAmount } from '../../../../helpers/formaters'
+import { formatAmount } from "../../../../helpers/formaters"
 
 const MobileInfo = ({ baseAsset, moreStat, totalScore }) => {
-    console.log(baseAsset)
     return (
         <Box w="90%" display={moreStat ? "block" : "none"}>
             <Text p="0px 25px" fontSize="10px" lineHeight="18px">{baseAsset.description}</Text>
-            <Flex justify="space-between" w='100%' p="0px 25px" mt="20px">
+            <Flex justify="space-between" w="100%" p="0px 25px" mt="20px">
                 <Box mb="20px">
                     <Text fontSize="9px" opacity=".6">Marketcap</Text>
                     <Text mb="10px" fontSize="12px">${formatAmount(baseAsset.market_cap)}</Text>

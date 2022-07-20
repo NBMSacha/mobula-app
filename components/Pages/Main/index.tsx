@@ -1,33 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
+import { createClient} from '@supabase/supabase-js'
 import styles from './Main.module.scss';
-import Token from "./Token";
 import ButtonBlock from "./Block/ButtonBlock";
 import GainerBlock from "./Block/GainerBlock";
 import MainBlock from './Block/MainBlock';
 import Pagination from "./Pagination"
-import BigNumber from 'bignumber.js';
 import axios from 'axios';
 import { useAlert } from 'react-alert';
 import { useWeb3React } from '@web3-react/core'
 import { useRouter } from 'next/router';
 import Widget from "../../Utils/Widget"
 import HeaderTable from "../../Utils/HeaderTable"
-import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, } from "@chakra-ui/react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react'
-import ConnectWallet from "../../Utils/ConnectWallet"
-import Data from "../../Utils/Data";
-import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons"
+import {Flex} from "@chakra-ui/react";
 
 function News(props: any) {
   const [tokens, setTokens] = useState([]);
@@ -68,18 +52,15 @@ function News(props: any) {
   useEffect(() => {
     if (!page) return
     if (router.isReady) {
-      console.log(page)
       shouldLoadMore()
     }
   }, [page])
 
-  console.log(account)
   function loadChain(chain: string) {
     const supabase = createClient(
       "https://ylcxvfbmqzwinymcjlnx.supabase.co",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
-      console.log(defaultSettings[chain])
     const bufferSettings = settings.default ? defaultSettings[chain] : settings;
 
     supabase
@@ -91,12 +72,11 @@ function News(props: any) {
       .order('market_cap', { ascending: false })
       .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
       .then(r => {
-        console.log(r.data, r.error)
         if (r.data) {
           const newChains = {
             ...chains
           }
-          newChains[chain] = r.data.filter(token => token.blockchains[0] == chain).slice(0, 100);
+          newChains[chain] = r.data.filter(token => token.blockchains[0] === chain).slice(0, 100);
           setChains(newChains);
         } else {
           alert.show('Something went wrong')
@@ -105,19 +85,19 @@ function News(props: any) {
   }
 
   function getTokensToDisplay(filterCondition = { type: 'market_cap', ascending: false }): any[] {
-    if (display == 'Top 100') {
+    if (display === 'Top 100') {
       return (tokens.length > 0) ? tokens?.sort((a, b) => filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]) :
-        page == 1 ? (props.tokens?.sort((a, b) => filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]) || []) : []
-    } else if (display == 'My Assets') {
+        page === 1 ? (props.tokens?.sort((a, b) => filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]) || []) : []
+    } else if (display === 'My Assets') {
 
       if (account) {
-        if (myAssets.length == 0) {
+        if (myAssets.length === 0) {
 
           axios.get('https://mobulaspark.com/holdings?account=' + account).then(r => {
             if (r.data) {
               const assets = r.data.holdings
-                .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index)
-                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split('.')[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) == index))
+                .filter((a: any, index: number) => a.logo && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) === index)
+                .concat(r.data.holdings.filter((a: any, index: number) => !a.logo && !a.name.split('.')[1] && r.data.holdings.map((asset: any) => asset.name).indexOf(a.name) === index))
               setMyAssets(assets)
               return assets?.sort((a, b) => filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type]);
             } else {
@@ -134,7 +114,7 @@ function News(props: any) {
         return []
       }
 
-    } else if (display == 'search') {
+    } else if (display === 'search') {
       return search?.sort((a, b) => filterCondition.ascending ? a[filterCondition.type] - b[filterCondition.type] : b[filterCondition.type] - a[filterCondition.type])
     } else {
 
@@ -155,7 +135,7 @@ function News(props: any) {
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
     )
 
-    if (display == 'Top 100') {
+    if (display === 'Top 100') {
       supabase
         .from('assets')
         .select('market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank')
@@ -164,7 +144,7 @@ function News(props: any) {
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
           if (r.data) {
-            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? settings.liquidity : 0) || (token.contracts.length == 0 && !settings.onChainOnly)).slice(0, 100))
+            setTokens(r.data.filter(token => token.liquidity >= (page < 5 ? settings.liquidity : 0) || (token.contracts.length === 0 && !settings.onChainOnly)).slice(0, 100))
           }
         });
     } else if (display != 'My Assets') {
@@ -176,13 +156,11 @@ function News(props: any) {
         .order('market_cap', { ascending: false })
         .range(0 + (page - 1) * 100, 200 + (page - 1) * 100)
         .then(r => {
-          console.log(r.data, r.error)
           if (r.data) {
             const newChains = {
               ...chains
             }
-            newChains[display] = r.data.filter(token => token.blockchains[0] == display).slice(0, 100);
-            console.log('Setting cronos chain : ', newChains[display])
+            newChains[display] = r.data.filter(token => token.blockchains[0] === display).slice(0, 100);
             setChains(newChains);
           } else {
             alert.show('Something went wrong')
@@ -201,7 +179,8 @@ function News(props: any) {
   const [ infoGainer, setInfoGainer] = useState(false)
   const [ infoTrend, setInfoTrend] = useState(false)
   const [ infoRecent, setInfoRecent] = useState(false)
-  console.log(props.recents)
+
+  console.log(props.recents[2].name)
   return (
     <>
 

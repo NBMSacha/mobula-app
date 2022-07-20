@@ -104,7 +104,7 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
             })
 
             var prixETH =
-              tokensPerBlockchain[blockchains[i]][0].toLowerCase() == result.data.eth[0].token0.id ?
+              tokensPerBlockchain[blockchains[i]][0].toLowerCase() === result.data.eth[0].token0.id ?
                 (result.data.eth[0].reserve1 / result.data.eth[0].reserve0) :
                 (result.data.eth[0].reserve0 / result.data.eth[0].reserve1);
             for (let k = 0; k < 3; k++) {
@@ -116,33 +116,29 @@ async function refreshPrice(contracts: string[], blockchains: string[], pairs: s
                 let prixToken = 0;
                 for (let l = 0; l < 2; l++) {
                   const stable = stableTokens[blockchains[i]][0][`vsToken${l}`];
-                  if (!isBackedOnStable && (pair.token0.id == stable || pair.token1.id == stable)) {
+                  if (!isBackedOnStable && (pair.token0.id === stable || pair.token1.id === stable)) {
                     isBackedOnStable = true;
                     coef = 1;
                   }
                 }
                 prixToken =
-                  contracts[i].toLowerCase() == pair.token0.id ?
+                  contracts[i].toLowerCase() === pair.token0.id ?
                     (pair.reserve1 / pair.reserve0) * coef :
                     (pair.reserve0 / pair.reserve1) * coef;
-                if (isBackedOnStable && (pair.token0.id == ETH || pair.token1.id == ETH)) {
-                  prixToken = contracts[i].toLowerCase() == ETH ? prixETH : 1;
+                if (isBackedOnStable && (pair.token0.id === ETH || pair.token1.id === ETH)) {
+                  prixToken = contracts[i].toLowerCase() === ETH ? prixETH : 1;
                 }
                 let bufferLiquidity =
                   (pair.reserveUSD / 2) > 500 ?
                     (pair.reserveUSD / 2) : 0;
                 if (!(pair.reserve1.includes('.') && pair.reserve1.includes('.') && pair.reserve0.includes('.') && pair.reserve0.includes('.'))) {
                   bufferLiquidity = 0;
-                  // console.log(`Price ignored as one reserve does not contain a decimal point`);
                 }
                 totalLiquidity += bufferLiquidity;
                 averagePrice += prixToken * bufferLiquidity;
-                //console.log(`Liquidity: ${pair.reserveUSD/2}`);
-                if (bufferLiquidity == 0) {
-                  // console.log(`LP null or ignored due to the threshold`);
+                if (bufferLiquidity === 0) {
                 }
                 subgraphSuccess++;
-                // console.log(`Success subgraph: ${subgraphSuccess}/${expectedPairs}`);
               }
             }
           } catch (e) {
@@ -232,7 +228,7 @@ function Token(token: {
                 <div className={styles['triangle-red']}></div>
                 {Math.abs(token.rank_change_24h)}
               </span>
-            ) : token.rank_change_24h == 0 ? <div>--</div> : (
+            ) : token.rank_change_24h === 0 ? <div>--</div> : (
               <span className={`${styles['green']} ${styles["font-char"]} `} id="noColor">
                 <div className={styles['triangle-green']}></div>
                 {token.rank_change_24h}
@@ -257,7 +253,6 @@ function Token(token: {
           </a>
         </Td>
         <Td borderBottom="1px solid var(--box_border) !important" fontWeight="700" px={["5px", "5px", "20px", "20px"]} fontSize={["13px", "13px", "15px", "15px"]} onClick={(e) => {
-          console.log("WHY ??????§")
           window.open(`/asset/${getUrlFromName(token.name)}`, '_blank')//  router.push('/asset/' + getUrlFromName(token.name))
         }} py={["5px", "5px", "5px", "5px", "31px"]} my="0px" isNumeric className={`${styles["ths"]} ${styles["price-title-center"]}`} color={isWinner === true ? "green" : isWinner === false ? "red" : "none"}>
           <a href={`/asset/${getUrlFromName(token.name)}`}> ${price ? separator(getTokenPrice(price)) : '??'}</a>

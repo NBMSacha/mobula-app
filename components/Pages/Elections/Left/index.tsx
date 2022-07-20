@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ThumbsUp, ThumbsDown } from "react-feather"
+import React from "react";
+import { ThumbsUp } from "react-feather"
 import {
     Text,
     Flex,
@@ -9,11 +9,6 @@ import {
 } from "@chakra-ui/react";
 
 function Left({promote, firstInput, secondInput, setFirstInput, firstValue}) {
-
-    const title = promote ? 'Promotion' : 'Demotion';
-    const action = promote ? 'promote' : 'demote';
-    const firstPartTitle = promote ? 'Amount of Rank I seats available' : 'Amount of Rank I members';
-    const secondPartTitle = promote ? 'Amount of Rank II seats available' : 'Amount of Rank II members';
 
     return (
             <Flex w="50%" direction="column" >

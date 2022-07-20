@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useAlert } from 'react-alert'
-import { ethers } from 'ethers'
-import { Text, Heading, Flex, Box, Spacer, Button, Image, Link, useMediaQuery, useColorModeValue, Icon } from '@chakra-ui/react'
-import { MOBL_ADDRESS, PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
+import { Text, Flex, Box, Button, Image, Link, Icon } from '@chakra-ui/react'
+import { MOBL_ADDRESS } from '../../../constants'
 import { CheckCircle } from 'react-feather';
-import { LinkIcon } from "@chakra-ui/icons"
 import DayBox from './DayBox'
 import { getUrlFromName } from '../../../helpers/formaters'
 import { useWeb3React } from '@web3-react/core'
-import { Center, Square, Circle } from '@chakra-ui/react'
+import { Circle } from '@chakra-ui/react'
 import styles from "./Earn.module.scss"
 
 function Earn() {
     const [copied, setCopied] = useState(false)
     const [user, setUser]: [any, Function] = useState({ tasks_done: [], referred: [] });
     const [tasks, setTasks] = useState([])
-    const { account, active } = useWeb3React()
+    const { account } = useWeb3React()
     const alert = useAlert();
     const [ onGoing, setOnGoing] = useState(true)
     const [ page, setPage] = useState(1)
@@ -80,7 +78,6 @@ function Earn() {
 
         supabase.from('earn').select('*').order('created_at', { ascending: false }).then(r => {
             if (r?.data) {
-                console.log(r.data)
                 setTasks(r.data)
             }
         })
@@ -93,24 +90,17 @@ function Earn() {
     }
 
     useEffect(() => {
-        console.log('TA MAX DAROONNNE')
-        console.log(account, active)
         if (account) {
             initValues()
         } else {
-            console.log('TA MAX HHIH')
             const timeout = setTimeout(() => {
-                console.log('hi')
                 alert.show('You must connect your wallet to earn MOBL.')
             }, 300)
             return () => {
-                console.log('ok, somthing weird')
                 clearTimeout(timeout)
             }
         }
     }, [account])
-
-    console.log(user)
 
     return (
         <Flex mb={["50px","50px","10rem","10rem"]} justify="center" fontFamily="Poppins" direction={["column", "column", "column", 'row']} w="100%" mt={["30px","30px","50px","50px"]} maxWidth="1500px" mx="auto"> 
@@ -209,7 +199,6 @@ function Earn() {
                                         <Flex direction="column" w="100%" >
                                             {/* BOX */}
                                             {tasks.map((task, index:number) => {
-                                                console.log(user.tasks_done.includes(task.id))
                                                 if (!user.tasks_done.includes(task.id)) {
                                                     return <Flex align="center"  borderBottom="1px solid var(--box_border)" w={["90%","90%","80%","80%"]} pb="10px" mt="15px" ml={["0px","0px","20px","20px"]} >
                                                         <Box cursor="pointer" mr={["10px", "10px", "10px", "10px"]} alignItems="center" justifyContent="center" borderRadius="7px"  px="8px" py="5px" className="noneDis">
@@ -224,21 +213,17 @@ function Earn() {
                                                     </Flex>
                                                 } 
                                             })}
-                                            {tasks.length == user.tasks_done.length ? (
+                                            {tasks.length === user.tasks_done.length ?? (
                                                 <>
-                                                <Flex align="center"  borderBottom="1px solid var(--box_border)" w={["90%","90%","80%","80%"]} pb="10px" mt="15px" ml={["0px","0px","20px","20px"]} >
-                                                    <Box cursor="pointer" mr={["5px", "5px", "10px", "10px"]} alignItems="center" justifyContent="center" borderRadius="7px"  px="8px" py="5px" className="noneDis">
-                                                        <Icon as={CheckCircle} color="var(--chakra-colors-green)" boxSize="20px" mt="5px" />
-                                                    </Box>
-                                                    <Flex justify={["start", "start", "start", "start"]} w="100%" align="center">
-                                                        <Text fontSize={["12px", "12px", "13px", "13px"]}>Congratulations ! All missions are done, comeback tomorrow for new tasks</Text>
-                                                        
+                                                    <Flex align="center"  borderBottom="1px solid var(--box_border)" w={["90%","90%","80%","80%"]} pb="10px" mt="15px" ml={["0px","0px","20px","20px"]} >
+                                                        <Box cursor="pointer" mr={["5px", "5px", "10px", "10px"]} alignItems="center" justifyContent="center" borderRadius="7px"  px="8px" py="5px" className="noneDis">
+                                                            <Icon as={CheckCircle} color="var(--chakra-colors-green)" boxSize="20px" mt="5px" />
+                                                        </Box>
+                                                        <Flex justify={["start", "start", "start", "start"]} w="100%" align="center">
+                                                            <Text fontSize={["12px", "12px", "13px", "13px"]}>Congratulations ! All missions are done, comeback tomorrow for new tasks</Text>
+                                                        </Flex>
                                                     </Flex>
-                                                </Flex>
                                                 </>
-                                               
-                                            ) : (
-                                                <></>
                                             )}
                                         </Flex>
                                     </Flex>

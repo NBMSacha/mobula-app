@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useAlert } from "react-alert";
 import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
+import { PROTOCOL_ADDRESS } from "../../../constants";
 import Left from "./Left"
 import Mid from "./Mid"
 import Right from "./Right"
-import { getBlockchainFromId, mobulaRouter, supportedRPCs, tokensPerBlockchain } from '../../../constants';
 import {
     Heading,
     Text,
     Flex,
 } from "@chakra-ui/react";
-import { useWeb3React } from '@web3-react/core'
-import Vote from "./Vote";
+import { useWeb3React } from "@web3-react/core"
 
 function Elections() {
     const alert = useAlert();
@@ -55,19 +53,16 @@ function Elections() {
             setMembersToDemoteOne(membersToDemoteFromRankI);
             setMembersToDemoteTwo(membersToDemoteFromRankII);
         } catch (e) {
-            // alert.show('You must connect your wallet to access your Dashboard.')
+            // alert.show("You must connect your wallet to access your Dashboard.")
         }
     }
 
     useEffect(() => {
-        console.log(web3React)
         if (web3React.account) {
           initValues()
         } else {
-          console.log('YESSSS THATS IT MY BOY')
           const timeout = setTimeout(() => {
-            console.log('ALERT TIRGGERED')
-            alert.show('You must connect your wallet to earn MOBL.')
+            alert.show("You must connect your wallet to earn MOBL.")
           }, 300)
           return () => {
             clearTimeout(timeout)
@@ -77,10 +72,10 @@ function Elections() {
 
     return (
         <Flex direction={"column"} w="100%" align="center" mt="28px" mb="50px">
-            <Flex fontSize={['12px', '12px', '14px', '14px']} margin="auto" w="85%" align="end" justify="space-between" maxWidth="1400px">
+            <Flex fontSize={["12px", "12px", "14px", "14px"]} margin="auto" w="85%" align="end" justify="space-between" maxWidth="1400px">
                 <Flex  direction="column">
-                    <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Elections</Heading>
-                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    <Heading  mb={"15px"}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Elections</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={["12px", "12px", "14px", "14px"]}>
                     See here the tokens who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
                     </Text>
                 </Flex>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect,useContext } from 'react'
-import { useColorModeValue, Flex, Box, Text, Stack,Image, Button } from '@chakra-ui/react'
+import React, { useEffect,useContext } from "react"
+import { Flex, Text } from "@chakra-ui/react"
 import {
     RangeSlider,
     RangeSliderTrack,
     RangeSliderFilledTrack,
     RangeSliderThumb,
     RangeSliderMark
-  } from '@chakra-ui/react'
+  } from "@chakra-ui/react"
   import { getShortenedAmount } from "../../../../../../helpers/formaters"
   import styles from "./Boxs.module.scss"
 import { ContextObject } from "../../index"
@@ -16,12 +16,6 @@ export default function Boxs({title,isActive,setIsActive,setSetting,setting}) {
     function easeInExpo(x: number): number {
         return x === 0 ? 0 : Math.ceil(Math.pow(Math.E, x / 50000));
     }
-
-    useEffect(() => {
-        console.log(setting)
-    },[setting,themeContext.setting])
-
-    console.log(themeContext.setting)
     
     return (
         <>
@@ -31,23 +25,22 @@ export default function Boxs({title,isActive,setIsActive,setSetting,setting}) {
                 </Flex>
                 <RangeSlider opacity={isActive ? "1" : ".2"}  onChange={(val) => {
                     setIsActive(true)
-                            console.log(val)
                             const bufferSettings = {...setting}
                             bufferSettings[title.split(" ").join("_").toLowerCase()] = val
                             themeContext.setSetting(bufferSettings)
-                    }} aria-label={['min', 'max']} h="100px" defaultValue={setting} min={0} max={1_000_000}  position="relative" className={styles["rangeSliders"]} w={["45vw","50vw","20vw", "8vw"]}>
+                    }} aria-label={["min", "max"]} h="100px" defaultValue={setting} min={0} max={1_000_000}  position="relative" className={styles["rangeSliders"]} w={["45vw","50vw","20vw", "8vw"]}>
                     <RangeSliderTrack bg="var(--box_border)">
                         <RangeSliderFilledTrack bg="blue"/>
                     </RangeSliderTrack>
                     <RangeSliderMark
                     // Devrait être setting[0]
                         value={setting}
-                        textAlign='center'
-                        color='white'
+                        textAlign="center"
+                        color="white"
                         borderRadius="6px"
-                        mt='60px'
-                        ml='-20px'
-                        w='38px'
+                        mt="60px"
+                        ml="-20px"
+                        w="38px"
                         fontSize="10px"
                     >
                         {title === "Liquidity" && (
@@ -63,13 +56,13 @@ export default function Boxs({title,isActive,setIsActive,setSetting,setting}) {
                       <RangeSliderMark
                       // Devrait être setting[1]
                         value={setting}
-                        textAlign='center'
+                        textAlign="center"
                         borderRadius="6px"
-                        color='white'
+                        color="white"
                         fontSize="10px"
-                        mt='60px'
+                        mt="60px"
                         zIndex="2"
-                        w='42px'
+                        w="42px"
                         bg="var(--bg-main-box)"
                     >
                         {title === "Liquidity" && (

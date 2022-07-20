@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
+import React from "react"
 import Main from "./Main"
 import MainMobile from "./MainMobile"
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import { Flex } from "@chakra-ui/react"
 
 const Token = ({ baseAssetBuffer }) => {
     return (

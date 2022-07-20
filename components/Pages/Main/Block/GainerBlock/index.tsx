@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
-import { formatName, getUrlFromName } from '../../../../../helpers/formaters'
+import { getUrlFromName } from '../../../../../helpers/formaters'
 import styles from './GainerBlock.module.scss'
-import { getTokenPrice } from '../../../../../helpers/formaters';
 import {InfoOutlineIcon} from "@chakra-ui/icons"
-import { Button, useColorMode, IconButton, useColorModeValue, Flex, Box, Text, Heading, Input, Image, Link, } from "@chakra-ui/react";
+import { Flex, Box, Text, Image, Link, } from "@chakra-ui/react";
 function GainerBlock(tokens: {
   setInfo:any,
   info:boolean,
@@ -23,7 +22,6 @@ function GainerBlock(tokens: {
   change3: number,
 }) {
 
-  console.log(tokens.title)
   const router = useRouter()
   return (
     <Box className={styles['gainer-box']}>
@@ -34,7 +32,7 @@ function GainerBlock(tokens: {
         </Flex>
         
         <Link _focus={{ boxShadow: "none" }} cursor="pointer" color="grey" href={
-          tokens.title == 'Top Gainers' ? '/movers' : tokens.title == 'Trendings' ? 'trends' : 'new'
+          tokens.title === 'Top Gainers' ? '/movers' : tokens.title === 'Trendings' ? 'trends' : 'new'
         }>More {'>'}</Link>
       </div>
       

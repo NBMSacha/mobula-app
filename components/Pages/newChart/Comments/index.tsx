@@ -1,6 +1,6 @@
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import { Button, Flex, Box, Text } from "@chakra-ui/react"
 import Line from "./Line"
-import { Textarea } from '@chakra-ui/react'
+import { Textarea } from "@chakra-ui/react"
 import {useState} from "react"
 
 export default function Comments() {
@@ -21,7 +21,7 @@ export default function Comments() {
                     <Flex>
 
                    
-                        <Box display={["block","block","block","none"]} w='50%'  maxHeight={["160px","170px","160px","160px"]} overflowY="scroll" className="scroll">
+                        <Box display={["block","block","block","none"]} w="50%"  maxHeight={["160px","170px","160px","160px"]} overflowY="scroll" className="scroll">
                             <Line />
                             <Line />
                             <Line />
@@ -38,15 +38,14 @@ export default function Comments() {
                                 onChange={(e) => {
                                     setComment(e.target.value)
                                 }}
-                                placeholder='Here is a sample placeholder'
-                                size='sm'
+                                placeholder="Here is a sample placeholder"
+                                size="sm"
                                 bg="var(--contract)"
                                 minHeight={["130px","130px","110px","110px"]}
                             />
                             <Button fontSize={["11px","11px","12px","14px"]} bg="var(--btn_token)" w="100%" py={["7px","7px","9px","13px"]} borderRadius="8px"
                             border="1px solid var(--box_border_active)" mt="10px" _focus={{ boxShadow: "none" }}
                             onClick={() => {
-                                console.log(comment)
                             }}
                             >
                                 Submit (10 MOBL)

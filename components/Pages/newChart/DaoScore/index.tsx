@@ -1,5 +1,5 @@
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import { Flex, Box, Text } from "@chakra-ui/react"
+import { CircularProgress} from "@chakra-ui/react"
 export default function DaoScore({baseAsset, Uvalue, Tvalue, Svalue, Mvalue, totalScore}) {
      return (
         <Flex direction="column" align="start">

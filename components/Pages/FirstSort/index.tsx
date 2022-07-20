@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL } from "../../../constants";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import { useAlert } from 'react-alert';
+import { PROTOCOL_ADDRESS } from "../../../constants";
+import { Heading, Text, Flex, Link } from "@chakra-ui/react";
+import { useAlert } from "react-alert";
 import Router from "next/router";
 import ReviewToken from "../../Utils/newSort/ReviewToken";
 import Main from "../../Utils/newSort/Main"
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React } from "@web3-react/core"
 
 function FirstSort() {
     const [tokenDivs, setTokenDivs]: [{
@@ -27,15 +27,13 @@ function FirstSort() {
         totalSupply: string[]
         alreadyVoted: boolean
     }[], any] = useState([]);
-    const [tokenArray, setTokenArray] = useState([]);
     const [displayedToken, setDisplayedToken] = useState(0);
     const alert = useAlert();
     const web3React = useWeb3React()
-    const { active, account } = useWeb3React()
+    const { account } = useWeb3React()
     const [ votes, setVotes] = useState([])
 
     function getFirstSorts() {
-        console.log("Starting the first sort");
         const provider = new ethers.providers.Web3Provider(web3React.library.provider);
 
         const protocolContract = new ethers.Contract(
@@ -104,14 +102,13 @@ function FirstSort() {
                     "stateMutability": "view",
                     "type": "function"
                 },
-                'function firstSortVotes(address voter, uint256 tokenId) external view returns (bool)']
+                "function firstSortVotes(address voter, uint256 tokenId) external view returns (bool)"]
             , provider
         );
 
         protocolContract
             .getFirstSortTokens()
             .catch((err: any) => {
-                console.log(err);
                 return [];
             })
             .then(async (tokens: any) => {
@@ -120,11 +117,7 @@ function FirstSort() {
                 try {
                     account
                 } catch (e) { }
-
                 let fails = 0;
-
-                console.log("Tokens loaded : " + tokens.length);
-
                 tokens.forEach(async (token: any) => {
                     var isAlreadyVoted = false;
 
@@ -133,12 +126,7 @@ function FirstSort() {
                             account,
                             token.id
                         );
-                        console.log("Is already voted : " + isAlreadyVoted);
-                        
                     }
-                    console.log("Sumbitted data : " + token.ipfsHash);
-
-                    console.log(token)
 
                     try {
                         const response = await fetch(
@@ -178,12 +166,10 @@ function FirstSort() {
                         if (JSONrep.contracts) {
                             setTokenDivs((tokenDivs: any) => [...tokenDivs, JSONrep]);
                         } else {
-                            console.log("Fail");
                             fails++;
                         }
 
                     } catch (e) {
-                        console.log("Error with " + token + " : " + e);
                         fails++;
                     }
                 });
@@ -197,29 +183,26 @@ function FirstSort() {
         utilityScore: number, socialScore: number,
         trustScore: number, marketScore: number) {
 
-        console.log(validate)
-        console.log(Number(token.id))
         if (!complete.current) {
-            alert.error('You must wait the end of the countdown to vote.')
+            alert.error("You must wait the end of the countdown to vote.")
         } else {
             try {
                 const provider = new ethers.providers.Web3Provider(web3React.library.provider);
                 var signer = provider.getSigner();
             } catch (e) {
-                console.log(e)
-                alert.error('You must connect your wallet to submit the form.')
+                alert.error("You must connect your wallet to submit the form.")
             }
 
             try {
                 await new ethers.Contract(
                     PROTOCOL_ADDRESS,
                     [
-                        'function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external',
+                        "function firstSortVote(uint256 tokenId, bool validate, uint256 utilityScore, uint256 socialScore, uint256 trustScore, uint256 marketScore) external",
                     ], signer
                 ).firstSortVote(token.id, validate, utilityScore, socialScore, trustScore, marketScore);
                 localStorage.setItem("votes", JSON.stringify([...votes, token.id]))
                 setVotes([...votes, token.id])
-                alert.success('Your vote has been successfully registered.')
+                alert.success("Your vote has been successfully registered.")
                 await new Promise((resolve, reject) => setTimeout(resolve, 3000))
                 Router.reload()
 
@@ -227,24 +210,17 @@ function FirstSort() {
                 if (e.data && e.data.message) {
                     alert.error(e.data.message);
                 } else {
-                    alert.error('Something went wrong.')
+                    alert.error("Something went wrong.")
                 }
             }
         }
     }
-
-    console.log(votes)
-
     useEffect(() => {
-        console.log(web3React)
-        console.log(account)
         if (web3React.account) {
           getFirstSorts()
         } else {
-          console.log('YESSSS THATS IT MY BOY')
           const timeout = setTimeout(() => {
-            console.log('ALERT TIRGGERED')
-            alert.show('You must connect your wallet to earn MOBL.')
+            alert.show("You must connect your wallet to earn MOBL.")
           }, 300)
           return () => {
             clearTimeout(timeout)
@@ -255,15 +231,14 @@ function FirstSort() {
 
       useEffect(() => {
         setVotes(JSON.parse(localStorage.getItem("votes")) || [])
-        console.log(votes)
     }, [])
 
     return <>
         
-                <Flex mx="auto" fontSize={['12px', '12px', '14px', '14px']} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
+                <Flex mx="auto" fontSize={["12px", "12px", "14px", "14px"]} w="85%" align="end" justify="space-between" mt="50px" maxWidth="1400px">
                 <Flex direction="column">
-                    <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
-                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    <Heading mb={"15px"} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >DAO First Sort</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={["12px", "12px", "14px", "14px"]}>
                         The First Sort is the first step of validation for tokens wanting to be listed on Mobula.
                     </Text>
                 </Flex>
@@ -273,7 +248,7 @@ function FirstSort() {
             </Flex>
            
                 <>
-                    {tokenDivs.length == 0 &&  (
+                    {tokenDivs.length === 0 &&  (
                         <Text h="60vh" align="center" mt="80px">Oops... No token waiting for first sort yet. Submit one <Link color="blue" href="/list">here</Link>.</Text>
                     )}
 

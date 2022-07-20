@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { useColorModeValue, Flex, Box, Text, Stack,Image } from '@chakra-ui/react'
+import React, { useState, useEffect } from "react"
+import { useColorModeValue, Flex, Box, Text, Stack,Image } from "@chakra-ui/react"
 import Blockchain from "./Blockchain";
 import Sliders from "./Sliders"
 

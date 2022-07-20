@@ -1,7 +1,6 @@
-import { Text, Heading,Input,Link, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, useMediaQuery } from '@chakra-ui/react'
+import { Text, Link, Flex, Box, Image } from "@chakra-ui/react"
 
 export default function TopInfo({token}) {
-
     return (
         <Flex justify="space-between" align="center" w="100%">
             <Flex >
@@ -40,5 +39,4 @@ export default function TopInfo({token}) {
                 </Flex>
             </Flex>
     )
-
 }

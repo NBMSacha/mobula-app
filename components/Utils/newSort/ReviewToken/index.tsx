@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from "react";
-import TokenDisplay from "../../Sort/TokenDisplay";
-import { ethers } from "ethers";
-import { PROTOCOL_ADDRESS, RPC_URL, supportedRPCs } from "../../../../constants";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import DaoHeader from "../../DaoHeader";
-import Blocks from '../../Sort/Blocks';
-import { useAlert } from 'react-alert';
-import Router from "next/router";
-import { Globe, } from "react-feather"
-import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
+import React, { useState } from "react";
+import { Globe} from "react-feather"
+import { Text, Flex, Image, Button, Link, Icon } from "@chakra-ui/react";
+import { supportedRPCs } from "../../../../constants";
 import styles from "./ReviewToken.module.scss"
 import Vote from "./Vote"
 import Contract from "./Contract"
 import MobileContract from "./MobileContract"
-import Countdown from 'react-countdown';
 
 function ReviewToken({token, changeDisplay, voteToken }) {
 
-    const CountdownAny = Countdown as any;
-    const alert = useAlert();
-    const [active, setActive] = useState(false);
     const [utilityScore, setUtilityScore] = useState(0);
     const [socialScore, setSocialScore] = useState(0);
     const [trustScore, setTrustScore] = useState(0);
     const [marketScore, setMarketScore] = useState(0);
 
     function getExplorer(chain: string) {
-        console.log('chain : ' + chain)
         for (const rpc of supportedRPCs) {
             if (rpc.name === chain) {
                 return rpc.explorer;
             }
         }
     }
-
     return (
         <Flex className={styles["container"]} direction="column" m="auto" justify="center" mt="28px" maxWidth="1400px">
             <Flex justify="center" direction={["column", "column", "column", "row"]} mb="10px">
@@ -87,20 +74,20 @@ function ReviewToken({token, changeDisplay, voteToken }) {
                     </Flex>
                     <Flex align="center" display={["flex", "flex", "none", "none"]}>
                         <Flex fontSize="11px" align="center" justify="space-between" px="10px" w="90%" mx="auto" mt="5px">
-                            {token.kyc.length > 0 ? 
+                            {token.kyc.length > 0 ?? 
                                 <Link href={token.kyc}>
                                     <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">KYC</Button>
-                                </Link> : <></>
+                                </Link> 
                             }
-                            {token.audit.length > 0 ? 
+                            {token.audit.length > 0 ??
                                 <Link href={token.audit}>
                                      <Button variant="primary" mr="15px" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Audit</Button>
-                                </Link> : <></>
+                                </Link> 
                             }
-                            {token.chat.length > 0 ? 
+                            {token.chat.length > 0 ?? 
                                 <Link href={token.chat}>
                                      <Button variant="primary" borderRadius="8px" py="5px" w="80px" bg="var(--background)">Telegram</Button>
-                                </Link> : <></>
+                                </Link>
                             }
                         </Flex>
                     </Flex>

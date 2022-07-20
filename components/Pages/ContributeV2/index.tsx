@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image } from '@chakra-ui/react'
+import React from "react"
+import { Text,Flex, Box,Button, Image } from "@chakra-ui/react"
 
 export default function ContributeV2() {
-
 
     return(
 
@@ -39,7 +38,7 @@ export default function ContributeV2() {
             <Flex w="90%" mx="auto" justify="space-between">
                 <Box w="40%">
                     <Text fontSize={["35px"]}><Box as="span" color="blue">Join Mobula’s Discord</Box><br />Get involved in the ecosystem</Text>
-                    <Text mt='30px' color="var(--text-grey)" fontSize={["18px"]}>The first community gathered aggregator with the mission of giving visibility, giving the most reliable and real information of all crypto-assets. We are fighting against centralized solutions and monopolies exercised by private companies that master and control data of crypto-assets.</Text>
+                    <Text mt="30px" color="var(--text-grey)" fontSize={["18px"]}>The first community gathered aggregator with the mission of giving visibility, giving the most reliable and real information of all crypto-assets. We are fighting against centralized solutions and monopolies exercised by private companies that master and control data of crypto-assets.</Text>
                     <Button bg="blue" py="15px" px="30px" mt="30px">Join our Discord</Button>
                 </Box>
                 <Box position="relative" w="580px" h="380px">

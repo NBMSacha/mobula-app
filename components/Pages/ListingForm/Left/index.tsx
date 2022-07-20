@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from "react"
 import { Upload } from "react-feather"
 import styles from "../ListingForm.module.scss";
-import { Spinner } from '@chakra-ui/react'
-import { ChakraProvider, Input, Stack, Image, Flex, Box, Text, useColorModeValue, Textarea, Radio, Button } from '@chakra-ui/react'
-import axios from 'axios';
-import { RadioGroup } from '@chakra-ui/react'
+import { Spinner } from "@chakra-ui/react"
+import { Input, Flex, Text, Textarea, Radio, Button } from "@chakra-ui/react"
+import axios from "axios";
+import { RadioGroup } from "@chakra-ui/react"
 import { AddIcon } from "@chakra-ui/icons"
 
 function Left({
@@ -33,7 +33,6 @@ function Left({
         const list = [...inputListContract];
         list[index].value = value;
         setInputListContract(list);
-        console.log(list)
     };
 
     const handleAddClickContract = () => {
@@ -84,7 +83,7 @@ function Left({
                 <div>
                     <label>Upload Logo *</label>
                     <Flex boxShadow={`1px 2px 12px 3px var(--shadow)`} className={styles["upload-box"]} bg="var(--inputs)">
-                        {uploadLoading ? <Spinner m="auto" width='15px' height="15px" /> : <></>}
+                        {uploadLoading ? <Spinner m="auto" width="15px" height="15px" /> : <></>}
                         {uploadedImage || logo ? <img style={{ objectFit: "cover", height: "100%" }} src={uploadedImage ? uploadedImage : logo} /> : <></>}
                     </Flex>
                 </div>
@@ -93,10 +92,9 @@ function Left({
                         bg="var(--inputs)"
                         _placeholder={{ color: "none", textOverflow: "ellipsis" }}
                         onChange={(e) => {
-                            console.log('Dingue')
                             const reader = new FileReader();
                             reader.addEventListener("load", async () => {
-                                if (reader.readyState == 2) {
+                                if (reader.readyState === 2) {
                                     setUploadLoading(true)
                                     const bufferFile = await e.target.files[0].arrayBuffer();
                                     const hash = await new Promise(async resolve => {
@@ -105,9 +103,9 @@ function Left({
                                         })
                                     })
                                     setUploadedImage(reader.result);
-                                    await axios.get('https://mobulaspark.com/upload?hash=' + hash);
+                                    await axios.get("https://mobulaspark.com/upload?hash=" + hash);
                                     setUploadLoading(false)
-                                    setLogo('https://gateway.ipfs.io/ipfs/' + hash)
+                                    setLogo("https://gateway.ipfs.io/ipfs/" + hash)
                                 }
                             })
                             reader.readAsDataURL(e.target.files[0])
@@ -136,7 +134,7 @@ function Left({
                     </Flex>
                 </div>
             </div>
-            <div className={styles["form-container-box"]} id='parents'>
+            <div className={styles["form-container-box"]} id="parents">
                 <label >Contract Address *</label>
                 {inputListContract.map((x, i) => {
                     return (
@@ -156,7 +154,7 @@ function Left({
                                 onChange={e => { handleInputChangeContract(e, i) }}
                             />
                             <div className="btn-box">
-                                {inputListContract.length - 1 === i && <Button w="30px" right="0px" top="-2px" h='30px' borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}><AddIcon boxSize="10px"/></Button>}
+                                {inputListContract.length - 1 === i && <Button w="30px" right="0px" top="-2px" h="30px" borderRadius="10px" position="absolute" className={styles["absolute-btn-address"]} onClick={handleAddClickContract}><AddIcon boxSize="10px"/></Button>}
                             </div>
                         </>
                     );
@@ -167,11 +165,11 @@ function Left({
                     <Flex direction="column" fontSize="10px" >
                         <Flex align="center" direction="row">
                             <Text fontSize="10px" w="90%">The total supply is the first contract total supply (native token)</Text>
-                            <Radio checked={true} value='true' bg={isSum === "true" ? "blue" : "var(--inputs)"}boxShadow={`1px 2px 12px 3px var(--shadow) !important`}></Radio>
+                            <Radio checked={true} value="true" bg={isSum === "true" ? "blue" : "var(--inputs)"}boxShadow={`1px 2px 12px 3px var(--shadow) !important`}></Radio>
                         </Flex>
                         <Flex align="center" direction="row">
                             <Text fontSize="10px" w="90%">The total supply is the sum of all the contracts</Text>
-                            <Radio value='false' mt="10px" bg={isSum === "false" ? "blue" : "var(--inputs)"}boxShadow={`1px 2px 12px 3px var(--shadow) !important`}></Radio>
+                            <Radio value="false" mt="10px" bg={isSum === "false" ? "blue" : "var(--inputs)"}boxShadow={`1px 2px 12px 3px var(--shadow) !important`}></Radio>
                         </Flex>
                     </Flex>
                 </RadioGroup> : <></>}

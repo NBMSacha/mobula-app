@@ -10,7 +10,6 @@ const Blocks = ({ tokenDivs, setDisplayedToken }) => {
             flexWrap="wrap"
         >
             {tokenDivs.map((token) => {
-                console.log(token.alreadyVoted)
                 if(token.alreadyVoted === false ) {
                     return (
                         <Box

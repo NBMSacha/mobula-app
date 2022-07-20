@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { useColorModeValue, Flex, Box, Text, Stack,Image, Button, theme } from '@chakra-ui/react'
+import React, { useContext } from "react"
+import { Flex, Text, Button } from "@chakra-ui/react"
 import Boxs from "./Boxs"
-import { CalendarIcon, UpDownIcon } from "@chakra-ui/icons"
+import { UpDownIcon } from "@chakra-ui/icons"
 import styles from "../Sliders.module.scss"
 import { ContextObject } from "../index"
 
@@ -32,7 +32,7 @@ export default function RangeContainer({setShowMore, showMore}) {
                             </Button>
                         )}
                     </Flex>
-                    <Flex mt='10px' display={["none", "none", "flex","flex"]}  p="5px" w="100%" border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" direction={["column", "column","row", "row"]}> 
+                    <Flex mt="10px" display={["none", "none", "flex","flex"]}  p="5px" w="100%" border="1px solid var(--box_border)" _focus={{ boxShadow: "none"}} borderRadius="12px" direction={["column", "column","row", "row"]}> 
                         <Boxs title={"Holders"}/>
                         <Boxs title={"Online Telegram users"}/>
                         <Boxs title={"Price change"}/>

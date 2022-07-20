@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
+import React from "react";
+import { Text, Flex, Box } from "@chakra-ui/react";
 
 function Boxs({rank}) {
-  
     return (
         <Flex mt="15px" mb="15px" w="100%" justify="space-between" py="23px" px="30px" bg="var(--background)" borderRadius="14px" boxShadow="1px 2px 13px 3px var(--shadow)">
             <Flex align="center">

@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, useMediaQuery } from '@chakra-ui/react'
+import { Text, Flex, Box, Button,Image } from '@chakra-ui/react'
 import styles from "./Contribute.module.scss"
 export default function Contribute() {
   
-    
     return(
 
         <Flex direction="column" align="center" maxWidth="1500px" mx="auto" >

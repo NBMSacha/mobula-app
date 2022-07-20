@@ -1,12 +1,11 @@
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
+import { Flex, Box, Text } from "@chakra-ui/react"
+import { CircularProgress } from "@chakra-ui/react"
 export default function DaoScoreMobile({baseAsset, Uvalue, Tvalue, Svalue, Mvalue, totalScore}) {
      return (
-        <>
-        <Text fontWeight="600" fontSize={["11px","11px","14px"]} m={["5px 10px","10px 20px 0px 20px","15px 20px -15px 20px","8px"]}>DAO Score</Text>
+                <>
+                            <Text fontWeight="600" fontSize={["11px","11px","14px"]} m={["5px 10px","10px 20px 0px 20px","15px 20px -15px 20px","8px"]}>DAO Score</Text>
                             <Text fontSize={["11px","11px","14px"]} m={["0px 20px"]}>Total <Box as="span" color={totalScore > 10 ? "green" : totalScore > 0 ? "red" : "none"}>{totalScore > 0 ? totalScore : "--"}</Box>/20</Text>
                             <Flex direction={["column","column","row","row"]} wrap="wrap" justify="center" align="center" p={["10px " ,"25px " ,"10px " ,"10px " ]} w="100%" h={["auto","auto","120px","120px"]}> 
-                                
                                 <Flex align="center"  mt="0px" w={["100%","100%","50%","50%"]} mx="auto">
                                     {/* @ts-ignore */}
                                     <CircularProgress mr={["5px","8px","8px","15px"]} size={["20px","20px","24px"]} color={baseAsset.utility_score < 3 ? "red" : "green"} value={Uvalue} />
@@ -48,6 +47,6 @@ export default function DaoScoreMobile({baseAsset, Uvalue, Tvalue, Svalue, Mvalu
                                     </Flex>
                                 </Flex>
                             </Flex>
-                            </>
+                        </>
      )
 }

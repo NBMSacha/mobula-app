@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ThumbsUp, ThumbsDown } from "react-feather"
+import React from "react";
+import { ThumbsDown } from "react-feather"
 import {
     Text,
     Flex,

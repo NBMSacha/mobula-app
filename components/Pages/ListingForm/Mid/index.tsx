@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import styles from "../ListingForm.module.scss";
-import { Input, Flex } from '@chakra-ui/react';
+import { Input, Flex } from "@chakra-ui/react";
 
 function Mid({
     website,
@@ -12,8 +12,6 @@ function Mid({
     telegram,
     setTelegram,
 }) {
-
-    console.log(`this is website : ${website}`)
 
     return (
         <Flex className={styles["three-forms"]} p="20px" >

@@ -1,74 +1,51 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import React, { useEffect, useState, useContext } from "react"
 import TokenInfo from "./../TokenInfo";
-import { Search2Icon } from "@chakra-ui/icons"
-import axios from 'axios'
-import { Chart, ChartType, registerables } from 'chart.js'
-import Tendance from '../../../Page/Header/Tendance'
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { ArrowUp, ArrowDown } from 'react-feather'
+import { Chart } from "chart.js"
+import { createClient } from "@supabase/supabase-js"
 import {
-    formatAmount,
-    getTokenPrice,
     getShortenedAmount,
     getClosestUltimate
-} from '../../../../helpers/formaters'
-import { ethers } from 'ethers';
-import { volumeOracles, priceOracles, specialTokens, providers, stableTokens, tokensPerBlockchain, } from '../../../../constants';
-import BigNumber from 'bignumber.js';
-import { useRouter } from 'next/router';
-import { CSSReset, useMediaQuery } from '@chakra-ui/react'
+} from "../../../../helpers/formaters"
+import { useRouter } from "next/router";
 import ChartBox from "./../Chart"
-import Contract from "../../../Utils/Contract"
-import styles from './newChart.module.scss';
 import Swap from "../../../Utils/Swap"
-import MobileInfo from "./../MobileInfo"
-import { ThemeContext } from '../../../../pages/_app';
+import { ThemeContext } from "../../../../pages/_app";
 import TradeBox from "./../TradeBox"
 import SocialInfo from "./../SocialInfo"
 import CircularBox from "./../CircularBox"
-import { Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem } from "@chakra-ui/react"
 import TopHolders from "./../TopHolders"
 import Comments from "./../Comments"
 import AlsoWatch from "./../AlsoWatch"
-import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 import DaoScore from "./../DaoScore"
-import DaoScoreMobile from './../DaoScoreMobile';
 
 const Main = ({ baseAssetBuffer }) => {
     const [selector, setSelector] = useState("price")
     const router = useRouter()
-    const [timeFormat, setTimeFormat] = useState('7D')
+    const [timeFormat, setTimeFormat] = useState("7D")
     const [price, setPrice] = useState(0);
-    const [beforeToken, setBeforeToken] = useState({ name: 'Loading...', rank: '?', id: '' })
-    const [afterToken, setAfterToken] = useState({ name: 'Loading...', rank: '?' })
+    const [beforeToken, setBeforeToken] = useState({ name: "Loading...", rank: "?", id: "" })
+    const [afterToken, setAfterToken] = useState({ name: "Loading...", rank: "?" })
     const [historyData, setHistoryData] = useState(null);
-    const [mobile] = useMediaQuery('(max-width: 768px)');
-    const fillStyle = useColorModeValue("#666", "#b8b8b8");
-    const strokeStyle = useColorModeValue("black", 'white')
     const [isPriceWinner, setIsWinner]: [boolean, Function] = useState();
     const [selectorInfo, setSelectorInfo] = useState("")
-    const [moreStat, setMoreStat] = useState(false);
-    const types = ['price', 'volume', 'liquidity', 'rank'];
+    const types = ["price", "volume", "liquidity", "rank"];
     const unformattedInitialBuffer = {}
     const [baseAsset, setBaseAsset]: [any, Function] = useState(baseAssetBuffer)
     const themeContext = useContext(ThemeContext);
 
     types.forEach(type => {
-        const multiplier = type == 'rank' ? -1000000000 : 1000000000;
+        const multiplier = type === "rank" ? -1000000000 : 1000000000;
         unformattedInitialBuffer[type] = {
-            '1D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+            "1D": baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
                 .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-            '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            "7D": baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                 .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])
         }
-
-        console.log(unformattedInitialBuffer['price']['1D'].map(entry => entry[1]))
-        console.log(Math.min(unformattedInitialBuffer['price']['1D'].map(entry => entry[1])))
     })
 
-    const price24hLow = Math.min(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
-    const price24hHigh = Math.max(...unformattedInitialBuffer['price']['1D'].map(entry => entry[1])) / 1000000000
+    const price24hLow = Math.min(...unformattedInitialBuffer["price"]["1D"].map(entry => entry[1])) / 1000000000
+    const price24hHigh = Math.max(...unformattedInitialBuffer["price"]["1D"].map(entry => entry[1])) / 1000000000
 
     const [unformattedBuffer, setUnformattedBuffer]: [any, Function] = useState(unformattedInitialBuffer)
     const { asset } = router.query;
@@ -83,7 +60,7 @@ const Main = ({ baseAssetBuffer }) => {
         fill = false,
         stroke = false
     ) {
-        if (typeof radius === 'number') {
+        if (typeof radius === "number") {
             radius = { tl: radius, tr: radius, br: radius, bl: radius };
         } else {
             radius = { ...{ tl: 0, tr: 0, br: 0, bl: 0 }, ...radius };
@@ -108,9 +85,9 @@ const Main = ({ baseAssetBuffer }) => {
     }
 
     const getExtremes = (data: [{ y: number, t: number }]) => {
-        let bufferATH: { y: number | string, t: number } = { y: '0', t: 0 };
+        let bufferATH: { y: number | string, t: number } = { y: "0", t: 0 };
         //Infitiy cannot be used with big ints
-        let bufferATL: { y: number | string, t: number } = { y: '1000000000000000000000000000000000000000000000', t: 0 };
+        let bufferATL: { y: number | string, t: number } = { y: "1000000000000000000000000000000000000000000000", t: 0 };
 
         const bigAbs = (x: BigInt) => {
             return x < BigInt(0) ? -x : x
@@ -136,26 +113,26 @@ const Main = ({ baseAssetBuffer }) => {
     const generateChart = () => {
         var dayIf
 
-        if (timeFormat == '7D') {
-            dayIf = 'day'
+        if (timeFormat === "7D") {
+            dayIf = "day"
         }
-        if (timeFormat == '30D') {
-            dayIf = 'week'
+        if (timeFormat === "30D") {
+            dayIf = "week"
         }
-        if (timeFormat == '1Y') {
-            dayIf = 'quarter'
+        if (timeFormat === "1Y") {
+            dayIf = "quarter"
         }
-        if (timeFormat == 'ALL') {
-            dayIf = 'year'
+        if (timeFormat === "ALL") {
+            dayIf = "year"
         }
 
         try {
             (window as any).chartInstance.destroy()
-        } catch (e) { console.log('Not destroying chart.') }
+        } catch (e) {  }
 
 
         try {
-            var ctx = (document.getElementById('chart') as any).getContext('2d')
+            var ctx = (document.getElementById("chart") as any).getContext("2d")
 
             const data = getRightData()
             const isMobile = window.innerWidth < 768
@@ -171,34 +148,34 @@ const Main = ({ baseAssetBuffer }) => {
                 0,
                 isMobile ? 200 : isGiant ? 300 : 200
             )
-            gradient.addColorStop(0, isWinner ? '#00ba7c' : '#D8494A')
-            gradient.addColorStop(1, isWinner ? '#00ba7c00' : '#d8494a00')
+            gradient.addColorStop(0, isWinner ? "#00ba7c" : "#D8494A")
+            gradient.addColorStop(1, isWinner ? "#00ba7c00" : "#d8494a00")
 
-            if (selector == 'rank') {
+            if (selector === "rank") {
                 var { ATH, ATL } = getExtremes(data);
                 var allTimeDiff = Math.floor(ATH.y / -1000000000) - Math.floor(ATL.y / -1000000000)
             }
 
-            const labels = selector == 'rank' ? data.map((entry: { y: number }) => entry.y) : null;
-            const formattedData = selector == 'rank' ? data?.map((entry: { y: number }) => Math.round(entry.y)) : data;
-            const maxTicksLimit = selector == 'rank' ? Math.min(allTimeDiff, 5) : isMobile ? 6 : 8;
-            const xAxes = selector == 'rank' ? [{ display: false }] : [
+            const labels = selector === "rank" ? data.map((entry: { y: number }) => entry.y) : null;
+            const formattedData = selector === "rank" ? data?.map((entry: { y: number }) => Math.round(entry.y)) : data;
+            const maxTicksLimit = selector === "rank" ? Math.min(allTimeDiff, 5) : isMobile ? 6 : 8;
+            const xAxes = selector === "rank" ? [{ display: false }] : [
                 {
                     gridLines: { display: false },
-                    type: 'time',
-                    distribution: 'linear',
+                    type: "time",
+                    distribution: "linear",
                     ticks: {
-                        fontColor: themeContext.colorMode == "light" ? "black" : "white",
+                        fontColor: themeContext.colorMode === "light" ? "black" : "white",
                         fontFamily: "Poppins",
                         maxRotation: 0,
                         minRotation: 0,
-                        maxTicksLimit: isMobile ? (dayIf == 'week' ? 2 : 4) : 8,
+                        maxTicksLimit: isMobile ? (dayIf === "week" ? 2 : 4) : 8,
                     },
                     time: {
                         unit: dayIf,
-                        tooltipFormat: 'MM/DD/YYYY        HH:MM:SS',
+                        tooltipFormat: "MM/DD/YYYY        HH:MM:SS",
                         displayFormats: {
-                            hour: 'HH:mm',
+                            hour: "HH:mm",
                             week: "MMM D"
                         },
 
@@ -208,21 +185,21 @@ const Main = ({ baseAssetBuffer }) => {
             ];
 
             (window as any).chartInstance = new Chart(ctx, {
-                type: 'line',
+                type: "line",
                 data: {
                     labels,
                     datasets: [
                         {
                             data: formattedData,
-                            fill: selector != 'rank',
+                            fill: selector != "rank",
                             datasetFill: true,
-                            borderColor: isWinner ? '#00ba7c' : '#EA3943',
+                            borderColor: isWinner ? "#00ba7c" : "#EA3943",
                             tension: 0.6,
                             backgroundColor: gradient,
                             borderWidth: isMobile ? 3 : 2,
                             pointRadius: 0,
                             maintainAspectRatio: false,
-                            steppedLine: selector == 'rank' ? 'middle' : false
+                            steppedLine: selector === "rank" ? "middle" : false
                         },
                     ],
                 },
@@ -231,7 +208,7 @@ const Main = ({ baseAssetBuffer }) => {
                     aspectRatio: isMobile ? 1 : 2,
                     interaction: {
                         intersect: false,
-                        axis: 'x'
+                        axis: "x"
                     },
                     animation: {
                         duration: 750,
@@ -248,15 +225,15 @@ const Main = ({ baseAssetBuffer }) => {
                         yAxes: [
                             {
                                 gridLines: { display: false },
-                                display: selector != 'rank' || !!allTimeDiff,
+                                display: selector != "rank" || !!allTimeDiff,
                                 ticks: {
-                                    type: 'category',
+                                    type: "category",
                                     beginAtZero: false,
                                     font: { size: 20 },
                                     fontFamily: "Poppins",
                                     maxTicksLimit,
                                     callback: function (tick: number) {
-                                        if (selector != 'rank') {
+                                        if (selector != "rank") {
                                             return getShortenedAmount(tick / 1000000000)
                                         } else {
                                             return (tick / -1000000000).toFixed(0)
@@ -271,14 +248,14 @@ const Main = ({ baseAssetBuffer }) => {
             });
 
 
-            if (allTimeDiff == 0 && selector == 'rank') {
-                ctx.font = '20px Inter';
+            if (allTimeDiff === 0 && selector === "rank") {
+                ctx.font = "20px Inter";
                 ctx.strokeStyle = strokeStyle
                 ctx.fillStyle = strokeStyle
-                ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
+                ctx.fillText("Rank #" + baseAsset.rank, 5, 50)
             }
 
-            const stableSelector = selector != 'rank'
+            const stableSelector = selector != "rank"
             const { chartArea: { left, right, top, bottom }, scales } = (window as any).chartInstance;
 
             var crosshairLine = (mousemove: any) => {
@@ -287,7 +264,7 @@ const Main = ({ baseAssetBuffer }) => {
                     ctx.restore();
 
                     ctx.lineWidth = 3;
-                    ctx.strokeStyle = isWinner ? '#00ba7c' : '#D8494A';
+                    ctx.strokeStyle = isWinner ? "#00ba7c" : "#D8494A";
                     const currentData = unformattedBuffer[selector][timeFormat];
                     const x = scales["x-axis-0"];
                     const y = scales["y-axis-0"];
@@ -313,47 +290,46 @@ const Main = ({ baseAssetBuffer }) => {
                         const shouldBeRight = mousemove.offsetX < (right - 100);
 
                         ctx.beginPath();
-                        ctx.strokeStyle = 'white'
-                        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = isWinner ? "#00ba7c" : "#D8494A";
                         ctx.ellipse(mousemove.offsetX, finalPixel, 7, 7, 45 * Math.PI / 180, 0, 2 * Math.PI);
                         ctx.fill();
                         ctx.stroke()
                         ctx.closePath();
 
-                        ctx.font = '15px Inter';
+                        ctx.font = "15px Inter";
                         ctx.fillStyle = "white";
                         ctx.textBaseline = "middle";
                         ctx.textAlign = "left";
 
-                        let price = '$' + getShortenedAmount(finalPrice / 1000000000, 5);
+                        let price = "$" + getShortenedAmount(finalPrice / 1000000000, 5);
 
                         const rectWidth = ctx.measureText(price).width + 20
                         roundRect(ctx, mousemove.offsetX - (shouldBeRight ? 0 : rectWidth), h - 15, rectWidth, 30, 15, true);
 
                         ctx.beginPath();
-                        ctx.strokeStyle = 'white'
-                        ctx.fillStyle = isWinner ? '#00ba7c' : '#D8494A';
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = isWinner ? "#00ba7c" : "#D8494A";
                         ctx.ellipse(mousemove.offsetX + 10 - (shouldBeRight ? 0 : rectWidth), h, 4, 4, 45 * Math.PI / 180, 0, 2 * Math.PI); ctx.fill();
                         ctx.closePath();
 
-                        ctx.fillStyle = 'grey'
+                        ctx.fillStyle = "grey"
                         ctx.fillText(price, mousemove.offsetX + 15 - (shouldBeRight ? 0 : rectWidth), h)
 
                     } catch (e) {
-                        console.log(e)
                     }
                 }
             }
 
             const handleMouseMove = (e) => {
-                if (selector != 'rank') {
+                if (selector != "rank") {
                     crosshairLine(e)
                 } else {
-                    if (allTimeDiff == 0) {
-                        ctx.font = '20px Inter';
-                        ctx.strokeStyle = themeContext.colorMode == "light" ? "black" : "white";
-                        ctx.fillStyle = themeContext.colorMode == "light" ? "black" : "white";
-                        ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
+                    if (allTimeDiff === 0) {
+                        ctx.font = "20px Inter";
+                        ctx.strokeStyle = themeContext.colorMode === "light" ? "black" : "white";
+                        ctx.fillStyle = themeContext.colorMode === "light" ? "black" : "white";
+                        ctx.fillText("Rank #" + baseAsset.rank, 5, 50)
                     }
                 }
             }
@@ -361,16 +337,16 @@ const Main = ({ baseAssetBuffer }) => {
             (window as any).chartInstance.canvas.onmousemove = handleMouseMove;
 
             const handleTouchMove = (e) => {
-                if (selector != 'rank') {
-                    var evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+                if (selector != "rank") {
+                    var evt = (typeof e.originalEvent === "undefined") ? e : e.originalEvent;
                     const touch = evt?.touches[0] || evt?.changedTouches[0];
                     crosshairLine({ offsetX: Math.floor(touch.pageX - left), offsetY: Math.floor(touch.pageY - top) })
                 } else {
-                    if (allTimeDiff == 0 && selector == 'rank') {
-                        ctx.font = '20px Inter';
-                        ctx.strokeStyle = themeContext.colorMode == "light" ? "black" : "white";
-                        ctx.fillStyle = themeContext.colorMode == "light" ? "black" : "white";
-                        ctx.fillText('Rank #' + baseAsset.rank, 5, 50)
+                    if (allTimeDiff === 0 && selector === "rank") {
+                        ctx.font = "20px Inter";
+                        ctx.strokeStyle = themeContext.colorMode === "light" ? "black" : "white";
+                        ctx.fillStyle = themeContext.colorMode === "light" ? "black" : "white";
+                        ctx.fillText("Rank #" + baseAsset.rank, 5, 50)
                     }
                 }
             }
@@ -379,35 +355,33 @@ const Main = ({ baseAssetBuffer }) => {
 
 
         } catch (e) {
-            console.log(e)
         }
 
     }
 
     const fetchBeforeToken = async () => {
         const supabase = createClient(
-            'https://ylcxvfbmqzwinymcjlnx.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
+            "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
         )
 
         if (baseAsset) {
 
             if (baseAsset.rank && baseAsset.rank != 1) {
-                supabase.from('assets').select('name,id,rank,volume,liquidity,contracts').or('rank.eq.' + (baseAsset.rank - 1) + ',rank.eq.' + (baseAsset.rank + 1)).then(r => {
+                supabase.from("assets").select("name,id,rank,volume,liquidity,contracts").or("rank.eq." + (baseAsset.rank - 1) + ",rank.eq." + (baseAsset.rank + 1)).then(r => {
                     if (r.data) {
 
-                        console.log('YOOOOO', r.data)
-                        r.data = r.data.filter(asset => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0)).sort((a, b) => a.rank - b.rank)
+                        r.data = r.data.filter(asset => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length === 0)).sort((a, b) => a.rank - b.rank)
                         setBeforeToken(r.data[0])
                         setAfterToken(r.data[r.data.length - 1])
 
                     }
                 })
             } else if (baseAsset.rank) {
-                setBeforeToken({ name: 'Back to Top 100', id: '/', rank: '0' })
-                supabase.from('assets').select('name,id,rank,volume,liquidity,contracts').match({ rank: baseAsset.rank + 1 }).then(r => {
+                setBeforeToken({ name: "Back to Top 100", id: "/", rank: "0" })
+                supabase.from("assets").select("name,id,rank,volume,liquidity,contracts").match({ rank: baseAsset.rank + 1 }).then(r => {
                     if (r.data) {
-                        r.data = r.data.filter(asset => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length == 0));
+                        r.data = r.data.filter(asset => asset.volume > 50000 && (asset.liquidity > 1000 || asset.contracts.length === 0));
                         setAfterToken(r.data[0])
                     }
                 })
@@ -419,18 +393,15 @@ const Main = ({ baseAssetBuffer }) => {
 
     const fetchHistory = async () => {
         const supabase = createClient(
-            'https://ylcxvfbmqzwinymcjlnx.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
+            "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
         )
 
         const { data } = await supabase
-            .from('history')
-            .select('price_history,liquidity_history,rank_history,volume_history')
+            .from("history")
+            .select("price_history,liquidity_history,rank_history,volume_history")
             .match({ asset: baseAsset.id })
 
-        console.log('SETTING HISTORY DATA')
-
-        console.log(data)
         setHistoryData(data?.[0] || [])
 
         if (data?.[0]) {
@@ -438,30 +409,28 @@ const Main = ({ baseAssetBuffer }) => {
             const newUnformattedBuffer = { ...unformattedBuffer };
 
             types.forEach(type => {
-                const multiplier = type == 'rank' ? -1000000000 : 1000000000;
+                const multiplier = type === "rank" ? -1000000000 : 1000000000;
 
                 newUnformattedBuffer[type] = {
-                    '1D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+                    "1D": baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-                    '7D': baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                    "7D": baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]),
-                    '30D': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type]
+                    "30D": data[0][type + "_history"].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + "_history"][type]
                             .filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-                    '3M': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                    "3M": data[0][type + "_history"].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-                    '1Y': data[0][type + '_history'].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                    "1Y": data[0][type + "_history"].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier])),
-                    'ALL': data[0][type + '_history'].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + '_history'][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                    "ALL": data[0][type + "_history"].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                        .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]).concat(baseAsset?.[type + "_history"][type].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                             .map((entry: [number, number]) => [entry[0], entry[1] * multiplier]))
                 }
             })
-
-            console.log(newUnformattedBuffer)
 
             setUnformattedBuffer(newUnformattedBuffer)
 
@@ -471,10 +440,10 @@ const Main = ({ baseAssetBuffer }) => {
 
             types.forEach(type => {
                 newUnformattedBuffer[type] = {
-                    '30D': [],
-                    '3M': [],
-                    '1Y': [],
-                    'ALL': []
+                    "30D": [],
+                    "3M": [],
+                    "1Y": [],
+                    "ALL": []
                 }
 
                 setUnformattedBuffer(newUnformattedBuffer)
@@ -484,13 +453,13 @@ const Main = ({ baseAssetBuffer }) => {
 
     const fetchAssetData = async () => {
         const supabase = createClient(
-            'https://ylcxvfbmqzwinymcjlnx.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM'
+            "https://ylcxvfbmqzwinymcjlnx.supabase.co",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM"
         )
 
         const { data } = await supabase
-            .from('assets')
-            .select('*')
+            .from("assets")
+            .select("*")
             .match({ id: baseAsset.id })
 
         setBaseAsset(data[0])
@@ -530,44 +499,38 @@ const Main = ({ baseAssetBuffer }) => {
         }
 
     }, [price])
-    console.log(baseAsset.contracts[0])
 
     const getRightData = () => {
-        console.log('========')
-        console.log(historyData)
-        const multiplier = selector == 'rank' ? -1000000000 : 1000000000;
+        const multiplier = selector === "rank" ? -1000000000 : 1000000000;
 
         switch (timeFormat) {
-            case '1D':
-                return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
+            case "1D":
+                return baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 24 * 60 * 60 * 1000 > Date.now())
                     .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
-            case '7D':
-                return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            case "7D":
+                return baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                     .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
-            case '30D':
-                return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            case "30D":
+                return historyData?.[selector + "_history"].filter((entry: [number, number]) => entry[0] + 30 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
-            case '3M':
-                return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            case "3M":
+                return historyData?.[selector + "_history"].filter((entry: [number, number]) => entry[0] + 90 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
-            case '1Y':
-                return historyData?.[selector + '_history'].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            case "1Y":
+                return historyData?.[selector + "_history"].filter((entry: [number, number]) => entry[0] + 365 * 24 * 60 * 60 * 1000 > Date.now() && Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
-            case 'ALL':
-                return historyData?.[selector + '_history'].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
-                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+            case "ALL":
+                return historyData?.[selector + "_history"].filter((entry: [number, number]) => Date.now() > entry[0] + 7 * 24 * 60 * 60 * 1000)
+                    .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }).concat(baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                         .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } }));
             default:
-                return baseAsset?.[selector + '_history'][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
+                return baseAsset?.[selector + "_history"][selector].filter((entry: [number, number]) => entry[0] + 7 * 24 * 60 * 60 * 1000 > Date.now())
                     .map((entry: [number, number]) => { return { t: entry[0], y: entry[1] * multiplier } });
         }
     }
-
-    console.log(baseAsset)
-
     const [ Uvalue, setUvalue] = useState(0)
     const [ Tvalue, setTvalue] = useState(0)
     const [ Svalue, setSvalue] = useState(0)
@@ -665,10 +628,9 @@ const Main = ({ baseAssetBuffer }) => {
         }
     },[])
 
-    console.log(Mvalue, baseAsset.market_score)
     const totalScore = baseAsset.social_score + baseAsset.trust_score + baseAsset.utility_score + baseAsset.market_score;
     return (
-                    <Grid h='2800' display={["none","none","none","grid"]} w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)','repeat(4, 1fr)']} gap={2}>
+                    <Grid h="2800" display={["none","none","none","grid"]} w="90%" templateRows="repeat(15, 1fr)" templateColumns={["repeat(4, 1fr)","repeat(4, 1fr)","repeat(4, 1fr)","repeat(4, 1fr)"]} gap={2}>
                         <GridItem rowStart={1}  colStart={4} rowSpan={2}>
                             <Swap tokenOutBuffer={baseAsset} />
                         </GridItem>

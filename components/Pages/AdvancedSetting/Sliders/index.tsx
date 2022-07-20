@@ -1,20 +1,15 @@
-import React, { useEffect, useState, useRef, useContext } from 'react'
-import { useColorModeValue, Flex, Box, Text, Stack,Image, Button } from '@chakra-ui/react'
-import Checkboxs from './Checkboxs'
-import { CalendarIcon, UpDownIcon } from "@chakra-ui/icons"
+import React, { useEffect, useState } from "react"
+import { Flex, Text, Button } from "@chakra-ui/react"
+import Checkboxs from "./Checkboxs"
+import { CalendarIcon } from "@chakra-ui/icons"
 import styles from "./Sliders.module.scss"
 import RangeContainer from "./RangeContainer"
-import DatePicker, { CalendarContainer } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import HeaderTable from "../../../Utils/HeaderTable"
-import CalendarPicker from 'react-native-calendar-picker';
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-calendar/dist/Calendar.css';
-import Calendar from 'react-calendar';
-import { createClient, SupabaseClient } from '@supabase/supabase-js'
-import { useWeb3React } from '@web3-react/core'
-import { useRouter } from 'next/router';
-import { useAlert } from 'react-alert';
-import axios from 'axios';
+import "react-calendar/dist/Calendar.css";
+import Calendar from "react-calendar";
+import { createClient } from "@supabase/supabase-js"
 
 const Calendar = () => {
     const [startDate, setStartDate] = useState(null);
@@ -45,7 +40,7 @@ export default function Sliders({setEvmCheckbox, evmCheckbox, setShowMore, showM
     const [checkBoxs, setCheckboxs] = useState([])
     const [isSearch, setIsSearch ] = useState(false)
 
-    const [display, setDisplay] = useState('default');
+    const [display, setDisplay] = useState("default");
     const [textResponsive, setTextResponsive] = useState(false);
     const [orderBy, setOrderBy]: [any, Function] = useState();
 
@@ -79,21 +74,20 @@ export default function Sliders({setEvmCheckbox, evmCheckbox, setShowMore, showM
             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsY3h2ZmJtcXp3aW55bWNqbG54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTE1MDE3MjYsImV4cCI6MTk2NzA3NzcyNn0.jHgrAkljri6_m3RRdiUuGiDCbM9Ah0EBrezQ4e6QYuM",
         )
         supabase
-        .from('assets')
-        .select('kyc,audit,blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank')
-        .filter('kyc', 'neq', checkBoxs.includes("kyc") ? null : 1 )
-        .filter('kyc', 'neq', checkBoxs.includes("kyc") ? "" : 1 )
-        .filter('audit', 'neq', checkBoxs.includes("audited") ? null : 1 )
-        .filter('audit', 'neq', checkBoxs.includes("audited") ? "" : 1 )
-        .filter('volume', 'lte', isActiveVolume ? setting.volume[1] : "10000000000000000" )
-        .filter('volume', 'gte', isActiveVolume ? setting.volume[0] :  0)
-        .filter('liquidity', 'lte', isActiveLiquidity ? setting.liquidity[1] : "10000000000000000")
-        .filter('liquidity', 'gte', isActiveLiquidity ? setting.liquidity[0] :  0)
-        .filter('market_cap', 'lte', isActiveMarketCap ? setting.market_cap[1] : "10000000000000000" )
-        .filter('market_cap', 'gte', isActiveMarketCap ? setting.market_cap[0] :  0)
+        .from("assets")
+        .select("kyc,audit,blockchains,market_cap,volume,logo,volume,name,symbol,twitter,website,chat,discord,price_change_24h,price_change_7d,price,rank_change_24h,id,contracts,blockchains,pairs,liquidity,rank")
+        .filter("kyc", "neq", checkBoxs.includes("kyc") ? null : 1 )
+        .filter("kyc", "neq", checkBoxs.includes("kyc") ? "" : 1 )
+        .filter("audit", "neq", checkBoxs.includes("audited") ? null : 1 )
+        .filter("audit", "neq", checkBoxs.includes("audited") ? "" : 1 )
+        .filter("volume", "lte", isActiveVolume ? setting.volume[1] : "10000000000000000" )
+        .filter("volume", "gte", isActiveVolume ? setting.volume[0] :  0)
+        .filter("liquidity", "lte", isActiveLiquidity ? setting.liquidity[1] : "10000000000000000")
+        .filter("liquidity", "gte", isActiveLiquidity ? setting.liquidity[0] :  0)
+        .filter("market_cap", "lte", isActiveMarketCap ? setting.market_cap[1] : "10000000000000000" )
+        .filter("market_cap", "gte", isActiveMarketCap ? setting.market_cap[0] :  0)
         .then(r => {
             setTokens(r.data)
-            console.log(r.data, r.error)
         })
     }
 

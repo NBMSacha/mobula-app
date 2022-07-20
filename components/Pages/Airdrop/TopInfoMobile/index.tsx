@@ -1,7 +1,6 @@
-import { Text, Heading,Input,Link, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, useMediaQuery } from '@chakra-ui/react'
+import { Text, Link, Flex, Image } from "@chakra-ui/react"
 
 export default function TopInfoMobile({token}) {
-
     return (
         <Flex display={["flex","flex","none","none"]} mt="20px" >
             <Link href={token.twitter} target="_blank" _hover={{ textDecoration: "none" }}>
@@ -24,5 +23,4 @@ export default function TopInfoMobile({token}) {
             </Link>
         </Flex>
     )
-
 }

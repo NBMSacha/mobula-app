@@ -1,54 +1,48 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { ethers } from 'ethers';
+import React, { useEffect, useState } from "react"
+import { ethers } from "ethers";
 import IPFS from "ipfs-api";
-import { PROTOCOL_ADDRESS, supportedRPCs } from '../../../constants';
+import { PROTOCOL_ADDRESS, supportedRPCs } from "../../../constants";
 import { useAlert } from "react-alert";
 import styles from "./ListingForm.module.scss";
-import { ChakraProvider, Input, Image, Flex, Box, Text, useColorModeValue, Textarea, Heading, Button, Link } from '@chakra-ui/react'
+import { Flex, Text, Heading, Button, Link } from "@chakra-ui/react"
 import Left from "./Left";
 import Mid from "./Mid";
 import Right from "./Right";
-import { useRouter } from 'next/router'
-import { useWeb3React } from '@web3-react/core'
+import { useRouter } from "next/router"
+import { useWeb3React } from "@web3-react/core"
 
 function ListAToken() {
     const router = useRouter();
     const alert = useAlert();
-    const [logo, setLogo] = useState('')
-    const [description, setDescription] = useState('')
-    const [audit, setAudit] = useState('')
-    const [kyc, setKYC] = useState('')
-    const [twitter, setTwitter] = useState('')
-    const [telegram, setTelegram] = useState('')
-    const [website, setWebsite] = useState('');
+    const [logo, setLogo] = useState("")
+    const [description, setDescription] = useState("")
+    const [audit, setAudit] = useState("")
+    const [kyc, setKYC] = useState("")
+    const [twitter, setTwitter] = useState("")
+    const [telegram, setTelegram] = useState("")
+    const [website, setWebsite] = useState("");
     const [ipfs, setIPFS] = useState<any>();
     const [loading, setLoading] = useState(false);
     const [discord, setDiscord] = useState("")
     const [addNote, setAddNote] = useState("")
     const [uploadedImage, setUploadedImage]: [any, Function] = useState();
     const [uploadLoading, setUploadLoading] = useState(false);
-    const [name, setName] = useState('');
-    const [symbol, setSymbol] = useState('');
+    const [name, setName] = useState("");
+    const [symbol, setSymbol] = useState("");
     const [inputListContract, setInputListContract] = useState([{ value: "" }]);
     const [inputListExcluded, setInputListExcluded] = useState([{ value: "" }]);
-    const [isSum, setIsSum] = useState('true');
-    const [display, setDisplay] = useState('form');
+    const [isSum, setIsSum] = useState("true");
+    const [display, setDisplay] = useState("form");
     const web3React = useWeb3React()
-    const { active, account } = useWeb3React()
-
-    useEffect(() => {
-        console.log(inputListContract)
-    }, [inputListContract])
 
     async function submit(e: any) {
 
         e.preventDefault();
         setLoading(true);
-        console.log('submitted');
 
         for (const contract of inputListContract.map(entry => entry.value)) {
             if (!/0x[a-zA-z0-9]{40}/.test(contract) || contract.length != 42) {
-                alert.error('Contract format is invalid.')
+                alert.error("Contract format is invalid.")
                 setLoading(false)
                 return
             }
@@ -56,55 +50,55 @@ function ListAToken() {
 
         for (const excluded of inputListExcluded.map(entry => entry.value)) {
             if (excluded && (!/0x[a-zA-z0-9]{40}/.test(excluded) || excluded.length != 42)) {
-                alert.error('Excluded from circulation format is invalid.')
+                alert.error("Excluded from circulation format is invalid.")
                 setLoading(false)
                 return
             }
         }
 
-        if (logo === '' || !isUrl(logo)) {
-            alert.error('The logo must be sent as an URL')
+        if (logo === "" || !isUrl(logo)) {
+            alert.error("The logo must be sent as an URL")
             setLoading(false)
             return
         }
 
-        if (description === '') {
-            alert.error('A description must be provided.')
+        if (description === "") {
+            alert.error("A description must be provided.")
             setLoading(false)
             return
         }
 
-        if (audit !== '' && !isUrl(audit)) {
-            alert.error('The audit must be sent as an URL')
+        if (audit !== "" && !isUrl(audit)) {
+            alert.error("The audit must be sent as an URL")
             setLoading(false)
             return
         }
 
-        if (kyc !== '' && !isUrl(kyc)) {
-            alert.error('The KYC must be sent as an URL')
+        if (kyc !== "" && !isUrl(kyc)) {
+            alert.error("The KYC must be sent as an URL")
             setLoading(false)
             return
         }
 
-        if (twitter !== '' && !isUrl(twitter)) {
-            alert.error('The Twitter must be sent as an URL')
+        if (twitter !== "" && !isUrl(twitter)) {
+            alert.error("The Twitter must be sent as an URL")
             setLoading(false)
             return
         }
 
-        if (telegram !== '' && !isUrl(telegram)) {
-            alert.error('The chat must be sent as an URL')
+        if (telegram !== "" && !isUrl(telegram)) {
+            alert.error("The chat must be sent as an URL")
             setLoading(false)
             return
         }
 
-        if (website !== '' && !isUrl(website)) {
-            alert.error('The website must be sent as an URL')
+        if (website !== "" && !isUrl(website)) {
+            alert.error("The website must be sent as an URL")
             setLoading(false)
             return
         }
 
-        let contracts: any = inputListContract.map(entry => entry.value).filter((contract: any) => contract.length == 42);
+        let contracts: any = inputListContract.map(entry => entry.value).filter((contract: any) => contract.length === 42);
         const chains = []
 
         for (const contract of contracts) {
@@ -115,14 +109,12 @@ function ListAToken() {
                 i++;
                 const provider = new ethers.providers.Web3Provider(web3React.library.provider);
                 const tokenContract = new ethers.Contract(contract, [
-                    'function name() external view returns(string)',
+                    "function name() external view returns(string)",
                 ], provider)
-                console.log(tokenContract)
 
                 try {
                     name = await tokenContract.name()
                 } catch (e) {
-                    console.log('Token is not on the ' + supportedRPCs[i].name)
                 }
             }
 
@@ -150,7 +142,7 @@ function ListAToken() {
             website: website,
         }
 
-        const JSONFile = new Blob([JSON.stringify(tokenData)], { type: 'text/plain' });
+        const JSONFile = new Blob([JSON.stringify(tokenData)], { type: "text/plain" });
 
         const bufferFile: any = await new Promise(resolve => {
             let fileReader = new FileReader()
@@ -171,38 +163,37 @@ function ListAToken() {
              var provider = new ethers.providers.Web3Provider(web3React.library.provider);
             var signer = provider.getSigner();
         } catch (e) {
-            alert.show('You must connect your wallet to submit the form.')
+            alert.show("You must connect your wallet to submit the form.")
         }
 
         const submitPrice = (await new ethers.Contract(
             PROTOCOL_ADDRESS,
             [
-                'function submitPrice() external view returns(uint256)',
+                "function submitPrice() external view returns(uint256)",
             ], provider
         ).submitPrice())
 
-        const totalSupply = isSum === 'true' ? contracts : [contracts[0]];
-        const realExcluded = inputListExcluded.map(entry => entry.value).filter((excluded: any) => excluded.length == 42);
+        const totalSupply = isSum === "true" ? contracts : [contracts[0]];
+        const realExcluded = inputListExcluded.map(entry => entry.value).filter((excluded: any) => excluded.length === 42);
 
         try {
 
             const value = await new ethers.Contract(
                 PROTOCOL_ADDRESS,
                 [
-                    'function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable',
+                    "function submitIPFS(address[] contractAddresses, address[] totalSupplyAddresses, address[] excludedCirculationAddresses, string ipfsHash) external payable",
                 ], signer
             ).submitIPFS(contracts, totalSupply, realExcluded, hash, {
                 value: submitPrice
             });
 
-            alert.show('Successfully submitted data.');
-            setDisplay('success')
+            alert.show("Successfully submitted data.");
+            setDisplay("success")
         } catch (e) {
             if (e.data && e.data.message) {
                 alert.error(e.data.message);
             } else {
-                alert.error('Something went wrong.')
-                console.log(e)
+                alert.error("Something went wrong.")
             }
         }
         setLoading(false)
@@ -211,8 +202,7 @@ function ListAToken() {
     const mountIPFS = async () => {
         const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" })
         try {
-            setIPFS(IPFS('ipfs.infura.io', '5001', { protocol: 'https' }));
-            console.log(ipfs)
+            setIPFS(IPFS("ipfs.infura.io", "5001", { protocol: "https" }));
         } catch (e) { }
     }
 
@@ -222,7 +212,7 @@ function ListAToken() {
             var provider = new ethers.providers.Web3Provider(web3React.library.provider);
             var signer = provider.getSigner();
         } catch (e) {
-            alert.show('You must connect your wallet to submit the form.')
+            alert.show("You must connect your wallet to submit the form.")
         }
     }, []);
 
@@ -241,10 +231,10 @@ function ListAToken() {
             <div className={styles["listToken-container"]}>
 
                 <h2 className={styles["title"]} >Listing form</h2>
-                <Flex maxWidth="1400px" display={["none", "none", "flex", "flex"]} fontSize={['12px', '12px', '14px', '14px']} mt="28px" mb={["20px","20px","0px","20px"]} mx="auto" w="80%" align="end" justify="space-between" >
+                <Flex maxWidth="1400px" display={["none", "none", "flex", "flex"]} fontSize={["12px", "12px", "14px", "14px"]} mt="28px" mb={["20px","20px","0px","20px"]} mx="auto" w="80%" align="end" justify="space-between" >
                     <Flex direction="column">
-                        <Heading mb={'15px'} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Listing form</Heading>
-                        <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                        <Heading mb={"15px"} fontSize={["18px", "18px", "18px", "24px"]} fontFamily="Inter" >Listing form</Heading>
+                        <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={["12px", "12px", "14px", "14px"]}>
                             Submit your token for a listing for 10 MATIC. You must have them in your wallet on Polygon.
                         </Text>
                     </Flex>
@@ -254,7 +244,7 @@ function ListAToken() {
 
                 </Flex>
 
-                {display == 'form' ?
+                {display === "form" ?
                     <Flex className={styles["listToken-main"]} bg="var(--bg-governance-box)" maxWidth="1400px" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
                         <form className={`${styles["all-forms"]} ${styles["myForm"]}`} id="myForm" >
                             <Left
@@ -302,13 +292,13 @@ function ListAToken() {
                         </form>
                     </Flex> : <div className={styles["listToken-main"]}>
                         <Flex p="30px" flexDirection="column" className={styles["three-forms"]} bg="var(--bg-governance-box)" boxShadow={`1px 2px 12px 3px var(--shadow)`}>
-                            <Heading fontSize="xx-large" fontWeight="medium" mb='30px' ml='auto' mr='auto'>Success!</Heading>
-                            <Text mb='15px'>Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>
-                            <Text mb='15px'>You can now track your listing in the DAO tab, starting in the First Sort.</Text>
-                            <Text mb='15px'>If your crypto-asset is validated by the Mobula DAO, you will be able to access our <Link color="blue" href="/partners">Partner Ecosystem</Link>.</Text>
-                            <Text mb='35px'>Feel free to join our Discord to ask for any kind of support regarding your listing.</Text>
-                            <Button bg={'blue'} color={'white'} w='100%' h='30px' onClick={() => {
-                                router.push('/dao/sort')
+                            <Heading fontSize="xx-large" fontWeight="medium" mb="30px" ml="auto" mr="auto">Success!</Heading>
+                            <Text mb="15px">Your application has been successfully transmitted (on-chain) to the Mobula DAO.</Text>
+                            <Text mb="15px">You can now track your listing in the DAO tab, starting in the First Sort.</Text>
+                            <Text mb="15px">If your crypto-asset is validated by the Mobula DAO, you will be able to access our <Link color="blue" href="/partners">Partner Ecosystem</Link>.</Text>
+                            <Text mb="35px">Feel free to join our Discord to ask for any kind of support regarding your listing.</Text>
+                            <Button bg={"blue"} color={"white"} w="100%" h="30px" onClick={() => {
+                                router.push("/dao/sort")
                             }}>Go To First Sort</Button>
                         </Flex>
                     </div>}

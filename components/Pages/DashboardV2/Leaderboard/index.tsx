@@ -1,20 +1,15 @@
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, Input} from '@chakra-ui/react'
+import { GridItem } from "@chakra-ui/react"
+import { Text, Flex, Box, Button} from "@chakra-ui/react"
 import Title from "../Title"
-import { useEffect, useState } from "react"
-import Buttons from "../History/Buttons"
+import { useState } from "react"
 import Line from "./Line"
-import { useWeb3React } from '@web3-react/core'
-import { InjectedConnector } from '@web3-react/injected-connector'
-import { ethers } from 'ethers'
-import { useRouter } from 'next/router';
+import { useWeb3React } from "@web3-react/core"
 import Mobile from "./Mobile"
 
 export default function Leaderboard({top,goodChoices, badChoices, userRank,finalBadChoice,finalGoodChoice}) {
 
-    const { account, active, activate, deactivate } = useWeb3React()
+    const { account } = useWeb3React()
     const [isUser, setIsUser] = useState(false)
-    const [tab, setTab] = useState([])
 
     const sumGoodDecision = top.reduce((accumulator,currentValue) => {
         return accumulator + currentValue.good_decisions
@@ -28,7 +23,7 @@ export default function Leaderboard({top,goodChoices, badChoices, userRank,final
         <>
             <GridItem display={["none", "none", "none","initial"]} rowStart={3} colStart={4} colSpan={2} rowSpan={4}>
                 <Title title={"Leaderboard"} />
-                <Flex h="542px" w='100%' direction="column" p="30px 30px" bg="var(--bg-governance-box)" borderRadius="0px 0px 12px 12px">
+                <Flex h="542px" w="100%" direction="column" p="30px 30px" bg="var(--bg-governance-box)" borderRadius="0px 0px 12px 12px">
                     <Flex align="center" mb="20px">
                         <Button fontSize="12px" py="6px" mr="35px" _focus={{ boxShadow: "none" }}
                                 borderRadius="8px" w="105px" bg={"var(--elections)"} fontWeight="300"

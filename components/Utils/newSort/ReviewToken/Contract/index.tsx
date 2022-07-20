@@ -1,15 +1,8 @@
-import React, { useEffect, useState } from "react";
-
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
+import { Text, Flex, Box } from "@chakra-ui/react";
 import Contract from "../../../Contract"
-import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
-import styles from "../FirstSort.module.scss"
-
 
 function ContractDiv({ token }) {
-    console.log(token)
     return (
-
         <Flex bg="var(--bg-governance-box)" boxShadow="1px 2px 13px 3px var(--shadow)" direction="column" mx="auto" w="100%" borderRadius="12px" mb="50px" display={["none", "none", "flex", "flex"]}>
             <Flex p={["20px", "20px", "20px 0px", "20px"]} justify="space-around" align="center" w="100%" borderBottom={["none", "none", `1px solid var(--box_border)`, `1px solid var(--box_border)`]}>
                 
@@ -23,26 +16,26 @@ function ContractDiv({ token }) {
                 }
             </Flex>
             <Flex p={["20px", "20px", "20px 0px", "20px"]} justify="space-around" align="center" w="100%">
-                {/* TOKEN CONTRACT */}
+
                     <Flex w="30%" direction="column">
                         {token.contracts.map((contract: string, index: number) => {
                             return  <Box mb="20px" mr="10px"><Contract contract={contract} blockchain={token.chains[0]} /></Box>
                         })}
                     </Flex>
-                {/* TOKEN SUPPLY CONTRACT */}
-                {token.totalSupply && token.totalSupply.length > 0 ?
+
+                {token.totalSupply && token.totalSupply.length > 0 &&
                     <Flex w="30%" direction="column">
                         {token.totalSupply.map((contract: string, index: number) => {
                             return <Box mb="20px" mr="10px"><Contract contract={contract} blockchain={token.chains[0]} /></Box>
                         })}
-                    </Flex> : <></>
+                    </Flex>
                 }
-                {token.excludedFromCirculation && token.excludedFromCirculation.length > 0 ?
+                {token.excludedFromCirculation && token.excludedFromCirculation.length > 0 &&
                     <Flex w="30%" direction="column">
                          {token.excludedFromCirculation.map((contract: string, index: number) => {
                             return <Box mb="20px" mr="10px"><Contract contract={contract} blockchain={token.chains[0]} /></Box>
                         })}
-                    </Flex> : <></>
+                    </Flex>
                 }
             </Flex>
         </Flex>

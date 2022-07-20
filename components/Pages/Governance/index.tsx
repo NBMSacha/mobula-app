@@ -1,15 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
-import styles from './Governance.module.scss';
+import React, { useEffect, useState } from "react"
+import styles from "./Governance.module.scss";
 import { GOVERNOR_ADDRESS, MOBL_ADDRESS } from "../../../constants"
-import { ethers } from 'ethers'
+import { ethers } from "ethers"
 import abi from "./governor_abi.json"
-import { ChakraProvider, Box, Flex, Button, Image, Input, Spacer, Text, Heading, Textarea, useColorModeValue } from '@chakra-ui/react'
-import {
-    FormControl,
-    FormLabel,
-    ColorModeProvider,
-    CSSReset
-} from '@chakra-ui/react';
+import { Box, Flex, Input, Spacer, Text, Heading } from "@chakra-ui/react"
 import Idea from "./Idea"
 import Historys from "./History"
 import Vote from "./Vote"
@@ -18,19 +12,15 @@ import Power from "./Power"
 function Governance() {
     const [liveProposals, setLiveProposals]: [JSX.Element[], any] = useState([<Input
         className="long"
-        value={'No proposals currently voted.'}
+        value={"No proposals currently voted."}
         onChange={(e) => e}
         placeholder="0x..."
         required
     ></Input>])
-    const withdrawRef = useRef();
-    const depositRef = useRef();
-    const proposalRef = useRef();
     const [withdrawAmount, setWithdrawAmount] = useState("");
     const [depositAmount, setDepositAmount] = useState("");
     const [createProposal, setCreateProposal] = useState("");
     const [proposals, setProposals] = useState([]);
-    const [vote, setVote] = useState(0)
 
     const MOBULA_ABI = [
         "function withdraw(uint256 _amount) external ",
@@ -66,14 +56,12 @@ function Governance() {
             if (formatedBalance >= parseInt(depositAmount)) {
                 const tx1 = await mobulaContract.approve(GOVERNOR_ADDRESS, depositAmount)
                 await tx1.wait();
-                console.log(`You own: ${formatedBalance} $MOBL`)
 
                 try {
                     const tx2 = await contract.allowance(MOBL_ADDRESS, address)
                     await tx2.wait()
                     const tx = await contract.deposit(depositAmount);
                     const txResponse = await tx.wait();
-                    console.log(txResponse);
                 } catch (err) {
                     alert(err.message);
                 }
@@ -83,7 +71,6 @@ function Governance() {
             }
 
         } catch (err) {
-            console.log(err.message)
         }
     }
 
@@ -107,7 +94,6 @@ function Governance() {
                 await tx1.wait();
                 const tx = await contract.withdraw(withdrawAmount)
                 const txResponse = tx.wait()
-                console.log(txResponse)
             } catch (err) {
                 alert(err.message);
             }
@@ -124,7 +110,6 @@ function Governance() {
             try {
                 const tx = await proposalContract.createProposal(createProposal)
                 const txResponse = tx.wait()
-                console.log(txResponse);
             } catch (error) {
                 alert(error.data.message);
             }
@@ -139,11 +124,9 @@ function Governance() {
             const proposalContract = new ethers.Contract(GOVERNOR_ADDRESS, abi.abi, provider);
             let nextProposals = await proposalContract.proposals(5);
             setProposals(nextProposals)
-            console.log(nextProposals)
 
 
         } catch (err) {
-            console.log(err.message)
         }
 
     }
@@ -151,21 +134,19 @@ function Governance() {
     useEffect(() => {
         getProposals()
         if (!proposals) [
-            console.log(proposals)
         ]
     }, [!proposals])
 
     proposals.map((number) => {
-        console.log(Number(number))
 
     })
 
     return (
-        <Flex direction="column" mb={'50px'} mt={'28px'} align="center" justify="center">
-            <Flex fontSize={['12px', '12px', '14px', '14px']}  className={styles["stickyFix"]} margin="auto" w="80%" align="end" justify="space-between">
+        <Flex direction="column" mb={"50px"} mt={"28px"} align="center" justify="center">
+            <Flex fontSize={["12px", "12px", "14px", "14px"]}  className={styles["stickyFix"]} margin="auto" w="80%" align="end" justify="space-between">
                 <Flex  direction="column">
-                    <Heading  mb={'15px'}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Governance Process</Heading>
-                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={['12px', '12px', '14px', '14px']}>
+                    <Heading  mb={"15px"}  fontSize={["18px","18px","18px","24px"]} fontFamily="Inter" >Governance Process</Heading>
+                    <Text display={["none", "none", "none", "flex"]} whiteSpace="normal" fontSize={["12px", "12px", "14px", "14px"]}>
                     See here the tokenq who got validated by the <span style={{color:"var(--chakra-colors-blue)", marginLeft:"5px", whiteSpace:"nowrap"}}>Mobula DAO</span>
                     </Text>
                 </Flex>
@@ -173,7 +154,7 @@ function Governance() {
                       See here the lists token who got validated by the Mobula DAO
                 </Text>
             </Flex>
-            <Flex fontSize={['12px', "12px", "15px", "15px"]} justify="center" mt={'10px'} align={["center", "center", "auto", "auto"]} w="90%" mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
+            <Flex fontSize={["12px", "12px", "15px", "15px"]} justify="center" mt={"10px"} align={["center", "center", "auto", "auto"]} w="90%" mb="100px" direction={["column-reverse", "column-reverse", "column-reverse", "row"]}>
                 <Spacer />
                 <Spacer />
                 <Flex w={["96%", "90%", "85%", "45%"]} maxWidth="730px" direction="column" >

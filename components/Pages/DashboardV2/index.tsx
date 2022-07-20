@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useAlert } from 'react-alert'
-import { ethers } from 'ethers'
-import styles from './dashboard.module.scss'
+import React, { useEffect, useState } from "react"
+import { useAlert } from "react-alert"
+import { ethers } from "ethers"
 import RankStats from "./RankStats"
 import Faucet from "./Faucet"
-import Title from "./Title"
 import History from "./History"
-import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from '../../../constants'
-import {
-  ChakraProvider,
-  ColorModeProvider,
-  useColorMode,
-} from '@chakra-ui/react'
-import { CSSReset } from '@chakra-ui/react'
-import { createClient } from '@supabase/supabase-js'
-import { ThumbsUp, ThumbsDown } from "react-feather"
-import { useWeb3React } from '@web3-react/core'
-import { Grid, GridItem } from '@chakra-ui/react'
+import { PROTOCOL_ADDRESS, VAULT_ADDRESS } from "../../../constants"
+import { createClient } from "@supabase/supabase-js"
+import { useWeb3React } from "@web3-react/core"
+import { Grid } from "@chakra-ui/react"
 import Leaderboard from "./Leaderboard"
-
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image } from '@chakra-ui/react'
+import {  Flex } from "@chakra-ui/react"
 
 function Dashboard() {
   const web3React = useWeb3React()
@@ -29,13 +19,12 @@ function Dashboard() {
   const [validated, setValidated] = useState([])
   const [rejected, setRejected] = useState([])
   const [userRank, setUserRank] = useState(0)
-  
   const [finalTokensOwed, setFinalTokensOwed] = useState(0)
   const [firstGoodChoice, setFirstGoodChoice] = useState(0)
   const [firstBadChoice, setFirstBadChoice] = useState(0)
   const [finalGoodChoice, setFinalGoodChoice] = useState(0)
   const [finalBadChoice, setFinalBadChoice] = useState(0)
-  const [countdownValue, setCountdown] = useState('You can claim now')
+  const [countdownValue, setCountdown] = useState("You can claim now")
   const [claimed, setClaimed] = useState(0)
   const [mobile, setMobile] = useState({})
   const [recentlyAdded, setRecentlyAdded] = useState([])
@@ -54,22 +43,20 @@ function Dashboard() {
     let seconds = date.getTime()
     let postedDate = Math.round(seconds + 7 * 24 * 60 * 60 - Date.now() / 1000)
 
-    console.log(postedDate)
-
     if (postedDate < 60) {
-      return Math.round(postedDate) + ' seconds'
+      return Math.round(postedDate) + " seconds"
     } else if (60 <= postedDate && postedDate < 120) {
-      return '1 minute'
+      return "1 minute"
     } else if (120 <= postedDate && postedDate < 3600) {
-      return Math.round(postedDate / 60) + ' minutes'
+      return Math.round(postedDate / 60) + " minutes"
     } else if (3600 <= postedDate && postedDate < 7200) {
-      return '1 hour'
+      return "1 hour"
     } else if (7200 <= postedDate && postedDate < 86400) {
-      return Math.round(postedDate / 3600) + ' hours'
+      return Math.round(postedDate / 3600) + " hours"
     } else if (86400 <= postedDate && postedDate < 172800) {
-      return '1 day'
+      return "1 day"
     } else if (172800 <= postedDate) {
-      return Math.round(postedDate / 86400) + ' days'
+      return Math.round(postedDate / 86400) + " days"
     }
   }
 
@@ -80,13 +67,13 @@ function Dashboard() {
       const protocolContract = new ethers.Contract(
         PROTOCOL_ADDRESS,
         [
-          'function paidFirstVotes(address voter) external view returns(uint256)',
-          'function goodFirstVotes(address voter) external view returns(uint256)',
-          'function badFirstVotes(address voter) external view returns(uint256)',
-          'function paidFinalVotes(address voter) external view returns(uint256)',
-          'function goodFinalVotes(address voter) external view returns(uint256)',
-          'function badFinalVotes(address voter) external view returns(uint256)',
-          'function tokensPerVote() external view returns(uint256)',
+          "function paidFirstVotes(address voter) external view returns(uint256)",
+          "function goodFirstVotes(address voter) external view returns(uint256)",
+          "function badFirstVotes(address voter) external view returns(uint256)",
+          "function paidFinalVotes(address voter) external view returns(uint256)",
+          "function goodFinalVotes(address voter) external view returns(uint256)",
+          "function badFinalVotes(address voter) external view returns(uint256)",
+          "function tokensPerVote() external view returns(uint256)",
         ],
         provider
       )
@@ -121,8 +108,8 @@ function Dashboard() {
       const vaultContract = new ethers.Contract(
         VAULT_ADDRESS,
         [
-          'function lastClaim(address member) external view returns(uint256)',
-          'function totalClaim(address member) external view returns(uint256)',
+          "function lastClaim(address member) external view returns(uint256)",
+          "function totalClaim(address member) external view returns(uint256)",
         ],
         provider
       )
@@ -131,20 +118,14 @@ function Dashboard() {
       const totalClaim = (await vaultContract.totalClaim(web3React.account)).toNumber()
 
       setClaimed(totalClaim)
-      //console.log(lastClaim);
 
-      console.log('yo', lastClaim)
-
-      console.log(Date.now())
-
-      if (lastClaim == 0 || lastClaim + 7 * 24 * 60 * 60 <= Date.now() / 1000) {
-        setCountdown('You can claim now')
+      if (lastClaim === 0 || lastClaim + 7 * 24 * 60 * 60 <= Date.now() / 1000) {
+        setCountdown("You can claim now")
       } else {
         setCountdown(countdown(lastClaim))
       }
     } catch (e) {
-      alert.show('You must connect your wallet to access your Dashboard.')
-      console.log(e)
+      alert.show("You must connect your wallet to access your Dashboard.")
     }
   }
 
@@ -155,18 +136,18 @@ function Dashboard() {
     )
 
     supabase
-      .from('history_dao')
-      .select('*')
-      .order('created_at', { ascending: false })
+      .from("history_dao")
+      .select("*")
+      .order("created_at", { ascending: false })
       .limit(30)
       .then(r => {
         setRecentlyAdded(r.data)
       })
     
     supabase
-        .from('members')
-        .select('address')
-        .order('good_decisions', {ascending: false})
+        .from("members")
+        .select("address")
+        .order("good_decisions", {ascending: false})
         .then(r => {
             if(r.data) {
                 setUserRank(r.data.map(entry => entry.address).indexOf(accountUser) + 1)
@@ -174,29 +155,29 @@ function Dashboard() {
           })
     
     supabase
-      .from('members')
-      .select('*')
-      .order('good_decisions', { ascending: false })
+      .from("members")
+      .select("*")
+      .order("good_decisions", { ascending: false })
       .limit(12)
       .then(r => {
         setDaoMembers(r.data)
       })
 
     supabase
-      .from('history_dao')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .filter("validated", 'eq', "true")
+      .from("history_dao")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .filter("validated", "eq", "true")
       .limit(10)
       .then(r => {
         setValidated(r.data)
       })
 
     supabase
-      .from('history_dao')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .filter("validated", 'eq', "false")
+      .from("history_dao")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .filter("validated", "eq", "false")
       .limit(10)
       .then(r => {
         setRejected(r.data)
@@ -208,14 +189,11 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
-    console.log(web3React)
     if (web3React.account) {
       initValues()
     } else {
-      console.log('YESSSS THATS IT MY BOY')
       const timeout = setTimeout(() => {
-        console.log('ALERT TIRGGERED')
-        alert.show('You must connect your wallet to earn MOBL.')
+        alert.show("You must connect your wallet to earn MOBL.")
       }, 300)
       return () => {
         clearTimeout(timeout)
@@ -225,7 +203,7 @@ function Dashboard() {
   
   return (
     <Flex maxWidth="1500px" mx="auto" mt="28px">
-        <Grid h='2200'  mx="auto" w="90%" templateRows='repeat(15, 1fr)' templateColumns={['repeat(5, 1fr)']} gap={2}>
+        <Grid h="2200"  mx="auto" w="90%" templateRows="repeat(15, 1fr)" templateColumns={["repeat(5, 1fr)"]} gap={2}>
             <RankStats 
                 finalBadChoice={finalBadChoice}
                 finalGoodChoice={finalGoodChoice}

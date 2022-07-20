@@ -1,27 +1,24 @@
-import { Box, Button, Flex, Heading, Input, Text, Image, useColorModeValue, Textarea } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Input, Text, Image, Textarea } from "@chakra-ui/react";
 
 const Vote = ({ promote, firstInput, secondInput, firstValue, setFirstInput }) => {
-    const input = useColorModeValue("white", "dark_input_secondary");
-    const shadow = useColorModeValue("shadow", "none");
-    const submitBackground = useColorModeValue("#F5F5F5", "#313550");
 
-    const title = promote ? 'Promotion' : 'Demotion';
-    const action = promote ? 'promote' : 'demote';
-    const firstPartTitle = promote ? 'Amount of Rank I seats available' : 'Amount of Rank I members';
-    const secondPartTitle = promote ? 'Amount of Rank II seats available' : 'Amount of Rank II members';
+    const title = promote ? "Promotion" : "Demotion";
+    const action = promote ? "promote" : "demote";
+    const firstPartTitle = promote ? "Amount of Rank I seats available" : "Amount of Rank I members";
+    const secondPartTitle = promote ? "Amount of Rank II seats available" : "Amount of Rank II members";
 
     const MiniBox = ({ partTitle, input }) => {
         return <Box mb="15px">
             <Text variant="primary">{partTitle}</Text>
-            <Text fontWeight="500" color={input > 0 ? 'green' : 'red'}>{input} seats</Text>
+            <Text fontWeight="500" color={input > 0 ? "green" : "red"}>{input} seats</Text>
         </Box >
     };
 
     return <Flex direction="column" mb="50px">
         <Flex align="center" mb="30px">
-            <Box mr="10px" h="30px" w="8px" rounded='xl' bg={promote ? 'green' : 'red'} />
-            <Heading mr="10px" color={promote ? 'green' : 'red'} fontWeight="600">{title}</Heading>
-            <Image src={`/thumbs${promote ? 'Up' : 'Down'}.png`} h="25px" />
+            <Box mr="10px" h="30px" w="8px" rounded="xl" bg={promote ? "green" : "red"} />
+            <Heading mr="10px" color={promote ? "green" : "red"} fontWeight="600">{title}</Heading>
+            <Image src={`/thumbs${promote ? "Up" : "Down"}.png`} h="25px" />
         </Flex>
 
         <MiniBox partTitle={firstPartTitle} input={firstInput} />

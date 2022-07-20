@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, Link, useColorModeValue, Icon } from "@chakra-ui/react";
-import { TimeIcon, CopyIcon } from "@chakra-ui/icons"
+import { Text, Flex, Box } from "@chakra-ui/react";
 import Contract from "../../../Contract"
 
 function  MobileContract({ token}) {
-    console.log(token)
     return (
         <Flex direction="column" px="25px" display={["flex", "flex", "none", "none"]}>
             <Box>
@@ -14,7 +11,7 @@ function  MobileContract({ token}) {
                             return  <Box mb="20px" mr="10px"><Contract contract={contract} blockchain={token.chains[0]} /></Box>
                         })}
                 </Flex>
-                {token.excludedFromCirculation && token.excludedFromCirculation.length > 0 ?
+                {token.excludedFromCirculation && token.excludedFromCirculation.length > 0 &&
                     <>
                         <Text ml="10px" mb="0px" fontSize="11px">Excluded from circulation</Text>
                         <Flex w="100%" direction="column">
@@ -23,9 +20,8 @@ function  MobileContract({ token}) {
                                 })}
                         </Flex>
                     </>
-                    : <></>
                 }
-                {token.totalSupply && token.totalSupply.length > 0 ?
+                {token.totalSupply && token.totalSupply.length > 0 &&
                     <>
                         <Text ml="10px" mb="0px" fontSize="11px">Total supply contract(s)</Text>
                         <Flex mb="10px" w="100%" direction="column">
@@ -34,7 +30,6 @@ function  MobileContract({ token}) {
                                 })}
                         </Flex>
                     </>
-                    : <></>
                 }
             </Box>
         </Flex>

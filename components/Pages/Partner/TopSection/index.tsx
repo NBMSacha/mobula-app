@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Flex, Box, Text, useColorModeValue } from '@chakra-ui/react';
+import React  from 'react'
+import { Flex, Box, Text } from '@chakra-ui/react';
 
 const TopSection = () => {
 

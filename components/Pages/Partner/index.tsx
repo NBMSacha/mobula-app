@@ -1,17 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { extendTheme, Flex, Box, Text, Spacer, Image, Button, Grid, GridItem } from '@chakra-ui/react';
-import styles from "./Api.module.scss"
-import { Pocket } from "react-feather";
-import { CheckCircleIcon } from "@chakra-ui/icons"
+import React, { useEffect, useState } from 'react'
+import { Flex, Text, Button } from '@chakra-ui/react';
 import TopSection from "./TopSection";
 import BottomSection from "./BottomSection"
+import { createClient } from "@supabase/supabase-js"
 
 const Api = () => {
 
-    const volume = "Volume";
-    const rank = "Rank";
-    const liquidity = "Liquidity";
-    const holders = "Holders";
+
 
     return (
         <>

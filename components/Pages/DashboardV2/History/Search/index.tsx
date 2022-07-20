@@ -1,6 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react'
-import { Text, Heading, Flex, Box, Spacer, Button, useColorModeValue, Icon, Image, Input} from '@chakra-ui/react'
-import { useState } from "react"
+import { Flex, Icon, Input} from "@chakra-ui/react"
 import {Search2Icon} from "@chakra-ui/icons"
 
 export default function Search({search, setSearch}) {
@@ -16,15 +14,15 @@ export default function Search({search, setSearch}) {
                         </Flex>
                         <Input
                             // value={token}
-                            type='text'
+                            type="text"
                             bg="none"
                             border="none"
-                            name='search'
+                            name="search"
                             fontSize="14px"
                             _placeholder={{ color: "none" }}
-                            placeholder='Search'
+                            placeholder="Search"
                             onChange={(e) => setSearch(e.target.value)}
-                            id='search'
+                            id="search"
                             autoFocus
                         ></Input>
                     

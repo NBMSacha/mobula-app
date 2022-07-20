@@ -1,9 +1,8 @@
-import { ChakraProvider, Input, InputLeftElement, InputGroup, Link, Progress, ProgressLabel, ColorModeProvider, useColorModeValue, Image, Button, Flex, Box, Text } from '@chakra-ui/react'
+import { Image, Flex, Box, Text } from "@chakra-ui/react"
 
 export default function Boxs() {
 
     return(
-
             <Box w={["160px","160px","270px","270px"]} minWidth="270px" p={["10px 10px","10px 10px","10px 20px","10px 20px"]} mx="auto" border="2px solid var(--box_border)" borderRadius="12px" bg="var(--inputs)"  mr="40px">
                 <Flex justify="space-between" align="start">
                     <Flex align="center">
@@ -17,7 +16,5 @@ export default function Boxs() {
                 </Flex>    
                 <Image mt={["10px","10px","20px","20px"]} src={"https://mobulaspark.com/spark?id=100001656.svg"} w={["90%","90%","100%","100%"]}/>      
             </Box>
-            
-
     )
 }

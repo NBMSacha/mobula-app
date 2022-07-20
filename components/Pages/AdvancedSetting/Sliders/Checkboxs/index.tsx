@@ -16,12 +16,10 @@ export default function Checkboxs({condition, checkBoxs, setCheckboxs}) {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.splice(newBlockchains.indexOf("evm"),1);
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 } else {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.push("evm");
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 }
                             }} bg={checkBoxs.includes("evm") ? "var(--text-secondary)" : "none"} borderRadius="25%"></Checkbox>
                         </Flex>
@@ -32,12 +30,10 @@ export default function Checkboxs({condition, checkBoxs, setCheckboxs}) {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.splice(newBlockchains.indexOf("native"),1);
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 } else {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.push("native");
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 }
                             }} bg={checkBoxs.includes("native") ? "var(--text-secondary)" : "none"}  borderRadius="25%"></Checkbox>
                         </Flex>
@@ -51,12 +47,10 @@ export default function Checkboxs({condition, checkBoxs, setCheckboxs}) {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.splice(newBlockchains.indexOf("audited"),1);
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 } else {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.push("audited");
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 }
                             }} bg={checkBoxs.includes("audited") ? "var(--text-secondary)" : "none"}></Checkbox>
                         </Flex>
@@ -67,12 +61,10 @@ export default function Checkboxs({condition, checkBoxs, setCheckboxs}) {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.splice(newBlockchains.indexOf("kyc"),1);
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 } else {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.push("kyc");
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 }
                             }} bg={checkBoxs.includes("kyc") ? "var(--text-secondary)" : "none"}></Checkbox>
                         </Flex>
@@ -83,12 +75,10 @@ export default function Checkboxs({condition, checkBoxs, setCheckboxs}) {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.splice(newBlockchains.indexOf("tradable"),1);
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 } else {
                                     const newBlockchains = [...checkBoxs];
                                     newBlockchains.push("tradable");
                                     setCheckboxs(newBlockchains)
-                                    console.log(checkBoxs)
                                 }
                             }} bg={checkBoxs.includes("tradable") ? "var(--text-secondary)" : "none"}></Checkbox>
                         </Flex>

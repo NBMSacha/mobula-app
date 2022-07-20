@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { Flex, Text, Button, useColorModeValue } from '@chakra-ui/react';
-import { Pocket, CheckCircle } from "react-feather";
-
+import React from "react"
+import { Flex, Text, Button } from "@chakra-ui/react";
+import { CheckCircle } from "react-feather";
 const Static = () => {
-
     return (
         <Flex direction="column" bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["10px","10px","10px","20px 40px"]} ml="8px" boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
             <Text fontSize="18px" mb={["20px","20px","20px",""]} color="blue" fontWeight="600">Static API</Text>
@@ -24,9 +22,7 @@ const Static = () => {
                 <CheckCircle height="20px"/>
                 <Text ml="5px" fontSize={["12px","12px","14px","14px"]} whiteSpace="nowrap">Audits & KYCs</Text>
             </Flex>
-            <Button  _focus={{boxShadow:"none"}} variant='outline' colorScheme='blue' color="blue" w="100px" py="5px" borderRadius="8px" border='1px solid blue'>
-                <Text  fontSize={["12px","12px","14px","14px"]}  color="blue">Request</Text>
-            </Button>
+
         </Flex>
     )
 }

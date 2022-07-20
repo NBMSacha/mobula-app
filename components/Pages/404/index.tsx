@@ -1,9 +1,9 @@
-import { useColorModeValue, Flex, Box, Text, Stack,Image,Link } from '@chakra-ui/react'
+import { Flex, Box, Text, Image,Link } from "@chakra-ui/react"
 import styles from "./Error.module.scss"
 export default function Error() {
     return (
         <Flex direction="column" maxWidth="1450px" w="90%" mx="auto" mb="100px">
-            <Box borderRadius="8px" mt="28px" p={["5px","10px","15px","15px"]} border="1px solid var(--box_border)" boxShadow="1px 2px 13px 3px var(--shadow)" mx='auto' position="relative">
+            <Box borderRadius="8px" mt="28px" p={["5px","10px","15px","15px"]} border="1px solid var(--box_border)" boxShadow="1px 2px 13px 3px var(--shadow)" mx="auto" position="relative">
                 <Image borderRadius="5px" src="./contribute.png"/>
                 <Text position="absolute" top="45%" left="50%" className={styles["fontSize"]} fontWeight="600" color="white" transform="translate(-50%)">Oops... Something went wrong.</Text>
             </Box>

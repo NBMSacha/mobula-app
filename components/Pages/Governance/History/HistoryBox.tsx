@@ -1,15 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { ChakraProvider, Box, Flex, Button, Image, Input, Text, Heading, Textarea, useColorModeValue, Link, Collapse } from '@chakra-ui/react'
-import { ThumbsUp, ThumbsDown } from "react-feather"
+import React, { useState } from "react"
+import { Flex, Button, Text, Link, Collapse } from "@chakra-ui/react"
+import { ThumbsUp } from "react-feather"
 
 function HistoryBox({text}) {
-
     const [show, setShow] = useState(false)
     const handleToggle = () => setShow(!show)
-    
     return (
         <Flex w="100%" justify="space-between" fontSize={["12px", "12px", "15px", "15px"]}> 
-                <Link w="75%" _hover={{textDecoration: 'none'}}  onClick={() => {handleToggle()}}>
+                <Link w="75%" _hover={{textDecoration: "none"}}  onClick={() => {handleToggle()}}>
                     <Flex w="100%" justify="space-between"  bg="var(--bg-governance-box)" px="5%" py={["12px", "12px", "20px","20px"]} mr="10px"  h="auto" align="center" borderRadius="12px" mb="20px">
                         <Collapse startingHeight={20} in={show}  style={{maxWidth:"450px", marginRight:"20px"}}>{text}</Collapse>
                     </Flex>

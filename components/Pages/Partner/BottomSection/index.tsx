@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { extendTheme, Flex, Box, Text, Spacer, Image, Button, Grid, GridItem, useMediaQuery, useColorModeValue } from '@chakra-ui/react';
-import styles from "./Api.module.scss"
 
-
+import { Flex, Box, Text, Image, useMediaQuery} from '@chakra-ui/react';
 
 
 const TopSection = () => {
+
+
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
     return (
 

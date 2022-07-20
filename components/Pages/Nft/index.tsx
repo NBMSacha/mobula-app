@@ -1,0 +1,252 @@
+import React from "react";
+import { Heading, Text, Flex, Box, Grid, GridItem, Image } from "@chakra-ui/react";
+import {
+    Table,
+    Thead,
+    Tbody,
+    Tfoot,
+    Tr,
+    Th,
+    Td,
+    TableCaption,
+    TableContainer,
+  } from '@chakra-ui/react'
+
+function NFT() {
+  
+    return (
+        <Flex direction="column" maxWidth="1500px" mx="auto">
+            <Flex w="90%" mt="28px" mx="auto">
+                <Text fontSize="24px" fontWeight="700">NFT Floor Prices</Text> 
+            </Flex>
+            
+            <Grid h="1000" mt="28px" mx="auto" w="90%" templateRows="repeat(15, 1fr)" templateColumns={["repeat(6, 1fr)"]} gap={4}>
+                <GridItem  rowStart={1} colSpan={2} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
+                    <Flex align="center" justify="space-around" h="100%">
+                        <Flex>
+                            <Image boxSize="48px" mr="15px" src="/fullicon.png"/>
+                            <Box>
+                                <Text fontSize="18px">Gorrilaz Club</Text>
+                                <Text fontSize="11px">@MobulaFi</Text>
+                            </Box>
+                        </Flex>
+                        <Image ml="40px" w="85px" h="35px" src="/sparkline.png"/>
+                    </Flex>
+                </GridItem>
+                <GridItem  rowStart={1} colSpan={2} colStart={3} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
+                    <Flex align="center" justify="space-around" h="100%">
+                        <Flex>
+                            <Image boxSize="48px" mr="15px" src="/fullicon.png"/>
+                            <Box>
+                                <Text fontSize="18px">Gorrilaz Club</Text>
+                                <Text fontSize="11px">@MobulaFi</Text>
+                            </Box>
+                        </Flex>
+                        <Image ml="40px" w="85px" h="35px" src="/sparkline.png"/>
+                    </Flex>
+                </GridItem>
+                <GridItem  rowStart={1} colSpan={2} colStart={5} rowSpan={2} bg="var(--bg-governance-box)" borderRadius="12px">
+                    <Flex align="center" justify="space-around" h="100%">
+                        <Flex>
+                            <Image boxSize="48px" mr="15px" src="/fullicon.png"/>
+                            <Box>
+                                <Text fontSize="18px">Gorrilaz Club</Text>
+                                <Text fontSize="11px">@MobulaFi</Text>
+                            </Box>
+                        </Flex>
+                        <Image ml="40px" w="85px" h="35px" src="/sparkline.png"/>
+                    </Flex>
+                </GridItem>
+                <GridItem  rowStart={3} colSpan={6} colStart={1} rowSpan={9} bg="var(--bg-governance-box)" borderRadius="12px" p="15px 25px">
+                    <TableContainer>
+                        <Table variant='simple'>
+                            <Thead>
+                                <Tr>
+                                    <Th textTransform="capitalize">Collection</Th>
+                                    <Th textTransform="capitalize" isNumeric>Volume</Th>
+                                    <Th textTransform="capitalize" isNumeric>24h %</Th>
+                                    <Th textTransform="capitalize" isNumeric>Marketcap</Th>
+                                    <Th textTransform="capitalize" isNumeric>Owners</Th>
+                                    <Th textTransform="capitalize" isNumeric>Items</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <Flex align="center"  py="10px">
+                                            <Image boxSize="48px" src="/fullicon.png" mr="10px" />
+                                            <Box>
+                                                <Text fontSize="16px">Cool Cyber Apes</Text>
+                                                <Text color="var(--text-grey)" fontSize="12px">@cybasseman</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/fullicon.png" mr="10px" boxSize="18px" />
+                                            <Text fontSize="14px" color="var(--text-grey)">22.523 ETH</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/sparkline.png" h="25px" w="85px" mr="10px"/>
+                                            <Text color="green" fontSize="14px">+25%</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">50.500.000</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">12.500</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">20.000</Text>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <Flex align="center"  py="10px">
+                                            <Image boxSize="48px" src="/fullicon.png" mr="10px" />
+                                            <Box>
+                                                <Text fontSize="16px">Cool Cyber Apes</Text>
+                                                <Text color="var(--text-grey)" fontSize="12px">@cybasseman</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/fullicon.png" mr="10px" boxSize="18px" />
+                                            <Text fontSize="14px" color="var(--text-grey)">22.523 ETH</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/sparkline.png" h="25px" w="85px" mr="10px"/>
+                                            <Text color="green" fontSize="14px">+25%</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">50.500.000</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">12.500</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">20.000</Text>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <Flex align="center"  py="10px">
+                                            <Image boxSize="48px" src="/fullicon.png" mr="10px" />
+                                            <Box>
+                                                <Text fontSize="16px">Cool Cyber Apes</Text>
+                                                <Text color="var(--text-grey)" fontSize="12px">@cybasseman</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/fullicon.png" mr="10px" boxSize="18px" />
+                                            <Text fontSize="14px" color="var(--text-grey)">22.523 ETH</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/sparkline.png" h="25px" w="85px" mr="10px"/>
+                                            <Text color="green" fontSize="14px">+25%</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">50.500.000</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">12.500</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">20.000</Text>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <Flex align="center"  py="10px">
+                                            <Image boxSize="48px" src="/fullicon.png" mr="10px" />
+                                            <Box>
+                                                <Text fontSize="16px">Cool Cyber Apes</Text>
+                                                <Text color="var(--text-grey)" fontSize="12px">@cybasseman</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/fullicon.png" mr="10px" boxSize="18px" />
+                                            <Text fontSize="14px" color="var(--text-grey)">22.523 ETH</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/sparkline.png" h="25px" w="85px" mr="10px"/>
+                                            <Text color="green" fontSize="14px">+25%</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">50.500.000</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">12.500</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">20.000</Text>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                            <Tbody>
+                                <Tr>
+                                    <Td>
+                                        <Flex align="center"  py="10px">
+                                            <Image boxSize="48px" src="/fullicon.png" mr="10px" />
+                                            <Box>
+                                                <Text fontSize="16px">Cool Cyber Apes</Text>
+                                                <Text color="var(--text-grey)" fontSize="12px">@cybasseman</Text>
+                                            </Box>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/fullicon.png" mr="10px" boxSize="18px" />
+                                            <Text fontSize="14px" color="var(--text-grey)">22.523 ETH</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Flex align="center" justify="end">
+                                            <Image src="/sparkline.png" h="25px" w="85px" mr="10px"/>
+                                            <Text color="green" fontSize="14px">+25%</Text>
+                                        </Flex>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">50.500.000</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">12.500</Text>
+                                    </Td>
+                                    <Td isNumeric>
+                                        <Text color="var(--text-grey)" fontSize="14px">20.000</Text>
+                                    </Td>
+                                </Tr>
+                            </Tbody>
+                            
+                        </Table>
+                    </TableContainer>
+                </GridItem>
+            </Grid>
+        </Flex>
+    )
+}
+
+export default NFT;

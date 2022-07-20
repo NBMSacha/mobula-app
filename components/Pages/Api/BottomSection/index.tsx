@@ -1,21 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { extendTheme, Flex, Box, Text, Spacer, Image, Button, Grid, GridItem, useMediaQuery, useColorModeValue } from '@chakra-ui/react';
-import styles from "./Api.module.scss"
-
-
-
-
+import React from "react"
+import { Flex, Box, Text, Image, useMediaQuery } from "@chakra-ui/react";
 const TopSection = () => {
-
-    const volume = "Volume";
-    const rank = "Rank";
-    const liquidity = "Liquidity";
-    const holders = "Holders";
-
-    const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
-
+    const [isLargerThan1280] = useMediaQuery("(min-width: 1280px)")
     return (
-       
         <Flex w="90%" direction="column" mt="0px" pb="50px" align="center">
             <Flex p={["0px", "0px", "0px 20px", "0px 20px"]} justify="center" direction={["column", "row", "row", "row"]}>
                 <Flex direction="column"  maxWidth="470px" m={["35px 10px 10px 10px","35px 10px 10px 10px","10px 10px 10px 10px","10px 10px 10px 10px"]} bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
@@ -24,10 +11,10 @@ const TopSection = () => {
                 </Flex>
                 <Flex direction="column" maxWidth="545px" m={["35px 10px 10px 10px","35px 10px 10px 10px","10px 10px 10px 10px","10px 0px 10px 0px"]} bg={["none", "none", "none", "var(--bg-governance-box)"]} borderRadius="12px" p={["0px", "0px", "20px", "30px"]} boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]} >
                     <Text fontSize="17px" mb={["15px","15px","30px","30px"]} color="#5C7DF9" fontWeight="600">Chart the right data</Text>
-                    <Text fontSize="13px" color="grey" maxHeight={["auto", "154px", "auto", "auto"]} overflow="auto">Show your users the most accurate data in the market with our API. Whether you're building a portfolio, a portfolio management tool, a new media offering, or more, we have the most advanced and up-to-date data on the market for your product.</Text>
+                    <Text fontSize="13px" color="grey" maxHeight={["auto", "154px", "auto", "auto"]} overflow="auto">Show your users the most accurate data in the market with our API. Whether you"re building a portfolio, a portfolio management tool, a new media offering, or more, we have the most advanced and up-to-date data on the market for your product.</Text>
                 </Flex>
             </Flex>
-            <Flex  align="center" justify="center" bg={["none", "none", "none", "var(--bg-governance-box)"]}  maxWidth="1025px" mt={['30px','30px','0px','0px']} ml={["10px","10px","25px","25px"]} borderRadius="12px" mr={['16px','16px','','']} boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
+            <Flex  align="center" justify="center" bg={["none", "none", "none", "var(--bg-governance-box)"]}  maxWidth="1025px" mt={["30px","30px","0px","0px"]} ml={["10px","10px","25px","25px"]} borderRadius="12px" mr={["16px","16px","",""]} boxShadow={["none","none","none",`1px 2px 12px 3px var(--shadow)`]}>
                 <Flex  bg={["none", "none", "none", "var(--bg-governance-box)"]} wrap="wrap" borderRadius="12px" align="center" justify="space-around">
                     <Box h="80px" w="320px" display="flex" alignItems="center" justifyContent="center" borderRadius="12px"  my={isLargerThan1280 ? "0px" : "10px"}>
                         <Image src="/dex.png" />
