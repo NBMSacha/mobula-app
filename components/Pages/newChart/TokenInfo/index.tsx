@@ -42,14 +42,14 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                 {/* Website / Chat / Kyc / Audit / Infos  */}
                 <Flex align="center" display={["none", "none", "none", "flex"]} className={styles["auditContainer"]} ml="15px">
                     <Link target="_blank" mt="8px" href={baseAsset.website} _focus={{ boxShadow: "none" }} color={selectorInfo === "Website" ? "white" : "none"} onClick={() => setSelectorInfo("Website")} mr="6px"  fontSize="12px" _hover={{ textDecoration: "none" }}>
-                        <Flex direction="column" borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center" _hover={{background:"blue"}}>
+                        <Flex direction="column" borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center">
                             <Flex align="center" ><Text mb="3px" mr="6px">Website </Text></Flex>
                           
                         </Flex>
                     </Link>
                     {baseAsset.audit &&
                         <Link target="_blank" mt="8px" href={baseAsset.audit} borderRadius="6px" _focus={{ boxShadow: "none" }} color={selectorInfo === "Audit" ? "white" : "none"} onClick={() => setSelectorInfo("Audit")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex direction="column"  borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center" _hover={{background:"blue"}}>
+                            <Flex direction="column"  borderRadius="6px" py={["5px"]} w="60px" align="center" justify="center">
                             <Flex align="center" ><Text mb="3px" mr="6px">Audit </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
                                
                             </Flex>
@@ -57,7 +57,7 @@ const TokenInfo = ({ price24hLow, price24hHigh, baseAsset, setSelectorInfo, sele
                     }
                     {baseAsset.kyc &&
                         <Link  target="_blank" mt="8px" href={baseAsset.kyc} borderRadius="6px"  _focus={{ boxShadow: "none" }} color={selectorInfo === "KYC" ? "white" : "none"} onClick={() => setSelectorInfo("KYC")} mr="6px" fontSize="12px" _hover={{ textDecoration: "none" }}>
-                            <Flex direction="column" borderRadius="6px" w="60px" py={["5px"]} align="center" justify="center" _hover={{background:"blue"}}>
+                            <Flex direction="column" borderRadius="6px" w="60px" py={["5px"]} align="center" justify="center" >
                                 <Flex align="center" ><Text mb="3px" mr="6px">KYC </Text><CheckIcon boxSize="9px" color="green" mb="3px"/></Flex>
                               
                             </Flex>
